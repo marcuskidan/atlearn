@@ -1129,11 +1129,13 @@ function openNode(nodeId){
   });
   $("notes").value=p.notes||"";
   $("saveHint").textContent="";
-  $("syncNote").innerHTML = user.provider
+  $("syncNote").innerHTML = (user.provider
     ? (canSync()
         ? `☁️ Signed in as <b>${user.name}</b> — notes & progress sync to your account automatically.`
         : `✅ Signed in as <b>${user.name}</b> — saved on this device. Cloud sync activates once the app's API_BASE is configured.`)
-    : `💾 Saved on this device. <b>Sign in</b> (top right) to sync notes & progress across devices.`;
+    : `💾 Saved on this device. <b>Sign in</b> (top right) to sync notes & progress across devices.`)
+    + ` <a href="#" id="exportDataLink">Download my data</a>`;
+  $("exportDataLink").onclick=(e)=>{ e.preventDefault(); exportMyData(); };
   paintStatusSeg(p.status);
   $("editorBody").style.display="none"; $("drawerBody").style.display="";
   $("editBtn").classList.toggle("show", canEdit());
@@ -1808,6 +1810,18 @@ function openAbout(){
 $("aboutBtn").onclick=openAbout;
 $("aboutLink").onclick=(e)=>{ e.preventDefault(); openAbout(); };
 
+/* ---------- data portability ---------- */
+function exportMyData(){
+  const payload={v:STORE_V, exportedAt:new Date().toISOString(),
+    user:{id:user.id, name:user.name, provider:user.provider}, store};
+  const blob=new Blob([JSON.stringify(payload,null,1)],{type:"application/json"});
+  const a=document.createElement("a");
+  a.href=URL.createObjectURL(blob);
+  a.download=`hkr-data-${user.id.replace(/[^a-z0-9]+/gi,"-")}-${new Date().toISOString().slice(0,10)}.json`;
+  a.click(); URL.revokeObjectURL(a.href);
+  toast("📦 Your notes & progress, downloaded — yours to keep");
+}
+
 /* ---------- misc ---------- */
 let toastT=null;
 function toast(msg){
@@ -1820,6 +1834,11 @@ window.addEventListener("resize",()=>{
   scale=Math.min(1,(window.innerWidth-24)/CANVAS_W);
   applyZoom();
 });
+
+/* ---------- test hook: pure functions exposed only under ?hkrtest ---------- */
+if(new URLSearchParams(location.search).has("hkrtest"))
+  window.HKR_TEST={mergeStores,contentHash,renderDiff,editorMode,migrateStore,esc,flatten,
+    _setRole(u,dev,rm,maint){ user=u; devMode=dev; currentRm=rm; MAINTAINERS=maint||{}; }};
 
 /* ---------- boot ---------- */
 (async function boot(){

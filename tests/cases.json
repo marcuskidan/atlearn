@@ -1,0 +1,67 @@
+{
+  "comment": "Shared data-driven cases for the client's pure logic. Consumed by tests/client.test.mjs (node, CI) and tests/test.html (browser, local). expect paths are <roadmap>.<node>.<field> resolved against result.progress.",
+  "mergeStores": [
+    {
+      "name": "disjoint roadmaps union",
+      "a": { "v": 1, "progress": { "astro": { "n1": { "status": 2, "notes": "", "done": [true], "updatedAt": 100 } } } },
+      "b": { "v": 1, "progress": { "cook": { "n2": { "status": 1, "notes": "x", "done": [], "updatedAt": 50 } } } },
+      "expect": { "astro.n1.status": 2, "cook.n2.status": 1 }
+    },
+    {
+      "name": "newer record wins (LWW)",
+      "a": { "v": 1, "progress": { "astro": { "n1": { "status": 1, "notes": "old", "done": [], "updatedAt": 100 } } } },
+      "b": { "v": 1, "progress": { "astro": { "n1": { "status": 2, "notes": "new", "done": [], "updatedAt": 200 } } } },
+      "expect": { "astro.n1.status": 2, "astro.n1.notes": "new" }
+    },
+    {
+      "name": "timestamp tie favors first argument (>=)",
+      "a": { "v": 1, "progress": { "astro": { "n1": { "status": 1, "notes": "a", "done": [], "updatedAt": 100 } } } },
+      "b": { "v": 1, "progress": { "astro": { "n1": { "status": 2, "notes": "b", "done": [], "updatedAt": 100 } } } },
+      "expect": { "astro.n1.notes": "a" }
+    },
+    {
+      "name": "missing updatedAt loses to any timestamp",
+      "a": { "v": 1, "progress": { "astro": { "n1": { "status": 1, "notes": "untimed", "done": [] } } } },
+      "b": { "v": 1, "progress": { "astro": { "n1": { "status": 2, "notes": "timed", "done": [], "updatedAt": 5 } } } },
+      "expect": { "astro.n1.notes": "timed" }
+    },
+    {
+      "name": "one-sided records survive",
+      "a": { "v": 1, "progress": {} },
+      "b": { "v": 1, "progress": { "astro": { "n1": { "status": 1, "notes": "solo", "done": [], "updatedAt": 1 } } } },
+      "expect": { "astro.n1.notes": "solo" }
+    },
+    {
+      "name": "unversioned v0 inputs migrate and merge",
+      "a": { "progress": { "astro": { "n1": { "status": 2, "notes": "v0a", "done": [], "updatedAt": 300 } } } },
+      "b": { "progress": { "astro": { "n1": { "status": 1, "notes": "v0b", "done": [], "updatedAt": 100 } } } },
+      "expect": { "astro.n1.notes": "v0a" }
+    }
+  ],
+  "contentHash": [
+    {
+      "name": "identical objects hash identically",
+      "input": { "id": "x", "title": "T", "learn": { "summary": "s" } },
+      "same": { "id": "x", "title": "T", "learn": { "summary": "s" } }
+    },
+    {
+      "name": "content change changes the hash",
+      "input": { "id": "x", "title": "T" },
+      "different": { "id": "x", "title": "T2" }
+    },
+    {
+      "name": "key order changes the hash (stringify-order sensitivity is intended)",
+      "input": { "a": 1, "b": 2 },
+      "different": { "b": 2, "a": 1 }
+    }
+  ],
+  "migrateStore": [
+    { "name": "null becomes empty v1", "input": null, "expectV": 1, "expectEmpty": true },
+    { "name": "v0 blob wraps to v1 preserving progress",
+      "input": { "progress": { "astro": { "n1": { "status": 2, "notes": "keep", "done": [], "updatedAt": 9 } } } },
+      "expectV": 1, "expectPath": "astro.n1.notes", "expectValue": "keep" },
+    { "name": "v1 passes through untouched",
+      "input": { "v": 1, "progress": { "astro": { "n1": { "status": 1, "notes": "asis", "done": [], "updatedAt": 2 } } } },
+      "expectV": 1, "expectPath": "astro.n1.notes", "expectValue": "asis" }
+  ]
+}
