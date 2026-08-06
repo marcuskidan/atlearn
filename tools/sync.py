@@ -4,7 +4,13 @@ Repo custody — pull community edits merged by maintainers (the API's content
 overlay) down into the repo's topic files, so git stays the canonical ledger.
 
     python3 tools/sync.py --api https://hkr-api.you.workers.dev
+    python3 tools/sync.py --api ... --status
     python3 tools/sync.py --api ... --clear --token <overseer-session-token>
+
+--status: report overlay entry counts and ages without writing anything;
+exits nonzero if any merged edit has sat unsynced for >14 days (with the
+GitHub PR bridge active this should stay near zero — a warning here means
+the bridge is failing or PRs aren't landing).
 
 Without --clear it only writes files (safe to run repeatedly). After you review
 the diff, commit, rebuild, and redeploy, run again with --clear to empty the
@@ -35,6 +41,23 @@ def main():
         print(__doc__); sys.exit(1)
     token = opt("--token")
     rms = sorted(os.path.basename(d) for d in glob.glob(os.path.join(RDIR, "*")) if os.path.isdir(d))
+    if "--status" in args:
+        import time
+        stale = False
+        now = time.time() * 1000
+        for rm in rms:
+            overlay = req(f"{api}/content/{rm}")
+            if not overlay: continue
+            oldest_days = max((now - e.get("at", now)) for e in overlay.values()) / 86400000
+            flag = "  ⚠ STALE" if oldest_days > 14 else ""
+            print(f"  {rm:20s} {len(overlay):2d} unsynced edit(s), oldest {oldest_days:.1f}d{flag}")
+            stale = stale or oldest_days > 14
+        if stale:
+            print("\n⚠ Overlay is becoming canonical — check the GitHub PR bridge "
+                  "(ghlog: keys), or run sync.py + commit, then --clear.")
+            sys.exit(1)
+        print("Overlay healthy.")
+        return
     changed = 0
     for rm in rms:
         overlay = req(f"{api}/content/{rm}")

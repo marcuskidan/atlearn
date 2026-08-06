@@ -1,0 +1,45 @@
+name: CI
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  content:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write   # lets CI regenerate index.json on bot edit/* branches
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.head_ref || github.ref }}
+      - name: Validate content + regenerate index
+        run: python3 tools/build.py
+      - name: Auto-fix index on app-merge branches
+        # PRs opened by the worker's PR bridge (edit/*) change a topic file but
+        # can't regenerate the index themselves — CI commits it for them.
+        if: github.event_name == 'pull_request' && startsWith(github.head_ref, 'edit/')
+        run: |
+          if ! git diff --quiet roadmaps/index.json; then
+            git config user.name "hkr-ci"
+            git config user.email "ci@users.noreply.github.com"
+            git add roadmaps/index.json
+            git commit -m "CI: regenerate roadmaps/index.json"
+            git push origin "HEAD:${{ github.head_ref }}"
+          fi
+      - name: Index freshness
+        run: git diff --exit-code roadmaps/index.json
+      - name: Standalone bundle smoke
+        run: python3 tools/build.py --standalone
+      - name: Python tests
+        run: python3 -m unittest discover -s tests -v
+
+  js:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Client + worker tests
+        run: node --test tests/

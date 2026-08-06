@@ -156,11 +156,14 @@ The manifesto's governance, implemented — three roles, one editor:
   (🕘 on the map view). Their own edits publish immediately ("Save & publish").
   Stale proposals (base changed since proposed) are flagged.
 - **The overseer** (platform-level): appoints gardeners, moderates everywhere,
-  reviews new-map proposals, and keeps **repo custody** via the overlay model:
-  merged edits live in a server-side content overlay that renders on top of the
-  static base files, and `python3 tools/sync.py --api <url>` pulls them down
-  into the topic files for an ordinary git commit (then `--clear` empties the
-  overlay). Git stays the canonical ledger; merges never wait for a deploy.
+  and reviews new-map proposals. **Repo custody is automated by the GitHub PR
+  bridge**: every in-app merge also opens a bot-authored pull request against
+  this repository (attribution in the PR body — contributors never need a
+  GitHub account); CI validates it and auto-merge lands it. The server-side
+  content overlay serves the change instantly in the meantime. Fallbacks:
+  `python3 tools/sync.py --api <url>` pulls overlays into the repo by hand,
+  `--status` warns if merged edits sit unsynced >14 days, `--clear` empties
+  overlays once the base has caught up.
 
 Governance is transparent by design: `GET /maintainers`, `GET /history/<map>`,
 and `GET /content/<map>` are all public endpoints.
@@ -191,6 +194,35 @@ domain experts and everyday learners, so the same loop lives **inside the app**:
 
 Endpoints (all in `server/worker.js`): `POST /suggestions`, `GET /suggestions?status=`
 (overseer), `POST /decide` (overseer), `GET /tips/<roadmap>` (public).
+
+## Licensing
+
+- **Code** (index.html, server/, tools/, tests/): [MIT](LICENSE).
+- **Content** (everything under roadmaps/): [CC BY-SA 4.0](LICENSE-CONTENT.md) —
+  Wikipedia's license; the maps are a commons and derivatives stay open.
+  Linked external resources retain their own licenses.
+- Contributions are accepted under the same terms — see [CONTRIBUTING.md](CONTRIBUTING.md).
+
+## Testing
+
+- `python3 -m unittest discover -s tests` — validator tests, runs anywhere with python3.
+- `tests/test.html` via `python3 tools/dev.py` — browser runner for the app's pure
+  logic (merge/hash/diff/migration), sharing `tests/cases.json` with CI.
+- CI (GitHub Actions) additionally runs `node --test tests/` — client logic
+  extracted from index.html plus full worker tests (auth, permissions, rate
+  limits, the PR bridge) — and validates content + index freshness on every
+  push and PR. A weekly workflow probes every content URL and maintains a
+  single "link rot" issue.
+
+## Privacy
+
+Progress and notes are local-first (your device), synced to your account only
+when signed in with a configured backend. **Download my data** in any node's
+workspace panel exports everything as JSON. Deletion: sign out and clear
+browser data; email the maintainer (SECURITY.md) for server-side removal.
+Sign-in scripts load from Google/Apple CDNs at runtime; if they fail or are
+blocked, the app degrades gracefully to local-only mode — that behavior is a
+guarantee, not an accident.
 
 ## iOS app (Capacitor)
 

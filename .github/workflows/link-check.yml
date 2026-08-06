@@ -1,0 +1,48 @@
+name: Link check
+on:
+  schedule:
+    - cron: "0 6 * * 1"   # Mondays 06:00 UTC
+  workflow_dispatch:
+
+jobs:
+  links:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      issues: write
+    steps:
+      - uses: actions/checkout@v4
+      - name: Probe every content URL
+        run: python3 tools/build.py --check-links
+      - uses: actions/upload-artifact@v4
+        with:
+          name: link-report
+          path: tools/link-report.json
+      - name: File or update the link-rot issue
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          python3 - <<'EOF'
+          import json
+          r = json.load(open("tools/link-report.json"))
+          dead = r["dead"]
+          lines = [f"Weekly link check: **{len(dead)} dead link(s)** "
+                   f"({r['ok']}/{r['checked']} OK, "
+                   f"{len(r['maybe_bot_blocked'])} bot-blocked).", ""]
+          for u, v in dead.items():
+              lines.append(f"- `{u}` ({v['status']}) — {', '.join(v['nodes'][:3])}")
+          lines += ["", "Fix with verified replacements, then run "
+                        "`python3 tools/build.py --check-links` to confirm."]
+          open("body.md", "w").write("\n".join(lines))
+          open("dead_count", "w").write(str(len(dead)))
+          EOF
+          if [ "$(cat dead_count)" -gt 0 ]; then
+            N=$(gh issue list --label link-rot --state open --json number --jq '.[0].number' || true)
+            if [ -n "$N" ]; then
+              gh issue edit "$N" --body-file body.md
+            else
+              gh issue create --title "Link rot report" --label link-rot --body-file body.md
+            fi
+          else
+            echo "No dead links 🎉"
+          fi

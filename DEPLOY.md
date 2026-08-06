@@ -119,6 +119,22 @@ sign in as the demo user. It should only ever be `1` on localhost.
 
 ---
 
+## Stage 6½ — GitHub PR bridge (once the repo exists)
+
+In-app merges can land in the GitHub repo automatically as bot-authored PRs:
+
+1. Create a **fine-grained personal access token** (github.com → Settings →
+   Developer settings): scope it to this one repository, permissions
+   **Contents: read/write** and **Pull requests: read/write**.
+2. `cd server && npx wrangler secret put GITHUB_TOKEN` (paste the token) and
+   set `GITHUB_REPO = "yourname/human-knowledge-roadmaps"` in wrangler.toml,
+   then `npx wrangler deploy`.
+3. Enable auto-merge on the repo (Settings → General → "Allow auto-merge") so
+   green-CI PRs land unattended.
+4. Health check habit: `python3 tools/sync.py --api <url> --status` — warns if
+   merged edits are sitting unsynced (bridge failing → check `ghlog:` keys via
+   the admin dump).
+
 ## Stage 7 — Before you invite people
 
 - **Watch the KV write limit.** Cloudflare's free tier allows **1,000 KV writes

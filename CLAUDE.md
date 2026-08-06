@@ -55,6 +55,20 @@ Rules when touching it:
   JSON export and fold each item into the right topic file (respecting the
   content rules above), then run the build.
 
+## Engineering hygiene
+- **Run tests before committing**: `python3 -m unittest discover -s tests`
+  (and open `tests/test.html` via dev.py for the browser suite). CI also runs
+  `node --test tests/` — don't break the extraction harness: the client tests
+  brace-match `mergeStores`/`contentHash`/`renderDiff`/`editorMode`/
+  `migrateStore`/`esc`/`flatten` out of index.html by name; renaming them
+  requires updating tests/client.test.mjs.
+- Stored-data schema changes go through `migrateStore()` (bump STORE_V, add an
+  upgrade branch) — never change record shapes without a migration.
+- Decided suggestions/proposals expire from KV after 90 days — export
+  accepted-for-curation items within that window.
+- Overlay health: `python3 tools/sync.py --api <url> --status` should stay
+  clean; stale overlays mean the GitHub PR bridge is failing (check ghlog:).
+
 ## Common tasks
 - **Deepen a topic**: edit its single topic file (add children, improve
   summaries/links/actions) → run build. Or run `python3 tools/dev.py` and use
