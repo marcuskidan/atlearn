@@ -138,6 +138,23 @@ sign in as the demo user. It should only ever be `1` on localhost.
 
 ---
 
+## Bus factor — do this before you have users you'd hate to lose
+
+- **Second overseer**: add a second trusted account's verified id to
+  `OVERSEER_IDS` (comma-separated, both in the worker vars and index.html).
+  Losing every overseer account permanently strands overlay custody
+  (`DELETE /content/:rm`) and the admin dump.
+- **Record in a password manager**: the SESSION_SECRET value, the KV namespace
+  id, the GitHub bot token, and Cloudflare account access.
+- **Backups**: run `python3 tools/backup.py --api <url> --token <overseer-token>`
+  monthly — it dumps every KV key (user progress, tips, proposals, overlays,
+  history, maintainers) to `backups/hkr-dump-YYYYMMDD.json`. KV is otherwise
+  the only copy of everything users and contributors have made.
+- **Safe-to-commit note**: everything `tools/configure.py` writes (API_BASE,
+  OAuth client ids, KV namespace id, overseer ids) is public-by-design
+  configuration, safe in a public repo. The only true secrets are
+  SESSION_SECRET and GITHUB_TOKEN, which live in wrangler secrets, never files.
+
 ## Updating content after launch
 
 ```bash

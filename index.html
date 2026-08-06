@@ -650,6 +650,9 @@ select.edInput{appearance:none;-webkit-appearance:none}
       I've personally tried, used, or verified this — not just found it online.</label>
     <label class="checkRow" id="sgFreeRow"><input type="checkbox" id="sgFree">
       It's freely accessible to everyone — no paywall, sign-up wall, or region lock.</label>
+    <div class="mctx" style="margin:10px 0 0">By submitting, you license your contribution
+      under <a href="https://creativecommons.org/licenses/by-sa/4.0/" target="_blank"
+      rel="noopener">CC BY-SA 4.0</a> — the maps stay a commons.</div>
     <div class="modalBtns">
       <button id="sgCancel">Cancel</button>
       <button id="sgSubmit" class="primary">Submit for review</button>
@@ -1608,7 +1611,7 @@ function openEditor(nodeId){
   $("edMode").innerHTML = {
     dev:`💾 Saves directly to <b>roadmaps/${esc(currentRm.id)}/topics/${esc(topicFile())}</b> — dev server detected.`,
     merge:`🛡️ You maintain this map — saving publishes immediately and is logged in the map's public history.`,
-    propose:`🌱 This goes to <b>${esc(maintainerNameOf(currentRm)||"the maintainer")}</b> for review — nothing changes until they merge it. Your name goes on the change.`,
+    propose:`🌱 This goes to <b>${esc(maintainerNameOf(currentRm)||"the maintainer")}</b> for review — nothing changes until they merge it. Your name goes on the change, licensed CC BY-SA 4.0.`,
     export:`📦 Not connected — Save downloads the topic file to drop into
        <b>roadmaps/${esc(currentRm.id)}/topics/</b> and run tools/build.py.`,
   }[mode];
