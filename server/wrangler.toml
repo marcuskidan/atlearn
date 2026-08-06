@@ -1,0 +1,29 @@
+# Human Knowledge Roadmaps — worker config.
+# Deploy steps (once, ~10 minutes):
+#   1. npx wrangler login
+#   2. npx wrangler kv namespace create STORE     ← paste the printed id below
+#   3. npx wrangler secret put SESSION_SECRET     ← any long random string
+#   4. Fill in GOOGLE_CLIENT_ID / APPLE_CLIENT_ID (leave "" until you have them)
+#   5. npx wrangler deploy                        ← prints your API URL
+#   6. Put that URL in index.html as API_BASE; after first sign-in, put your
+#      verified user id (shown in the app's user chip tooltip) in OVERSEER_IDS.
+
+name = "hkr-api"
+main = "worker.js"
+compatibility_date = "2026-08-01"
+
+[[kv_namespaces]]
+binding = "STORE"
+id = "REPLACE_WITH_KV_NAMESPACE_ID"
+
+[vars]
+# OAuth client id from console.cloud.google.com → Credentials → OAuth client (Web)
+GOOGLE_CLIENT_ID = ""
+# Services ID from developer.apple.com → Identifiers (e.g. com.yourname.hkr.web)
+APPLE_CLIENT_ID = ""
+# Comma-separated verified user ids allowed to review community suggestions
+OVERSEER_IDS = ""
+# Your app's URL once deployed, e.g. "https://hkr.pages.dev". "" means allow any origin.
+ALLOWED_ORIGIN = ""
+# "1" accepts demo tokens for local testing. NEVER set to "1" in production.
+DEV_MODE = ""
