@@ -1,0 +1,74 @@
+{
+  "id": "breath-as-anchor",
+  "title": "Breath as Anchor",
+  "tier": "essential",
+  "learn": {
+    "summary": "Focused attention on the breath is the foundational technique across traditions, formalized in the Buddhist anapanasati (mindfulness of breathing). The breath is always available, always changing, and neutral enough not to provoke drama. Do not control the breath; observe it wherever it is most vivid, usually nostrils, chest, or belly.",
+    "links": [
+      {
+        "label": "Anapanasati (Wikipedia)",
+        "url": "https://en.wikipedia.org/wiki/Anapanasati",
+        "kind": "article"
+      }
+    ]
+  },
+  "do": [
+    "Sit for 5 minutes today counting breaths 1 to 10, restarting at 1 whenever you lose count."
+  ],
+  "children": [
+    {
+      "id": "focused-attention",
+      "title": "Focused Attention",
+      "tier": "essential",
+      "learn": {
+        "summary": "Pick ONE anchor point, one sensation of breathing, and stay with it; switching anchors mid-sit is a common way attention wriggles free. Precision helps: not the breath in general but, say, the cool touch of air at the nostrils on the inhale. Interest is the antidote to boredom; each breath genuinely differs from the last if you look closely.",
+        "links": [
+          {
+            "label": "Attention (Wikipedia)",
+            "url": "https://en.wikipedia.org/wiki/Attention",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Choose your anchor point (nostrils, chest, or belly) in your next sit and keep it for the whole week."
+      ]
+    },
+    {
+      "id": "counting-breaths",
+      "title": "Counting Breaths",
+      "tier": "essential",
+      "learn": {
+        "summary": "Counting 1 to 10 and restarting is classic Zen training wheels: it gives the wandering mind an instant, unambiguous error signal. Losing count at 3 is normal for beginners and remains common for years. When you can reliably reach 10 for several rounds, drop the counting and follow bare sensation.",
+        "links": [
+          {
+            "label": "Zazen (Wikipedia)",
+            "url": "https://en.wikipedia.org/wiki/Zazen",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "For your next 5 sits, count breath cycles 1 to 10 and jot down your longest unbroken streak after each sit."
+      ]
+    },
+    {
+      "id": "noticing-and-returning",
+      "title": "The Rep: Notice and Return",
+      "tier": "essential",
+      "learn": {
+        "summary": "The core repetition of meditation is not staying on the breath; it is the moment of noticing you left and the gentle return. That notice-return cycle is the bicep curl of attention, so a distracted session full of returns is a heavy training day, not a failure. Return without commentary; the story about how badly you are doing is just another thought to return from.",
+        "links": [
+          {
+            "label": "Mindfulness (Wikipedia)",
+            "url": "https://en.wikipedia.org/wiki/Mindfulness",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "In one sit this week, silently say the word 'back' at each return and count your total reps at the end."
+      ]
+    }
+  ]
+}

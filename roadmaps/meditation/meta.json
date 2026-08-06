@@ -1,0 +1,9 @@
+{
+  "id": "meditation",
+  "emoji": "🧘",
+  "title": "Mindfulness & Meditation",
+  "tagline": "Train attention and equanimity with a practice that actually survives contact with real life",
+  "curricula": "MBSR 8-week protocol (Kabat-Zinn), contemplative-science research literature",
+  "order": 7,
+  "maintainer": "The Overseer"
+}

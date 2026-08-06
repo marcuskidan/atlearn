@@ -1,0 +1,97 @@
+{
+  "id": "rhythm-mastery",
+  "title": "Rhythm Mastery",
+  "tier": "essential",
+  "learn": {
+    "summary": "Rhythm is the skill that makes or breaks beginners — audiences forgive a wrong note but never a lost beat. Everything hangs on the pulse: a steady grid measured in beats per minute (most pop sits between 90 and 120 BPM). ABRSM examiners test rhythm before anything else for a reason.",
+    "links": [
+      {
+        "label": "Rhythm (Wikipedia)",
+        "url": "https://en.wikipedia.org/wiki/Rhythm",
+        "kind": "article"
+      },
+      {
+        "label": "Pulse (Wikipedia)",
+        "url": "https://en.wikipedia.org/wiki/Pulse_(music)",
+        "kind": "article"
+      }
+    ]
+  },
+  "do": [
+    "Clap the rhythm of any song on the radio today while tapping the steady pulse with your foot — two different jobs at once."
+  ],
+  "children": [
+    {
+      "id": "note-values",
+      "title": "Note Values",
+      "tier": "essential",
+      "learn": {
+        "summary": "Note lengths halve as they go: one whole note = two halves = four quarters = eight eighths = sixteen sixteenths. A dot adds half the note's own value, so a dotted quarter lasts one and a half beats. Rests follow the exact same arithmetic in silence.",
+        "links": [
+          {
+            "label": "Note value (Wikipedia)",
+            "url": "https://en.wikipedia.org/wiki/Note_value",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Set a metronome to 60 BPM and clap four quarters, then eight eighths, then two dotted-quarter-plus-eighth patterns without stopping."
+      ]
+    },
+    {
+      "id": "time-signatures",
+      "title": "Time Signatures",
+      "tier": "essential",
+      "learn": {
+        "summary": "The top number says how many beats per bar, the bottom says which note gets one beat. 4/4 (common time) powers most pop and rock; 3/4 is the waltz; 6/8 groups six eighths into two lilting big beats, like an Irish jig or many ballads. Feel the difference in your body, not on paper.",
+        "links": [
+          {
+            "label": "Time signature (Wikipedia)",
+            "url": "https://en.wikipedia.org/wiki/Time_signature",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Identify the time signature of five songs in your playlist by counting along — find at least one that is not in 4/4."
+      ]
+    },
+    {
+      "id": "counting-and-clapping",
+      "title": "Counting & Clapping",
+      "tier": "essential",
+      "learn": {
+        "summary": "Count eighth notes as \"1 & 2 & 3 & 4 &\" and sixteenths as \"1 e & a\". Counting aloud while clapping is not a beginner crutch — conservatory students still do it, because the voice locks the brain to the grid. If you can say it, you can play it.",
+        "links": [
+          {
+            "label": "Counting (music) (Wikipedia)",
+            "url": "https://en.wikipedia.org/wiki/Counting_(music)",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Clap the rhythm of your favorite chorus while counting \"1 & 2 &\" aloud — repeat until you get through it three times cleanly."
+      ]
+    },
+    {
+      "id": "syncopation",
+      "title": "Syncopation",
+      "tier": "recommended",
+      "learn": {
+        "summary": "Syncopation accents the beats you don't expect — the off-beats, the \"&\"s. The rock and pop backbeat (snare on beats 2 and 4) is mild syncopation; funk and Latin styles push accents onto sixteenth-note off-beats. It is the difference between music that sits and music that grooves.",
+        "links": [
+          {
+            "label": "Syncopation (Wikipedia)",
+            "url": "https://en.wikipedia.org/wiki/Syncopation",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Clap only on beats 2 and 4 along with three songs today — if you catch yourself drifting to 1 and 3, start the song over."
+      ]
+    }
+  ]
+}

@@ -1,0 +1,110 @@
+{
+  "id": "composition",
+  "title": "Composition",
+  "tier": "essential",
+  "learn": {
+    "summary": "Composition is deciding what goes in the frame, what stays out, and where everything sits — the one skill that transfers across every camera ever made. The masters' consensus: simplify. Most weak photos fail from clutter, not gear; every element in the frame should earn its place.",
+    "links": [
+      {
+        "label": "Composition (visual arts) (Wikipedia)",
+        "url": "https://en.wikipedia.org/wiki/Composition_(visual_arts)",
+        "kind": "article"
+      }
+    ]
+  },
+  "do": [
+    "Before each photo today, name your subject in one word, then remove one distracting thing from the frame by moving your feet."
+  ],
+  "children": [
+    {
+      "id": "rule-of-thirds",
+      "title": "Rule of Thirds & Breaking It",
+      "tier": "essential",
+      "learn": {
+        "summary": "Divide the frame with two horizontal and two vertical lines; placing subjects on the lines or their four intersections usually beats dead center. Horizons go on the top or bottom third, never the middle — unless you are breaking the rule on purpose, as centered symmetry (think formal portraits or reflections) does powerfully. Learn it, use it, then outgrow it.",
+        "links": [
+          {
+            "label": "Rule of thirds (Wikipedia)",
+            "url": "https://en.wikipedia.org/wiki/Rule_of_thirds",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Turn on your phone camera's grid overlay today, shoot ten photos placing subjects on intersections, then shoot two deliberately dead-centered symmetric ones."
+      ]
+    },
+    {
+      "id": "leading-lines",
+      "title": "Leading Lines",
+      "tier": "essential",
+      "learn": {
+        "summary": "Roads, railings, rivers, and shadows act as arrows steering the viewer's eye through the frame — ideally toward the subject, disastrously toward an exit. Diagonals feel dynamic; converging lines add depth like a vanishing point in a drawing. Once you start seeing lines, sidewalks become compositions.",
+        "links": [
+          {
+            "label": "Perspective (graphical) (Wikipedia)",
+            "url": "https://en.wikipedia.org/wiki/Perspective_(graphical)",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "On one walk this week, make five photographs where a line (path, fence, shadow) visibly leads to your subject."
+      ]
+    },
+    {
+      "id": "framing-and-layers",
+      "title": "Framing & Layers",
+      "tier": "recommended",
+      "learn": {
+        "summary": "Shooting through something — a doorway, branches, a window's reflection — puts a frame within the frame and instantly adds depth. Strong images often stack three layers: foreground, subject, background, each doing a job. This is how a flat rectangle fakes three dimensions.",
+        "links": [
+          {
+            "label": "Framing (visual arts) (Wikipedia)",
+            "url": "https://en.wikipedia.org/wiki/Framing_(visual_arts)",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Shoot three photos today through something: a doorway, foliage, a gap between people — the frame must touch at least two edges of your image."
+      ]
+    },
+    {
+      "id": "negative-space",
+      "title": "Negative Space",
+      "tier": "recommended",
+      "learn": {
+        "summary": "Empty space is not wasted space — a small subject against a vast plain sky or wall gains drama, scale, and breathing room. Negative space is also where minimalism lives: one subject, one background, nothing else. When a photo feels cluttered, the fix is usually more emptiness, not more subject.",
+        "links": [
+          {
+            "label": "Negative space (Wikipedia)",
+            "url": "https://en.wikipedia.org/wiki/Negative_space",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Make three photographs this week where the subject occupies less than 20 percent of the frame and the rest is deliberately empty."
+      ]
+    },
+    {
+      "id": "perspective-changes",
+      "title": "Change Your Perspective",
+      "tier": "essential",
+      "learn": {
+        "summary": "Eye-level from standing height is the world's default view — and therefore the most boring. Crouch to a child's or pet's eye line, shoot straight up, climb stairs and shoot down, or put the camera centimeters from the ground. Moving your feet is the cheapest lens you will ever own.",
+        "links": [
+          {
+            "label": "Photography (Wikipedia)",
+            "url": "https://en.wikipedia.org/wiki/Photography",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Photograph one ordinary object from five heights and angles today — knees, ground level, above, behind — and pick the least expected winner."
+      ]
+    }
+  ]
+}

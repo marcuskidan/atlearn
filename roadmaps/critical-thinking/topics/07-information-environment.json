@@ -1,0 +1,97 @@
+{
+  "id": "information-environment",
+  "title": "The Information Environment",
+  "tier": "essential",
+  "learn": {
+    "summary": "Your feed is not a window on the world; it's the output of ranking systems optimized for engagement, and outrage engages. Understanding the machinery — recommender systems, virality dynamics, coordinated manipulation — turns 'why am I seeing this?' into an answerable question. The goal isn't paranoia, it's knowing the terrain you're reasoning on.",
+    "links": [
+      {
+        "label": "Wikipedia: Attention economy",
+        "url": "https://en.wikipedia.org/wiki/Attention_economy",
+        "kind": "article"
+      }
+    ]
+  },
+  "do": [
+    "Audit your top 3 information sources: for each, write down what behavior it's optimized to maximize and one thing it systematically over- or under-shows you."
+  ],
+  "children": [
+    {
+      "id": "algorithms-and-feeds",
+      "title": "Algorithms and Feeds",
+      "tier": "essential",
+      "learn": {
+        "summary": "Recommender systems rank content by predicted engagement — clicks, watch time, shares — not accuracy or importance. That means your feed is a measurement of what holds your attention, fed back to you at scale, which systematically amplifies emotional and identity-charged content. Knowing this, treat 'it's all over my feed' as evidence about the algorithm, not about the world.",
+        "links": [
+          {
+            "label": "Wikipedia: Recommender system",
+            "url": "https://en.wikipedia.org/wiki/Recommender_system",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "For one week, note each time you feel a strong emotional spike from feed content; tally the count and what emotion (outrage, fear, superiority) was triggered."
+      ]
+    },
+    {
+      "id": "misinformation-patterns",
+      "title": "Misinformation Patterns",
+      "tier": "essential",
+      "learn": {
+        "summary": "Most misinformation follows recognizable templates: real photo, wrong context; real quote, fabricated attribution; real statistic, missing denominator; screenshot of a deleted 'news' post. An MIT study by Vosoughi, Roy, and Aral found false news spreads significantly farther and faster than true news on Twitter, driven by novelty. 'Prebunking' research (van der Linden) shows learning the manipulation techniques beforehand inoculates better than corrections after.",
+        "links": [
+          {
+            "label": "Wikipedia: Misinformation",
+            "url": "https://en.wikipedia.org/wiki/Misinformation",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Reverse-image-search 2 viral images this week (e.g., with Google Lens or TinEye) and check whether the context matches the caption."
+      ]
+    },
+    {
+      "id": "deepfakes-awareness",
+      "title": "Deepfakes Awareness",
+      "tier": "extra",
+      "learn": {
+        "summary": "Synthetic audio, images, and video are now cheap and increasingly artifact-free, so 'I saw the video' is weakening as evidence. The deeper danger is the liar's dividend: once fakes are plausible, real footage can be dismissed as fake. Provenance beats pixel-squinting — ask where a clip first appeared and whether reputable outlets independently confirm the event.",
+        "links": [
+          {
+            "label": "Wikipedia: Deepfake",
+            "url": "https://en.wikipedia.org/wiki/Deepfake",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "For one striking video or audio clip this week, spend 5 minutes finding its earliest source and one independent confirmation before forming an opinion."
+      ]
+    },
+    {
+      "id": "echo-chambers",
+      "title": "Echo Chambers",
+      "tier": "recommended",
+      "learn": {
+        "summary": "Eli Pariser coined 'filter bubble' for algorithmic narrowing, but research suggests self-selection — whom we follow and what we click — does most of the work. Philosopher C. Thi Nguyen draws a sharper line: a bubble merely omits other views, while an echo chamber actively teaches you to distrust outsiders, which is much harder to escape. The test: does your community explain opposing views, or explain them away?",
+        "links": [
+          {
+            "label": "Wikipedia: Echo chamber (media)",
+            "url": "https://en.wikipedia.org/wiki/Echo_chamber_(media)",
+            "kind": "article"
+          },
+          {
+            "label": "Wikipedia: Filter bubble",
+            "url": "https://en.wikipedia.org/wiki/Filter_bubble",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Add 2 thoughtful sources you disagree with to your regular reading rotation, and read one full piece from each this week without composing rebuttals."
+      ]
+    }
+  ]
+}

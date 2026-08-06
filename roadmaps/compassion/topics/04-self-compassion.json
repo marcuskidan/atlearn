@@ -1,0 +1,115 @@
+{
+  "id": "self-compassion",
+  "title": "Self-Compassion",
+  "tier": "essential",
+  "learn": {
+    "summary": "Kristin Neff defined self-compassion as three components: self-kindness (vs self-judgment), common humanity (vs isolation), and mindfulness (vs over-identification with pain). Two decades of research link it to lower anxiety and depression and greater motivation — contrary to the fear that it breeds laziness, self-compassionate people take more responsibility for mistakes, not less. You cannot sustainably give others what you refuse yourself.",
+    "links": [
+      {
+        "label": "Self-compassion (Wikipedia)",
+        "url": "https://en.wikipedia.org/wiki/Self-compassion",
+        "kind": "article"
+      },
+      {
+        "label": "Kristin Neff's site",
+        "url": "https://self-compassion.org",
+        "kind": "tool"
+      }
+    ]
+  },
+  "do": [
+    "After your next mistake, write down what you would say to a good friend who did the same thing — then say it to yourself, out loud."
+  ],
+  "children": [
+    {
+      "id": "neff-three-components",
+      "title": "The Three Components",
+      "tier": "essential",
+      "learn": {
+        "summary": "Neff's model is a checklist you can run in the moment: Am I being kind or cruel to myself right now? Am I remembering that everyone fails, or feeling uniquely defective? Am I aware of the pain, or drowning in it? Each component has a named opposite (self-judgment, isolation, over-identification), which makes your failure mode diagnosable.",
+        "links": [
+          {
+            "label": "Self-compassion (Wikipedia)",
+            "url": "https://en.wikipedia.org/wiki/Self-compassion",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Take Neff's Self-Compassion Scale at self-compassion.org this week and note which of the three components scores lowest for you."
+      ]
+    },
+    {
+      "id": "self-talk",
+      "title": "Rewriting Self-Talk",
+      "tier": "essential",
+      "learn": {
+        "summary": "The 'friend test' is the workhorse tool: most people speak to themselves in a tone they would never use on anyone they love. Ethan Kross's research on distanced self-talk shows that addressing yourself by name or as 'you' ('okay, Marcus, what is the next step?') reduces emotional reactivity and improves performance under stress. Tone matters more than content.",
+        "links": [
+          {
+            "label": "Intrapersonal communication (Wikipedia)",
+            "url": "https://en.wikipedia.org/wiki/Intrapersonal_communication",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "For three days, when you catch harsh self-talk, restate it in second person using your own name — then note whether the intensity drops."
+      ]
+    },
+    {
+      "id": "common-humanity",
+      "title": "Common Humanity",
+      "tier": "recommended",
+      "learn": {
+        "summary": "Suffering tells a convincing lie: that you are the only one. Neff's common-humanity component is the antidote — deliberately recalling that failure, rejection, and inadequacy are the shared human condition, not your personal defect. This is what separates self-compassion from self-pity, which isolates ('why me?') rather than connects ('this is part of being human').",
+        "links": [
+          {
+            "label": "Kristin Neff (Wikipedia)",
+            "url": "https://en.wikipedia.org/wiki/Kristin_Neff",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Next time you feel embarrassed or inadequate, complete this sentence in writing: 'Millions of people have felt exactly this when...'"
+      ]
+    },
+    {
+      "id": "backdraft",
+      "title": "Backdraft",
+      "tier": "extra",
+      "learn": {
+        "summary": "Chris Germer (co-creator with Neff of Mindful Self-Compassion) named the paradox where giving yourself kindness initially brings up old pain — like oxygen hitting a smoldering fire. Backdraft is a sign the practice is working, not failing, but it means self-compassion training should be titrated: if it overwhelms, drop to something behavioral like a warm drink or a walk, then return.",
+        "links": [
+          {
+            "label": "Self-compassion (Wikipedia)",
+            "url": "https://en.wikipedia.org/wiki/Self-compassion",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "If a self-compassion exercise stirs up more than you expected, name it 'backdraft', downshift to a physical comfort (walk, shower, tea), and try again tomorrow at lower intensity."
+      ]
+    },
+    {
+      "id": "self-compassion-break",
+      "title": "Self-Compassion Break",
+      "tier": "recommended",
+      "learn": {
+        "summary": "Neff's portable three-line practice, used mid-difficulty: 'This is a moment of suffering' (mindfulness), 'suffering is part of life' (common humanity), 'may I be kind to myself' (self-kindness). It takes under a minute and maps one line to each component of the model. Adding a physical gesture — hand on heart — recruits the soothing system directly.",
+        "links": [
+          {
+            "label": "Self-compassion practices",
+            "url": "https://self-compassion.org",
+            "kind": "tool"
+          }
+        ]
+      },
+      "do": [
+        "Use the three-line break at least twice this week in a real stressful moment, and log when you used it."
+      ]
+    }
+  ]
+}

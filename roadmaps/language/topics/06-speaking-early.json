@@ -1,0 +1,97 @@
+{
+  "id": "speaking-early",
+  "title": "Speaking Early",
+  "tier": "essential",
+  "learn": {
+    "summary": "Input builds comprehension, but Merrill Swain's output hypothesis showed speaking does unique work: producing language forces you to notice exactly what you cannot yet say. You do not need to speak on day one, but by the time you know a few hundred words, regular low-stakes speaking — a tutor, an exchange partner, or talking to yourself — accelerates everything. Comfort with sounding bad is the actual skill.",
+    "links": [
+      {
+        "label": "Comprehensible output",
+        "url": "https://en.wikipedia.org/wiki/Comprehensible_output",
+        "kind": "article"
+      }
+    ]
+  },
+  "do": [
+    "Book one 30-minute conversation session (tutor or exchange partner) for this week and show up, whatever your level."
+  ],
+  "children": [
+    {
+      "id": "shadowing",
+      "title": "Shadowing",
+      "tier": "essential",
+      "learn": {
+        "summary": "Shadowing — repeating native audio aloud in near-real time, like a simultaneous interpreter — was popularized for language learning by polyglot linguist Alexander Arguelles and builds pronunciation, prosody, and speech speed at once. Start with short, clearly spoken clips you already understand; echo a half-second behind the speaker. Ten focused minutes a day audibly changes your accent within weeks.",
+        "links": [
+          {
+            "label": "Speech shadowing",
+            "url": "https://en.wikipedia.org/wiki/Speech_shadowing",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Shadow the same 2-minute native audio clip daily for 5 days, recording yourself on day 1 and day 5 to compare."
+      ]
+    },
+    {
+      "id": "tutors-and-exchanges",
+      "title": "Tutors & Exchanges",
+      "tier": "essential",
+      "learn": {
+        "summary": "Online tutoring platforms like iTalki made hour-long one-on-one practice with native speakers cheap and abundant; language exchanges (tandems) trade half your language for half of theirs, for free. A tutor's job at your stage is mostly conversation partner plus error-noticer — you do not need a certified teacher for that, and 'community tutors' cost less. Weekly scheduled sessions create the deadline that makes you study.",
+        "links": [
+          {
+            "label": "Language exchange",
+            "url": "https://en.wikipedia.org/wiki/Language_exchange",
+            "kind": "article"
+          },
+          {
+            "label": "iTalki",
+            "url": "https://www.italki.com",
+            "kind": "tool"
+          }
+        ]
+      },
+      "do": [
+        "Set up a recurring weekly tutor or tandem session and keep it for 4 consecutive weeks before judging progress."
+      ]
+    },
+    {
+      "id": "situation-scripts",
+      "title": "Scripts for Real Situations",
+      "tier": "recommended",
+      "learn": {
+        "summary": "Most real-life exchanges are predictable: ordering, greeting, buying, asking directions, introducing yourself. Write short scripts for your top situations — including the replies you are likely to hear — and drill them to automaticity. This 'island of competence' approach gives you fluent-feeling wins months before you are generally fluent, and each script becomes a scaffold you improvise around.",
+        "links": [
+          {
+            "label": "Formulaic language",
+            "url": "https://en.wikipedia.org/wiki/Formulaic_language",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Write and memorize scripts for your 3 most likely real situations, then use at least one in a live session this week."
+      ]
+    },
+    {
+      "id": "mistakes-as-data",
+      "title": "Mistakes as Data",
+      "tier": "extra",
+      "learn": {
+        "summary": "Krashen's affective filter hypothesis says anxiety measurably suppresses acquisition — the embarrassed learner takes in less. The reframe that works: every mistake in conversation is a free diagnostic you could not have gotten alone, and native speakers overwhelmingly respond to effort with goodwill, not judgment. Ask partners to correct only errors that impede understanding; total correction kills flow.",
+        "links": [
+          {
+            "label": "Input hypothesis (affective filter)",
+            "url": "https://en.wikipedia.org/wiki/Input_hypothesis",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "In your next session, deliberately attempt 3 constructions you are unsure of, and add the corrections to your error log."
+      ]
+    }
+  ]
+}

@@ -1,0 +1,92 @@
+{
+  "id": "starting-plants",
+  "title": "Starting Plants",
+  "tier": "essential",
+  "learn": {
+    "summary": "Starting from seed costs pennies per plant and unlocks hundreds of varieties garden centers never carry. Most vegetable seeds germinate best in 65-75°F soil; tomatoes and peppers like 70-85°F. The classic beginner mistake is starting too early — count back from your last frost date (6-8 weeks for tomatoes) instead of sowing in January.",
+    "links": [
+      {
+        "label": "Seed (Wikipedia)",
+        "url": "https://en.wikipedia.org/wiki/Seed",
+        "kind": "article"
+      }
+    ]
+  },
+  "do": [
+    "Sow one 6-cell tray of a fast, easy crop (lettuce or basil) indoors this week and record the sow date and days to sprout"
+  ],
+  "children": [
+    {
+      "id": "seed-starting",
+      "title": "Seed Starting Setup",
+      "tier": "essential",
+      "learn": {
+        "summary": "Use sterile seed-starting mix, not garden soil, which compacts and carries damping-off fungus. Sow at a depth of 2-3 times the seed's diameter; surface-sow tiny seeds like lettuce that need light. Bottom-water by setting cells in a tray of water so the surface stays undisturbed and fungus is discouraged.",
+        "links": [
+          {
+            "label": "Sowing (Wikipedia)",
+            "url": "https://en.wikipedia.org/wiki/Sowing",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Bottom-water your seed tray every time this week: 15 minutes sitting in an inch of water, then drain — never sprinkle from above"
+      ]
+    },
+    {
+      "id": "germination",
+      "title": "Germination",
+      "tier": "essential",
+      "learn": {
+        "summary": "Germination needs the right combination of moisture, temperature, and sometimes light — warmth matters most, and a $20 heat mat can cut pepper germination from 3 weeks to 7 days. Test old seed with a wet paper towel in a zip bag: 10 seeds, one week, count sprouts for your germination percentage. Most veggie seed stays viable 2-5 years stored cool and dry.",
+        "links": [
+          {
+            "label": "Germination (Wikipedia)",
+            "url": "https://en.wikipedia.org/wiki/Germination",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Run a paper-towel germination test on your oldest seed packet: 10 seeds, damp towel, zip bag on top of the fridge, count sprouts in 7 days"
+      ]
+    },
+    {
+      "id": "seedling-light",
+      "title": "Light for Seedlings",
+      "tier": "essential",
+      "learn": {
+        "summary": "A windowsill is almost never enough — seedlings stretch into leggy, weak stems reaching for light. Give 14-16 hours a day under an ordinary LED shop light hung 2-4 inches above the leaves, raised as plants grow. A $10 outlet timer makes this automatic.",
+        "links": [
+          {
+            "label": "Grow light (Wikipedia)",
+            "url": "https://en.wikipedia.org/wiki/Grow_light",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Hang a shop light on adjustable chains 3 inches above your seedlings and set a timer for 16 hours on, 8 off"
+      ]
+    },
+    {
+      "id": "cuttings",
+      "title": "Propagation from Cuttings",
+      "tier": "extra",
+      "learn": {
+        "summary": "Many plants clone readily from a 4-6 inch stem cutting: strip the lower leaves, and root in water (pothos, basil, mint, coleus) or in moist mix, often helped by rooting hormone (rosemary, hydrangea, figs). Roots appear in 1-4 weeks. Softwood cuttings taken in late spring root fastest.",
+        "links": [
+          {
+            "label": "Cutting (plant) (Wikipedia)",
+            "url": "https://en.wikipedia.org/wiki/Cutting_(plant)",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Take a 4-inch basil or mint cutting today, strip the bottom leaves, and root it in a glass of water on the windowsill — pot it up when roots hit one inch"
+      ]
+    }
+  ]
+}

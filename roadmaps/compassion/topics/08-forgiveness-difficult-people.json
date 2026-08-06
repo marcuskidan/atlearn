@@ -1,0 +1,92 @@
+{
+  "id": "forgiveness-difficult-people",
+  "title": "Forgiveness & Difficult People",
+  "tier": "recommended",
+  "learn": {
+    "summary": "Forgiveness research — notably Everett Worthington's REACH model and Fred Luskin's Stanford Forgiveness Project — shows forgiveness is a trainable skill that lowers anger, blood pressure, and depression in the forgiver. Crucially, it is defined as releasing your own resentment, not excusing the act, forgetting it, or reconciling with the person. You do it for the person carrying the grudge: you.",
+    "links": [
+      {
+        "label": "Forgiveness (Wikipedia)",
+        "url": "https://en.wikipedia.org/wiki/Forgiveness",
+        "kind": "article"
+      }
+    ]
+  },
+  "do": [
+    "Pick one old, low-stakes grudge and write down what continuing to carry it costs you weekly (mood, sleep, mental airtime)."
+  ],
+  "children": [
+    {
+      "id": "forgiveness-science",
+      "title": "The REACH Model",
+      "tier": "essential",
+      "learn": {
+        "summary": "Worthington's REACH walks five steps: Recall the hurt without rumination, Empathize with the offender's humanity, give an Altruistic gift of forgiveness (recalling times you were forgiven), Commit to it publicly or in writing, and Hold on when the anger revisits. Randomized trials of REACH workbooks show measurable drops in unforgiveness and depression. Forgiveness is decisional first, emotional later — the feeling lags the choice.",
+        "links": [
+          {
+            "label": "Everett Worthington (Wikipedia)",
+            "url": "https://en.wikipedia.org/wiki/Everett_Worthington",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Run REACH on paper for one medium-sized hurt this week: five headings, a few honest sentences under each."
+      ]
+    },
+    {
+      "id": "letting-go-grudges",
+      "title": "Letting Go of Grudges",
+      "tier": "recommended",
+      "learn": {
+        "summary": "Luskin's formulation: a grudge forms when an unenforceable rule ('people must treat me fairly') gets broken and you keep renting the offender space in your head. His research with people harmed as severely as bereaved Northern Ireland families still showed trainable reductions in hurt and stress. The reframe that works: change your grievance story from victim narrative to survivor narrative — same facts, different protagonist.",
+        "links": [
+          {
+            "label": "Grudge (Wikipedia)",
+            "url": "https://en.wikipedia.org/wiki/Grudge",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Retell one grievance story in writing with yourself as the resilient protagonist rather than the wronged party. Read both versions aloud."
+      ]
+    },
+    {
+      "id": "loving-kindness-difficult",
+      "title": "Metta for Difficult People",
+      "tier": "extra",
+      "learn": {
+        "summary": "Loving-kindness (metta) meditation extends well-wishes in expanding circles: self, loved one, neutral person, difficult person, all beings. Barbara Fredrickson's studies found regular practice increases daily positive emotions and social connectedness; the difficult-person stage works because you practice on a mildly annoying colleague before attempting your nemesis. Start small — the practice is graded exposure for the heart.",
+        "links": [
+          {
+            "label": "Metta (Wikipedia)",
+            "url": "https://en.wikipedia.org/wiki/Mett%C4%81",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Do 10 minutes of metta on 3 days this week, including a mildly difficult person (not your hardest case) in the rotation."
+      ]
+    },
+    {
+      "id": "difficult-people-reframe",
+      "title": "Reframing Difficult People",
+      "tier": "recommended",
+      "learn": {
+        "summary": "The compassion move with difficult people is not excusing behavior but explaining it: hurt people reliably hurt people, and most chronic difficulty is downstream of fear, pain, or unmet needs (Rosenberg again). This reframe changes your options — you can hold a firm boundary and skip the hatred, which mostly poisons you anyway. Compassion and consequences are fully compatible.",
+        "links": [
+          {
+            "label": "Compassion (Wikipedia)",
+            "url": "https://en.wikipedia.org/wiki/Compassion",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "For the most difficult person in your life right now, write one paragraph guessing the fear or unmet need driving their worst behavior — then decide your boundary separately."
+      ]
+    }
+  ]
+}

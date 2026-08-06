@@ -1,0 +1,74 @@
+{
+  "id": "rumination-worry",
+  "title": "Rumination & Worry",
+  "tier": "essential",
+  "learn": {
+    "summary": "Rumination (chewing the past) and worry (pre-chewing the future) masquerade as problem-solving but rarely produce solutions — Susan Nolen-Hoeksema's research showed rumination predicts onset and duration of depression, and it responds poorly to 'just stop thinking about it.' What works is changing the process, not winning the argument: scheduled containment, behavioral interruption, and tolerating uncertainty. The content of the loop is usually not the problem; the looping is.",
+    "links": [
+      {
+        "label": "Rumination (psychology) (Wikipedia)",
+        "url": "https://en.wikipedia.org/wiki/Rumination_(psychology)",
+        "kind": "article"
+      }
+    ]
+  },
+  "do": [
+    "For two days, tally every time you catch yourself in a repeat loop (same thought, third+ time). Just counting builds the awareness the other tools need."
+  ],
+  "children": [
+    {
+      "id": "worry-time",
+      "title": "Scheduled Worry Time",
+      "tier": "essential",
+      "learn": {
+        "summary": "Stimulus-control for worry (Borkovec's protocol): set a fixed daily 15–30 minute 'worry appointment'; whenever worries intrude elsewhere, jot a keyword and postpone them to the slot. Trials show it reduces overall worry — partly because postponement proves worries are controllable, and partly because half of them look absurd by appointment time. Keep the slot out of the bedroom and off the last hour before bed.",
+        "links": [
+          {
+            "label": "Worry (Wikipedia)",
+            "url": "https://en.wikipedia.org/wiki/Worry",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Run a 15-minute daily worry appointment for one week: same time, same chair, keyword-postpone everything outside it. Count how many postponed worries still mattered by their appointment."
+      ]
+    },
+    {
+      "id": "behavioral-exits",
+      "title": "Behavioral Exits",
+      "tier": "essential",
+      "learn": {
+        "summary": "Rumination is starved by absorption, not argument: Nolen-Hoeksema found even brief engaging distraction breaks the loop where introspection deepens it. Effective exits share three features — physical, absorbing, and immediately available: a walk with a podcast, cold water, cooking, calling someone, a task with your hands. Decide your exits in advance; a ruminating brain will not brainstorm well.",
+        "links": [
+          {
+            "label": "Rumination (psychology) (Wikipedia)",
+            "url": "https://en.wikipedia.org/wiki/Rumination_(psychology)",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Write a 3-item 'exit menu' on your phone today. Next rumination loop, execute item one within 60 seconds of noticing."
+      ]
+    },
+    {
+      "id": "uncertainty-tolerance",
+      "title": "Tolerating Uncertainty",
+      "tier": "recommended",
+      "learn": {
+        "summary": "Intolerance of uncertainty is a core engine of chronic worry (central to Dugas's GAD model): worry functions as a ritual to make the future feel controlled, and reassurance-seeking feeds it like scratching feeds an itch. The treatment logic is exposure — deliberately doing small things without certainty and surviving them. The target is not confidence that things will go well, but confidence you can handle it if they do not.",
+        "links": [
+          {
+            "label": "Generalized anxiety disorder (Wikipedia)",
+            "url": "https://en.wikipedia.org/wiki/Generalized_anxiety_disorder",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Do three small uncertainty exposures this week: send a message without rereading it, pick a restaurant without checking reviews, delegate a task without monitoring. Note that you survived."
+      ]
+    }
+  ]
+}

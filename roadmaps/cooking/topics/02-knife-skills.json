@@ -1,0 +1,74 @@
+{
+  "id": "knife-skills",
+  "title": "Knife Skills",
+  "tier": "essential",
+  "learn": {
+    "summary": "Knife skills are the highest-leverage physical skill in cooking: even cuts cook evenly, prep gets faster, and a sharp knife is safer than a dull one because it goes where you point it instead of skidding. Everything builds on two habits — the pinch grip on the blade and the claw on the food. Speed comes from repetition, never from rushing.",
+    "links": [
+      {
+        "label": "Chef's knife (Wikipedia)",
+        "url": "https://en.wikipedia.org/wiki/Chef%27s_knife",
+        "kind": "article"
+      }
+    ]
+  },
+  "do": [
+    "Dice one onion every day this week using proper grip — by Sunday, time yourself and compare to Monday"
+  ],
+  "children": [
+    {
+      "id": "grip-and-claw",
+      "title": "Grip & Claw",
+      "tier": "essential",
+      "learn": {
+        "summary": "Pinch the blade itself between thumb and forefinger just ahead of the handle — not a fist on the handle — for control that steers the knife. The guiding hand curls into a claw, fingertips tucked, knuckles forward so the flat of the blade rides against them and your fingertips are physically unreachable. Slow is smooth; smooth becomes fast.",
+        "links": [
+          {
+            "label": "Kitchen knife (Wikipedia)",
+            "url": "https://en.wikipedia.org/wiki/Kitchen_knife",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Slice two carrots into coins tonight using pinch grip and claw at half your normal speed, focusing only on knuckle contact with the blade"
+      ]
+    },
+    {
+      "id": "basic-cuts",
+      "title": "Basic Cuts",
+      "tier": "essential",
+      "learn": {
+        "summary": "Master four and you can prep anything: slice, dice (large 3/4 inch, medium 1/2, small 1/4), mince, and chiffonade for leafy herbs. Uniformity beats beauty — a pot of mixed-size potato chunks turns to mush and crunch in the same pan. The onion dice is the gateway drill: horizontal cuts optional, vertical cuts, then crosswise.",
+        "links": [
+          {
+            "label": "Dicing (Wikipedia)",
+            "url": "https://en.wikipedia.org/wiki/Dicing",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Practice a medium dice on one potato and check your work: spread the pieces on the board and pull out any piece more than double the size of the smallest"
+      ]
+    },
+    {
+      "id": "sharpening-and-care",
+      "title": "Sharpening & Care",
+      "tier": "recommended",
+      "learn": {
+        "summary": "A honing rod realigns the edge and should be used every few cooks; actual sharpening removes metal and is needed every 6-12 months — a pull-through sharpener is fine to start, a whetstone is better. Test with paper: a sharp knife slices a held sheet cleanly. Hand-wash and dry knives immediately, store on a magnetic strip or in-block, and never let them rattle loose in a drawer.",
+        "links": [
+          {
+            "label": "Knife sharpening (Wikipedia)",
+            "url": "https://en.wikipedia.org/wiki/Knife_sharpening",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Test your chef's knife on a sheet of paper today; if it tears instead of slicing, sharpen it this week and retest"
+      ]
+    }
+  ]
+}

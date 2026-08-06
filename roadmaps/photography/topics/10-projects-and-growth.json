@@ -1,0 +1,97 @@
+{
+  "id": "projects-and-growth",
+  "title": "Projects & Growth",
+  "tier": "recommended",
+  "learn": {
+    "summary": "Photographers grow through projects, print, and critique — not through new gear. A constraint (one subject, one street, one year) forces the creative repetition that random snapping never delivers. The uncomfortable trio that accelerates everyone: commit publicly, print physically, invite criticism.",
+    "links": [
+      {
+        "label": "Photography (Wikipedia)",
+        "url": "https://en.wikipedia.org/wiki/Photography",
+        "kind": "article"
+      }
+    ]
+  },
+  "do": [
+    "Choose one constraint project today — one color, one street corner, one household object — and shoot its first three frames before bed."
+  ],
+  "children": [
+    {
+      "id": "photo-a-day",
+      "title": "Photo-a-Day Projects",
+      "tier": "essential",
+      "learn": {
+        "summary": "The 365 (daily) and Project 52 (weekly) formats work because they outlaw waiting for inspiration: some days you make a boring picture, and making it anyway is the training. Volume with reflection beats sporadic brilliance. Weekly themes (\"shadows\", \"red\", \"hands\") keep a long project from going stale.",
+        "links": [
+          {
+            "label": "Photography (Wikipedia)",
+            "url": "https://en.wikipedia.org/wiki/Photography",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Start a 7-day photo-a-day streak today with one rule: the photo must be deliberate, not incidental — review all seven on day 8."
+      ]
+    },
+    {
+      "id": "print-your-work",
+      "title": "Print Your Work",
+      "tier": "recommended",
+      "learn": {
+        "summary": "A print is a commitment a screen never demands: at 8×10 inches, soft focus, noise, and lazy crops all surface, and your standards rise to meet the paper. Prints also rescue photos from the camera-roll graveyard — the average phone holds thousands of images nobody will ever see again. One printed photo on a wall outlives ten thousand in the cloud.",
+        "links": [
+          {
+            "label": "Photographic printing (Wikipedia)",
+            "url": "https://en.wikipedia.org/wiki/Photographic_printing",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Order or make one physical print of your single best photo this month and put it somewhere you will see it daily."
+      ]
+    },
+    {
+      "id": "sharing-and-critique",
+      "title": "Sharing & Critique",
+      "tier": "essential",
+      "learn": {
+        "summary": "Likes measure agreeableness; critique measures the photograph. Useful critique answers three questions — what works, what fails, what one change helps most — and receiving it without defending yourself is a learnable discipline. Critiquing others sharpens you fastest of all, because you must articulate why an image succeeds.",
+        "links": [
+          {
+            "label": "Photographic Society of America",
+            "url": "https://psa-photo.org",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Show your five best photos to one honest person this week and ask exactly: \"Which is strongest, which is weakest, and why?\" — write down their answers."
+      ]
+    },
+    {
+      "id": "study-the-masters",
+      "title": "Study Great Photographers",
+      "tier": "recommended",
+      "learn": {
+        "summary": "Reverse-engineering masters is free tuition: Cartier-Bresson for geometry and timing, Ansel Adams for tonal control and craft discipline, Dorothea Lange for empathy, Vivian Maier for finding the extraordinary on ordinary streets. For each admired image ask where the light came from, where the photographer stood, and why that instant. Imitation is a stage of learning, not a sin.",
+        "links": [
+          {
+            "label": "Ansel Adams (Wikipedia)",
+            "url": "https://en.wikipedia.org/wiki/Ansel_Adams",
+            "kind": "article"
+          },
+          {
+            "label": "Dorothea Lange (Wikipedia)",
+            "url": "https://en.wikipedia.org/wiki/Dorothea_Lange",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Pick one famous photograph this week, write three sentences on its light, position, and moment — then go attempt your own version of its idea."
+      ]
+    }
+  ]
+}

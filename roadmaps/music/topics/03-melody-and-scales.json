@@ -1,0 +1,92 @@
+{
+  "id": "melody-and-scales",
+  "title": "Melody & Scales",
+  "tier": "essential",
+  "learn": {
+    "summary": "Scales are the alphabet melodies are spelled from. The major scale is one fixed pattern of whole and half steps that you can start on any of the 12 notes, and nearly every melody you know lives inside it or its minor cousin. Learn the pattern once and you own all 12 keys.",
+    "links": [
+      {
+        "label": "Scale (music) (Wikipedia)",
+        "url": "https://en.wikipedia.org/wiki/Scale_(music)",
+        "kind": "article"
+      }
+    ]
+  },
+  "do": [
+    "Sing \"do re mi fa sol la ti do\" up and down once a day this week, checking your starting and ending note against a piano app."
+  ],
+  "children": [
+    {
+      "id": "major-scale-construction",
+      "title": "Major Scale Construction",
+      "tier": "essential",
+      "learn": {
+        "summary": "The major scale formula is W-W-H-W-W-W-H (whole and half steps). Start on C and you use only white keys; start on G and the pattern forces an F#; start on F and it forces a Bb. Every key signature in existence is just this one formula applied to a different starting note.",
+        "links": [
+          {
+            "label": "Major scale (Wikipedia)",
+            "url": "https://en.wikipedia.org/wiki/Major_scale",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Using W-W-H-W-W-W-H, write out the notes of the D major and F major scales on paper, then check yourself on a piano app."
+      ]
+    },
+    {
+      "id": "minor-scales",
+      "title": "Minor Scales",
+      "tier": "recommended",
+      "learn": {
+        "summary": "Natural minor follows W-H-W-W-H-W-W and sounds darker because its 3rd, 6th, and 7th degrees sit a half step lower than major. Harmonic minor raises the 7th to create a stronger pull home, giving it that exotic augmented-second leap. A minor is the beginner's key: all white notes, A to A.",
+        "links": [
+          {
+            "label": "Minor scale (Wikipedia)",
+            "url": "https://en.wikipedia.org/wiki/Minor_scale",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Play C major then C minor on a piano app and describe the mood shift in one written sentence — that flattened 3rd is doing the work."
+      ]
+    },
+    {
+      "id": "scale-degrees",
+      "title": "Scale Degrees",
+      "tier": "essential",
+      "learn": {
+        "summary": "Each scale note has a number and a job: 1 is the tonic (home), 5 the dominant (tension), 7 the leading tone (aching to resolve up to 1). Thinking in degrees instead of letter names is what lets musicians transpose instantly — \"the melody goes 1-1-5-5-6-6-5\" works in every key.",
+        "links": [
+          {
+            "label": "Degree (music) (Wikipedia)",
+            "url": "https://en.wikipedia.org/wiki/Degree_(music)",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Work out the scale-degree numbers for the first phrase of Twinkle Twinkle Little Star (start: 1-1-5-5-6-6-5), then do the same for Happy Birthday."
+      ]
+    },
+    {
+      "id": "singing-melodies",
+      "title": "Singing Melodies",
+      "tier": "recommended",
+      "learn": {
+        "summary": "If you can sing it, you truly hear it — which is why ABRSM aural tests make every candidate sing back phrases regardless of instrument. Solfège (do-re-mi) attaches a syllable to each scale degree so your voice and ear learn the map together. Accuracy matters more than tone; nobody is grading your voice.",
+        "links": [
+          {
+            "label": "Solfège (Wikipedia)",
+            "url": "https://en.wikipedia.org/wiki/Solf%C3%A8ge",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Sing the first line of three songs you know using \"la\", recording yourself on your phone — listen back and mark any note that drifted."
+      ]
+    }
+  ]
+}

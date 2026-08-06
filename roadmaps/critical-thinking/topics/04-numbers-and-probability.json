@@ -1,0 +1,102 @@
+{
+  "id": "numbers-and-probability",
+  "title": "Numbers and Probability",
+  "tier": "essential",
+  "learn": {
+    "summary": "Probabilistic thinking is the engine under almost every other critical-thinking skill: risks, forecasts, and medical tests all speak in probabilities. Human intuition is systematically bad here — we neglect base rates, see patterns in noise, and treat 'possible' as 'likely'. Gerd Gigerenzer's work shows even doctors misread test statistics until they're rephrased as natural frequencies ('out of 1,000 people...').",
+    "links": [
+      {
+        "label": "Wikipedia: Probability",
+        "url": "https://en.wikipedia.org/wiki/Probability",
+        "kind": "article"
+      }
+    ]
+  },
+  "do": [
+    "Rewrite one percentage-based claim you encounter this week as a natural frequency ('9 out of 1,000 people') and notice whether your gut reaction changes."
+  ],
+  "children": [
+    {
+      "id": "base-rates",
+      "title": "Base Rates",
+      "tier": "essential",
+      "learn": {
+        "summary": "Base-rate neglect: given a vivid description, people ignore how common something is overall. Kahneman and Tversky's 'Tom W' studies showed people guessing a student's field from personality sketches while ignoring that some fields have ten times more students. If a disease affects 1 in 10,000 people, even a 99%-accurate test flags mostly false positives — the base rate dominates.",
+        "links": [
+          {
+            "label": "Wikipedia: Base rate fallacy",
+            "url": "https://en.wikipedia.org/wiki/Base_rate_fallacy",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Before your next judgment about a person or event, write down the base rate first ('what fraction of X are Y in general?'), then adjust from there."
+      ]
+    },
+    {
+      "id": "conditional-probability",
+      "title": "Conditional Probability",
+      "tier": "recommended",
+      "learn": {
+        "summary": "P(A given B) is not P(B given A): the probability of a positive test given disease is not the probability of disease given a positive test. Confusing the two is called the prosecutor's fallacy and has produced real wrongful convictions, most famously the Sally Clark case in the UK. Bayes' theorem is just the arithmetic for flipping the conditional correctly.",
+        "links": [
+          {
+            "label": "Wikipedia: Bayes' theorem",
+            "url": "https://en.wikipedia.org/wiki/Bayes%27_theorem",
+            "kind": "article"
+          },
+          {
+            "label": "Wikipedia: Prosecutor's fallacy",
+            "url": "https://en.wikipedia.org/wiki/Prosecutor%27s_fallacy",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Work through one Bayes problem by hand this week (e.g., a 1-in-1,000 condition with a 95%-accurate test) using a population of 10,000 imaginary people."
+      ]
+    },
+    {
+      "id": "expected-value",
+      "title": "Expected Value",
+      "tier": "recommended",
+      "learn": {
+        "summary": "Expected value is probability times payoff, summed over outcomes — the reason a $2 lottery ticket with a $1 expected payout is a losing proposition no matter how vivid the jackpot feels. It also explains why small chances of huge outcomes can be worth acting on, and why insurance is worth buying despite negative expected value: utility isn't linear in dollars. Thinking in EV converts 'could happen' into 'how much should this weigh?'.",
+        "links": [
+          {
+            "label": "Wikipedia: Expected value",
+            "url": "https://en.wikipedia.org/wiki/Expected_value",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Compute the expected value of one recurring gamble in your life (a lottery ticket, an extended warranty, a parking-fine risk) with real numbers."
+      ]
+    },
+    {
+      "id": "randomness-and-streaks",
+      "title": "Randomness and Streaks",
+      "tier": "essential",
+      "learn": {
+        "summary": "True randomness is streakier than intuition expects — flip a coin 100 times and runs of 5+ heads are normal, yet people read them as 'hot hands' or 'due for a change' (the gambler's fallacy). Regression to the mean means extreme performances are usually followed by ordinary ones, which is why punishments 'seem to work' and praise 'seems to backfire'. Before crediting a cause, ask whether plain variance explains the pattern.",
+        "links": [
+          {
+            "label": "Wikipedia: Gambler's fallacy",
+            "url": "https://en.wikipedia.org/wiki/Gambler%27s_fallacy",
+            "kind": "article"
+          },
+          {
+            "label": "Wikipedia: Regression toward the mean",
+            "url": "https://en.wikipedia.org/wiki/Regression_toward_the_mean",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Flip a coin 50 times, record the sequence, and count the longest streak; compare it to what you predicted before starting."
+      ]
+    }
+  ]
+}

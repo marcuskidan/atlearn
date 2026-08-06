@@ -1,0 +1,115 @@
+{
+  "id": "medical-emergencies",
+  "title": "Medical Emergencies",
+  "tier": "essential",
+  "learn": {
+    "summary": "Strokes, heart attacks, seizures, and diabetic crises are recognition games: the faster a bystander names the problem and calls 911, the better the outcome — stroke clot-busting drugs, for instance, work best within 3–4.5 hours of symptom onset. Your job is never to diagnose definitively; it's to spot the pattern, call, and keep the person safe until help arrives.",
+    "links": [
+      {
+        "label": "Stroke — Wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Stroke",
+        "kind": "article"
+      }
+    ]
+  },
+  "do": [
+    "Save Poison Control (1-800-222-1222) as a contact in your phone right now, and add 911 notes for your household's known conditions."
+  ],
+  "children": [
+    {
+      "id": "stroke-fast",
+      "title": "Stroke: FAST",
+      "tier": "essential",
+      "learn": {
+        "summary": "FAST: Face drooping (ask for a smile), Arm weakness (ask them to raise both arms — does one drift?), Speech difficulty (ask them to repeat a simple sentence), Time to call 911. Note the exact time symptoms started — treatment eligibility depends on it. Never drive a stroke patient yourself if an ambulance is available; paramedics pre-alert the stroke team en route.",
+        "links": [
+          {
+            "label": "FAST (stroke) — Wikipedia",
+            "url": "https://en.wikipedia.org/wiki/FAST_(stroke)",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Run the three FAST checks on yourself in a mirror once so you know exactly what you'd ask someone to do, then teach the acronym to one family member."
+      ]
+    },
+    {
+      "id": "heart-attack-signs",
+      "title": "Heart Attack Signs",
+      "tier": "essential",
+      "learn": {
+        "summary": "Classic signs: chest pressure or squeezing lasting more than a few minutes, pain radiating to arm, jaw, or back, shortness of breath, cold sweat, nausea. Women more often present with fatigue, nausea, and back or jaw pain without dramatic chest pain — which is why their heart attacks get missed. Call 911, have the person sit and rest, and if not allergic and not on conflicting meds, chewing a regular aspirin (325 mg) while waiting is commonly advised by dispatchers.",
+        "links": [
+          {
+            "label": "Myocardial infarction — Wikipedia",
+            "url": "https://en.wikipedia.org/wiki/Myocardial_infarction",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Check that your home and bag first-aid kits include a small bottle of aspirin, and note the women-specific symptom pattern somewhere you'll re-see it."
+      ]
+    },
+    {
+      "id": "seizures",
+      "title": "Seizures",
+      "tier": "recommended",
+      "learn": {
+        "summary": "During a convulsive seizure: clear hard objects away, cushion the head, time it, and put nothing in the mouth — the swallowed-tongue myth causes broken teeth and bitten fingers. Afterward, roll them onto their side (recovery position) as they come around. Call 911 if the seizure exceeds 5 minutes, repeats, happens in water, involves injury or pregnancy, or if it's the person's first.",
+        "links": [
+          {
+            "label": "Epileptic seizure — Wikipedia",
+            "url": "https://en.wikipedia.org/wiki/Epileptic_seizure",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Memorize the two numbers that matter — time the seizure, call 911 at 5 minutes — and practice the recovery position once on a willing housemate or a pillow."
+      ]
+    },
+    {
+      "id": "diabetic-emergencies",
+      "title": "Diabetic Emergencies",
+      "tier": "recommended",
+      "learn": {
+        "summary": "Low blood sugar (hypoglycemia) is the fast, dangerous one: shakiness, sweating, confusion, irritability, sometimes mistaken for drunkenness. If the person is awake and can swallow, give 15–20 g of fast sugar — juice, glucose tablets, regular soda — and reassess in 15 minutes (the '15-15 rule'). If they're unconscious, never pour anything into their mouth; call 911.",
+        "links": [
+          {
+            "label": "Diabetic hypoglycemia — Wikipedia",
+            "url": "https://en.wikipedia.org/wiki/Diabetic_hypoglycemia",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "If anyone in your life has diabetes, ask them this week what their low-blood-sugar signs look like and where they keep their fast sugar."
+      ]
+    },
+    {
+      "id": "poisoning",
+      "title": "Poisoning & Poison Control",
+      "tier": "essential",
+      "learn": {
+        "summary": "US Poison Control (1-800-222-1222) is free, 24/7, staffed by specialists, and resolves most calls without an ER visit — call them for any suspected ingestion, don't wait for symptoms. Do not induce vomiting or give ipecac; for chemicals on skin or eyes, flush with running water for 15–20 minutes. If the person is unconscious, seizing, or struggling to breathe, skip straight to 911 and bring the container or a photo of it.",
+        "links": [
+          {
+            "label": "Poison Control — poison.org",
+            "url": "https://www.poison.org",
+            "kind": "tool"
+          },
+          {
+            "label": "Poison control center — Wikipedia",
+            "url": "https://en.wikipedia.org/wiki/Poison_control_center",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Save 1-800-222-1222 in your phone as 'Poison Control' today and stick the number inside a kitchen or medicine cabinet."
+      ]
+    }
+  ]
+}

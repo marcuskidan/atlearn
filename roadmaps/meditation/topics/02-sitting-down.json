@@ -1,0 +1,92 @@
+{
+  "id": "sitting-down",
+  "title": "Sitting Down",
+  "tier": "essential",
+  "learn": {
+    "summary": "Posture matters only insofar as it keeps you alert and comfortable for the whole session: stable base, upright spine, relaxed everything else. A chair is completely legitimate; full lotus earns you nothing extra. The classic instruction is a posture that is both dignified and at ease.",
+    "links": [
+      {
+        "label": "Zazen posture (Wikipedia)",
+        "url": "https://en.wikipedia.org/wiki/Zazen",
+        "kind": "article"
+      }
+    ]
+  },
+  "do": [
+    "Set up one dedicated spot (chair or cushion) today and do a 5-minute sit there before tomorrow night."
+  ],
+  "children": [
+    {
+      "id": "posture-options",
+      "title": "Posture Options",
+      "tier": "essential",
+      "learn": {
+        "summary": "Four workable options: chair (feet flat, sit away from the backrest), cross-legged on a cushion (hips above knees), kneeling seiza with a bench, or lying down (highest sleep risk). Knee or back pain usually means your hips are too low; raise the cushion. Choose for sustainability over aesthetics.",
+        "links": [
+          {
+            "label": "Seiza (Wikipedia)",
+            "url": "https://en.wikipedia.org/wiki/Seiza",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Test two different postures for 5 minutes each this week and commit to the one you could hold for 20 minutes."
+      ]
+    },
+    {
+      "id": "eyes-and-hands",
+      "title": "Eyes and Hands",
+      "tier": "recommended",
+      "learn": {
+        "summary": "Eyes closed increases inward focus but also drowsiness; the Zen alternative is eyes half-open with a soft downward gaze about a meter ahead. Hands simply rest on thighs or folded in the lap; the cosmic mudra is tradition, not requirement. If you keep dozing off, open your eyes; if you keep getting distracted, close them.",
+        "links": [
+          {
+            "label": "Zazen (Wikipedia)",
+            "url": "https://en.wikipedia.org/wiki/Zazen",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Do one sit eyes-closed and one eyes-half-open this week and note which kept you more alert."
+      ]
+    },
+    {
+      "id": "environment-setup",
+      "title": "Environment",
+      "tier": "recommended",
+      "learn": {
+        "summary": "You need less than you think: a spot with predictably few interruptions for the length of your sit. A consistent location builds a context cue that makes starting automatic, the same mechanism behind any habit anchor. Noise is workable (it becomes practice material later); interruption by other people mostly is not.",
+        "links": [
+          {
+            "label": "Habit (Wikipedia)",
+            "url": "https://en.wikipedia.org/wiki/Habit",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Tell the people you live with a specific 10-minute daily window when you are not to be interrupted, starting this week."
+      ]
+    },
+    {
+      "id": "timers-and-length",
+      "title": "Timers and Length",
+      "tier": "essential",
+      "learn": {
+        "summary": "Always use a timer so you stop negotiating with the clock mid-sit; a gentle bell beats a jarring alarm. Start at 5-10 minutes daily; MBSR assigns 45 minutes but that is with weekly teacher support, and daily consistency beats occasional heroics. Increase by about 5 minutes only when the current length feels routine for two straight weeks.",
+        "links": [
+          {
+            "label": "Insight Timer",
+            "url": "https://insighttimer.com",
+            "kind": "tool"
+          }
+        ]
+      },
+      "do": [
+        "Set a recurring daily 10-minute timer with a bell sound today and use it for 7 consecutive days."
+      ]
+    }
+  ]
+}

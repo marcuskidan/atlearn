@@ -1,0 +1,97 @@
+{
+  "id": "lifelong-maintenance",
+  "title": "Lifelong Maintenance",
+  "tier": "recommended",
+  "learn": {
+    "summary": "Languages are use-it-or-lose-it: attrition research shows unused skills decay measurably within months, with speaking fading before comprehension. The good news is maintenance is cheap — a few engaged hours weekly holds a B2, and re-activation is far faster than first learning. Past the exam-and-milestone phase, the language stops being a project and becomes a channel: friends, books, films, places.",
+    "links": [
+      {
+        "label": "Language attrition",
+        "url": "https://en.wikipedia.org/wiki/Language_attrition",
+        "kind": "article"
+      }
+    ]
+  },
+  "do": [
+    "Write your maintenance plan on one line: the minimum weekly dose (e.g. one conversation plus two hours of media) you will not go below."
+  ],
+  "children": [
+    {
+      "id": "maintenance-dose",
+      "title": "The Maintenance Dose",
+      "tier": "essential",
+      "learn": {
+        "summary": "Maintenance differs from learning: you no longer need new material daily, you need regular activation of what you have — especially speaking, the most perishable skill. A workable floor is one real conversation plus a couple of hours of native media per week, anchored to existing habits so it survives busy seasons. Passive-only maintenance (just watching shows) preserves comprehension but lets your speaking quietly rust.",
+        "links": [
+          {
+            "label": "Language attrition",
+            "url": "https://en.wikipedia.org/wiki/Language_attrition",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Put a recurring weekly conversation (tutor, tandem, or friend) in your calendar as a permanent standing appointment."
+      ]
+    },
+    {
+      "id": "fighting-attrition",
+      "title": "Fighting Attrition",
+      "tier": "recommended",
+      "learn": {
+        "summary": "First-language-style attrition hits second languages harder: retrieval slows, then production vocabulary shrinks, while reading survives longest. Monika Schmid's attrition research offers comfort, though — well-learned material is dormant, not deleted, and 'savings' effects mean relearning is dramatically faster than initial learning. If you lapse for a year, expect a rusty month, not a restart.",
+        "links": [
+          {
+            "label": "Language attrition",
+            "url": "https://en.wikipedia.org/wiki/Language_attrition",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "After any lapse of a month or more, run a one-week reactivation sprint: daily listening plus two booked conversations."
+      ]
+    },
+    {
+      "id": "adding-languages",
+      "title": "Adding Languages",
+      "tier": "extra",
+      "learn": {
+        "summary": "Research on multilingualism shows third languages come faster: you already know how you learn, and related languages share vocabulary and structure. The trap is 'wanderlust' — starting language three before language two can survive on maintenance alone, which usually kills both. Rule of thumb: get the current language to a stable B2 before adding another, and expect interference (mixing) between close languages at first.",
+        "links": [
+          {
+            "label": "Multilingualism",
+            "url": "https://en.wikipedia.org/wiki/Multilingualism",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Before starting a new language, verify your current one passes the maintenance test: a comfortable 15-minute conversation after two weeks of no study."
+      ]
+    },
+    {
+      "id": "cultural-depth",
+      "title": "Cultural Depth",
+      "tier": "recommended",
+      "learn": {
+        "summary": "Past B2, progress is mostly cultural: humor, politeness norms, register-switching, references everyone but you gets. Sociolinguistics — including phenomena like code-switching — shows that 'native-like' is less about grammar than about knowing which of five correct sentences a native would actually say. This is the permanently interesting part: films without subtitles, novels, arguments, friendships that run entirely in the language.",
+        "links": [
+          {
+            "label": "Sociolinguistics",
+            "url": "https://en.wikipedia.org/wiki/Sociolinguistics",
+            "kind": "article"
+          },
+          {
+            "label": "Code-switching",
+            "url": "https://en.wikipedia.org/wiki/Code-switching",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Pick one culturally iconic film or novel in your language this month and discuss it with a native speaker afterward."
+      ]
+    }
+  ]
+}

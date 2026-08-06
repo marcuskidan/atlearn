@@ -1,0 +1,97 @@
+{
+  "id": "choking-breathing",
+  "title": "Choking & Breathing Emergencies",
+  "tier": "essential",
+  "learn": {
+    "summary": "Breathing emergencies kill in minutes, which makes recognition the critical skill: the universal choking sign (hands at the throat), silence where there should be coughing, blue lips. This section is awareness-level — the physical techniques must be practiced in a certified course. In every real case, someone should be calling 911 while care begins.",
+    "links": [
+      {
+        "label": "Choking — Wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Choking",
+        "kind": "article"
+      }
+    ]
+  },
+  "do": [
+    "Teach one person in your household the universal choking sign and the rule 'coughing = encourage, silent = emergency' this week."
+  ],
+  "children": [
+    {
+      "id": "recognizing-choking",
+      "title": "Recognizing Choking",
+      "tier": "essential",
+      "learn": {
+        "summary": "The key distinction: a person who is coughing forcefully has a partial blockage — encourage coughing and don't interfere. A person who is silent, can't speak or cry, clutches their throat, or turns blue has a complete blockage and needs immediate intervention and a 911 call. Choking most often happens during meals, with adults over 65 and children under 4 at highest risk.",
+        "links": [
+          {
+            "label": "Choking — Wikipedia",
+            "url": "https://en.wikipedia.org/wiki/Choking",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "At your next group meal, mentally rehearse the triage: could this person speak or cough if they choked, and who at the table would call 911."
+      ]
+    },
+    {
+      "id": "abdominal-thrusts",
+      "title": "Abdominal Thrusts Awareness",
+      "tier": "essential",
+      "learn": {
+        "summary": "For a choking adult, the taught sequence (Red Cross) is 5 back blows between the shoulder blades, then 5 abdominal thrusts — a fist just above the navel, sharp inward-and-upward pulls — repeated until the object clears or the person goes limp. Reading this is not competence: hand placement and force need supervised practice, which is exactly what your certification course provides. If you're alone and choking, thrust your own abdomen over a chair back.",
+        "links": [
+          {
+            "label": "Abdominal thrusts — Wikipedia",
+            "url": "https://en.wikipedia.org/wiki/Abdominal_thrusts",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Confirm your booked first-aid course includes choking-response practice — if you haven't booked yet, this is your nudge to do it today."
+      ]
+    },
+    {
+      "id": "infant-differences",
+      "title": "Infant Differences",
+      "tier": "recommended",
+      "learn": {
+        "summary": "Infants under 1 are handled completely differently: no abdominal thrusts — instead alternating sets of 5 back blows (face-down along your forearm, head lower than chest) and 5 two-finger chest thrusts. Infant CPR also differs in depth (about 1.5 inches) and technique. If you care for babies even occasionally, a pediatric first-aid course is not optional; many hospitals offer them to new parents free or cheap.",
+        "links": [
+          {
+            "label": "Infant CPR — Wikipedia",
+            "url": "https://en.wikipedia.org/wiki/Cardiopulmonary_resuscitation",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "If an infant is ever in your care, book a pediatric first aid/CPR class this month; if not, forward a class link to one new parent you know."
+      ]
+    },
+    {
+      "id": "asthma-anaphylaxis",
+      "title": "Asthma & Anaphylaxis",
+      "tier": "essential",
+      "learn": {
+        "summary": "Anaphylaxis — severe allergic reaction with hives plus trouble breathing, throat tightness, or vomiting after exposure — is treated with epinephrine immediately, then 911, even if symptoms improve; auto-injectors (EpiPen) go into the outer mid-thigh and can be given through clothing. For asthma attacks, help the person sit upright and use their own reliever inhaler (typically blue), calling 911 if there's no improvement or they can't speak in sentences.",
+        "links": [
+          {
+            "label": "Anaphylaxis — Wikipedia",
+            "url": "https://en.wikipedia.org/wiki/Anaphylaxis",
+            "kind": "article"
+          },
+          {
+            "label": "Epinephrine autoinjector — Wikipedia",
+            "url": "https://en.wikipedia.org/wiki/Epinephrine_autoinjector",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Ask the people you live or work with whether anyone carries an inhaler or epinephrine auto-injector, and learn where it's kept."
+      ]
+    }
+  ]
+}

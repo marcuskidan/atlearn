@@ -1,0 +1,92 @@
+{
+  "id": "aerobic-base",
+  "title": "Aerobic Base",
+  "tier": "essential",
+  "learn": {
+    "summary": "Aerobic capacity is the engine everything else runs on, and it responds to boring, repeatable volume. The dose that matters for most people: 150+ minutes a week of moderate movement, mostly at an intensity where you can still talk. Build the base first; intensity comes later and works better on top of it.",
+    "links": [
+      {
+        "label": "Aerobic exercise — Wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Aerobic_exercise",
+        "kind": "article"
+      }
+    ]
+  },
+  "do": [
+    "Schedule three 30-minute brisk walks in your calendar this week, at specific times, and complete them."
+  ],
+  "children": [
+    {
+      "id": "walking-dose-response",
+      "title": "Walking Dose-Response",
+      "tier": "essential",
+      "learn": {
+        "summary": "Walking is the most underrated training tool in existence, and the dose-response curve is steep at the bottom: going from 2,000 to 7,000 daily steps cuts all-cause mortality risk far more than going from 7,000 to 12,000. Brisk means roughly 100 steps per minute. The first 30 minutes you add matter most.",
+        "links": [
+          {
+            "label": "Walking — Wikipedia",
+            "url": "https://en.wikipedia.org/wiki/Walking",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Add one 20-minute brisk walk to a day that currently has none — attach it to an existing habit like lunch or a phone call."
+      ]
+    },
+    {
+      "id": "zone-2-concept",
+      "title": "Zone 2 Training",
+      "tier": "essential",
+      "learn": {
+        "summary": "Zone 2 is conversational-pace cardio — roughly 60–70% of max heart rate, or the fastest pace at which you can still speak full sentences. It builds mitochondrial density and fat-burning capacity without the recovery cost of hard sessions. Elite endurance athletes spend about 80% of training time here; you should too.",
+        "links": [
+          {
+            "label": "Heart rate — training zones — Wikipedia",
+            "url": "https://en.wikipedia.org/wiki/Heart_rate",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Do one 30–45 minute session this week (walk, bike, or jog) at true talk-test pace — if you can't speak a full sentence, slow down."
+      ]
+    },
+    {
+      "id": "step-targets",
+      "title": "Step Targets",
+      "tier": "recommended",
+      "learn": {
+        "summary": "10,000 steps was a 1960s Japanese marketing number, not science — but it's a decent target anyway. Evidence shows benefits plateau around 7,000–9,000 daily steps for most adults. The trick is raising your floor: a consistent 7,000 every day beats 15,000 on Saturday and 2,000 all week.",
+        "links": [
+          {
+            "label": "Pedometer — Wikipedia",
+            "url": "https://en.wikipedia.org/wiki/Pedometer",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Check your phone's step history, find your current daily average, and set a target 1,500 steps higher for the next 7 days."
+      ]
+    },
+    {
+      "id": "neat",
+      "title": "NEAT",
+      "tier": "recommended",
+      "learn": {
+        "summary": "Non-exercise activity thermogenesis — fidgeting, standing, stairs, chores — can vary by up to 2,000 calories a day between people with identical workouts. It's the biggest lever in daily energy expenditure after basal metabolism, and it's invisible because none of it feels like exercise. Engineer it into your environment rather than relying on willpower.",
+        "links": [
+          {
+            "label": "Non-exercise activity thermogenesis — Wikipedia",
+            "url": "https://en.wikipedia.org/wiki/Non-exercise_activity_thermogenesis",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Pick two NEAT upgrades and run them all week: take every stair option you encounter, and stand or pace for all phone calls."
+      ]
+    }
+  ]
+}

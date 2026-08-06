@@ -1,0 +1,92 @@
+{
+  "id": "understanding-emotions",
+  "title": "Understanding Emotions",
+  "tier": "essential",
+  "learn": {
+    "summary": "Emotions are data, not directives: signals about needs, threats, and values, built by the brain partly from context and past experience (Lisa Feldman Barrett's constructed-emotion theory). The skill stack is: notice, name precisely, decode the message, choose the response. People who do this well — high 'emotional granularity' — show better regulation and health outcomes.",
+    "links": [
+      {
+        "label": "Emotion (Wikipedia)",
+        "url": "https://en.wikipedia.org/wiki/Emotion",
+        "kind": "article"
+      }
+    ]
+  },
+  "do": [
+    "Set two random phone alarms daily for three days. At each, name your current emotion with one precise word and what it might be signaling."
+  ],
+  "children": [
+    {
+      "id": "affect-labeling",
+      "title": "Affect Labeling",
+      "tier": "essential",
+      "learn": {
+        "summary": "Matthew Lieberman's UCLA studies show that putting feelings into words dampens amygdala response and engages prefrontal regulation — 'name it to tame it' (Dan Siegel's phrase) is real neuroscience, not a slogan. The effect works even though people predict labeling will make them feel worse. It is the cheapest regulation tool in existence: one honest sentence.",
+        "links": [
+          {
+            "label": "Affect labeling (Wikipedia)",
+            "url": "https://en.wikipedia.org/wiki/Affect_labeling",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Next strong emotion this week, say or write one plain sentence: 'I am feeling ___ right now.' Rate intensity before and after naming."
+      ]
+    },
+    {
+      "id": "emotional-granularity",
+      "title": "Emotional Granularity",
+      "tier": "recommended",
+      "learn": {
+        "summary": "Barrett's research finds people who distinguish 'irritated' from 'resentful' from 'depleted' (instead of one big 'bad') regulate better, drink less under stress, and are less likely to lash out — precision creates options, because each specific emotion suggests a different remedy. Granularity is trainable: exposure to finer-grained emotion vocabulary measurably improves it. 'Stressed' is usually a low-resolution label for something more actionable.",
+        "links": [
+          {
+            "label": "Emotional granularity (Wikipedia)",
+            "url": "https://en.wikipedia.org/wiki/Emotional_granularity",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Ban the words 'stressed' and 'fine' from your self-descriptions for one week; force a more precise word every time."
+      ]
+    },
+    {
+      "id": "emotions-as-data",
+      "title": "Emotions as Data",
+      "tier": "recommended",
+      "learn": {
+        "summary": "Each emotion family carries a rough message: anger flags a violated boundary or blocked goal, anxiety flags an uncertain future needing preparation, sadness flags loss needing processing, guilt flags a values breach, envy flags something you want. Treating emotions as sensor readings — sometimes miscalibrated, always informative — beats both suppression (rebound effects) and blind obedience. Read the gauge; then decide, with your values, whether to act.",
+        "links": [
+          {
+            "label": "Emotion (Wikipedia)",
+            "url": "https://en.wikipedia.org/wiki/Emotion",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Take your most persistent recent emotion and write two sentences: what is it flagging, and is the sensor accurate or miscalibrated here?"
+      ]
+    },
+    {
+      "id": "urge-surfing",
+      "title": "Urge Surfing",
+      "tier": "extra",
+      "learn": {
+        "summary": "Alan Marlatt's relapse-prevention technique treats cravings and urges as waves: they rise, crest, and fall within roughly 20–30 minutes if not fed. Instead of fighting or obeying the urge, you observe it with curiosity — where it sits in the body, how it changes — until it passes. Originally built for addiction, it works on any impulse: doomscrolling, snapping at someone, stress-eating.",
+        "links": [
+          {
+            "label": "G. Alan Marlatt (Wikipedia)",
+            "url": "https://en.wikipedia.org/wiki/G._Alan_Marlatt",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Pick one habitual urge (checking your phone, a snack, a sharp reply). Once this week, set a 10-minute timer and just watch the urge instead of acting. Note what happens to its intensity."
+      ]
+    }
+  ]
+}

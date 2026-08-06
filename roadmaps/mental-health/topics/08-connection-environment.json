@@ -1,0 +1,92 @@
+{
+  "id": "connection-environment",
+  "title": "Connection & Environment",
+  "tier": "essential",
+  "learn": {
+    "summary": "The Harvard Study of Adult Development — 85+ years running — finds relationship quality is the strongest predictor of late-life health and happiness, beating cholesterol, fame, and wealth. Meanwhile Holt-Lunstad's meta-analyses put loneliness's mortality risk in the smoking-and-obesity league, and the US Surgeon General declared a loneliness epidemic in 2023. Your mind lives in a social and physical environment; tend the habitat, not just the inhabitant.",
+    "links": [
+      {
+        "label": "Social connection (Wikipedia)",
+        "url": "https://en.wikipedia.org/wiki/Social_connection",
+        "kind": "article"
+      }
+    ]
+  },
+  "do": [
+    "Message or call one person you have been meaning to reach for over a month. Today, not this week."
+  ],
+  "children": [
+    {
+      "id": "relationships",
+      "title": "Investing in Relationships",
+      "tier": "essential",
+      "learn": {
+        "summary": "Relationships compound like savings: small regular deposits (checking in, showing up, remembering details) outperform rare grand gestures. Research on 'social fitness' (Waldinger's term from the Harvard study) treats connection as exercise — it atrophies without maintenance, and even brief contact with 'weak ties' like baristas and neighbors measurably lifts mood (Sandstrom's work). Frequency beats intensity.",
+        "links": [
+          {
+            "label": "Interpersonal relationship (Wikipedia)",
+            "url": "https://en.wikipedia.org/wiki/Interpersonal_relationship",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Set a recurring weekly 20-minute slot for proactive connection (a call or coffee) with someone in your top five, and keep it for a month."
+      ]
+    },
+    {
+      "id": "loneliness",
+      "title": "Understanding Loneliness",
+      "tier": "recommended",
+      "learn": {
+        "summary": "Loneliness is the subjective gap between connection wanted and connection felt — you can be lonely in a crowd or content alone (solitude is the voluntary, nourishing cousin). John Cacioppo's research shows chronic loneliness puts the brain in threat mode, ironically making lonely people more likely to expect rejection and withdraw further. The exit ramp is usually shared activity around a common interest, which outperforms forced socializing.",
+        "links": [
+          {
+            "label": "Loneliness (Wikipedia)",
+            "url": "https://en.wikipedia.org/wiki/Loneliness",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "If loneliness applies to you, join one recurring shared-interest activity (class, club, volunteer shift) and commit to attending three times before judging it."
+      ]
+    },
+    {
+      "id": "digital-hygiene",
+      "title": "Digital Hygiene",
+      "tier": "essential",
+      "learn": {
+        "summary": "The evidence pattern is consistent: passive scrolling and social comparison correlate with worse mood, while active connection (messaging real friends) does not carry the same cost — how you use the feed matters more than raw hours. Experiments limiting social media to ~30 minutes daily (Hunt, 2018) reduced loneliness and depression in students. High-leverage moves: phone out of the bedroom, notifications off by default, no feeds in the first and last hour of the day.",
+        "links": [
+          {
+            "label": "Digital detox (Wikipedia)",
+            "url": "https://en.wikipedia.org/wiki/Digital_detox",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Charge your phone outside the bedroom for seven nights and check your screen-time report before and after."
+      ]
+    },
+    {
+      "id": "nature-exposure",
+      "title": "Nature Exposure",
+      "tier": "recommended",
+      "learn": {
+        "summary": "A 2019 study of 20,000 people (White et al.) found wellbeing benefits reliably appear around 120 minutes of nature time per week, in any chunks. Mechanisms include attention restoration (Kaplan's theory: nature replenishes depleted directed attention), stress-hormone reduction, and exercise smuggled in by scenery. Urban parks count; a window with trees helps; Japan prescribes 'forest bathing' formally.",
+        "links": [
+          {
+            "label": "Nature therapy (Wikipedia)",
+            "url": "https://en.wikipedia.org/wiki/Nature_therapy",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Bank 120 minutes of green time this week in any combination, and log the minutes like a workout."
+      ]
+    }
+  ]
+}

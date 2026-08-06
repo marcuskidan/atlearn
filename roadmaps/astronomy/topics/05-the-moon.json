@@ -1,0 +1,120 @@
+{
+  "id": "the-moon",
+  "title": "The Moon",
+  "tier": "essential",
+  "learn": {
+    "summary": "The Moon is the only celestial body that shows rich detail to any instrument, including none. It is also the observer's frenemy: its glare washes out deep-sky objects, so serious observers plan around the lunar cycle. Learn to love it — it's the best target you'll ever have this close.",
+    "links": [
+      {
+        "label": "Moon (Wikipedia)",
+        "url": "https://en.wikipedia.org/wiki/Moon",
+        "kind": "article"
+      },
+      {
+        "label": "NASA Moon",
+        "url": "https://science.nasa.gov/moon/",
+        "kind": "article"
+      }
+    ]
+  },
+  "do": [
+    "Observe the Moon on three different nights over the next two weeks and sketch how the visible features change."
+  ],
+  "children": [
+    {
+      "id": "lunar-phases",
+      "title": "Phases",
+      "tier": "essential",
+      "learn": {
+        "summary": "Phases come from geometry, not Earth's shadow: we see varying fractions of the Moon's sunlit half as it orbits every 29.5 days. Waxing phases ride the evening sky; the waning Moon belongs to after-midnight and dawn. A common test of real understanding: explain why you can never see a full Moon at noon.",
+        "links": [
+          {
+            "label": "Lunar phase (Wikipedia)",
+            "url": "https://en.wikipedia.org/wiki/Lunar_phase",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Track the Moon for one full week: each day, note its phase and where it is at sunset (or that it isn't up), and predict tomorrow's position before checking."
+      ]
+    },
+    {
+      "id": "terminator",
+      "title": "The Terminator",
+      "tier": "essential",
+      "learn": {
+        "summary": "The terminator — the sunrise/sunset line crossing the lunar face — is where shadows stretch long and craters and mountains leap into 3D relief. Full Moon is paradoxically the worst time to observe detail: light falls straight down and shadows vanish. Observers follow the terminator night by night as it reveals new terrain.",
+        "links": [
+          {
+            "label": "Terminator (solar) (Wikipedia)",
+            "url": "https://en.wikipedia.org/wiki/Terminator_(solar)",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "During a quarter phase, view the Moon with any optical aid (even zoomed phone camera) and compare crater visibility right at the terminator versus near the bright limb."
+      ]
+    },
+    {
+      "id": "maria-and-craters",
+      "title": "Maria & Craters",
+      "tier": "essential",
+      "learn": {
+        "summary": "The dark 'seas' (maria) are ancient basaltic lava plains, 3-4 billion years old, covering 16% of the surface and concentrated on the near side. Naked-eye, they form the face of the 'Man in the Moon'; binoculars add the great rayed craters Tycho and Copernicus. Learning ten features by name turns the Moon from a disk into a place.",
+        "links": [
+          {
+            "label": "Lunar mare (Wikipedia)",
+            "url": "https://en.wikipedia.org/wiki/Lunar_mare",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Using a lunar map, identify Mare Tranquillitatis (Apollo 11's landing sea) and the crater Tycho on the real Moon this week."
+      ]
+    },
+    {
+      "id": "earthshine",
+      "title": "Earthshine",
+      "tier": "extra",
+      "learn": {
+        "summary": "Within a few days of new Moon, the dark portion glows faintly — 'the old Moon in the new Moon's arms.' That's sunlight reflected off Earth onto the lunar night side and back; Leonardo da Vinci correctly explained it around 1510. It's brightest when Earth's cloud cover is high, making it a crude mirror of our own planet's weather.",
+        "links": [
+          {
+            "label": "Earthlight (astronomy) (Wikipedia)",
+            "url": "https://en.wikipedia.org/wiki/Earthlight_(astronomy)",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Within 3 days after the next new Moon, look west after sunset for the crescent and confirm you can see the whole dim disk cradled inside it."
+      ]
+    },
+    {
+      "id": "eclipses",
+      "title": "Eclipses",
+      "tier": "recommended",
+      "learn": {
+        "summary": "Lunar eclipses occur when the Moon passes through Earth's shadow, turning coppery-red from sunlight refracted through our atmosphere — safe to watch and visible from an entire hemisphere. Solar eclipses need the Moon to cover the Sun and demand certified eye protection except during totality. Eclipses only happen when the Moon crosses the ecliptic plane near new or full phase, which is why they don't occur monthly.",
+        "links": [
+          {
+            "label": "Lunar eclipse (Wikipedia)",
+            "url": "https://en.wikipedia.org/wiki/Lunar_eclipse",
+            "kind": "article"
+          },
+          {
+            "label": "NASA Eclipses",
+            "url": "https://science.nasa.gov/eclipses/",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Look up the next lunar and solar eclipses visible from your location and put both dates in your calendar now."
+      ]
+    }
+  ]
+}

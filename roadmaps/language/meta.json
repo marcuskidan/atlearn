@@ -1,0 +1,9 @@
+{
+  "id": "language",
+  "emoji": "🗣️",
+  "title": "Learning Any Language",
+  "tagline": "From zero to real conversations, using the science of how adults actually acquire languages",
+  "curricula": "CEFR framework, FSI language-learning research, Krashen's comprehensible-input theory",
+  "order": 12,
+  "maintainer": "The Overseer"
+}

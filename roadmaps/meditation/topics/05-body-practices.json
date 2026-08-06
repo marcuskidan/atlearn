@@ -1,0 +1,92 @@
+{
+  "id": "body-practices",
+  "title": "Body Practices",
+  "tier": "essential",
+  "learn": {
+    "summary": "MBSR actually opens with the body scan, not breath meditation, because body sensation is more concrete than breath for many beginners. Body-based practices train interoception, the sense of internal bodily state, and give you formats for practicing while moving through an ordinary day. They also make meditation possible on days when sitting still feels unbearable.",
+    "links": [
+      {
+        "label": "MBSR (Wikipedia)",
+        "url": "https://en.wikipedia.org/wiki/Mindfulness-based_stress_reduction",
+        "kind": "article"
+      }
+    ]
+  },
+  "do": [
+    "Do one 15-minute body scan lying down this week, moving attention from toes to head one region at a time."
+  ],
+  "children": [
+    {
+      "id": "body-scan",
+      "title": "Body Scan",
+      "tier": "essential",
+      "learn": {
+        "summary": "The body scan moves attention slowly through the body region by region, feeling whatever is there, including numbness or nothing, without trying to change it. In MBSR it is the first formal practice, assigned 45 minutes daily for two weeks. Falling asleep is the classic failure mode; doing it seated or at a non-drowsy hour fixes most of it.",
+        "links": [
+          {
+            "label": "Interoception (Wikipedia)",
+            "url": "https://en.wikipedia.org/wiki/Interoception",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Do 3 body scans of at least 10 minutes this week, at a time of day you are not sleepy."
+      ]
+    },
+    {
+      "id": "walking-meditation",
+      "title": "Walking Meditation",
+      "tier": "essential",
+      "learn": {
+        "summary": "Formal walking meditation (kinhin in Zen, cankama in Theravada) uses the sensations of lifting, moving, and placing the feet as the anchor, often at deliberately slow speed over a short path. It is the standard alternation with sitting on retreats because it keeps the body awake. It also converts any ordinary walk into practice time.",
+        "links": [
+          {
+            "label": "Walking meditation (Wikipedia)",
+            "url": "https://en.wikipedia.org/wiki/Walking_meditation",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Walk a 10-step path back and forth for 10 minutes this week, attending only to foot sensations, phone left inside."
+      ]
+    },
+    {
+      "id": "mindful-movement",
+      "title": "Mindful Movement",
+      "tier": "recommended",
+      "learn": {
+        "summary": "MBSR includes gentle hatha yoga as formal practice: slow movement with continuous attention to sensation and breath, staying inside your actual range rather than performing poses. Tai chi and qigong train the same moving attention. The test of mindful movement is simple: are you feeling the movement or thinking about something else while your body does it?",
+        "links": [
+          {
+            "label": "Hatha yoga (Wikipedia)",
+            "url": "https://en.wikipedia.org/wiki/Hatha_yoga",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Do 10 minutes of slow stretching this week with attention locked on sensation, counting how many times attention leaves the body."
+      ]
+    },
+    {
+      "id": "eating-meditation",
+      "title": "Eating Meditation",
+      "tier": "extra",
+      "learn": {
+        "summary": "MBSR famously begins week one with the raisin exercise: several minutes seeing, smelling, touching, and finally tasting a single raisin as if never encountered before. It demonstrates how much experience routine attention deletes. Mindful eating research also links slower eating to better satiety signaling, though the weight-loss evidence is mixed.",
+        "links": [
+          {
+            "label": "Harvard Nutrition Source: Mindful Eating",
+            "url": "https://www.hsph.harvard.edu/nutritionsource/mindful-eating/",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Eat the first 3 bites of one meal per day this week in silence, utensil down between bites, noticing taste changes."
+      ]
+    }
+  ]
+}

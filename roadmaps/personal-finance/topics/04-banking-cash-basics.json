@@ -1,0 +1,97 @@
+{
+  "id": "banking-cash-basics",
+  "title": "Banking and Cash Basics",
+  "tier": "essential",
+  "learn": {
+    "summary": "Banking is plumbing: checking for flow, savings for storage, and a fee structure that quietly rewards people who read the disclosure and penalizes people who don't. Overdraft and maintenance fees fall hardest on those with the least slack — the CFPB has documented billions per year in such charges. Knowing how accounts, deposit insurance, and emergency buffers work is basic infrastructure literacy.",
+    "links": [
+      {
+        "label": "CFPB: Bank accounts and services",
+        "url": "https://www.consumerfinance.gov/consumer-tools/bank-accounts/",
+        "kind": "article"
+      }
+    ]
+  },
+  "do": [
+    "Read your bank's fee schedule (it's a short PDF on their site) and list every fee you could plausibly be charged, with amounts."
+  ],
+  "children": [
+    {
+      "id": "account-types",
+      "title": "Account Types",
+      "tier": "essential",
+      "learn": {
+        "summary": "Checking accounts prioritize access (debit cards, transfers, bill pay) and typically pay little or no interest; savings accounts pay interest and may limit certain withdrawal types; money market accounts and certificates of deposit (CDs) trade more access for more yield. Interest rates on savings vary enormously between institutions for the identical product — the rate is set by the bank, not the account type. Credit unions are member-owned cooperatives offering the same account types under different economics.",
+        "links": [
+          {
+            "label": "Wikipedia: Savings account",
+            "url": "https://en.wikipedia.org/wiki/Savings_account",
+            "kind": "article"
+          },
+          {
+            "label": "Wikipedia: Credit union",
+            "url": "https://en.wikipedia.org/wiki/Credit_union",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Look up the current interest rate (APY) on your own savings account, then look up the national average and one high-yield rate for comparison — just to know the spread."
+      ]
+    },
+    {
+      "id": "bank-fees",
+      "title": "Understanding Fees",
+      "tier": "essential",
+      "learn": {
+        "summary": "The big four: overdraft fees (often around $35 per event), monthly maintenance fees (frequently waivable via direct deposit or minimum balance), out-of-network ATM fees (charged twice — by your bank and the ATM owner), and wire or foreign transaction fees. Banks must disclose all of these; the CFPB's rules and enforcement have pushed many banks to reduce or drop overdraft charges. Most fees are avoidable once you know the trigger conditions.",
+        "links": [
+          {
+            "label": "Wikipedia: Overdraft",
+            "url": "https://en.wikipedia.org/wiki/Overdraft",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Search your last 12 months of statements for the word 'fee', total what you paid, and identify the trigger condition for each charge."
+      ]
+    },
+    {
+      "id": "fdic-insurance",
+      "title": "Deposit Insurance",
+      "tier": "recommended",
+      "learn": {
+        "summary": "FDIC insurance (NCUA for credit unions) protects deposits up to $250,000 per depositor, per insured bank, per ownership category — created in 1933 after waves of bank runs, and no depositor has lost a cent of insured funds since. It covers checking, savings, money market accounts, and CDs; it does not cover investments like stocks, mutual funds, or crypto, even when bought through a bank. Fintech apps that aren't banks may hold your money in ways with different protections — worth checking, not assuming.",
+        "links": [
+          {
+            "label": "Wikipedia: Federal Deposit Insurance Corporation",
+            "url": "https://en.wikipedia.org/wiki/Federal_Deposit_Insurance_Corporation",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Verify that each institution holding your cash is FDIC or NCUA insured (their sites say so, and the regulators have lookup tools), and note any app where your money's insured status is unclear."
+      ]
+    },
+    {
+      "id": "emergency-fund-concept",
+      "title": "Emergency Fund Concept",
+      "tier": "essential",
+      "learn": {
+        "summary": "An emergency fund is self-insurance: liquid cash that converts a crisis (job loss, car repair, medical bill) into an inconvenience instead of high-interest debt. Common guidance ranges from a starter buffer of $500-$1,000 up to 3-6 months of essential expenses, but Federal Reserve surveys have repeatedly found a large share of Americans would struggle with an unexpected $400 expense — so any buffer beats none. The defining feature is accessibility, not yield.",
+        "links": [
+          {
+            "label": "CFPB: Guide to building an emergency fund",
+            "url": "https://www.consumerfinance.gov/an-essential-guide-to-building-an-emergency-fund/",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Calculate your one-month essential-expenses number (housing, food, utilities, transport, insurance, minimum payments) and compare it to your current liquid savings."
+      ]
+    }
+  ]
+}

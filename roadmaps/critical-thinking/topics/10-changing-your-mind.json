@@ -1,0 +1,97 @@
+{
+  "id": "changing-your-mind",
+  "title": "Changing Your Mind",
+  "tier": "essential",
+  "learn": {
+    "summary": "All the skills upstream are worthless if new evidence can't actually move you. Julia Galef's 'scout mindset' names the goal: wanting an accurate map more than a defended position. Updating is a skill with mechanics — small revisions instead of conversions, beliefs held separately from identity, and social environments where saying 'I was wrong' costs status instead of earning contempt.",
+    "links": [
+      {
+        "label": "Wikipedia: The Scout Mindset",
+        "url": "https://en.wikipedia.org/wiki/The_Scout_Mindset",
+        "kind": "article"
+      }
+    ]
+  },
+  "do": [
+    "Write down one belief you've actually changed in the past five years and what changed it; if you can't think of any, treat that as data about your process."
+  ],
+  "children": [
+    {
+      "id": "belief-revision",
+      "title": "Belief Revision",
+      "tier": "recommended",
+      "learn": {
+        "summary": "Think of beliefs as probabilities, not binaries: evidence should nudge you from 70% to 60%, not demand a dramatic conversion — which is exactly why all-or-nothing framing makes people update never. Bayesian updating is the formal model: prior belief times strength of evidence yields the new belief. The practical habit is asking 'how much should this move me?' instead of 'does this refute me?'.",
+        "links": [
+          {
+            "label": "Wikipedia: Bayesian inference",
+            "url": "https://en.wikipedia.org/wiki/Bayesian_inference",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Pick one belief, write your confidence as a percentage, then after encountering one new piece of evidence this week, write the revised percentage and a one-line justification."
+      ]
+    },
+    {
+      "id": "identity-and-beliefs",
+      "title": "Identity and Beliefs",
+      "tier": "essential",
+      "learn": {
+        "summary": "When a belief becomes part of who you are — 'as a [party/diet/team] person, I believe...' — evidence against it registers as a personal attack, and cognitive dissonance research (Festinger) shows people often double down rather than update. Paul Graham's advice: keep your identity small; the fewer beliefs fused to your self-image, the more freely you can think. You can hold strong opinions without wearing them.",
+        "links": [
+          {
+            "label": "Wikipedia: Cognitive dissonance",
+            "url": "https://en.wikipedia.org/wiki/Cognitive_dissonance",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "List 3 beliefs that feel like part of your identity, and for each, write what it would cost you socially to change your mind — that cost is the bias you're carrying."
+      ]
+    },
+    {
+      "id": "scout-mindset",
+      "title": "Scout Mindset",
+      "tier": "essential",
+      "learn": {
+        "summary": "Galef contrasts the soldier, who reasons to defend a position, with the scout, whose job is an accurate map regardless of what it shows. Her self-tests are usable immediately: the outsider test (would I judge this differently if the other side did it?), the status quo test (would I choose my current situation if it weren't already mine?), and noticing the difference between 'can I?' and 'must I?' reasoning. Scouts aren't less passionate — they just aim the passion at accuracy.",
+        "links": [
+          {
+            "label": "Wikipedia: Julia Galef",
+            "url": "https://en.wikipedia.org/wiki/Julia_Galef",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Run the outsider test on one of your current judgments this week: swap the actors' identities and write down honestly whether your verdict changes."
+      ]
+    },
+    {
+      "id": "intellectual-humility",
+      "title": "Intellectual Humility",
+      "tier": "extra",
+      "learn": {
+        "summary": "Intellectual humility — owning the limits of what you know — correlates in studies with better evidence evaluation and more accurate self-assessment, and it is not the same as low confidence or indecision. The Dunning-Kruger effect describes the inverse failure: limited skill in a domain also limits the ability to recognize that limit. Practical humility sounds like 'here's my confidence and here's what would change it', which is both honest and, ironically, more persuasive.",
+        "links": [
+          {
+            "label": "Wikipedia: Intellectual humility",
+            "url": "https://en.wikipedia.org/wiki/Intellectual_humility",
+            "kind": "article"
+          },
+          {
+            "label": "Wikipedia: Dunning–Kruger effect",
+            "url": "https://en.wikipedia.org/wiki/Dunning%E2%80%93Kruger_effect",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Say 'I don't know' or 'I was wrong about that' out loud at least twice this week in real conversations, and note how the conversation actually responds versus what you feared."
+      ]
+    }
+  ]
+}

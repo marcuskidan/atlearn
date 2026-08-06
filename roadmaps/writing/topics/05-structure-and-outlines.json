@@ -1,0 +1,92 @@
+{
+  "id": "structure-and-outlines",
+  "title": "Structure & Outlines",
+  "tier": "essential",
+  "learn": {
+    "summary": "Readers decide in the first paragraph whether to give you a second one — Zinsser calls the lead the most important sentence and 'the next most important' the one after it. Structure is the sequence of those decisions: a beginning that earns attention, a middle that never wanders, an ending that resonates. Whether you outline first or discover by drafting, the shipped piece must read as if it was always inevitable.",
+    "links": [
+      {
+        "label": "Outline (list)",
+        "url": "https://en.wikipedia.org/wiki/Outline_(list)",
+        "kind": "article"
+      }
+    ]
+  },
+  "do": [
+    "Before your next piece, write a five-line skeleton: the lead, three middle beats, the ending. Draft only after the skeleton convinces you."
+  ],
+  "children": [
+    {
+      "id": "strong-beginnings",
+      "title": "Beginnings",
+      "tier": "essential",
+      "learn": {
+        "summary": "A lead has two jobs: seize attention and promise what is coming — and it must do both honestly, since a bait-and-switch opening costs you the reader at paragraph three. Working openings include the surprising fact, the specific scene, the direct claim, and the question the piece will answer; the opening that never works is warm-up ('In today's fast-paced world...'). Journalists often draft the lead last, once they know what the piece actually says.",
+        "links": [
+          {
+            "label": "Lead paragraph",
+            "url": "https://en.wikipedia.org/wiki/Lead_paragraph",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Write three different leads (fact, scene, claim) for the same piece and ask one reader which makes them want paragraph two."
+      ]
+    },
+    {
+      "id": "outlining-vs-discovery",
+      "title": "Outlining vs Discovery",
+      "tier": "extra",
+      "learn": {
+        "summary": "Writers split into planners and discovery writers ('pantsers' in fiction circles): planners outline before drafting; discovery writers draft to find out what they think, then impose structure in revision. Both work — the failure mode is pretending to be neither, drafting without a plan and shipping without restructuring. Match the method to the piece: arguments and reports reward outlines; essays and stories often need a discovery draft first.",
+        "links": [
+          {
+            "label": "Outline (list)",
+            "url": "https://en.wikipedia.org/wiki/Outline_(list)",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Write one short piece each way this month — fully outlined, and discovery-drafted then restructured — and note which produced better work faster."
+      ]
+    },
+    {
+      "id": "inverted-pyramid",
+      "title": "The Inverted Pyramid",
+      "tier": "recommended",
+      "learn": {
+        "summary": "Journalism's inverted pyramid puts the conclusion first, then supporting detail in descending importance, so the piece survives being cut from the bottom — and survives readers who stop early, which is all of them. The military's BLUF ('bottom line up front') is the same idea for memos. Use it for anything informational: status updates, emails, reports. Save suspense for stories.",
+        "links": [
+          {
+            "label": "Inverted pyramid (journalism)",
+            "url": "https://en.wikipedia.org/wiki/Inverted_pyramid_(journalism)",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Rewrite your next status email inverted-pyramid style: the one-sentence bottom line first, details after, background last."
+      ]
+    },
+    {
+      "id": "endings-that-land",
+      "title": "Endings That Land",
+      "tier": "extra",
+      "learn": {
+        "summary": "Zinsser's advice on endings: 'when you're ready to stop, stop' — and take the reader 'slightly by surprise'. The weak ending summarizes what the reader just read; the strong one adds a final turn: a callback to the opening image, an apt quotation, a consequence that widens the frame. Because the last sentence is what echoes, professionals often rewrite it more than any other sentence in the piece.",
+        "links": [
+          {
+            "label": "On Writing Well",
+            "url": "https://en.wikipedia.org/wiki/On_Writing_Well",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Delete the final summarizing paragraph of a recent piece and craft a one- or two-sentence ending that echoes your opening instead."
+      ]
+    }
+  ]
+}

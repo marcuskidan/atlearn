@@ -1,0 +1,97 @@
+{
+  "id": "reading-music",
+  "title": "Reading Music",
+  "tier": "essential",
+  "learn": {
+    "summary": "Notation is a map of pitch (vertical) against time (horizontal). Reading fluency comes from the same place reading words does — repeated exposure at easy levels — and rhythm literacy should come before pitch literacy. You do not need it to make music, but it unlocks 400 years of written repertoire.",
+    "links": [
+      {
+        "label": "Musical notation (Wikipedia)",
+        "url": "https://en.wikipedia.org/wiki/Musical_notation",
+        "kind": "article"
+      }
+    ]
+  },
+  "do": [
+    "Do the musictheory.net note-identification exercise for five minutes today — treble clef only, and log your accuracy."
+  ],
+  "children": [
+    {
+      "id": "staff-and-clefs",
+      "title": "Staff & Clefs",
+      "tier": "essential",
+      "learn": {
+        "summary": "The five-line staff gets its meaning from a clef: the treble (G) clef curls around the G line; the bass (F) clef's two dots straddle the F line. Treble lines are E-G-B-D-F and spaces spell FACE; middle C sits on a ledger line between the two staves. That is the whole entry fee.",
+        "links": [
+          {
+            "label": "Clef (Wikipedia)",
+            "url": "https://en.wikipedia.org/wiki/Clef",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Hand-draw a treble staff and label every line and space, then name 20 random notes on the musictheory.net trainer without counting from E."
+      ]
+    },
+    {
+      "id": "rhythm-first-reading",
+      "title": "Rhythm-First Reading",
+      "tier": "essential",
+      "learn": {
+        "summary": "Most sight-reading crashes are rhythm crashes, so read rhythm as its own skill: take real sheet music and clap it, ignoring pitch entirely. Notice how beams group eighth notes into beats — the notation is literally drawing the pulse for you. Pitch can be wrong and the music survives; rhythm cannot.",
+        "links": [
+          {
+            "label": "Note value (Wikipedia)",
+            "url": "https://en.wikipedia.org/wiki/Note_value",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Print or open any easy sheet music and clap the rhythm of eight bars while counting aloud — do a fresh eight bars each day this week."
+      ]
+    },
+    {
+      "id": "sight-reading-habits",
+      "title": "Sight-Reading Habits",
+      "tier": "recommended",
+      "learn": {
+        "summary": "The iron rule of sight-reading: never stop, never go back — keeping the pulse outranks correcting notes, exactly as ABRSM examiners grade it. Before playing, scan for key signature, time signature, and the trickiest bar. Read material two grades below your playing level; struggle reading trains stumbling, easy reading trains fluency.",
+        "links": [
+          {
+            "label": "Sight-reading (Wikipedia)",
+            "url": "https://en.wikipedia.org/wiki/Sight-reading",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Sight-read one very easy piece today without stopping, even through mistakes — then immediately note the one bar that nearly derailed you."
+      ]
+    },
+    {
+      "id": "tabs-and-lead-sheets",
+      "title": "Tabs & Lead Sheets",
+      "tier": "recommended",
+      "learn": {
+        "summary": "Guitar tablature shows which fret on which string — instantly readable but rhythm-blind, so always learn the song's sound first. Lead sheets carry just the melody plus chord symbols (the jazz \"Real Book\" format) and are the working musician's default. Neither is cheating; they are different tools for different jobs.",
+        "links": [
+          {
+            "label": "Tablature (Wikipedia)",
+            "url": "https://en.wikipedia.org/wiki/Tablature",
+            "kind": "article"
+          },
+          {
+            "label": "Lead sheet (Wikipedia)",
+            "url": "https://en.wikipedia.org/wiki/Lead_sheet",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Find a lead sheet or chord chart for one song you love and follow along with the recording, pointing at each chord as it arrives."
+      ]
+    }
+  ]
+}

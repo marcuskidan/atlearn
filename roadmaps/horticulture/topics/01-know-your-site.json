@@ -1,0 +1,98 @@
+{
+  "id": "know-your-site",
+  "title": "Know Your Site",
+  "tier": "essential",
+  "learn": {
+    "summary": "Before buying a single plant, spend a week learning what your yard actually offers: hours of direct sun, your USDA hardiness zone, and your average first and last frost dates. Most vegetables and fruiting plants need 6-8 hours of direct sun; leafy greens get by on 3-4. Plants fail more often from wrong-place placement than from bad care.",
+    "links": [
+      {
+        "label": "USDA Plant Hardiness Zone Map",
+        "url": "https://planthardiness.ars.usda.gov/",
+        "kind": "tool"
+      },
+      {
+        "label": "Hardiness zone (Wikipedia)",
+        "url": "https://en.wikipedia.org/wiki/Hardiness_zone",
+        "kind": "article"
+      }
+    ]
+  },
+  "do": [
+    "Walk your yard at 9am, noon, and 4pm this week and sketch which areas get direct sun at each check-in",
+    "Look up your USDA zone and last spring frost date and write both at the front of a garden notebook"
+  ],
+  "children": [
+    {
+      "id": "sun-mapping",
+      "title": "Sun Mapping",
+      "tier": "essential",
+      "learn": {
+        "summary": "Full sun means 6+ hours of direct light, part sun 4-6, part shade 2-4, full shade under 2. Sun angles shift dramatically between June and September, so a spot that is full sun in midsummer can be part shade by fall. Map before you plant: tomatoes, peppers, and squash sulk below 6 hours.",
+        "links": [
+          {
+            "label": "Sunlight (Wikipedia)",
+            "url": "https://en.wikipedia.org/wiki/Sunlight",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Pick your three sunniest spots from your sun sketch and label each full sun, part sun, or part shade with hour counts"
+      ]
+    },
+    {
+      "id": "hardiness-zones",
+      "title": "Hardiness Zones",
+      "tier": "essential",
+      "learn": {
+        "summary": "USDA zones are 10°F bands of average annual minimum winter temperature, split into 5°F half-zones (7a, 7b). They tell you which perennials, trees, and shrubs survive your winter — nothing about summer heat, rainfall, or soil. Buy perennials rated at least to your zone, ideally one zone hardier.",
+        "links": [
+          {
+            "label": "USDA Plant Hardiness Zone Map",
+            "url": "https://planthardiness.ars.usda.gov/",
+            "kind": "tool"
+          }
+        ]
+      },
+      "do": [
+        "Check the zone rating on three perennials you own or want, and flag any rated less hardy than your zone"
+      ]
+    },
+    {
+      "id": "frost-dates",
+      "title": "Frost Dates",
+      "tier": "essential",
+      "learn": {
+        "summary": "Your average last spring frost and first fall frost bracket the growing season; the days between are what a seed packet means by \"days to maturity\" runway. These are 50/50 averages, not guarantees — a light frost (28-32°F) kills basil and tomatoes but sweetens kale and carrots. Count backward from frost dates to schedule every sowing.",
+        "links": [
+          {
+            "label": "Frost (Wikipedia)",
+            "url": "https://en.wikipedia.org/wiki/Frost",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Calculate your season length in days (last spring frost to first fall frost) and compare it to the days-to-maturity on two seed packets"
+      ]
+    },
+    {
+      "id": "microclimates",
+      "title": "Microclimates",
+      "tier": "recommended",
+      "learn": {
+        "summary": "A south-facing brick wall, a low frost pocket, or a windy corner can differ from the rest of your yard by an effective half zone or more. Masonry stores daytime heat and releases it at night; cold air flows downhill and pools in dips. Use warm microclimates to push marginal plants like figs or rosemary in cold zones.",
+        "links": [
+          {
+            "label": "Microclimate (Wikipedia)",
+            "url": "https://en.wikipedia.org/wiki/Microclimate",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "On a frosty or cold morning, note where frost lingers longest and melts first in your yard — mark both spots on your sun map"
+      ]
+    }
+  ]
+}

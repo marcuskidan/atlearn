@@ -1,0 +1,97 @@
+{
+  "id": "sound-first",
+  "title": "Sound Before Script",
+  "tier": "essential",
+  "learn": {
+    "summary": "Adults who skip pronunciation early pay for it forever: you cannot reliably remember, or even hear, words whose sounds your brain lumps together. Spend your first weeks mapping the language's phoneme inventory — the specific set of sounds it distinguishes — before drilling vocabulary. Your ears train faster than your mouth, so prioritize discrimination (hearing differences) first.",
+    "links": [
+      {
+        "label": "Phoneme",
+        "url": "https://en.wikipedia.org/wiki/Phoneme",
+        "kind": "article"
+      },
+      {
+        "label": "Forvo pronunciation dictionary",
+        "url": "https://forvo.com",
+        "kind": "tool"
+      }
+    ]
+  },
+  "do": [
+    "List the 5-10 sounds in your target language that do not exist in your native language, with an example word for each."
+  ],
+  "children": [
+    {
+      "id": "phoneme-inventory",
+      "title": "Phoneme Inventory",
+      "tier": "essential",
+      "learn": {
+        "summary": "Every language selects a subset of possible human sounds: Spanish has 5 vowels, English roughly 12-14 (dialect-dependent), Danish over 20. The dangerous sounds are not the exotic ones but the near-misses — Japanese lacks the English l/r contrast, Arabic distinguishes emphatic consonants English speakers merge. Study the inventory as a checklist so you know exactly which contrasts need deliberate training.",
+        "links": [
+          {
+            "label": "Phonology",
+            "url": "https://en.wikipedia.org/wiki/Phonology",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Find the Wikipedia phonology article for your target language and mark every sound absent from your native language."
+      ]
+    },
+    {
+      "id": "minimal-pairs",
+      "title": "Minimal Pairs",
+      "tier": "essential",
+      "learn": {
+        "summary": "A minimal pair is two words differing by a single sound — ship/sheep, Korean 불/뿔. Minimal-pair drills, where you hear a word and must pick which of two you heard, are the fastest known way to build new sound categories in an adult brain; perception research shows measurable gains within a few hundred trials with immediate feedback. Train the pairs your native language merges.",
+        "links": [
+          {
+            "label": "Minimal pair",
+            "url": "https://en.wikipedia.org/wiki/Minimal_pair",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Do 10 minutes of minimal-pair listening drills on 3 days this week, focusing on your two hardest contrasts."
+      ]
+    },
+    {
+      "id": "ipa-basics",
+      "title": "IPA Basics",
+      "tier": "recommended",
+      "learn": {
+        "summary": "The International Phonetic Alphabet gives every human speech sound one unambiguous symbol, which frees you from misleading spellings — French 'eau' is just /o/. You do not need the whole chart; learning the 30-40 symbols relevant to your language pair takes an afternoon and pays off every time you open a dictionary. It also gives you vocabulary for what your mouth is doing: voicing, aspiration, nasal vowels.",
+        "links": [
+          {
+            "label": "International Phonetic Alphabet",
+            "url": "https://en.wikipedia.org/wiki/International_Phonetic_Alphabet",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Learn the IPA symbols for every phoneme in your target language and transcribe 10 words you already know."
+      ]
+    },
+    {
+      "id": "prosody-and-rhythm",
+      "title": "Prosody & Rhythm",
+      "tier": "extra",
+      "learn": {
+        "summary": "Prosody — stress, rhythm, intonation, and (in languages like Mandarin, Vietnamese, or Swedish) tone or pitch accent — carries more of your 'accent' than individual consonants do. Listeners forgive a wrong vowel far more readily than wrong sentence melody. Hum sentences without words to isolate the tune; it feels silly and works remarkably well.",
+        "links": [
+          {
+            "label": "Prosody (linguistics)",
+            "url": "https://en.wikipedia.org/wiki/Prosody_(linguistics)",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Pick 5 recorded sentences, hum their melody without words, then say them mimicking the exact pitch contour."
+      ]
+    }
+  ]
+}

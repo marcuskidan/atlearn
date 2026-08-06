@@ -1,0 +1,92 @@
+{
+  "id": "the-writing-life",
+  "title": "The Writing Life",
+  "tier": "recommended",
+  "learn": {
+    "summary": "Writers are made by routines, not lightning: nearly every professional in interviews (the Paris Review's Writers at Work series is the canon) describes fixed hours, modest daily quotas, and decades of rejection absorbed as postage. The practice is a loop — read widely, write daily, share, get rejected, revise, repeat — and the loop, run for years, is the whole secret.",
+    "links": [
+      {
+        "label": "The Paris Review",
+        "url": "https://en.wikipedia.org/wiki/The_Paris_Review",
+        "kind": "article"
+      }
+    ]
+  },
+  "do": [
+    "Design your minimum daily writing ritual — same time, same place, same trigger — and run it for 21 consecutive days, tracking completions."
+  ],
+  "children": [
+    {
+      "id": "daily-practice",
+      "title": "Daily Practice",
+      "tier": "essential",
+      "learn": {
+        "summary": "Zinsser's blunt claim: 'You learn to write by writing' — a craft improved by doing, on schedule, whether inspired or not. Small and daily beats big and occasional, because each session lowers the re-entry cost of the next; even 15 minutes maintains the thread. Julia Cameron's 'morning pages' (three longhand pages, unedited, every morning) is one proven on-ramp; a nightly 200-word journal is another.",
+        "links": [
+          {
+            "label": "Julia Cameron",
+            "url": "https://en.wikipedia.org/wiki/Julia_Cameron",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Write 15 minutes daily at the same time for two weeks; the only rule is that zero-word days are not allowed."
+      ]
+    },
+    {
+      "id": "sharing-your-work",
+      "title": "Sharing Your Work",
+      "tier": "recommended",
+      "learn": {
+        "summary": "Unshared writing improves slowly because you are grading your own exam. Publishing anywhere — a newsletter, a blog, a workshop group, even a standing email to five friends — adds the two missing ingredients: deadlines and readers. Ship on a schedule and volume does the teaching; the writer who publishes twelve imperfect pieces a year learns more than the one perfecting a single draft in private.",
+        "links": [
+          {
+            "label": "Blog",
+            "url": "https://en.wikipedia.org/wiki/Blog",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Publish one piece somewhere real within 14 days — newsletter, blog, or an email to five chosen readers — and commit publicly to a monthly cadence."
+      ]
+    },
+    {
+      "id": "handling-rejection",
+      "title": "Rejection",
+      "tier": "extra",
+      "learn": {
+        "summary": "Rejection is the industry's weather, not a verdict: Stephen King nailed his rejection slips on a spike as a teenager; Dune was rejected by more than a dozen publishers; Zen and the Art of Motorcycle Maintenance famously drew over a hundred rejections before selling millions. Editors reject for fit, timing, and inventory at least as often as for quality. The professional response is metabolic — log it, resubmit elsewhere within the week, keep writing the next thing.",
+        "links": [
+          {
+            "label": "Stephen King",
+            "url": "https://en.wikipedia.org/wiki/Stephen_King",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Submit one piece to a venue that can reject you this month, and pre-commit in writing to where you will send it next when it bounces."
+      ]
+    },
+    {
+      "id": "reading-widely",
+      "title": "Reading Widely",
+      "tier": "essential",
+      "learn": {
+        "summary": "King's flat rule in On Writing: 'If you don't have time to read, you don't have the time (or the tools) to write.' Input sets your ceiling — vocabulary, rhythm, structural moves, and taste are all absorbed from what you read, and reading only your own genre inbreeds your style. Read above your level for aspiration, outside your lane for cross-pollination, and occasionally badly written things to sharpen diagnosis.",
+        "links": [
+          {
+            "label": "On Writing: A Memoir of the Craft",
+            "url": "https://en.wikipedia.org/wiki/On_Writing:_A_Memoir_of_the_Craft",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Read 30 minutes daily for two weeks, with at least two sessions in a genre you never touch, and save one admirable sentence from each session."
+      ]
+    }
+  ]
+}

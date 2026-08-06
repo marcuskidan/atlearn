@@ -1,0 +1,92 @@
+{
+  "id": "behavioral-activation",
+  "title": "Behavioral Activation",
+  "tier": "essential",
+  "learn": {
+    "summary": "Behavioral activation — originally a component of CBT that trials (notably Jacobson's 1996 dismantling study) found works about as well as the full package for depression — inverts folk wisdom: action precedes motivation, not the other way around. Low mood shrinks activity, which removes reward and mastery, which lowers mood further; BA breaks the spiral by scheduling values-based activity regardless of feeling like it. Waiting to feel like it is the trap itself.",
+    "links": [
+      {
+        "label": "Behavioral activation (Wikipedia)",
+        "url": "https://en.wikipedia.org/wiki/Behavioral_activation",
+        "kind": "article"
+      }
+    ]
+  },
+  "do": [
+    "Schedule one small pleasant activity and one small mastery activity for specific times this week. Do them regardless of mood; rate mood before/after each."
+  ],
+  "children": [
+    {
+      "id": "action-before-motivation",
+      "title": "Action Before Motivation",
+      "tier": "essential",
+      "learn": {
+        "summary": "The motivation myth says feel → do; the evidence says do → feel. Mood follows behavior with a lag, so the working rule is 'outside-in': move the body, start the task for five minutes, and let motivation catch up — it usually does, because starting removes the largest friction. Depression whispers 'wait until you feel ready'; BA's entire insight is that ready arrives after you begin.",
+        "links": [
+          {
+            "label": "Behavioral activation (Wikipedia)",
+            "url": "https://en.wikipedia.org/wiki/Behavioral_activation",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Pick one task you have been waiting to feel motivated for. Use a 5-minute timer rule today: start for just five minutes, permission to stop after. Record whether you continued."
+      ]
+    },
+    {
+      "id": "values-compass",
+      "title": "Values as Compass",
+      "tier": "recommended",
+      "learn": {
+        "summary": "ACT distinguishes values (directions you keep traveling: being a caring friend, learning, health) from goals (destinations you reach and finish). BA works best when scheduled activities connect to values, not just pleasure — mowing a lonely neighbor's lawn beats a third episode of anything, in mood-per-hour terms. Values also survive failure: you can act on 'being a good friend' on a terrible day when every goal feels impossible.",
+        "links": [
+          {
+            "label": "Acceptance and commitment therapy (Wikipedia)",
+            "url": "https://en.wikipedia.org/wiki/Acceptance_and_commitment_therapy",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Write your top three values as directions (not goals). For each, schedule one 15-minute action this week that expresses it."
+      ]
+    },
+    {
+      "id": "activity-scheduling",
+      "title": "Activity Scheduling",
+      "tier": "essential",
+      "learn": {
+        "summary": "BA's workhorse tool: log current activities with mood ratings to see what actually lifts or sinks you (data often surprises — scrolling rates worse than people predict, chores rate better), then deliberately schedule a balanced diet of pleasure and mastery activities into specific calendar slots. Specificity is the active ingredient: 'walk Tuesday 6pm from the front door' gets done; 'exercise more' does not. Grade tasks down until the first step is nearly impossible to fail.",
+        "links": [
+          {
+            "label": "Behavioral activation (Wikipedia)",
+            "url": "https://en.wikipedia.org/wiki/Behavioral_activation",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Track activities and hourly mood (1–10) for two days. Then schedule next week to include more of your top-3 mood raisers."
+      ]
+    },
+    {
+      "id": "tiny-habits",
+      "title": "Tiny Habits",
+      "tier": "recommended",
+      "learn": {
+        "summary": "BJ Fogg's Stanford model: behavior happens when motivation, ability, and prompt converge — and since motivation is unreliable, shrink the behavior until it needs almost none (one push-up, floss one tooth) and anchor it to an existing routine ('after I pour coffee, I...'). Celebration immediately after locks it in. James Clear's habit-stacking is the same architecture; both beat willpower because they never depend on it.",
+        "links": [
+          {
+            "label": "B. J. Fogg (Wikipedia)",
+            "url": "https://en.wikipedia.org/wiki/B._J._Fogg",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Install one tiny habit this week using the recipe 'After I [existing routine], I will [30-second version of new behavior]' — and track a 7-day streak."
+      ]
+    }
+  ]
+}

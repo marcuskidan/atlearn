@@ -1,0 +1,74 @@
+{
+  "id": "proteins",
+  "title": "Proteins",
+  "tier": "essential",
+  "learn": {
+    "summary": "Protein cookery is where the earlier lessons compound: dry surfaces and hot pans for browning, a thermometer instead of guessing, and rest before slicing. Two master techniques cover most cuts — hard-and-fast searing for tender cuts, low-and-slow braising for tough ones. Salt meat early (even 30-40 minutes ahead) so it penetrates rather than sitting on the surface.",
+    "links": [
+      {
+        "label": "Doneness (Wikipedia)",
+        "url": "https://en.wikipedia.org/wiki/Doneness",
+        "kind": "article"
+      }
+    ]
+  },
+  "do": [
+    "Cook one protein this week entirely by thermometer — no cutting to peek — pulling chicken at 160°F (carryover to 165°F) or steak at 125-130°F for medium-rare"
+  ],
+  "children": [
+    {
+      "id": "searing",
+      "title": "Searing & Pan-Roasting",
+      "tier": "essential",
+      "learn": {
+        "summary": "The sear sequence: pat the protein aggressively dry, salt it, get the pan properly hot with a high-smoke-point oil, lay the meat away from you, and then leave it alone — it releases when the crust is built, usually 3-4 minutes. For thick cuts, pan-roast: sear both sides, then finish in a 400°F oven to temperature. Basting with butter, garlic, and thyme in the last minutes is the steakhouse finish.",
+        "links": [
+          {
+            "label": "Searing (Wikipedia)",
+            "url": "https://en.wikipedia.org/wiki/Searing",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Sear a chicken thigh or steak this week and do not touch it for the first 3 minutes — no peeking, no nudging — then check the crust you get"
+      ]
+    },
+    {
+      "id": "braising",
+      "title": "Braising",
+      "tier": "recommended",
+      "learn": {
+        "summary": "Braising turns the cheapest cuts — chuck, pork shoulder, chicken thighs, short ribs — into the most luxurious food you can make: sear hard, add liquid halfway up the meat, cover, and hold a bare simmer in a 300-325°F oven for 2-4 hours until fork-tender. The collagen that makes these cuts tough melts into gelatin around 160-180°F given time. Braises taste even better the next day.",
+        "links": [
+          {
+            "label": "Braising (Wikipedia)",
+            "url": "https://en.wikipedia.org/wiki/Braising",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Braise chicken thighs this weekend: sear, add stock or canned tomatoes halfway up, then 90 minutes covered at 325°F — test with a fork, not a timer"
+      ]
+    },
+    {
+      "id": "doneness-temps",
+      "title": "Doneness Temps",
+      "tier": "essential",
+      "learn": {
+        "summary": "The thermometer ends decades of anxiety: chicken 165°F (pull at 160°F and let carryover finish), ground meats 160°F, pork chops and beef roasts 145°F with a 3-minute rest per USDA, fish 145°F or until it flakes. Steak by preference: 125°F rare, 130-135°F medium-rare, 140°F medium, measured in the thickest part. Probe from the side on thin cuts to find the true center.",
+        "links": [
+          {
+            "label": "Safe temperature charts (foodsafety.gov)",
+            "url": "https://www.foodsafety.gov/food-safety-charts",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Memorize three numbers this week — 165°F poultry, 160°F ground meat, 145°F pork and fish — and verify your next three protein cooks against them"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,102 @@
+{
+  "id": "the-sentence",
+  "title": "The Sentence",
+  "tier": "essential",
+  "learn": {
+    "summary": "The sentence is writing's unit of craft — everything larger is arrangement. Master three things: structure (how clauses combine), rhythm (how lengths vary), and control (how punctuation paces the reader). Gary Provost's famous demonstration says it all: five short sentences in a row deaden the ear; vary the lengths and 'the writing sings'.",
+    "links": [
+      {
+        "label": "Sentence (linguistics)",
+        "url": "https://en.wikipedia.org/wiki/Sentence_(linguistics)",
+        "kind": "article"
+      }
+    ]
+  },
+  "do": [
+    "Take one paragraph you wrote and count the words in each sentence; if the counts barely vary, rewrite for deliberate contrast."
+  ],
+  "children": [
+    {
+      "id": "sentence-structures",
+      "title": "Sentence Structures",
+      "tier": "essential",
+      "learn": {
+        "summary": "English builds four structures from clauses: simple (one independent clause), compound (two joined by and/but/so), complex (independent plus dependent), compound-complex. Skilled writers also control where the main point lands — periodic sentences hold it until the end for suspense; loose sentences state it first, then elaborate. Knowing the names matters less than being able to build each on demand.",
+        "links": [
+          {
+            "label": "Sentence clause structure",
+            "url": "https://en.wikipedia.org/wiki/Sentence_clause_structure",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Write the same fact four ways — simple, compound, complex, and with the key point held to the final word — and pick the best."
+      ]
+    },
+    {
+      "id": "rhythm-and-variety",
+      "title": "Rhythm & Variety",
+      "tier": "recommended",
+      "learn": {
+        "summary": "Prose rhythm comes from varying sentence length and opening structure: a string of 20-word sentences hypnotizes, a string of 5-word ones hectors. The power move is contrast — a long, accumulating sentence followed by a short one. That lands. Parallelism is rhythm's other engine: matching grammatical forms for matching ideas ('of the people, by the people, for the people').",
+        "links": [
+          {
+            "label": "Parallelism (grammar)",
+            "url": "https://en.wikipedia.org/wiki/Parallelism_(grammar)",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "End one paragraph this week with a sentence of five words or fewer, placed after your longest sentence."
+      ]
+    },
+    {
+      "id": "punctuation-control",
+      "title": "Punctuation as Control",
+      "tier": "essential",
+      "learn": {
+        "summary": "Punctuation is stage direction: the period is a full stop, the semicolon yokes two related thoughts, the colon announces, the dash interrupts, parentheses whisper. The semicolon and dash are the underused pair — a semicolon shows two sentences are really one idea; a dash adds drama a comma cannot. Learn the comma splice (two sentences fused with only a comma) as the error editors catch first.",
+        "links": [
+          {
+            "label": "Punctuation",
+            "url": "https://en.wikipedia.org/wiki/Punctuation",
+            "kind": "article"
+          },
+          {
+            "label": "Semicolon",
+            "url": "https://en.wikipedia.org/wiki/Semicolon",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Write six sentences about your day using, correctly and deliberately: a semicolon, a colon, a pair of dashes, parentheses, a comma splice fixed two ways."
+      ]
+    },
+    {
+      "id": "common-sentence-errors",
+      "title": "Common Errors",
+      "tier": "recommended",
+      "learn": {
+        "summary": "Four errors account for most red ink: comma splices, sentence fragments (fine in fiction, risky in reports), dangling modifiers ('Walking to work, the rain soaked me' — the rain was not walking), and agreement slips across long noun phrases. Strunk & White's Elementary Rules cover most of these in a few pages. Errors matter less for 'correctness' than for trust: readers who spot them start doubting your facts too.",
+        "links": [
+          {
+            "label": "Dangling modifier",
+            "url": "https://en.wikipedia.org/wiki/Dangling_modifier",
+            "kind": "article"
+          },
+          {
+            "label": "Comma splice",
+            "url": "https://en.wikipedia.org/wiki/Comma_splice",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Proofread your last substantial email for these four errors specifically, and keep a personal list of which ones you actually make."
+      ]
+    }
+  ]
+}

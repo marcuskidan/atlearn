@@ -1,0 +1,102 @@
+{
+  "id": "clarity-and-concision",
+  "title": "Clarity & Concision",
+  "tier": "essential",
+  "learn": {
+    "summary": "Strunk & White's most famous command — 'Omit needless words' — and Zinsser's diagnosis that 'clutter is the disease of American writing' point at the same discipline: every word must do work. Clarity is not dumbing down; it is respect for the reader's time and proof that you know what you mean. Simplify first; style comes later and only survives on a clear base.",
+    "links": [
+      {
+        "label": "The Elements of Style",
+        "url": "https://en.wikipedia.org/wiki/The_Elements_of_Style",
+        "kind": "article"
+      }
+    ]
+  },
+  "do": [
+    "Take any 300-word passage you wrote and cut it to 200 words without losing a single idea."
+  ],
+  "children": [
+    {
+      "id": "cutting-clutter",
+      "title": "Cutting Clutter",
+      "tier": "essential",
+      "learn": {
+        "summary": "Zinsser's clutter list is a field guide: qualifiers ('a bit', 'sort of'), throat-clearing ('it should be noted that'), redundant pairs ('each and every'), and prepositional fat ('at this point in time' for 'now'). His classroom method was brutal and effective — bracket every word that does no work, then read the sentence without the brackets. Most professional prose survives a 30% cut and improves.",
+        "links": [
+          {
+            "label": "On Writing Well",
+            "url": "https://en.wikipedia.org/wiki/On_Writing_Well",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Bracket every removable word in one page of your writing, then delete the brackets' contents and compare versions aloud."
+      ]
+    },
+    {
+      "id": "active-voice",
+      "title": "Active Voice",
+      "tier": "essential",
+      "learn": {
+        "summary": "'The committee approved the budget' beats 'the budget was approved by the committee': shorter, clearer about who acted, and more energetic. Strunk & White's 'use the active voice' is the right default, but not a ban — passive earns its place when the actor is unknown or irrelevant ('the samples were heated to 90°C'). The real sin is passive-as-evasion: 'mistakes were made'.",
+        "links": [
+          {
+            "label": "English passive voice",
+            "url": "https://en.wikipedia.org/wiki/English_passive_voice",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Search one document for 'was', 'were', and 'been'; convert every evasive or flabby passive to active, keeping only justified ones."
+      ]
+    },
+    {
+      "id": "concrete-and-strong",
+      "title": "Concrete Nouns, Strong Verbs",
+      "tier": "essential",
+      "learn": {
+        "summary": "Abstractions ('utilization', 'implementation') hide meaning; concrete nouns and vivid verbs carry it. The worst offender is nominalization — burying the verb inside a noun: 'make a decision' for 'decide', 'conduct an investigation' for 'investigate'. Orwell's 'Politics and the English Language' shows where this leads: prose built from prefabricated abstract phrases that thinks for you, badly.",
+        "links": [
+          {
+            "label": "Politics and the English Language",
+            "url": "https://en.wikipedia.org/wiki/Politics_and_the_English_Language",
+            "kind": "article"
+          },
+          {
+            "label": "Nominalization",
+            "url": "https://en.wikipedia.org/wiki/Nominalization",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Hunt one page for buried verbs ('-tion', '-ment', '-ance' nouns) and un-bury five of them into direct verbs."
+      ]
+    },
+    {
+      "id": "jargon-and-cliche",
+      "title": "Jargon & Cliché",
+      "tier": "recommended",
+      "learn": {
+        "summary": "Jargon is fine between specialists and fatal everywhere else; the test is whether your named reader uses the term unprompted. Clichés ('low-hanging fruit', 'at the end of the day') are worse than plain words because they signal the writer stopped thinking mid-sentence — Orwell's rule: never use a figure of speech you are used to seeing in print. Plain-language research by governments shows plain rewrites measurably improve comprehension and compliance.",
+        "links": [
+          {
+            "label": "Plain language (plainlanguage.gov)",
+            "url": "https://www.plainlanguage.gov",
+            "kind": "article"
+          },
+          {
+            "label": "Jargon",
+            "url": "https://en.wikipedia.org/wiki/Jargon",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Collect the 10 jargon terms and clichés you use most (search old emails), and write a plain replacement for each."
+      ]
+    }
+  ]
+}

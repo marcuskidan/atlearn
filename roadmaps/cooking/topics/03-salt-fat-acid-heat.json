@@ -1,0 +1,92 @@
+{
+  "id": "salt-fat-acid-heat",
+  "title": "Salt, Fat, Acid, Heat",
+  "tier": "essential",
+  "learn": {
+    "summary": "Samin Nosrat's four elements explain why food tastes good: salt amplifies flavor, fat carries it and creates texture, acid balances and brightens, heat transforms. When a dish tastes flat, the answer is almost always more salt or a splash of acid — not more spices. Internalize this framework and every recipe becomes a variation on themes you already understand.",
+    "links": [
+      {
+        "label": "Salt Fat Acid Heat (Wikipedia)",
+        "url": "https://en.wikipedia.org/wiki/Salt,_Fat,_Acid,_Heat",
+        "kind": "article"
+      }
+    ]
+  },
+  "do": [
+    "Next time a dish tastes dull, fix it in two steps: add a pinch of salt, taste, then add a squeeze of lemon or splash of vinegar, taste again — name which one did more"
+  ],
+  "children": [
+    {
+      "id": "seasoning-in-layers",
+      "title": "Seasoning in Layers",
+      "tier": "essential",
+      "learn": {
+        "summary": "Salt added during cooking penetrates and seasons from within; salt dumped on at the end just sits on the surface. Season at every stage — the onions as they sweat, the pasta water (it should taste like the sea, roughly 1% salt), the meat well before it hits the pan. Use kosher salt for control, and know your brand: Diamond Crystal is about half as salty by volume as Morton.",
+        "links": [
+          {
+            "label": "Salt (Wikipedia)",
+            "url": "https://en.wikipedia.org/wiki/Salt",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Cook the same simple soup or sauté twice this week: once salting only at the end, once salting at each stage — taste them side by side"
+      ]
+    },
+    {
+      "id": "cooking-fats",
+      "title": "Cooking Fats",
+      "tier": "essential",
+      "learn": {
+        "summary": "Match the fat to the heat: butter burns around 350°F but brings flavor and browning to gentle work; extra-virgin olive oil handles moderate sautéing (roughly 375-405°F smoke point) and finishing; neutral oils like canola, grapeseed, and avocado take high-heat searing at 400-500°F. Fat is also texture — crisp, creamy, tender all come from fat handled well. When oil smokes hard, it is degrading: start over.",
+        "links": [
+          {
+            "label": "Smoke point (Wikipedia)",
+            "url": "https://en.wikipedia.org/wiki/Smoke_point",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Fry two eggs tonight, one in butter over medium-low and one in olive oil over medium-high, and note the difference in edges, flavor, and browning"
+      ]
+    },
+    {
+      "id": "acid-to-finish",
+      "title": "Acid to Finish",
+      "tier": "essential",
+      "learn": {
+        "summary": "Acid is the most underused element in home kitchens: a squeeze of lemon, a splash of vinegar, or a spoon of yogurt added at the end makes rich food taste lighter and flat food taste alive. Nearly every classic cuisine finishes with acid — lime on tacos, vinegar in ramen, lemon on schnitzel. Add it off the heat and in small increments, tasting as you go.",
+        "links": [
+          {
+            "label": "Vinegar (Wikipedia)",
+            "url": "https://en.wikipedia.org/wiki/Vinegar",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Finish three different dishes this week with acid — lemon on roasted vegetables, vinegar in a soup, lime on rice — and note which transformation surprises you most"
+      ]
+    },
+    {
+      "id": "taste-constantly",
+      "title": "Taste Constantly",
+      "tier": "recommended",
+      "learn": {
+        "summary": "Professionals taste dozens of times per dish; home cooks often taste once, at the table, when it is too late. Keep a spoon by the stove and taste at every stage: after salting, after adding acid, before serving. Ask two questions each time — does it need salt, and does it need acid? — and you will out-cook most recipe followers within a month.",
+        "links": [
+          {
+            "label": "Taste (Wikipedia)",
+            "url": "https://en.wikipedia.org/wiki/Taste",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Put a cup of teaspoons next to your stove tonight and taste your next dish at least five times while cooking it, adjusting after each taste"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,97 @@
+{
+  "id": "hard-conversations",
+  "title": "Hard Conversations",
+  "tier": "essential",
+  "learn": {
+    "summary": "Feedback, disagreement, apology, and negotiation are the conversations people avoid, and avoidance compounds their cost. The shared skeleton across frameworks: separate observation from interpretation, name impact without assigning motive, and treat the other person as a reasonable actor with missing context. Preparation matters more here than anywhere else in communication.",
+    "links": [
+      {
+        "label": "Nonviolent Communication (Wikipedia)",
+        "url": "https://en.wikipedia.org/wiki/Nonviolent_Communication",
+        "kind": "article"
+      }
+    ]
+  },
+  "do": [
+    "Identify one conversation you have been avoiding for over 2 weeks and schedule it before the end of this week."
+  ],
+  "children": [
+    {
+      "id": "sbi-feedback",
+      "title": "SBI Feedback",
+      "tier": "essential",
+      "learn": {
+        "summary": "The Center for Creative Leadership's Situation-Behavior-Impact model: name the specific situation, describe observable behavior without interpretation, state the impact on you or the work. 'In Tuesday's review (S), you cut Maria off three times (B), and we lost her input (I)' is arguable in a way 'you are dismissive' never is. The same structure delivers positive feedback, which most people give too vaguely to be reinforcing.",
+        "links": [
+          {
+            "label": "Corrective feedback (Wikipedia)",
+            "url": "https://en.wikipedia.org/wiki/Corrective_feedback",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Deliver one piece of SBI-structured feedback this week, and make it positive feedback to someone who earned it."
+      ]
+    },
+    {
+      "id": "disagreeing-well",
+      "title": "Disagreeing Well",
+      "tier": "essential",
+      "learn": {
+        "summary": "Steelman before you strike: state the other position so well they endorse your summary, the principle of charity in action; anything else is arguing with a person who is not in the room. Disagree with the idea in the idea's language, never with the person's competence or motives. Rapoport's rules (popularized by Daniel Dennett) add: name your points of agreement and what you learned from them before any rebuttal.",
+        "links": [
+          {
+            "label": "Principle of charity (Wikipedia)",
+            "url": "https://en.wikipedia.org/wiki/Principle_of_charity",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "In your next disagreement, get an explicit 'yes, that is my position' to your summary before stating any counterargument."
+      ]
+    },
+    {
+      "id": "real-apologies",
+      "title": "Real Apologies",
+      "tier": "recommended",
+      "learn": {
+        "summary": "Apology research (Roy Lewicki's studies on apology components) finds the heavy-lifting elements are acknowledging responsibility and offering repair; the destroying element is the conditional 'I am sorry if you were offended', a classic non-apology. A real apology names the act, owns the impact without excuse, and states the change. Do not attach a request for forgiveness; that converts your apology into a demand.",
+        "links": [
+          {
+            "label": "Non-apology apology (Wikipedia)",
+            "url": "https://en.wikipedia.org/wiki/Non-apology_apology",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Audit your last apology for the words 'if' and 'but'; if either appears, redo it this week naming the act and the impact plainly."
+      ]
+    },
+    {
+      "id": "negotiating-basics",
+      "title": "Negotiating Basics",
+      "tier": "recommended",
+      "learn": {
+        "summary": "The Harvard Negotiation Project's Getting to Yes (Fisher and Ury) reframed negotiation around interests, not positions: 'I need the window open' vs 'I need fresh air' admit different solutions. Know your BATNA, the best alternative to a negotiated agreement, because it, not politeness, sets your walk-away power. Asking 'what would need to be true for this to work for you?' converts adversaries into joint problem-solvers.",
+        "links": [
+          {
+            "label": "Getting to Yes (Wikipedia)",
+            "url": "https://en.wikipedia.org/wiki/Getting_to_Yes",
+            "kind": "article"
+          },
+          {
+            "label": "BATNA (Wikipedia)",
+            "url": "https://en.wikipedia.org/wiki/Best_alternative_to_a_negotiated_agreement",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Before your next negotiation (salary, vendor, household), write your BATNA and the other side's likely interests in 5 lines."
+      ]
+    }
+  ]
+}

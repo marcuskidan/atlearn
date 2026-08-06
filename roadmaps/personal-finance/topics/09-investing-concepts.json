@@ -1,0 +1,125 @@
+{
+  "id": "investing-concepts",
+  "title": "Investing Concepts",
+  "tier": "essential",
+  "learn": {
+    "summary": "This milestone explains what investment vehicles ARE — not what you should buy; investor.gov, run by the U.S. Securities and Exchange Commission, is the canonical conflict-free reference. The core conceptual toolkit: what stocks, bonds, and funds actually represent; why diversification is called the only free lunch; how risk and return bind together; and why fees compound just like returns do. For decisions about your own money, a licensed financial advisor can help with specifics.",
+    "links": [
+      {
+        "label": "Investor.gov: Introduction to investing",
+        "url": "https://www.investor.gov/introduction-investing",
+        "kind": "article"
+      }
+    ]
+  },
+  "do": [
+    "Read investor.gov's Introduction to Investing section and write one-sentence definitions of five terms that were fuzzy to you before."
+  ],
+  "children": [
+    {
+      "id": "stocks-bonds-funds",
+      "title": "Stocks, Bonds, and Funds",
+      "tier": "essential",
+      "learn": {
+        "summary": "A stock is fractional ownership of a company — you hold a claim on its future profits; a bond is a loan you make to a company or government that pays interest and returns principal at maturity; a fund (mutual fund or ETF) is a pooled basket holding many of either, giving one purchase broad exposure. Historically stocks have offered higher long-run returns with much larger swings, while bonds are steadier with lower returns — a structural trade-off, not a defect of either. Understanding what you'd actually own is the prerequisite to every later concept.",
+        "links": [
+          {
+            "label": "Wikipedia: Stock",
+            "url": "https://en.wikipedia.org/wiki/Stock",
+            "kind": "article"
+          },
+          {
+            "label": "Wikipedia: Bond (finance)",
+            "url": "https://en.wikipedia.org/wiki/Bond_(finance)",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Explain aloud to someone (or write out) what a shareholder and a bondholder of the same company each actually own, and what happens to each if profits rise."
+      ]
+    },
+    {
+      "id": "diversification-concept",
+      "title": "Diversification",
+      "tier": "recommended",
+      "learn": {
+        "summary": "Harry Markowitz's Nobel-winning insight: combining assets that don't move in lockstep lowers a portfolio's overall risk without proportionally lowering expected return — the 'only free lunch in finance'. The concept explains why concentration (one stock, one employer's shares, one asset class) carries risk that diversification eliminates for free, a lesson Enron employees holding company stock in retirement accounts learned catastrophically. It applies across companies, industries, countries, and asset types.",
+        "links": [
+          {
+            "label": "Wikipedia: Diversification (finance)",
+            "url": "https://en.wikipedia.org/wiki/Diversification_(finance)",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "If you have any investments (including a retirement account), list what they're actually concentrated in — one company, one country, one sector — without judging or changing anything."
+      ]
+    },
+    {
+      "id": "index-funds-concept",
+      "title": "Index Funds as a Concept",
+      "tier": "recommended",
+      "learn": {
+        "summary": "An index fund doesn't try to pick winners; it mechanically holds everything in a market index (like the S&P 500's roughly 500 large U.S. companies), which makes it cheap to run and guarantees the market's return minus tiny fees. John Bogle launched the first index mutual fund for individuals in 1976 to ridicule — 'Bogle's folly' — but decades of SPIVA data showing most active funds trail their benchmark after fees vindicated the concept. This describes how the vehicle works, not what anyone should buy.",
+        "links": [
+          {
+            "label": "Wikipedia: Index fund",
+            "url": "https://en.wikipedia.org/wiki/Index_fund",
+            "kind": "article"
+          },
+          {
+            "label": "Wikipedia: John C. Bogle",
+            "url": "https://en.wikipedia.org/wiki/John_C._Bogle",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Look up what companies the S&P 500 index actually contains and what an 'expense ratio' means, then write one paragraph explaining indexing to an imaginary 12-year-old."
+      ]
+    },
+    {
+      "id": "risk-vs-return",
+      "title": "Risk vs Return",
+      "tier": "essential",
+      "learn": {
+        "summary": "Higher expected returns are compensation for bearing more risk — volatility, possible loss, or long stretches underwater; any pitch offering high returns with low risk is describing something that violates finance or the law (Ponzi schemes market exactly that combination). Time horizon changes the picture: historically, diversified stock volatility has hurt most over short windows, while cash's inflation erosion hurts most over long ones. 'Risk tolerance' is both financial capacity and sleep-at-night psychology, which is why it's personal — and advisor territory.",
+        "links": [
+          {
+            "label": "Investor.gov: Introduction to investing",
+            "url": "https://www.investor.gov/introduction-investing",
+            "kind": "article"
+          },
+          {
+            "label": "Wikipedia: Ponzi scheme",
+            "url": "https://en.wikipedia.org/wiki/Ponzi_scheme",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Write your honest answer to one question: if a hypothetical balance dropped 30% in a year, would you sell, hold, or want to buy more — and what does that say about your risk psychology?"
+      ]
+    },
+    {
+      "id": "fees-matter",
+      "title": "Fees Matter",
+      "tier": "extra",
+      "learn": {
+        "summary": "Fees compound in reverse: on a hypothetical $100,000 growing 4% over 20 years, the SEC's own investor bulletin shows a 1% annual fee versus 0.25% costs roughly $28,000 in ending value — fees eat both the fee itself and everything it would have earned. Key vocabulary: expense ratio (annual fund cost), load (sales commission), and advisory fees (often a percent of assets per year). Fee disclosure is mandatory, so the numbers are always findable in a fund's prospectus or an advisor's Form ADV.",
+        "links": [
+          {
+            "label": "Investor.gov: Fees and expenses",
+            "url": "https://www.investor.gov/introduction-investing/getting-started/understanding-fees",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "If you hold any fund (including in a workplace retirement plan), look up its expense ratio in the plan documents and compute what that percentage costs per year on your current balance."
+      ]
+    }
+  ]
+}

@@ -1,0 +1,74 @@
+{
+  "id": "everyday-illness",
+  "title": "Everyday Illness",
+  "tier": "recommended",
+  "learn": {
+    "summary": "Most of what you'll actually handle isn't dramatic — it's fevers, stomach bugs, and the recurring question 'is this ER-worthy?' Getting triage right saves money, time, and occasionally lives in both directions: knowing what can wait, and knowing what absolutely can't. When genuinely unsure, nurse advice lines (many insurers and hospitals run free 24/7 lines) exist precisely for this call.",
+    "links": [
+      {
+        "label": "Fever — Wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Fever",
+        "kind": "article"
+      }
+    ]
+  },
+  "do": [
+    "Find and save your insurer's or local hospital's 24/7 nurse advice line number this week."
+  ],
+  "children": [
+    {
+      "id": "fevers",
+      "title": "Fevers",
+      "tier": "essential",
+      "learn": {
+        "summary": "Fever is a defense, not a disease — treat the person's comfort, not the number. Adult red lines: 103°F (39.4°C) or higher, a fever lasting more than 3 days, or fever with stiff neck, severe headache, rash, confusion, or trouble breathing all warrant medical care. The absolute rule: any fever of 100.4°F (38°C) or more in a baby under 3 months is an immediate call to a doctor or ER — no wait-and-see.",
+        "links": [
+          {
+            "label": "Fever — Wikipedia",
+            "url": "https://en.wikipedia.org/wiki/Fever",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Verify you own a working thermometer today — test it, and replace the battery or the device if it fails."
+      ]
+    },
+    {
+      "id": "dehydration-ors",
+      "title": "Dehydration & ORS",
+      "tier": "recommended",
+      "learn": {
+        "summary": "For vomiting and diarrhea, oral rehydration solution — a precise balance of glucose and salts that exploits the gut's sodium-glucose co-transport — has saved tens of millions of lives since the 1970s and beats water or sports drinks. Pharmacy ORS packets are cheap; the WHO field recipe is 6 level teaspoons sugar and half a teaspoon salt in 1 liter of clean water. Small frequent sips stay down better than large gulps; escalate if there's no urination for 8+ hours, sunken eyes, or lethargy.",
+        "links": [
+          {
+            "label": "Oral rehydration therapy — Wikipedia",
+            "url": "https://en.wikipedia.org/wiki/Oral_rehydration_therapy",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Add 2–3 ORS sachets (pharmacy or online) to your medicine cabinet this week — buying them mid-stomach-flu is the wrong time."
+      ]
+    },
+    {
+      "id": "er-urgent-care-doctor",
+      "title": "ER vs Urgent Care vs Doctor",
+      "tier": "essential",
+      "learn": {
+        "summary": "ER (or 911): chest pain, stroke signs, severe bleeding, trouble breathing, major trauma, sudden severe headache, suicidal crisis. Urgent care: sprains, minor cuts needing stitches, fevers in otherwise-healthy adults, UTIs, minor burns — typically a fraction of ER cost and wait. Primary care or telehealth: anything that can wait a day or two. The costly mistakes run both ways: ER visits for earaches, and 'sleeping off' chest pain.",
+        "links": [
+          {
+            "label": "Urgent care center — Wikipedia",
+            "url": "https://en.wikipedia.org/wiki/Urgent_care_center",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Look up your nearest urgent care clinic and its hours today, and save it in your phone alongside your nearest ER."
+      ]
+    }
+  ]
+}

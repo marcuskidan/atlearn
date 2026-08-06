@@ -1,0 +1,92 @@
+{
+  "id": "planting-out",
+  "title": "Planting Out",
+  "tier": "essential",
+  "learn": {
+    "summary": "Moving plants from the coddled indoors to real weather is where beginners lose whole trays overnight. The sequence is: harden off over 7-10 days, transplant in gentle weather, water in immediately, and give correct spacing. Timing follows your frost dates — warm-season crops go out only after both frost risk has passed and soil has warmed.",
+    "links": [
+      {
+        "label": "Transplanting (Wikipedia)",
+        "url": "https://en.wikipedia.org/wiki/Transplanting",
+        "kind": "article"
+      }
+    ]
+  },
+  "do": [
+    "Write a planting-out calendar: for each crop you are growing, note its transplant date relative to your last frost date (e.g., peas 4 weeks before, tomatoes 1-2 weeks after)"
+  ],
+  "children": [
+    {
+      "id": "hardening-off",
+      "title": "Hardening Off",
+      "tier": "essential",
+      "learn": {
+        "summary": "Indoor seedlings have never felt wind or direct sun, and full sun on day one scorches them white. Harden off over 7-10 days: start with 1-2 hours of outdoor shade, adding an hour or two of increasing sun exposure daily, and bring them in if nights drop below 45-50°F. Skip this step and expect losses.",
+        "links": [
+          {
+            "label": "Hardening off (Wikipedia)",
+            "url": "https://en.wikipedia.org/wiki/Hardening_(botany)",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Build a 7-day hardening-off schedule on paper (day 1: 1 hour shade, day 7: full day of sun) and tape it to the door you carry trays through"
+      ]
+    },
+    {
+      "id": "transplanting",
+      "title": "Transplanting",
+      "tier": "essential",
+      "learn": {
+        "summary": "Transplant on a cloudy day or in the evening so plants settle in without sun stress. Dig the hole as deep as the root ball and twice as wide, handle seedlings by their leaves — never the crushable stem — and water in thoroughly the moment they are planted. Tomatoes are the exception that loves deep planting: bury two-thirds of the stem and it grows roots along its length.",
+        "links": [
+          {
+            "label": "Transplanting (Wikipedia)",
+            "url": "https://en.wikipedia.org/wiki/Transplanting",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Transplant your hardened-off seedlings in the evening this week and water each one in with at least a quart of water immediately"
+      ]
+    },
+    {
+      "id": "spacing",
+      "title": "Spacing",
+      "tier": "recommended",
+      "learn": {
+        "summary": "Crowded plants compete for light and water, and poor airflow between them breeds fungal disease — spacing on the seed packet reflects mature size, not the seedling in your hand. Intensive beds can run tighter than row-garden numbers (square-foot gardening grows one tomato, four lettuces, or sixteen carrots per square foot). When in doubt, thin ruthlessly; the scissors are your friend.",
+        "links": [
+          {
+            "label": "Square foot gardening (Wikipedia)",
+            "url": "https://en.wikipedia.org/wiki/Square_foot_gardening",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Thin one direct-sown row this week to packet spacing by snipping extras at soil level with scissors — eat the thinnings if they are greens"
+      ]
+    },
+    {
+      "id": "succession-sowing",
+      "title": "Succession Sowing",
+      "tier": "recommended",
+      "learn": {
+        "summary": "One giant sowing gives you 40 lettuces at once, then nothing. Sow small amounts of quick crops — lettuce, radishes, cilantro, bush beans — every 2-3 weeks for a continuous harvest instead of a glut. Stop sowing when days-to-maturity no longer fits before your first fall frost, minus about two weeks for slowing autumn growth.",
+        "links": [
+          {
+            "label": "Succession planting (Wikipedia)",
+            "url": "https://en.wikipedia.org/wiki/Succession_planting",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Sow a 2-foot row of lettuce or radishes today, then set a recurring calendar reminder to sow the next 2 feet in 14 days"
+      ]
+    }
+  ]
+}

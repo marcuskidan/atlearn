@@ -1,0 +1,92 @@
+{
+  "id": "open-awareness",
+  "title": "Open Awareness",
+  "tier": "essential",
+  "learn": {
+    "summary": "Open monitoring drops the single anchor and observes whatever arises: sounds, sensations, thoughts, moods, all received equally. It builds on focused-attention stability; attempted too early it collapses into ordinary daydreaming with better branding. Zen shikantaza (just sitting) and Krishnamurti's choiceless awareness are classical forms.",
+    "links": [
+      {
+        "label": "Shikantaza (Wikipedia)",
+        "url": "https://en.wikipedia.org/wiki/Shikantaza",
+        "kind": "article"
+      }
+    ]
+  },
+  "do": [
+    "After 5 minutes of breath focus in your next sit, spend 5 minutes with no anchor, simply noticing what arrives."
+  ],
+  "children": [
+    {
+      "id": "open-monitoring",
+      "title": "Open Monitoring",
+      "tier": "essential",
+      "learn": {
+        "summary": "In contemplative-science taxonomy (Lutz, Slagter, Dunne, Davidson, 2008), open monitoring means sustaining meta-awareness of experience itself without selecting an object. Practically: sit, and know what is happening as it happens, without chasing or blocking anything. When you notice you have been carried off by content, that is the same old rep, just without a home base to return to except awareness itself.",
+        "links": [
+          {
+            "label": "Meditation (Wikipedia)",
+            "url": "https://en.wikipedia.org/wiki/Meditation",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Do two 10-minute open-monitoring sits this week and afterward list the categories that showed up most (sound, thought, body, mood)."
+      ]
+    },
+    {
+      "id": "sounds-and-sensations",
+      "title": "Sounds and Sensations",
+      "tier": "essential",
+      "learn": {
+        "summary": "Sound is the classic bridge into open awareness: sounds arrive uninvited, change constantly, and end on their own, modeling how all experience behaves. Practice hearing raw sound before the label (a vibration, then 'truck') kicks in. The annoying noise that ruins your quiet sit is premium practice material, because the annoyance is observable too.",
+        "links": [
+          {
+            "label": "Hearing (Wikipedia)",
+            "url": "https://en.wikipedia.org/wiki/Hearing",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Spend 5 minutes today with eyes closed doing nothing but receiving sounds, noting each as near or far."
+      ]
+    },
+    {
+      "id": "choiceless-awareness",
+      "title": "Choiceless Awareness",
+      "tier": "extra",
+      "learn": {
+        "summary": "Choiceless awareness, a phrase associated with Jiddu Krishnamurti, means observing without the observer picking winners: no preference for calm over agitation, breath over thought. It is the least structured practice here and the easiest to fake, so most teachers prescribe it only after concentration is stable. The instruction fits in one line and takes years to mean.",
+        "links": [
+          {
+            "label": "Jiddu Krishnamurti (Wikipedia)",
+            "url": "https://en.wikipedia.org/wiki/Jiddu_Krishnamurti",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "In one sit this week, notice each time you prefer one experience over another, and count the preferences instead of fighting them."
+      ]
+    },
+    {
+      "id": "thoughts-as-events",
+      "title": "Thoughts as Events",
+      "tier": "recommended",
+      "learn": {
+        "summary": "The pivotal shift is seeing thoughts as mental events rather than facts or commands, what Acceptance and Commitment Therapy calls cognitive defusion. 'I am a failure' becomes 'a self-critical thought just occurred', which is observable and survivable. This decentering skill is a leading candidate mechanism for why mindfulness-based cognitive therapy reduces depression relapse.",
+        "links": [
+          {
+            "label": "Acceptance and commitment therapy (Wikipedia)",
+            "url": "https://en.wikipedia.org/wiki/Acceptance_and_commitment_therapy",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "For one day, when a harsh thought appears, silently rephrase it once as 'I am having the thought that...' and notice any change in grip."
+      ]
+    }
+  ]
+}

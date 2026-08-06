@@ -1,0 +1,92 @@
+{
+  "id": "push-and-pull",
+  "title": "Movement Patterns: Push & Pull",
+  "tier": "essential",
+  "learn": {
+    "summary": "Upper-body training reduces to pushing things away and pulling things toward you, horizontally and vertically. Modern life is push-dominant and pull-starved, which is why rounded shoulders are everywhere — bias your pulling volume at roughly 2:1 over pushing until posture and shoulder health say otherwise.",
+    "links": [
+      {
+        "label": "Strength training — Wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Strength_training",
+        "kind": "article"
+      }
+    ]
+  },
+  "do": [
+    "Do one push session and one pull session this week — even 3 sets each of push-ups and rows counts."
+  ],
+  "children": [
+    {
+      "id": "push-progressions",
+      "title": "Push Progressions",
+      "tier": "essential",
+      "learn": {
+        "summary": "The push-up scales beautifully in both directions: wall → countertop → knees → full → feet-elevated → one-arm progressions. Move up a level when you can do 3 sets of 12 with a rigid plank body and full range. Elevating your hands is not cheating — it's exactly how load is supposed to be managed.",
+        "links": [
+          {
+            "label": "Push-up — Wikipedia",
+            "url": "https://en.wikipedia.org/wiki/Push-up",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Find your current push-up level (the one where you can do 8–12 clean reps) and do 3 sets of it twice this week."
+      ]
+    },
+    {
+      "id": "pull-progressions",
+      "title": "Pull Progressions",
+      "tier": "essential",
+      "learn": {
+        "summary": "Rows come before pull-ups: inverted rows under a sturdy table or with a suspension trainer let you scale difficulty just by changing body angle. For most adults the arc is table rows → low-bar rows → band-assisted pull-ups → dead-hang pull-ups. A first strict pull-up typically requires being able to row your bodyweight horizontally for 8+ reps and dead-hang for 30+ seconds.",
+        "links": [
+          {
+            "label": "Pull-up — Wikipedia",
+            "url": "https://en.wikipedia.org/wiki/Pull-up",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Do 3 sets of 8 rows this week using a sturdy table edge, backpack rows, or resistance band — pick whatever is available."
+      ]
+    },
+    {
+      "id": "push-pull-balance",
+      "title": "Push/Pull Balance",
+      "tier": "recommended",
+      "learn": {
+        "summary": "Count your weekly sets: if pushing (push-ups, presses, bench) outnumbers pulling (rows, pull-ups, face pulls), you're feeding the desk-hunch pattern. Aim for at least as many pull sets as push sets — 2:1 pull-biased if you sit all day. Rear-delt and mid-back work is the cheapest posture insurance available.",
+        "links": [
+          {
+            "label": "Bent-over row — Wikipedia",
+            "url": "https://en.wikipedia.org/wiki/Bent-over_row",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Audit last week's training (or plan this week's): count push sets vs pull sets and adjust until pulls are at least equal."
+      ]
+    },
+    {
+      "id": "overhead-press",
+      "title": "Overhead Work",
+      "tier": "extra",
+      "learn": {
+        "summary": "Pressing overhead demands shoulder mobility most adults have lost — test by standing back against a wall and raising straight arms overhead to touch it without the ribs flaring. If you pass, light overhead pressing and hanging from a bar are superb shoulder maintenance; if not, earn the range first with wall slides and lat stretches.",
+        "links": [
+          {
+            "label": "Overhead press — Wikipedia",
+            "url": "https://en.wikipedia.org/wiki/Overhead_press",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Do the wall overhead-reach test today; if you pass, accumulate 60 seconds of dead-hangs this week — if not, do wall slides 3 times."
+      ]
+    }
+  ]
+}

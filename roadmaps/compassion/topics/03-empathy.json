@@ -1,0 +1,97 @@
+{
+  "id": "empathy",
+  "title": "Empathy",
+  "tier": "essential",
+  "learn": {
+    "summary": "Empathy is feeling with someone; it has cognitive (understanding their state), affective (feeling it), and motivational (caring about it) components. Compassion researchers like Tania Singer distinguish empathy from compassion: empathy alone can burn you out through shared distress, while compassion adds warmth and the wish to help — and shows different brain signatures. The goal is not maximal feeling but accurate understanding plus care.",
+    "links": [
+      {
+        "label": "Empathy (Wikipedia)",
+        "url": "https://en.wikipedia.org/wiki/Empathy",
+        "kind": "article"
+      }
+    ]
+  },
+  "do": [
+    "After your next disagreement, write two sentences stating the other person's position so fairly they would sign off on it."
+  ],
+  "children": [
+    {
+      "id": "empathy-vs-sympathy",
+      "title": "Empathy vs Sympathy",
+      "tier": "essential",
+      "learn": {
+        "summary": "Sympathy observes from the outside ('poor you'); empathy climbs in ('I am with you'). Brené Brown popularized the distinction: sympathy often starts with 'at least...' and creates distance, while empathy requires taking the other's perspective and staying out of judgment. Rarely does an empathic response begin with 'at least.'",
+        "links": [
+          {
+            "label": "Sympathy (Wikipedia)",
+            "url": "https://en.wikipedia.org/wiki/Sympathy",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Catch yourself once this week starting a response with 'at least' or 'well, on the bright side' — and swap it for 'that sounds really hard.'"
+      ]
+    },
+    {
+      "id": "perspective-taking",
+      "title": "Perspective-Taking",
+      "tier": "essential",
+      "learn": {
+        "summary": "Actively imagining another's viewpoint reduces stereotyping and increases helping — but imagining their situation ('what would it be like to be them') works better than projecting yourself into it ('what would I do'). The fundamental attribution error is the enemy here: we explain our own failures by circumstances and others' failures by character. Perspective-taking is the deliberate correction.",
+        "links": [
+          {
+            "label": "Perspective-taking (Wikipedia)",
+            "url": "https://en.wikipedia.org/wiki/Perspective-taking",
+            "kind": "article"
+          },
+          {
+            "label": "Fundamental attribution error",
+            "url": "https://en.wikipedia.org/wiki/Fundamental_attribution_error",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Next time someone cuts you off or snaps at you, generate three situational explanations (running late, bad news, in pain) before settling on a character judgment."
+      ]
+    },
+    {
+      "id": "empathic-accuracy",
+      "title": "Empathic Accuracy Limits",
+      "tier": "recommended",
+      "learn": {
+        "summary": "William Ickes's research on empathic accuracy found people correctly infer a partner's thoughts and feelings only around 20–35% of the time — even spouses. The humbling implication: your gut read of someone is a hypothesis, not a fact. The fix is not more intuition but more checking: 'I am guessing you are frustrated — is that right?'",
+        "links": [
+          {
+            "label": "Empathic accuracy (Wikipedia)",
+            "url": "https://en.wikipedia.org/wiki/Empathic_accuracy",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Twice this week, state your read of someone's feeling as a question ('you seem stressed — am I off?') and track how often you were wrong."
+      ]
+    },
+    {
+      "id": "empathy-blockers",
+      "title": "Empathy Blockers",
+      "tier": "extra",
+      "learn": {
+        "summary": "Rosenberg cataloged the habits that kill empathy mid-sentence: advising, one-upping, educating, consoling, story-telling, shutting down, sympathizing, interrogating, explaining, and correcting. All are well-intentioned; all move the spotlight off the speaker. Knowing your personal favorite blocker is half the battle — most people have one they reach for automatically.",
+        "links": [
+          {
+            "label": "Nonviolent Communication (Wikipedia)",
+            "url": "https://en.wikipedia.org/wiki/Nonviolent_Communication",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Identify your default blocker (advising? one-upping? silver-lining?) and tally each time you catch it over the next three days."
+      ]
+    }
+  ]
+}

@@ -1,0 +1,92 @@
+{
+  "id": "learning-to-see",
+  "title": "Learning to See",
+  "tier": "essential",
+  "learn": {
+    "summary": "Most people draw badly not because their hands fail but because they draw their mental symbol of an eye or a hand instead of the shapes actually in front of them. Betty Edwards built an entire method around forcing the brain out of symbol mode and into perception. Every exercise in this milestone is a trick for seeing what is really there.",
+    "links": [
+      {
+        "label": "Drawing on the Right Side of the Brain (Wikipedia)",
+        "url": "https://en.wikipedia.org/wiki/Drawing_on_the_Right_Side_of_the_Brain",
+        "kind": "article"
+      }
+    ]
+  },
+  "do": [
+    "Draw your own hand for 10 minutes today without naming any part of it in your head — only shapes, angles, and curves — then compare it to a hand you draw from memory."
+  ],
+  "children": [
+    {
+      "id": "symbol-override",
+      "title": "Symbol Override",
+      "tier": "essential",
+      "learn": {
+        "summary": "Children develop a fixed symbol vocabulary — almond eyes, stick fingers, lollipop trees — and most adults still draw with it. The fix is drawing only what you observe: angles, shapes, and relationships, never 'an eye.' The moment you catch yourself naming the thing you're drawing, you have stopped looking at it.",
+        "links": [
+          {
+            "label": "Drawing (Wikipedia)",
+            "url": "https://en.wikipedia.org/wiki/Drawing",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Draw a crumpled piece of paper for 15 minutes this week — it has no symbol in your head, which is exactly why it comes out better than faces do."
+      ]
+    },
+    {
+      "id": "upside-down-drawing",
+      "title": "Upside-Down Drawing",
+      "tier": "essential",
+      "learn": {
+        "summary": "Edwards' most famous exercise: copy a line drawing turned upside down, so your brain can't recognize objects and is forced to process pure line and shape. Her classic assignment uses Picasso's portrait of Igor Stravinsky. Students are routinely shocked that their upside-down copy beats anything they draw right-side up.",
+        "links": [
+          {
+            "label": "Betty Edwards (Wikipedia)",
+            "url": "https://en.wikipedia.org/wiki/Betty_Edwards",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Find any clean line drawing, turn it upside down, and copy it in 30-40 minutes without rotating it; only flip your copy when completely finished."
+      ]
+    },
+    {
+      "id": "negative-space",
+      "title": "Negative Space",
+      "tier": "essential",
+      "learn": {
+        "summary": "Negative space is the shape of the emptiness around and between objects — the triangle inside a chair's legs, the sky between branches. Because your brain has no symbols for these shapes, it sees them accurately, and drawing them makes the positive object appear almost as a side effect. Ateliers and Edwards both treat this as a core seeing skill, not a trick.",
+        "links": [
+          {
+            "label": "Negative space (Wikipedia)",
+            "url": "https://en.wikipedia.org/wiki/Negative_space",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Draw a kitchen chair this week by drawing only the spaces around and through it — never the chair itself — and shade those spaces solid."
+      ]
+    },
+    {
+      "id": "sighting-measuring",
+      "title": "Sighting & Measuring",
+      "tier": "recommended",
+      "learn": {
+        "summary": "Sighting is the classic pencil-at-arm's-length technique: lock your elbow, close one eye, and use the pencil to compare proportions ('the head fits three times into the torso') and check angles against vertical and horizontal. Atelier students spend months on comparative measurement before rendering anything. It converts guessing into verification.",
+        "links": [
+          {
+            "label": "Figure drawing (Wikipedia)",
+            "url": "https://en.wikipedia.org/wiki/Figure_drawing",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Draw a mug or bottle using sighting for every proportion: measure its height in widths with your pencil before drawing a single contour, and verify two angles against vertical."
+      ]
+    }
+  ]
+}

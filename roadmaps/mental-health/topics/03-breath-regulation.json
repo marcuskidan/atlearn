@@ -1,0 +1,92 @@
+{
+  "id": "breath-regulation",
+  "title": "Breath & Regulation",
+  "tier": "essential",
+  "learn": {
+    "summary": "Breathing is the only autonomic function under direct voluntary control, which makes it the remote control for your nervous system: slow exhale-weighted breathing engages the parasympathetic brake within minutes. These techniques are for acute state changes — they down-shift arousal so the thinking skills later in this roadmap become usable. Regulate first, reason second.",
+    "links": [
+      {
+        "label": "Diaphragmatic breathing (Wikipedia)",
+        "url": "https://en.wikipedia.org/wiki/Diaphragmatic_breathing",
+        "kind": "article"
+      }
+    ]
+  },
+  "do": [
+    "Choose one technique from this section and use it at the same trigger all week (e.g., before opening email). Consistency builds the reflex."
+  ],
+  "children": [
+    {
+      "id": "physiological-sigh",
+      "title": "The Physiological Sigh",
+      "tier": "essential",
+      "learn": {
+        "summary": "A double inhale through the nose (second sip tops off the lungs, re-inflating collapsed alveoli) followed by a long mouth exhale — the pattern bodies produce spontaneously during crying and before sleep. Stanford work (Huberman, Spiegel labs, 2023) found five minutes of this 'cyclic sighing' daily beat mindfulness meditation for improving mood and lowering resting respiratory rate. One to three sighs work in real time, mid-stress.",
+        "links": [
+          {
+            "label": "Sigh (Wikipedia)",
+            "url": "https://en.wikipedia.org/wiki/Sigh",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Use 2–3 physiological sighs at your next moment of acute stress this week, and rate tension before/after (1–10)."
+      ]
+    },
+    {
+      "id": "box-breathing",
+      "title": "Slow Breathing Protocols",
+      "tier": "recommended",
+      "learn": {
+        "summary": "Box breathing (inhale 4, hold 4, exhale 4, hold 4) is used by Navy SEALs precisely because it works under extreme arousal; 4-7-8 and simple 6-breaths-per-minute paced breathing achieve similar effects. The active ingredient across all protocols is slowing the rate (~5–6 breaths/min maximizes heart-rate variability) and lengthening the exhale, which directly stimulates the vagal brake. Pick one pattern; the brand matters less than the practice.",
+        "links": [
+          {
+            "label": "Diaphragmatic breathing (Wikipedia)",
+            "url": "https://en.wikipedia.org/wiki/Diaphragmatic_breathing",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Do 4 minutes of box breathing before one recurring stressful event this week (meeting, commute, difficult call)."
+      ]
+    },
+    {
+      "id": "vagus-nerve",
+      "title": "The Vagus Nerve",
+      "tier": "extra",
+      "learn": {
+        "summary": "The vagus is the tenth cranial nerve, the main highway of the parasympathetic system, wandering from brainstem to heart and gut — and 'vagal tone' (often indexed by heart-rate variability) tracks capacity to recover from stress. Stephen Porges's polyvagal theory popularized (and somewhat over-extended) the concept; the well-supported core is that slow exhalation, cold exposure to the face, humming, and social safety cues all raise vagal activity. Beware of products selling vagus magic; the free tools work.",
+        "links": [
+          {
+            "label": "Vagus nerve (Wikipedia)",
+            "url": "https://en.wikipedia.org/wiki/Vagus_nerve",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Try one vagal down-shifter each day for three days (long exhales, cold water on face, humming) and rank which works best for your body."
+      ]
+    },
+    {
+      "id": "grounding-techniques",
+      "title": "Grounding Techniques",
+      "tier": "essential",
+      "learn": {
+        "summary": "Grounding pulls attention out of spiraling thought and into present-moment senses — the 5-4-3-2-1 exercise (name 5 things you see, 4 you feel, 3 you hear, 2 you smell, 1 you taste) is the classic, widely used in trauma and anxiety care. It works via attentional competition: the brain cannot fully catastrophize and count doorknobs simultaneously. Cold water, feet-on-floor pressure, and naming objects aloud are equally valid variants.",
+        "links": [
+          {
+            "label": "Emotional self-regulation (Wikipedia)",
+            "url": "https://en.wikipedia.org/wiki/Emotional_self-regulation",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Memorize 5-4-3-2-1 today and run it once in a calm moment, so it is rehearsed before you need it in an anxious one."
+      ]
+    }
+  ]
+}

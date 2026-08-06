@@ -1,0 +1,97 @@
+{
+  "id": "your-biased-brain",
+  "title": "Your Biased Brain",
+  "tier": "essential",
+  "learn": {
+    "summary": "Daniel Kahneman's research showed the mind runs on a fast, automatic System 1 that generates impressions and a slow, effortful System 2 that mostly rubber-stamps them. Biases aren't occasional glitches; they're the default operating mode, and knowing bias names doesn't immunize you — the 'bias blind spot' means you'll spot them in others far more easily than in yourself. The practical fix is process: checklists, base rates, and asking 'what would make me wrong?' before deciding.",
+    "links": [
+      {
+        "label": "Wikipedia: Thinking, Fast and Slow",
+        "url": "https://en.wikipedia.org/wiki/Thinking,_Fast_and_Slow",
+        "kind": "article"
+      },
+      {
+        "label": "Wikipedia: List of cognitive biases",
+        "url": "https://en.wikipedia.org/wiki/List_of_cognitive_biases",
+        "kind": "article"
+      }
+    ]
+  },
+  "do": [
+    "For one week, keep a 'bias journal': each day, record one snap judgment you made and which bias most plausibly shaped it."
+  ],
+  "children": [
+    {
+      "id": "confirmation-bias",
+      "title": "Confirmation Bias",
+      "tier": "essential",
+      "learn": {
+        "summary": "We search for, interpret, and remember information that confirms what we already believe — Peter Wason demonstrated this in the 1960s with his 2-4-6 task, where people almost never test cases that could refute their rule. The antidote is deliberate disconfirmation: actively hunt for the strongest evidence against your position. If you only ever find support, you're not researching, you're rationalizing.",
+        "links": [
+          {
+            "label": "Wikipedia: Confirmation bias",
+            "url": "https://en.wikipedia.org/wiki/Confirmation_bias",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Pick one opinion you hold strongly and spend 20 minutes searching specifically for the best counter-evidence; write down the single strongest point you found."
+      ]
+    },
+    {
+      "id": "anchoring",
+      "title": "Anchoring",
+      "tier": "essential",
+      "learn": {
+        "summary": "The first number you see drags your estimate toward it, even when it's obviously irrelevant — Tversky and Kahneman showed a rigged wheel of fortune shifted people's guesses about UN membership. Anchoring drives pricing ('was $200, now $89'), salary negotiations, and legal sentencing. Defense: generate your own estimate before looking at anyone else's number.",
+        "links": [
+          {
+            "label": "Wikipedia: Anchoring effect",
+            "url": "https://en.wikipedia.org/wiki/Anchoring_effect",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Before your next purchase over $50, write down what you'd pay before checking the listed price, and note the gap between your number and the anchor."
+      ]
+    },
+    {
+      "id": "availability-heuristic",
+      "title": "Availability Heuristic",
+      "tier": "recommended",
+      "learn": {
+        "summary": "We judge how likely something is by how easily examples come to mind, so vivid, recent, and newsworthy risks feel bigger than they are. This is why people fear plane crashes and shark attacks more than car trips and heart disease, which kill vastly more people. Whenever a risk feels huge, ask whether you're recalling data or headlines.",
+        "links": [
+          {
+            "label": "Wikipedia: Availability heuristic",
+            "url": "https://en.wikipedia.org/wiki/Availability_heuristic",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "List 3 things you fear or worry about, then look up the actual base-rate statistics for each and note which fears were inflated by news coverage."
+      ]
+    },
+    {
+      "id": "motivated-reasoning",
+      "title": "Motivated Reasoning",
+      "tier": "essential",
+      "learn": {
+        "summary": "We don't just make random errors — we reason toward conclusions we want to be true, applying 'can I believe this?' to friendly claims and 'must I believe this?' to hostile ones (Tom Gilovich's framing). Dan Kahan's work shows more numerate people can be more polarized, because skill gets recruited to defend the team. The first step is simply noticing the flash of wanting an answer to come out a certain way.",
+        "links": [
+          {
+            "label": "Wikipedia: Motivated reasoning",
+            "url": "https://en.wikipedia.org/wiki/Motivated_reasoning",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Before checking one contested fact this week, write down which answer you're hoping for — then notice how that hope colors your reading of the results."
+      ]
+    }
+  ]
+}

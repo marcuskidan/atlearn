@@ -1,0 +1,97 @@
+{
+  "id": "conflict-deescalation",
+  "title": "Conflict & De-escalation",
+  "tier": "essential",
+  "learn": {
+    "summary": "John Gottman's lab found physiological flooding — heart rate above roughly 100 bpm — makes productive conflict neurologically impossible, and that couples who repair early and often are the ones who last. The sequence matters: regulate arousal first, validate second, problem-solve last. Most conflict advice fails because it starts at step three.",
+    "links": [
+      {
+        "label": "John Gottman (Wikipedia)",
+        "url": "https://en.wikipedia.org/wiki/John_Gottman",
+        "kind": "article"
+      },
+      {
+        "label": "De-escalation (Wikipedia)",
+        "url": "https://en.wikipedia.org/wiki/De-escalation",
+        "kind": "article"
+      }
+    ]
+  },
+  "do": [
+    "Agree with one important person on a pause signal ('I need 20 minutes') to use when either of you floods — then honor it the first time it is invoked."
+  ],
+  "children": [
+    {
+      "id": "arousal-first",
+      "title": "Regulate Arousal First",
+      "tier": "essential",
+      "learn": {
+        "summary": "Gottman's flooding research shows that above ~100 bpm, people lose access to humor, listening, and creative problem-solving — you are arguing with a threat-detection system, not a person. The evidence-based fix is a 20–30 minute break doing something genuinely distracting (not rehearsing your comeback), because cortisol needs that long to clear. Never try to win a conversation with a flooded nervous system, including your own.",
+        "links": [
+          {
+            "label": "Fight-or-flight response (Wikipedia)",
+            "url": "https://en.wikipedia.org/wiki/Fight-or-flight_response",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "During your next heated moment, check your body (heart, jaw, hands). If activated, take the 20-minute break and return at an agreed time — set an actual timer."
+      ]
+    },
+    {
+      "id": "validation",
+      "title": "Validation",
+      "tier": "essential",
+      "learn": {
+        "summary": "Validation means confirming the other person's feelings make sense from their vantage point — it is not agreement with their conclusions. 'Given that you thought I forgot, of course you were hurt' costs you nothing factually and drops the temperature immediately, because people escalate hardest when they feel their reaction is being called crazy. Invalidation ('you are overreacting') is gasoline.",
+        "links": [
+          {
+            "label": "Emotional validation (Wikipedia)",
+            "url": "https://en.wikipedia.org/wiki/Emotional_validation",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "In your next disagreement, say one genuine validating sentence ('it makes sense you felt X, because Y') before stating your side."
+      ]
+    },
+    {
+      "id": "difficult-conversations",
+      "title": "Difficult Conversations",
+      "tier": "recommended",
+      "learn": {
+        "summary": "Gottman's 'soft startup' finding: how a conversation begins predicts how it ends in over 90% of cases, so open with an I-statement about a specific situation rather than a character indictment ('you always'). The Harvard Negotiation Project adds the third-story move — open from a neutral description both sides could accept. Complaint about behavior lands; criticism of character starts a war.",
+        "links": [
+          {
+            "label": "I-message (Wikipedia)",
+            "url": "https://en.wikipedia.org/wiki/I-message",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Before your next hard conversation, script your first two sentences as a soft startup ('I felt X when Y; I would like Z') and open with them verbatim."
+      ]
+    },
+    {
+      "id": "repair-attempts",
+      "title": "Repair Attempts",
+      "tier": "recommended",
+      "learn": {
+        "summary": "Gottman calls repair attempts — a joke, a touch, 'let me try that again', an apology mid-fight — the secret weapon of stable couples; what predicts relationship success is not fighting less but repairing more, and accepting the other's repairs. A good apology names the specific harm, skips 'but', and states what changes. Repairs feel awkward by design; do them anyway.",
+        "links": [
+          {
+            "label": "John Gottman (Wikipedia)",
+            "url": "https://en.wikipedia.org/wiki/John_Gottman",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Within 24 hours of your next conflict, make one explicit repair: name what you did, its impact, and one concrete thing you will do differently — no 'but' allowed."
+      ]
+    }
+  ]
+}

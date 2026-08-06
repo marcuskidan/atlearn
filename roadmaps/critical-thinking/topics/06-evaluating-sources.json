@@ -1,0 +1,102 @@
+{
+  "id": "evaluating-sources",
+  "title": "Evaluating Sources",
+  "tier": "essential",
+  "learn": {
+    "summary": "Stanford's Sam Wineburg found professional fact-checkers evaluate a site in seconds — not by reading it closely, but by leaving it to see what the rest of the web says. Students and PhDs, meanwhile, got fooled by polished About pages. Source evaluation is a network skill: reputation, incentives, and track record matter more than design or tone.",
+    "links": [
+      {
+        "label": "Wikipedia: Source criticism",
+        "url": "https://en.wikipedia.org/wiki/Source_criticism",
+        "kind": "article"
+      }
+    ]
+  },
+  "do": [
+    "For the next unfamiliar site you cite or share, spend 60 seconds checking what three other sources say about that site before trusting its content."
+  ],
+  "children": [
+    {
+      "id": "lateral-reading",
+      "title": "Lateral Reading",
+      "tier": "essential",
+      "learn": {
+        "summary": "Lateral reading means opening new tabs to investigate the source instead of scrolling deeper into it — the single highest-leverage habit from Stanford's Civic Online Reasoning research. Fact-checkers ask 'who is behind this site and what do others say about them?' before engaging with any claim. It takes under a minute and beats any checklist of visual credibility cues.",
+        "links": [
+          {
+            "label": "Wikipedia: Lateral reading",
+            "url": "https://en.wikipedia.org/wiki/Fact-checking",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Practice on 3 unfamiliar websites this week: before reading the article, search the site's name plus 'funding' or 'credibility' and note what you find."
+      ]
+    },
+    {
+      "id": "incentives",
+      "title": "Follow the Incentives",
+      "tier": "essential",
+      "learn": {
+        "summary": "Ask 'who benefits if I believe this?' — the tobacco industry's playbook of manufacturing doubt, documented in Oreskes and Conway's 'Merchants of Doubt', shows how far incentives can bend apparent expertise. Incentives don't automatically make a claim false (that would be the genetic fallacy), but they tell you where to demand independent corroboration. Sponsored studies, affiliate links, and engagement-paid media all deserve an extra pass.",
+        "links": [
+          {
+            "label": "Wikipedia: Merchants of Doubt",
+            "url": "https://en.wikipedia.org/wiki/Merchants_of_Doubt",
+            "kind": "article"
+          },
+          {
+            "label": "Wikipedia: Conflict of interest",
+            "url": "https://en.wikipedia.org/wiki/Conflict_of_interest",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "For 3 pieces of content you consume this week, write one sentence on how the creator makes money and how that could shape the message."
+      ]
+    },
+    {
+      "id": "expertise-and-consensus",
+      "title": "Expertise and Consensus",
+      "tier": "recommended",
+      "learn": {
+        "summary": "Trusting experts isn't a fallacy — deferring to the consensus of relevant, independent experts is usually the rational move for questions outside your competence. The failure modes are trusting credentials outside their domain (a Nobel physicist on nutrition) and mistaking one contrarian with a lab coat for a live controversy. Look for what the field's institutions and systematic reviews say, not what one impressive individual says.",
+        "links": [
+          {
+            "label": "Wikipedia: Scientific consensus",
+            "url": "https://en.wikipedia.org/wiki/Scientific_consensus",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Pick one contested topic and identify what the relevant professional body or systematic review actually concludes, versus what the loudest voice you've heard claims."
+      ]
+    },
+    {
+      "id": "primary-vs-secondary",
+      "title": "Primary vs Secondary Sources",
+      "tier": "recommended",
+      "learn": {
+        "summary": "News about a study is a secondary source, and each retelling is a game of telephone: press releases oversimplify, headlines overclaim, and aggregators strip caveats. The primary source — the paper, the transcript, the dataset, the court filing — is usually one or two clicks away. You don't need to read all of it; even the abstract often contradicts the headline.",
+        "links": [
+          {
+            "label": "Wikipedia: Primary source",
+            "url": "https://en.wikipedia.org/wiki/Primary_source",
+            "kind": "article"
+          },
+          {
+            "label": "Wikipedia: Secondary source",
+            "url": "https://en.wikipedia.org/wiki/Secondary_source",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Trace 2 news claims back to their primary sources this week and note any differences between the original and the coverage."
+      ]
+    }
+  ]
+}

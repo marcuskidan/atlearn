@@ -1,0 +1,92 @@
+{
+  "id": "the-wandering-mind",
+  "title": "The Wandering Mind",
+  "tier": "essential",
+  "learn": {
+    "summary": "Mind-wandering occupies roughly half of waking thought (Killingsworth and Gilbert's 2010 experience-sampling study of 2,250 people), so your distracted sits are statistically normal cognition. Neuroscience links this to the default mode network, active during self-referential daydreaming and quieter during focused tasks. Meditation does not eliminate wandering; it shortens the time before you notice.",
+    "links": [
+      {
+        "label": "Mind-wandering (Wikipedia)",
+        "url": "https://en.wikipedia.org/wiki/Mind-wandering",
+        "kind": "article"
+      }
+    ]
+  },
+  "do": [
+    "Set 3 random phone alarms tomorrow; at each one, write down whether you were focused on your task or mind-wandering."
+  ],
+  "children": [
+    {
+      "id": "default-mode-network",
+      "title": "Default Mode Network",
+      "tier": "recommended",
+      "learn": {
+        "summary": "The DMN, described by Marcus Raichle in 2001, is a set of midline brain regions active during rest, rumination, and mental time travel. Studies by Judson Brewer and others found reduced DMN activity in experienced meditators during practice. Treat this as an interesting correlate, not proof; the field still debates what DMN changes mean functionally.",
+        "links": [
+          {
+            "label": "Default mode network (Wikipedia)",
+            "url": "https://en.wikipedia.org/wiki/Default_mode_network",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "After one sit this week, write down the top 3 themes your mind wandered to; DMN content is usually past-replay or future-planning, check yours."
+      ]
+    },
+    {
+      "id": "noting-technique",
+      "title": "Noting Technique",
+      "tier": "essential",
+      "learn": {
+        "summary": "Noting, systematized by Burmese teacher Mahasi Sayadaw, means attaching a soft one-word label to experience: thinking, hearing, itching, planning. The label creates a sliver of distance between you and the content, converting absorption into observation. Keep labels quiet, simple, and infrequent; the noticing matters more than the vocabulary.",
+        "links": [
+          {
+            "label": "Mahasi Sayadaw (Wikipedia)",
+            "url": "https://en.wikipedia.org/wiki/Mahasi_Sayadaw",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Do one 10-minute sit this week using only two labels, 'thinking' and 'feeling', applied whenever you notice you have left the breath."
+      ]
+    },
+    {
+      "id": "attitude-toward-distraction",
+      "title": "Befriending Distraction",
+      "tier": "essential",
+      "learn": {
+        "summary": "The instruction is non-judgmental awareness, and the judgment part is the hard 90 percent. Treating each distraction like a puppy wandering off (retrieve gently, no scolding) works better than drill-sergeant discipline, which just adds a layer of tension to observe. Frustration at wandering is itself a mental event; note it and return.",
+        "links": [
+          {
+            "label": "Mindfulness (Wikipedia)",
+            "url": "https://en.wikipedia.org/wiki/Mindfulness",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "For one full sit, deliberately smile slightly each time you catch a distraction, and note afterward whether returns felt easier."
+      ]
+    },
+    {
+      "id": "self-judgment",
+      "title": "Self-Judgment",
+      "tier": "recommended",
+      "learn": {
+        "summary": "Harsh self-criticism during practice predicts quitting; Kristin Neff's self-compassion research shows self-kindness outperforms self-flagellation for sustaining difficult endeavors. The thought 'I am bad at meditating' is a judgment about a mental event, which is itself a mental event, all of it observable. If every sit ends in a verdict about your worth, that verdict is your real practice object.",
+        "links": [
+          {
+            "label": "Self-compassion (Wikipedia)",
+            "url": "https://en.wikipedia.org/wiki/Self-compassion",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "After your next 3 sits, write one sentence describing the sit with zero evaluative words (no good, bad, better, worse)."
+      ]
+    }
+  ]
+}

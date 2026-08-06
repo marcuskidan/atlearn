@@ -1,0 +1,92 @@
+{
+  "id": "storytelling",
+  "title": "Storytelling",
+  "tier": "essential",
+  "learn": {
+    "summary": "Stories are how humans package meaning for transport; narrative consistently beats bare statistics for memory and persuasion in communication research. Every usable story has the same skeleton: a person, a complication, a turn, and a consequence. Speakers who seem naturally interesting mostly maintain a rehearsed inventory of true stories and deploy them on cue.",
+    "links": [
+      {
+        "label": "Storytelling (Wikipedia)",
+        "url": "https://en.wikipedia.org/wiki/Storytelling",
+        "kind": "article"
+      }
+    ]
+  },
+  "do": [
+    "Write down the bones of one true story from your life this week (situation, complication, turn, takeaway) in 4 sentences."
+  ],
+  "children": [
+    {
+      "id": "story-structure",
+      "title": "Story Structure",
+      "tier": "essential",
+      "learn": {
+        "summary": "The minimal spoken-story arc: normal, disruption, struggle, resolution, meaning; Joseph Campbell's hero's journey is the same shape at epic scale. For conversation and business, keep it under 90 seconds and put the meaning last, where it lands. Start in motion ('So I am standing in the airport security line...') rather than with throat-clearing context.",
+        "links": [
+          {
+            "label": "Hero's journey (Wikipedia)",
+            "url": "https://en.wikipedia.org/wiki/Hero%27s_journey",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Take one story you told recently and re-tell it to someone new this week starting mid-action, cutting all setup that precedes the disruption."
+      ]
+    },
+    {
+      "id": "personal-story-bank",
+      "title": "Personal Story Bank",
+      "tier": "essential",
+      "learn": {
+        "summary": "Professional speakers keep a written inventory of true personal stories tagged by theme: failure, luck, persistence, absurdity, change of mind. When a meeting, interview, or toast needs one, retrieval beats invention every time. Five polished stories cover a startling fraction of real speaking situations, including 'tell me about a time when' interview questions.",
+        "links": [
+          {
+            "label": "Anecdote (Wikipedia)",
+            "url": "https://en.wikipedia.org/wiki/Anecdote",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Start a story-bank note today and add 5 true stories from your life by end of week, one line each plus the theme it proves."
+      ]
+    },
+    {
+      "id": "specificity-and-detail",
+      "title": "Specificity and Detail",
+      "tier": "recommended",
+      "learn": {
+        "summary": "One vivid, specific detail ('he was eating cereal out of a measuring cup') does more than a paragraph of adjectives, because concrete images are what memory stores. The selection rule: keep only details that either advance the story or build the world, and cut the rest ruthlessly, especially dates, tangents, and character backstories nobody needs. Vagueness is the death of stories; 'a while back at my old job' starts nothing.",
+        "links": [
+          {
+            "label": "Show, don't tell (Wikipedia)",
+            "url": "https://en.wikipedia.org/wiki/Show,_don%27t_tell",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Take one story from your bank and rewrite it this week keeping exactly 3 concrete details and deleting every other descriptor."
+      ]
+    },
+    {
+      "id": "humor-basics",
+      "title": "Humor Basics",
+      "tier": "extra",
+      "learn": {
+        "summary": "Usable everyday humor is mostly surprise plus truth: an honest observation with an unexpected turn, delivered with commitment. The safest reliable target is your own (minor) failures; the riskiest is anyone in the room. You do not need laughs; warmth plus lightness outperforms joke-telling for likability, and a joke that needs explaining was a transmission error, so let it die.",
+        "links": [
+          {
+            "label": "Humour (Wikipedia)",
+            "url": "https://en.wikipedia.org/wiki/Humour",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Add one self-deprecating true detail to a story you tell this week and note the response, no punchline required."
+      ]
+    }
+  ]
+}

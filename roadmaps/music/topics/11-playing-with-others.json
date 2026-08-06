@@ -1,0 +1,79 @@
+{
+  "id": "playing-with-others",
+  "title": "Playing With Others",
+  "tier": "recommended",
+  "learn": {
+    "summary": "Ensemble playing is a forcing function nothing solo can match: the band's tempo does not wait, so your rhythm, listening, and recovery skills grow at double speed. It also converts practice into joy, which is what keeps people playing for decades. You are ready to play with others far earlier than you think — three chords is enough.",
+    "links": [
+      {
+        "label": "Musical ensemble (Wikipedia)",
+        "url": "https://en.wikipedia.org/wiki/Musical_ensemble",
+        "kind": "article"
+      }
+    ]
+  },
+  "do": [
+    "Message one friend who plays anything this week and book 30 minutes to play together — one three-chord song is the entire agenda."
+  ],
+  "children": [
+    {
+      "id": "jamming-basics",
+      "title": "Jamming Basics",
+      "tier": "essential",
+      "learn": {
+        "summary": "Jam survival kit: know the key before you play, listen twice as much as you play, and when lost, play less — a single root note on beat 1 keeps you in the game. The 12-bar blues is the universal jam handshake: one predictable I-IV-V form everyone on earth knows. Nobody remembers your wrong notes; everyone remembers if you rushed.",
+        "links": [
+          {
+            "label": "Jam session (Wikipedia)",
+            "url": "https://en.wikipedia.org/wiki/Jam_session",
+            "kind": "article"
+          },
+          {
+            "label": "Twelve-bar blues (Wikipedia)",
+            "url": "https://en.wikipedia.org/wiki/Twelve-bar_blues",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Memorize the 12-bar blues form in A (A-A-A-A, D-D-A-A, E-D-A-A) and play or hum along with any blues backing track this week."
+      ]
+    },
+    {
+      "id": "following-a-band",
+      "title": "Following a Band",
+      "tier": "recommended",
+      "learn": {
+        "summary": "In a group, time comes from the drummer and harmony from the bass — lock your ears there, not on your own hands. Learn the arrangement's skeleton (intro, verse, chorus, bridge, ending) so you always know where you are, and watch for head nods and raised necks: the band's body language is the real conductor.",
+        "links": [
+          {
+            "label": "Rhythm section (Wikipedia)",
+            "url": "https://en.wikipedia.org/wiki/Rhythm_section",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Listen to one live recording and map its structure on paper (intro, verses, solos, ending) — then note two moments where the band visibly or audibly cues a change."
+      ]
+    },
+    {
+      "id": "open-mics-community",
+      "title": "Open Mics & Community",
+      "tier": "extra",
+      "learn": {
+        "summary": "Open mics, community choirs, ukulele circles, and church bands are the free infrastructure of amateur music — low-stakes rooms where performing becomes normal. One nervous three-song set teaches more about preparation than a month of bedroom practice. Choirs deserve special mention: no instrument needed and sight-singing improves weekly.",
+        "links": [
+          {
+            "label": "Open mic (Wikipedia)",
+            "url": "https://en.wikipedia.org/wiki/Open_mic",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Find one open mic, community choir, or jam circle within reach this week and put its next date in your calendar — attending as audience counts."
+      ]
+    }
+  ]
+}

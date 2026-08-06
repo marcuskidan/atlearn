@@ -1,0 +1,102 @@
+{
+  "id": "planning-ahead",
+  "title": "Planning Ahead",
+  "tier": "recommended",
+  "learn": {
+    "summary": "Long-horizon planning is where all the earlier concepts converge: compounding needs decades, tax treatment shapes account choices, and the biggest decisions (retirement, estate, major life changes) are exactly where licensed professionals earn their keep. This milestone covers the concepts and vocabulary so you can understand your options and ask sharp questions — the decisions themselves are yours to make, ideally with qualified help.",
+    "links": [
+      {
+        "label": "CFPB: Retirement planning tools",
+        "url": "https://www.consumerfinance.gov/consumer-tools/retirement/",
+        "kind": "article"
+      }
+    ]
+  },
+  "do": [
+    "Write down your three biggest financial questions you can't currently answer — this list is exactly what you'd bring to a licensed professional."
+  ],
+  "children": [
+    {
+      "id": "retirement-accounts-concept",
+      "title": "Retirement Account Types",
+      "tier": "essential",
+      "learn": {
+        "summary": "Retirement accounts are tax wrappers, not investments themselves: a 401(k) is employer-sponsored with high contribution limits; an IRA is individually opened with lower limits; and the traditional-vs-Roth axis is purely about tax timing — traditional defers tax until withdrawal, Roth taxes contributions now for tax-free growth and withdrawal later. Early withdrawals generally face a 10% penalty plus tax, which is the wrapper's enforcement mechanism. Which combination fits a given person is a classic question for a licensed advisor or tax professional.",
+        "links": [
+          {
+            "label": "Wikipedia: 401(k)",
+            "url": "https://en.wikipedia.org/wiki/401(k)",
+            "kind": "article"
+          },
+          {
+            "label": "Wikipedia: Individual retirement account",
+            "url": "https://en.wikipedia.org/wiki/Individual_retirement_account",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "List which retirement account types you currently have (if any), whether each is traditional or Roth, and this year's IRS contribution limit for each — just the inventory."
+      ]
+    },
+    {
+      "id": "employer-match-concept",
+      "title": "Employer Match Concept",
+      "tier": "recommended",
+      "learn": {
+        "summary": "Many employers match retirement contributions up to a cap — for example, 50 cents per dollar on the first 6% of salary — which is compensation you only receive by contributing; leaving it unclaimed is working for less than your offered pay. Vesting schedules add a wrinkle: your own contributions are always yours, but employer money may only become fully yours after several years of service. Understanding your plan's match formula and vesting schedule is reading your own compensation, not investment advice.",
+        "links": [
+          {
+            "label": "Wikipedia: Employer matching program",
+            "url": "https://en.wikipedia.org/wiki/Employer_matching_program",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Find your employer plan's match formula and vesting schedule in the plan documents (or ask HR), and calculate the dollar amount of match available to you per year."
+      ]
+    },
+    {
+      "id": "estate-basics",
+      "title": "Estate Basics",
+      "tier": "extra",
+      "learn": {
+        "summary": "Estate basics are not just for the wealthy: a will directs who receives what and who cares for minor children; beneficiary designations on retirement accounts and insurance override the will entirely (a commonly missed fact after divorces); and powers of attorney plus healthcare directives govern decisions if you're incapacitated. Dying intestate — without a will — hands the decisions to state formulas. Awareness of these instruments is the goal here; drafting them is work for an attorney.",
+        "links": [
+          {
+            "label": "Wikipedia: Estate planning",
+            "url": "https://en.wikipedia.org/wiki/Estate_planning",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Check the current beneficiary listed on every retirement account and insurance policy you have, and update any that are outdated — this one takes minutes and overrides wills."
+      ]
+    },
+    {
+      "id": "working-with-professionals",
+      "title": "Working with Professionals",
+      "tier": "extra",
+      "learn": {
+        "summary": "Titles matter: 'financial advisor' is nearly unregulated as a phrase, while credentials like CFP carry certification requirements, and the fiduciary question — 'are you legally required to act in my best interest, and how are you paid?' — separates advice from sales. Fee-only advisors are paid directly by you; commission-based advisors are paid by products they place. The SEC and FINRA operate free public databases (Investment Adviser Public Disclosure, BrokerCheck) for verifying any professional's registration and disciplinary history before you hand over trust.",
+        "links": [
+          {
+            "label": "Investor.gov: Check your professional",
+            "url": "https://www.investor.gov/",
+            "kind": "article"
+          },
+          {
+            "label": "Wikipedia: Fiduciary",
+            "url": "https://en.wikipedia.org/wiki/Fiduciary",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Write out the 5 questions you'd ask any prospective financial professional, starting with 'Are you a fiduciary at all times?' and 'How exactly are you paid?'"
+      ]
+    }
+  ]
+}

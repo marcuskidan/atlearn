@@ -1,0 +1,97 @@
+{
+  "id": "building-the-habit",
+  "title": "Building the Habit",
+  "tier": "essential",
+  "learn": {
+    "summary": "Technique is worthless without a practice that survives busy weeks; consistency is the single strongest predictor of benefit in program studies. Habit research (Wendy Wood, BJ Fogg) says the levers are a stable cue, a small starting behavior, and low friction, not motivation. Design for your worst day, not your best.",
+    "links": [
+      {
+        "label": "Habit (Wikipedia)",
+        "url": "https://en.wikipedia.org/wiki/Habit",
+        "kind": "article"
+      }
+    ]
+  },
+  "do": [
+    "Write an if-then plan today ('after I pour my morning coffee, I sit for 5 minutes') and execute it for 7 consecutive days."
+  ],
+  "children": [
+    {
+      "id": "habit-stacking",
+      "title": "Habit Stacking",
+      "tier": "essential",
+      "learn": {
+        "summary": "Anchor the sit to an existing daily behavior: after brushing teeth, after the school drop-off, after closing the laptop. BJ Fogg's Tiny Habits formula is 'after I [anchor], I will [tiny behavior]', and implementation-intention research (Peter Gollwitzer) shows such if-then plans dramatically raise follow-through. Morning anchors usually win because the day has not yet had a chance to eat your plan.",
+        "links": [
+          {
+            "label": "B. J. Fogg (Wikipedia)",
+            "url": "https://en.wikipedia.org/wiki/B._J._Fogg",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Choose one existing daily anchor and attach a 5-minute sit immediately after it for the next 7 days, tracking hits on paper."
+      ]
+    },
+    {
+      "id": "minimum-viable-session",
+      "title": "Minimum Viable Session",
+      "tier": "essential",
+      "learn": {
+        "summary": "Define a floor so small you cannot argue with it: three breaths or one minute counts as a completed day. The point is protecting the identity and the chain, because the real killer is the zero day that becomes a zero week. Most floor days turn into full sessions once you are already sitting.",
+        "links": [
+          {
+            "label": "Atomic Habits (Wikipedia)",
+            "url": "https://en.wikipedia.org/wiki/Atomic_Habits",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Declare your floor in writing today (e.g. 'three conscious breaths counts') and use it, not zero, on your next impossible day."
+      ]
+    },
+    {
+      "id": "apps-and-timers",
+      "title": "Apps and Timers",
+      "tier": "recommended",
+      "learn": {
+        "summary": "Apps like Headspace, Calm, and Insight Timer lower the entry barrier with guided sessions and streaks; RCT evidence for app-based mindfulness shows small-to-moderate short-term benefits. The trap is permanent dependence on guidance, which outsources the noticing. A sensible arc: guided for the first month or two, then a plain timer with occasional guided sessions for new techniques.",
+        "links": [
+          {
+            "label": "Headspace (Wikipedia)",
+            "url": "https://en.wikipedia.org/wiki/Headspace_(company)",
+            "kind": "article"
+          },
+          {
+            "label": "Insight Timer",
+            "url": "https://insighttimer.com",
+            "kind": "tool"
+          }
+        ]
+      },
+      "do": [
+        "If you have used guided sessions for over a month, do 2 of your sits this week with a silent timer only."
+      ]
+    },
+    {
+      "id": "tracking-honestly",
+      "title": "Tracking Honestly",
+      "tier": "extra",
+      "learn": {
+        "summary": "Track the behavior (did I sit, for how long), not the vibe (was I peaceful), because vibes are noisy and will convince you that practice is failing during completely normal rough patches. A paper calendar with an X per day is enough. Review monthly, not daily, and judge the trend line, never the single session.",
+        "links": [
+          {
+            "label": "Self-monitoring (Wikipedia)",
+            "url": "https://en.wikipedia.org/wiki/Self-monitoring",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Put a calendar where you sit and mark minutes practiced daily for 30 days before drawing any conclusion about how it is going."
+      ]
+    }
+  ]
+}

@@ -1,0 +1,92 @@
+{
+  "id": "compassion-at-scale",
+  "title": "Compassion at Scale",
+  "tier": "recommended",
+  "learn": {
+    "summary": "The final stage extends compassion beyond your immediate circle: sustained service, effective giving, and widening whom you count as 'us.' Research on volunteering links regular service to lower mortality and higher wellbeing — but the same literature warns that unboundaried helping produces compassion fatigue. Scale requires systems: recurring commitments, evidence about what helps, and self-maintenance.",
+    "links": [
+      {
+        "label": "Volunteering (Wikipedia)",
+        "url": "https://en.wikipedia.org/wiki/Volunteering",
+        "kind": "article"
+      }
+    ]
+  },
+  "do": [
+    "Choose one cause and set up a small recurring commitment this month — a monthly volunteering slot or an automatic donation — rather than a one-off gesture."
+  ],
+  "children": [
+    {
+      "id": "service-volunteering",
+      "title": "Service & Volunteering",
+      "tier": "essential",
+      "learn": {
+        "summary": "Studies of regular volunteers show associations with lower depression and, in older adults, lower mortality — with the caveat that benefits appear strongest when motives are other-oriented and the commitment is sustained (around 2 hours a week in several studies) rather than sporadic. Direct service also does something reading cannot: it converts statistics back into faces. Pick something that uses a skill you actually have.",
+        "links": [
+          {
+            "label": "Volunteering (Wikipedia)",
+            "url": "https://en.wikipedia.org/wiki/Volunteering",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Book one concrete volunteering session in the next two weeks with an organization that could use a skill you already have."
+      ]
+    },
+    {
+      "id": "effective-helping",
+      "title": "Effective Helping",
+      "tier": "recommended",
+      "learn": {
+        "summary": "Good intentions are not outcomes: charity effectiveness varies by orders of magnitude, and the effective altruism movement (Singer, MacAskill, GiveWell) argues for pointing at least some giving at measured impact per dollar. You need not adopt the whole philosophy to adopt the habit of asking 'does this actually work?' before donating time or money. Warm glow and evidence can coexist.",
+        "links": [
+          {
+            "label": "Effective altruism (Wikipedia)",
+            "url": "https://en.wikipedia.org/wiki/Effective_altruism",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Before your next donation, spend 15 minutes checking the organization's evidence of impact (e.g., an independent evaluator) and note what you find."
+      ]
+    },
+    {
+      "id": "compassion-fatigue",
+      "title": "Compassion Fatigue",
+      "tier": "essential",
+      "learn": {
+        "summary": "Charles Figley described compassion fatigue as the cost of caring — secondary traumatic stress plus burnout, common in nurses, therapists, aid workers, and family caregivers. Singer's neuroscience suggests the culprit is empathic distress (feeling with, to the point of overwhelm), while trained compassion (warm concern plus agency) is protective. Warning signs: numbness toward suffering, dread of the people you serve, cynicism. It is treatable and preventable.",
+        "links": [
+          {
+            "label": "Compassion fatigue (Wikipedia)",
+            "url": "https://en.wikipedia.org/wiki/Compassion_fatigue",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "If you are in a helping role, rate yourself 1–10 this week on numbness, dread, and cynicism. Any score above 6: schedule real recovery and tell one person."
+      ]
+    },
+    {
+      "id": "moral-circle",
+      "title": "The Moral Circle",
+      "tier": "extra",
+      "learn": {
+        "summary": "Peter Singer's 'expanding circle' describes how the boundary of moral concern has historically widened — from tribe to nation to all humanity, and contentiously beyond. The psychological finding underneath: compassion collapses with distance and scale ('psychic numbing' — one identified victim moves us more than a million statistical ones, per Paul Slovic). Knowing the bug is the first patch for it.",
+        "links": [
+          {
+            "label": "The Expanding Circle (Wikipedia)",
+            "url": "https://en.wikipedia.org/wiki/The_Expanding_Circle",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Write down who currently sits inside your circle of real concern. Pick one group just outside it and read one first-person account from that group this week."
+      ]
+    }
+  ]
+}

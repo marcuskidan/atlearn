@@ -1,0 +1,92 @@
+{
+  "id": "power-of-compounding",
+  "title": "The Power of Compounding",
+  "tier": "essential",
+  "learn": {
+    "summary": "Compound growth means earning returns on your returns — a process that feels flat for years and then bends sharply upward, which is exactly why human linear intuition underestimates it. The same math runs in reverse on debt: unpaid interest gets added to the balance and starts charging interest itself. This one concept quietly powers savings growth, debt spirals, and inflation's erosion all at once.",
+    "links": [
+      {
+        "label": "Investor.gov: Compound interest calculator",
+        "url": "https://www.investor.gov/financial-tools-calculators/calculators/compound-interest-calculator",
+        "kind": "tool"
+      }
+    ]
+  },
+  "do": [
+    "Use the investor.gov calculator to grow a hypothetical $100/month at 7% for 10, 20, and 30 years, and write down the three totals to see the curve for yourself."
+  ],
+  "children": [
+    {
+      "id": "compound-interest-math",
+      "title": "Compound Interest Math",
+      "tier": "essential",
+      "learn": {
+        "summary": "Simple interest pays on the principal only; compound interest pays on principal plus accumulated interest, so the growth rate applies to an ever-larger base. The formula A = P(1 + r/n)^(nt) shows the levers: rate, time, and compounding frequency — and time sits in the exponent, which is why starting a decade earlier can beat contributing more later. APY (annual percentage yield) already includes compounding; APR does not, which is one reason quoted borrowing costs feel smaller than they are.",
+        "links": [
+          {
+            "label": "Wikipedia: Compound interest",
+            "url": "https://en.wikipedia.org/wiki/Compound_interest",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Compute by hand what $1,000 becomes at 5% after 3 years, simple vs compound, and confirm your compound answer against the investor.gov calculator."
+      ]
+    },
+    {
+      "id": "rule-of-72",
+      "title": "Rule of 72",
+      "tier": "essential",
+      "learn": {
+        "summary": "Divide 72 by an annual growth rate to estimate doubling time: money at 8% doubles in about 9 years; at 2% it takes about 36. The approximation (noted as far back as Luca Pacioli in 1494) works well for rates under roughly 15% and runs both directions — a 24% APR credit card balance doubles in about 3 years if untouched. It turns exponential growth into a mental arithmetic you can do in a checkout line.",
+        "links": [
+          {
+            "label": "Wikipedia: Rule of 72",
+            "url": "https://en.wikipedia.org/wiki/Rule_of_72",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Apply the rule of 72 to three real rates you can find today — a savings APY, an average market return figure, and a credit card APR — and write down all three doubling times."
+      ]
+    },
+    {
+      "id": "time-value-of-money",
+      "title": "Time Value of Money",
+      "tier": "recommended",
+      "learn": {
+        "summary": "A dollar today is worth more than a dollar next year, because today's dollar can be invested — the foundational idea behind present value and discounting used in every loan, annuity, and 'lump sum vs payments' comparison. Discounting is compounding run backwards: a promise of $1,000 in ten years is worth much less today at any positive rate. This concept, not any product, is what makes 'starting early' mathematically real rather than motivational.",
+        "links": [
+          {
+            "label": "Wikipedia: Time value of money",
+            "url": "https://en.wikipedia.org/wiki/Time_value_of_money",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Work one present-value example on paper: what is $10,000 received in 10 years worth today at a 5% discount rate? (Divide by 1.05 ten times or use the formula.)"
+      ]
+    },
+    {
+      "id": "inflation-concept",
+      "title": "Inflation Concept",
+      "tier": "essential",
+      "learn": {
+        "summary": "Inflation is compounding working against cash: at 3% annual inflation, prices double roughly every 24 years (rule of 72 again), so money 'safely' idle is quietly shrinking in purchasing power. The Consumer Price Index (CPI) tracks a basket of goods to measure it, and 'real' returns mean returns after subtracting inflation — a 4% yield during 5% inflation is a real loss. This is why the concept of growth assets exists at all, and why mattress money isn't actually risk-free.",
+        "links": [
+          {
+            "label": "Wikipedia: Inflation",
+            "url": "https://en.wikipedia.org/wiki/Inflation",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Look up the current U.S. CPI inflation rate (bls.gov publishes it monthly) and compute the real return on your own savings account: your APY minus that rate."
+      ]
+    }
+  ]
+}

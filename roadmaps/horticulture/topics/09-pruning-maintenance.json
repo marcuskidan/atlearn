@@ -1,0 +1,92 @@
+{
+  "id": "pruning-maintenance",
+  "title": "Pruning & Maintenance",
+  "tier": "recommended",
+  "learn": {
+    "summary": "Pruning is directed energy: every cut tells the plant where to grow. The universal first pass is the three Ds — dead, damaged, diseased wood comes off any time of year. Beyond that, timing rules the calendar: prune spring bloomers right after flowering, summer bloomers and most fruit trees in late winter dormancy.",
+    "links": [
+      {
+        "label": "Pruning (Wikipedia)",
+        "url": "https://en.wikipedia.org/wiki/Pruning",
+        "kind": "article"
+      }
+    ]
+  },
+  "do": [
+    "Walk your yard with bypass pruners this week and remove only dead, damaged, or diseased wood from one shrub or tree — nothing else"
+  ],
+  "children": [
+    {
+      "id": "pruning-principles",
+      "title": "Pruning Principles",
+      "tier": "essential",
+      "learn": {
+        "summary": "Cut a quarter inch above an outward-facing bud at a slight angle — the bud below your cut becomes the new growing direction. Never remove more than 25-30% of a plant in one year, and never top a tree. Thinning cuts (removing a branch at its origin) open the plant to light and air; heading cuts (shortening a branch) trigger bushy regrowth just below the cut.",
+        "links": [
+          {
+            "label": "Pruning (Wikipedia)",
+            "url": "https://en.wikipedia.org/wiki/Pruning",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "On one overgrown shrub, make three thinning cuts at the base of the oldest, thickest stems and observe how much light reaches the interior"
+      ]
+    },
+    {
+      "id": "deadheading",
+      "title": "Deadheading",
+      "tier": "recommended",
+      "learn": {
+        "summary": "Removing spent flowers stops the plant from investing in seed and redirects energy into more blooms — zinnias, cosmos, dahlias, and roses can flower for months longer when deadheaded weekly. Cut back to the next bud, leaf pair, or side shoot, not just the petals. Skip it late in the season where you want seed heads for birds or self-sowing.",
+        "links": [
+          {
+            "label": "Deadheading (flowers) (Wikipedia)",
+            "url": "https://en.wikipedia.org/wiki/Deadheading_(flowers)",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Deadhead every spent bloom on one flowering plant this week, cutting back to a leaf pair, and count new buds ten days later"
+      ]
+    },
+    {
+      "id": "staking-support",
+      "title": "Staking & Support",
+      "tier": "recommended",
+      "learn": {
+        "summary": "Install supports at planting time — driving a stake through the root zone of a mature plant does real damage. Tie stems loosely in a figure-eight with soft material so they can move; movement builds stronger stems, and tight ties girdle them. Indeterminate tomatoes need 6-foot stakes or sturdy cages; floppy perennials like peonies want grow-through hoops set out in early spring.",
+        "links": [
+          {
+            "label": "Plant support structures (Wikipedia)",
+            "url": "https://en.wikipedia.org/wiki/Garden_tool",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Check every tie in your garden this week: replace anything cutting into a stem with a loose figure-eight of soft twine or fabric strips"
+      ]
+    },
+    {
+      "id": "tool-care",
+      "title": "Tool Care",
+      "tier": "extra",
+      "learn": {
+        "summary": "Sharp, clean tools make clean cuts that heal fast; dirty blades spread disease from plant to plant. Disinfect pruner blades with 70% isopropyl alcohol between plants when disease is suspected, and always after cutting anything infected. A 10-minute end-of-season ritual — wash, sharpen with a mill file or diamond hone, wipe with oil — keeps tools working for decades.",
+        "links": [
+          {
+            "label": "Garden tool (Wikipedia)",
+            "url": "https://en.wikipedia.org/wiki/Garden_tool",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Sharpen your pruners this week with a fine file or diamond hone (bevel side only), then wipe the blades with alcohol and a drop of oil"
+      ]
+    }
+  ]
+}

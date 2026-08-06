@@ -1,0 +1,92 @@
+{
+  "id": "exposure-triangle",
+  "title": "The Exposure Triangle",
+  "tier": "essential",
+  "learn": {
+    "summary": "Every exposure is a three-way deal between aperture (how big the lens opening), shutter speed (how long light hits), and ISO (how strongly the sensor amplifies). Each is measured in stops, where one stop doubles or halves the light. Change one and you must trade with another — that trade is where creative control lives.",
+    "links": [
+      {
+        "label": "Exposure (photography) (Wikipedia)",
+        "url": "https://en.wikipedia.org/wiki/Exposure_(photography)",
+        "kind": "article"
+      }
+    ]
+  },
+  "do": [
+    "Open your phone's pro/manual mode (or a manual camera app), photograph the same scene at three shutter speeds, and note how the brightness shifts."
+  ],
+  "children": [
+    {
+      "id": "aperture-basics",
+      "title": "Aperture",
+      "tier": "essential",
+      "learn": {
+        "summary": "Aperture is the adjustable iris in the lens, written as f-numbers: f/1.8 is a wide opening (lots of light, blurry background), f/16 a pinhole (little light, everything sharp). Counterintuitively, smaller number means bigger hole, because the f-number is focal length divided by opening diameter.",
+        "links": [
+          {
+            "label": "Aperture (Wikipedia)",
+            "url": "https://en.wikipedia.org/wiki/Aperture",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Find your phone's main-lens aperture in its specs today (typically f/1.6–f/2.2) and explain to someone why that number lets it shoot in dim rooms."
+      ]
+    },
+    {
+      "id": "shutter-speed-basics",
+      "title": "Shutter Speed",
+      "tier": "essential",
+      "learn": {
+        "summary": "Shutter speed is exposure time: 1/1000 s freezes a sprinter, 1/60 s handles casual scenes, and a full second turns car lights into ribbons. Every halving of the time is one stop less light. It is the only exposure control that also draws time itself into the frame.",
+        "links": [
+          {
+            "label": "Shutter speed (Wikipedia)",
+            "url": "https://en.wikipedia.org/wiki/Shutter_speed",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "In a manual camera app, shoot running tap water at 1/500 and again at 1/15 — put the two frames side by side."
+      ]
+    },
+    {
+      "id": "iso-basics",
+      "title": "ISO",
+      "tier": "essential",
+      "learn": {
+        "summary": "ISO sets sensor amplification: base ISO (usually 100) gives the cleanest file, while each doubling — 200, 400, 800 — buys one stop of brightness at the cost of more noise. Modern sensors stay respectable to ISO 3200 and beyond, so a sharp noisy photo always beats a blurry clean one. Raise ISO last, but raise it without fear.",
+        "links": [
+          {
+            "label": "Film speed (Wikipedia)",
+            "url": "https://en.wikipedia.org/wiki/Film_speed",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Shoot the same dim indoor scene at ISO 100, 800, and 3200 in a manual app tonight, then zoom in and find where noise actually starts bothering you."
+      ]
+    },
+    {
+      "id": "stops-and-tradeoffs",
+      "title": "Stops & Trade-offs",
+      "tier": "recommended",
+      "learn": {
+        "summary": "The stop is photography's currency: f/2.8→f/4, 1/250→1/125, and ISO 200→400 each shift exactly one stop, so trades are always fair. Want a faster shutter to freeze a dog? Pay for it with a wider aperture or higher ISO. The old Sunny 16 rule (f/16, shutter = 1/ISO in full sun) shows the system was always simple arithmetic.",
+        "links": [
+          {
+            "label": "Sunny 16 rule (Wikipedia)",
+            "url": "https://en.wikipedia.org/wiki/Sunny_16_rule",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Write out three equivalent exposures for one scene (e.g., f/4 + 1/250 + ISO 400) by trading stops on paper, then verify one pair in a manual app."
+      ]
+    }
+  ]
+}

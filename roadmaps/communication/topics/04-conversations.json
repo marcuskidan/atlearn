@@ -1,0 +1,92 @@
+{
+  "id": "conversations",
+  "title": "Conversations",
+  "tier": "essential",
+  "learn": {
+    "summary": "Conversation is a skill with learnable mechanics, not a personality trait you either have or lack. The core loop is disclosure and response: share a little, ask a little, build on what they give you. Research on the 'liking gap' (Boothby, Cooney et al., 2018) shows people systematically underestimate how much their conversation partners liked them, so your awkwardness estimate is probably inflated.",
+    "links": [
+      {
+        "label": "Conversation (Wikipedia)",
+        "url": "https://en.wikipedia.org/wiki/Conversation",
+        "kind": "article"
+      }
+    ]
+  },
+  "do": [
+    "Start one conversation this week with someone you normally would not (barista, colleague from another team) and keep it going for 2 minutes."
+  ],
+  "children": [
+    {
+      "id": "small-talk-as-skill",
+      "title": "Small Talk as Skill",
+      "tier": "essential",
+      "learn": {
+        "summary": "Small talk is not empty; it is the mutual signaling that a bigger conversation is safe, what anthropologist Bronislaw Malinowski called phatic communion. The mechanics: comment on shared context, ask an easy open question, then trade up from topic to opinion to experience. People who dismiss small talk as beneath them are refusing the on-ramp and wondering why they never reach the highway.",
+        "links": [
+          {
+            "label": "Small talk (Wikipedia)",
+            "url": "https://en.wikipedia.org/wiki/Small_talk",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Prepare two go-to openers tied to shared context this week and use each at least once."
+      ]
+    },
+    {
+      "id": "turn-taking",
+      "title": "Turn-Taking",
+      "tier": "recommended",
+      "learn": {
+        "summary": "Conversation analysis (Sacks, Schegloff, Jefferson) shows turn-taking runs on precise cues: falling intonation, completed grammar, gaze return; typical gaps between speakers are around 200 milliseconds. Chronic interrupters usually misread enthusiasm as permission. Balance check: in a two-person conversation, if you talked much more than half the time and learned nothing new about them, you monologued.",
+        "links": [
+          {
+            "label": "Turn-taking (Wikipedia)",
+            "url": "https://en.wikipedia.org/wiki/Turn-taking",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "In one conversation per day for 3 days, do not begin speaking until the other person has fully finished their sentence, no overlap."
+      ]
+    },
+    {
+      "id": "genuine-curiosity",
+      "title": "Genuine Curiosity",
+      "tier": "essential",
+      "learn": {
+        "summary": "Technique without curiosity reads as interrogation; curiosity without technique still works. The practical move is treating every person as an expert in something and hunting for what it is. Follow-up questions signal you actually processed the answer, which is why the Huang et al. research found question-askers are better liked: it is not the asking, it is the evidence of attention.",
+        "links": [
+          {
+            "label": "Curiosity (Wikipedia)",
+            "url": "https://en.wikipedia.org/wiki/Curiosity",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "In one conversation this week, find the thing the other person knows deeply and ask 3 questions about it before mentioning yourself."
+      ]
+    },
+    {
+      "id": "exiting-gracefully",
+      "title": "Exiting Gracefully",
+      "tier": "extra",
+      "learn": {
+        "summary": "Endings are a named skill; researchers who study conversation endings find they rarely occur when both parties want them to. The reliable exit formula is appreciation plus forward reference: 'Great to hear about the move; good luck with the new team', then leave, no fake excuse required. Ending warmly on time beats trailing off ten minutes past mutual interest.",
+        "links": [
+          {
+            "label": "Conversation analysis (Wikipedia)",
+            "url": "https://en.wikipedia.org/wiki/Conversation_analysis",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Practice the appreciation-plus-forward-reference exit twice this week and notice that nobody is offended."
+      ]
+    }
+  ]
+}

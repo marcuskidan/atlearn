@@ -1,0 +1,92 @@
+{
+  "id": "why-and-for-whom",
+  "title": "Why & For Whom",
+  "tier": "essential",
+  "learn": {
+    "summary": "Every piece of writing is an answer to two questions: who is this for, and what should change in their head after reading it? William Zinsser opens On Writing Well by insisting the product a writer sells is not the subject but 'who he is' — a clear mind on the page. Before drafting anything, name the reader and the single thing you want them to know, feel, or do.",
+    "links": [
+      {
+        "label": "On Writing Well",
+        "url": "https://en.wikipedia.org/wiki/On_Writing_Well",
+        "kind": "article"
+      }
+    ]
+  },
+  "do": [
+    "For your next piece of writing, write one sentence at the top before you start: 'After reading this, [specific reader] will [specific outcome].'"
+  ],
+  "children": [
+    {
+      "id": "audience-awareness",
+      "title": "Knowing Your Reader",
+      "tier": "essential",
+      "learn": {
+        "summary": "Composition courses drill the 'rhetorical situation': every text has an audience with existing knowledge, attention limits, and reasons to stop reading. Writing for 'everyone' produces prose for no one — the busy executive, the curious novice, and the skeptical expert need different openings, different evidence, different lengths. Zinsser's twist: paradoxically, you write best for others when you first write to please one demanding reader, yourself.",
+        "links": [
+          {
+            "label": "Rhetoric",
+            "url": "https://en.wikipedia.org/wiki/Rhetoric",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Rewrite one paragraph you have already written for two different readers (an expert and a newcomer) and note every change you made."
+      ]
+    },
+    {
+      "id": "purpose-before-prose",
+      "title": "Purpose Before Prose",
+      "tier": "essential",
+      "learn": {
+        "summary": "Classical rhetoric sorts writing by aim — to inform, persuade, entertain, or move to action — and each aim implies different choices about structure and evidence. Most muddled documents are muddled because they try to do three of these at once. Decide your primary purpose first; a memo that must inform and persuade should still know which master it serves when the two conflict.",
+        "links": [
+          {
+            "label": "Modes of persuasion",
+            "url": "https://en.wikipedia.org/wiki/Modes_of_persuasion",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Take your three most recent emails or documents and label each with its primary purpose in one word; rewrite any where you cannot decide."
+      ]
+    },
+    {
+      "id": "writing-as-thinking",
+      "title": "Writing as Thinking",
+      "tier": "recommended",
+      "learn": {
+        "summary": "Zinsser: 'Writing is thinking on paper.' The act of forcing thoughts into sequential sentences exposes gaps that felt like knowledge while they stayed vague — which is why explaining an idea in writing is the fastest way to discover you do not understand it. Treat confused drafts as good news: the confusion was already there, and now it is visible and fixable.",
+        "links": [
+          {
+            "label": "William Zinsser",
+            "url": "https://en.wikipedia.org/wiki/William_Zinsser",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Pick one idea you think you understand and write a 200-word explanation for a smart 12-year-old; list every point where you got stuck."
+      ]
+    },
+    {
+      "id": "reading-like-a-writer",
+      "title": "Reading Like a Writer",
+      "tier": "recommended",
+      "learn": {
+        "summary": "Writers train by reverse-engineering prose they admire: not what it says but how it works — where the writer entered the subject, how long the sentences run, what got left out. Francine Prose built a whole book (Reading Like a Writer) on this close-reading habit, and it is the cheapest writing instruction available. One paragraph studied hard teaches more than ten read passively.",
+        "links": [
+          {
+            "label": "Close reading",
+            "url": "https://en.wikipedia.org/wiki/Close_reading",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Copy out, by hand, one paragraph you love this week, then annotate it: sentence lengths, verb choices, and where it surprised you."
+      ]
+    }
+  ]
+}

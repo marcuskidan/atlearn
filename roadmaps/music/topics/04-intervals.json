@@ -1,0 +1,74 @@
+{
+  "id": "intervals",
+  "title": "Intervals",
+  "tier": "essential",
+  "learn": {
+    "summary": "An interval is the distance between two notes, and it is the atom of all melody and harmony. Name intervals by counting letter names inclusively: C to E is a third, C to G a fifth. Every chord quality and every melodic leap you will ever hear reduces to a handful of these distances.",
+    "links": [
+      {
+        "label": "Interval (music) (Wikipedia)",
+        "url": "https://en.wikipedia.org/wiki/Interval_(music)",
+        "kind": "article"
+      }
+    ]
+  },
+  "do": [
+    "Do one five-minute interval session on the musictheory.net ear trainer today — ascending major 2nd, major 3rd, perfect 5th, and octave only."
+  ],
+  "children": [
+    {
+      "id": "interval-names",
+      "title": "Names & Quality",
+      "tier": "essential",
+      "learn": {
+        "summary": "Intervals have a size (2nd through octave) and a quality: 4ths, 5ths, and octaves are \"perfect\"; the rest come in major and minor, where minor is one semitone smaller. In semitones: minor 3rd = 3, major 3rd = 4, perfect 4th = 5, perfect 5th = 7, octave = 12. Memorize those five numbers first.",
+        "links": [
+          {
+            "label": "musictheory.net lessons",
+            "url": "https://www.musictheory.net/lessons",
+            "kind": "tool"
+          }
+        ]
+      },
+      "do": [
+        "On a piano app, play C up to each of: Eb, E, F, G, and C — saying \"minor 3rd, major 3rd, perfect 4th, perfect 5th, octave\" as you go."
+      ]
+    },
+    {
+      "id": "interval-reference-songs",
+      "title": "Reference Songs",
+      "tier": "essential",
+      "learn": {
+        "summary": "The classic hack: anchor each interval to a song opening you already know. Minor 2nd = the Jaws theme, major 2nd = Happy Birthday, perfect 4th = Here Comes the Bride, perfect 5th = Twinkle Twinkle (and the Star Wars theme), octave = Somewhere Over the Rainbow. Hear the interval, sing the song, name the distance.",
+        "links": [
+          {
+            "label": "Ear training (Wikipedia)",
+            "url": "https://en.wikipedia.org/wiki/Ear_training",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Build your personal reference list this week: pick and write down one song you actually know for each interval from minor 2nd to octave."
+      ]
+    },
+    {
+      "id": "consonance-dissonance",
+      "title": "Consonance & Dissonance",
+      "tier": "extra",
+      "learn": {
+        "summary": "Consonant intervals (octaves, 5ths, 3rds, 6ths) sound stable; dissonant ones (2nds, 7ths, the tritone) sound tense and demand resolution. The tritone — six semitones, exactly half an octave — was nicknamed \"diabolus in musica\" and powers everything from Wagner to metal. Music is the managed traffic between tension and release.",
+        "links": [
+          {
+            "label": "Consonance and dissonance (Wikipedia)",
+            "url": "https://en.wikipedia.org/wiki/Consonance_and_dissonance",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Play C+G, then C+F#, then resolve the F# up to G on a piano app — feel the tritone's itch and its relief, and do it five times."
+      ]
+    }
+  ]
+}

@@ -1,0 +1,115 @@
+{
+  "id": "telescopes",
+  "title": "Telescopes",
+  "tier": "recommended",
+  "learn": {
+    "summary": "A telescope's most important spec is aperture — light-gathering diameter — not magnification; ignore any box advertising '600x power.' The best first scope by consensus is a 6-8 inch Dobsonian reflector: maximum aperture per dollar, no complexity. The real best telescope, as the saying goes, is the one you'll actually use.",
+    "links": [
+      {
+        "label": "Telescope (Wikipedia)",
+        "url": "https://en.wikipedia.org/wiki/Telescope",
+        "kind": "article"
+      }
+    ]
+  },
+  "do": [
+    "Before buying anything, attend a local astronomy club star party and look through at least three different telescope types — clubs exist for exactly this."
+  ],
+  "children": [
+    {
+      "id": "telescope-types",
+      "title": "Refractor, Reflector, Cat",
+      "tier": "essential",
+      "learn": {
+        "summary": "Refractors bend light through lenses (rugged, sharp, expensive per inch), reflectors use mirrors per Newton's 1668 design (cheapest aperture, needs occasional alignment), and catadioptrics like Schmidt-Cassegrains fold long focal lengths into stubby portable tubes. A Dobsonian is just a Newtonian reflector on a brilliantly simple lazy-susan mount, popularized by John Dobson. Each design trades cost, portability, and maintenance differently.",
+        "links": [
+          {
+            "label": "Newtonian telescope (Wikipedia)",
+            "url": "https://en.wikipedia.org/wiki/Newtonian_telescope",
+            "kind": "article"
+          },
+          {
+            "label": "Dobsonian telescope (Wikipedia)",
+            "url": "https://en.wikipedia.org/wiki/Dobsonian_telescope",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Write down your honest constraints — budget, storage space, how far you must carry gear to a dark spot — and match them to one telescope type before browsing any store."
+      ]
+    },
+    {
+      "id": "mounts",
+      "title": "Mounts",
+      "tier": "essential",
+      "learn": {
+        "summary": "Alt-azimuth mounts move up/down and left/right — intuitive and ideal for visual observing. Equatorial mounts tilt one axis parallel to Earth's, so a single slow motion cancels sky rotation — essential for astrophotography, overkill for beginners. A wobbly mount ruins a great tube; seasoned buyers put as much budget into the mount as the optics.",
+        "links": [
+          {
+            "label": "Telescope mount (Wikipedia)",
+            "url": "https://en.wikipedia.org/wiki/Telescope_mount",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "At a store or star party, tap the tube of a mounted telescope lightly and time how long the view takes to stop shaking — over 2 seconds means the mount is undersized."
+      ]
+    },
+    {
+      "id": "eyepieces-magnification",
+      "title": "Eyepieces & Magnification",
+      "tier": "essential",
+      "learn": {
+        "summary": "Magnification = telescope focal length divided by eyepiece focal length, so a 1200mm scope with a 10mm eyepiece gives 120x. Useful maximum is about 50x per inch of aperture; past that you magnify blur. Low power (30-50x) is for finding and rich fields, medium (100x) for the Moon and clusters, high (150-250x) for planets on steady nights.",
+        "links": [
+          {
+            "label": "Eyepiece (Wikipedia)",
+            "url": "https://en.wikipedia.org/wiki/Eyepiece",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Compute the magnification of every eyepiece you (or a friend's scope) have, and label each one low/medium/high for quick selection in the dark."
+      ]
+    },
+    {
+      "id": "first-light",
+      "title": "First Light Routine",
+      "tier": "recommended",
+      "learn": {
+        "summary": "'First light' is a new scope's first real observation — and it goes best with a plan: align the finder in daylight on a distant chimney, start on the Moon or a bright planet, and use your lowest-power eyepiece for everything until aiming feels natural. Let the scope cool outdoors for 30-60 minutes first; a warm mirror boils the image. Failure to align the finder is the number one cause of frustrated returns.",
+        "links": [
+          {
+            "label": "First light (astronomy) (Wikipedia)",
+            "url": "https://en.wikipedia.org/wiki/First_light_(astronomy)",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Write a five-step first-light checklist (cool-down, finder alignment, low-power eyepiece, easy target, log entry) and keep it with the scope — use it even if 'the scope' is borrowed."
+      ]
+    },
+    {
+      "id": "collimation",
+      "title": "Collimation & Care",
+      "tier": "extra",
+      "learn": {
+        "summary": "Reflectors need periodic collimation — aligning the mirrors so light focuses precisely — checked with a collimation cap or laser in a few minutes once learned. Miscollimation is the top reason 'my telescope is blurry.' Never touch or over-clean optics: a little dust harms nothing, while aggressive cleaning scratches coatings permanently.",
+        "links": [
+          {
+            "label": "Collimated beam (Wikipedia)",
+            "url": "https://en.wikipedia.org/wiki/Collimated_beam",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "If you have a reflector, do the star test: center a bright star, defocus slightly, and check whether the shadow of the secondary mirror sits dead-center in the donut."
+      ]
+    }
+  ]
+}

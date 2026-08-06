@@ -1,0 +1,97 @@
+{
+  "id": "color-introduction",
+  "title": "Color Introduction",
+  "tier": "recommended",
+  "learn": {
+    "summary": "Color is best approached after value, because value does the structural work — get the values right and almost any hues will hold together; get them wrong and no color scheme survives. Start with the wheel's basic relationships and deliberately tiny palettes. Restriction, not variety, is how beginners produce harmonious color.",
+    "links": [
+      {
+        "label": "Color theory (Wikipedia)",
+        "url": "https://en.wikipedia.org/wiki/Color_theory",
+        "kind": "article"
+      }
+    ]
+  },
+  "do": [
+    "Convert a favorite colored image to grayscale on your phone and study how its values are organized — do this with three images this week."
+  ],
+  "children": [
+    {
+      "id": "color-wheel",
+      "title": "Color Wheel Relationships",
+      "tier": "essential",
+      "learn": {
+        "summary": "The wheel encodes the working relationships: complements sit opposite (blue/orange) and intensify or neutralize each other, analogous colors sit adjacent and harmonize easily. Mixing complements produces useful grays and muted tones — far better shadows than adding black. Hue, saturation, and value are the three dials; beginners chronically overuse saturation.",
+        "links": [
+          {
+            "label": "Color wheel (Wikipedia)",
+            "url": "https://en.wikipedia.org/wiki/Color_wheel",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Using any three primaries (paint, pencils, or a digital app), mix and chart the secondaries and a neutral gray from each complement pair."
+      ]
+    },
+    {
+      "id": "value-vs-hue",
+      "title": "Value vs Hue",
+      "tier": "essential",
+      "learn": {
+        "summary": "Every color has an underlying value, and this is where color goes wrong: pure yellow is inherently light, pure violet inherently dark, and a saturated red photographs as a middle gray. If your piece fails in a grayscale check, the problem is value, not hue. Painters constantly ask 'is this note lighter or darker?' before asking 'what color?'",
+        "links": [
+          {
+            "label": "Lightness (Wikipedia)",
+            "url": "https://en.wikipedia.org/wiki/Lightness",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Arrange your colored pencils, markers, or paints in a value scale from lightest to darkest, then photograph them in grayscale to check your ordering."
+      ]
+    },
+    {
+      "id": "limited-palettes",
+      "title": "Limited Palettes",
+      "tier": "recommended",
+      "learn": {
+        "summary": "A limited palette — three to five pigments plus white — guarantees harmony because every mixture shares parent pigments. The Zorn palette (yellow ochre, vermilion, ivory black, white), named for Swedish painter Anders Zorn, produces shockingly complete portrait color from four tubes. Constraints teach mixing; a 48-color set teaches only searching.",
+        "links": [
+          {
+            "label": "Anders Zorn (Wikipedia)",
+            "url": "https://en.wikipedia.org/wiki/Anders_Zorn",
+            "kind": "article"
+          },
+          {
+            "label": "Palette (painting) (Wikipedia)",
+            "url": "https://en.wikipedia.org/wiki/Palette_(painting)",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Complete one small study this week using exactly three colors plus white, in any medium, and list every distinct mixture you discovered."
+      ]
+    },
+    {
+      "id": "color-temperature",
+      "title": "Color Temperature",
+      "tier": "extra",
+      "learn": {
+        "summary": "Colors read as warm (reds, oranges, yellows) or cool (blues, greens, violets), and the interplay drives realistic light: warm light casts cool shadows and vice versa — under afternoon sun, shadows fill with cool blue skylight. Temperature also creates depth, since warm advances and cool recedes. Even within one hue, versions lean warm or cool (ultramarine vs cerulean blue).",
+        "links": [
+          {
+            "label": "Color temperature (Wikipedia)",
+            "url": "https://en.wikipedia.org/wiki/Color_temperature",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Photograph the same white or gray object in sunlight and in shade on the same day, and identify the temperature shift between the two shadows."
+      ]
+    }
+  ]
+}

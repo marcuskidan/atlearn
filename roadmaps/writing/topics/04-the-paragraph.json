@@ -1,0 +1,92 @@
+{
+  "id": "the-paragraph",
+  "title": "The Paragraph",
+  "tier": "essential",
+  "learn": {
+    "summary": "Strunk & White's Rule 13: 'Make the paragraph the unit of composition.' A paragraph is one idea given a beginning, development, and exit — when a second idea sneaks in, the reader feels the seam even if they cannot name it. Paragraph breaks are also visual mercy: Zinsser calls short paragraphs an invitation and long gray blocks a barricade.",
+    "links": [
+      {
+        "label": "Paragraph",
+        "url": "https://en.wikipedia.org/wiki/Paragraph",
+        "kind": "article"
+      }
+    ]
+  },
+  "do": [
+    "Take one page you wrote and write the single idea of each paragraph in the margin; split any paragraph that needs two labels."
+  ],
+  "children": [
+    {
+      "id": "one-idea-rule",
+      "title": "One Idea Per Paragraph",
+      "tier": "essential",
+      "learn": {
+        "summary": "The one-idea rule is a contract with the reader: each new paragraph promises a new step in the argument, so they can skim topic-to-topic and still follow you. The test is the summary sentence — if you cannot state a paragraph's point in one line, it has either no idea or several. Composition teachers call the multi-idea paragraph the most common structural fault in student writing.",
+        "links": [
+          {
+            "label": "Paragraph",
+            "url": "https://en.wikipedia.org/wiki/Paragraph",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Outline something you already wrote by listing only one sentence per paragraph; wherever the outline stutters, restructure."
+      ]
+    },
+    {
+      "id": "topic-sentences",
+      "title": "Topic Sentences",
+      "tier": "essential",
+      "learn": {
+        "summary": "A topic sentence states the paragraph's claim up front, letting the rest supply evidence and nuance — and letting a hurried reader get your argument from first sentences alone. This 'first-sentence skim test' is how many editors judge structure in thirty seconds. Not every paragraph needs one (narrative often delays), but expository and business writing nearly always reads better with the claim first.",
+        "links": [
+          {
+            "label": "Topic sentence",
+            "url": "https://en.wikipedia.org/wiki/Topic_sentence",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Run the skim test on your latest document: read only first sentences. If the argument does not emerge, rewrite the openers."
+      ]
+    },
+    {
+      "id": "transitions",
+      "title": "Transitions",
+      "tier": "recommended",
+      "learn": {
+        "summary": "Transitions are the logic made audible: 'but' signals a turn, 'therefore' a conclusion, 'meanwhile' a shift in scene. Zinsser calls words like 'but' and 'yet' among the most useful in the language and demolishes the superstition against starting sentences with them. The subtler technique is the echo — repeating a key word or image from the previous paragraph's end in the new one's start, stitching without connective glue.",
+        "links": [
+          {
+            "label": "Conjunction (grammar)",
+            "url": "https://en.wikipedia.org/wiki/Conjunction_(grammar)",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Highlight the first word of every paragraph in a recent piece; where two adjacent paragraphs have no visible logical link, add a turn word or an echo."
+      ]
+    },
+    {
+      "id": "paragraph-flow",
+      "title": "Flow & Coherence",
+      "tier": "extra",
+      "learn": {
+        "summary": "Linguists explain 'flow' with the given-new contract: sentences read smoothly when they start from information the reader already has and end with what is new. Joseph Williams' Style: Toward Clarity and Grace built a whole revision method on this — put old information in subject position, new information at the stress point near the period. When prose feels choppy, the culprit is usually sentences that each start from nowhere.",
+        "links": [
+          {
+            "label": "Coherence (linguistics)",
+            "url": "https://en.wikipedia.org/wiki/Coherence_(linguistics)",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Take a choppy paragraph and rewrite each sentence to begin with something the previous sentence mentioned."
+      ]
+    }
+  ]
+}

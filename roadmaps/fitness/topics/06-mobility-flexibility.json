@@ -1,0 +1,92 @@
+{
+  "id": "mobility-flexibility",
+  "title": "Mobility & Flexibility",
+  "tier": "essential",
+  "learn": {
+    "summary": "Mobility is usable range of motion — flexibility plus the strength to control it. Passive stretching alone builds ranges you can't use; the modern approach trains strength at end range. Ten focused minutes daily beats a 90-minute session monthly, and three areas cause most adult problems: hips, thoracic spine, and ankles.",
+    "links": [
+      {
+        "label": "Flexibility (anatomy) — Wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Flexibility_(anatomy)",
+        "kind": "article"
+      }
+    ]
+  },
+  "do": [
+    "Do 10 minutes of mobility work before breakfast for the next 5 days — deep squat hold, hip 90/90s, and thoracic rotations."
+  ],
+  "children": [
+    {
+      "id": "strength-at-range",
+      "title": "Strength at Range",
+      "tier": "essential",
+      "learn": {
+        "summary": "Ranges you can't control aren't really yours. The pattern: move into your end range, then actively contract there — lift the back leg in a lunge stretch, press knees down in a seated straddle, hold the bottom of a deep squat without hands. Loaded stretching (like a deep goblet squat pause) is one of the fastest legitimate mobility methods known.",
+        "links": [
+          {
+            "label": "Stretching — Wikipedia",
+            "url": "https://en.wikipedia.org/wiki/Stretching",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "In each stretch you do this week, add a 5-second active contraction at end range before relaxing deeper — 3 rounds per stretch."
+      ]
+    },
+    {
+      "id": "daily-minimums",
+      "title": "Daily Minimums",
+      "tier": "essential",
+      "learn": {
+        "summary": "A sustainable mobility floor: 2 minutes of deep squat, 1 minute per side of a couch or lunge stretch, 10 thoracic rotations per side, 1 minute of hanging or overhead reach. Total: about 8 minutes. Consistency is the entire game — tissue adapts to frequent signals, not occasional heroics, which is why daily minimums outperform weekly yoga classes for range retention.",
+        "links": [
+          {
+            "label": "Stretching — Wikipedia",
+            "url": "https://en.wikipedia.org/wiki/Stretching",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Run the 8-minute minimum routine every day for 7 straight days and tick each day off somewhere visible."
+      ]
+    },
+    {
+      "id": "hips-and-thoracic",
+      "title": "Hips & Thoracic Spine",
+      "tier": "recommended",
+      "learn": {
+        "summary": "Sitting shortens hip flexors and freezes the mid-back, and both send their problems elsewhere — stiff hips overload the lumbar spine, a stiff thoracic overloads neck and shoulders. Prioritize the couch stretch and 90/90 transitions for hips; open books, thread-the-needle, and foam-roller extensions for the T-spine. Expect visible change in 4–6 weeks of daily work.",
+        "links": [
+          {
+            "label": "Thoracic vertebrae — Wikipedia",
+            "url": "https://en.wikipedia.org/wiki/Thoracic_vertebrae",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Every day this week, pair 1 minute per side of couch stretch with 8 open-book rotations per side — attach it to an existing habit like your morning coffee."
+      ]
+    },
+    {
+      "id": "ankles-and-feet",
+      "title": "Ankles & Feet",
+      "tier": "extra",
+      "learn": {
+        "summary": "Feet contain a quarter of the body's bones and modern shoes have put them in casts. Restoring ankle dorsiflexion (knee-to-wall work), toe strength (towel scrunches, short-foot drills), and single-leg balance pays off in squats, running, and fall prevention. Barefoot time on safe surfaces is free training.",
+        "links": [
+          {
+            "label": "Ankle — Wikipedia",
+            "url": "https://en.wikipedia.org/wiki/Ankle",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Spend 10 minutes barefoot daily this week, including 20 knee-over-toe ankle rocks per side and 30 seconds of single-leg balance per side."
+      ]
+    }
+  ]
+}

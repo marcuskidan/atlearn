@@ -1,0 +1,115 @@
+{
+  "id": "planets",
+  "title": "Observing the Planets",
+  "tier": "essential",
+  "learn": {
+    "summary": "Five planets are naked-eye objects known since antiquity: Mercury, Venus, Mars, Jupiter, Saturn. Planets shine with steadier light than twinkling stars and always sit near the ecliptic — two clues that let you pick them out instantly. Their positions change week to week, which is exactly what 'planet' (Greek for wanderer) means.",
+    "links": [
+      {
+        "label": "Planet (Wikipedia)",
+        "url": "https://en.wikipedia.org/wiki/Planet",
+        "kind": "article"
+      },
+      {
+        "label": "NASA Solar System",
+        "url": "https://science.nasa.gov/solar-system/",
+        "kind": "article"
+      }
+    ]
+  },
+  "do": [
+    "Identify every planet currently visible in your evening sky this week using a planetarium app to verify your naked-eye guesses."
+  ],
+  "children": [
+    {
+      "id": "venus-phases",
+      "title": "Venus & Its Phases",
+      "tier": "essential",
+      "learn": {
+        "summary": "Venus is the third-brightest object in the sky (after Sun and Moon), reaching magnitude -4.6 — bright enough to cast faint shadows and be seen in daylight. Because it orbits inside Earth's orbit, it shows Moon-like phases, which Galileo saw in 1610 as decisive evidence against the pure Earth-centered model. Even steady binoculars can show its crescent.",
+        "links": [
+          {
+            "label": "Venus (Wikipedia)",
+            "url": "https://en.wikipedia.org/wiki/Venus",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Next time Venus is visible, find it in twilight before full darkness — note that it appears before any star does."
+      ]
+    },
+    {
+      "id": "jupiter-moons",
+      "title": "Jupiter's Moons",
+      "tier": "essential",
+      "learn": {
+        "summary": "Any binoculars reveal up to four star-like points flanking Jupiter: Io, Europa, Ganymede, and Callisto, the moons Galileo discovered in January 1610. They visibly rearrange within hours as they orbit (Io circles in just 1.8 days) — the first direct proof that not everything orbits Earth. Jupiter itself outshines every star.",
+        "links": [
+          {
+            "label": "Galilean moons (Wikipedia)",
+            "url": "https://en.wikipedia.org/wiki/Galilean_moons",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "When Jupiter is next visible, brace binoculars against a wall or fence and count its moons; sketch their positions, then check again the following night to see the change."
+      ]
+    },
+    {
+      "id": "saturn-rings",
+      "title": "Saturn's Rings",
+      "tier": "essential",
+      "learn": {
+        "summary": "Saturn's rings — mostly water ice, spanning 280,000 km but often less than a kilometer thick — need about 25x magnification to resolve clearly, making them the most famous 'first telescope view' in astronomy. The ring tilt cycles over Saturn's 29-year orbit, from wide open to edge-on invisible. Naked-eye, Saturn is a steady golden 'star' of about magnitude +0.5.",
+        "links": [
+          {
+            "label": "Rings of Saturn (Wikipedia)",
+            "url": "https://en.wikipedia.org/wiki/Rings_of_Saturn",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Locate Saturn naked-eye during its next apparition and note its steady, yellowish light; if you can access any telescope (a club star party counts), make seeing the rings your goal this season."
+      ]
+    },
+    {
+      "id": "conjunctions",
+      "title": "Conjunctions & Alignments",
+      "tier": "recommended",
+      "learn": {
+        "summary": "Because all planets travel the ecliptic, they periodically pair up in conjunctions — sometimes spectacularly, as in December 2020 when Jupiter and Saturn passed within 0.1 degrees, their closest since 1623. The Moon makes a conjunction with some planet almost every week, offering easy photo opportunities. These events are predictable decades ahead, so plan for them.",
+        "links": [
+          {
+            "label": "Conjunction (astronomy) (Wikipedia)",
+            "url": "https://en.wikipedia.org/wiki/Conjunction_(astronomy)",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Find the next Moon-planet conjunction within the coming month using an app or almanac, and observe or photograph the pairing."
+      ]
+    },
+    {
+      "id": "retrograde-motion",
+      "title": "Retrograde Motion",
+      "tier": "extra",
+      "learn": {
+        "summary": "Outer planets normally drift eastward against the stars, but around opposition they appear to reverse for weeks — an illusion caused by faster-moving Earth overtaking them on the inside track. Explaining retrograde loops tortured astronomers for 1,500 years of epicycles until Copernicus dissolved the problem. You can verify it yourself with a few weeks of patience.",
+        "links": [
+          {
+            "label": "Apparent retrograde motion (Wikipedia)",
+            "url": "https://en.wikipedia.org/wiki/Apparent_retrograde_motion",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Pick Mars, Jupiter, or Saturn and record its position against background stars once a week for a month — plot the points and see the drift with your own data."
+      ]
+    }
+  ]
+}

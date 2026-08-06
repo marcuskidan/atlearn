@@ -1,0 +1,74 @@
+{
+  "id": "baking-bread-basics",
+  "title": "Baking & Bread Basics",
+  "tier": "recommended",
+  "learn": {
+    "summary": "Baking is cooking with the improvisation dialed down and the chemistry dialed up: ratios of flour, fat, sugar, liquid, and leavening determine structure, so measurement discipline replaces taste-and-adjust. A cup of flour can weigh 120g fluffed or 160g packed — a 30% error that explains most dense cakes — which is why bakers weigh. Master the discipline here and it sharpens your precision everywhere else.",
+    "links": [
+      {
+        "label": "Baking (Wikipedia)",
+        "url": "https://en.wikipedia.org/wiki/Baking",
+        "kind": "article"
+      }
+    ]
+  },
+  "do": [
+    "Buy a $15 digital kitchen scale this week if you lack one, and weigh the flour in your next baked recipe instead of scooping"
+  ],
+  "children": [
+    {
+      "id": "measure-by-weight",
+      "title": "Measure by Weight",
+      "tier": "essential",
+      "learn": {
+        "summary": "Grams are the truth: 1 cup of all-purpose flour should be about 120-125g, granulated sugar 200g, butter 227g per two sticks. A scale is faster too — tare the bowl, pour to the number, no cup-leveling, fewer dishes. Recipes with weights are also a signal of a careful recipe writer; prefer them.",
+        "links": [
+          {
+            "label": "Kitchen scale (Wikipedia)",
+            "url": "https://en.wikipedia.org/wiki/Weighing_scale",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Scoop a cup of flour your usual way and weigh it — compare your number to the standard 120g and calculate your personal error percentage"
+      ]
+    },
+    {
+      "id": "quick-breads",
+      "title": "Quick Breads",
+      "tier": "recommended",
+      "learn": {
+        "summary": "Quick breads — muffins, banana bread, pancakes, biscuits — rise from baking soda or powder, not yeast, so they are ready in an hour and nearly foolproof if you obey one rule: mix wet into dry until just combined and stop while lumps remain. Overmixing develops gluten and makes them tough and tunneled. Baking soda needs an acid partner (buttermilk, yogurt, brown sugar); baking powder brings its own.",
+        "links": [
+          {
+            "label": "Quick bread (Wikipedia)",
+            "url": "https://en.wikipedia.org/wiki/Quick_bread",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Bake banana bread or muffins this weekend, counting your strokes after the flour goes in — stop under 15 and accept the lumps"
+      ]
+    },
+    {
+      "id": "yeast-bread-intro",
+      "title": "Yeast Bread Intro",
+      "tier": "extra",
+      "learn": {
+        "summary": "Bread is four ingredients — flour, water, salt, yeast — plus time: yeast eats sugars and exhales CO2, and gluten traps the bubbles. Start with a no-knead loaf: mix a wet dough (about 75% water to flour by weight), let it rise 12-18 hours at room temperature, and bake it in a preheated Dutch oven at 450°F, which traps steam for a crackling crust. The loaf is done around 200-210°F internal.",
+        "links": [
+          {
+            "label": "Bread (Wikipedia)",
+            "url": "https://en.wikipedia.org/wiki/Bread",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Mix a no-knead dough tonight (400g flour, 300g water, 8g salt, 1g yeast), let it sit until tomorrow evening, and bake it in a covered Dutch oven at 450°F for 30 minutes plus 15 uncovered"
+      ]
+    }
+  ]
+}

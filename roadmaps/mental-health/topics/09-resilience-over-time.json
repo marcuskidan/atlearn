@@ -1,0 +1,79 @@
+{
+  "id": "resilience-over-time",
+  "title": "Resilience Over Time",
+  "tier": "recommended",
+  "learn": {
+    "summary": "Resilience is not a trait you have but a system you run: knowing your baseline, catching drift early, and having rehearsed responses ready. Relapse-prevention research (Marlatt) shows setbacks follow patterns — identifiable triggers, early warning signs, and a critical window where small corrections work. The people who stay well are rarely the ones who never dip; they are the ones who notice dips at 20% instead of 80%.",
+    "links": [
+      {
+        "label": "Psychological resilience (Wikipedia)",
+        "url": "https://en.wikipedia.org/wiki/Psychological_resilience",
+        "kind": "article"
+      }
+    ]
+  },
+  "do": [
+    "Write a half-page 'wellness baseline' today: what your sleep, mood, socializing, and habits look like when you are doing well. This is your reference reading."
+  ],
+  "children": [
+    {
+      "id": "self-monitoring",
+      "title": "Self-Monitoring",
+      "tier": "essential",
+      "learn": {
+        "summary": "You cannot course-correct what you do not measure, and memory is a terrible instrument — peak-end bias means you recall dramatic moments, not trends. A weekly 2-minute review (mood average, sleep, connection, exercise, one line of notes) outperforms daily obsessing, which can tip into symptom-scanning. The goal is trend detection, not surveillance of every feeling.",
+        "links": [
+          {
+            "label": "Experience sampling method (Wikipedia)",
+            "url": "https://en.wikipedia.org/wiki/Experience_sampling_method",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Set a recurring Sunday reminder and run a 2-minute weekly review (mood 1–10, sleep, connection, movement, one sentence) for four weeks."
+      ]
+    },
+    {
+      "id": "early-warning-signs",
+      "title": "Early Warning Signs",
+      "tier": "essential",
+      "learn": {
+        "summary": "Everyone's slide has a personal signature — common early markers include canceling plans, sleep drift, skipped meals or workouts, doomscrolling spikes, irritability, and letting small admin pile up. Relapse-prevention protocols have patients write these down while well, plus matched if-then responses, because judgment is worst exactly when the signs appear. Marlatt also named the 'abstinence violation effect': one slip becomes a collapse only when interpreted as total failure.",
+        "links": [
+          {
+            "label": "Relapse prevention (Wikipedia)",
+            "url": "https://en.wikipedia.org/wiki/Relapse_prevention",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "List your five personal early-warning signs and write one if-then response for each ('If I cancel plans twice in a week, then I tell X and book one walk with a friend')."
+      ]
+    },
+    {
+      "id": "journaling",
+      "title": "Journaling",
+      "tier": "recommended",
+      "learn": {
+        "summary": "James Pennebaker's expressive-writing paradigm — 15–20 minutes writing about a stressor for 3–4 consecutive days — produced measurable improvements in health and mood across dozens of trials; the mechanism seems to be turning inchoate distress into structured narrative. Gratitude journaling (Emmons) is a different tool with different effects: three specific good things, a few times weekly, beats daily rote lists. Caution: journaling that circles the same grievance nightly is rumination with a pen.",
+        "links": [
+          {
+            "label": "James W. Pennebaker (Wikipedia)",
+            "url": "https://en.wikipedia.org/wiki/James_W._Pennebaker",
+            "kind": "article"
+          },
+          {
+            "label": "Journal therapy (Wikipedia)",
+            "url": "https://en.wikipedia.org/wiki/Journal_therapy",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Run the Pennebaker protocol once: 15 minutes of unfiltered writing about one stressful thing, four days in a row, then decide if it earned a place in your toolkit."
+      ]
+    }
+  ]
+}

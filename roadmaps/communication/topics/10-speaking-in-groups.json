@@ -1,0 +1,92 @@
+{
+  "id": "speaking-in-groups",
+  "title": "Speaking in Groups",
+  "tier": "recommended",
+  "learn": {
+    "summary": "Group settings add coordination problems to speaking problems: airtime is contested, attention is fragmented, and slides usually make everything worse. The skills here (crisp meeting contributions, facilitation, impromptu speaking, presenting with visuals) are what Toastmasters trains through Table Topics and meeting roles. Mastering them makes you the person meetings quietly organize around.",
+    "links": [
+      {
+        "label": "Meeting (Wikipedia)",
+        "url": "https://en.wikipedia.org/wiki/Meeting",
+        "kind": "article"
+      }
+    ]
+  },
+  "do": [
+    "In your next meeting, make exactly one contribution that is a single sentence long, delivered without preamble."
+  ],
+  "children": [
+    {
+      "id": "speaking-in-meetings",
+      "title": "Speaking in Meetings",
+      "tier": "essential",
+      "learn": {
+        "summary": "Meeting contributions land when they are early, short, and labeled: 'Question:', 'Concern:', 'Proposal:' tells listeners how to process what follows. Speaking within the first ten minutes measurably raises how much your later input is weighted, and one crisp point beats three rambling ones. If you tend to be talked over, finish your sentence at steady volume; yielding mid-sentence trains the room.",
+        "links": [
+          {
+            "label": "Meeting (Wikipedia)",
+            "url": "https://en.wikipedia.org/wiki/Meeting",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Say something useful in the first 10 minutes of every meeting you attend this week, even if only a clarifying question."
+      ]
+    },
+    {
+      "id": "facilitating",
+      "title": "Facilitating",
+      "tier": "recommended",
+      "learn": {
+        "summary": "A facilitator manages the process so the group can manage the content: state the goal, guard the agenda, draw out the quiet ('Priya, you have worked on this, what is your read?'), park tangents visibly, and close with owners and deadlines. The role is service, not stage; a good facilitator speaks maybe 20 percent of the time. Round-robins and writing-before-discussing counter the loudest-voice-wins dynamic.",
+        "links": [
+          {
+            "label": "Facilitator (Wikipedia)",
+            "url": "https://en.wikipedia.org/wiki/Facilitator",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Volunteer to run one meeting or agenda item this week and end it by reading back every decision and owner out loud."
+      ]
+    },
+    {
+      "id": "impromptu-speaking",
+      "title": "Thinking on Your Feet",
+      "tier": "recommended",
+      "learn": {
+        "summary": "Impromptu speaking is structure retrieval under pressure, which is why Toastmasters drills it weekly with Table Topics: 1-2 minute answers to surprise prompts. Reliable templates: PREP (Point, Reason, Example, Point) and Past-Present-Future. Buying three seconds by restating the question is not stalling, it is standard technique, and a strong single point beats a frantic list.",
+        "links": [
+          {
+            "label": "Impromptu speaking (Wikipedia)",
+            "url": "https://en.wikipedia.org/wiki/Impromptu_speaking",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Twice this week, have someone give you a random topic and answer for 60 seconds using PREP; record and listen back once."
+      ]
+    },
+    {
+      "id": "presenting-with-slides",
+      "title": "Presenting With Slides",
+      "tier": "extra",
+      "learn": {
+        "summary": "Slides are a visual aid, not a script; reading bullets to people who can read is the core sin behind the phrase 'death by PowerPoint'. Working rules: one idea per slide, more images and numbers than words, and nothing on screen you will not talk about. Multimedia-learning research (Richard Mayer) confirms the redundancy effect: identical on-screen and spoken text hurts comprehension.",
+        "links": [
+          {
+            "label": "Death by PowerPoint (Wikipedia)",
+            "url": "https://en.wikipedia.org/wiki/Death_by_PowerPoint",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Take your last slide deck and cut the word count of its three densest slides by half; present it to yourself out loud once."
+      ]
+    }
+  ]
+}

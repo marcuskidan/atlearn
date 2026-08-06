@@ -1,0 +1,97 @@
+{
+  "id": "presence-attention",
+  "title": "Presence & Attention",
+  "tier": "essential",
+  "learn": {
+    "summary": "Compassion starts before any words: it requires actually noticing another person. Stanford's Compassion Cultivation Training (CCT) begins with attention-settling practices for exactly this reason — a distracted mind literally cannot register suffering. Attention is trainable, and giving someone your undivided attention is itself a form of care.",
+    "links": [
+      {
+        "label": "Stanford CCARE",
+        "url": "https://ccare.stanford.edu",
+        "kind": "article"
+      },
+      {
+        "label": "Attention (Wikipedia)",
+        "url": "https://en.wikipedia.org/wiki/Attention",
+        "kind": "article"
+      }
+    ]
+  },
+  "do": [
+    "Pick one daily conversation this week (dinner, coffee, a call) and give it 100% attention — no phone in sight, no mental rehearsing of your reply."
+  ],
+  "children": [
+    {
+      "id": "phone-free-presence",
+      "title": "Phone-Free Presence",
+      "tier": "essential",
+      "learn": {
+        "summary": "Phubbing — snubbing a companion by looking at your phone — measurably lowers relationship satisfaction and the other person's sense of being valued, even when the phone is merely visible on the table. Presence is now a scarce gift; the mere-presence effect means the device does not need to buzz to divide you.",
+        "links": [
+          {
+            "label": "Phubbing (Wikipedia)",
+            "url": "https://en.wikipedia.org/wiki/Phubbing",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "For the next 7 days, leave your phone in another room during every shared meal. Count the days you succeed."
+      ]
+    },
+    {
+      "id": "noticing-suffering",
+      "title": "Noticing Suffering",
+      "tier": "essential",
+      "learn": {
+        "summary": "Compassion researchers define it as a four-step sequence: notice suffering, feel moved, wish for relief, act. Most failures of compassion are failures at step one — we walk past distress because we are busy, not because we are cruel (the classic Darley and Batson 'Good Samaritan' study showed hurried seminary students stepped over a slumped stranger). Slowing down is a moral act.",
+        "links": [
+          {
+            "label": "Compassion (Wikipedia)",
+            "url": "https://en.wikipedia.org/wiki/Compassion",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Once a day this week, scan the people around you and silently name one thing someone might be struggling with. Just notice — no action required yet."
+      ]
+    },
+    {
+      "id": "mindful-attention",
+      "title": "Mindful Attention",
+      "tier": "recommended",
+      "learn": {
+        "summary": "CCT and Jon Kabat-Zinn's MBSR both open with breath-focused attention training because a settled mind is the platform for every later skill. The mechanics are simple: attend to the breath, notice when the mind wanders, return without self-criticism. The 'return' is the rep — wandering is not failure, it is the gym.",
+        "links": [
+          {
+            "label": "Mindfulness (Wikipedia)",
+            "url": "https://en.wikipedia.org/wiki/Mindfulness",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Do 5 minutes of breath-counting (count exhales 1–10, restart when lost) on 5 of the next 7 days."
+      ]
+    },
+    {
+      "id": "just-like-me",
+      "title": "Just Like Me",
+      "tier": "extra",
+      "learn": {
+        "summary": "A signature CCT practice: looking at a stranger and silently noting 'just like me, this person has known loss; just like me, this person wants to be happy.' It converts abstract crowds into individuals and reliably softens judgment in seconds. It works precisely because it is embarrassingly simple.",
+        "links": [
+          {
+            "label": "Stanford CCARE",
+            "url": "https://ccare.stanford.edu",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "In one queue or commute this week, pick three strangers and silently run the 'just like me' phrases for each."
+      ]
+    }
+  ]
+}

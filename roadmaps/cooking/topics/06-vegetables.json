@@ -1,0 +1,92 @@
+{
+  "id": "vegetables",
+  "title": "Vegetables",
+  "tier": "essential",
+  "learn": {
+    "summary": "Most people who think they hate vegetables have only had them steamed to gray or boiled to mush. High heat is the great converter: roasting and sautéing caramelize natural sugars and create textures worth craving. The skills here — high-heat roasting, a proper sauté, blanching, and confident raw prep — turn the produce drawer from obligation into the best part of the plate.",
+    "links": [
+      {
+        "label": "Vegetable (Wikipedia)",
+        "url": "https://en.wikipedia.org/wiki/Vegetable",
+        "kind": "article"
+      }
+    ]
+  },
+  "do": [
+    "Roast any vegetable at 425°F tonight — oiled, salted, single layer — and pull it only when the edges are deeply browned"
+  ],
+  "children": [
+    {
+      "id": "roasting-vegetables",
+      "title": "Roasting",
+      "tier": "essential",
+      "learn": {
+        "summary": "The formula: 400-450°F, vegetables cut evenly, tossed in enough oil to gleam, salted, and spread in a single layer with space between pieces — crowding steams, space browns. Do not stir for the first 15-20 minutes so the cut sides caramelize against the hot pan. Dense roots take 30-45 minutes; broccoli and cauliflower 20-25.",
+        "links": [
+          {
+            "label": "Roasting (Wikipedia)",
+            "url": "https://en.wikipedia.org/wiki/Roasting",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Roast broccoli at 425°F for 22 minutes without stirring once, and serve it with lemon squeezed over — compare it to any steamed broccoli memory"
+      ]
+    },
+    {
+      "id": "sauteing",
+      "title": "Sautéing",
+      "tier": "essential",
+      "learn": {
+        "summary": "Sauté means jump: high heat, a little fat, food in a single layer, kept moving just enough to brown without burning. The pan must be hot before the food goes in, and the food must be dry — wet greens spit and steam. Aromatics have an order: onions first (5-8 minutes), garlic last (30-60 seconds), because garlic burns bitter fast.",
+        "links": [
+          {
+            "label": "Sautéing (Wikipedia)",
+            "url": "https://en.wikipedia.org/wiki/Saut%C3%A9ing",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Sauté zucchini or green beans over confident high heat this week: hot pan, shimmering oil, single layer, and toss only every 60-90 seconds"
+      ]
+    },
+    {
+      "id": "blanching",
+      "title": "Blanching & Shocking",
+      "tier": "extra",
+      "learn": {
+        "summary": "Blanching — a brief plunge into heavily salted boiling water, then straight into ice water — sets vivid color and crisp-tender texture, and it is the restaurant secret behind perfect green vegetables. Green beans take 2-3 minutes, broccoli 2, peas 1. Shocked vegetables hold in the fridge for days, ready for a 90-second reheat in butter or a cold salad.",
+        "links": [
+          {
+            "label": "Blanching (cooking) (Wikipedia)",
+            "url": "https://en.wikipedia.org/wiki/Blanching_(cooking)",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Blanch and shock a batch of green beans on Sunday (2.5 minutes, then ice water), stash them in the fridge, and reheat portions in butter on two weeknights"
+      ]
+    },
+    {
+      "id": "raw-and-salads",
+      "title": "Raw & Salads",
+      "tier": "recommended",
+      "learn": {
+        "summary": "A great salad is engineering: bone-dry leaves (dressing slides off wet ones — a salad spinner earns its space), dressing added in stages and tossed with your hands, and seasoning like any other dish — salt on the leaves, not just in the vinaigrette. The classic vinaigrette ratio is 3 parts oil to 1 part acid, adjusted to taste, with mustard to help it hold together. Dress at the last minute; acid wilts greens fast.",
+        "links": [
+          {
+            "label": "Vinaigrette (Wikipedia)",
+            "url": "https://en.wikipedia.org/wiki/Vinaigrette",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Make a 3:1 vinaigrette in a jar this week (6 tbsp olive oil, 2 tbsp vinegar, 1 tsp mustard, salt), shake, and dress properly dried greens with your hands"
+      ]
+    }
+  ]
+}

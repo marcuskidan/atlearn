@@ -1,0 +1,107 @@
+{
+  "id": "protecting-yourself",
+  "title": "Protecting Yourself",
+  "tier": "essential",
+  "learn": {
+    "summary": "Wealth-building math means little if one uninsured event or one scam erases years of progress. Protection has three layers: transferring big risks (insurance), hardening your accounts (fraud and identity defenses), and recognizing manipulation aimed at you or people you love. The FTC reported consumers lost over $10 billion to fraud in 2023 — and reported losses understate the real total because of shame-driven silence.",
+    "links": [
+      {
+        "label": "CFPB: Fraud and scams",
+        "url": "https://www.consumerfinance.gov/consumer-tools/fraud/",
+        "kind": "article"
+      }
+    ]
+  },
+  "do": [
+    "Turn on transaction alerts for every bank and card account you own this week — a 2-minute setting that catches most fraud on day one."
+  ],
+  "children": [
+    {
+      "id": "insurance-as-concept",
+      "title": "Insurance as a Concept",
+      "tier": "essential",
+      "learn": {
+        "summary": "Insurance is risk pooling: many people pay premiums so the few hit by disaster are made whole — which means it's mathematically a losing bet on average and still worth it, because it converts an unaffordable catastrophe into an affordable certainty. The core vocabulary: premium (the price), deductible (what you pay before coverage starts), and the general trade-off that higher deductibles mean lower premiums. The concept says insure what would ruin you, not what would annoy you; a licensed insurance professional can help with coverage specifics.",
+        "links": [
+          {
+            "label": "Wikipedia: Insurance",
+            "url": "https://en.wikipedia.org/wiki/Insurance",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "List the policies you currently have (health, auto, renters/home, etc.) with each premium and deductible, and note any category where a loss would be ruinous but coverage is absent."
+      ]
+    },
+    {
+      "id": "scam-recognition",
+      "title": "Scam Recognition",
+      "tier": "essential",
+      "learn": {
+        "summary": "Nearly all scams share a signature: manufactured urgency, an unusual payment channel (gift cards, wire, crypto — chosen because they're irreversible), and a script that isolates you from advice ('don't tell anyone'). Impersonation of banks, the IRS, and family members is the dominant pattern, now supercharged by AI voice cloning. The universal defense: hang up and contact the organization through a number you find independently — no legitimate entity punishes verification.",
+        "links": [
+          {
+            "label": "Wikipedia: List of confidence tricks",
+            "url": "https://en.wikipedia.org/wiki/List_of_confidence_tricks",
+            "kind": "article"
+          },
+          {
+            "label": "FTC: Consumer advice",
+            "url": "https://consumer.ftc.gov/",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Agree on a verification code word with your closest family members this week for any urgent money request by phone or text."
+      ]
+    },
+    {
+      "id": "identity-theft",
+      "title": "Identity Theft",
+      "tier": "recommended",
+      "learn": {
+        "summary": "Identity theft means someone using your personal data to open accounts, file taxes, or get medical care in your name — and the single strongest structural defense is a credit freeze, which blocks new accounts and is free at all three bureaus by federal law, unfreezable in minutes when you need credit. Recovery has an official playbook: the FTC's IdentityTheft.gov generates a personal recovery plan and the affidavit that gives you legal standing with creditors. Monitoring tells you about theft; a freeze helps prevent it.",
+        "links": [
+          {
+            "label": "FTC: IdentityTheft.gov",
+            "url": "https://www.identitytheft.gov/",
+            "kind": "tool"
+          },
+          {
+            "label": "Wikipedia: Identity theft",
+            "url": "https://en.wikipedia.org/wiki/Identity_theft",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Decide this week whether to freeze your credit at Equifax, Experian, and TransUnion; if yes, do all three (each takes about 5 minutes online) and store the PINs safely."
+      ]
+    },
+    {
+      "id": "financial-abuse-awareness",
+      "title": "Financial Abuse Awareness",
+      "tier": "extra",
+      "learn": {
+        "summary": "Financial abuse — controlling a partner's or elder's access to money, sabotaging their work, running up debt in their name — appears in an estimated 99% of domestic violence cases per research from the Center for Financial Security, and elder financial exploitation costs billions annually, often by people the victim trusts. Warning signs include being denied account access, forced account sharing, and unexplained changes to an elder's documents or spending. Awareness matters because victims frequently don't label what's happening as abuse.",
+        "links": [
+          {
+            "label": "Wikipedia: Economic abuse",
+            "url": "https://en.wikipedia.org/wiki/Economic_abuse",
+            "kind": "article"
+          },
+          {
+            "label": "CFPB: Protecting older adults",
+            "url": "https://www.consumerfinance.gov/consumer-tools/educator-tools/resources-for-older-adults/",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Read one resource on financial abuse warning signs and check in this month with one older relative or friend about how their finances are protected."
+      ]
+    }
+  ]
+}

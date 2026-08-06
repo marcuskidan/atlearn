@@ -1,0 +1,74 @@
+{
+  "id": "cooking-without-recipes",
+  "title": "Cooking Without Recipes",
+  "tier": "recommended",
+  "learn": {
+    "summary": "The endgame is template thinking: a stir-fry, a frittata, a grain bowl, a braise, and a pan sauce are not recipes but frameworks with swappable parts. You already hold the levers — salt, fat, acid, heat, umami, and a thermometer — so the fridge becomes a puzzle instead of a dead end. Recipes become sheet music you can sight-read, depart from, and return to.",
+    "links": [
+      {
+        "label": "Recipe (Wikipedia)",
+        "url": "https://en.wikipedia.org/wiki/Recipe",
+        "kind": "article"
+      }
+    ]
+  },
+  "do": [
+    "Cook one dinner this week with zero recipes: open the fridge, pick a protein, vegetable, and starch, and build the plate using only technique"
+  ],
+  "children": [
+    {
+      "id": "meal-templates",
+      "title": "Meal Templates",
+      "tier": "essential",
+      "learn": {
+        "summary": "Learn five templates and you can cook for a lifetime: stir-fry (protein + vegetable + aromatics + sauce over rice), frittata (eggs + anything + cheese), grain bowl (grain + roasted vegetable + protein + dressing + crunch), pasta (pasta + fat + vegetable or protein + starchy water + cheese), and sheet-pan dinner (protein + vegetables + 425°F). Each is a fill-in-the-blank, not a formula to memorize. Write your five on a card and iterate weekly.",
+        "links": [
+          {
+            "label": "Stir frying (Wikipedia)",
+            "url": "https://en.wikipedia.org/wiki/Stir_frying",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Pick one template — stir-fry or sheet-pan — and cook it twice this week with completely different fillings, keeping the structure identical"
+      ]
+    },
+    {
+      "id": "meal-planning",
+      "title": "Meal Planning",
+      "tier": "recommended",
+      "learn": {
+        "summary": "Planning is not rigid menus; it is one 20-minute Sunday session: pick 3-4 dinners, shop once, and prep the bottlenecks — wash greens, cook a pot of grains, make a jar of vinaigrette, maybe roast a tray of vegetables. Plan ingredients that cascade: a roast chicken becomes tacos becomes stock. Cooks who plan eat better and cheaper on the same effort.",
+        "links": [
+          {
+            "label": "Meal preparation (Wikipedia)",
+            "url": "https://en.wikipedia.org/wiki/Meal_preparation",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "This Sunday, spend 20 minutes planning 3 dinners around one cascading ingredient, write one shopping list, and prep one component ahead"
+      ]
+    },
+    {
+      "id": "loving-leftovers",
+      "title": "Loving Leftovers",
+      "tier": "recommended",
+      "learn": {
+        "summary": "Leftovers are pre-cooked ingredients, not punishments: yesterday's rice is tomorrow's fried rice (day-old rice fries better than fresh), roast vegetables become frittatas and grain bowls, braised meat becomes tacos and sandwiches. Reheat to 165°F, use refrigerated leftovers within 3-4 days, and freeze anything you will not reach in time. A weekly fridge-clearing meal — call it a hash, a soup, or a frittata — is the highest form of the skill.",
+        "links": [
+          {
+            "label": "Leftovers (Wikipedia)",
+            "url": "https://en.wikipedia.org/wiki/Leftovers",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Declare one fridge-clearing dinner this week and transform at least two leftovers into a genuinely new dish — fried rice, frittata, or soup"
+      ]
+    }
+  ]
+}

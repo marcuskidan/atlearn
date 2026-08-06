@@ -1,0 +1,97 @@
+{
+  "id": "value-and-light",
+  "title": "Value & Light",
+  "tier": "essential",
+  "learn": {
+    "summary": "Value — lightness and darkness — does more work in a drawing than line ever can: it is what makes forms turn and light feel real. Classical training organizes light into a predictable pattern of zones (highlight, halftone, core shadow, reflected light, cast shadow) that repeats on every lit form. Learn the pattern once and you can shade anything.",
+    "links": [
+      {
+        "label": "Chiaroscuro (Wikipedia)",
+        "url": "https://en.wikipedia.org/wiki/Chiaroscuro",
+        "kind": "article"
+      }
+    ]
+  },
+  "do": [
+    "Set an egg or white ball under a single desk lamp and shade it for 30 minutes, labeling all five light zones in the margin."
+  ],
+  "children": [
+    {
+      "id": "value-scale",
+      "title": "Value Scales",
+      "tier": "essential",
+      "learn": {
+        "summary": "A value scale is a strip of even steps from white to black — ateliers typically use 9 or 10. Drawing one teaches pencil pressure control; using one teaches comparison, because value is always relative to its neighbors. Squinting at your subject collapses detail and reveals its true value structure — the single most-used trick in representational art.",
+        "links": [
+          {
+            "label": "Lightness (Wikipedia)",
+            "url": "https://en.wikipedia.org/wiki/Lightness",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Draw a 9-step value scale with a single pencil, aiming for even jumps between steps; then squint at any scene and identify its lightest and darkest value."
+      ]
+    },
+    {
+      "id": "light-logic",
+      "title": "The Five Light Zones",
+      "tier": "essential",
+      "learn": {
+        "summary": "On any lit form: the highlight faces the light, halftones turn away gradually, the core shadow is the dark band at the terminator where light stops, reflected light bounces faintly into the shadow side, and the cast shadow anchors the object — darkest right at contact. The classic beginner error is making reflected light too bright, breaking the form. This grammar of light was codified in 19th-century academic ateliers and hasn't changed.",
+        "links": [
+          {
+            "label": "Shading (Wikipedia)",
+            "url": "https://en.wikipedia.org/wiki/Shading",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Shade a sphere and a cylinder under one lamp this week, deliberately keeping reflected light darker than every halftone on the lit side."
+      ]
+    },
+    {
+      "id": "hatching-techniques",
+      "title": "Hatching & Cross-Hatching",
+      "tier": "essential",
+      "learn": {
+        "summary": "Hatching builds value from parallel strokes; cross-hatching layers a second direction for darker tone; contour hatching curves the strokes around the form so the shading itself describes volume — study Durer's engravings for the ultimate demonstration. Stroke spacing and pressure control the value. It is the fundamental shading language of pen and pencil alike.",
+        "links": [
+          {
+            "label": "Hatching (Wikipedia)",
+            "url": "https://en.wikipedia.org/wiki/Hatching",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Shade one sphere three times: straight hatching, cross-hatching, and contour hatching that follows the curve — judge which best conveys roundness."
+      ]
+    },
+    {
+      "id": "chiaroscuro",
+      "title": "Chiaroscuro",
+      "tier": "extra",
+      "learn": {
+        "summary": "Chiaroscuro — Italian for 'light-dark' — is the dramatic use of strong value contrast that Caravaggio weaponized and Rembrandt perfected. Practically, it means committing to a dominant light and letting shadows merge into large dark masses instead of timidly lighting everything. Studying one Rembrandt self-portrait teaches more about value grouping than a week of exercises.",
+        "links": [
+          {
+            "label": "Chiaroscuro (Wikipedia)",
+            "url": "https://en.wikipedia.org/wiki/Chiaroscuro",
+            "kind": "article"
+          },
+          {
+            "label": "Rembrandt (Wikipedia)",
+            "url": "https://en.wikipedia.org/wiki/Rembrandt",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Light an object with a single strong lamp in a dark room and draw it using only three values: white paper, one mid-gray, and near-black."
+      ]
+    }
+  ]
+}

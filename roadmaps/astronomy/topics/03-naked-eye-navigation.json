@@ -1,0 +1,92 @@
+{
+  "id": "naked-eye-navigation",
+  "title": "Naked-Eye Navigation",
+  "tier": "essential",
+  "learn": {
+    "summary": "Sailors and shepherds navigated by stars for millennia with zero optics; you can learn their core skills in a few nights. The method is always the same: anchor on a bright pattern you know, then hop along chains of stars to what you don't. This skill transfers directly to binoculars and telescopes later.",
+    "links": [
+      {
+        "label": "Celestial navigation (Wikipedia)",
+        "url": "https://en.wikipedia.org/wiki/Celestial_navigation",
+        "kind": "article"
+      }
+    ]
+  },
+  "do": [
+    "Learn one new star-hop this week and teach it to another person out loud — explaining it cements the pattern."
+  ],
+  "children": [
+    {
+      "id": "finding-polaris",
+      "title": "Finding Polaris",
+      "tier": "essential",
+      "learn": {
+        "summary": "The two stars at the end of the Big Dipper's bowl (Dubhe and Merak, the 'pointers') aim almost exactly at Polaris, five pointer-lengths away. Polaris sits within 1 degree of the north celestial pole, so its altitude equals your latitude — a fact navigators exploited for centuries. It is only the 48th brightest star, so don't expect a beacon.",
+        "links": [
+          {
+            "label": "Polaris (Wikipedia)",
+            "url": "https://en.wikipedia.org/wiki/Polaris",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Go outside at 9 PM tonight, find the Big Dipper, follow the pointer stars to Polaris, and confirm its altitude roughly matches your latitude using stacked fists."
+      ]
+    },
+    {
+      "id": "star-hopping",
+      "title": "Star-Hopping",
+      "tier": "essential",
+      "learn": {
+        "summary": "Star-hopping means navigating from a known bright star along memorized chains to a target: 'arc to Arcturus, spike to Spica' extends the Dipper's handle to two first-magnitude stars. It is how visual observers found everything for 400 years before GoTo mounts. Each hop you memorize becomes permanent sky infrastructure.",
+        "links": [
+          {
+            "label": "Star hopping (Wikipedia)",
+            "url": "https://en.wikipedia.org/wiki/Star_hopping",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Perform the classic 'arc to Arcturus, spike (drive) on to Spica' hop from the Big Dipper's handle on the next clear night, or find an equivalent hop for your current season."
+      ]
+    },
+    {
+      "id": "measuring-with-hands",
+      "title": "Measuring with Hands",
+      "tier": "essential",
+      "learn": {
+        "summary": "At arm's length, your pinky covers about 1 degree, three middle fingers about 5, a fist about 10, and a fully spread hand about 25 — remarkably consistent across body sizes because arm length scales with hand size. The full Moon is only half a degree, far smaller than most people guess. These built-in rulers make star charts usable in the field.",
+        "links": [
+          {
+            "label": "Angular diameter (Wikipedia)",
+            "url": "https://en.wikipedia.org/wiki/Angular_diameter",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Calibrate yourself tonight: the Big Dipper's bowl top edge is 10 degrees and the pointer stars are 5.5 degrees apart — check your fist and three-finger widths against them."
+      ]
+    },
+    {
+      "id": "averted-vision",
+      "title": "Averted Vision",
+      "tier": "recommended",
+      "learn": {
+        "summary": "Your retina's center is packed with color-sensing cones but few rods, so faint objects vanish when you stare straight at them. Looking 8-15 degrees to the side places light on rod-rich retina, gaining you a magnitude or more. Every deep-sky observer uses this trick constantly; it feels like cheating and it isn't.",
+        "links": [
+          {
+            "label": "Averted vision (Wikipedia)",
+            "url": "https://en.wikipedia.org/wiki/Averted_vision",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Find a faint star at the edge of visibility tonight, then deliberately look slightly away from it — confirm it pops into view and vanishes again when you stare directly."
+      ]
+    }
+  ]
+}

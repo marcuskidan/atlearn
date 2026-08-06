@@ -1,0 +1,97 @@
+{
+  "id": "setup-mise-en-place",
+  "title": "Setup & Mise en Place",
+  "tier": "essential",
+  "learn": {
+    "summary": "Mise en place — everything in its place — is the first thing culinary school teaches: read the whole recipe, prep every ingredient, and stage your tools before heat touches a pan. Most home-cooking disasters are logistics failures, not skill failures: the garlic burns while you are still mincing the ginger. Five minutes of setup buys calm for the entire cook.",
+    "links": [
+      {
+        "label": "Mise en place (Wikipedia)",
+        "url": "https://en.wikipedia.org/wiki/Mise_en_place",
+        "kind": "article"
+      }
+    ]
+  },
+  "do": [
+    "Before your next cooked meal, prep and bowl every ingredient and stage every tool before turning on any burner — notice the difference in stress"
+  ],
+  "children": [
+    {
+      "id": "essential-tools",
+      "title": "Essential Tools",
+      "tier": "essential",
+      "learn": {
+        "summary": "You need less than you think: one 8-inch chef's knife, a large cutting board, a 10-12 inch skillet (stainless or cast iron), a heavy pot, a sheet pan, tongs, and an instant-read thermometer. A $15 thermometer eliminates more guesswork than any gadget on the market. Skip the unitaskers; buy quality on the knife and skillet first.",
+        "links": [
+          {
+            "label": "Chef's knife (Wikipedia)",
+            "url": "https://en.wikipedia.org/wiki/Chef%27s_knife",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Buy an instant-read digital thermometer this week if you do not own one, and box up every kitchen gadget you have not touched in six months"
+      ]
+    },
+    {
+      "id": "pantry-staples",
+      "title": "Pantry Staples",
+      "tier": "recommended",
+      "learn": {
+        "summary": "A working pantry means dinner is always 30 minutes away: kosher salt, a neutral oil and a good olive oil, two vinegars (wine or rice, plus balsamic or sherry), soy sauce, canned tomatoes, canned beans, dried pasta, rice, onions, garlic, and a modest spice shelf. Whole spices keep about a year, ground ones fade in months. Restock the moment something runs low, not when it runs out.",
+        "links": [
+          {
+            "label": "Pantry (Wikipedia)",
+            "url": "https://en.wikipedia.org/wiki/Pantry",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Audit your pantry against the staples list this week, toss any ground spice older than two years, and cook one dinner entirely from what is on hand"
+      ]
+    },
+    {
+      "id": "food-safety-temps",
+      "title": "Food Safety Temps",
+      "tier": "essential",
+      "learn": {
+        "summary": "Bacteria multiply fastest between 40°F and 140°F — the danger zone — so leftovers go in the fridge within 2 hours (1 hour if it is above 90°F out). Key internal temps: poultry and reheated leftovers 165°F, ground meats 160°F, whole cuts of beef and pork 145°F plus a 3-minute rest, fish 145°F. Fridge at or below 40°F; never thaw meat on the counter.",
+        "links": [
+          {
+            "label": "Safe temperature charts (foodsafety.gov)",
+            "url": "https://www.foodsafety.gov/food-safety-charts",
+            "kind": "article"
+          },
+          {
+            "label": "Danger zone (Wikipedia)",
+            "url": "https://en.wikipedia.org/wiki/Danger_zone_(food_safety)",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Check your fridge with a thermometer this week (target 37-40°F) and tape the key internal temps inside a cabinet door"
+      ]
+    },
+    {
+      "id": "clean-as-you-go",
+      "title": "Clean As You Go",
+      "tier": "recommended",
+      "learn": {
+        "summary": "Professional kitchens stay clean during service, not after it: wipe the board between tasks, drop used tools into a soapy sink, and use downtime — while water boils, while onions sweat — to reset your station. A separate board (or a wash between) for raw meat versus produce prevents cross-contamination. Ending a cook with a clean kitchen is a skill, and it is learnable in a week.",
+        "links": [
+          {
+            "label": "Food safety (Wikipedia)",
+            "url": "https://en.wikipedia.org/wiki/Food_safety",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "During your next cook, fill the sink with hot soapy water before you start and wash tools during every pocket of waiting time — aim to finish dinner with an empty counter"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,92 @@
+{
+  "id": "lifelong-athleticism",
+  "title": "Lifelong Athleticism",
+  "tier": "recommended",
+  "learn": {
+    "summary": "The end goal isn't a number on a bar — it's being the 80-year-old who gets off the floor without hands. Muscle mass declines roughly 3–8% per decade after 30 and faster after 60 (sarcopenia), but trained people push that curve decades to the right. From here the practice is simple: retest, play, balance, and never fully stop.",
+    "links": [
+      {
+        "label": "Sarcopenia — Wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Sarcopenia",
+        "kind": "article"
+      }
+    ]
+  },
+  "do": [
+    "Put a recurring quarterly event in your calendar titled 'Retest baselines' — first occurrence within 90 days of your original tests."
+  ],
+  "children": [
+    {
+      "id": "retesting",
+      "title": "Retesting",
+      "tier": "essential",
+      "learn": {
+        "summary": "Every 8–12 weeks, rerun the original four: resting HR, timed mile, push-up max, sit-to-stand. Trends beat snapshots — a bad test day means nothing, a flat six-month trend means your program needs a change. Retests are also the honest antidote to both complacency and pointless program-hopping.",
+        "links": [
+          {
+            "label": "Physical fitness — Wikipedia",
+            "url": "https://en.wikipedia.org/wiki/Physical_fitness",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "If it's been 8+ weeks since your baseline, retest all four numbers this week and write one sentence about what changed."
+      ]
+    },
+    {
+      "id": "balance-training",
+      "title": "Balance Training",
+      "tier": "essential",
+      "learn": {
+        "summary": "Falls are the leading cause of injury death in adults over 65, and balance is trainable at any age. The 10-second one-leg stand is a validated screen — in one large study, adults unable to hold it had markedly higher 7-year mortality. Practice costs nothing: single-leg stands while brushing teeth, heel-to-toe walking, and eventually eyes-closed holds.",
+        "links": [
+          {
+            "label": "Balance (ability) — Wikipedia",
+            "url": "https://en.wikipedia.org/wiki/Balance_(ability)",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Stand on one leg for the duration of brushing your teeth (switch legs halfway) every day this week; test your eyes-open max hold on day 7."
+      ]
+    },
+    {
+      "id": "sport-sampling",
+      "title": "Sport Sampling",
+      "tier": "recommended",
+      "learn": {
+        "summary": "Gym training builds capacities; sport spends them joyfully and adds what the gym can't — reaction, agility, and the motivation of play. Adults who attach fitness to a game (pickleball, climbing, martial arts, swimming, dance) show far better long-term adherence than gym-only exercisers. Racket sports in particular associate with some of the largest longevity benefits in cohort studies.",
+        "links": [
+          {
+            "label": "Sport — Wikipedia",
+            "url": "https://en.wikipedia.org/wiki/Sport",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Book one beginner session of a sport you've been curious about — an intro class, an open-play night, or a friend's invitation — within the next two weeks."
+      ]
+    },
+    {
+      "id": "training-through-age",
+      "title": "Training Through Age",
+      "tier": "extra",
+      "learn": {
+        "summary": "The rules shift, not vanish: after 50, prioritize power (moving moderately heavy things fast — it declines quickest), keep protein at the higher 1.6–2.0 g/kg range, extend warm-ups, and expect recovery to take a day longer than it used to. Masters athletes in their 70s routinely hold muscle mass comparable to sedentary 40-year-olds. The worst program at any age is stopping.",
+        "links": [
+          {
+            "label": "Aging — Wikipedia",
+            "url": "https://en.wikipedia.org/wiki/Ageing",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Add one explosive-intent movement to this week's training — 3 sets of 5 fast sit-to-stands, medicine-ball throws, or brisk stair climbs — moving as quickly as you safely can."
+      ]
+    }
+  ]
+}

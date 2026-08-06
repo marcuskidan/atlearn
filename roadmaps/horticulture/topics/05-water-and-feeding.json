@@ -1,0 +1,92 @@
+{
+  "id": "water-and-feeding",
+  "title": "Water & Feeding",
+  "tier": "essential",
+  "learn": {
+    "summary": "More garden plants die from watering mistakes than anything else — usually too much, too shallow, or too often. The rule for established plants is deep and infrequent: about 1 inch of water per week including rain, delivered to the soil, not the leaves. Feeding matters far less than soil health, and overfeeding causes as many problems as underfeeding.",
+    "links": [
+      {
+        "label": "Irrigation (Wikipedia)",
+        "url": "https://en.wikipedia.org/wiki/Irrigation",
+        "kind": "article"
+      }
+    ]
+  },
+  "do": [
+    "Set an empty tuna can in the garden while you water and time how long it takes to fill one inch — that is your weekly watering benchmark"
+  ],
+  "children": [
+    {
+      "id": "deep-watering",
+      "title": "Deep Watering",
+      "tier": "essential",
+      "learn": {
+        "summary": "Shallow daily sprinkles train roots to stay near the surface where they cook in summer; deep weekly soaks push roots down 6-12 inches where moisture is stable. Water early morning to cut evaporation and give leaves time to dry, which reduces disease. Check before watering: finger 2 inches into the soil — if it is moist, wait.",
+        "links": [
+          {
+            "label": "Drip irrigation (Wikipedia)",
+            "url": "https://en.wikipedia.org/wiki/Drip_irrigation",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Before every watering this week, do the 2-inch finger test and log how many scheduled waterings you actually skipped"
+      ]
+    },
+    {
+      "id": "drainage",
+      "title": "Drainage",
+      "tier": "essential",
+      "learn": {
+        "summary": "Roots need oxygen; waterlogged soil suffocates them, and root rot looks deceptively like drought — wilting despite wet soil. Test drainage with a percolation test: dig a 12-inch hole, fill with water, and time it — draining slower than 1 inch per hour means trouble. Fix with raised beds, organic matter, or moisture-loving plant choices, not gravel in the bottom of holes.",
+        "links": [
+          {
+            "label": "Drainage (Wikipedia)",
+            "url": "https://en.wikipedia.org/wiki/Drainage",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Run a percolation test this weekend in the spot where plants struggle most: 12-inch hole, fill with water, measure the drop each hour"
+      ]
+    },
+    {
+      "id": "mulching",
+      "title": "Mulching",
+      "tier": "essential",
+      "learn": {
+        "summary": "A 2-3 inch layer of organic mulch (wood chips, straw, shredded leaves) cuts evaporation dramatically, suppresses weeds, buffers soil temperature, and feeds the soil as it breaks down. Keep mulch 2-3 inches back from stems and trunks — piled-up \"mulch volcanoes\" rot bark and invite rodents. Refresh once a year.",
+        "links": [
+          {
+            "label": "Mulch (Wikipedia)",
+            "url": "https://en.wikipedia.org/wiki/Mulch",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Mulch one bed 2-3 inches deep this week with straw, shredded leaves, or arborist wood chips, keeping a donut of bare soil around each stem"
+      ]
+    },
+    {
+      "id": "fertilizer-npk",
+      "title": "Fertilizer & NPK",
+      "tier": "recommended",
+      "learn": {
+        "summary": "The three numbers on every bag are percent nitrogen (leafy growth), phosphorus (roots and flowers), potassium (overall vigor) — so 10-10-10 is 10% of each. Excess nitrogen gives lush leaves and no fruit, and runoff pollutes waterways, so apply only what a soil test recommends. Slow-release organics (compost, fish emulsion) are far more forgiving than fast synthetics.",
+        "links": [
+          {
+            "label": "Fertilizer (Wikipedia)",
+            "url": "https://en.wikipedia.org/wiki/Fertilizer",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Read the NPK numbers on any fertilizer you own and check them against your soil test report before applying anything this season"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,92 @@
+{
+  "id": "honest-baseline",
+  "title": "Honest Baseline",
+  "tier": "essential",
+  "learn": {
+    "summary": "You can't improve what you haven't measured. Four numbers give a surprisingly complete picture: resting heart rate, a timed 1-mile walk, max push-ups, and the 30-second sit-to-stand test. Record them once, honestly, before changing anything — they become your progress scoreboard.",
+    "links": [
+      {
+        "label": "Physical fitness — Wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Physical_fitness",
+        "kind": "article"
+      }
+    ]
+  },
+  "do": [
+    "This week, record all four baselines in your notes app: resting HR, 1-mile walk time, push-up max, and 30-second sit-to-stand count. Date the entry."
+  ],
+  "children": [
+    {
+      "id": "resting-heart-rate",
+      "title": "Resting Heart Rate",
+      "tier": "essential",
+      "learn": {
+        "summary": "Measure first thing in the morning, before coffee, sitting quietly: count beats for 60 seconds at the wrist or neck. Most adults land between 60–100 bpm; well-trained people often sit in the 50s. A downward trend over months is one of the clearest signs your aerobic base is improving.",
+        "links": [
+          {
+            "label": "Heart rate — Wikipedia",
+            "url": "https://en.wikipedia.org/wiki/Heart_rate",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Measure your resting HR on 3 consecutive mornings this week and record the average."
+      ]
+    },
+    {
+      "id": "timed-walk-test",
+      "title": "Timed Walk Test",
+      "tier": "essential",
+      "learn": {
+        "summary": "The Rockport 1-mile walk test estimates aerobic fitness with nothing but a flat mile and a watch: walk as fast as you can sustain, note the time and your heart rate at the finish. Under 15 minutes is a solid starting point for most adults; under 13 is good. The Cooper 12-minute run test is the harder cousin for when you're ready.",
+        "links": [
+          {
+            "label": "Cooper test — Wikipedia",
+            "url": "https://en.wikipedia.org/wiki/Cooper_test",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Walk 1 mile as fast as you comfortably can and record your time and finishing heart rate."
+      ]
+    },
+    {
+      "id": "push-up-max",
+      "title": "Push-Up Max Test",
+      "tier": "essential",
+      "learn": {
+        "summary": "One unbroken set of push-ups, chest to within a fist of the floor, full lockout at the top — no sagging hips, no half reps. A 2019 study of firefighters found those who could do 40+ had dramatically lower cardiovascular risk than those under 10. Can't do a full push-up yet? Test from an elevated surface like a countertop and note the height.",
+        "links": [
+          {
+            "label": "Push-up — Wikipedia",
+            "url": "https://en.wikipedia.org/wiki/Push-up",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Do one max-effort set of strict push-ups (or counter push-ups) today and record the number and variation."
+      ]
+    },
+    {
+      "id": "sit-to-stand-test",
+      "title": "Sit-to-Stand Test",
+      "tier": "recommended",
+      "learn": {
+        "summary": "The 30-second chair stand: arms crossed on chest, stand fully and sit back down as many times as possible in 30 seconds. It's a validated CDC/STEADI screen for leg strength and fall risk — under 12 reps for adults over 60 flags concern, while fit younger adults often exceed 20. It doubles as a brutal little leg workout.",
+        "links": [
+          {
+            "label": "Sit-to-stand test — Wikipedia",
+            "url": "https://en.wikipedia.org/wiki/Sitting-rising_test",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Do the 30-second chair stand test today with a standard-height chair and record your rep count."
+      ]
+    }
+  ]
+}

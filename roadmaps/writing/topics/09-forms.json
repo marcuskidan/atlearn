@@ -1,0 +1,112 @@
+{
+  "id": "forms",
+  "title": "Forms",
+  "tier": "recommended",
+  "learn": {
+    "summary": "Zinsser spends half of On Writing Well on forms — travel, memoir, science, sports, business — because principles only become skill inside a genre's specific demands. Each form has its own contract with the reader: the essay promises a mind at work, persuasion promises a fair case, narrative promises consequence, the work email promises brevity. Learn the contract before you improvise on it.",
+    "links": [
+      {
+        "label": "On Writing Well",
+        "url": "https://en.wikipedia.org/wiki/On_Writing_Well",
+        "kind": "article"
+      }
+    ]
+  },
+  "do": [
+    "Pick the one form you use most in real life and write one deliberate, revised piece in it this week."
+  ],
+  "children": [
+    {
+      "id": "personal-essay",
+      "title": "The Personal Essay",
+      "tier": "recommended",
+      "learn": {
+        "summary": "The essay descends from Montaigne, who coined the term from essayer, 'to attempt' — an attempt to think honestly on paper, using the self as evidence. The modern form's engine is the particular-to-universal move: a specific lived moment opened up until it says something true beyond the writer. The classic failure is staying private (a diary entry) or going abstract too fast (a sermon); the craft is holding both levels at once.",
+        "links": [
+          {
+            "label": "Michel de Montaigne",
+            "url": "https://en.wikipedia.org/wiki/Michel_de_Montaigne",
+            "kind": "article"
+          },
+          {
+            "label": "Essay",
+            "url": "https://en.wikipedia.org/wiki/Essay",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Write an 800-word essay starting from one specific memory of the past year, and make it earn one idea a stranger would care about."
+      ]
+    },
+    {
+      "id": "persuasive-writing",
+      "title": "Persuasive Writing",
+      "tier": "recommended",
+      "learn": {
+        "summary": "Aristotle's three appeals still organize the craft: ethos (credibility), logos (evidence and logic), pathos (emotion) — strong persuasion braids all three, weak persuasion leans on one. The modern power move is the steel man: stating the opposing case at full strength before answering it, which converts skeptics far better than strawmen. Structure matters too; op-ed editors want the claim within the first two paragraphs, not after a windup.",
+        "links": [
+          {
+            "label": "Modes of persuasion",
+            "url": "https://en.wikipedia.org/wiki/Modes_of_persuasion",
+            "kind": "article"
+          },
+          {
+            "label": "Op-ed",
+            "url": "https://en.wikipedia.org/wiki/Op-ed",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Write a 600-word op-ed on something you believe, including a full-strength paragraph for the other side that you then answer."
+      ]
+    },
+    {
+      "id": "narrative-craft",
+      "title": "Storytelling & Narrative",
+      "tier": "recommended",
+      "learn": {
+        "summary": "Stories run on causality and stakes: 'the king died and then the queen died' is a chronicle; 'the queen died of grief' is a plot (E.M. Forster's distinction). The working kit is small — scene versus summary, concrete sensory detail, a character who wants something, and trouble in the way — and it transfers everywhere, from case studies to wedding toasts. Structure templates like the three-act arc are scaffolds, not laws.",
+        "links": [
+          {
+            "label": "Narrative structure",
+            "url": "https://en.wikipedia.org/wiki/Narrative_structure",
+            "kind": "article"
+          },
+          {
+            "label": "Three-act structure",
+            "url": "https://en.wikipedia.org/wiki/Three-act_structure",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Tell a true story from your life in exactly 300 words with one scene, one want, and one obstacle — then read it to someone and watch where they lean in."
+      ]
+    },
+    {
+      "id": "professional-writing",
+      "title": "Professional & Email Writing",
+      "tier": "essential",
+      "learn": {
+        "summary": "Workplace writing is judged by the reader's clock: the subject line states the point, the first line states the ask, and anything past 150 words had better justify itself. BLUF (bottom line up front), scannable formatting, and one-topic-per-message are the norms plain-language research validates — US federal agencies are legally required to write this way under the Plain Writing Act of 2010. Kindness and clarity are not rivals; the clearest email is the most considerate one.",
+        "links": [
+          {
+            "label": "Plain language (plainlanguage.gov)",
+            "url": "https://www.plainlanguage.gov",
+            "kind": "article"
+          },
+          {
+            "label": "BLUF (communication)",
+            "url": "https://en.wikipedia.org/wiki/BLUF_(communication)",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "For one full week, put the ask in the first sentence of every work email and keep each under 150 words; note how reply speed changes."
+      ]
+    }
+  ]
+}

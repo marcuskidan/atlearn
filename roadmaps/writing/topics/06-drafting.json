@@ -1,0 +1,92 @@
+{
+  "id": "drafting",
+  "title": "Drafting",
+  "tier": "essential",
+  "learn": {
+    "summary": "Anne Lamott's Bird by Bird gave writers permission with two ideas: 'shitty first drafts' — every good piece starts as a bad one — and 'bird by bird', her father's advice to an overwhelmed brother facing a report on birds: just take it one bird at a time. Drafting's only job is to get material into existence; quality is revision's job, and confusing the two is where most writing stalls.",
+    "links": [
+      {
+        "label": "Bird by Bird",
+        "url": "https://en.wikipedia.org/wiki/Bird_by_Bird",
+        "kind": "article"
+      }
+    ]
+  },
+  "do": [
+    "Draft your next piece start to finish without fixing anything — no backspacing over sentences, no rereading — then close the file until tomorrow."
+  ],
+  "children": [
+    {
+      "id": "bad-first-drafts",
+      "title": "Bad First Drafts",
+      "tier": "essential",
+      "learn": {
+        "summary": "Lamott's argument is practical, not motivational: the perfectionist drafts a sentence, judges it, rewrites it, and produces one polished paragraph per hour — while the drafter produces five rough pages containing, somewhere, the piece. Hemingway said versions of the same thing more profanely. The first draft is you telling yourself the story; no one else ever needs to see it, which is precisely what makes it writable.",
+        "links": [
+          {
+            "label": "Anne Lamott",
+            "url": "https://en.wikipedia.org/wiki/Anne_Lamott",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Write a deliberately bad 500-word draft of something you have been avoiding — badness required, on purpose — and notice how much of it is actually usable."
+      ]
+    },
+    {
+      "id": "momentum-and-word-counts",
+      "title": "Momentum & Word Counts",
+      "tier": "recommended",
+      "learn": {
+        "summary": "Working writers run on quotas, not inspiration: Stephen King reports 2,000 words a day in On Writing; Graham Greene famously managed on 500; NaNoWriMo built a movement on 1,667. A daily count converts 'write a book' into 'write today's words', and momentum compounds — an open draft you touched yesterday is easy to re-enter, one untouched for a week is a wall. Pick a number small enough to hit on your worst day.",
+        "links": [
+          {
+            "label": "On Writing: A Memoir of the Craft",
+            "url": "https://en.wikipedia.org/wiki/On_Writing:_A_Memoir_of_the_Craft",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Set a daily word count you can hit on a bad day (200-300 words) and log your actual counts for 14 consecutive days."
+      ]
+    },
+    {
+      "id": "draft-edit-separation",
+      "title": "Draft Now, Edit Later",
+      "tier": "essential",
+      "learn": {
+        "summary": "Drafting and editing are opposed mental modes — generation wants speed and low standards; evaluation wants slowness and high ones — and toggling between them mid-sentence stalls both. Enforce the separation mechanically: draft in a plain window with spellcheck off, or keep a 'later' list where every mid-draft fix idea gets parked instead of acted on. Betty Flowers' classic essay names the modes 'madman' and 'judge' and insists they work in shifts.",
+        "links": [
+          {
+            "label": "Freewriting",
+            "url": "https://en.wikipedia.org/wiki/Freewriting",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Next draft, keep a 'fix later' note beside you; every urge to edit goes on the list instead. Count the urges — that number is your interruption habit."
+      ]
+    },
+    {
+      "id": "writers-block",
+      "title": "Writer's Block",
+      "tier": "extra",
+      "learn": {
+        "summary": "Most block is misdiagnosed: it is usually perfectionism (standards applied too early), a missing decision (you do not yet know what you are arguing), or fear of judgment — each with a different fix. Working remedies: freewriting (timed, nonstop, unjudged), shrinking the task to one paragraph, talking the idea aloud to someone, or Hemingway's trick of stopping mid-sentence so tomorrow starts with momentum. Waiting for inspiration is the one strategy with a perfect failure record.",
+        "links": [
+          {
+            "label": "Writer's block",
+            "url": "https://en.wikipedia.org/wiki/Writer%27s_block",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Next time you stall, set a 10-minute timer and freewrite about why you are stuck; the diagnosis usually contains the fix."
+      ]
+    }
+  ]
+}

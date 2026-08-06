@@ -1,0 +1,107 @@
+{
+  "id": "core-vocabulary",
+  "title": "Core Vocabulary",
+  "tier": "essential",
+  "learn": {
+    "summary": "Word frequency follows Zipf's law: a tiny core does almost all the work. Roughly the 1000 most frequent word families cover about 85% of everyday speech; the first 100 words alone cover close to half. So learn by frequency, not by textbook theme — 'because', 'maybe', and 'want' beat 'giraffe' and 'briefcase' every day of the week.",
+    "links": [
+      {
+        "label": "Zipf's law",
+        "url": "https://en.wikipedia.org/wiki/Zipf%27s_law",
+        "kind": "article"
+      },
+      {
+        "label": "Word lists by frequency",
+        "url": "https://en.wikipedia.org/wiki/Word_lists_by_frequency",
+        "kind": "article"
+      }
+    ]
+  },
+  "do": [
+    "Learn the 100 most frequent words of your target language this week using a frequency list, 20 per day."
+  ],
+  "children": [
+    {
+      "id": "frequency-lists",
+      "title": "Frequency Lists",
+      "tier": "essential",
+      "learn": {
+        "summary": "A frequency list ranks words by how often they occur in a large corpus of real text or subtitles. Subtitle-based lists best match conversation; newspaper corpora skew formal. Use the list as your syllabus for the first 1000-2000 words, then let your own reading and listening take over as the source of new vocabulary.",
+        "links": [
+          {
+            "label": "Word lists by frequency",
+            "url": "https://en.wikipedia.org/wiki/Word_lists_by_frequency",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Find a subtitle-based frequency list for your language and import the top 500 words into your flashcard app."
+      ]
+    },
+    {
+      "id": "first-500-words",
+      "title": "The First 500",
+      "tier": "essential",
+      "learn": {
+        "summary": "Your first 500 words should be function words (and, but, if, very), core verbs (go, want, have, can, make), question words, numbers, and the pronouns — the skeleton every sentence hangs on. Learn words inside short example sentences, not as isolated translations; context is what makes them retrievable in conversation. Aim for recognition first, production second.",
+        "links": [
+          {
+            "label": "Swadesh list",
+            "url": "https://en.wikipedia.org/wiki/Swadesh_list",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "For each of 15 new words per day, write or copy one short example sentence and learn the sentence, not the bare word."
+      ]
+    },
+    {
+      "id": "cognates-false-friends",
+      "title": "Cognates & False Friends",
+      "tier": "recommended",
+      "learn": {
+        "summary": "Cognates are free vocabulary: an English speaker starting Spanish already 'knows' thousands of -tion/-ción and -ty/-dad words. But false friends bite — Spanish 'embarazada' means pregnant, German 'Gift' means poison, French 'librairie' is a bookshop. Harvest cognate patterns systematically in week one, and keep a short blacklist of the famous traps.",
+        "links": [
+          {
+            "label": "Cognate",
+            "url": "https://en.wikipedia.org/wiki/Cognate",
+            "kind": "article"
+          },
+          {
+            "label": "False friend",
+            "url": "https://en.wikipedia.org/wiki/False_friend",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Write down 3 cognate transformation rules for your language pair and the 10 most notorious false friends."
+      ]
+    },
+    {
+      "id": "anki-setup",
+      "title": "Spaced Repetition & Anki",
+      "tier": "essential",
+      "learn": {
+        "summary": "Hermann Ebbinghaus mapped the forgetting curve in 1885: memories decay exponentially unless refreshed, and each well-timed review flattens the curve. Spaced-repetition software like Anki schedules reviews at exactly those expanding intervals, making 20-30 new words a day sustainable at about 15-20 minutes of daily review. The rule that matters: never skip review days, and delete cards that bore you.",
+        "links": [
+          {
+            "label": "Forgetting curve",
+            "url": "https://en.wikipedia.org/wiki/Forgetting_curve",
+            "kind": "article"
+          },
+          {
+            "label": "Anki",
+            "url": "https://apps.ankiweb.net",
+            "kind": "tool"
+          }
+        ]
+      },
+      "do": [
+        "Install Anki, add 15 new cards daily for 7 straight days, and clear your review queue every single day."
+      ]
+    }
+  ]
+}

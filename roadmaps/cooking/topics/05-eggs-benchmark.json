@@ -1,0 +1,92 @@
+{
+  "id": "eggs-benchmark",
+  "title": "Eggs as Benchmark",
+  "tier": "essential",
+  "learn": {
+    "summary": "Eggs are the culinary world's skills test — cheap, fast, and brutally honest about your heat control, because the difference between silky and rubbery is seconds and degrees. Egg proteins set between roughly 140°F and 160°F, so almost every egg mistake is simply too much heat for too long. Master four preparations and you have calibrated your hands for everything else.",
+    "links": [
+      {
+        "label": "Egg as food (Wikipedia)",
+        "url": "https://en.wikipedia.org/wiki/Egg_as_food",
+        "kind": "article"
+      }
+    ]
+  },
+  "do": [
+    "Cook eggs four different ways this week — scrambled, omelet, poached, jammy-boiled — and rate each attempt out of 10 in a note"
+  ],
+  "children": [
+    {
+      "id": "soft-scramble",
+      "title": "Soft Scramble",
+      "tier": "essential",
+      "learn": {
+        "summary": "Low and slow is the whole secret: butter in a nonstick pan over low heat, eggs in, and stir gently and often — the curds should form slowly over 3-5 minutes, never sizzle. Pull the pan off the heat while the eggs still look slightly wet; carryover finishes them on the way to the plate. Salt before or during cooking, not just after.",
+        "links": [
+          {
+            "label": "Scrambled eggs (Wikipedia)",
+            "url": "https://en.wikipedia.org/wiki/Scrambled_eggs",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Make a two-egg scramble tomorrow on your stove's lowest setting, stirring constantly, and pull it while still glossy — it should take at least 3 minutes"
+      ]
+    },
+    {
+      "id": "omelet",
+      "title": "Omelet",
+      "tier": "extra",
+      "learn": {
+        "summary": "A French omelet is pale, tender, and done in under two minutes: medium heat, constant stirring with a silicone spatula until small curds form, then stop stirring, let it set 10-20 seconds, and roll it out of the pan. No browning is the goal — brown means the pan was too hot. A diner-style folded omelet is more forgiving and a fine place to start.",
+        "links": [
+          {
+            "label": "Omelette (Wikipedia)",
+            "url": "https://en.wikipedia.org/wiki/Omelette",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Attempt a French omelet twice this weekend with three eggs each; success is zero browning and a creamy interior — expect the first one to be practice"
+      ]
+    },
+    {
+      "id": "poached-egg",
+      "title": "Poached Egg",
+      "tier": "recommended",
+      "learn": {
+        "summary": "Poaching wants barely-simmering water around 180-190°F — bubbles on the pot bottom, none breaking the surface — plus a splash of vinegar to help the whites set. Crack the egg into a small cup, strain off the watery loose white through a slotted spoon, and slide it in gently; 3-4 minutes gives set whites and a liquid yolk. Fresh eggs hold together far better than old ones.",
+        "links": [
+          {
+            "label": "Poached egg (Wikipedia)",
+            "url": "https://en.wikipedia.org/wiki/Poached_egg",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Poach one egg using the strained-cup method and a timer at 3.5 minutes; serve it on toast and check for a fully liquid yolk"
+      ]
+    },
+    {
+      "id": "jammy-boil",
+      "title": "Jammy Boil",
+      "tier": "extra",
+      "learn": {
+        "summary": "Precision boiling is a timing exercise: lower fridge-cold eggs into already-boiling water, and the clock does the rest — 6.5-7 minutes for jammy yolks, 9-10 for fully hard. An immediate ice bath stops the cooking and prevents the gray-green yolk ring. Older eggs (a week-plus) peel dramatically more easily than fresh ones.",
+        "links": [
+          {
+            "label": "Boiled egg (Wikipedia)",
+            "url": "https://en.wikipedia.org/wiki/Boiled_egg",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Boil three eggs at 6.5, 8, and 10 minutes with an ice bath after, cut them open side by side, and photograph your personal doneness chart"
+      ]
+    }
+  ]
+}

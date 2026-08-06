@@ -1,0 +1,92 @@
+{
+  "id": "listening-first",
+  "title": "Listening First",
+  "tier": "essential",
+  "learn": {
+    "summary": "Great communicators are built on listening, which is why interpersonal-communication courses start here, not at speaking. Active listening, formalized by Carl Rogers and Richard Farson in 1957, means working to understand the speaker's frame before responding, and reflecting back what you heard. Most people listen to reply, mentally drafting their answer while the other person is still talking; noticing yourself doing this is step one.",
+    "links": [
+      {
+        "label": "Active listening (Wikipedia)",
+        "url": "https://en.wikipedia.org/wiki/Active_listening",
+        "kind": "article"
+      }
+    ]
+  },
+  "do": [
+    "In your next conversation today, summarize the other person's point to their satisfaction before adding yours, once."
+  ],
+  "children": [
+    {
+      "id": "levels-of-listening",
+      "title": "Levels of Listening",
+      "tier": "essential",
+      "learn": {
+        "summary": "A useful ladder: ignoring, pretending, selective listening (waiting for keywords to respond to), attentive listening, and empathic listening for the feeling underneath the words. Most workplace listening is selective. The jump to empathic listening is hearing 'this deadline is impossible' as stress, not just a scheduling claim.",
+        "links": [
+          {
+            "label": "Listening (Wikipedia)",
+            "url": "https://en.wikipedia.org/wiki/Listening",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "After 3 conversations this week, privately grade which level you were at for most of it; write the three grades down."
+      ]
+    },
+    {
+      "id": "listening-to-understand",
+      "title": "Listening to Understand",
+      "tier": "essential",
+      "learn": {
+        "summary": "The core Rogers move is paraphrasing: restate the speaker's content and feeling in your own words and let them correct you. It feels artificial for about a week, then becomes invisible and changes your conversations, because people rarely feel accurately heard. Rule of thumb: earn the right to disagree by first stating their position so well they say 'exactly'.",
+        "links": [
+          {
+            "label": "Carl Rogers (Wikipedia)",
+            "url": "https://en.wikipedia.org/wiki/Carl_Rogers",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Use the phrase 'so what I am hearing is...' twice this week in real conversations and note whether the speaker corrects or expands."
+      ]
+    },
+    {
+      "id": "questions-that-open",
+      "title": "Questions That Open",
+      "tier": "recommended",
+      "learn": {
+        "summary": "Closed questions ('did the meeting go okay?') harvest yes/no; open questions ('what happened in the meeting?') harvest stories. The highest-leverage follow-up is often just 'what makes you say that?' or a plain 'tell me more'. A Harvard study by Karen Huang and colleagues found that people who ask more follow-up questions are rated more likable in conversations and even speed dates.",
+        "links": [
+          {
+            "label": "Closed-ended question (Wikipedia)",
+            "url": "https://en.wikipedia.org/wiki/Closed-ended_question",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "In one conversation per day this week, ask at least two follow-up questions before changing the subject."
+      ]
+    },
+    {
+      "id": "silence-comfort",
+      "title": "Comfort With Silence",
+      "tier": "extra",
+      "learn": {
+        "summary": "Most people rush to fill pauses within about a second, cutting off the other person's best material, since deeper answers need thinking time. Skilled interviewers and negotiators deliberately leave 3-4 seconds after an answer; the speaker usually continues with the real content. Silence also reads as confidence when you are the one speaking.",
+        "links": [
+          {
+            "label": "Turn-taking (Wikipedia)",
+            "url": "https://en.wikipedia.org/wiki/Turn-taking",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Three times this week, after someone finishes answering a question, count 3 silent seconds before responding and note what happens."
+      ]
+    }
+  ]
+}

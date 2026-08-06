@@ -1,0 +1,92 @@
+{
+  "id": "perspective",
+  "title": "Perspective",
+  "tier": "essential",
+  "learn": {
+    "summary": "Linear perspective — codified by Brunelleschi in Florence around 1420 — is the geometry of how parallel lines converge to vanishing points on the horizon (your eye level). It transformed Western art in a generation. You need working fluency in one- and two-point perspective; everything else is refinement.",
+    "links": [
+      {
+        "label": "Perspective (graphical) (Wikipedia)",
+        "url": "https://en.wikipedia.org/wiki/Perspective_(graphical)",
+        "kind": "article"
+      }
+    ]
+  },
+  "do": [
+    "Stand in a hallway or street and hold a pencil against the visible edges of walls and windows — confirm they all aim at a single point at your eye level."
+  ],
+  "children": [
+    {
+      "id": "one-point-perspective",
+      "title": "One-Point Perspective",
+      "tier": "essential",
+      "learn": {
+        "summary": "One-point perspective applies when a box form faces you directly: verticals stay vertical, horizontals stay horizontal, and all depth lines converge to a single vanishing point. It is the perspective of hallways, railroad tracks, and streets shot head-on. The vanishing point always sits on the horizon line, which is always your eye level — internalize that equivalence.",
+        "links": [
+          {
+            "label": "Vanishing point (Wikipedia)",
+            "url": "https://en.wikipedia.org/wiki/Vanishing_point",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Draw your view down a hallway or street in one-point perspective this week, ruling every depth edge back to one marked vanishing point."
+      ]
+    },
+    {
+      "id": "two-point-perspective",
+      "title": "Two-Point Perspective",
+      "tier": "essential",
+      "learn": {
+        "summary": "When you view a box from an angle, its two visible wall directions converge to two vanishing points, both on the horizon — usually far apart, often off the page. Keep them wide: points too close together produce the telltale distorted 'fisheye box.' Two-point handles most buildings, interiors, and furniture, making it the workhorse of sketching.",
+        "links": [
+          {
+            "label": "Perspective (graphical) (Wikipedia)",
+            "url": "https://en.wikipedia.org/wiki/Perspective_(graphical)",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Draw the corner view of a building or a large box in two-point perspective, placing both vanishing points on a taped-on extension of your page."
+      ]
+    },
+    {
+      "id": "ellipses-in-perspective",
+      "title": "Ellipses",
+      "tier": "recommended",
+      "learn": {
+        "summary": "A circle seen at an angle is an ellipse, defined by its degree (how open it is) and its minor axis, which must align with the cylinder's central axis — the rule that makes mugs, wheels, and cups sit correctly. Ellipses get rounder as they move away from your eye level. Freehand ellipse control is pure mileage: thousands of repetitions, ideally inside guide boxes.",
+        "links": [
+          {
+            "label": "Ellipse (Wikipedia)",
+            "url": "https://en.wikipedia.org/wiki/Ellipse",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Draw a stack of five cylinders from eye level down to tabletop level, making each ellipse progressively rounder, and check every minor axis against the center line."
+      ]
+    },
+    {
+      "id": "three-point-perspective",
+      "title": "Three-Point Perspective",
+      "tier": "extra",
+      "learn": {
+        "summary": "Add a third vanishing point above or below the horizon and verticals converge too — the drama of looking up at a skyscraper or down from a rooftop. It is two-point plus tilt, so master two-point first. Comic artists lean on it for heroic worm's-eye and bird's-eye shots.",
+        "links": [
+          {
+            "label": "Perspective (graphical) (Wikipedia)",
+            "url": "https://en.wikipedia.org/wiki/Perspective_(graphical)",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Draw one tall building from a worm's-eye view with verticals converging to a third point high above the page."
+      ]
+    }
+  ]
+}

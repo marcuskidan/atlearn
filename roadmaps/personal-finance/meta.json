@@ -1,0 +1,9 @@
+{
+  "id": "personal-finance",
+  "emoji": "💰",
+  "title": "Financial Literacy Basics",
+  "tagline": "Understand how money actually works — compounding, credit, taxes, and risk — without the sales pitch.",
+  "curricula": "CFPB financial well-being framework and Jump$tart Coalition national standards",
+  "order": 11,
+  "maintainer": "The Overseer"
+}

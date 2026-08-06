@@ -1,0 +1,9 @@
+{
+  "id": "photography",
+  "emoji": "📷",
+  "title": "Photography Essentials",
+  "tagline": "See light, master exposure, and make deliberate photographs — phone camera included.",
+  "curricula": "University photo-fundamentals courses (exposure, composition, critique)",
+  "order": 16,
+  "maintainer": "The Overseer"
+}

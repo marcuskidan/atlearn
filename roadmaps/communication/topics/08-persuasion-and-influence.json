@@ -1,0 +1,92 @@
+{
+  "id": "persuasion-and-influence",
+  "title": "Persuasion & Influence",
+  "tier": "recommended",
+  "learn": {
+    "summary": "Persuasion has a 2,300-year-old instruction manual: Aristotle's Rhetoric identified ethos (credibility), pathos (emotion), and logos (argument) as the three modes of persuasion, and nothing since has replaced them. Modern research (Cialdini's influence principles, dual-process models) refines rather than overturns the framework. Skilled persuasion diagnoses which mode is missing; most failed pitches are logos aimed at a pathos problem.",
+    "links": [
+      {
+        "label": "Modes of persuasion (Wikipedia)",
+        "url": "https://en.wikipedia.org/wiki/Modes_of_persuasion",
+        "kind": "article"
+      }
+    ]
+  },
+  "do": [
+    "Take one thing you are currently trying to convince someone of and write one sentence each of ethos, pathos, and logos for it."
+  ],
+  "children": [
+    {
+      "id": "ethos-pathos-logos",
+      "title": "Ethos, Pathos, Logos",
+      "tier": "essential",
+      "learn": {
+        "summary": "Ethos answers 'why should I listen to you', pathos answers 'why should I care', logos answers 'why is this true'; a persuasive case needs all three in that rough order. Ethos is mostly established early and indirectly: preparation, fairness to the other side, admitting limits. Audiences decide with pathos and justify with logos more often than anyone admits, which is a reason to be honest with emotion, not to skip it.",
+        "links": [
+          {
+            "label": "Rhetoric (Aristotle) (Wikipedia)",
+            "url": "https://en.wikipedia.org/wiki/Rhetoric_(Aristotle)",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Watch one persuasive talk or ad this week and label its ethos, pathos, and logos moves in writing, then judge which carried the load."
+      ]
+    },
+    {
+      "id": "monroes-motivated-sequence",
+      "title": "Monroe's Motivated Sequence",
+      "tier": "recommended",
+      "learn": {
+        "summary": "Developed by Purdue professor Alan Monroe in the 1930s, the sequence structures a persuasive speech in five steps: Attention, Need, Satisfaction, Visualization, Action. Its insight is ordering: establish the problem viscerally before offering the solution, then let the audience picture the changed future before you ask. It remains the standard template in public-speaking courses and works for pitches as well as speeches.",
+        "links": [
+          {
+            "label": "Monroe's motivated sequence (Wikipedia)",
+            "url": "https://en.wikipedia.org/wiki/Monroe%27s_motivated_sequence",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Restructure one real pitch or request you need to make into the five Monroe steps, one sentence per step, and deliver it this month."
+      ]
+    },
+    {
+      "id": "objection-handling",
+      "title": "Objection Handling",
+      "tier": "recommended",
+      "learn": {
+        "summary": "Raising and answering the strongest objection yourself (two-sided refutational argument) is more persuasive with informed audiences than pretending it does not exist, a finding going back to Hovland's Yale studies. The move: steelman the objection, concede what is true in it, then show why your position survives. Never answer an objection the person has not finished stating; restate it to their satisfaction first.",
+        "links": [
+          {
+            "label": "Inoculation theory (Wikipedia)",
+            "url": "https://en.wikipedia.org/wiki/Inoculation_theory",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "For your current pitch or proposal, write the two strongest objections in their best form and one honest answer to each."
+      ]
+    },
+    {
+      "id": "ethics-of-persuasion",
+      "title": "Ethics of Persuasion",
+      "tier": "extra",
+      "learn": {
+        "summary": "The line between persuasion and manipulation: persuasion survives transparency (the audience would not feel cheated if they saw your technique), manipulation depends on concealment. Cialdini himself distinguishes influence from what he calls 'smuggling', using real principles on false premises. Long-term, credibility compounds and manipulation is discovered; ethos is an asset you can only spend once.",
+        "links": [
+          {
+            "label": "Robert Cialdini (Wikipedia)",
+            "url": "https://en.wikipedia.org/wiki/Robert_Cialdini",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Audit one persuasive message you sent this month against the transparency test: would the recipient feel fine seeing your reasoning notes?"
+      ]
+    }
+  ]
+}

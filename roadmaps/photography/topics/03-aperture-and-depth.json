@@ -1,0 +1,74 @@
+{
+  "id": "aperture-and-depth",
+  "title": "Aperture & Depth of Field",
+  "tier": "essential",
+  "learn": {
+    "summary": "Depth of field — how much of the scene is acceptably sharp — is the photographer's pointing finger. Shallow depth isolates a subject from a busy world; deep focus lets a landscape breathe front to back. Aperture is the main lever, but focus distance and focal length pull on it too.",
+    "links": [
+      {
+        "label": "Depth of field (Wikipedia)",
+        "url": "https://en.wikipedia.org/wiki/Depth_of_field",
+        "kind": "article"
+      }
+    ]
+  },
+  "do": [
+    "Take two photos of the same person or object: one with blurred background (portrait mode or get close), one with everything sharp — decide which told the story better."
+  ],
+  "children": [
+    {
+      "id": "f-stop-scale",
+      "title": "The F-Stop Scale",
+      "tier": "essential",
+      "learn": {
+        "summary": "The full-stop sequence — f/1.4, 2, 2.8, 4, 5.6, 8, 11, 16, 22 — multiplies by √2 each step, halving the light every time. Most lenses are sharpest two or three stops down from wide open, often around f/5.6–f/8. Memorize the sequence; it is the times table of photography.",
+        "links": [
+          {
+            "label": "F-number (Wikipedia)",
+            "url": "https://en.wikipedia.org/wiki/F-number",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Recite the full-stop scale from f/1.4 to f/22 from memory tomorrow morning — then once more without looking at the end of the week."
+      ]
+    },
+    {
+      "id": "controlling-dof",
+      "title": "Controlling Depth",
+      "tier": "recommended",
+      "learn": {
+        "summary": "Three levers make depth of field shallower: open the aperture, move closer to the subject, or use a longer focal length. Phones fake shallow depth computationally (portrait mode) because their tiny sensors keep nearly everything sharp — but getting physically close to a subject produces real optical blur even on a phone.",
+        "links": [
+          {
+            "label": "Depth of field (Wikipedia)",
+            "url": "https://en.wikipedia.org/wiki/Depth_of_field",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Shoot a cup from 3 meters, 1 meter, and 20 cm with your phone (no portrait mode) and watch the background blur grow as you close in."
+      ]
+    },
+    {
+      "id": "bokeh",
+      "title": "Bokeh",
+      "tier": "recommended",
+      "learn": {
+        "summary": "Bokeh (from Japanese boke, \"blur\") is the aesthetic character of out-of-focus areas — how highlights render as discs, whether edges are smooth or nervous. Distant fairy lights behind a close subject are the classic bokeh test. It is a quality judgment, not a quantity: more blur is not automatically better bokeh.",
+        "links": [
+          {
+            "label": "Bokeh (Wikipedia)",
+            "url": "https://en.wikipedia.org/wiki/Bokeh",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "After dark this week, focus on an object 30 cm away with city or string lights far behind it and photograph the light discs you get."
+      ]
+    }
+  ]
+}

@@ -1,0 +1,97 @@
+{
+  "id": "nonviolent-communication",
+  "title": "Nonviolent Communication",
+  "tier": "essential",
+  "learn": {
+    "summary": "Marshall Rosenberg's NVC is a four-step grammar for hard conversations: observation, feeling, need, request. Its core claim is that every criticism is a tragic expression of an unmet need — and that conflicts de-escalate when people talk about needs instead of trading judgments. It is the most teachable, most concrete compassion framework in existence.",
+    "links": [
+      {
+        "label": "Nonviolent Communication (Wikipedia)",
+        "url": "https://en.wikipedia.org/wiki/Nonviolent_Communication",
+        "kind": "article"
+      },
+      {
+        "label": "Center for Nonviolent Communication",
+        "url": "https://www.cnvc.org",
+        "kind": "article"
+      }
+    ]
+  },
+  "do": [
+    "Take one recurring complaint in your life and rewrite it in the four-part form: 'When I see X, I feel Y, because I need Z. Would you be willing to W?'"
+  ],
+  "children": [
+    {
+      "id": "observations-vs-evaluations",
+      "title": "Observations vs Evaluations",
+      "tier": "essential",
+      "learn": {
+        "summary": "Rosenberg, quoting Krishnamurti, called observation without evaluation 'the highest form of human intelligence.' 'You were 20 minutes late three times this week' is an observation; 'you are inconsiderate' is an evaluation — and only the second triggers defensiveness. The test: could a video camera have recorded it?",
+        "links": [
+          {
+            "label": "Nonviolent Communication (Wikipedia)",
+            "url": "https://en.wikipedia.org/wiki/Nonviolent_Communication",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Take your last criticism of someone and strip it down to what a camera would have recorded. Compare the two versions."
+      ]
+    },
+    {
+      "id": "naming-feelings",
+      "title": "Naming Feelings",
+      "tier": "essential",
+      "learn": {
+        "summary": "NVC distinguishes true feelings (sad, scared, delighted) from 'faux feelings' that smuggle in blame — 'I feel ignored/betrayed/manipulated' are actually judgments about what someone did to you. Real feeling words keep ownership with the speaker and cannot be argued with. Most adults operate with a feelings vocabulary of about a dozen words; NVC lists offer over a hundred.",
+        "links": [
+          {
+            "label": "Feelings inventory (CNVC)",
+            "url": "https://www.cnvc.org",
+            "kind": "tool"
+          }
+        ]
+      },
+      "do": [
+        "Twice a day for three days, pause and name your current feeling with a word more precise than good, bad, fine, or stressed."
+      ]
+    },
+    {
+      "id": "needs-literacy",
+      "title": "Needs Literacy",
+      "tier": "recommended",
+      "learn": {
+        "summary": "NVC's boldest move: feelings are signals of met or unmet universal needs (safety, autonomy, belonging, meaning, rest). Two people can fight about dishes when the real collision is autonomy vs order. Translating any complaint — yours or theirs — into the need underneath it is the master key of the whole method.",
+        "links": [
+          {
+            "label": "Marshall Rosenberg (Wikipedia)",
+            "url": "https://en.wikipedia.org/wiki/Marshall_Rosenberg",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "For your three most recent irritations, write down the unmet need behind each (e.g., late reply → need for consideration or certainty)."
+      ]
+    },
+    {
+      "id": "making-requests",
+      "title": "Requests, Not Demands",
+      "tier": "recommended",
+      "learn": {
+        "summary": "An NVC request is positive (say what you want, not what to stop), concrete, and doable now — and the speaker is genuinely open to 'no.' If 'no' will be punished, it was a demand wearing a request's clothes, and people can tell. 'Would you be willing to text me if you will be more than 15 minutes late?' beats 'be more considerate' every time.",
+        "links": [
+          {
+            "label": "Nonviolent Communication (Wikipedia)",
+            "url": "https://en.wikipedia.org/wiki/Nonviolent_Communication",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Convert one vague wish ('I need more support') into a specific, time-bound, refusable request this week — and make it."
+      ]
+    }
+  ]
+}

@@ -1,0 +1,112 @@
+{
+  "id": "professional-support",
+  "title": "Getting Professional Support",
+  "tier": "essential",
+  "learn": {
+    "summary": "Everything in this roadmap is education and maintenance — none of it is treatment, and knowing the boundary is itself a core skill. Rough rule: when symptoms persist most days for two-plus weeks, impair work or relationships, or involve any thoughts of self-harm, it is time for professional care, exactly as a persistent chest pain means a doctor, not more stretching. Therapy works: meta-analyses put psychotherapy's average effect among the best-documented interventions in medicine, and going is a logistics problem, not a character verdict.",
+    "links": [
+      {
+        "label": "988 Suicide & Crisis Lifeline",
+        "url": "https://988lifeline.org",
+        "kind": "tool"
+      },
+      {
+        "label": "NIMH: Help for Mental Illnesses",
+        "url": "https://www.nimh.nih.gov/health/find-help",
+        "kind": "article"
+      }
+    ]
+  },
+  "do": [
+    "Save two numbers in your phone today: 988 (US Suicide & Crisis Lifeline — call or text) and your primary-care provider. Preparation before need."
+  ],
+  "children": [
+    {
+      "id": "when-to-seek-help",
+      "title": "When Self-Help Isn't Enough",
+      "tier": "essential",
+      "learn": {
+        "summary": "Concrete thresholds beat vague vigilance: two-plus weeks of low mood or loss of interest most of the day, sleep or appetite significantly disrupted, functioning slipping at work or home, using alcohol or substances to cope, others expressing worry, or any thoughts of death or self-harm — each is a 'see a professional' flag, not a 'try harder at self-care' flag. Self-help skills and therapy are complements, not competitors; the skills in this roadmap work better with professional support, not instead of it when things are serious.",
+        "links": [
+          {
+            "label": "NIMH: Help for Mental Illnesses",
+            "url": "https://www.nimh.nih.gov/health/find-help",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Honestly check yourself against the flags above this week. If any apply, book an appointment with a doctor or therapist within seven days — treat it like any other health referral."
+      ]
+    },
+    {
+      "id": "therapy-types",
+      "title": "Types of Therapy",
+      "tier": "recommended",
+      "learn": {
+        "summary": "The major evidence-based families: CBT (thoughts/behaviors, strongest evidence base for anxiety and depression), ACT (acceptance plus values-based action), DBT (emotion regulation and distress tolerance, gold standard for self-harm and borderline personality disorder), IPT (relationships and role transitions), and EMDR plus trauma-focused CBT for PTSD. Meta-analyses consistently find the therapeutic alliance — fit with your therapist — predicts outcomes as much as modality, so shopping around after two or three sessions is legitimate, not flaky. Medication and therapy together often outperform either alone for moderate-to-severe depression.",
+        "links": [
+          {
+            "label": "NIMH: Psychotherapies",
+            "url": "https://www.nimh.nih.gov/health/topics/psychotherapies",
+            "kind": "article"
+          },
+          {
+            "label": "Psychotherapy (Wikipedia)",
+            "url": "https://en.wikipedia.org/wiki/Psychotherapy",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "If you are considering therapy, list your top two problems, match them to a modality using the NIMH overview, and identify three providers (or one telehealth platform) you could contact."
+      ]
+    },
+    {
+      "id": "crisis-resources",
+      "title": "Crisis Resources",
+      "tier": "essential",
+      "learn": {
+        "summary": "In the US, call or text 988 for the Suicide & Crisis Lifeline (24/7, free, confidential — for you or someone you are worried about; no crisis is 'not serious enough'). Crisis Text Line is another option (text HOME to 741741), and SAMHSA's helpline (1-800-662-4357) covers substance use and treatment referrals. Knowing these before a crisis matters because executive function is the first casualty of one.",
+        "links": [
+          {
+            "label": "988 Suicide & Crisis Lifeline",
+            "url": "https://988lifeline.org",
+            "kind": "tool"
+          },
+          {
+            "label": "SAMHSA National Helpline",
+            "url": "https://www.samhsa.gov/find-help/national-helpline",
+            "kind": "tool"
+          }
+        ]
+      },
+      "do": [
+        "Share the 988 number with one person you care about this week, and tell them why you are sharing it."
+      ]
+    },
+    {
+      "id": "supporting-others",
+      "title": "Supporting Others",
+      "tier": "recommended",
+      "learn": {
+        "summary": "Asking someone directly about suicidal thoughts does not plant the idea — research consistently shows it reduces distress and opens the door to help. The evidence-informed sequence (mirrored in Mental Health First Aid and psychological first aid): ask directly, listen without fixing, avoid debate or shock, help connect them to professionals or 988, and follow up — the follow-up call is where many interventions actually land. Your job is bridge, not therapist.",
+        "links": [
+          {
+            "label": "Psychological first aid (Wikipedia)",
+            "url": "https://en.wikipedia.org/wiki/Psychological_first_aid",
+            "kind": "article"
+          },
+          {
+            "label": "988 Lifeline",
+            "url": "https://988lifeline.org",
+            "kind": "tool"
+          }
+        ]
+      },
+      "do": [
+        "If someone in your life seems to be struggling, ask them directly and privately this week: 'How are you really doing?' — then just listen, and follow up within three days."
+      ]
+    }
+  ]
+}

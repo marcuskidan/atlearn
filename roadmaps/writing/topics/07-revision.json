@@ -1,0 +1,97 @@
+{
+  "id": "revision",
+  "title": "Revision",
+  "tier": "essential",
+  "learn": {
+    "summary": "Zinsser: 'Rewriting is the essence of writing well.' Revision is not proofreading — it is re-seeing (literally, re-vision): questioning structure, cutting whole sections, moving the real opening up from page two where it usually hides. Professionals expect several passes, each with one job: first structure, then paragraphs, then sentences, then typos. Amateurs do one pass and call it done.",
+    "links": [
+      {
+        "label": "On Writing Well",
+        "url": "https://en.wikipedia.org/wiki/On_Writing_Well",
+        "kind": "article"
+      }
+    ]
+  },
+  "do": [
+    "Revise your next piece in three separate labeled passes on three separate days: structure, then sentences, then proofread."
+  ],
+  "children": [
+    {
+      "id": "revision-vs-proofreading",
+      "title": "Revision vs Proofreading",
+      "tier": "essential",
+      "learn": {
+        "summary": "Proofreading polishes surfaces (typos, commas, agreement); revision moves loads (arguments, order, emphasis) — and doing them together wastes both, since you will perfect sentences that revision should have deleted. The order is fixed: revise big-to-small, proofread dead last. Publishing formalizes this as developmental editing, then line editing, then copyediting, then proofreading; your solo process should mirror it in miniature.",
+        "links": [
+          {
+            "label": "Copy editing",
+            "url": "https://en.wikipedia.org/wiki/Copy_editing",
+            "kind": "article"
+          },
+          {
+            "label": "Proofreading",
+            "url": "https://en.wikipedia.org/wiki/Proofreading",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "On your next revision, forbid yourself from fixing typos during the structural pass; note them and keep moving."
+      ]
+    },
+    {
+      "id": "reading-aloud",
+      "title": "Reading Aloud",
+      "tier": "essential",
+      "learn": {
+        "summary": "The ear catches what the eye forgives: tangled syntax, accidental repetition, sentences you run out of breath on, rhythm that thuds. Zinsser insisted good writers write 'with their ear'; reading your draft aloud — actually aloud, not subvocalized — is the cheapest professional edit available. Wherever you stumble, the prose is at fault, not your mouth. Mark the stumble and fix it.",
+        "links": [
+          {
+            "label": "Writing process",
+            "url": "https://en.wikipedia.org/wiki/Writing_process",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Read your next full draft aloud with a pencil, marking every stumble, breath-gasp, and unintended repetition; fix every mark."
+      ]
+    },
+    {
+      "id": "cut-ten-percent",
+      "title": "Cut 10 Percent",
+      "tier": "recommended",
+      "learn": {
+        "summary": "Stephen King's formula, from an editor's rejection slip he kept: '2nd Draft = 1st Draft minus 10%.' The forced cut works because it removes the option of keeping merely-fine sentences — you hunt weak verbs, redundant examples, and the paragraph you secretly knew was padding. King also supplies the courage for it: 'kill your darlings', the beloved passages that serve the writer, not the piece.",
+        "links": [
+          {
+            "label": "On Writing: A Memoir of the Craft",
+            "url": "https://en.wikipedia.org/wiki/On_Writing:_A_Memoir_of_the_Craft",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Take a finished draft, note its word count, and cut exactly 10% — no restructuring allowed, deletions only."
+      ]
+    },
+    {
+      "id": "using-feedback",
+      "title": "Using Feedback",
+      "tier": "recommended",
+      "learn": {
+        "summary": "Neil Gaiman's rule sorts feedback perfectly: when readers say something is wrong, they are almost always right; when they say exactly how to fix it, they are almost always wrong. Treat reactions as data ('I got confused here') and prescriptions as hypotheses. Ask readers for reactions, not verdicts — 'where did you slow down or skip?' yields more than 'is it good?'. Then fix the cause, which often sits paragraphs before the reported symptom.",
+        "links": [
+          {
+            "label": "Peer feedback",
+            "url": "https://en.wikipedia.org/wiki/Peer_feedback",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Send a draft to one reader with exactly two questions: 'Where were you confused?' and 'Where did you skim?' Revise from their answers."
+      ]
+    }
+  ]
+}

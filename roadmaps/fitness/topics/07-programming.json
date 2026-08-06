@@ -1,0 +1,92 @@
+{
+  "id": "programming",
+  "title": "Programming Your Training",
+  "tier": "essential",
+  "learn": {
+    "summary": "A program is just three decisions repeated: what to do, how much, and when to do slightly more. Progressive overload — gradually increasing reps, load, or difficulty — is the only non-negotiable principle; everything else is preference. The best program remains the one you actually follow for years.",
+    "links": [
+      {
+        "label": "Progressive overload — Wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Progressive_overload",
+        "kind": "article"
+      }
+    ]
+  },
+  "do": [
+    "Write next week's training into your calendar now: which days, which sessions, what time. Treat them as appointments."
+  ],
+  "children": [
+    {
+      "id": "progressive-overload",
+      "title": "Progressive Overload",
+      "tier": "essential",
+      "learn": {
+        "summary": "Adaptation requires a gradually rising demand: add a rep, add 2.5 kg, slow the tempo, shorten the rest, or move to a harder variation. The classic double-progression method is foolproof — work within a rep range (say 8–12), and when you hit the top of the range on all sets, increase the load and drop back to 8. Progress that feels boringly slow is progress that lasts.",
+        "links": [
+          {
+            "label": "Progressive overload — Wikipedia",
+            "url": "https://en.wikipedia.org/wiki/Progressive_overload",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Start a training log this week (notes app is fine): record exercise, sets, reps, and load for every session so next week has a number to beat."
+      ]
+    },
+    {
+      "id": "weekly-template",
+      "title": "A Weekly Template",
+      "tier": "essential",
+      "learn": {
+        "summary": "A robust general template: 2–3 full-body strength sessions (one hinge, one squat, one push, one pull, one carry each), 2–3 zone-2 cardio sessions, daily mobility minimums, one longer walk. That covers every major guideline — including the WHO's 150 minutes of aerobic work plus 2 strength days — in roughly 4–5 hours a week.",
+        "links": [
+          {
+            "label": "Physical activity guidelines — Wikipedia",
+            "url": "https://en.wikipedia.org/wiki/Physical_activity",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Map the template onto your real week: assign each session to a specific day and write down the one most likely failure point."
+      ]
+    },
+    {
+      "id": "minimum-effective-dose",
+      "title": "Minimum Effective Dose",
+      "tier": "recommended",
+      "learn": {
+        "summary": "Research on training frequency shows even one hard set per exercise, 2–3 times a week, produces most of the strength gains of much larger programs — around 60–70% of the benefit for perhaps 20% of the time. In a brutal week, a 15-minute session of one squat, one push, one pull at honest effort keeps the flywheel spinning. Never let a perfect week you can't do replace an adequate week you can.",
+        "links": [
+          {
+            "label": "Strength training — Wikipedia",
+            "url": "https://en.wikipedia.org/wiki/Strength_training",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Write your personal 15-minute 'emergency workout' on a card — 3 exercises, 2 sets each — and use it the next time a full session isn't happening."
+      ]
+    },
+    {
+      "id": "deloads",
+      "title": "Deloads",
+      "tier": "extra",
+      "learn": {
+        "summary": "Every 4–8 weeks of consistent training, take a planned easy week: cut volume roughly in half, keep moving, sleep more. Fatigue masks fitness — lifters routinely set rep records the week after a deload. Signals you've waited too long: stagnant lifts, elevated resting HR, poor sleep, and a gnawing dread of workouts you normally enjoy.",
+        "links": [
+          {
+            "label": "Overtraining — Wikipedia",
+            "url": "https://en.wikipedia.org/wiki/Overtraining",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Count back to your last easy week; if it's been 8+ weeks of consistent training, schedule a half-volume deload week within the next month."
+      ]
+    }
+  ]
+}

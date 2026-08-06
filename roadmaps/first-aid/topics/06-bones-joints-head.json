@@ -1,0 +1,92 @@
+{
+  "id": "bones-joints-head",
+  "title": "Bones, Joints & Head",
+  "tier": "essential",
+  "learn": {
+    "summary": "Musculoskeletal injuries are the most common category you'll actually encounter, and the modern guidance has shifted — RICE has largely given way to POLICE (Protection, Optimal Loading, Ice, Compression, Elevation). Head and spine injuries are the exception to every 'help them up' instinct: when in doubt, keep the person still and call 911.",
+    "links": [
+      {
+        "label": "Sprain — Wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Sprain",
+        "kind": "article"
+      }
+    ]
+  },
+  "do": [
+    "Learn the acronym POLICE and explain to someone why 'optimal loading' replaced total rest for sprains."
+  ],
+  "children": [
+    {
+      "id": "sprains-police",
+      "title": "Sprains: RICE to POLICE",
+      "tier": "essential",
+      "learn": {
+        "summary": "For a typical ankle sprain: protect it briefly, then reintroduce gentle pain-free movement early (optimal loading speeds recovery versus strict rest), with ice 15–20 minutes at a time for pain, compression, and elevation above heart level. Use the Ottawa rules as a rough screen: inability to take 4 steps immediately and at evaluation, or bone tenderness at the malleoli, means get an X-ray.",
+        "links": [
+          {
+            "label": "RICE (medicine) — Wikipedia",
+            "url": "https://en.wikipedia.org/wiki/RICE_(medicine)",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Check your freezer for a usable ice pack (a bag of frozen peas counts) and confirm your kit has an elastic compression bandage."
+      ]
+    },
+    {
+      "id": "suspected-fractures",
+      "title": "Suspected Fractures",
+      "tier": "recommended",
+      "learn": {
+        "summary": "Signs pointing to fracture over sprain: deformity, inability to bear any weight, grating sensation, rapid severe swelling, or pain directly on bone. First aid is stabilization, not correction — immobilize the limb in the position found, splinting the joint above and below if trained, and never attempt to straighten anything. Open fractures (bone through skin) get a sterile covering, pressure around not on the bone, and a 911 call.",
+        "links": [
+          {
+            "label": "Bone fracture — Wikipedia",
+            "url": "https://en.wikipedia.org/wiki/Bone_fracture",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Identify three improvisable splint materials in your home (magazine, umbrella, rigid cardboard) so the concept is concrete before you ever need it."
+      ]
+    },
+    {
+      "id": "concussion-red-flags",
+      "title": "Concussion Red Flags",
+      "tier": "essential",
+      "learn": {
+        "summary": "After any head impact, the 911-level red flags are: loss of consciousness, repeated vomiting, worsening headache, unequal pupils, slurred speech, seizures, increasing confusion, or clear fluid from nose or ears. Even without red flags, anyone with concussion symptoms (dazed, headache, memory gaps) stops sport immediately — 'when in doubt, sit them out' — and gets medically assessed before returning. Symptoms can emerge hours later, so the person shouldn't be alone the first night.",
+        "links": [
+          {
+            "label": "Concussion — Wikipedia",
+            "url": "https://en.wikipedia.org/wiki/Concussion",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Memorize three red flags (vomiting, unequal pupils, worsening confusion) and teach them to anyone in your life who plays contact sports or cycles."
+      ]
+    },
+    {
+      "id": "when-not-to-move",
+      "title": "When Not to Move Someone",
+      "tier": "essential",
+      "learn": {
+        "summary": "Suspect spinal injury after high-energy events — falls from over standing height, car crashes, diving into shallow water, or any head injury with neck pain, numbness, or tingling. The rule: do not move them and hold the head still in the position found, unless the scene itself is lethal (fire, traffic, water) or they need CPR, which always takes priority. Moving a spine-injured person carelessly can convert a recoverable injury into paralysis.",
+        "links": [
+          {
+            "label": "Spinal precautions — Wikipedia",
+            "url": "https://en.wikipedia.org/wiki/Spinal_precautions",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Rehearse the exception logic aloud once: 'Still and stabilized — unless fire, water, traffic, or no breathing.'"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,92 @@
+{
+  "id": "immersion-at-home",
+  "title": "Immersion at Home",
+  "tier": "essential",
+  "learn": {
+    "summary": "You do not need to move abroad; you need to engineer your environment so the language finds you dozens of times a day. Immersion research shows the benefit comes from hours of engaged exposure, and those hours can be assembled at home: media, phone settings, self-talk, labeled surroundings. The test of a good home-immersion setup is that skipping the language would take effort.",
+    "links": [
+      {
+        "label": "Language immersion",
+        "url": "https://en.wikipedia.org/wiki/Language_immersion",
+        "kind": "article"
+      }
+    ]
+  },
+  "do": [
+    "Convert three daily habits to the target language this week: one show, one podcast slot, and your phone's interface."
+  ],
+  "children": [
+    {
+      "id": "media-diet-switch",
+      "title": "Switching Your Media Diet",
+      "tier": "essential",
+      "learn": {
+        "summary": "Audit what you already watch, read, and listen to for fun, then find target-language equivalents for each slot — you are replacing entertainment, not adding homework, so the time cost is zero. Familiar formats (a news podcast, a cooking channel, reality TV) are easier to follow because you already know the genre's rhythms. One caveat: keep it comprehensible; native crime dramas at A2 are mostly noise.",
+        "links": [
+          {
+            "label": "Language immersion",
+            "url": "https://en.wikipedia.org/wiki/Language_immersion",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "List your top 5 entertainment habits and replace at least 2 with target-language versions for the next two weeks."
+      ]
+    },
+    {
+      "id": "phone-in-target-language",
+      "title": "Phone in Target Language",
+      "tier": "recommended",
+      "learn": {
+        "summary": "Switching your phone (and a couple of key apps) to the target language buys hundreds of micro-exposures a day to high-frequency vocabulary: settings, send, delete, Tuesday, cancel. Because you already know every menu by position, comprehension is guaranteed — this is i+1 by stealth. Keep maps or banking in your native language if the stakes feel high; everything else, switch.",
+        "links": [
+          {
+            "label": "Vocabulary learning",
+            "url": "https://en.wikipedia.org/wiki/Vocabulary_learning",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Switch your phone's system language today and keep it for 30 days before deciding whether to revert."
+      ]
+    },
+    {
+      "id": "self-talk",
+      "title": "Self-Talk",
+      "tier": "recommended",
+      "learn": {
+        "summary": "Narrating your own actions — 'now I'm making coffee, where are my keys' — is speaking practice with zero anxiety and infinite availability, and it surfaces vocabulary gaps in exactly the domains of your daily life. Polyglots swear by it; the affective filter is at rock bottom when the only listener is you. When you hit a gap, note it, look it up later, and the word arrives pre-attached to a real context.",
+        "links": [
+          {
+            "label": "Intrapersonal communication",
+            "url": "https://en.wikipedia.org/wiki/Intrapersonal_communication",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Narrate one daily routine (cooking, commuting) in the target language every day this week, noting every word you lacked."
+      ]
+    },
+    {
+      "id": "language-islands",
+      "title": "Language Islands",
+      "tier": "extra",
+      "learn": {
+        "summary": "A 'language island' is a topic you can discuss fluently and in depth — your job, your city, your favorite hobby — built deliberately through prepared vocabulary, rehearsed sentences, and repeated conversations on that theme. Coined in the polyglot community (associated with Luca Lampariello), islands let you steer real conversations onto home turf, sounding a level above your general ability. Three solid islands cover a remarkable share of first conversations with strangers.",
+        "links": [
+          {
+            "label": "Fluency",
+            "url": "https://en.wikipedia.org/wiki/Fluency",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Build one language island this week: 30 topic words, 10 rehearsed sentences, then use it in a live conversation."
+      ]
+    }
+  ]
+}

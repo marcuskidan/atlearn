@@ -1,0 +1,74 @@
+{
+  "id": "starches",
+  "title": "Starches",
+  "tier": "essential",
+  "learn": {
+    "summary": "Starches are the cheap, reliable center of most of the world's cooking, and each has one technique that changes everything: finishing pasta in its sauce with starchy water, rinsing and resting rice, and choosing the right potato for the job. Cook these well and a $3 pantry dinner competes with takeout.",
+    "links": [
+      {
+        "label": "Staple food (Wikipedia)",
+        "url": "https://en.wikipedia.org/wiki/Staple_food",
+        "kind": "article"
+      }
+    ]
+  },
+  "do": [
+    "Cook one dinner this week where the starch is the star — pasta with three-ingredient sauce, a rice bowl, or crispy potatoes — for under $5 of ingredients"
+  ],
+  "children": [
+    {
+      "id": "pasta-technique",
+      "title": "Pasta Technique",
+      "tier": "essential",
+      "learn": {
+        "summary": "Salt the water generously (about 1 tablespoon per 4 quarts minimum — it should taste like the sea), cook 1-2 minutes shy of the package time, and always reserve a cup of the starchy water before draining. Finish the pasta in the pan of sauce with splashes of that water; the starch emulsifies the sauce into a glossy coat instead of a puddle. Never rinse, and never oil the water.",
+        "links": [
+          {
+            "label": "Pasta (Wikipedia)",
+            "url": "https://en.wikipedia.org/wiki/Pasta",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Make cacio e pepe or aglio e olio this week, finishing the pasta in the pan with reserved water — the sauce should cling, not pool"
+      ]
+    },
+    {
+      "id": "rice-methods",
+      "title": "Rice & Grains",
+      "tier": "essential",
+      "learn": {
+        "summary": "Rinse rice until the water runs mostly clear to wash off surface starch, then for long-grain white use about 1:1.5 rice to water: bring to a boil, cover, drop to the lowest simmer for 15-18 minutes, then rest off heat 10 minutes without peeking. The rest is not optional — it finishes the steam and firms the grains. Sturdier whole grains like farro and barley are easier still: boil like pasta and drain.",
+        "links": [
+          {
+            "label": "Rice (Wikipedia)",
+            "url": "https://en.wikipedia.org/wiki/Rice",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Cook a pot of rinsed long-grain rice with the boil-cover-simmer-rest method this week, keeping the lid on for the full 10-minute rest"
+      ]
+    },
+    {
+      "id": "potatoes",
+      "title": "Potatoes",
+      "tier": "recommended",
+      "learn": {
+        "summary": "Choose by starch: floury russets fluff and crisp (baking, fries, mash), waxy reds and fingerlings hold shape (salads, stews), Yukon Golds split the difference. Start potatoes in cold salted water so they cook evenly, and for supreme roast potatoes, parboil, rough up the surfaces in the colander, then roast in hot oil at 425-450°F. Mash floury potatoes while hot with warm dairy; cold milk makes gluey mash.",
+        "links": [
+          {
+            "label": "Potato (Wikipedia)",
+            "url": "https://en.wikipedia.org/wiki/Potato",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Make roast potatoes the two-stage way this weekend: parboil 8-10 minutes, shake rough in the colander, then roast at 450°F in preheated oil until deeply golden"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,107 @@
+{
+  "id": "going-further",
+  "title": "Going Further",
+  "tier": "recommended",
+  "learn": {
+    "summary": "Past the basics, observational astronomy branches into lifelong specialties: imaging, meteor counting, variable-star monitoring, and real citizen science where amateurs still make genuine contributions. The common thread is community — astronomy is far more sustainable as a shared pursuit than a solo one.",
+    "links": [
+      {
+        "label": "Amateur astronomy (Wikipedia)",
+        "url": "https://en.wikipedia.org/wiki/Amateur_astronomy",
+        "kind": "article"
+      }
+    ]
+  },
+  "do": [
+    "Choose one specialty from this section that genuinely excites you and take its first concrete step within two weeks."
+  ],
+  "children": [
+    {
+      "id": "phone-astrophotography",
+      "title": "First Astrophotography",
+      "tier": "extra",
+      "learn": {
+        "summary": "Modern phone night modes capture constellations, conjunctions, and even the Milky Way from dark sites — prop the phone on something solid and use a 3-10 second exposure. The classic first 'real' project is star trails: a camera on a tripod pointed at Polaris, stacking exposures for an hour, renders the sky's rotation as concentric arcs. Start simple; astrophotography's difficulty curve is a cliff, and the tripod shot teaches 80% of the fundamentals.",
+        "links": [
+          {
+            "label": "Astrophotography (Wikipedia)",
+            "url": "https://en.wikipedia.org/wiki/Astrophotography",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "This week, take one night-mode photo of a recognizable constellation or Moon-planet pairing with your phone braced on a solid surface, and identify every object in the frame afterward."
+      ]
+    },
+    {
+      "id": "meteor-showers",
+      "title": "Meteor Showers",
+      "tier": "essential",
+      "learn": {
+        "summary": "Meteor showers occur when Earth crosses a comet's debris stream; the reliable big three are the Perseids (peak ~August 12, from Comet Swift-Tuttle), Geminids (~December 14, often the year's best at 100+/hour), and Quadrantids (early January). No equipment helps — use a reclining chair, face the darkest sky, and watch after midnight when your side of Earth plows into the stream head-on. Moonlight can halve the count, so check the phase.",
+        "links": [
+          {
+            "label": "Meteor shower (Wikipedia)",
+            "url": "https://en.wikipedia.org/wiki/Meteor_shower",
+            "kind": "article"
+          },
+          {
+            "label": "Perseids (Wikipedia)",
+            "url": "https://en.wikipedia.org/wiki/Perseids",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Put the next major shower's peak night in your calendar, and on that night count meteors for a full 30 minutes from a dark spot and record your tally."
+      ]
+    },
+    {
+      "id": "citizen-science",
+      "title": "Citizen Science",
+      "tier": "recommended",
+      "learn": {
+        "summary": "Globe at Night collects worldwide naked-eye limiting-magnitude reports to map light pollution — a 10-minute contribution requiring zero equipment. Zooniverse projects let you classify real galaxy images and hunt exoplanet transits in professional survey data from your couch. Amateur reports have co-discovered comets, novae, and supernovae for over a century.",
+        "links": [
+          {
+            "label": "Globe at Night",
+            "url": "https://globeatnight.org/",
+            "kind": "tool"
+          },
+          {
+            "label": "Citizen science (Wikipedia)",
+            "url": "https://en.wikipedia.org/wiki/Citizen_science",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Submit one Globe at Night observation from your own backyard during this month's campaign window — it takes about 10 minutes."
+      ]
+    },
+    {
+      "id": "astronomy-clubs",
+      "title": "Clubs & Star Parties",
+      "tier": "recommended",
+      "learn": {
+        "summary": "Local astronomy clubs run public star parties where members eagerly share telescope views — the fastest way to try gear, learn the sky, and stay motivated. In the US, most clubs belong to the Astronomical League, whose structured observing programs (Lunar, Messier, Binocular, and dozens more) give your observing a curriculum with certificates at the end. One night with experienced observers compresses months of solo trial and error.",
+        "links": [
+          {
+            "label": "Astronomical League",
+            "url": "https://www.astroleague.org/",
+            "kind": "article"
+          },
+          {
+            "label": "NASA Night Sky Network",
+            "url": "https://nightsky.jpl.nasa.gov/",
+            "kind": "tool"
+          }
+        ]
+      },
+      "do": [
+        "Find your nearest astronomy club this week and put its next public star party or meeting on your calendar."
+      ]
+    }
+  ]
+}

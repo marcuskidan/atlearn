@@ -1,0 +1,74 @@
+{
+  "id": "keys-and-the-circle",
+  "title": "Keys & the Circle",
+  "tier": "essential",
+  "learn": {
+    "summary": "A key is the gravitational field of one scale: its tonic is home base and its key signature lists the sharps or flats in force. The circle of fifths arranges all 12 keys so that neighbors share six of seven notes — the map musicians use for key signatures, chord relationships, and modulation.",
+    "links": [
+      {
+        "label": "Key (music) (Wikipedia)",
+        "url": "https://en.wikipedia.org/wiki/Key_(music)",
+        "kind": "article"
+      }
+    ]
+  },
+  "do": [
+    "Draw the circle of fifths from memory once a day for three days: C at the top, sharps clockwise (G, D, A...), flats counter-clockwise (F, Bb, Eb...)."
+  ],
+  "children": [
+    {
+      "id": "key-signatures",
+      "title": "Key Signatures",
+      "tier": "essential",
+      "learn": {
+        "summary": "Sharps are always added in the fixed order F-C-G-D-A-E-B (flats reverse it: B-E-A-D-G-C-F). Shortcut: the last sharp is one semitone below the tonic; the second-to-last flat names the flat key outright. G major has one sharp, D has two, F major has one flat — ABRSM Grade 1 territory.",
+        "links": [
+          {
+            "label": "Key signature (Wikipedia)",
+            "url": "https://en.wikipedia.org/wiki/Key_signature",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Quiz yourself with the musictheory.net key signature exercise for five minutes and log your score — beat it tomorrow."
+      ]
+    },
+    {
+      "id": "circle-of-fifths",
+      "title": "Circle of Fifths",
+      "tier": "essential",
+      "learn": {
+        "summary": "Go clockwise and each key sits a perfect fifth higher and gains one sharp; counter-clockwise gains one flat. Adjacent keys sound closely related because they differ by a single note — which is why songs modulate to the dominant so smoothly. It also doubles as a chord map: a key's I, IV, and V are physical neighbors on the circle.",
+        "links": [
+          {
+            "label": "Circle of fifths (Wikipedia)",
+            "url": "https://en.wikipedia.org/wiki/Circle_of_fifths",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "For the keys G, D, and F, use your drawn circle to name each key's I, IV, and V chords — then verify against a chord chart."
+      ]
+    },
+    {
+      "id": "relative-major-minor",
+      "title": "Relative Major & Minor",
+      "tier": "recommended",
+      "learn": {
+        "summary": "Every major key has a relative minor sharing its exact key signature, found three semitones below the tonic: C major pairs with A minor, G major with E minor. Same seven notes, different home base — the mood flips because gravity now pulls toward a different note. Countless songs pivot between the pair mid-song.",
+        "links": [
+          {
+            "label": "Relative key (Wikipedia)",
+            "url": "https://en.wikipedia.org/wiki/Relative_key",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Name the relative minor of C, G, D, F, and Bb major from memory, then check — repeat tomorrow until it is instant."
+      ]
+    }
+  ]
+}

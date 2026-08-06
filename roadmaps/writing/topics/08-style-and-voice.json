@@ -1,0 +1,92 @@
+{
+  "id": "style-and-voice",
+  "title": "Style & Voice",
+  "tier": "recommended",
+  "learn": {
+    "summary": "Voice is what remains when the clutter is gone — Zinsser argues you develop it not by decorating but by relaxing into sounding like yourself on your best day. Style rests on fundamentals: E.B. White likened writing plainly first to 'being sure the whole thing was scrubbed down' before adding anything. Imitate widely, subtract bravely, and voice arrives as a byproduct.",
+    "links": [
+      {
+        "label": "Writing style",
+        "url": "https://en.wikipedia.org/wiki/Writing_style",
+        "kind": "article"
+      }
+    ]
+  },
+  "do": [
+    "Reread three things you wrote for pure pleasure (texts to friends count) and list three recurring habits — that list is your current voice."
+  ],
+  "children": [
+    {
+      "id": "finding-your-voice",
+      "title": "Finding Your Voice",
+      "tier": "essential",
+      "learn": {
+        "summary": "Voice is the personality readers infer from your choices: word register, sentence rhythm, what you notice, what you joke about. The reliable path runs through volume and honesty — write a lot, about things you actually care about, and cut everything that sounds like 'a writer'. Zinsser's test is congruence: your prose should sound like you at your clearest, which is why faking a borrowed persona always reads as costume.",
+        "links": [
+          {
+            "label": "Writing style",
+            "url": "https://en.wikipedia.org/wiki/Writing_style",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Write 300 words on a topic you love, as if emailing your smartest friend; compare its energy to your formal writing and note what died in translation."
+      ]
+    },
+    {
+      "id": "imitation-exercises",
+      "title": "Imitation Exercises",
+      "tier": "extra",
+      "learn": {
+        "summary": "Imitation is the classical training method — Benjamin Franklin taught himself style by reconstructing Spectator essays from notes and comparing his versions against the originals, and Hunter S. Thompson retyped The Great Gatsby to feel its rhythms in his hands. Pastiche (writing your own content in another's exact style) builds the same muscles. You will not get stuck sounding like your models; you triangulate a voice from many of them.",
+        "links": [
+          {
+            "label": "Benjamin Franklin",
+            "url": "https://en.wikipedia.org/wiki/Benjamin_Franklin",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Run Franklin's exercise once this week: outline a great short piece from memory, rewrite it from your outline, then compare against the original line by line."
+      ]
+    },
+    {
+      "id": "tone-control",
+      "title": "Tone",
+      "tier": "recommended",
+      "learn": {
+        "summary": "Tone is your attitude toward subject and reader — formal or casual, warm or detached, wry or earnest — and control means choosing it deliberately and holding it, since one off-register sentence breaks the spell (the sudden 'utilize' in a friendly note, the joke in the condolence letter). Match tone to occasion and audience, then err slightly warmer and plainer than the occasion seems to demand; stiffness is the more common failure.",
+        "links": [
+          {
+            "label": "Tone (literature)",
+            "url": "https://en.wikipedia.org/wiki/Tone_(literature)",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Write the same announcement in three tones — formal, friendly, playful — and identify exactly which word choices carry the difference."
+      ]
+    },
+    {
+      "id": "breaking-the-rules",
+      "title": "Rules Worth Breaking",
+      "tier": "extra",
+      "learn": {
+        "summary": "Half the 'rules' are superstitions: sentence-starting 'and' and 'but' (fine — Strunk & White do it constantly), split infinitives (a Latin-envy hangover), ending on a preposition. Orwell's sixth rule licenses everything: 'break any of these rules sooner than say anything outright barbarous.' The craft distinction is knowing versus not knowing — fragments, one-sentence paragraphs, and comma splices can be tools, but only when the reader can tell you did it on purpose.",
+        "links": [
+          {
+            "label": "Politics and the English Language",
+            "url": "https://en.wikipedia.org/wiki/Politics_and_the_English_Language",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Find one 'rule' you obey without knowing why, research its actual status in a usage guide, and decide your own policy."
+      ]
+    }
+  ]
+}

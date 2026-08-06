@@ -1,0 +1,115 @@
+{
+  "id": "household-preparedness",
+  "title": "Household Preparedness",
+  "tier": "recommended",
+  "learn": {
+    "summary": "FEMA's guidance assumes you may be on your own for 72 hours after a major disaster — no power, no water service, no responders to spare. Preparedness is unglamorous list-work done once, then maintained: supplies, water, a family plan, protected documents, and working detectors. Ready.gov is the canonical free playbook for all of it.",
+    "links": [
+      {
+        "label": "Ready.gov",
+        "url": "https://www.ready.gov",
+        "kind": "article"
+      }
+    ]
+  },
+  "do": [
+    "Spend 15 minutes on ready.gov this week and write down the three gaps that most apply to your household."
+  ],
+  "children": [
+    {
+      "id": "72-hour-kit",
+      "title": "72-Hour Kit",
+      "tier": "essential",
+      "learn": {
+        "summary": "The ready.gov core list: water (one gallon per person per day for 3 days), 3 days of non-perishable food, battery or hand-crank radio, flashlight, first-aid kit, spare batteries, whistle, dust masks, moist towelettes and garbage bags, wrench or pliers for utilities, manual can opener, local maps, and phone chargers or a power bank. Personalize for meds, glasses, infants, and pets — the generic list fails at exactly the items unique to your household.",
+        "links": [
+          {
+            "label": "Build a Kit — ready.gov",
+            "url": "https://www.ready.gov/kit",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Start the kit today with what you already own: gather flashlight, radio or power bank, can opener, and 3 days of pantry food into one labeled bin."
+      ]
+    },
+    {
+      "id": "water-storage",
+      "title": "Water Storage",
+      "tier": "essential",
+      "learn": {
+        "summary": "One gallon (about 4 liters) per person per day covers drinking and minimal sanitation — a family of four needs 12 gallons for 72 hours, and two weeks' worth is the better target where storage allows. Commercially bottled water is simplest (replace by the date printed); self-filled food-grade containers should be sanitized and rotated every 6 months. In a pinch, unscented household bleach purifies clear water at roughly 8 drops (1/8 teaspoon) per gallon, waiting 30 minutes.",
+        "links": [
+          {
+            "label": "Water — ready.gov",
+            "url": "https://www.ready.gov/water",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Buy or fill your household's 3-day water supply this week (persons × 3 gallons) and write the date on every container with a marker."
+      ]
+    },
+    {
+      "id": "family-emergency-plan",
+      "title": "Family Emergency Plan",
+      "tier": "essential",
+      "learn": {
+        "summary": "A plan is four decisions written down: where to meet if home is unreachable (one spot near home, one outside the neighborhood), an out-of-town contact everyone texts (long-distance texts often work when local calls fail), how you'll get emergency alerts, and evacuation routes with a go-bag by the door. FEMA's fillable one-page plan template makes this a 30-minute family exercise — the practice conversation matters more than the paperwork.",
+        "links": [
+          {
+            "label": "Make a Plan — ready.gov",
+            "url": "https://www.ready.gov/plan",
+            "kind": "tool"
+          }
+        ]
+      },
+      "do": [
+        "Hold the 30-minute family meeting this week: pick two meeting spots and one out-of-town contact, and have every phone save that contact as 'ICE'."
+      ]
+    },
+    {
+      "id": "documents-and-copies",
+      "title": "Documents & Copies",
+      "tier": "extra",
+      "learn": {
+        "summary": "After a disaster, proving who you are and what you owned becomes the bottleneck: IDs, insurance policies, deeds, medical and vaccination records, and key account numbers. The standard setup is three layers — originals in a fireproof/waterproof box, photos or scans in encrypted cloud storage, and a copy set in your go-bag. Add current photos of each family member and pet for reunification, and a walk-through video of your home for insurance claims.",
+        "links": [
+          {
+            "label": "Financial preparedness — ready.gov",
+            "url": "https://www.ready.gov/financial-preparedness",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Photograph your key documents this week and store them in a secured cloud folder, then shoot a 5-minute room-by-room video of your home."
+      ]
+    },
+    {
+      "id": "smoke-co-detectors",
+      "title": "Smoke & CO Detectors",
+      "tier": "essential",
+      "learn": {
+        "summary": "Working smoke alarms cut home-fire death risk roughly in half, yet most fatal fires happen in homes without a functioning one. Code and NFPA guidance: smoke alarms inside every bedroom, outside each sleeping area, and on every level; CO detectors on every level and near sleeping areas — carbon monoxide is colorless, odorless, and its early symptoms mimic flu. Test monthly with the button, replace batteries yearly (or use 10-year sealed units), and replace the whole device every 10 years.",
+        "links": [
+          {
+            "label": "Smoke detector — Wikipedia",
+            "url": "https://en.wikipedia.org/wiki/Smoke_detector",
+            "kind": "article"
+          },
+          {
+            "label": "Carbon monoxide detector — Wikipedia",
+            "url": "https://en.wikipedia.org/wiki/Carbon_monoxide_detector",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Press the test button on every smoke and CO detector in your home today, note any that fail or are missing, and fix that this week."
+      ]
+    }
+  ]
+}

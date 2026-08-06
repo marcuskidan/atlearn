@@ -1,0 +1,112 @@
+{
+  "id": "estimation-and-calibration",
+  "title": "Estimation and Calibration",
+  "tier": "recommended",
+  "learn": {
+    "summary": "Philip Tetlock's 20-year study found average experts barely beat chance at forecasting, yet his Good Judgment Project later showed ordinary 'superforecasters' beating intelligence analysts — the difference was method: break questions down, use base rates, update often, and keep score. Calibration means your '80% sure' claims come true about 80% of the time. It is trainable, and most people discover they're badly overconfident within their first 20 scored predictions.",
+    "links": [
+      {
+        "label": "Wikipedia: Philip E. Tetlock",
+        "url": "https://en.wikipedia.org/wiki/Philip_E._Tetlock",
+        "kind": "article"
+      },
+      {
+        "label": "Wikipedia: Superforecasting",
+        "url": "https://en.wikipedia.org/wiki/Superforecasting:_The_Art_and_Science_of_Prediction",
+        "kind": "article"
+      }
+    ]
+  },
+  "do": [
+    "Write 5 predictions about the next month with explicit confidence percentages, set a calendar reminder, and score them when it arrives."
+  ],
+  "children": [
+    {
+      "id": "fermi-problems",
+      "title": "Fermi Problems",
+      "tier": "extra",
+      "learn": {
+        "summary": "Enrico Fermi famously estimated the Trinity bomb's yield from falling paper scraps; Fermi estimation means decomposing an impossible question ('how many piano tuners in Chicago?') into factors you can roughly bound. Errors in the factors tend to partially cancel, so answers usually land within a factor of 2-10 — enough to smell-test most statistics. It's the fastest way to check whether a number in the news is even in the right universe.",
+        "links": [
+          {
+            "label": "Wikipedia: Fermi problem",
+            "url": "https://en.wikipedia.org/wiki/Fermi_problem",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Fermi-estimate 2 quantities this week (e.g., coffee cups sold daily in your city) on paper, then check one against real data and compute how far off you were."
+      ]
+    },
+    {
+      "id": "confidence-calibration",
+      "title": "Confidence Calibration",
+      "tier": "essential",
+      "learn": {
+        "summary": "Calibration studies consistently find that when people say they're 90% sure, they're right closer to 70% of the time — overconfidence is the norm, especially on hard questions. The fix is feedback: answer trivia or forecasting questions with explicit probabilities and score yourself, and calibration measurably improves. Well-calibrated doesn't mean timid; it means your 60% and your 95% actually mean different things.",
+        "links": [
+          {
+            "label": "Wikipedia: Calibrated probability assessment",
+            "url": "https://en.wikipedia.org/wiki/Calibrated_probability_assessment",
+            "kind": "article"
+          },
+          {
+            "label": "Wikipedia: Overconfidence effect",
+            "url": "https://en.wikipedia.org/wiki/Overconfidence_effect",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Answer 20 trivia questions, attaching a confidence percentage to each, then compute your accuracy at each confidence level to see your personal overconfidence gap."
+      ]
+    },
+    {
+      "id": "keeping-score",
+      "title": "Keeping Score",
+      "tier": "recommended",
+      "learn": {
+        "summary": "Vague predictions ('there could be trouble ahead') are unfalsifiable and therefore unimprovable — Tetlock's core reform is forcing forecasts into specific, dated, probabilistic form so they can be scored. The Brier score does the accounting: it rewards being both right and decisive, and punishes confident misses hard. A written prediction log also defeats hindsight bias, the 'I knew it all along' rewrite your memory performs automatically.",
+        "links": [
+          {
+            "label": "Wikipedia: Brier score",
+            "url": "https://en.wikipedia.org/wiki/Brier_score",
+            "kind": "article"
+          },
+          {
+            "label": "Wikipedia: Hindsight bias",
+            "url": "https://en.wikipedia.org/wiki/Hindsight_bias",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Start a prediction log (a note or spreadsheet) with date, claim, probability, and resolution date; add at least 3 entries this week."
+      ]
+    },
+    {
+      "id": "forecasting-practice",
+      "title": "Forecasting Practice",
+      "tier": "extra",
+      "learn": {
+        "summary": "Superforecasters share teachable habits: start from the outside view (base rate of similar cases) before the inside story, update in small increments as news arrives, and treat beliefs as hypotheses to test rather than possessions to defend. Tetlock found practice with feedback mattered more than raw intelligence or subject expertise. Public forecasting tournaments let you test yourself against thousands of others on real geopolitical and economic questions.",
+        "links": [
+          {
+            "label": "Wikipedia: The Good Judgment Project",
+            "url": "https://en.wikipedia.org/wiki/The_Good_Judgment_Project",
+            "kind": "article"
+          },
+          {
+            "label": "Wikipedia: Reference class forecasting",
+            "url": "https://en.wikipedia.org/wiki/Reference_class_forecasting",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Join a public forecasting platform and make 3 forecasts this week, writing one sentence of reasoning for each so you can audit it at resolution."
+      ]
+    }
+  ]
+}

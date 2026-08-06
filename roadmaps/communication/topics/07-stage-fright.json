@@ -1,0 +1,92 @@
+{
+  "id": "stage-fright",
+  "title": "Stage Fright",
+  "tier": "essential",
+  "learn": {
+    "summary": "Fear of public speaking (glossophobia) is among the most commonly reported fears, and the physiology is just sympathetic arousal: the same adrenaline that fuels excitement. It never fully disappears in experienced speakers; it converts into usable energy. The three evidence-backed levers are reframing the arousal, over-preparing, and graduated exposure.",
+    "links": [
+      {
+        "label": "Glossophobia (Wikipedia)",
+        "url": "https://en.wikipedia.org/wiki/Glossophobia",
+        "kind": "article"
+      }
+    ]
+  },
+  "do": [
+    "Volunteer for one small speaking moment this week (asking a question in a meeting counts) and rate your fear before and after, 1-10."
+  ],
+  "children": [
+    {
+      "id": "arousal-reframing",
+      "title": "Arousal Reframing",
+      "tier": "essential",
+      "learn": {
+        "summary": "Harvard's Alison Wood Brooks found that saying 'I am excited' before performing beats trying to calm down, because anxiety and excitement are the same high-arousal state with different labels, and relabeling is easier than de-arousing. Pounding heart and shaky hands mean your body is mobilized, which is what performance requires. The Yerkes-Dodson law adds nuance: moderate arousal helps performance; only extreme arousal hurts it.",
+        "links": [
+          {
+            "label": "Yerkes-Dodson law (Wikipedia)",
+            "url": "https://en.wikipedia.org/wiki/Yerkes%E2%80%93Dodson_law",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Before your next nervous-making moment, say 'I am excited' out loud three times and proceed; note whether the energy felt more usable."
+      ]
+    },
+    {
+      "id": "preparation-as-antidote",
+      "title": "Preparation as Antidote",
+      "tier": "essential",
+      "learn": {
+        "summary": "Most speaking anxiety is rational fear of blanking, and the fix is over-learning the opening and the structure, since the first 60 seconds carry the worst adrenaline. Know your first two sentences cold enough to deliver them on autopilot while your brain comes back online. Preparing for likely questions removes the other big fear; write the three questions you dread most and draft answers.",
+        "links": [
+          {
+            "label": "Overlearning (Wikipedia)",
+            "url": "https://en.wikipedia.org/wiki/Overlearning",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "For your next talk or big meeting, rehearse only the first 60 seconds ten times in one sitting until it runs without thought."
+      ]
+    },
+    {
+      "id": "breathing-before-speaking",
+      "title": "Breathing Before Speaking",
+      "tier": "recommended",
+      "learn": {
+        "summary": "Slow diaphragmatic breathing with extended exhales stimulates the parasympathetic system and measurably lowers heart rate; a common protocol is inhale 4 counts, exhale 6-8, for a few minutes pre-speech. It also fixes the breathless, squeezed voice of nervous speakers, which comes from shallow chest breathing. Do it in the minutes before, not while walking to the front.",
+        "links": [
+          {
+            "label": "Diaphragmatic breathing (Wikipedia)",
+            "url": "https://en.wikipedia.org/wiki/Diaphragmatic_breathing",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Practice 4-in, 8-out breathing for 2 minutes daily this week so it is automatic before you need it under pressure."
+      ]
+    },
+    {
+      "id": "exposure-practice",
+      "title": "Exposure Practice",
+      "tier": "recommended",
+      "learn": {
+        "summary": "Exposure is the best-supported treatment for specific fears: repeated, graduated contact with the feared situation until the alarm recalibrates. Build a ladder: speaking up in a small meeting, asking a question in a large one, a toast among friends, a Toastmasters speech, a conference talk. Avoidance is the fear's maintenance plan; every dodged opportunity confirms the danger to your brain.",
+        "links": [
+          {
+            "label": "Exposure therapy (Wikipedia)",
+            "url": "https://en.wikipedia.org/wiki/Exposure_therapy",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Write a 5-rung speaking-fear ladder today from easiest to hardest and complete rung one within 7 days."
+      ]
+    }
+  ]
+}

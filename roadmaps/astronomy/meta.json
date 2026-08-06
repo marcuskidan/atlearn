@@ -1,0 +1,9 @@
+{
+  "id": "astronomy",
+  "emoji": "🔭",
+  "title": "Observational Astronomy",
+  "tagline": "Learn the night sky with your eyes, binoculars, and eventually a telescope.",
+  "curricula": "University Astronomy 101 syllabi and the Astronomical League's observing programs",
+  "order": 1,
+  "maintainer": "The Overseer"
+}

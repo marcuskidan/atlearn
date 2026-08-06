@@ -1,0 +1,97 @@
+{
+  "id": "grammar-as-map",
+  "title": "Grammar as a Map",
+  "tier": "essential",
+  "learn": {
+    "summary": "Grammar is a map you consult, not a country you must conquer before traveling. The grammar-translation method — memorize rules, then translate — produced generations who could parse but not speak. Instead, skim your language's whole grammar once for the lay of the land, then return to specific points exactly when your input or your errors make them relevant.",
+    "links": [
+      {
+        "label": "Grammar–translation method",
+        "url": "https://en.wikipedia.org/wiki/Grammar%E2%80%93translation_method",
+        "kind": "article"
+      }
+    ]
+  },
+  "do": [
+    "Skim a concise grammar overview of your language in one sitting and write down the 5 features most unlike your native language."
+  ],
+  "children": [
+    {
+      "id": "core-sentence-patterns",
+      "title": "Core Sentence Patterns",
+      "tier": "essential",
+      "learn": {
+        "summary": "Every language has a handful of workhorse patterns: basic word order (SVO in English and Mandarin, SOV in Japanese and Turkish), how to negate, how to ask yes/no and wh-questions, and how to say 'X is Y'. Master these 8-10 frames early and you can generate hundreds of sentences by swapping vocabulary. Pattern drills with substitution beat rule memorization for making structures automatic.",
+        "links": [
+          {
+            "label": "Word order",
+            "url": "https://en.wikipedia.org/wiki/Word_order",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Pick 8 core sentence patterns and produce 5 fresh sentences from each, aloud, on 3 days this week."
+      ]
+    },
+    {
+      "id": "verb-systems",
+      "title": "Verb Systems",
+      "tier": "essential",
+      "learn": {
+        "summary": "Verbs are where most languages hide their complexity — Romance conjugation, Slavic aspect pairs, Japanese politeness levels, German separable prefixes. Do not learn full conjugation tables upfront; learn the present, one past, and one future of the 20 most frequent verbs, which covers the bulk of real speech. Irregular verbs cluster among the most common words, so frequency study and verb study are the same task.",
+        "links": [
+          {
+            "label": "Grammatical conjugation",
+            "url": "https://en.wikipedia.org/wiki/Grammatical_conjugation",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Master present and past forms of your language's 20 most frequent verbs this week, testing yourself aloud from prompts."
+      ]
+    },
+    {
+      "id": "learning-from-errors",
+      "title": "Learning from Errors",
+      "tier": "recommended",
+      "learn": {
+        "summary": "Linguists call your evolving personal version of the language an 'interlanguage' — a real, rule-governed system that gradually approaches the target. Errors are its visible edges, and error analysis (Pit Corder's work) treats them as diagnostic data, not failure. The danger is fossilization: errors that go uncorrected long enough become permanent, which is why feedback loops matter more as you advance.",
+        "links": [
+          {
+            "label": "Interlanguage",
+            "url": "https://en.wikipedia.org/wiki/Interlanguage",
+            "kind": "article"
+          },
+          {
+            "label": "Error analysis (linguistics)",
+            "url": "https://en.wikipedia.org/wiki/Error_analysis_(linguistics)",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Start an error log: after each speaking or writing session, record your 3 most frequent mistakes and review the log weekly."
+      ]
+    },
+    {
+      "id": "grammar-reference-habit",
+      "title": "Reference, Not Curriculum",
+      "tier": "extra",
+      "learn": {
+        "summary": "Keep one good reference grammar within reach and use it reactively: when input confuses you or a correction surprises you, look up that one point, read for five minutes, and return to real language. This 'just-in-time' grammar sticks because it answers a question you actually had. Studying grammar chapters in sequence, by contrast, front-loads answers to questions you have not yet met — most of it evaporates.",
+        "links": [
+          {
+            "label": "Grammar",
+            "url": "https://en.wikipedia.org/wiki/Grammar",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Choose one reference grammar (book or site) as your single source, and log each lookup you make for two weeks."
+      ]
+    }
+  ]
+}

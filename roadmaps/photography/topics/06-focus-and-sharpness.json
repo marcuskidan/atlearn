@@ -1,0 +1,92 @@
+{
+  "id": "focus-and-sharpness",
+  "title": "Focus & Sharpness",
+  "tier": "essential",
+  "learn": {
+    "summary": "Sharpness failures have exactly three causes: focus landed in the wrong place, the shutter was too slow for the shake, or the subject moved. Diagnosing which one ruined a frame is a core skill — each has a different cure. In portraits the contract is absolute: the nearest eye must be sharp.",
+    "links": [
+      {
+        "label": "Focus (optics) (Wikipedia)",
+        "url": "https://en.wikipedia.org/wiki/Focus_(optics)",
+        "kind": "article"
+      }
+    ]
+  },
+  "do": [
+    "Review your last 20 phone photos, find every soft one, and label its cause: missed focus, shake, or subject motion."
+  ],
+  "children": [
+    {
+      "id": "focus-modes",
+      "title": "Focus Modes",
+      "tier": "essential",
+      "learn": {
+        "summary": "Single autofocus (AF-S) locks once — right for still subjects; continuous (AF-C) keeps tracking — right for anything moving. On phones, tapping the screen sets both focus and exposure to that point, and holding the tap locks it. Letting the camera choose its own focus point is how strangers' shoulders end up sharper than faces.",
+        "links": [
+          {
+            "label": "Autofocus (Wikipedia)",
+            "url": "https://en.wikipedia.org/wiki/Autofocus",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Practice tap-to-focus deliberately on ten photos today, including one where you lock focus/exposure (press and hold) before recomposing."
+      ]
+    },
+    {
+      "id": "focus-and-recompose",
+      "title": "Focus & Recompose",
+      "tier": "recommended",
+      "learn": {
+        "summary": "The classic technique: place the focus point on the subject, half-press (or tap-hold) to lock, then swing the frame to the composition you want. It fails at very wide apertures and close range, where the focal plane's shift during the swing exceeds the razor-thin depth of field — there, move the focus point instead.",
+        "links": [
+          {
+            "label": "Autofocus (Wikipedia)",
+            "url": "https://en.wikipedia.org/wiki/Autofocus",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Shoot five off-center portraits this week using lock-then-recompose, checking each time that the near eye stayed sharp."
+      ]
+    },
+    {
+      "id": "why-photos-are-soft",
+      "title": "Why Photos Are Soft",
+      "tier": "essential",
+      "learn": {
+        "summary": "Work the checklist in order: Is anything in the frame sharp? If yes, focus missed — aim better. If nothing is sharp and edges smear in one direction, that is shake — raise shutter speed or brace. If the scene is sharp but the person is smeared, that is subject motion — you needed 1/250 or faster. Also: clean the phone lens; pocket grease is the world's most common soft-focus filter.",
+        "links": [
+          {
+            "label": "Motion blur (Wikipedia)",
+            "url": "https://en.wikipedia.org/wiki/Motion_blur",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Wipe your phone's camera lens with a soft cloth right now, then shoot a before/after of a bright light source at night to see the haze difference."
+      ]
+    },
+    {
+      "id": "tack-sharp-checklist",
+      "title": "Tack-Sharp Checklist",
+      "tier": "recommended",
+      "learn": {
+        "summary": "For maximum sharpness: shutter at least 1/250 (or 1/focal length), aperture two stops down from wide open, lowest ISO the light allows, focus on the eye, elbows braced, exhale before the shot. On tripods, use the timer or remote so pressing the button cannot shake the frame. Sharpness is a stack of small disciplines, not one setting.",
+        "links": [
+          {
+            "label": "Image stabilization (Wikipedia)",
+            "url": "https://en.wikipedia.org/wiki/Image_stabilization",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Run the full checklist on five deliberate photos this week and compare their 100%-zoom sharpness against five casual snaps."
+      ]
+    }
+  ]
+}

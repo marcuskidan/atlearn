@@ -1,0 +1,97 @@
+{
+  "id": "body-foundations",
+  "title": "The Body Foundations",
+  "tier": "essential",
+  "learn": {
+    "summary": "Mood is built on physiology: sleep, movement, food, and light are the four levers with the largest, best-replicated effects on mental health. No thought technique compensates for chronic sleep deprivation. WHO guidance on mental health consistently lists physical activity and sleep among first-line self-care recommendations — start here before anything fancier.",
+    "links": [
+      {
+        "label": "Mental health (WHO)",
+        "url": "https://www.who.int/news-room/fact-sheets/detail/mental-health-strengthening-our-response",
+        "kind": "article"
+      }
+    ]
+  },
+  "do": [
+    "Pick your single weakest foundation (sleep, movement, food, light) and improve only that one for the next two weeks. One lever, measured."
+  ],
+  "children": [
+    {
+      "id": "sleep",
+      "title": "Sleep",
+      "tier": "essential",
+      "learn": {
+        "summary": "Sleep deprivation amplifies amygdala reactivity to negative stimuli by around 60% (Matthew Walker's lab) — you are measurably more anxious and irritable on short sleep. Sleep hygiene basics with the strongest evidence: consistent wake time (even weekends), cool dark room, no caffeine within 8–10 hours of bed, and getting out of bed if you cannot sleep (stimulus control). Insomnia's gold-standard treatment is CBT-I, not medication.",
+        "links": [
+          {
+            "label": "Sleep hygiene (Wikipedia)",
+            "url": "https://en.wikipedia.org/wiki/Sleep_hygiene",
+            "kind": "article"
+          },
+          {
+            "label": "CDC: About Sleep",
+            "url": "https://www.cdc.gov/sleep/",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Fix your wake time to within 30 minutes — all 7 days — for two weeks, and track how many nights you get 7+ hours."
+      ]
+    },
+    {
+      "id": "movement",
+      "title": "Movement",
+      "tier": "essential",
+      "learn": {
+        "summary": "Meta-analyses show exercise has antidepressant effects comparable to medication for mild-to-moderate depression, with benefits appearing at doses as low as brisk walking a few times a week. Mechanisms include BDNF release, reduced inflammation, and mastery experiences. The best exercise for mental health is the one you will actually repeat; intensity matters less than regularity.",
+        "links": [
+          {
+            "label": "Neurobiological effects of exercise (Wikipedia)",
+            "url": "https://en.wikipedia.org/wiki/Neurobiological_effects_of_physical_exercise",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Schedule three 20-minute brisk walks this week at specific times in your calendar. After each, rate your mood before and after (1–10)."
+      ]
+    },
+    {
+      "id": "food-mood",
+      "title": "Food & Mood",
+      "tier": "recommended",
+      "learn": {
+        "summary": "Nutritional psychiatry is young but real: the SMILES trial (Jacka, 2017) found a Mediterranean-style diet produced significant depression improvements versus social support alone. Mechanisms likely run through inflammation and the gut microbiome. The practical version is unglamorous — more whole foods, legumes, fish, and vegetables; fewer ultra-processed foods — plus noticing your personal blood-sugar-to-irritability pipeline.",
+        "links": [
+          {
+            "label": "Nutritional psychiatry (Wikipedia)",
+            "url": "https://en.wikipedia.org/wiki/Nutritional_psychiatry",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "For five days, jot your mood 1–10 two hours after each meal. Look for one food pattern worth changing."
+      ]
+    },
+    {
+      "id": "light-circadian",
+      "title": "Sunlight & Circadian Rhythm",
+      "tier": "recommended",
+      "learn": {
+        "summary": "Your circadian clock, seated in the suprachiasmatic nucleus, is set primarily by light hitting the eyes — and morning outdoor light (thousands of lux, versus ~300 indoors) anchors sleep timing, alertness, and mood. Bright-light therapy is a first-line treatment for seasonal affective disorder. Evening screens do the reverse: light at the wrong time delays melatonin and pushes the whole system later.",
+        "links": [
+          {
+            "label": "Circadian rhythm (Wikipedia)",
+            "url": "https://en.wikipedia.org/wiki/Circadian_rhythm",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Get outside within an hour of waking for 10+ minutes on five days this week — no sunglasses needed, cloudy counts."
+      ]
+    }
+  ]
+}

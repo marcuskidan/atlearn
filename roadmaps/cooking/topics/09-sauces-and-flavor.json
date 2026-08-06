@@ -1,0 +1,92 @@
+{
+  "id": "sauces-and-flavor",
+  "title": "Sauces & Flavor",
+  "tier": "recommended",
+  "learn": {
+    "summary": "Sauce is what separates cooking from assembling: the browned fond stuck to a pan is concentrated flavor waiting for liquid, an emulsion is fat and water talked into staying together, and stock is flavor infrastructure. Add herbs, spices, and umami-rich ingredients as tools rather than decoration and your food stops needing recipes to taste deliberate.",
+    "links": [
+      {
+        "label": "Sauce (Wikipedia)",
+        "url": "https://en.wikipedia.org/wiki/Sauce",
+        "kind": "article"
+      }
+    ]
+  },
+  "do": [
+    "After your next pan-sear, make a 5-minute pan sauce instead of washing the pan: sauté a minced shallot in the drippings, deglaze, reduce, finish with cold butter"
+  ],
+  "children": [
+    {
+      "id": "pan-sauces-fond",
+      "title": "Pan Sauces & Fond",
+      "tier": "essential",
+      "learn": {
+        "summary": "Those browned bits welded to the pan after searing are fond — pure Maillard flavor. The template: pour off excess fat, soften a minced shallot, deglaze with a half cup of wine, stock, or even water, scrape everything up, reduce by half, then swirl in a tablespoon or two of cold butter off the heat for gloss and body. Ninety seconds of work, restaurant result.",
+        "links": [
+          {
+            "label": "Deglazing (cooking) (Wikipedia)",
+            "url": "https://en.wikipedia.org/wiki/Deglazing_(cooking)",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Make the shallot-deglaze-reduce-butter pan sauce after searing chicken or pork this week and pour it over the rested meat"
+      ]
+    },
+    {
+      "id": "emulsions",
+      "title": "Emulsions",
+      "tier": "extra",
+      "learn": {
+        "summary": "An emulsion suspends fat in water (or vice versa) into something creamy: vinaigrette, mayonnaise, hollandaise, butter-mounted pan sauces, even the starchy water binding cacio e pepe. The rules are universal — add fat slowly, whisk hard, and use an emulsifier (mustard, egg yolk) as the peacemaker. Broken emulsions can usually be rescued by whisking the broken mess into a fresh yolk or a teaspoon of water.",
+        "links": [
+          {
+            "label": "Emulsion (Wikipedia)",
+            "url": "https://en.wikipedia.org/wiki/Emulsion",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Whisk a mayonnaise by hand once this week — one yolk, a teaspoon of mustard, oil added drop by drop then in a thin stream — just to feel an emulsion form"
+      ]
+    },
+    {
+      "id": "stocks",
+      "title": "Stocks & Broths",
+      "tier": "extra",
+      "learn": {
+        "summary": "Stock is bones, aromatics, and water at a bare simmer — chicken for 3-4 hours, never hard-boiled (boiling emulsifies fat and turns it cloudy). Keep a freezer bag of chicken carcasses, onion ends, and carrot peels; when it is full, that is stock day. Homemade stock's body comes from gelatin, which is why it jells in the fridge and why it makes soups and pan sauces taste expensive.",
+        "links": [
+          {
+            "label": "Stock (food) (Wikipedia)",
+            "url": "https://en.wikipedia.org/wiki/Stock_(food)",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Start a stock scraps bag in your freezer today; when you next roast a chicken, simmer the carcass 3 hours with an onion, carrot, and celery stalk, and freeze the stock in 2-cup portions"
+      ]
+    },
+    {
+      "id": "herbs-spices-umami",
+      "title": "Herbs, Spices & Umami",
+      "tier": "recommended",
+      "learn": {
+        "summary": "Hardy herbs (rosemary, thyme, bay) go in early and stand up to long cooking; tender herbs (basil, cilantro, parsley, dill) go in at the end or they turn to compost. Bloom ground spices in hot oil for 30-60 seconds to wake their fat-soluble flavors before liquids go in. For instant depth, lean on the umami arsenal: parmesan rinds, soy and fish sauce, tomato paste browned in oil, anchovies, dried mushrooms, miso.",
+        "links": [
+          {
+            "label": "Umami (Wikipedia)",
+            "url": "https://en.wikipedia.org/wiki/Umami",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Add one stealth umami ingredient to a familiar dish this week — an anchovy melted into pasta sauce, a splash of fish sauce in a soup — and see if anyone can name what changed"
+      ]
+    }
+  ]
+}

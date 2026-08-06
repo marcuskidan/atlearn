@@ -1,0 +1,97 @@
+{
+  "id": "what-meditation-is",
+  "title": "What Meditation Is (and Is Not)",
+  "tier": "essential",
+  "learn": {
+    "summary": "Meditation is attention training, not relaxation-on-demand or emptying your mind. Jon Kabat-Zinn defined mindfulness as paying attention on purpose, in the present moment, non-judgmentally, and his 1979 MBSR program made it a secular, researchable practice. Meta-analyses (notably Goyal et al., JAMA Internal Medicine 2014) find real but modest effects on anxiety, depression, and pain, comparable to other active treatments, not a miracle cure.",
+    "links": [
+      {
+        "label": "Mindfulness (Wikipedia)",
+        "url": "https://en.wikipedia.org/wiki/Mindfulness",
+        "kind": "article"
+      },
+      {
+        "label": "NIH: Meditation and Mindfulness",
+        "url": "https://www.nccih.nih.gov/health/meditation-and-mindfulness-effectiveness-and-safety",
+        "kind": "article"
+      }
+    ]
+  },
+  "do": [
+    "Sit for 3 minutes today doing nothing but noticing your breath, then write one sentence about what actually happened versus what you expected."
+  ],
+  "children": [
+    {
+      "id": "secular-vs-traditional",
+      "title": "Secular vs Traditional",
+      "tier": "essential",
+      "learn": {
+        "summary": "Modern secular mindfulness descends from Buddhist vipassana and Zen but strips the ethics, community, and liberation framework, keeping the attention-training core. Kabat-Zinn deliberately designed MBSR to work in a hospital without any religious framing. Knowing the lineage helps you evaluate claims: an app is teaching a fragment of a 2,500-year-old system, which is fine, but it is a fragment.",
+        "links": [
+          {
+            "label": "MBSR (Wikipedia)",
+            "url": "https://en.wikipedia.org/wiki/Mindfulness-based_stress_reduction",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Read the Wikipedia MBSR article this week and list the 3 formal practices the 8-week course actually teaches."
+      ]
+    },
+    {
+      "id": "common-myths",
+      "title": "Common Myths",
+      "tier": "essential",
+      "learn": {
+        "summary": "The biggest myth: meditation means stopping thoughts. It does not; thoughts continue, and noticing you were lost in one IS the practice working. Other myths worth dropping: you need a quiet mind to start, long sessions are required, and feeling calm every time is the goal. A restless, distracted session where you returned to the breath 40 times is a good session.",
+        "links": [
+          {
+            "label": "Meditation (Wikipedia)",
+            "url": "https://en.wikipedia.org/wiki/Meditation",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "During one 5-minute sit this week, tally every time you notice a thought; treat a high count as proof of noticing, not failure."
+      ]
+    },
+    {
+      "id": "evidence-overview",
+      "title": "The Evidence, Honestly",
+      "tier": "recommended",
+      "learn": {
+        "summary": "The 2014 Goyal meta-analysis found moderate evidence for improvement in anxiety, depression, and pain, with effect sizes around 0.3, and little evidence meditation beats other active treatments like exercise. Neuroimaging findings (amygdala reactivity, cortical changes) are suggestive but plagued by small samples and publication bias. Practice because the modest benefits are real and cheap, not because of overhyped brain-rewiring headlines.",
+        "links": [
+          {
+            "label": "Research on meditation (Wikipedia)",
+            "url": "https://en.wikipedia.org/wiki/Research_on_meditation",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Pick one benefit you personally care about (sleep, anxiety, focus) and write down a concrete before/after measure you will check in 4 weeks."
+      ]
+    },
+    {
+      "id": "types-of-practice",
+      "title": "Map of Practice Types",
+      "tier": "extra",
+      "learn": {
+        "summary": "Researchers commonly sort practices into focused attention (one anchor, e.g. breath), open monitoring (observing whatever arises), and constructive practices like loving-kindness. Most traditions teach focused attention first because stability of attention makes everything else possible. This roadmap follows that same order deliberately.",
+        "links": [
+          {
+            "label": "Meditation styles (Wikipedia)",
+            "url": "https://en.wikipedia.org/wiki/Meditation",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Try one 5-minute focused-attention sit and one 5-minute open-awareness sit on different days this week and note which felt more natural."
+      ]
+    }
+  ]
+}

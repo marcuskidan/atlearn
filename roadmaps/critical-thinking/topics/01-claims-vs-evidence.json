@@ -1,0 +1,102 @@
+{
+  "id": "claims-vs-evidence",
+  "title": "Claims vs Evidence",
+  "tier": "essential",
+  "learn": {
+    "summary": "Every argument rests on claims, and claims differ wildly in how much support they need: 'it rained yesterday' and 'this supplement cures cancer' are not equals. Carl Sagan's rule — extraordinary claims require extraordinary evidence — is the working heuristic. Start by asking two questions of anything you read: what exactly is being claimed, and what would count as evidence against it?",
+    "links": [
+      {
+        "label": "Wikipedia: Evidence",
+        "url": "https://en.wikipedia.org/wiki/Evidence",
+        "kind": "article"
+      },
+      {
+        "label": "Wikipedia: Sagan standard",
+        "url": "https://en.wikipedia.org/wiki/Sagan_standard",
+        "kind": "article"
+      }
+    ]
+  },
+  "do": [
+    "Pick 3 claims from today's news feed and write each as one precise sentence, then label the evidence offered: data, expert opinion, anecdote, or none."
+  ],
+  "children": [
+    {
+      "id": "what-counts-as-evidence",
+      "title": "What Counts as Evidence",
+      "tier": "essential",
+      "learn": {
+        "summary": "Evidence sits on a hierarchy: randomized experiments beat observational studies, which beat expert opinion, which beats anecdote. Medicine formalizes this as the evidence pyramid, with systematic reviews at the top. The key skill is matching the strength of your belief to the strength of the evidence, not to how confident the speaker sounds.",
+        "links": [
+          {
+            "label": "Wikipedia: Hierarchy of evidence",
+            "url": "https://en.wikipedia.org/wiki/Hierarchy_of_evidence",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Take one health or productivity claim you believe and spend 15 minutes finding the strongest evidence type behind it; write down where it lands on the hierarchy."
+      ]
+    },
+    {
+      "id": "falsifiability",
+      "title": "Falsifiability",
+      "tier": "essential",
+      "learn": {
+        "summary": "Karl Popper argued that a claim is only scientific if some observation could prove it wrong. 'This crystal brings good energy' survives any outcome, which is exactly why it tells you nothing. Unfalsifiable claims are not automatically false, but they are immune to evidence — and that should lower your confidence in them, not raise it.",
+        "links": [
+          {
+            "label": "Wikipedia: Falsifiability",
+            "url": "https://en.wikipedia.org/wiki/Falsifiability",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Write down 3 beliefs you hold and, for each, one specific observation that would change your mind. If you can't think of one, flag that belief for scrutiny."
+      ]
+    },
+    {
+      "id": "burden-of-proof",
+      "title": "Burden of Proof",
+      "tier": "recommended",
+      "learn": {
+        "summary": "The person making a claim carries the burden of supporting it; 'you can't prove I'm wrong' is not an argument. Bertrand Russell's celestial teapot makes the point: an undetectable teapot orbiting the sun can't be disproven, yet nobody is obliged to believe in it. Watch for burden-shifting — it is one of the most common rhetorical moves in online debate.",
+        "links": [
+          {
+            "label": "Wikipedia: Burden of proof (philosophy)",
+            "url": "https://en.wikipedia.org/wiki/Burden_of_proof_(philosophy)",
+            "kind": "article"
+          },
+          {
+            "label": "Wikipedia: Russell's teapot",
+            "url": "https://en.wikipedia.org/wiki/Russell%27s_teapot",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Find one online argument this week where someone shifts the burden of proof, and write out in one paragraph who actually owes evidence and why."
+      ]
+    },
+    {
+      "id": "anecdotes-vs-data",
+      "title": "Anecdotes vs Data",
+      "tier": "essential",
+      "learn": {
+        "summary": "A vivid story about one person's miracle cure will move you more than a trial of 10,000 patients — that's a bug in human cognition, not a feature of the evidence. Anecdotes are useful for generating hypotheses and terrible for testing them, because they arrive pre-filtered: you hear about the survivor, not the ninety-nine failures. The plural of anecdote is not data.",
+        "links": [
+          {
+            "label": "Wikipedia: Anecdotal evidence",
+            "url": "https://en.wikipedia.org/wiki/Anecdotal_evidence",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Next time a friend or ad cites a success story, ask (or estimate) the denominator: how many people tried this and got nothing? Write down your estimate."
+      ]
+    }
+  ]
+}

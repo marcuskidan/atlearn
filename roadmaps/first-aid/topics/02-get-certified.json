@@ -1,0 +1,79 @@
+{
+  "id": "get-certified",
+  "title": "Get Certified",
+  "tier": "essential",
+  "learn": {
+    "summary": "This is the single most important node on this roadmap: no app replaces hands-on practice with a manikin and an instructor. A Red Cross or AHA First Aid/CPR/AED course takes about 4–6 hours, costs roughly the price of a nice dinner, and certifies you for two years. Everything else here is preparation for — not replacement of — that class.",
+    "links": [
+      {
+        "label": "Red Cross — Take a Class",
+        "url": "https://www.redcross.org/take-a-class",
+        "kind": "tool"
+      },
+      {
+        "label": "AHA CPR & First Aid",
+        "url": "https://cpr.heart.org",
+        "kind": "tool"
+      }
+    ]
+  },
+  "do": [
+    "Book an in-person First Aid/CPR/AED course this week — search redcross.org/take-a-class or cpr.heart.org for a session near you and actually register."
+  ],
+  "children": [
+    {
+      "id": "finding-a-course",
+      "title": "Finding a Course",
+      "tier": "essential",
+      "learn": {
+        "summary": "Both the American Red Cross and the American Heart Association run searchable course locators; look for 'Adult First Aid/CPR/AED' as the standard all-in-one. Blended courses do the theory online and skills in person in about 2 hours — a good option for busy schedules. Employers often reimburse the fee; workplaces, gyms, and community centers frequently host classes.",
+        "links": [
+          {
+            "label": "Red Cross class finder",
+            "url": "https://www.redcross.org/take-a-class",
+            "kind": "tool"
+          }
+        ]
+      },
+      "do": [
+        "Find three course dates within 30 minutes of you, pick one, and put it in your calendar with the registration confirmation."
+      ]
+    },
+    {
+      "id": "what-certification-covers",
+      "title": "What Certification Covers",
+      "tier": "recommended",
+      "learn": {
+        "summary": "A standard course teaches adult CPR (30 compressions to 2 breaths), AED use, choking response, bleeding control, and recognition of stroke, heart attack, and shock — with graded practice on manikins until compression depth (at least 2 inches) and rate (100–120/min) are correct. Certification lasts 2 years. Pediatric and wilderness modules are separate add-ons worth considering for parents and hikers.",
+        "links": [
+          {
+            "label": "Cardiopulmonary resuscitation — Wikipedia",
+            "url": "https://en.wikipedia.org/wiki/Cardiopulmonary_resuscitation",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "If you were ever certified, check the date on your old card today — if it's more than 2 years old, you're due for renewal."
+      ]
+    },
+    {
+      "id": "hands-only-cpr",
+      "title": "Hands-Only CPR Awareness",
+      "tier": "essential",
+      "learn": {
+        "summary": "Until you're trained, know the untrained-bystander version the AHA promotes: if an adult collapses and isn't breathing normally, call 911, then push hard and fast in the center of the chest at 100–120 beats per minute — the tempo of 'Stayin' Alive' — and don't stop until help takes over. Bystander CPR can double or triple survival from cardiac arrest. This awareness is a bridge to training, not a substitute for it.",
+        "links": [
+          {
+            "label": "Hands-only CPR — AHA",
+            "url": "https://cpr.heart.org",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Practice the 100–120 bpm rhythm today by pressing on a firm cushion to 'Stayin' Alive' for 2 minutes straight — notice how tiring it is; real CPR is harder."
+      ]
+    }
+  ]
+}

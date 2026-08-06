@@ -1,0 +1,92 @@
+{
+  "id": "composition",
+  "title": "Composition",
+  "tier": "recommended",
+  "learn": {
+    "summary": "Composition is deciding what goes where in the frame and why — the difference between a rendered study and a picture someone wants to look at. The eye follows values, edges, and lines wherever the artist sends it; good composition is deliberate traffic direction. Cheap insurance: thumbnail every serious drawing before starting it.",
+    "links": [
+      {
+        "label": "Composition (visual arts) (Wikipedia)",
+        "url": "https://en.wikipedia.org/wiki/Composition_(visual_arts)",
+        "kind": "article"
+      }
+    ]
+  },
+  "do": [
+    "Before your next finished drawing, produce four postage-stamp thumbnails of different arrangements and pick the strongest — every time, no exceptions, starting this week."
+  ],
+  "children": [
+    {
+      "id": "focal-point",
+      "title": "Focal Point",
+      "tier": "essential",
+      "learn": {
+        "summary": "The focal point is where you want the viewer's eye to land, and you build it with converging tools: highest value contrast, sharpest edges, most detail, and lines that point toward it. A drawing with two competing focal points has none. Everything away from the focal point should be deliberately softer, simpler, and lower-contrast — restraint is the skill.",
+        "links": [
+          {
+            "label": "Composition (visual arts) (Wikipedia)",
+            "url": "https://en.wikipedia.org/wiki/Composition_(visual_arts)",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Take one older drawing and identify where your eye actually goes first; if it isn't where you intended, note which tool (contrast, edge, detail) misled it."
+      ]
+    },
+    {
+      "id": "thumbnails",
+      "title": "Thumbnails",
+      "tier": "essential",
+      "learn": {
+        "summary": "Thumbnails are tiny (2-8 cm) compositional sketches done in under two minutes each, exploring arrangement and value structure in three or four tones before committing hours to a final. Professionals may thumbnail dozens of options for one illustration. Small size is the point: it forbids detail and forces big-shape decisions.",
+        "links": [
+          {
+            "label": "Thumbnail sketch (Wikipedia)",
+            "url": "https://en.wikipedia.org/wiki/Sketch_(drawing)",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Thumbnail one scene from your home six different ways in under 15 minutes total — vary the crop, angle, and where the darkest dark sits."
+      ]
+    },
+    {
+      "id": "rule-of-thirds",
+      "title": "Rule of Thirds & Beyond",
+      "tier": "recommended",
+      "learn": {
+        "summary": "Dividing the frame into thirds and placing focal elements on the intersections avoids the static bullseye of dead-center placement — a heuristic first written down by John Thomas Smith in 1797. Related guides: keep the horizon off the middle, and give a moving subject space to move into. These are defaults to break knowingly, not laws.",
+        "links": [
+          {
+            "label": "Rule of thirds (Wikipedia)",
+            "url": "https://en.wikipedia.org/wiki/Rule_of_thirds",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Compose two versions of the same simple scene — subject dead center versus on a thirds intersection — and ask someone which they prefer and why."
+      ]
+    },
+    {
+      "id": "notan",
+      "title": "Notan & Value Massing",
+      "tier": "extra",
+      "learn": {
+        "summary": "Notan, from Japanese design tradition, reduces a composition to pure two- or three-value masses of light and dark — no line, no detail. If the design reads powerfully as flat black-and-white shapes, the finished piece will hold together; if not, no rendering will save it. It is the fastest diagnostic for a weak composition.",
+        "links": [
+          {
+            "label": "Notan (Wikipedia)",
+            "url": "https://en.wikipedia.org/wiki/Notan",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Make two-value notan studies of three photographs or master paintings this week using only a brush pen or marker — every area must commit to black or white."
+      ]
+    }
+  ]
+}

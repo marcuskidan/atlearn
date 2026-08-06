@@ -1,0 +1,92 @@
+{
+  "id": "construction-basic-forms",
+  "title": "Construction from Forms",
+  "tier": "essential",
+  "learn": {
+    "summary": "Everything drawable decomposes into spheres, boxes, cylinders, and cones — Cezanne said as much, and every construction-based curriculum from Loomis to Drawabox is built on it. Instead of copying outlines, you assemble simple 3D forms and carve the subject out of them. This is the skill that lets you eventually draw from imagination.",
+    "links": [
+      {
+        "label": "Drawabox",
+        "url": "https://drawabox.com/",
+        "kind": "article"
+      }
+    ]
+  },
+  "do": [
+    "Pick three household objects (mug, lamp, shoe) and draw each one first as its underlying spheres, boxes, and cylinders before adding any detail."
+  ],
+  "children": [
+    {
+      "id": "spheres-boxes-cylinders",
+      "title": "Spheres, Boxes, Cylinders",
+      "tier": "essential",
+      "learn": {
+        "summary": "The primitive forms each teach something distinct: boxes teach orientation in space, cylinders teach ellipses and axis alignment, spheres teach rounded volume and contour lines. Drawing hundreds of freehand boxes in rough perspective — Drawabox famously assigns 250 — builds the spatial intuition that no shortcut provides. These are scales-and-arpeggios for the visual artist.",
+        "links": [
+          {
+            "label": "Geometric primitive (Wikipedia)",
+            "url": "https://en.wikipedia.org/wiki/Geometric_primitive",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Draw 25 freehand boxes in varied orientations this week, then extend their edges with a ruler to check how well each set converges."
+      ]
+    },
+    {
+      "id": "deconstruction",
+      "title": "Deconstructing Objects",
+      "tier": "essential",
+      "learn": {
+        "summary": "Construction runs in reverse too: look at any complex object and name its primitives — a wine bottle is a cylinder plus a smaller cylinder with a curved transition; a cat is spheres and cylinders with a wedge head. This analysis habit is how comic artists and industrial designers draw convincingly from imagination. Practice it constantly, even without a pencil.",
+        "links": [
+          {
+            "label": "Figure drawing (Wikipedia)",
+            "url": "https://en.wikipedia.org/wiki/Figure_drawing",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "For five objects you see today (in person or photos), verbally break each into its primitive forms; draw the two most interesting as construction-only sketches."
+      ]
+    },
+    {
+      "id": "draw-through",
+      "title": "Drawing Through",
+      "tier": "recommended",
+      "learn": {
+        "summary": "Drawing through means sketching the hidden far edges of forms — the back of the box, the far rim of the cylinder — as if the object were transparent. It forces you to understand the complete volume rather than a flat facade, and instantly exposes construction errors the front view hides. All serious construction curricula require it.",
+        "links": [
+          {
+            "label": "Perspective (graphical) (Wikipedia)",
+            "url": "https://en.wikipedia.org/wiki/Perspective_(graphical)",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Draw 10 boxes and 10 cylinders today with all hidden edges drawn through in lighter lines, as if made of glass."
+      ]
+    },
+    {
+      "id": "form-intersections",
+      "title": "Form Intersections",
+      "tier": "recommended",
+      "learn": {
+        "summary": "Drawing the seam where a cylinder pierces a box, or a sphere meets a cone, is one of the hardest and highest-value spatial exercises — it proves whether you truly understand where forms sit in 3D. Drawabox uses it as its Lesson 2 centerpiece. Getting intersections right is a prerequisite for believable machinery, anatomy, and drapery.",
+        "links": [
+          {
+            "label": "Drawabox Lesson 2",
+            "url": "https://drawabox.com/lesson/2",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Fill one page with 6-8 overlapping primitive forms and draw the intersection line where each pair of forms meets."
+      ]
+    }
+  ]
+}

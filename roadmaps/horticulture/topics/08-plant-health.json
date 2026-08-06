@@ -1,0 +1,97 @@
+{
+  "id": "plant-health",
+  "title": "Plant Health & IPM",
+  "tier": "essential",
+  "learn": {
+    "summary": "Integrated Pest Management is a decision ladder: identify the problem correctly, decide if damage is actually significant, then escalate from cultural fixes to physical barriers to biological controls, with targeted pesticides as a genuine last resort. Most \"pest problems\" are cosmetic, and healthy plants in the right spot shrug off most attacks. Reach for the spray first and you kill the beneficial insects doing your pest control for free.",
+    "links": [
+      {
+        "label": "Integrated pest management (Wikipedia)",
+        "url": "https://en.wikipedia.org/wiki/Integrated_pest_management",
+        "kind": "article"
+      },
+      {
+        "label": "Introduction to IPM (EPA)",
+        "url": "https://www.epa.gov/ipm",
+        "kind": "article"
+      }
+    ]
+  },
+  "do": [
+    "Start a weekly 10-minute scouting walk: check the undersides of leaves on 5 plants, and identify anything you find before treating anything"
+  ],
+  "children": [
+    {
+      "id": "common-pests",
+      "title": "Common Pests",
+      "tier": "essential",
+      "learn": {
+        "summary": "Learn five and you have covered most damage: aphids (clusters on new growth — blast off with water), cabbage worms (holes in brassicas — hand-pick or use Bt), squash vine borers (sudden wilt — bury stem nodes), slugs (ragged night holes — trap under boards), and spider mites (stippled leaves in hot dry spells — increase humidity, spray water). Identify before treating; sprays for the wrong pest do nothing but harm.",
+        "links": [
+          {
+            "label": "Aphid (Wikipedia)",
+            "url": "https://en.wikipedia.org/wiki/Aphid",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Photograph the next pest or damage you find and identify it with your state Extension's online diagnostic resources before choosing any treatment"
+      ]
+    },
+    {
+      "id": "plant-diseases",
+      "title": "Diseases",
+      "tier": "essential",
+      "learn": {
+        "summary": "Most home-garden disease is fungal, and fungi need moisture on leaves — so water the soil not the foliage, water in the morning, space for airflow, and mulch to stop soil splashing onto leaves. Remove infected foliage promptly and put it in the trash, not the compost. Prevention through resistant varieties and rotation beats any cure; once a plant is badly infected, fungicides mostly just protect its neighbors.",
+        "links": [
+          {
+            "label": "Plant pathology (Wikipedia)",
+            "url": "https://en.wikipedia.org/wiki/Plant_pathology",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Strip and trash any yellowed or spotted lower leaves on your tomatoes this week, then mulch beneath them to block soil splash"
+      ]
+    },
+    {
+      "id": "beneficial-insects",
+      "title": "Beneficial Insects",
+      "tier": "recommended",
+      "learn": {
+        "summary": "Ladybugs, lacewings, hoverflies, parasitoid wasps, and ground beetles eat or parasitize the pests you are fighting — a single ladybug larva eats hundreds of aphids. Recruit them with small-flowered plants (alyssum, dill, yarrow, cilantro left to bloom) and by tolerating a low level of pests as their food supply. Broad-spectrum insecticides, including organic ones like pyrethrin, kill these allies too.",
+        "links": [
+          {
+            "label": "Beneficial insect (Wikipedia)",
+            "url": "https://en.wikipedia.org/wiki/Beneficial_insect",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Learn to recognize a ladybug larva (black-and-orange, alligator-shaped) this week so you never mistake your best aphid predator for a pest"
+      ]
+    },
+    {
+      "id": "weeds",
+      "title": "Weeds",
+      "tier": "recommended",
+      "learn": {
+        "summary": "Weeds compete for water, light, and nutrients, and one plant gone to seed can mean years of pulling — \"one year's seeding, seven years' weeding.\" The efficient strategy is prevention: mulch bare soil, plant densely, and hoe weed seedlings when they are threads, not after they establish. Ten minutes of weekly hoeing beats a monthly half-day purge.",
+        "links": [
+          {
+            "label": "Weed (Wikipedia)",
+            "url": "https://en.wikipedia.org/wiki/Weed",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Do a 10-minute weed pass with a sharp hoe this week, slicing seedlings just below the surface, and cover any bare soil you expose with mulch"
+      ]
+    }
+  ]
+}

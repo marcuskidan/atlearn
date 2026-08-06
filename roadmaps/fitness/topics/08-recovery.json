@@ -1,0 +1,92 @@
+{
+  "id": "recovery",
+  "title": "Recovery",
+  "tier": "essential",
+  "learn": {
+    "summary": "Training is the stimulus; recovery is where adaptation actually happens. Sleep is the single most powerful recovery tool — studies show sleeping under 6 hours can cut muscle protein synthesis and double injury rates in athletes. If you're chronically under-recovered, more training makes you worse, not better.",
+    "links": [
+      {
+        "label": "Sleep — Wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Sleep",
+        "kind": "article"
+      }
+    ]
+  },
+  "do": [
+    "Set a phone alarm for bedtime (not just wake-up) tonight, placed to give you a realistic 7.5–8 hours in bed."
+  ],
+  "children": [
+    {
+      "id": "sleep-as-recovery",
+      "title": "Sleep as Recovery",
+      "tier": "essential",
+      "learn": {
+        "summary": "Growth hormone pulses during deep sleep do much of your rebuilding; adults training regularly do best on 7–9 hours. The highest-leverage habits are boring: consistent wake time (even weekends), dark cool room around 18°C (65°F), and no caffeine within 8 hours of bed. One study of basketball players extending sleep to 10 hours improved sprint times and shooting accuracy within weeks.",
+        "links": [
+          {
+            "label": "Sleep hygiene — Wikipedia",
+            "url": "https://en.wikipedia.org/wiki/Sleep_hygiene",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Track your in-bed and wake times for 7 days and calculate your true average sleep — most people overestimate by 30–60 minutes."
+      ]
+    },
+    {
+      "id": "rest-days",
+      "title": "Rest Days",
+      "tier": "essential",
+      "learn": {
+        "summary": "Muscles typically need 48–72 hours to fully recover from hard training, which is why full-body programs run 3 days a week with days between. A rest day is not a nothing day — walking, easy cycling, and mobility work speed recovery by increasing blood flow without adding damage. Guard at least one true low-intensity day per week permanently.",
+        "links": [
+          {
+            "label": "Muscle hypertrophy — Wikipedia",
+            "url": "https://en.wikipedia.org/wiki/Muscle_hypertrophy",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Designate your rest days for the next two weeks in advance and plan a 20-minute walk on each one."
+      ]
+    },
+    {
+      "id": "soreness-vs-injury",
+      "title": "Soreness vs Injury",
+      "tier": "recommended",
+      "learn": {
+        "summary": "DOMS is dull, symmetrical, muscle-belly soreness peaking 24–72 hours after novel exercise and easing with movement — annoying but harmless. Injury signals are different: sharp or stabbing pain, pain at a joint or tendon, one-sided pain, swelling, or pain that worsens as you warm up. The first kind you train through gently; the second you stop for and get assessed if it persists past a week.",
+        "links": [
+          {
+            "label": "Delayed onset muscle soreness — Wikipedia",
+            "url": "https://en.wikipedia.org/wiki/Delayed_onset_muscle_soreness",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Next time something hurts, run the checklist before training: sharp vs dull, joint vs muscle, one side vs both, better or worse with warm-up — and act accordingly."
+      ]
+    },
+    {
+      "id": "active-recovery",
+      "title": "Active Recovery",
+      "tier": "extra",
+      "learn": {
+        "summary": "Light movement clears soreness faster than total rest: 20–30 minutes of walking, easy swimming, or gentle cycling at a heart rate under about 60% of max increases circulation without new fatigue. Contrast showers, saunas, and massage guns are fine but minor — they're the garnish, not the meal. The meal is sleep, food, and easy movement.",
+        "links": [
+          {
+            "label": "Warming up — Wikipedia",
+            "url": "https://en.wikipedia.org/wiki/Warming_up",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "The day after your hardest session this week, do 20 minutes of deliberately easy movement instead of nothing — note how the soreness compares to usual."
+      ]
+    }
+  ]
+}

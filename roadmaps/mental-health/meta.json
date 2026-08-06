@@ -1,0 +1,9 @@
+{
+  "id": "mental-health",
+  "emoji": "🧠",
+  "title": "Mental Health Foundations",
+  "tagline": "Evidence-based self-care skills — and knowing when to get real help",
+  "curricula": "CBT protocols (Beck), Kabat-Zinn's MBSR, WHO mental-health guidance",
+  "order": 6,
+  "maintainer": "The Overseer"
+}

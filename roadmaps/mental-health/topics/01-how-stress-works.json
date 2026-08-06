@@ -1,0 +1,92 @@
+{
+  "id": "how-stress-works",
+  "title": "How Stress Works",
+  "tier": "essential",
+  "learn": {
+    "summary": "You cannot regulate a system you do not understand. Stress is the body's threat response: the sympathetic nervous system and HPA axis mobilize energy (adrenaline, cortisol) for short emergencies, and problems arise when the response stays switched on for months. This roadmap is educational self-care, not clinical treatment — think of it as the owner's manual, with the final milestone covering when to call a professional.",
+    "links": [
+      {
+        "label": "Stress (biology) (Wikipedia)",
+        "url": "https://en.wikipedia.org/wiki/Stress_(biology)",
+        "kind": "article"
+      }
+    ]
+  },
+  "do": [
+    "For three days, log your stress 1–10 at morning, midday, and evening, plus what preceded each spike. Patterns beat guesses."
+  ],
+  "children": [
+    {
+      "id": "nervous-system-basics",
+      "title": "Nervous System Basics",
+      "tier": "essential",
+      "learn": {
+        "summary": "The autonomic nervous system has two branches: sympathetic (accelerator — mobilizes for action) and parasympathetic (brake — rest, digest, repair). Neither is 'bad'; health is flexible switching between them. Most regulation techniques in this roadmap work by deliberately engaging the parasympathetic brake, largely via the vagus nerve.",
+        "links": [
+          {
+            "label": "Autonomic nervous system (Wikipedia)",
+            "url": "https://en.wikipedia.org/wiki/Autonomic_nervous_system",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Learn to spot your own sympathetic signature: next time you feel stressed, note three body signals (jaw, shoulders, breath, gut) and write them down as your personal early-warning list."
+      ]
+    },
+    {
+      "id": "fight-or-flight",
+      "title": "Fight-or-Flight",
+      "tier": "essential",
+      "learn": {
+        "summary": "Walter Cannon named the fight-or-flight response in the 1920s: perceived threat triggers adrenaline within seconds — pounding heart, fast shallow breathing, tunnel vision, digestion paused. The key modern insight is that the system cannot distinguish a tiger from an email; it responds to perception, not reality. Freeze and fawn responses were added to the taxonomy later.",
+        "links": [
+          {
+            "label": "Fight-or-flight response (Wikipedia)",
+            "url": "https://en.wikipedia.org/wiki/Fight-or-flight_response",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Next time your heart races over something non-physical, name it out loud: 'this is fight-or-flight, there is no tiger.' Note whether labeling changes the intensity."
+      ]
+    },
+    {
+      "id": "allostatic-load",
+      "title": "Allostatic Load",
+      "tier": "recommended",
+      "learn": {
+        "summary": "Bruce McEwen's concept of allostatic load describes the cumulative wear-and-tear of a stress response that never fully switches off — chronically elevated cortisol degrades sleep, immunity, memory, and mood. The practical implication: recovery is not a luxury but the other half of the stress equation, exactly as rest days are half of athletic training. Chronic stress is a dosage problem.",
+        "links": [
+          {
+            "label": "Allostatic load (Wikipedia)",
+            "url": "https://en.wikipedia.org/wiki/Allostatic_load",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Audit one week: list your recurring stressors in one column and your deliberate recovery activities in another. If the recovery column is nearly empty, schedule two items into next week."
+      ]
+    },
+    {
+      "id": "stress-mindset",
+      "title": "Stress Mindset",
+      "tier": "extra",
+      "learn": {
+        "summary": "Alia Crum's Stanford research found that viewing stress as enhancing versus debilitating changes both physiology and performance — and Kelly McGonigal popularized the finding that stress arousal can be reappraised as the body energizing you. Reappraisal ('my heart is pounding to deliver oxygen') outperforms suppression in study after study. The stress response is also, chemically, the excitement response.",
+        "links": [
+          {
+            "label": "Cognitive reappraisal (Wikipedia)",
+            "url": "https://en.wikipedia.org/wiki/Cognitive_reappraisal",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Before your next nerve-wracking event, say 'I am excited' instead of 'calm down' — arousal reappraisal — and rate how it went afterward."
+      ]
+    }
+  ]
+}

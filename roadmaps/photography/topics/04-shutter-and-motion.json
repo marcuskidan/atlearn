@@ -1,0 +1,92 @@
+{
+  "id": "shutter-and-motion",
+  "title": "Shutter & Motion",
+  "tier": "essential",
+  "learn": {
+    "summary": "The shutter decides how time appears in a still image: frozen mid-air, streaked with energy, or smoothed into silk. Two separate blurs must be mastered — subject motion blur (creative choice) and camera shake (almost always a defect). Control both and you control time.",
+    "links": [
+      {
+        "label": "Motion blur (Wikipedia)",
+        "url": "https://en.wikipedia.org/wiki/Motion_blur",
+        "kind": "article"
+      }
+    ]
+  },
+  "do": [
+    "Photograph moving traffic twice this week — once freezing it, once deliberately blurring it — using your phone's manual or night mode."
+  ],
+  "children": [
+    {
+      "id": "freeze-or-blur",
+      "title": "Freeze or Blur",
+      "tier": "essential",
+      "learn": {
+        "summary": "Rules of thumb: 1/500–1/1000 s freezes sports and pets, 1/250 handles walking people, while 1/30 and slower lets motion paint. Blur communicates speed better than sharpness — a frozen cyclist looks parked; a streaked one looks fast. Decide the story before choosing the speed.",
+        "links": [
+          {
+            "label": "Shutter speed (Wikipedia)",
+            "url": "https://en.wikipedia.org/wiki/Shutter_speed",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Shoot someone jumping at 1/1000 and again at 1/30 — caption each frame with the feeling it conveys."
+      ]
+    },
+    {
+      "id": "camera-shake-rule",
+      "title": "Beating Camera Shake",
+      "tier": "essential",
+      "learn": {
+        "summary": "The reciprocal rule: handheld shutter speed should be at least 1/focal length (1/50 s for a 50mm lens; faster on crop sensors). Stabilization buys a few extra stops but cannot freeze a moving subject. Technique is free stabilization: elbows tucked, exhale, squeeze — or brace the phone against a wall, table, or your own knee.",
+        "links": [
+          {
+            "label": "Image stabilization (Wikipedia)",
+            "url": "https://en.wikipedia.org/wiki/Image_stabilization",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Shoot the same dim scene handheld at 1/60, 1/15, and 1/4 second, then zoom to 100% and find your personal slowest sharp speed."
+      ]
+    },
+    {
+      "id": "panning",
+      "title": "Panning",
+      "tier": "extra",
+      "learn": {
+        "summary": "Panning swings the camera with a moving subject at a slow shutter (try 1/30–1/60 s for cyclists and cars): the subject stays sharp while the background streaks horizontally. Follow through after the shot like a golf swing. Expect a 1-in-10 hit rate at first — that is normal, not failure.",
+        "links": [
+          {
+            "label": "Panning (camera) (Wikipedia)",
+            "url": "https://en.wikipedia.org/wiki/Panning_(camera)",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Stand by a street this week and take 20 panning shots of passing cars or bikes at 1/30 s — keep the two best."
+      ]
+    },
+    {
+      "id": "long-exposure-intro",
+      "title": "Long Exposure",
+      "tier": "recommended",
+      "learn": {
+        "summary": "Exposures of a second to several minutes turn waterfalls silky, erase walking pedestrians, and pull star trails across the sky — but they demand total camera stillness, so a tripod or improvised support is non-negotiable. Phone night modes are computational long exposures already. Daylight long exposures need an ND (neutral density) filter to block excess light.",
+        "links": [
+          {
+            "label": "Long-exposure photography (Wikipedia)",
+            "url": "https://en.wikipedia.org/wiki/Long-exposure_photography",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Prop your phone on a solid surface tonight, use night mode or a 3–10 s manual exposure on moving lights or water, and shoot five frames."
+      ]
+    }
+  ]
+}

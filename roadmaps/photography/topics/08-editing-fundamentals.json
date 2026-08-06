@@ -1,0 +1,92 @@
+{
+  "id": "editing-fundamentals",
+  "title": "Editing Fundamentals",
+  "tier": "essential",
+  "learn": {
+    "summary": "Editing is the second half of photography — every great darkroom print was an edit, and Ansel Adams reworked prints for decades. The reliable order of operations: crop and straighten, then exposure, then contrast, then color, and stop before it looks \"edited\". Restraint distinguishes editing from decorating.",
+    "links": [
+      {
+        "label": "Image editing (Wikipedia)",
+        "url": "https://en.wikipedia.org/wiki/Image_editing",
+        "kind": "article"
+      }
+    ]
+  },
+  "do": [
+    "Edit one photo from your camera roll tonight using only four moves — crop, exposure, contrast, one color tweak — and stop there."
+  ],
+  "children": [
+    {
+      "id": "edit-with-intent",
+      "title": "Edit With Intent",
+      "tier": "essential",
+      "learn": {
+        "summary": "Before touching a slider, answer one question: what should this photo make someone feel, and what is blocking that? Every adjustment then serves the answer — brighten to lift, crop to remove the argument's noise, deepen shadows for weight. Sliders moved without intent converge on the same oversaturated nowhere.",
+        "links": [
+          {
+            "label": "Image editing (Wikipedia)",
+            "url": "https://en.wikipedia.org/wiki/Image_editing",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "For your next three edits, write the one-sentence intent first (\"make the morning feel quiet\") and delete any adjustment that does not serve it."
+      ]
+    },
+    {
+      "id": "core-adjustments",
+      "title": "Crop, Exposure, Contrast",
+      "tier": "essential",
+      "learn": {
+        "summary": "The big four do 90 percent of the work: crop (recompose and straighten horizons — a tilted horizon is the most common amateur tell), exposure (overall brightness), contrast (the distance between darks and lights), and highlights/shadows recovery. Master these before ever opening the effects drawer. Free tools like Snapseed or any phone's built-in editor cover all of them.",
+        "links": [
+          {
+            "label": "Cropping (image) (Wikipedia)",
+            "url": "https://en.wikipedia.org/wiki/Cropping_(image)",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Take five old photos and improve each using only crop, straighten, exposure, and contrast — no filters, no saturation."
+      ]
+    },
+    {
+      "id": "presets-vs-skills",
+      "title": "Presets vs Skills",
+      "tier": "recommended",
+      "learn": {
+        "summary": "Filters and presets are someone else's decisions applied blind — fine as a starting point, corrosive as a substitute for judgment. The literacy test: after applying a preset, open its settings and read what it actually changed. A photographer who understands five sliders will outgrow a library of 500 presets.",
+        "links": [
+          {
+            "label": "Photographic filter (Wikipedia)",
+            "url": "https://en.wikipedia.org/wiki/Photographic_filter",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Apply your favorite filter to one photo, then recreate its look from scratch with manual sliders on a copy — note which adjustments it was hiding."
+      ]
+    },
+    {
+      "id": "ethics-of-editing",
+      "title": "Ethics of Editing",
+      "tier": "extra",
+      "learn": {
+        "summary": "The line runs between interpretation and deception: brightening, color grading, and cropping interpret; adding or removing objects fabricates. Photojournalism forbids fabrication outright — wire services have fired photographers for cloning out distractions — while art photography permits anything declared honestly. Know which contract each image signs with its viewer.",
+        "links": [
+          {
+            "label": "Photo manipulation (Wikipedia)",
+            "url": "https://en.wikipedia.org/wiki/Photo_manipulation",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Write your own three-rule editing code this week (e.g., \"never remove objects from documentary shots\") and pin it in your notes app."
+      ]
+    }
+  ]
+}

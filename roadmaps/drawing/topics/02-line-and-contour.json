@@ -1,0 +1,97 @@
+{
+  "id": "line-and-contour",
+  "title": "Line & Contour",
+  "tier": "essential",
+  "learn": {
+    "summary": "A confident wrong line beats a timid right one — hesitant, hairy, scratched-out lines are the universal beginner tell. Drawabox drills exactly this: plan the stroke, then execute it once, fast, without correcting. Contour work meanwhile teaches your eye to crawl along edges at drawing speed.",
+    "links": [
+      {
+        "label": "Drawabox",
+        "url": "https://drawabox.com/",
+        "kind": "article"
+      },
+      {
+        "label": "Contour drawing (Wikipedia)",
+        "url": "https://en.wikipedia.org/wiki/Contour_drawing",
+        "kind": "article"
+      }
+    ]
+  },
+  "do": [
+    "Fill one page today with single-stroke straight lines between pre-marked dot pairs — no corrections allowed — and circle your ten straightest."
+  ],
+  "children": [
+    {
+      "id": "blind-contour",
+      "title": "Blind Contour",
+      "tier": "essential",
+      "learn": {
+        "summary": "In blind contour drawing you trace an object's edges with your eyes while your pencil follows — without ever looking at the paper. The results look absurd and that is irrelevant: the exercise welds eye movement to hand movement. Kimon Nicolaides' The Natural Way to Draw made it the opening ritual of art education.",
+        "links": [
+          {
+            "label": "Blind contour drawing (Wikipedia)",
+            "url": "https://en.wikipedia.org/wiki/Blind_contour_drawing",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Do three 5-minute blind contour drawings of your non-drawing hand this week, never once glancing at the paper mid-drawing."
+      ]
+    },
+    {
+      "id": "ghosting-confidence",
+      "title": "Ghosting & Confidence",
+      "tier": "essential",
+      "learn": {
+        "summary": "Drawabox's ghosting method: hover your pen over the intended stroke several times to rehearse the motion, then commit in one smooth, quick pass. Speed produces smoothness because a fast arm can't micro-correct into wobbles. Ink is deliberately used so mistakes cannot be erased — you learn to own the line and move on.",
+        "links": [
+          {
+            "label": "Drawabox Lesson 1",
+            "url": "https://drawabox.com/lesson/1",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Using a pen (no eraser), ghost and execute 50 lines and 30 ellipses today; mark each one as confident or wobbly and count your ratio."
+      ]
+    },
+    {
+      "id": "drawing-from-shoulder",
+      "title": "Drawing from the Shoulder",
+      "tier": "recommended",
+      "learn": {
+        "summary": "Wrist-only drawing produces short, cramped, curved strokes; long clean lines come from the shoulder with the wrist locked. This is why ateliers put beginners at easels with paper vertical — it makes shoulder movement the default. Retraining feels awkward for about two weeks and then becomes permanent.",
+        "links": [
+          {
+            "label": "Drawabox Lesson 0",
+            "url": "https://drawabox.com/lesson/0",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Tape a large sheet to a wall and draw 20 long sweeping lines and 20 big circles using only shoulder movement, keeping your wrist completely rigid."
+      ]
+    },
+    {
+      "id": "line-weight",
+      "title": "Line Weight",
+      "tier": "extra",
+      "learn": {
+        "summary": "Varying line thickness creates hierarchy for free: heavier lines advance, sit in shadow, or carry weight; lighter lines recede and describe interior detail. Master draftsmen often thicken the underside of forms and where objects overlap. One drawing redone with deliberate line weight instantly looks a year more skilled.",
+        "links": [
+          {
+            "label": "Line art (Wikipedia)",
+            "url": "https://en.wikipedia.org/wiki/Line_art",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Take one recent line drawing and go back over it, thickening only the outer silhouette and the shadowed undersides — compare before and after photos."
+      ]
+    }
+  ]
+}

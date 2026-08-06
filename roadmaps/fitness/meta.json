@@ -1,0 +1,9 @@
+{
+  "id": "fitness",
+  "emoji": "🏃",
+  "title": "Functional Fitness",
+  "tagline": "Build a body that works — strength, endurance, and mobility for real life.",
+  "curricula": "NASM & ACE training fundamentals, physical-literacy curricula",
+  "order": 4,
+  "maintainer": "The Overseer"
+}

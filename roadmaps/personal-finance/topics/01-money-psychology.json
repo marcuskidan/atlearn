@@ -1,0 +1,97 @@
+{
+  "id": "money-psychology",
+  "title": "Money Psychology",
+  "tier": "essential",
+  "learn": {
+    "summary": "The CFPB defines financial well-being not as a number but as a feeling: control over day-to-day money, capacity to absorb a shock, and freedom to make choices. Behavioral economics shows money decisions are driven by mental shortcuts and emotions long before spreadsheets enter the picture. Understanding your own patterns is the foundation everything else builds on.",
+    "links": [
+      {
+        "label": "CFPB: Financial well-being questionnaire",
+        "url": "https://www.consumerfinance.gov/consumer-tools/financial-well-being/",
+        "kind": "tool"
+      },
+      {
+        "label": "Wikipedia: Behavioral economics",
+        "url": "https://en.wikipedia.org/wiki/Behavioral_economics",
+        "kind": "article"
+      }
+    ]
+  },
+  "do": [
+    "Take the CFPB's free 10-question financial well-being quiz and write down your score plus the one area that felt least in control."
+  ],
+  "children": [
+    {
+      "id": "scarcity-mindset",
+      "title": "Scarcity Mindset",
+      "tier": "essential",
+      "learn": {
+        "summary": "Research by Sendhil Mullainathan and Eldar Shafir found that scarcity itself — of money or time — consumes mental bandwidth, measurably lowering performance on unrelated tasks and pushing people toward short-term 'tunneling' decisions. This reframes many money mistakes as symptoms of scarcity, not character flaws. Knowing the mechanism helps you build slack and defaults that don't rely on willpower.",
+        "links": [
+          {
+            "label": "Wikipedia: Scarcity (book)",
+            "url": "https://en.wikipedia.org/wiki/Scarcity:_Why_Having_Too_Little_Means_So_Much",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Write down 2 recent money decisions you made under time or cash pressure, and note what a version of you with more slack would have decided differently."
+      ]
+    },
+    {
+      "id": "money-scripts",
+      "title": "Money Scripts",
+      "tier": "recommended",
+      "learn": {
+        "summary": "Psychologist Brad Klontz's research identifies 'money scripts' — unconscious beliefs learned in childhood, like 'money is the root of evil', 'more money will fix everything', or 'we don't talk about money' — that predict financial behaviors decades later. These scripts operate silently until named. Surfacing yours is diagnostic, not judgmental: every script made sense in the environment where you learned it.",
+        "links": [
+          {
+            "label": "Wikipedia: Financial psychology",
+            "url": "https://en.wikipedia.org/wiki/Financial_psychology",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Complete these three sentences in writing: 'In my family, money was...', 'People with a lot of money are...', 'I'd feel financially secure if...' — then note which answers surprised you."
+      ]
+    },
+    {
+      "id": "spending-triggers",
+      "title": "Spending Triggers",
+      "tier": "essential",
+      "learn": {
+        "summary": "Most unplanned spending follows identifiable cues: stress, boredom, social comparison, one-click checkout, and time-limited 'deals' engineered to bypass deliberation. Richard Thaler's mental accounting research shows we also treat identical dollars differently depending on the bucket they came from — a 'bonus' gets spent more freely than 'salary'. Mapping your personal triggers converts vague guilt into specific, fixable situations.",
+        "links": [
+          {
+            "label": "Wikipedia: Mental accounting",
+            "url": "https://en.wikipedia.org/wiki/Mental_accounting",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Review your last 10 unplanned purchases and label each with its trigger (stress, boredom, deal, social); tally which trigger wins."
+      ]
+    },
+    {
+      "id": "hedonic-adaptation",
+      "title": "Hedonic Adaptation",
+      "tier": "extra",
+      "learn": {
+        "summary": "The 'hedonic treadmill' (Brickman and Campbell) describes how satisfaction from new purchases and even raises fades back to baseline, often within months — which is why lifestyle upgrades rarely deliver lasting happiness per dollar. Studies by Dunn and Gilovich suggest experiences, giving, and buying time adapt more slowly than material goods. This isn't anti-spending; it's spending with the treadmill in view.",
+        "links": [
+          {
+            "label": "Wikipedia: Hedonic treadmill",
+            "url": "https://en.wikipedia.org/wiki/Hedonic_treadmill",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "List your 3 biggest discretionary purchases of the past year and rate 1-10 how much happiness each still delivers today versus the week you bought it."
+      ]
+    }
+  ]
+}

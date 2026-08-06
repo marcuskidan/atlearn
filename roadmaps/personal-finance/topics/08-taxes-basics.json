@@ -1,0 +1,102 @@
+{
+  "id": "taxes-basics",
+  "title": "Taxes Basics",
+  "tier": "essential",
+  "learn": {
+    "summary": "Taxes are most people's largest annual expense, yet the system is widely misunderstood in ways that cause real mistakes — like refusing raises for fear of 'a higher bracket'. The essentials are learnable in an afternoon: how marginal brackets actually apply, what withholding is doing to each paycheck, and where legitimately free filing help lives. Understanding the machinery also inoculates against IRS-impersonation scams.",
+    "links": [
+      {
+        "label": "Wikipedia: Taxation in the United States",
+        "url": "https://en.wikipedia.org/wiki/Taxation_in_the_United_States",
+        "kind": "article"
+      }
+    ]
+  },
+  "do": [
+    "Find last year's tax return and locate three numbers: total income, total tax paid, and your effective tax rate (tax divided by income)."
+  ],
+  "children": [
+    {
+      "id": "how-brackets-work",
+      "title": "How Brackets Actually Work",
+      "tier": "essential",
+      "learn": {
+        "summary": "The U.S. income tax is marginal: each bracket's rate applies only to the dollars inside that bracket, so 'moving into the 22% bracket' means only your dollars above the threshold are taxed at 22% — everything below keeps its lower rates. A raise can never reduce your take-home pay through brackets alone; believing otherwise is perhaps the single most common tax myth. Your effective rate (total tax / total income) is always lower than your top marginal rate.",
+        "links": [
+          {
+            "label": "Wikipedia: Tax bracket",
+            "url": "https://en.wikipedia.org/wiki/Tax_bracket",
+            "kind": "article"
+          },
+          {
+            "label": "Wikipedia: Progressive tax",
+            "url": "https://en.wikipedia.org/wiki/Progressive_tax",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Using the current IRS bracket table, hand-calculate the tax on a hypothetical $60,000 taxable income bracket by bracket, and compare the effective rate you get to the top marginal rate."
+      ]
+    },
+    {
+      "id": "withholding-explained",
+      "title": "Withholding Explained",
+      "tier": "essential",
+      "learn": {
+        "summary": "Your employer prepays your estimated tax from each paycheck based on the W-4 form you filed; filing season is just the reconciliation between what was withheld and what you actually owed. A big refund means you overpaid all year — an interest-free loan to the government — while a big bill means you underpaid, which can trigger penalties. The IRS's free Tax Withholding Estimator lets you check the match mid-year and adjust via a new W-4.",
+        "links": [
+          {
+            "label": "IRS: Tax Withholding Estimator",
+            "url": "https://www.irs.gov/individuals/tax-withholding-estimator",
+            "kind": "tool"
+          }
+        ]
+      },
+      "do": [
+        "Run the IRS Tax Withholding Estimator with your latest pay stub and note whether you're on track to owe or be refunded, and by roughly how much."
+      ]
+    },
+    {
+      "id": "tax-misconceptions",
+      "title": "Common Misconceptions",
+      "tier": "extra",
+      "learn": {
+        "summary": "Beyond the bracket myth: a tax deduction reduces taxable income (worth your marginal rate on each dollar) while a tax credit reduces tax owed dollar-for-dollar — credits are worth more; most filers take the standard deduction, making many 'write-offs' irrelevant to them; and a refund is not free money, it's your own overpayment returning. Also load-bearing: the IRS initiates contact by mail, not by threatening phone calls demanding gift cards. Each misconception has a real cost, from bad job decisions to scam losses.",
+        "links": [
+          {
+            "label": "Wikipedia: Tax deduction",
+            "url": "https://en.wikipedia.org/wiki/Tax_deduction",
+            "kind": "article"
+          },
+          {
+            "label": "Wikipedia: Tax credit",
+            "url": "https://en.wikipedia.org/wiki/Tax_credit",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Write a two-sentence explanation of deduction vs credit in your own words, then check it against the IRS definitions — teaching-back is the fastest test of understanding."
+      ]
+    },
+    {
+      "id": "free-filing-help",
+      "title": "Free Filing Help",
+      "tier": "recommended",
+      "learn": {
+        "summary": "Legitimately free options exist and are underused: IRS Free File (guided software for incomes under the annual threshold, around $79,000-$84,000 in recent years), IRS Direct File (the IRS's own free e-filing tool, expanded to many states), and VITA/TCE sites offering free in-person preparation by IRS-certified volunteers for most people earning under about $64,000, with elders and limited-English speakers prioritized. Paid preparers and 'refund advance' products often cost hundreds for returns these programs handle free.",
+        "links": [
+          {
+            "label": "IRS: Free File",
+            "url": "https://www.irs.gov/filing/free-file-do-your-federal-taxes-for-free",
+            "kind": "tool"
+          }
+        ]
+      },
+      "do": [
+        "Check whether you qualify for IRS Free File or Direct File this year, and look up the nearest VITA site — write down what you (or someone you know) would save versus paid preparation."
+      ]
+    }
+  ]
+}

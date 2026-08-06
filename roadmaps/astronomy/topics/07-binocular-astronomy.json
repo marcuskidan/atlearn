@@ -1,0 +1,79 @@
+{
+  "id": "binocular-astronomy",
+  "title": "Binocular Astronomy",
+  "tier": "essential",
+  "learn": {
+    "summary": "Almost every experienced astronomer gives beginners the same advice: binoculars before telescope. A pair of 7x50 or 10x50 binoculars gathers roughly 50x more light than your eye, shows a wide field that makes finding things easy, and costs a fraction of a decent scope. Hundreds of clusters, the Galilean moons, and the Andromeda Galaxy are all binocular targets.",
+    "links": [
+      {
+        "label": "Binoculars (Wikipedia)",
+        "url": "https://en.wikipedia.org/wiki/Binoculars",
+        "kind": "article"
+      }
+    ]
+  },
+  "do": [
+    "Take any binoculars you can borrow or own outside this week and sweep the Milky Way (or the Moon if skies are bright) for 15 minutes with no agenda."
+  ],
+  "children": [
+    {
+      "id": "choosing-binoculars",
+      "title": "Choosing Binoculars",
+      "tier": "essential",
+      "learn": {
+        "summary": "The two numbers on binoculars mean magnification x aperture: 10x50 magnifies 10 times through 50mm lenses. For astronomy, 7x50 and 10x50 are the sweet spot — bright, wide, and just hand-holdable; beyond 10x, shaking ruins the view without a tripod. Aperture divided by magnification gives the exit pupil, ideally 5-7mm to match your dark-adapted eye.",
+        "links": [
+          {
+            "label": "Binoculars (Wikipedia)",
+            "url": "https://en.wikipedia.org/wiki/Binoculars",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "If shopping, compare a 10x50 against anything higher-power in-store and notice the hand-shake difference; if you own a pair already, compute their exit pupil (aperture / magnification)."
+      ]
+    },
+    {
+      "id": "steady-viewing",
+      "title": "Holding Steady",
+      "tier": "essential",
+      "learn": {
+        "summary": "The limiting factor in binocular astronomy is shake, not optics. Bracing elbows on a fence, lying back in a reclining lawn chair, or mounting binoculars on a photo tripod can effectively double what you can see. The recliner trick also saves your neck for objects overhead — where the best sky always is.",
+        "links": [
+          {
+            "label": "Image stabilization (Wikipedia)",
+            "url": "https://en.wikipedia.org/wiki/Image_stabilization",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Compare the same star field freehand versus with elbows braced on a solid surface, and count how many additional faint stars the braced view reveals."
+      ]
+    },
+    {
+      "id": "binocular-targets",
+      "title": "Best Binocular Targets",
+      "tier": "essential",
+      "learn": {
+        "summary": "Classic binocular showpieces: the Pleiades (better in binoculars than any telescope), the Orion Nebula, the Andromeda Galaxy's elongated glow, the Double Cluster in Perseus, the Beehive Cluster, and Milky Way star clouds in Cygnus and Sagittarius. The Andromeda Galaxy's light left 2.5 million years ago — the farthest thing most humans ever see. All are naked-eye-findable first, then binocular-rewarding.",
+        "links": [
+          {
+            "label": "Pleiades (Wikipedia)",
+            "url": "https://en.wikipedia.org/wiki/Pleiades",
+            "kind": "article"
+          },
+          {
+            "label": "Andromeda Galaxy (Wikipedia)",
+            "url": "https://en.wikipedia.org/wiki/Andromeda_Galaxy",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Choose two binocular showpieces visible this season, star-hop to both in one session, and log the date, sky conditions, and what you saw."
+      ]
+    }
+  ]
+}

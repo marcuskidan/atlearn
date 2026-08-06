@@ -1,0 +1,92 @@
+{
+  "id": "heart-practices",
+  "title": "Heart Practices",
+  "tier": "recommended",
+  "learn": {
+    "summary": "Constructive practices deliberately cultivate qualities like kindness, compassion, and gratitude rather than just observing what is present. Loving-kindness (metta) is the flagship, with research by Barbara Fredrickson linking it to increased positive emotion and social connectedness, though effects are, as usual, modest. If focused attention is strength training, these are mobility work for the emotional range.",
+    "links": [
+      {
+        "label": "Metta (Wikipedia)",
+        "url": "https://en.wikipedia.org/wiki/Mett%C4%81",
+        "kind": "article"
+      }
+    ]
+  },
+  "do": [
+    "Do one 10-minute loving-kindness sit this week using the phrases 'may you be safe, may you be healthy, may you live with ease'."
+  ],
+  "children": [
+    {
+      "id": "loving-kindness",
+      "title": "Loving-Kindness (Metta)",
+      "tier": "essential",
+      "learn": {
+        "summary": "Classical metta repeats well-wishing phrases toward an expanding circle: yourself, a benefactor, a friend, a neutral person, a difficult person, all beings. The phrases are attention anchors with emotional content; feeling nothing while reciting them is normal and does not mean it is failing. Many Westerners find self-directed metta hardest, which is itself informative.",
+        "links": [
+          {
+            "label": "Metta (Wikipedia)",
+            "url": "https://en.wikipedia.org/wiki/Mett%C4%81",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Do 3 metta sits of 10 minutes this week, spending at least 2 minutes on a neutral person like a store clerk you saw today."
+      ]
+    },
+    {
+      "id": "compassion-practice",
+      "title": "Compassion Practice",
+      "tier": "recommended",
+      "learn": {
+        "summary": "Compassion is kindness meeting suffering: the wish for relief rather than general goodwill. Tania Singer's ReSource Project found compassion training and empathy training diverge neurally, with empathy alone tending toward distress and burnout while compassion adds warmth and resilience. That distinction matters for anyone in caregiving or crisis-adjacent work.",
+        "links": [
+          {
+            "label": "Compassion (Wikipedia)",
+            "url": "https://en.wikipedia.org/wiki/Compassion",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "When you encounter someone visibly struggling this week, silently offer 'may your difficulty ease' and notice the shift from judgment or avoidance."
+      ]
+    },
+    {
+      "id": "gratitude-practice",
+      "title": "Gratitude Practice",
+      "tier": "recommended",
+      "learn": {
+        "summary": "Robert Emmons and Michael McCullough's studies found that listing a few weekly gratitudes measurably improved well-being versus listing hassles. The mechanism is attentional: you are training the noticing of what is already going right. Specificity beats repetition; 'the coffee my partner left me' outworks 'my family' listed for the tenth time.",
+        "links": [
+          {
+            "label": "Gratitude journal (Wikipedia)",
+            "url": "https://en.wikipedia.org/wiki/Gratitude_journal",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Write 3 specific gratitudes each night before bed for 7 nights, no repeats allowed across the week."
+      ]
+    },
+    {
+      "id": "forgiveness-practice",
+      "title": "Forgiveness Practice",
+      "tier": "extra",
+      "learn": {
+        "summary": "Forgiveness meditation releases your own resentment; it does not excuse the act, require reconciliation, or need the other person to know. Everett Worthington's REACH model and traditional forgiveness reflections both run three directions: asking forgiveness, offering it to others, offering it to yourself. Expect this to be slow work measured in months, and start with small grievances, not the big one.",
+        "links": [
+          {
+            "label": "Forgiveness (Wikipedia)",
+            "url": "https://en.wikipedia.org/wiki/Forgiveness",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Pick one minor grudge this week and spend 5 minutes on the phrase 'I forgive you as much as I am able to right now'."
+      ]
+    }
+  ]
+}

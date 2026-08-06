@@ -1,0 +1,97 @@
+{
+  "id": "comprehensible-input",
+  "title": "Comprehensible Input",
+  "tier": "essential",
+  "learn": {
+    "summary": "Stephen Krashen's input hypothesis holds that we acquire language primarily by understanding messages slightly above our current level — 'i+1'. Decades of classroom research back the core claim: massive amounts of understandable listening and reading drive acquisition in a way grammar drills never match. Your job is to find material where you understand roughly 90-98% and consume it in volume.",
+    "links": [
+      {
+        "label": "Input hypothesis",
+        "url": "https://en.wikipedia.org/wiki/Input_hypothesis",
+        "kind": "article"
+      },
+      {
+        "label": "Stephen Krashen",
+        "url": "https://en.wikipedia.org/wiki/Stephen_Krashen",
+        "kind": "article"
+      }
+    ]
+  },
+  "do": [
+    "Log 3 hours of comprehensible listening or reading this week and note the source that felt closest to your 'i+1' level."
+  ],
+  "children": [
+    {
+      "id": "input-hypothesis",
+      "title": "The Input Hypothesis",
+      "tier": "essential",
+      "learn": {
+        "summary": "Krashen distinguishes acquisition (unconscious, from understood messages) from learning (conscious rules), and argues only acquisition produces fluent speech. His 'affective filter' claim is practical gold: anxiety and boredom block intake, so compelling content beats worthy content. Critics rightly note output and correction matter too — treat input as the main course, not the whole meal.",
+        "links": [
+          {
+            "label": "Input hypothesis",
+            "url": "https://en.wikipedia.org/wiki/Input_hypothesis",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Test three content sources and rank them by how much you understood without a dictionary; keep only ones above roughly 90%."
+      ]
+    },
+    {
+      "id": "graded-readers",
+      "title": "Graded Readers",
+      "tier": "essential",
+      "learn": {
+        "summary": "Graded readers are books rewritten within controlled vocabulary bands — typically 300 to 3000 headwords — so beginners can read real stories without a dictionary. Extensive-reading research (Paul Nation, Richard Day) shows they build vocabulary and reading speed faster than struggling through native text, because you meet each word many times in context. Read at the level where lookups are rare; too easy beats too hard.",
+        "links": [
+          {
+            "label": "Graded reader",
+            "url": "https://en.wikipedia.org/wiki/Graded_reader",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Finish one full graded reader at your level this week, without stopping to look up more than 2 words per page."
+      ]
+    },
+    {
+      "id": "learner-podcasts",
+      "title": "Podcasts for Learners",
+      "tier": "recommended",
+      "learn": {
+        "summary": "Learner-directed podcasts — slow, clearly enunciated speech about interesting topics — are the audio equivalent of graded readers and the single best use of commute time at A2-B1. The progression that works: slow learner podcasts, then native podcasts with transcripts, then native audio cold. Listening to material far above your level is mostly noise, not learning; comprehension is the ingredient.",
+        "links": [
+          {
+            "label": "Language acquisition",
+            "url": "https://en.wikipedia.org/wiki/Language_acquisition",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Subscribe to one learner podcast in your language and listen during every commute or chore session for one week."
+      ]
+    },
+    {
+      "id": "extensive-listening",
+      "title": "Extensive Listening",
+      "tier": "recommended",
+      "learn": {
+        "summary": "Extensive listening means high volume at high comprehension: hours of TV, audio, and conversation you mostly understand, prioritizing quantity over analysis. Use target-language subtitles (not your native language) once you can follow them — research on subtitled viewing shows same-language subtitles measurably boost vocabulary and listening accuracy. Rewatching something you love counts double, because known context raises comprehensibility.",
+        "links": [
+          {
+            "label": "Extensive reading",
+            "url": "https://en.wikipedia.org/wiki/Extensive_reading",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Watch one series episode with target-language subtitles, then rewatch it without subtitles within the same week."
+      ]
+    }
+  ]
+}

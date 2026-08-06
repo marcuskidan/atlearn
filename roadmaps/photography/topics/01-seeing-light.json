@@ -1,0 +1,97 @@
+{
+  "id": "seeing-light",
+  "title": "Seeing Light",
+  "tier": "essential",
+  "learn": {
+    "summary": "Photography is writing with light — the word literally means that — and the light matters more than the camera. Every photograph is defined by light's quality (hard or soft), direction (front, side, back), and color (warm to cool). Train the eye first; any phone can capture what a trained eye notices.",
+    "links": [
+      {
+        "label": "Photography (Wikipedia)",
+        "url": "https://en.wikipedia.org/wiki/Photography",
+        "kind": "article"
+      },
+      {
+        "label": "Light (Wikipedia)",
+        "url": "https://en.wikipedia.org/wiki/Light",
+        "kind": "article"
+      }
+    ]
+  },
+  "do": [
+    "Three times today, stop and name the light around you aloud: hard or soft, its direction, and warm or cool — no photo required."
+  ],
+  "children": [
+    {
+      "id": "light-quality",
+      "title": "Hard vs Soft Light",
+      "tier": "essential",
+      "learn": {
+        "summary": "The rule: the larger the light source relative to the subject, the softer the light. Direct sun is a tiny point, so it carves hard, sharp-edged shadows; an overcast sky is a giant diffuser producing soft, flattering gradations. A window with sheer curtains is the classic free softbox for portraits.",
+        "links": [
+          {
+            "label": "Hard and soft light (Wikipedia)",
+            "url": "https://en.wikipedia.org/wiki/Hard_and_soft_light",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Photograph the same object (or face) twice with your phone this week: once in direct sun, once by a bright window on a cloudy moment — compare the shadow edges."
+      ]
+    },
+    {
+      "id": "light-direction",
+      "title": "Direction of Light",
+      "tier": "essential",
+      "learn": {
+        "summary": "Front light flattens, side light sculpts texture and depth, and backlight creates rim glows and silhouettes. Portrait photographers live at roughly 45 degrees off-axis because it models the face in dimension. Changing your own position changes the light direction for free — walk around the subject before pressing anything.",
+        "links": [
+          {
+            "label": "Lighting (Wikipedia)",
+            "url": "https://en.wikipedia.org/wiki/Lighting",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Shoot one subject from four positions — light behind you, light from each side, light behind the subject — and pick the winner with a friend."
+      ]
+    },
+    {
+      "id": "golden-hour",
+      "title": "Golden Hour",
+      "tier": "essential",
+      "learn": {
+        "summary": "The hour after sunrise and before sunset delivers low-angle, warm, soft light — the sun's rays travel through more atmosphere, scattering blue and leaving gold. Its opposite, harsh midday sun, stacks shadows under eyes and noses. Blue hour, the twilight just after sunset, trades gold for a cool cinematic calm.",
+        "links": [
+          {
+            "label": "Golden hour (photography) (Wikipedia)",
+            "url": "https://en.wikipedia.org/wiki/Golden_hour_(photography)",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Check tonight's sunset time, set an alarm for 45 minutes before it, and shoot ten frames outdoors during golden hour this week."
+      ]
+    },
+    {
+      "id": "shadows-as-subject",
+      "title": "Shadows as Subject",
+      "tier": "extra",
+      "learn": {
+        "summary": "Beginners fight shadows; photographers cast them. A shadow can be the entire subject — long window grids on a floor, a cyclist's silhouette on a wall — and deep blacks give images graphic punch. High-contrast shadow work is a signature of street masters like Fan Ho and Alex Webb.",
+        "links": [
+          {
+            "label": "Shadow (Wikipedia)",
+            "url": "https://en.wikipedia.org/wiki/Shadow",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Make five photographs this week where the shadow — not the thing casting it — is the main subject."
+      ]
+    }
+  ]
+}

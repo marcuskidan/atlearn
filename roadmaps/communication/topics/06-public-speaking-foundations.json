@@ -1,0 +1,97 @@
+{
+  "id": "public-speaking-foundations",
+  "title": "Public Speaking Foundations",
+  "tier": "essential",
+  "learn": {
+    "summary": "A speech is not an essay read aloud; listeners need fewer points, more repetition, and louder signposting. The Toastmasters Pathways program builds speakers through short, evaluated speeches with one skill focus at a time, which is the fastest known amateur path. The unglamorous truth: speech quality is mostly decided before you stand up, in structure and rehearsal.",
+    "links": [
+      {
+        "label": "Public speaking (Wikipedia)",
+        "url": "https://en.wikipedia.org/wiki/Public_speaking",
+        "kind": "article"
+      },
+      {
+        "label": "Toastmasters International",
+        "url": "https://www.toastmasters.org",
+        "kind": "tool"
+      }
+    ]
+  },
+  "do": [
+    "Visit a local Toastmasters club as a guest this month; guests can attend free and are never forced to speak."
+  ],
+  "children": [
+    {
+      "id": "speech-structure",
+      "title": "Speech Structure",
+      "tier": "essential",
+      "learn": {
+        "summary": "The workhorse is tell-them-what-you-will-tell-them, tell them, tell them what you told them, with two or three points maximum; audiences cannot hold five. Every point needs a claim, support (story or evidence), and a link back to the core message. If you cannot say your core message in one sentence, the speech is not ready to outline.",
+        "links": [
+          {
+            "label": "Rhetoric (Wikipedia)",
+            "url": "https://en.wikipedia.org/wiki/Rhetoric",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Outline a 5-minute talk on something you know well this week: one core sentence, 3 points, one story per point."
+      ]
+    },
+    {
+      "id": "openings-and-closings",
+      "title": "Openings and Closings",
+      "tier": "essential",
+      "learn": {
+        "summary": "Never open with your name, thanks, or an apology; open with a question, a story mid-action, a startling fact, or a bold claim, because attention peaks in the first seconds and you either spend that peak or waste it. Close with a callback to the opening plus one clear ask or takeaway. Write and memorize your first and last two sentences verbatim even if nothing else is scripted.",
+        "links": [
+          {
+            "label": "Public speaking (Wikipedia)",
+            "url": "https://en.wikipedia.org/wiki/Public_speaking",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Write three alternative openings for the talk you outlined and say each aloud to pick the strongest."
+      ]
+    },
+    {
+      "id": "knowing-your-audience",
+      "title": "Knowing Your Audience",
+      "tier": "recommended",
+      "learn": {
+        "summary": "Audience analysis is a formal step in every rhetoric curriculum: what do they already know, what do they care about, what do they need to do afterward? The same content pitched to executives (decision and cost up front) and engineers (mechanism and evidence up front) is effectively two different talks. The most common failure is presenting to an imagined audience of yourself.",
+        "links": [
+          {
+            "label": "Audience analysis (Wikipedia)",
+            "url": "https://en.wikipedia.org/wiki/Audience_analysis",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Before your next presentation, write one sentence each for: what they know, what they fear, what I want them to do; adjust the talk to match."
+      ]
+    },
+    {
+      "id": "rehearsal-methods",
+      "title": "Rehearsal Methods",
+      "tier": "essential",
+      "learn": {
+        "summary": "Rehearse out loud and standing; silent read-throughs are roughly worthless because retrieval, mouth, and timing are the skills being trained. Effective ladder: outline pass, three full out-loud passes, one recorded pass you actually watch, one pass in front of a human. Memorize the map (structure and transitions) rather than the script; word-for-word memorization shatters under pressure.",
+        "links": [
+          {
+            "label": "Practice (learning method) (Wikipedia)",
+            "url": "https://en.wikipedia.org/wiki/Practice_(learning_method)",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Rehearse your outlined talk out loud 3 times this week, timing every run, and record the final one on your phone."
+      ]
+    }
+  ]
+}

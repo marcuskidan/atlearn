@@ -1,0 +1,92 @@
+{
+  "id": "gesture-and-figure",
+  "title": "Gesture & Figure Basics",
+  "tier": "essential",
+  "learn": {
+    "summary": "Figure drawing has been the backbone of art training since the Renaissance academies, and it starts with gesture — capturing the action and flow of a pose in 30-120 seconds before any detail. Accuracy comes later; energy cannot be added afterward. Even 15 minutes of daily gesture work compounds dramatically.",
+    "links": [
+      {
+        "label": "Figure drawing (Wikipedia)",
+        "url": "https://en.wikipedia.org/wiki/Figure_drawing",
+        "kind": "article"
+      }
+    ]
+  },
+  "do": [
+    "Do a 15-minute gesture session this week using online timed pose references: 30-second poses only, one flowing line for the spine's action first."
+  ],
+  "children": [
+    {
+      "id": "gesture-drawing",
+      "title": "Gesture Drawing",
+      "tier": "essential",
+      "learn": {
+        "summary": "Gesture drawing captures what the pose is doing — the sweep of the spine, the push of the hips, the reach of a limb — in seconds, prioritizing the 'line of action' over any outline. Kimon Nicolaides told students to draw 'what the figure is doing, not what it looks like.' Scribbly, wrong, and alive beats clean, correct, and dead.",
+        "links": [
+          {
+            "label": "Gesture drawing (Wikipedia)",
+            "url": "https://en.wikipedia.org/wiki/Gesture_drawing",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Complete 20 gesture drawings at 60 seconds each in one sitting, starting every single one with a line of action before anything else."
+      ]
+    },
+    {
+      "id": "figure-proportions",
+      "title": "Proportions",
+      "tier": "essential",
+      "learn": {
+        "summary": "The standard unit is the head: an average adult stands about 7.5 heads tall, idealized figures 8, with the pubic bone at the halfway point and fingertips at mid-thigh. Fashion drawing stretches to 9+; children run 4-6 heads depending on age. These averages are scaffolding to measure deviation from, not rules reality obeys.",
+        "links": [
+          {
+            "label": "Body proportions (Wikipedia)",
+            "url": "https://en.wikipedia.org/wiki/Body_proportions",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Draw a front-facing 8-head figure using ruled horizontal guides, placing the halfway mark, nipple line, knees, and fingertips at their canonical head-counts."
+      ]
+    },
+    {
+      "id": "figure-construction",
+      "title": "Figure Construction",
+      "tier": "recommended",
+      "learn": {
+        "summary": "Between gesture and anatomy sits construction: the ribcage and pelvis as simplified 3D masses connected by a flexible spine, limbs as cylinders, joints as spheres — the approach Andrew Loomis popularized in Figure Drawing for All It's Worth. It lets you rotate and pose figures from imagination. Anatomy details only make sense once these big masses are solid.",
+        "links": [
+          {
+            "label": "Andrew Loomis (Wikipedia)",
+            "url": "https://en.wikipedia.org/wiki/Andrew_Loomis",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Redraw five of your gesture sketches as construction figures — ball-and-socket ribcage and pelvis, cylinder limbs — keeping each under 5 minutes."
+      ]
+    },
+    {
+      "id": "heads-hands",
+      "title": "Heads & Hands",
+      "tier": "extra",
+      "learn": {
+        "summary": "The Loomis head method builds from a sphere with flattened sides plus a jaw; standard facial landmarks divide the face in thirds from hairline to brow to nose-base to chin, with eyes at the vertical midpoint of the whole skull — higher than everyone expects. Hands are best built as a box palm with cylinder fingers. Both are notorious precisely because symbol-drawing dies hardest here.",
+        "links": [
+          {
+            "label": "Portrait (Wikipedia)",
+            "url": "https://en.wikipedia.org/wiki/Portrait",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Draw your own hand in three different poses this week using box-and-cylinder construction before adding any contour."
+      ]
+    }
+  ]
+}

@@ -1,0 +1,92 @@
+{
+  "id": "harvest-and-beyond",
+  "title": "Harvest & Beyond",
+  "tier": "recommended",
+  "learn": {
+    "summary": "Harvest is a skill of its own: picked at peak and kept picked, most crops produce more, taste better, and store longer. Beyond the harvest lie the multiplier skills — saving seed, stretching the season with simple protection, and keeping the growing habit alive indoors all winter. This is where a gardener becomes self-sustaining.",
+    "links": [
+      {
+        "label": "Harvest (Wikipedia)",
+        "url": "https://en.wikipedia.org/wiki/Harvest",
+        "kind": "article"
+      }
+    ]
+  },
+  "do": [
+    "Harvest something — anything — from your garden or windowsill this week and cook with it the same day; note the flavor difference from store-bought"
+  ],
+  "children": [
+    {
+      "id": "harvest-timing-storage",
+      "title": "Timing & Storage",
+      "tier": "essential",
+      "learn": {
+        "summary": "Pick leafy greens in the cool of morning when they are crisp, and keep harvesting beans, zucchini, and cucumbers small and often — an overlooked zucchini shuts the plant down. Storage splits by crop: tomatoes and basil never in the fridge; greens in the crisper in a bag with a paper towel; winter squash cured at 80-85°F for about 10 days then stored at 50-55°F; potatoes and onions cool, dark, and apart from each other.",
+        "links": [
+          {
+            "label": "Postharvest (Wikipedia)",
+            "url": "https://en.wikipedia.org/wiki/Postharvest",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Harvest your greens before 9am one day this week and compare their crispness to an afternoon-picked batch"
+      ]
+    },
+    {
+      "id": "seed-saving",
+      "title": "Seed Saving",
+      "tier": "recommended",
+      "learn": {
+        "summary": "Save seed only from open-pollinated varieties — hybrids (F1) will not come true. Start with the easy selfers: tomatoes, beans, peas, and lettuce rarely cross and need no isolation. Dry seed thoroughly for 1-2 weeks, then store cool, dark, and dry in labeled envelopes; most stay viable 2-5 years, and each generation adapts slightly to your garden.",
+        "links": [
+          {
+            "label": "Seed saving (Wikipedia)",
+            "url": "https://en.wikipedia.org/wiki/Seed_saving",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Save seed from one open-pollinated tomato or one dried bean pod this season, label the envelope with variety and date, and store it in a cool closet"
+      ]
+    },
+    {
+      "id": "season-extension",
+      "title": "Season Extension",
+      "tier": "recommended",
+      "learn": {
+        "summary": "A floating row cover adds 2-6°F of frost protection and can buy you weeks on both ends of the season for a few dollars; a cold frame or low tunnel effectively moves your garden about one zone south. Cold-hardy crops — spinach, kale, mache, carrots — survive hard freezes under cover and get sweeter. Fall timing is the catch: plants must be nearly full-size before day length collapses in November.",
+        "links": [
+          {
+            "label": "Cold frame (Wikipedia)",
+            "url": "https://en.wikipedia.org/wiki/Cold_frame",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Buy one floating row cover and a few hoops this week, and use them to start greens 3-4 weeks earlier or keep them alive 3-4 weeks later than usual"
+      ]
+    },
+    {
+      "id": "houseplants",
+      "title": "Houseplants",
+      "tier": "extra",
+      "learn": {
+        "summary": "Houseplants are horticulture in miniature and a year-round practice ground — the same light, water, and soil principles apply indoors. Overwatering is the number one killer: most houseplants want the top 1-2 inches of mix to dry out between waterings, and every pot needs a drainage hole. Start with near-unkillable pothos, snake plant, or ZZ plant, and match the plant to the window, not the decor.",
+        "links": [
+          {
+            "label": "Houseplant (Wikipedia)",
+            "url": "https://en.wikipedia.org/wiki/Houseplant",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Check every houseplant you own with the 2-inch finger test before its next watering, and move your most light-hungry plant to your brightest window"
+      ]
+    }
+  ]
+}

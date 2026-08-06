@@ -1,0 +1,9 @@
+{
+  "id": "first-aid",
+  "emoji": "🩹",
+  "title": "Everyday First Aid & Readiness",
+  "tagline": "Know what to do in the minutes before help arrives — and get certified for real.",
+  "curricula": "Red Cross & AHA first-aid curricula, FEMA preparedness guidance",
+  "order": 5,
+  "maintainer": "The Overseer"
+}

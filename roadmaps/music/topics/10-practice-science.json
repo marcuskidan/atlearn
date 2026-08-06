@@ -1,0 +1,92 @@
+{
+  "id": "practice-science",
+  "title": "Practice Science",
+  "tier": "essential",
+  "learn": {
+    "summary": "Progress tracks the quality of practice, not the hours: deliberate practice means working at the edge of your ability on specific weaknesses with immediate feedback. Mindless run-throughs feel productive and change nothing. The musicians who improve fastest practice smaller chunks, slower tempos, and shorter, more frequent sessions.",
+    "links": [
+      {
+        "label": "Practice (learning method) (Wikipedia)",
+        "url": "https://en.wikipedia.org/wiki/Practice_(learning_method)",
+        "kind": "article"
+      }
+    ]
+  },
+  "do": [
+    "Before each practice this week, write one sentence: \"Today I will fix ___.\" End by writing whether you did."
+  ],
+  "children": [
+    {
+      "id": "slow-practice-metronome",
+      "title": "Slow Practice & Metronome",
+      "tier": "essential",
+      "learn": {
+        "summary": "Find the tempo where you can play a passage with zero mistakes — often embarrassingly slow — then raise the metronome about 5 BPM only after three clean repetitions. Practicing mistakes at speed burns the mistakes in; slow, correct repetitions burn in the right movement. The metronome is a lie detector for your rhythm, not a punishment.",
+        "links": [
+          {
+            "label": "Metronome (Wikipedia)",
+            "url": "https://en.wikipedia.org/wiki/Metronome",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Take your current hardest passage, find its zero-mistake tempo with a metronome app, write the number down, and add 5 BPM per clean day."
+      ]
+    },
+    {
+      "id": "chunking",
+      "title": "Chunking",
+      "tier": "essential",
+      "learn": {
+        "summary": "Never practice the whole piece top to bottom — isolate the two-to-four-bar trouble spot and loop it, then stitch it back in starting one bar early. Ten focused repetitions of the hard bar beat ten run-throughs of the song. Bonus: practice the transitions between chunks, which is where performances actually break.",
+        "links": [
+          {
+            "label": "Chunking (psychology) (Wikipedia)",
+            "url": "https://en.wikipedia.org/wiki/Chunking_(psychology)",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Identify the single hardest two bars of what you are learning and give them ten slow, clean repetitions today before playing anything else."
+      ]
+    },
+    {
+      "id": "spaced-sessions",
+      "title": "Spaced Sessions",
+      "tier": "recommended",
+      "learn": {
+        "summary": "Distributed practice is one of cognitive psychology's most replicated findings: six 20-minute sessions across a week beat one 2-hour block, because skills consolidate between sessions, especially during sleep. The forgetting-and-relearning cycle is a feature — each retrieval strengthens the memory. Daily contact, however brief, is the real secret.",
+        "links": [
+          {
+            "label": "Distributed practice (Wikipedia)",
+            "url": "https://en.wikipedia.org/wiki/Distributed_practice",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Split your usual practice total into daily 15–20 minute sessions this week and note on day 7 whether the hard passage improved more than usual."
+      ]
+    },
+    {
+      "id": "record-yourself",
+      "title": "Record Yourself",
+      "tier": "recommended",
+      "learn": {
+        "summary": "While playing, your attention is consumed by execution, so you literally cannot hear yourself accurately — the recording is the ground truth. Expect the first listens to sting; that gap between how it felt and how it sounds is precisely the feedback deliberate practice requires. A weekly phone recording becomes a progress log that motivates for years.",
+        "links": [
+          {
+            "label": "Practice (learning method) (Wikipedia)",
+            "url": "https://en.wikipedia.org/wiki/Practice_(learning_method)",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Record 60 seconds of your playing on your phone today, listen back once, and write down the one thing you will fix tomorrow."
+      ]
+    }
+  ]
+}

@@ -1,0 +1,97 @@
+{
+  "id": "deepening-and-difficulties",
+  "title": "Deepening and Difficulties",
+  "tier": "recommended",
+  "learn": {
+    "summary": "Past the beginner phase, progress usually comes from more dosage (retreats), more feedback (teachers), and more honesty about the hard parts. And the hard parts are real: research by Willoughby Britton at Brown documents that intensive practice can surface difficult experiences, from sleep disruption to re-lived trauma, in a minority of practitioners. A mature practice includes knowing when to push, when to back off, and when to ask for help.",
+    "links": [
+      {
+        "label": "Effects of meditation (Wikipedia)",
+        "url": "https://en.wikipedia.org/wiki/Effects_of_meditation",
+        "kind": "article"
+      }
+    ]
+  },
+  "do": [
+    "Write down your current answer to 'what would tell me my practice needs a teacher or a pause?' and keep it with your tracking calendar."
+  ],
+  "children": [
+    {
+      "id": "retreats",
+      "title": "Retreats",
+      "tier": "recommended",
+      "learn": {
+        "summary": "A retreat multiplies daily dosage by 20 or more; even one silent day at home reveals things a daily 10 minutes never will. Standard formats: a daylong (often donation-based at insight centers), a weekend, and the classic 7-10 day silent vipassana retreat. Go daylong before weekend, weekend before 10-day; intensity that outruns your foundation is the main cause of retreat difficulties.",
+        "links": [
+          {
+            "label": "Retreat (spiritual) (Wikipedia)",
+            "url": "https://en.wikipedia.org/wiki/Retreat_(spiritual)",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Schedule one 3-hour self-retreat at home this month: phone off, alternating 20-minute sits and 10-minute walks."
+      ]
+    },
+    {
+      "id": "teachers-and-sanghas",
+      "title": "Teachers and Community",
+      "tier": "recommended",
+      "learn": {
+        "summary": "A teacher catches errors you cannot see (subtle striving, spiritual bypassing, technique drift) and a practice community (sangha) is the strongest known adherence support. Vet teachers like you would a physical therapist: training lineage, willingness to say 'I do not know', and no financial or interpersonal weirdness. Live local groups, MBSR courses, and reputable online communities all count.",
+        "links": [
+          {
+            "label": "Sangha (Wikipedia)",
+            "url": "https://en.wikipedia.org/wiki/Sangha",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Find one local or online sitting group this week and attend a single session before deciding anything about joining."
+      ]
+    },
+    {
+      "id": "adverse-effects",
+      "title": "When Practice Gets Hard",
+      "tier": "essential",
+      "learn": {
+        "summary": "Britton's 'Varieties of Contemplative Experience' study documented meditation-related challenges including anxiety spikes, dissociation, insomnia, and resurfaced trauma, most often around intensive retreat practice but occasionally in daily practice too. Ordinary unpleasantness (restlessness, boredom, sadness passing through) is normal; persistent destabilization that degrades daily functioning is not, and warrants a trauma-informed teacher or clinician. Backing off to shorter sits, eyes-open practice, or walking meditation is skillful, not quitting.",
+        "links": [
+          {
+            "label": "Effects of meditation (Wikipedia)",
+            "url": "https://en.wikipedia.org/wiki/Effects_of_meditation",
+            "kind": "article"
+          },
+          {
+            "label": "NIH: Meditation safety",
+            "url": "https://www.nccih.nih.gov/health/meditation-and-mindfulness-effectiveness-and-safety",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Write your personal red-flag list now (e.g. worsening sleep for a week, feeling unreal, panic in sits) and the name of one person you would consult if two items appeared."
+      ]
+    },
+    {
+      "id": "integrating-daily-life",
+      "title": "Integration Into Daily Life",
+      "tier": "essential",
+      "learn": {
+        "summary": "The formal sit is the gym; life is the sport. MBSR pushes informal practice hard: mindfulness of routine activities, the 3-minute breathing space from MBCT, and using daily triggers (phones ringing, red lights) as mindfulness bells. The endgame is not longer sits but shorter gaps between losing yourself and coming back, everywhere.",
+        "links": [
+          {
+            "label": "Mindfulness-based cognitive therapy (Wikipedia)",
+            "url": "https://en.wikipedia.org/wiki/Mindfulness-based_cognitive_therapy",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Pick one daily trigger (first red light, kettle boiling) and take 3 conscious breaths at it every day this week."
+      ]
+    }
+  ]
+}

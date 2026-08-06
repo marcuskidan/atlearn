@@ -1,0 +1,92 @@
+{
+  "id": "carry-and-core",
+  "title": "Carry & Core",
+  "tier": "essential",
+  "learn": {
+    "summary": "Loaded carries are the most functional exercise almost nobody programs: they train grip, posture, core, and gait all at once, and grip strength is one of the strongest single predictors of healthy aging in longitudinal studies. Your core's real job is resisting motion — anti-extension, anti-rotation — not producing crunches.",
+    "links": [
+      {
+        "label": "Farmer's walk — Wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Farmer%27s_walk",
+        "kind": "article"
+      }
+    ]
+  },
+  "do": [
+    "Carry your heaviest manageable pair of objects (dumbbells, grocery bags, water jugs) for 3 walks of 30–40 meters this week."
+  ],
+  "children": [
+    {
+      "id": "farmers-carry",
+      "title": "Farmer's Carries",
+      "tier": "essential",
+      "learn": {
+        "summary": "Pick up a heavy weight in each hand, stand tall, walk. That's it — and it hammers grip, traps, obliques, and hip stabilizers simultaneously. A respectable target: carry half your bodyweight (total, split between hands) for 30 meters. Suitcase carries (one side only) add an anti-lean challenge that reveals asymmetries instantly.",
+        "links": [
+          {
+            "label": "Farmer's walk — Wikipedia",
+            "url": "https://en.wikipedia.org/wiki/Farmer%27s_walk",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Do 3 sets of 30-meter farmer's carries this week and one set of suitcase carries per side — note which side feels weaker."
+      ]
+    },
+    {
+      "id": "grip-and-aging",
+      "title": "Grip & Aging",
+      "tier": "recommended",
+      "learn": {
+        "summary": "In large cohort studies, each 5 kg drop in grip strength was associated with roughly 16% higher all-cause mortality — grip is a proxy for total-body strength reserve. Train it directly and cheaply: dead-hangs from a bar (build to 60 seconds), thick-handle carries, and simply not using straps. It also protects you from the dropped-jar, missed-catch moments of daily life.",
+        "links": [
+          {
+            "label": "Grip strength — Wikipedia",
+            "url": "https://en.wikipedia.org/wiki/Grip_strength",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Test your max dead-hang time this week (use a pull-up bar or playground); record it and aim to add 10 seconds within a month."
+      ]
+    },
+    {
+      "id": "bracing",
+      "title": "Bracing",
+      "tier": "essential",
+      "learn": {
+        "summary": "Bracing is 360-degree tension: inhale into your belly, then stiffen the whole trunk as if about to take a light punch — not sucking in, not just pushing the belly out. It's what protects your spine under load and it must become automatic before heavy lifting. The plank, done as a max-tension 20-second squeeze rather than a saggy 3-minute hang, teaches it well.",
+        "links": [
+          {
+            "label": "Plank (exercise) — Wikipedia",
+            "url": "https://en.wikipedia.org/wiki/Plank_(exercise)",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Do 3 hard-brace planks of 20 seconds today — maximum full-body tension, glutes and fists squeezed, rather than passive holding."
+      ]
+    },
+    {
+      "id": "anti-rotation",
+      "title": "Anti-Rotation",
+      "tier": "extra",
+      "learn": {
+        "summary": "The Pallof press — holding a band or cable at your chest and pressing it straight out while it tries to twist you — trains the core's most neglected job: refusing rotation. Side planks (build to 45 seconds per side) and suitcase carries live in the same family. This is the work that protects your back when life loads you unevenly.",
+        "links": [
+          {
+            "label": "Core (anatomy) — Wikipedia",
+            "url": "https://en.wikipedia.org/wiki/Core_(anatomy)",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Do 2 sets of 10 Pallof presses per side (band around a doorknob works) plus a 30-second side plank per side, twice this week."
+      ]
+    }
+  ]
+}

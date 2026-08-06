@@ -1,0 +1,98 @@
+{
+  "id": "daily-habit",
+  "title": "The Daily Habit",
+  "tier": "recommended",
+  "learn": {
+    "summary": "Skill in drawing tracks hours of deliberate practice more directly than almost any other pursuit — and daily 20-minute sessions beat weekly marathons because visual-motor learning consolidates between sessions. The sketchbook is the gym; from-life drawing, master copies, and honest feedback are the program. Everything before this milestone only matters if this one sticks.",
+    "links": [
+      {
+        "label": "Practice (learning method) (Wikipedia)",
+        "url": "https://en.wikipedia.org/wiki/Practice_(learning_method)",
+        "kind": "article"
+      }
+    ]
+  },
+  "do": [
+    "Commit to 20 minutes of drawing daily for the next 14 days, mark an X on a calendar each day, and count your streak at the end."
+  ],
+  "children": [
+    {
+      "id": "sketchbook-practice",
+      "title": "Sketchbook Practice",
+      "tier": "essential",
+      "learn": {
+        "summary": "The sketchbook's rule is that it is for practice, not performance — precious-page paralysis kills more habits than lack of talent. Date every page, never tear anything out, and mix exercises with observational sketches and experiments. Leonardo's notebooks, thousands of pages of studies and fragments, are history's argument for the messy working sketchbook.",
+        "links": [
+          {
+            "label": "Sketchbook (Wikipedia)",
+            "url": "https://en.wikipedia.org/wiki/Sketchbook",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Fill five dated sketchbook pages this week, and deliberately ruin the first page of any new sketchbook with scribbles to break its preciousness."
+      ]
+    },
+    {
+      "id": "drawing-from-life",
+      "title": "Drawing from Life",
+      "tier": "essential",
+      "learn": {
+        "summary": "Life drawing beats photo copying because reality forces you to choose: photos have already flattened space, compressed values, and made the compositional decisions for you. Ateliers work from life almost exclusively for this reason. Cafes, parks, public transport, and your own kitchen table supply infinite free models and still lifes.",
+        "links": [
+          {
+            "label": "Figure drawing (Wikipedia)",
+            "url": "https://en.wikipedia.org/wiki/Figure_drawing",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Spend 30 minutes this week sketching real people in a cafe or park — 2-minute sketches, expect them to move, and treat the interruptions as gesture training."
+      ]
+    },
+    {
+      "id": "master-copies",
+      "title": "Master Copies",
+      "tier": "recommended",
+      "learn": {
+        "summary": "Copying master drawings — a pillar of atelier training for centuries — is reverse-engineering: you inherit the master's decisions about line economy, value grouping, and edge control by re-making them. Copy analytically, asking why each choice was made, not mechanically. Museum sites like the Met and Rijksmuseum offer high-resolution old master drawings free.",
+        "links": [
+          {
+            "label": "Old Master (Wikipedia)",
+            "url": "https://en.wikipedia.org/wiki/Old_Master",
+            "kind": "article"
+          },
+          {
+            "label": "Met Open Access",
+            "url": "https://www.metmuseum.org/",
+            "kind": "tool"
+          }
+        ]
+      },
+      "do": [
+        "Choose one master drawing (Rembrandt, Rubens, and Holbein are ideal), copy it over 1-2 sessions, and write three specific decisions the artist made that you would not have."
+      ]
+    },
+    {
+      "id": "plateaus-and-sharing",
+      "title": "Plateaus & Sharing Work",
+      "tier": "extra",
+      "learn": {
+        "summary": "Progress in drawing is stair-stepped: plateaus where nothing improves, then sudden jumps — and the plateau is where most people quit, usually because their taste has outrun their skill (Ira Glass's 'taste gap'). The antidotes are measurement and exposure: date your work, redraw an old piece every few months, and share for critique despite the discomfort. Communities like r/learnart and Drawabox's peer review exist precisely for this.",
+        "links": [
+          {
+            "label": "Ira Glass (Wikipedia)",
+            "url": "https://en.wikipedia.org/wiki/Ira_Glass",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Find a drawing you made at least three months ago and redraw the exact same subject today; put the two side by side and list what improved.",
+        "Share one drawing with another person or an online critique community this week and ask for one specific improvement, not general praise."
+      ]
+    }
+  ]
+}

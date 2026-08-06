@@ -1,0 +1,92 @@
+{
+  "id": "texture-and-materials",
+  "title": "Texture & Materials",
+  "tier": "recommended",
+  "learn": {
+    "summary": "Each drawing medium has a personality: graphite is controlled and gray, charcoal is fast and velvet-black, ink is fearless and permanent. Working in more than one medium exposes which of your habits are skills and which are crutches. Texture, meanwhile, is mark-making — the pattern of strokes that says fur versus glass versus bark.",
+    "links": [
+      {
+        "label": "Drawing (Wikipedia)",
+        "url": "https://en.wikipedia.org/wiki/Drawing",
+        "kind": "article"
+      }
+    ]
+  },
+  "do": [
+    "Draw the same simple object three times this week — once in pencil, once in pen, once in charcoal or soft pencil used on its side — and note what each medium made easier."
+  ],
+  "children": [
+    {
+      "id": "graphite-pencils",
+      "title": "Graphite Pencils",
+      "tier": "essential",
+      "learn": {
+        "summary": "The pencil grading scale runs from hard 9H (pale, precise) through HB in the middle to soft 9B (dark, buttery); most drawing lives between 2H and 6B. Hard grades resist smudging but emboss the paper; soft grades reach rich darks but blunt instantly. A 2B on decent paper is the sensible default — blame technique, not equipment, until you have used it well.",
+        "links": [
+          {
+            "label": "Pencil (Wikipedia)",
+            "url": "https://en.wikipedia.org/wiki/Pencil",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Make a value swatch chart from every pencil grade you own, then shade one small sphere using at least three grades in their proper value ranges."
+      ]
+    },
+    {
+      "id": "ink-drawing",
+      "title": "Ink",
+      "tier": "recommended",
+      "learn": {
+        "summary": "Ink's permanence is the feature, not the bug: no eraser means committed lines and value built purely through hatching, stippling, and mass blacks. Fineliners (Micron-style) are the modern entry point; dip pens add expressive line-width variation. A month of ink-only sketching measurably improves your pencil confidence.",
+        "links": [
+          {
+            "label": "Pen (Wikipedia)",
+            "url": "https://en.wikipedia.org/wiki/Pen",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Do every sketch for one week in pen only; when you make a wrong line, draw the correct one confidently beside it and keep going."
+      ]
+    },
+    {
+      "id": "charcoal",
+      "title": "Charcoal",
+      "tier": "recommended",
+      "learn": {
+        "summary": "Charcoal — vine for light sketching and erasing, compressed for deep blacks — is the atelier's favorite teaching medium because it forces big-arm movement and mass thinking over fiddly detail. It smudges, lifts with a kneaded eraser, and lets you work subtractively: tone the paper, then erase out the lights. Everything about it pushes you toward the big value statement.",
+        "links": [
+          {
+            "label": "Charcoal (art) (Wikipedia)",
+            "url": "https://en.wikipedia.org/wiki/Charcoal_(art)",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Tone a sheet with charcoal, then draw a simple lit object by erasing out the light areas and darkening shadows — no outlines allowed."
+      ]
+    },
+    {
+      "id": "mark-making",
+      "title": "Mark Making for Texture",
+      "tier": "extra",
+      "learn": {
+        "summary": "Texture is an illusion built from mark vocabulary: stippling for grain, broken scribble for foliage, long unbroken curves for chrome and glass, short tapered strokes for fur laid along the form. The atelier insight is that texture must follow the light — texture detail belongs in halftones and fades in both bright light and deep shadow. Drawing texture evenly everywhere flattens the form it sits on.",
+        "links": [
+          {
+            "label": "Texture (visual arts) (Wikipedia)",
+            "url": "https://en.wikipedia.org/wiki/Texture_(visual_arts)",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Create a 3x3 grid of texture swatches (wood, fur, glass, stone, fabric, foliage, metal, water, brick) using only mark patterns — no outlines around objects."
+      ]
+    }
+  ]
+}

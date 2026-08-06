@@ -1,0 +1,92 @@
+{
+  "id": "heat-control",
+  "title": "Heat Control",
+  "tier": "essential",
+  "learn": {
+    "summary": "Heat is the element that transforms — and the one beginners fear, so they cook everything on timid medium and wonder why nothing browns. Different results demand different temperatures: hard sear, gentle simmer, bare poach. Learn to preheat properly, to hear what the pan is telling you (loud sizzle good, silence or smoke bad), and to take things off heat early because carryover keeps cooking.",
+    "links": [
+      {
+        "label": "Cooking (Wikipedia)",
+        "url": "https://en.wikipedia.org/wiki/Cooking",
+        "kind": "article"
+      }
+    ]
+  },
+  "do": [
+    "Preheat a dry skillet over medium for 3 full minutes, flick in a drop of water — it should skitter and dance — then cook something in it and compare the browning to your usual results"
+  ],
+  "children": [
+    {
+      "id": "preheating",
+      "title": "Preheating",
+      "tier": "essential",
+      "learn": {
+        "summary": "Food added to a cold pan sticks, steams, and turns gray; a properly preheated pan sears on contact and releases naturally. Give a skillet 2-3 minutes over medium before the oil goes in, and add food when the oil shimmers (or butter's foam subsides). Ovens lie too: most need 15-20 minutes to truly reach temperature, longer than the beep.",
+        "links": [
+          {
+            "label": "Frying pan (Wikipedia)",
+            "url": "https://en.wikipedia.org/wiki/Frying_pan",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "For every stovetop cook this week, preheat the empty pan 2-3 minutes and wait for shimmering oil before anything touches it"
+      ]
+    },
+    {
+      "id": "maillard-vs-steaming",
+      "title": "Maillard vs Steaming",
+      "tier": "essential",
+      "learn": {
+        "summary": "The Maillard reaction — the browning that creates deep, savory flavor — needs a dry surface and temperatures above roughly 285°F, while water caps everything at 212°F. That is why crowded pans steam: the food's moisture floods the pan faster than it can evaporate. Pat food dry, use enough heat, and leave space between pieces; cook in batches rather than crowd.",
+        "links": [
+          {
+            "label": "Maillard reaction (Wikipedia)",
+            "url": "https://en.wikipedia.org/wiki/Maillard_reaction",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Sauté mushrooms in two batches tonight — one crowded pile, one single layer with space — and compare the browning and flavor"
+      ]
+    },
+    {
+      "id": "simmer-vs-boil",
+      "title": "Simmer vs Boil",
+      "tier": "recommended",
+      "learn": {
+        "summary": "A boil is a violent 212°F churn — right for pasta and blanching, wrong for almost everything else. A simmer, around 185-205°F with small bubbles lazily breaking the surface, is where soups develop, braises tenderize, and stocks stay clear; hard-boiled stock turns cloudy and hard-boiled meat turns tough. Learn the visual: shivering surface and occasional bubbles, not a rolling froth.",
+        "links": [
+          {
+            "label": "Simmering (Wikipedia)",
+            "url": "https://en.wikipedia.org/wiki/Simmering",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Bring a pot of water to a full boil, then find and hold a bare simmer by adjusting the dial — note the exact burner setting for your stove"
+      ]
+    },
+    {
+      "id": "resting-and-carryover",
+      "title": "Resting & Carryover",
+      "tier": "recommended",
+      "learn": {
+        "summary": "Meat keeps cooking after it leaves the heat — internal temperature climbs another 5-10°F in a large roast, less in a thin steak — so pull it early and let carryover finish the job. Resting (5-10 minutes for steaks and chops, 15-30 for roasts) lets juices redistribute instead of flooding the cutting board. Cut too soon and you pour the juiciness away.",
+        "links": [
+          {
+            "label": "Carryover cooking (Wikipedia)",
+            "url": "https://en.wikipedia.org/wiki/Carry_over_cooking",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Next steak or chicken breast: pull it 5°F below target, rest it 5-10 minutes under loose foil, and check how little juice ends up on the board when you slice"
+      ]
+    }
+  ]
+}

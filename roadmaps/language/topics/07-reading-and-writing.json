@@ -1,0 +1,92 @@
+{
+  "id": "reading-and-writing",
+  "title": "Reading & Writing",
+  "tier": "essential",
+  "learn": {
+    "summary": "Reading is the highest-density input available — even easy novels expose you to rarer words than everyday conversation ever will — and writing is speaking in slow motion, letting you construct sentences without time pressure. Together they consolidate everything: vocabulary, grammar, and spelling. If your language uses a new script, that is a separate, front-loaded project worth doing properly.",
+    "links": [
+      {
+        "label": "Extensive reading",
+        "url": "https://en.wikipedia.org/wiki/Extensive_reading",
+        "kind": "article"
+      }
+    ]
+  },
+  "do": [
+    "Read 20 minutes and write 5 sentences in your target language every day for one week."
+  ],
+  "children": [
+    {
+      "id": "extensive-reading-habit",
+      "title": "Extensive Reading",
+      "tier": "essential",
+      "learn": {
+        "summary": "Extensive reading means large volumes of self-chosen, enjoyable text at roughly 98% comprehension — the level where you learn new words from context instead of a dictionary. Day and Bamford's classic principles: easy material, reader's choice, no comprehension quizzes, quantity above all. Graduate from graded readers to native young-adult fiction, comics, or news, whichever you will actually keep reading.",
+        "links": [
+          {
+            "label": "Extensive reading",
+            "url": "https://en.wikipedia.org/wiki/Extensive_reading",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Set a pages-per-week target (start with 20) and track it for a month, switching books freely whenever one bores you."
+      ]
+    },
+    {
+      "id": "daily-journal",
+      "title": "The Daily Journal",
+      "tier": "essential",
+      "learn": {
+        "summary": "A few sentences a day about your actual life forces retrieval of the vocabulary you personally need most — a perfectly personalized curriculum no textbook can match. Keep entries short and honest; the goal is production under low stakes, not literature. Over months the journal doubles as visible proof of progress: reread your month-one entries and cringe happily.",
+        "links": [
+          {
+            "label": "Writing",
+            "url": "https://en.wikipedia.org/wiki/Writing",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Write 3-5 journal sentences daily for 14 days, marking words you had to look up as new flashcards."
+      ]
+    },
+    {
+      "id": "getting-corrections",
+      "title": "Getting Corrections",
+      "tier": "recommended",
+      "learn": {
+        "summary": "Writing is uniquely correctable: unlike speech, a native speaker can mark up your text precisely and you can study the diff. Bring journal entries to your tutor, or use exchange communities where natives correct learners' texts. The high-value move is the rewrite: after corrections, write the clean version out yourself — passive reading of corrections barely sticks.",
+        "links": [
+          {
+            "label": "Corrective feedback",
+            "url": "https://en.wikipedia.org/wiki/Corrective_feedback",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Get one piece of writing corrected by a native speaker this week, then rewrite it clean and read it aloud twice."
+      ]
+    },
+    {
+      "id": "new-scripts",
+      "title": "Learning a New Script",
+      "tier": "extra",
+      "learn": {
+        "summary": "Alphabets and syllabaries fall fast: Korean Hangul was literally designed for learnability (its 24 letters take most people a weekend), and Japanese kana or Cyrillic take a week or two of daily drills. Character systems like Chinese hanzi are a years-long parallel track best attacked with mnemonics and spaced repetition, learning components (radicals) before whole characters. Either way, learn the script early — romanization is a crutch that warps your pronunciation.",
+        "links": [
+          {
+            "label": "Writing system",
+            "url": "https://en.wikipedia.org/wiki/Writing_system",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "If your language has a new script, drill it 15 minutes daily until you can read 50 real words aloud without romanization."
+      ]
+    }
+  ]
+}

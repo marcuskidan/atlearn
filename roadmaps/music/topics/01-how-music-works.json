@@ -1,0 +1,79 @@
+{
+  "id": "how-music-works",
+  "title": "How Music Works",
+  "tier": "essential",
+  "learn": {
+    "summary": "All music is organized sound: pitch (how high), rhythm (when), and timbre (what it sounds like). Western music tunes A above middle C to 440 Hz and splits every octave into 12 equal semitones. Understanding these three ingredients lets you decode any song you hear.",
+    "links": [
+      {
+        "label": "Music (Wikipedia)",
+        "url": "https://en.wikipedia.org/wiki/Music",
+        "kind": "article"
+      },
+      {
+        "label": "musictheory.net lessons",
+        "url": "https://www.musictheory.net/lessons",
+        "kind": "tool"
+      }
+    ]
+  },
+  "do": [
+    "Pick one song you love and write down three things you hear: the pulse, the melody instrument, and one background layer."
+  ],
+  "children": [
+    {
+      "id": "sound-and-pitch",
+      "title": "Sound & Pitch",
+      "tier": "essential",
+      "learn": {
+        "summary": "Pitch is vibration frequency measured in hertz: concert A is 440 Hz, and doubling any frequency (440 to 880 Hz) produces the same note an octave higher. That octave equivalence is why note names repeat A through G. Low bass notes sit around 40–100 Hz; a soprano's high C is about 1047 Hz.",
+        "links": [
+          {
+            "label": "Pitch (Wikipedia)",
+            "url": "https://en.wikipedia.org/wiki/Pitch_(music)",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Install a free tuner app, hum a steady note, and watch the hertz readout — then hum it an octave higher and confirm the number roughly doubles."
+      ]
+    },
+    {
+      "id": "why-12-notes",
+      "title": "Why 12 Notes",
+      "tier": "extra",
+      "learn": {
+        "summary": "Equal temperament divides the octave into 12 semitones, each multiplying frequency by the 12th root of 2 (about 1.0595). It is a deliberate compromise: pure ratios like 3:2 are slightly bent so that every key sounds equally in tune. This 18th-century trade-off is why a piano can play in all 24 keys without retuning.",
+        "links": [
+          {
+            "label": "Equal temperament (Wikipedia)",
+            "url": "https://en.wikipedia.org/wiki/Equal_temperament",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "On a piano app, play all 12 semitones from C up to B in order, then say each note name aloud — sharps and all."
+      ]
+    },
+    {
+      "id": "active-listening",
+      "title": "Active Listening",
+      "tier": "essential",
+      "learn": {
+        "summary": "Musicians listen in layers, not in a wash. A typical pop track has four: drums, bass, chords (guitar or keys), and melody (voice). Training yourself to isolate one layer at a time is the single fastest ear upgrade available, and it costs nothing.",
+        "links": [
+          {
+            "label": "Ear training (Wikipedia)",
+            "url": "https://en.wikipedia.org/wiki/Ear_training",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Play one song three times today: first time follow only the drums, second only the bassline, third only the melody."
+      ]
+    }
+  ]
+}

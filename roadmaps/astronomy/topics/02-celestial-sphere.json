@@ -1,0 +1,92 @@
+{
+  "id": "celestial-sphere",
+  "title": "The Celestial Sphere",
+  "tier": "essential",
+  "learn": {
+    "summary": "Everything in the sky behaves as if pasted on a giant rotating sphere with Earth at the center — an ancient fiction that remains the working model for every observer. Master its geometry (poles, equator, horizon, meridian) and the sky stops being chaos and becomes a clock and a map at once.",
+    "links": [
+      {
+        "label": "Celestial sphere (Wikipedia)",
+        "url": "https://en.wikipedia.org/wiki/Celestial_sphere",
+        "kind": "article"
+      }
+    ]
+  },
+  "do": [
+    "Face south (north if you're in the southern hemisphere) at the same time two nights in a row and note how a chosen bright star has shifted — you are watching the sphere turn."
+  ],
+  "children": [
+    {
+      "id": "coordinates-ra-dec",
+      "title": "RA & Declination",
+      "tier": "essential",
+      "learn": {
+        "summary": "Right ascension and declination are the sky's longitude and latitude: declination runs -90 to +90 degrees from the celestial equator, while RA is measured in hours (24h = 360 degrees) because the sky is a clock. A star's declination tells you instantly whether it ever rises from your latitude. Every catalog, atlas, and GoTo mount speaks this language.",
+        "links": [
+          {
+            "label": "Equatorial coordinate system (Wikipedia)",
+            "url": "https://en.wikipedia.org/wiki/Equatorial_coordinate_system",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Look up the declination of three stars you know (try Vega, Sirius, Polaris) and predict which ones never set from your latitude, then verify with a planetarium app."
+      ]
+    },
+    {
+      "id": "diurnal-motion",
+      "title": "Diurnal Motion",
+      "tier": "essential",
+      "learn": {
+        "summary": "The sky rotates 15 degrees per hour around the celestial poles — stars rise in the east, arc across the meridian at their highest, and set in the west. Stars also rise about 4 minutes earlier each night, which is why constellations parade through the seasons. This drift is the entire reason equatorial mounts and tracking exist.",
+        "links": [
+          {
+            "label": "Diurnal motion (Wikipedia)",
+            "url": "https://en.wikipedia.org/wiki/Diurnal_motion",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Photograph or sketch the position of one bright star against a rooftop or tree at 9 PM and again at 10 PM; measure the shift in fist-widths (each about 10 degrees)."
+      ]
+    },
+    {
+      "id": "ecliptic-zodiac",
+      "title": "The Ecliptic",
+      "tier": "essential",
+      "learn": {
+        "summary": "The ecliptic is the Sun's apparent yearly path, tilted 23.4 degrees to the celestial equator — and the Moon and planets never wander far from it. That is why planets always appear inside the zodiac constellations and why a lineup of Moon and planets traces a graceful arc across the sky. Learn this line and you can spot a planet at a glance.",
+        "links": [
+          {
+            "label": "Ecliptic (Wikipedia)",
+            "url": "https://en.wikipedia.org/wiki/Ecliptic",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "On the next clear evening, find the Moon and any visible planet and mentally connect them with a smooth arc — you have just traced the ecliptic across your sky."
+      ]
+    },
+    {
+      "id": "magnitude-scale",
+      "title": "Magnitude Scale",
+      "tier": "recommended",
+      "learn": {
+        "summary": "Stellar brightness uses a backwards logarithmic scale: lower numbers are brighter, and 5 magnitudes equals exactly 100x in brightness. Sirius is -1.5, naked-eye limit under dark skies is about +6, binoculars reach roughly +9. Your faintest visible magnitude is the standard way to report sky quality.",
+        "links": [
+          {
+            "label": "Apparent magnitude (Wikipedia)",
+            "url": "https://en.wikipedia.org/wiki/Apparent_magnitude",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Determine your naked-eye limiting magnitude tonight: find the faintest star you can hold steadily in view in a familiar constellation and look up its magnitude."
+      ]
+    }
+  ]
+}

@@ -1,0 +1,98 @@
+{
+  "id": "choose-and-commit",
+  "title": "Choosing & Committing",
+  "tier": "essential",
+  "learn": {
+    "summary": "Most language projects die in month two, not because the language is hard but because the goal was vague. The US Foreign Service Institute (FSI) has timed this for decades: a Category I language like Spanish takes a full-time learner roughly 600-750 class hours to professional proficiency, while Category IV languages like Mandarin or Arabic take about 2200. Pick one language, name a concrete target (e.g. CEFR B1 in 12 months), and write down why it matters to you personally.",
+    "links": [
+      {
+        "label": "FSI language training (state.gov)",
+        "url": "https://www.state.gov/foreign-language-training/",
+        "kind": "article"
+      },
+      {
+        "label": "Second-language acquisition",
+        "url": "https://en.wikipedia.org/wiki/Second-language_acquisition",
+        "kind": "article"
+      }
+    ]
+  },
+  "do": [
+    "Write a one-paragraph commitment note: which language, why, and your 12-month CEFR target. Pin it where you study.",
+    "Block a fixed 30-minute daily slot in your calendar for the next 30 days."
+  ],
+  "children": [
+    {
+      "id": "fsi-difficulty",
+      "title": "FSI Difficulty Categories",
+      "tier": "essential",
+      "learn": {
+        "summary": "FSI sorts languages into four categories by hours-to-proficiency for English speakers: Category I (Spanish, French, Dutch) ~600-750 hours, Category II (German) ~900, Category III (Russian, Hindi, Thai) ~1100, Category IV (Mandarin, Japanese, Korean, Arabic) ~2200. This is not a reason to avoid hard languages; it is a reason to budget honestly. A Category IV language at 30 minutes a day is a multi-year project, and knowing that upfront prevents quitting in disappointment.",
+        "links": [
+          {
+            "label": "Foreign Service Institute",
+            "url": "https://en.wikipedia.org/wiki/Foreign_Service_Institute",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Look up your target language's FSI category, then compute your realistic timeline: category hours divided by your weekly study hours."
+      ]
+    },
+    {
+      "id": "cefr-goalposts",
+      "title": "CEFR Levels as Goalposts",
+      "tier": "essential",
+      "learn": {
+        "summary": "The Common European Framework of Reference defines six levels: A1-A2 (basic), B1-B2 (independent), C1-C2 (proficient). B1 is the famous tipping point: you can handle travel, describe experiences, and hold imperfect but real conversations. Use levels as milestones, not vanity labels — 'B1 by December' is a plannable goal; 'fluent someday' is not.",
+        "links": [
+          {
+            "label": "CEFR",
+            "url": "https://en.wikipedia.org/wiki/Common_European_Framework_of_Reference_for_Languages",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Read the CEFR self-assessment descriptors and write down which level you are targeting for listening, speaking, and reading separately."
+      ]
+    },
+    {
+      "id": "your-why",
+      "title": "Why-Clarity",
+      "tier": "recommended",
+      "learn": {
+        "summary": "Research on second-language motivation (notably Zoltan Dornyei's work on the 'ideal L2 self') shows that learners who can vividly picture themselves using the language persist far longer than those chasing abstract self-improvement. 'Talk to my grandmother in Cantonese' beats 'be smarter' every time. Your why also dictates your syllabus: a heritage speaker, a traveler, and an exam-taker should study very different things.",
+        "links": [
+          {
+            "label": "Second-language acquisition",
+            "url": "https://en.wikipedia.org/wiki/Second-language_acquisition",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Write three specific scenes of future-you using the language (who, where, saying what). Keep the list in your study notebook."
+      ]
+    },
+    {
+      "id": "time-budget",
+      "title": "The Time Budget",
+      "tier": "recommended",
+      "learn": {
+        "summary": "Consistency beats intensity: 30 minutes daily (about 180 hours a year) reliably outperforms a 3-hour Sunday binge, because spaced exposure is how memory consolidates. Treat 'dead time' — commutes, dishes, walks — as listening time, and reserve seated time for the hard work of speaking and study. Track hours, not streaks; hours are the input FSI's numbers are built on.",
+        "links": [
+          {
+            "label": "Spaced repetition",
+            "url": "https://en.wikipedia.org/wiki/Spaced_repetition",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Audit one week: log every study minute in a note, then set a sustainable weekly hour target based on what actually happened."
+      ]
+    }
+  ]
+}

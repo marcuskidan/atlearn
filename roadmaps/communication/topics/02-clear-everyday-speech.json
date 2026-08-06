@@ -1,0 +1,92 @@
+{
+  "id": "clear-everyday-speech",
+  "title": "Clear Everyday Speech",
+  "tier": "essential",
+  "learn": {
+    "summary": "Clarity is a discipline of ordering and cutting: lead with the point, support it, stop. Listeners cannot rewind you the way readers can reread, so spoken structure must be simpler and more signposted than written structure. The most common failure is narrating your thought process chronologically instead of delivering its conclusion.",
+    "links": [
+      {
+        "label": "Plain language (Wikipedia)",
+        "url": "https://en.wikipedia.org/wiki/Plain_language",
+        "kind": "article"
+      }
+    ]
+  },
+  "do": [
+    "Before your next three work messages or updates, write the single-sentence point first, then decide if anything else is truly needed."
+  ],
+  "children": [
+    {
+      "id": "getting-to-the-point",
+      "title": "Getting to the Point",
+      "tier": "essential",
+      "learn": {
+        "summary": "Answer first, background second; most listeners decide within seconds whether to keep paying attention. The consulting world calls this the Pyramid Principle (Barbara Minto): conclusion on top, grouped supporting reasons beneath. If you cannot state your point in one sentence, you have not finished thinking, and talking will not finish it for you.",
+        "links": [
+          {
+            "label": "Barbara Minto (Wikipedia)",
+            "url": "https://en.wikipedia.org/wiki/Barbara_Minto",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "For one week, answer every question you are asked with the direct answer in the first sentence, reasons only if asked or clearly needed."
+      ]
+    },
+    {
+      "id": "bluf",
+      "title": "BLUF",
+      "tier": "essential",
+      "learn": {
+        "summary": "Bottom Line Up Front is the US military's writing and briefing standard: state the conclusion or request in the first line, because the reader may stop anywhere. In practice: 'Recommend we ship Friday. Two reasons...' instead of three paragraphs of context arriving at a buried ask. It works in emails, stand-ups, and voicemails alike.",
+        "links": [
+          {
+            "label": "BLUF (Wikipedia)",
+            "url": "https://en.wikipedia.org/wiki/BLUF_(communication)",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Rewrite your next 5 emails so the request or conclusion is the first sentence; count how much context you deleted."
+      ]
+    },
+    {
+      "id": "filler-words",
+      "title": "Filler Words",
+      "tier": "recommended",
+      "learn": {
+        "summary": "Um, uh, like, and 'you know' are disfluencies that spike under cognitive load, and eliminating them is a core Toastmasters discipline; clubs assign an 'Ah-Counter' who tallies them per speaker. Occasional fillers are normal human speech; density is the problem. The cure is not speed, it is replacing fillers with silent pauses, which listeners read as thoughtfulness.",
+        "links": [
+          {
+            "label": "Filler (linguistics) (Wikipedia)",
+            "url": "https://en.wikipedia.org/wiki/Filler_(linguistics)",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Record yourself explaining your job for 2 minutes on your phone today, count the fillers, and re-record replacing them with pauses."
+      ]
+    },
+    {
+      "id": "concrete-language",
+      "title": "Concrete Language",
+      "tier": "recommended",
+      "learn": {
+        "summary": "Concrete beats abstract for memory and persuasion: 'the release slipped three weeks' outperforms 'we experienced timeline challenges'. Chip and Dan Heath's Made to Stick identifies concreteness as a core property of ideas that survive retelling. Numbers, names, and sensory nouns are your levers; abstractions are where meaning goes to hide.",
+        "links": [
+          {
+            "label": "Made to Stick (Wikipedia)",
+            "url": "https://en.wikipedia.org/wiki/Made_to_Stick",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Catch yourself using one vague phrase per day this week (soon, some issues, a lot) and immediately restate it with a number or specific."
+      ]
+    }
+  ]
+}

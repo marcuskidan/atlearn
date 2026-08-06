@@ -1,0 +1,92 @@
+{
+  "id": "emotions-in-practice",
+  "title": "Emotions in Practice",
+  "tier": "essential",
+  "learn": {
+    "summary": "Sooner or later a sit stops being about breath and becomes about grief, anger, or dread; this is a feature, not a malfunction. The mindful move is neither suppression nor wallowing but feeling the emotion as body sensation with some breathing room around it. Emotion research (James Gross) shows suppression tends to backfire physiologically, while acceptance-based strategies fare better.",
+    "links": [
+      {
+        "label": "Emotional self-regulation (Wikipedia)",
+        "url": "https://en.wikipedia.org/wiki/Emotional_self-regulation",
+        "kind": "article"
+      }
+    ]
+  },
+  "do": [
+    "Next time a strong emotion hits this week, pause 60 seconds and locate it in your body (chest, throat, gut) before doing anything about it."
+  ],
+  "children": [
+    {
+      "id": "rain-technique",
+      "title": "RAIN Technique",
+      "tier": "essential",
+      "learn": {
+        "summary": "RAIN, coined by teacher Michele McDonald and popularized by Tara Brach, structures work with difficult emotion: Recognize what is here, Allow it to be here, Investigate it in the body with curiosity, Nurture (or Non-identification in the older version). It converts a vague bad mood into a workable four-step procedure. Investigate means felt sensation, not analyzing why you feel this way.",
+        "links": [
+          {
+            "label": "Tara Brach (Wikipedia)",
+            "url": "https://en.wikipedia.org/wiki/Tara_Brach",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Write the four RAIN steps on a card today and run the full sequence once on a real emotion this week, 2 minutes minimum."
+      ]
+    },
+    {
+      "id": "difficult-emotions",
+      "title": "Working With Difficulty",
+      "tier": "essential",
+      "learn": {
+        "summary": "The standard approach is titration: touch the difficult feeling briefly, return to a neutral anchor like breath or feet, and repeat, expanding contact as capacity grows. Naming helps; affect-labeling studies (Matthew Lieberman, UCLA) show that putting feelings into words dampens amygdala response. If an emotion is overwhelming rather than merely unpleasant, stopping the sit is a valid and sometimes correct move.",
+        "links": [
+          {
+            "label": "Affect labeling (Wikipedia)",
+            "url": "https://en.wikipedia.org/wiki/Affect_labeling",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "In one sit this week, when something unpleasant arises, alternate 3 breaths with the feeling and 3 breaths at the anchor, twice through."
+      ]
+    },
+    {
+      "id": "urge-surfing",
+      "title": "Urge Surfing",
+      "tier": "recommended",
+      "learn": {
+        "summary": "Urge surfing, developed by addiction researcher G. Alan Marlatt, treats a craving as a wave: it rises, peaks, and passes within minutes if you ride it with attention instead of feeding or fighting it. It is a core tool in mindfulness-based relapse prevention. Works on cigarettes, snacks, and the urge to check your phone mid-meditation.",
+        "links": [
+          {
+            "label": "G. Alan Marlatt (Wikipedia)",
+            "url": "https://en.wikipedia.org/wiki/G._Alan_Marlatt",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Pick one habitual urge (phone check, snack) and surf it 3 times this week: watch it for 2 timed minutes before deciding whether to act."
+      ]
+    },
+    {
+      "id": "equanimity-vs-suppression",
+      "title": "Equanimity vs Suppression",
+      "tier": "extra",
+      "learn": {
+        "summary": "Equanimity is full contact with experience minus the compulsive push-pull; suppression is refusing contact and calling it calm. The behavioral test: suppression leaks (tension, snappishness, rebound thoughts) while equanimity leaves you responsive. Gross's research on expressive suppression shows it raises sympathetic arousal even as the face stays neutral, the opposite of what practice is for.",
+        "links": [
+          {
+            "label": "Equanimity (Wikipedia)",
+            "url": "https://en.wikipedia.org/wiki/Equanimity",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Once this week when you feel 'fine' after a stressful event, do a 2-minute body check for jaw, shoulder, and gut tension, and name what you find."
+      ]
+    }
+  ]
+}

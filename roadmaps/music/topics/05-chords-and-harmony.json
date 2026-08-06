@@ -1,0 +1,74 @@
+{
+  "id": "chords-and-harmony",
+  "title": "Chords & Harmony",
+  "tier": "essential",
+  "learn": {
+    "summary": "Harmony is intervals stacked into chords, and chords moving in progressions are the engine under every song. A huge share of popular music runs on just four chords from one key. Learn to build triads and hear progressions and you can accompany, write, and decode songs for life.",
+    "links": [
+      {
+        "label": "Harmony (Wikipedia)",
+        "url": "https://en.wikipedia.org/wiki/Harmony",
+        "kind": "article"
+      }
+    ]
+  },
+  "do": [
+    "Look up the chords to one song you love and count how many distinct chords it actually uses — most people are shocked it is three or four."
+  ],
+  "children": [
+    {
+      "id": "triads",
+      "title": "Triads",
+      "tier": "essential",
+      "learn": {
+        "summary": "A triad stacks two thirds: root, third, fifth. Major = 4 then 3 semitones (C-E-G); minor = 3 then 4 (C-Eb-G); diminished = 3 then 3. That single semitone swap between major and minor is the biggest emotional switch in music.",
+        "links": [
+          {
+            "label": "Triad (music) (Wikipedia)",
+            "url": "https://en.wikipedia.org/wiki/Triad_(music)",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Build C, F, G major and A, D, E minor triads on a piano app — play each and say its notes aloud, twice through."
+      ]
+    },
+    {
+      "id": "pop-progression-engine",
+      "title": "The I-V-vi-IV Engine",
+      "tier": "essential",
+      "learn": {
+        "summary": "In C major: C-G-Am-F. This one loop (and its rotation vi-IV-I-V) drives hundreds of hits — Let It Be, Don't Stop Believin', With or Without You. The Roman numerals mean it transposes anywhere: uppercase for major chords, lowercase for minor. Learn it in one key and you have learned it in twelve.",
+        "links": [
+          {
+            "label": "I–V–vi–IV progression (Wikipedia)",
+            "url": "https://en.wikipedia.org/wiki/I%E2%80%93V%E2%80%93vi%E2%80%93IV_progression",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Play or hum the C-G-Am-F loop, then sing the chorus of any pop song over it — find two songs this week that fit."
+      ]
+    },
+    {
+      "id": "hearing-chord-changes",
+      "title": "Hearing Chord Changes",
+      "tier": "essential",
+      "learn": {
+        "summary": "Start by hearing when the chord changes, not which chord it becomes — most pop changes land on bar lines. Then track the bass note: the bassist almost always plays the root. Home-versus-away is the first distinction: the I chord feels settled, everything else feels in motion.",
+        "links": [
+          {
+            "label": "Chord progression (Wikipedia)",
+            "url": "https://en.wikipedia.org/wiki/Chord_progression",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Play a simple song and raise your hand every time the chord changes — check your hits against the chord sheet afterward."
+      ]
+    }
+  ]
+}

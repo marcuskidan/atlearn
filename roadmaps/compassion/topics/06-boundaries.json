@@ -1,0 +1,92 @@
+{
+  "id": "boundaries",
+  "title": "Compassionate Boundaries",
+  "tier": "essential",
+  "learn": {
+    "summary": "Boundaries are not the opposite of compassion; they are its infrastructure. Brené Brown's research finding: the most compassionate people are also the most boundaried, because clarity about what is okay prevents the resentment that curdles care. A boundary states what you will do ('I will leave if there is yelling'), not what the other person must do.",
+    "links": [
+      {
+        "label": "Personal boundaries (Wikipedia)",
+        "url": "https://en.wikipedia.org/wiki/Personal_boundaries",
+        "kind": "article"
+      }
+    ]
+  },
+  "do": [
+    "Identify one commitment you resent. Decide this week: renegotiate it, drop it, or consciously re-choose it — and tell the relevant person."
+  ],
+  "children": [
+    {
+      "id": "kind-refusals",
+      "title": "Kind Refusals",
+      "tier": "essential",
+      "learn": {
+        "summary": "A compassionate 'no' is warm, brief, and unpadded: acknowledge the request, decline clearly, skip the essay of excuses (long justifications invite negotiation and read as guilt). Formula: appreciation + clear no + optional alternative. 'Thanks for thinking of me — I cannot take this on. Have you asked Dana?' Saying no to one thing is saying yes to whatever you were protecting.",
+        "links": [
+          {
+            "label": "Assertiveness (Wikipedia)",
+            "url": "https://en.wikipedia.org/wiki/Assertiveness",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Decline one real request this week using the three-part formula, with no more than one sentence of explanation."
+      ]
+    },
+    {
+      "id": "resentment-as-signal",
+      "title": "Resentment as Signal",
+      "tier": "essential",
+      "learn": {
+        "summary": "Resentment is diagnostic gold: it almost always marks a boundary you failed to set, an over-give you did not want to give, or a 'yes' that should have been a 'no.' Instead of judging the resentment, interrogate it — what did I agree to that I did not truly agree to? Chronic helpers often discover their generosity was partly unspoken contract-making.",
+        "links": [
+          {
+            "label": "Resentment (Wikipedia)",
+            "url": "https://en.wikipedia.org/wiki/Resentment",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "List the three things you currently resent most. For each, write the boundary that, had you set it, would have prevented the resentment."
+      ]
+    },
+    {
+      "id": "sustainable-caring",
+      "title": "Sustainable Caring",
+      "tier": "recommended",
+      "learn": {
+        "summary": "Caregiving research is blunt: helpers who do not recover stop helping, or help badly. The airline-oxygen-mask cliché is physiologically accurate — empathic distress without self-regulation predicts burnout, while compassion with boundaries predicts longevity in caring roles. Schedule recovery like you schedule the caring; goodwill is a renewable resource only if you renew it.",
+        "links": [
+          {
+            "label": "Caregiver burden (Wikipedia)",
+            "url": "https://en.wikipedia.org/wiki/Caregiver_burden",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "If you are in any sustained caring role, block one non-negotiable recovery hour in your calendar this week and treat it like a medical appointment."
+      ]
+    },
+    {
+      "id": "guilt-vs-harm",
+      "title": "Guilt vs Harm",
+      "tier": "extra",
+      "learn": {
+        "summary": "A crucial distinction for chronic over-givers: someone being disappointed by your boundary is not the same as you harming them. Guilt after a healthy 'no' is often just withdrawal symptoms from people-pleasing, and it fades with repetition. The test question: did I violate my values, or just someone's preferences?",
+        "links": [
+          {
+            "label": "Guilt (emotion) (Wikipedia)",
+            "url": "https://en.wikipedia.org/wiki/Guilt_(emotion)",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Next time you feel guilty after declining something, write one sentence answering: 'Which of my actual values did I violate?' If the answer is none, label it withdrawal, not wrongdoing."
+      ]
+    }
+  ]
+}

@@ -1,0 +1,92 @@
+{
+  "id": "garden-design",
+  "title": "Garden Design",
+  "tier": "essential",
+  "learn": {
+    "summary": "Good design is mostly logistics: put the garden where you see it daily (you tend what you see), near a water source, in your best sun. Start smaller than you think — a well-tended 4x8 bed outproduces a neglected quarter acre. Layout choices (raised beds, containers, vertical supports) are tools matched to your space and soil, not ideology.",
+    "links": [
+      {
+        "label": "Kitchen garden (Wikipedia)",
+        "url": "https://en.wikipedia.org/wiki/Kitchen_garden",
+        "kind": "article"
+      }
+    ]
+  },
+  "do": [
+    "Draw your garden to scale on graph paper (1 square = 1 foot), placing beds within 50 feet of a spigot and along a path you walk daily"
+  ],
+  "children": [
+    {
+      "id": "companion-planting",
+      "title": "Companion Planting",
+      "tier": "extra",
+      "learn": {
+        "summary": "Some pairings have real mechanisms: flowers interplanted among vegetables draw pollinators and pest-eating insects, tall crops shade heat-hating lettuce, and legumes fix nitrogen. Much classic companion lore (carrots love tomatoes) is folklore with weak evidence, so treat charts skeptically. The reliably supported move is simply diversity — mixed plantings confuse pests better than monoculture rows.",
+        "links": [
+          {
+            "label": "Companion planting (Wikipedia)",
+            "url": "https://en.wikipedia.org/wiki/Companion_planting",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Interplant a flower with known insectary value — sweet alyssum, calendula, or marigold — every 3-4 feet through one vegetable bed"
+      ]
+    },
+    {
+      "id": "raised-beds-vs-inground",
+      "title": "Raised Beds vs In-Ground",
+      "tier": "essential",
+      "learn": {
+        "summary": "Raised beds give you controlled soil, faster spring warm-up, better drainage, and no compaction from foot traffic — build them no wider than 4 feet so you can reach the center. In-ground rows are far cheaper and hold moisture better in hot climates. Choose raised beds for bad or contaminated soil and tidy small spaces; in-ground for scale and low budget.",
+        "links": [
+          {
+            "label": "Raised-bed gardening (Wikipedia)",
+            "url": "https://en.wikipedia.org/wiki/Raised-bed_gardening",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Price out one 4x8-foot raised bed (lumber plus about 21 cubic feet of soil mix) against sheet-mulching the same footprint in-ground, and pick one to build this month"
+      ]
+    },
+    {
+      "id": "containers",
+      "title": "Container Growing",
+      "tier": "recommended",
+      "learn": {
+        "summary": "Containers grow real food on balconies and patios, but they dry out fast and leach nutrients with every watering — expect to water daily in summer heat and feed every 2-3 weeks. Bigger is easier: a 5-gallon container is the minimum for a tomato or pepper; herbs and lettuce manage in 1-2 gallons. Every pot must have drainage holes; use potting mix, never garden soil.",
+        "links": [
+          {
+            "label": "Container garden (Wikipedia)",
+            "url": "https://en.wikipedia.org/wiki/Container_garden",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Plant one 5-gallon container (bucket with drilled holes works) with a pepper, cherry tomato, or herb trio in fresh potting mix"
+      ]
+    },
+    {
+      "id": "vertical-growing",
+      "title": "Vertical Growing",
+      "tier": "extra",
+      "learn": {
+        "summary": "Trellised vines — pole beans, cucumbers, peas, indeterminate tomatoes — can triple production per square foot while improving airflow and keeping fruit clean and visible. A cattle-panel arch or netted A-frame handles most crops; heavy fruits like small melons need slings. Place trellises on the north side of beds so they do not shade shorter neighbors.",
+        "links": [
+          {
+            "label": "Trellis (architecture) (Wikipedia)",
+            "url": "https://en.wikipedia.org/wiki/Trellis_(architecture)",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Install one trellis (bamboo teepee, netting, or cattle panel) on the north edge of a bed and sow pole beans or cucumbers at its base"
+      ]
+    }
+  ]
+}

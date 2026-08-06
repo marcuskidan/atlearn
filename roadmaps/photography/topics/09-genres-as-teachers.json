@@ -1,0 +1,97 @@
+{
+  "id": "genres-as-teachers",
+  "title": "Genres as Teachers",
+  "tier": "recommended",
+  "learn": {
+    "summary": "Each genre is a masterclass in one skill: street teaches timing, portraiture teaches people and light, landscape teaches patience and planning, macro teaches pure seeing. Rotating through them builds a complete photographer faster than staying comfortable in one. Your phone handles all four.",
+    "links": [
+      {
+        "label": "Photography (Wikipedia)",
+        "url": "https://en.wikipedia.org/wiki/Photography",
+        "kind": "article"
+      }
+    ]
+  },
+  "do": [
+    "Pick the genre that intimidates you most and give it one dedicated 30-minute session this week."
+  ],
+  "children": [
+    {
+      "id": "street-photography",
+      "title": "Street",
+      "tier": "essential",
+      "learn": {
+        "summary": "Street photography teaches anticipation — Henri Cartier-Bresson's \"decisive moment\" is the instant when geometry and life align, and it rewards those already in position. Work a promising background and wait for the right passerby to enter it. A phone is the ideal street camera: silent, unthreatening, always present.",
+        "links": [
+          {
+            "label": "Street photography (Wikipedia)",
+            "url": "https://en.wikipedia.org/wiki/Street_photography",
+            "kind": "article"
+          },
+          {
+            "label": "Henri Cartier-Bresson (Wikipedia)",
+            "url": "https://en.wikipedia.org/wiki/Henri_Cartier-Bresson",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Find one strong background in your town this week, stand still for ten minutes, and photograph the moments people bring to it."
+      ]
+    },
+    {
+      "id": "portrait-photography",
+      "title": "Portrait",
+      "tier": "essential",
+      "learn": {
+        "summary": "Portraits teach light and rapport in equal measure: window light at 45 degrees, subject's near eye sharp, background quiet. The technical half is learnable in a week; the human half — making someone comfortable enough to look like themselves — is the lifetime skill. Talk more than you shoot.",
+        "links": [
+          {
+            "label": "Portrait photography (Wikipedia)",
+            "url": "https://en.wikipedia.org/wiki/Portrait_photography",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Make a window-light portrait of a friend or family member this week: seat them at 45 degrees to the window, focus on the near eye, take 20 frames, gift them the best."
+      ]
+    },
+    {
+      "id": "landscape-photography",
+      "title": "Landscape",
+      "tier": "recommended",
+      "learn": {
+        "summary": "Landscape teaches planning and patience: the photo is decided by when you arrive (golden hour, weather fronts) and where you stand, long before the shutter opens. Classic craft: foreground interest anchors the frame, f/8–f/11 keeps it deep, and the horizon obeys the thirds. The genre's dirty secret is that it is mostly walking and waiting.",
+        "links": [
+          {
+            "label": "Landscape photography (Wikipedia)",
+            "url": "https://en.wikipedia.org/wiki/Landscape_photography",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Scout one local viewpoint in daylight, then return at golden hour this week with a foreground object already chosen — shoot ten deliberate frames."
+      ]
+    },
+    {
+      "id": "macro-and-detail",
+      "title": "Macro & Detail",
+      "tier": "extra",
+      "learn": {
+        "summary": "Macro shrinks the world to textures, droplets, and insect geographies, and it retrains the eye to find photographs within arm's reach — a kitchen table becomes a landscape. Depth of field at close range is millimeters, so focus becomes surgical. Phone macro modes and cheap clip-on lenses put the genre within anyone's budget.",
+        "links": [
+          {
+            "label": "Macro photography (Wikipedia)",
+            "url": "https://en.wikipedia.org/wiki/Macro_photography",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Spend 20 minutes photographing only things smaller than your thumb — at home or in a garden — and keep your five best textures."
+      ]
+    }
+  ]
+}

@@ -1,0 +1,92 @@
+{
+  "id": "listening",
+  "title": "The Art of Listening",
+  "tier": "essential",
+  "learn": {
+    "summary": "Carl Rogers argued that being deeply heard is itself therapeutic — no advice required. Active listening (a term from Rogers and Richard Farson) means attending, reflecting, and checking understanding rather than waiting for your turn to talk. It is the single highest-leverage compassion skill because you can use it in every conversation you will ever have.",
+    "links": [
+      {
+        "label": "Active listening (Wikipedia)",
+        "url": "https://en.wikipedia.org/wiki/Active_listening",
+        "kind": "article"
+      }
+    ]
+  },
+  "do": [
+    "In your next three conversations, paraphrase what the other person said before adding anything of your own."
+  ],
+  "children": [
+    {
+      "id": "open-questions",
+      "title": "Open Questions",
+      "tier": "essential",
+      "learn": {
+        "summary": "Closed questions ('Did that annoy you?') confirm your hypothesis; open questions ('What was that like?') let the speaker lead. Motivational interviewing, coaching, and journalism all converge on the same ratio: mostly open questions, sparingly used. 'What' and 'how' openers outperform 'why', which tends to trigger defensiveness.",
+        "links": [
+          {
+            "label": "Closed-ended question (Wikipedia)",
+            "url": "https://en.wikipedia.org/wiki/Closed-ended_question",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Today, replace one advice-giving moment with a single open question — 'What have you already tried?' or 'What matters most to you here?'"
+      ]
+    },
+    {
+      "id": "reflecting-back",
+      "title": "Reflecting Back",
+      "tier": "essential",
+      "learn": {
+        "summary": "Reflection means restating the speaker's meaning or feeling in your own words: 'So you felt blindsided when the plan changed.' Done well it does two jobs at once — it proves you listened and it lets the speaker hear their own thought and correct it. Aim to reflect feeling, not just content; that is where the connection happens.",
+        "links": [
+          {
+            "label": "Reflective listening (Wikipedia)",
+            "url": "https://en.wikipedia.org/wiki/Reflective_listening",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "In one emotionally loaded conversation this week, reflect the feeling you hear ('sounds like that was exhausting') and watch what happens next."
+      ]
+    },
+    {
+      "id": "resist-fixing",
+      "title": "Resist Fixing",
+      "tier": "essential",
+      "learn": {
+        "summary": "Rosenberg called premature advice, reassurance, and one-upping ('that happened to me too!') empathy blockers — they shift focus from the speaker to you. Most people telling you a problem want to be understood first and advised later, if at all. A useful default: do not offer solutions until asked, or until you have asked 'do you want ideas or just an ear?'",
+        "links": [
+          {
+            "label": "Nonviolent Communication (Wikipedia)",
+            "url": "https://en.wikipedia.org/wiki/Nonviolent_Communication",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Next time someone vents to you, ask 'do you want suggestions, or do you just need to vent?' before offering anything."
+      ]
+    },
+    {
+      "id": "comfortable-silence",
+      "title": "Comfortable Silence",
+      "tier": "extra",
+      "learn": {
+        "summary": "Skilled listeners tolerate pauses that amateurs rush to fill. Therapists and hostage negotiators alike use 3–5 seconds of silence after someone speaks, because the most honest material often comes in the second wave. Silence signals 'I am not in a hurry to get past your feelings.'",
+        "links": [
+          {
+            "label": "Active listening (Wikipedia)",
+            "url": "https://en.wikipedia.org/wiki/Active_listening",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "In one conversation this week, count a slow three seconds after the other person stops talking before you respond. Note what they add."
+      ]
+    }
+  ]
+}

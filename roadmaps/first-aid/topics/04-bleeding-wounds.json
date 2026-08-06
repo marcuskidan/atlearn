@@ -1,0 +1,97 @@
+{
+  "id": "bleeding-wounds",
+  "title": "Bleeding & Wounds",
+  "tier": "essential",
+  "learn": {
+    "summary": "Uncontrolled bleeding can kill in as little as 5 minutes — faster than most ambulances arrive — which is why bystander bleeding control is taught as a public skill through the national Stop the Bleed program. The core answer to almost all bleeding is unglamorous: direct, firm, continuous pressure. Call 911 first for anything spurting, pooling, or soaking through cloth.",
+    "links": [
+      {
+        "label": "Stop the Bleed",
+        "url": "https://www.stopthebleed.org",
+        "kind": "article"
+      }
+    ]
+  },
+  "do": [
+    "Check whether your first-aid kit contains gauze pads and gloves today; add them to your shopping list if not."
+  ],
+  "children": [
+    {
+      "id": "direct-pressure",
+      "title": "Direct Pressure",
+      "tier": "essential",
+      "learn": {
+        "summary": "Press hard on the wound with gauze or the cleanest cloth available and do not let go — the classic error is lifting to peek, which tears forming clots. If blood soaks through, add layers on top rather than removing the soaked ones, and keep pressing until help arrives. Gloves or a plastic bag protect you from bloodborne pathogens; use them when available.",
+        "links": [
+          {
+            "label": "Bleeding — Wikipedia",
+            "url": "https://en.wikipedia.org/wiki/Bleeding",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Practice once on yourself: press two fingers on your forearm hard enough to blanch the skin and hold for a full 60 seconds — that sustained pressure is the skill."
+      ]
+    },
+    {
+      "id": "wound-cleaning",
+      "title": "Wound Cleaning",
+      "tier": "essential",
+      "learn": {
+        "summary": "For minor cuts and scrapes: rinse under clean running water for 5+ minutes to flush debris, wash around the wound with mild soap, pat dry, apply a thin layer of petroleum jelly or antibiotic ointment, and cover. Skip hydrogen peroxide and alcohol in the wound itself — they damage healing tissue. Watch for infection over the next days: spreading redness, warmth, pus, or fever.",
+        "links": [
+          {
+            "label": "Wound — Wikipedia",
+            "url": "https://en.wikipedia.org/wiki/Wound",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Check that your home has the minor-wound trio in one place: mild soap, petroleum jelly or antibiotic ointment, and adhesive bandages in two sizes."
+      ]
+    },
+    {
+      "id": "when-stitches-needed",
+      "title": "When Stitches Are Needed",
+      "tier": "recommended",
+      "learn": {
+        "summary": "Seek closure care (usually within 6–12 hours, before bacteria settle in) if a cut is deeper than about a quarter inch, gapes open when relaxed, exposes fat or muscle, sits over a joint, is on the face, or won't stop bleeding after 10–15 minutes of direct pressure. Animal and human bites, and wounds with embedded debris, always warrant medical evaluation. Also check tetanus status: boosters are due every 10 years, or 5 for dirty wounds.",
+        "links": [
+          {
+            "label": "Surgical suture — Wikipedia",
+            "url": "https://en.wikipedia.org/wiki/Surgical_suture",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Find out the date of your last tetanus booster this week (check records or ask your doctor's office) — if it's over 10 years, book one."
+      ]
+    },
+    {
+      "id": "tourniquets-awareness",
+      "title": "Tourniquets Awareness",
+      "tier": "extra",
+      "learn": {
+        "summary": "For life-threatening limb bleeding that pressure can't control, modern practice endorses tourniquets: applied 2–3 inches above the wound (never on a joint), tightened until bleeding stops, with the application time written down. Commercial windlass models like the CAT are what courses teach; improvised belts usually fail. The free 90-minute Stop the Bleed course lets you practice on trainers — the awareness here is a reason to take it, not a license to skip it.",
+        "links": [
+          {
+            "label": "Tourniquet — Wikipedia",
+            "url": "https://en.wikipedia.org/wiki/Tourniquet",
+            "kind": "article"
+          },
+          {
+            "label": "Stop the Bleed course finder",
+            "url": "https://www.stopthebleed.org",
+            "kind": "tool"
+          }
+        ]
+      },
+      "do": [
+        "Search stopthebleed.org for a free course near you and put a date on your calendar to attend one this quarter."
+      ]
+    }
+  ]
+}

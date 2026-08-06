@@ -1,0 +1,92 @@
+{
+  "id": "first-principles",
+  "title": "First Principles",
+  "tier": "essential",
+  "learn": {
+    "summary": "Every emergency follows the same opening moves: check the scene is safe, check the person, call 911 (or your local emergency number). This roadmap builds awareness — it is not a substitute for a certified in-person course, and in any real emergency, calling emergency services comes before anything you remember from an app.",
+    "links": [
+      {
+        "label": "First aid — Wikipedia",
+        "url": "https://en.wikipedia.org/wiki/First_aid",
+        "kind": "article"
+      }
+    ]
+  },
+  "do": [
+    "Memorize the sequence 'Check, Call, Care' and say it aloud to someone in your household today, with one example of each step."
+  ],
+  "children": [
+    {
+      "id": "scene-safety",
+      "title": "Scene Safety",
+      "tier": "essential",
+      "learn": {
+        "summary": "Rescuers who rush in become second victims — traffic, live wires, fire, gas, and water kill helpers every year. The rule taught in every course: pause for 3 seconds, scan for what caused the injury and whether it can hurt you, and do not enter a scene you can't safely leave. A dead rescuer helps no one.",
+        "links": [
+          {
+            "label": "First aid — Wikipedia",
+            "url": "https://en.wikipedia.org/wiki/First_aid",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Next time you pass any minor incident (fender-bender, someone tripping), silently run the scan: what caused it, is it still a danger, where's my exit."
+      ]
+    },
+    {
+      "id": "calling-911",
+      "title": "Calling 911 Effectively",
+      "tier": "essential",
+      "learn": {
+        "summary": "Dispatchers need three things fast: exact location, what happened, and how many people are hurt — location first, because help can start rolling while you talk. Put your phone on speaker so your hands stay free, answer questions calmly, and never hang up until told to. Many dispatchers can coach you through CPR in real time.",
+        "links": [
+          {
+            "label": "9-1-1 — Wikipedia",
+            "url": "https://en.wikipedia.org/wiki/9-1-1",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Check today that your phone's emergency/medical ID is filled in (lock-screen accessible), and learn your home's exact address format including cross-street."
+      ]
+    },
+    {
+      "id": "good-samaritan-laws",
+      "title": "Good Samaritan Laws",
+      "tier": "recommended",
+      "learn": {
+        "summary": "All 50 US states have Good Samaritan laws protecting people who give reasonable, good-faith emergency help from civil liability — fear of being sued should never stop you from calling 911 or giving aid. Protections vary by state (some cover only trained responders for certain acts), and they don't cover gross negligence. Know your own state's version.",
+        "links": [
+          {
+            "label": "Good Samaritan law — Wikipedia",
+            "url": "https://en.wikipedia.org/wiki/Good_Samaritan_law",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Spend 10 minutes this week reading a summary of your own state or country's Good Samaritan law and note one thing that surprised you."
+      ]
+    },
+    {
+      "id": "consent",
+      "title": "Consent to Help",
+      "tier": "recommended",
+      "learn": {
+        "summary": "Before touching a responsive adult, ask: 'I know first aid — can I help you?' They have the right to refuse. If someone is unresponsive, consent is legally implied; for children, seek a parent or guardian's permission if one is present, but don't delay care in a life threat. Announcing yourself also calms the person and bystanders.",
+        "links": [
+          {
+            "label": "Informed consent — Wikipedia",
+            "url": "https://en.wikipedia.org/wiki/Informed_consent",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Practice the phrase 'My name is ___, I know first aid, may I help you?' out loud 3 times so it's automatic under stress."
+      ]
+    }
+  ]
+}

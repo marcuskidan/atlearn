@@ -1,0 +1,97 @@
+{
+  "id": "ear-training",
+  "title": "Ear Training",
+  "tier": "essential",
+  "learn": {
+    "summary": "Ear training converts theory into perception: hearing intervals, chords, and melodies as clearly as you see colors. It responds to short daily reps, not weekend marathons — ten focused minutes a day beats an hour on Sunday. Every ABRSM grade has an aural component because the ear is the instrument behind the instrument.",
+    "links": [
+      {
+        "label": "Ear training (Wikipedia)",
+        "url": "https://en.wikipedia.org/wiki/Ear_training",
+        "kind": "article"
+      },
+      {
+        "label": "musictheory.net exercises",
+        "url": "https://www.musictheory.net/exercises",
+        "kind": "tool"
+      }
+    ]
+  },
+  "do": [
+    "Schedule a repeating 10-minute daily ear-training slot on your phone calendar for this week — attach it to an existing habit like morning coffee."
+  ],
+  "children": [
+    {
+      "id": "interval-drill-routine",
+      "title": "Interval Drills",
+      "tier": "essential",
+      "learn": {
+        "summary": "Drill a small set until it is automatic before expanding: start with ascending major 2nd, major 3rd, perfect 5th, and octave only. Add minor 3rd and perfect 4th when you hit 90 percent accuracy, then descending forms. Always sing the interval back before answering — guessing without singing trains nothing.",
+        "links": [
+          {
+            "label": "musictheory.net exercises",
+            "url": "https://www.musictheory.net/exercises",
+            "kind": "tool"
+          }
+        ]
+      },
+      "do": [
+        "Do 20 questions on the interval ear trainer today with just four intervals enabled — record your percentage and beat it tomorrow."
+      ]
+    },
+    {
+      "id": "melodic-dictation",
+      "title": "Melodic Dictation",
+      "tier": "extra",
+      "learn": {
+        "summary": "Dictation — hearing a phrase and writing it down — is the ear's final exam, and conservatories drill it for years. Start absurdly small: three-note phrases within a five-note range. Get the rhythm first on one line, then the pitches; trying both at once is how beginners drown.",
+        "links": [
+          {
+            "label": "Ear training (Wikipedia)",
+            "url": "https://en.wikipedia.org/wiki/Ear_training",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Have a friend (or an app) play three-note phrases starting on C; sing each back, then name the notes — ten phrases counts as one session."
+      ]
+    },
+    {
+      "id": "playing-by-ear",
+      "title": "Playing by Ear",
+      "tier": "recommended",
+      "learn": {
+        "summary": "Picking out tunes by ear is a learnable craft, not a gift: find the first note by trial, decide if each next note goes up or down, then by step or leap. Nursery rhymes are the standard starting repertoire because you know them perfectly, which lets your ear correct your fingers.",
+        "links": [
+          {
+            "label": "Playing by ear (Wikipedia)",
+            "url": "https://en.wikipedia.org/wiki/Playing_by_ear",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Pick out Happy Birthday and Mary Had a Little Lamb by ear on any instrument or piano app this week — no sheet music allowed."
+      ]
+    },
+    {
+      "id": "singing-in-tune",
+      "title": "Singing in Tune",
+      "tier": "essential",
+      "learn": {
+        "summary": "Matching pitch is audiation made audible: true tone-deafness (amusia) affects only about 4 percent of people, so the rest of us are just untrained. The core loop is play a note, sing it, check with a tuner, adjust. Sliding up to the note and then locking on is a legitimate beginner technique.",
+        "links": [
+          {
+            "label": "Intonation (music) (Wikipedia)",
+            "url": "https://en.wikipedia.org/wiki/Intonation_(music)",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Spend five minutes with a tuner app: play a note in your comfortable range, sing it, and hold it in tune for four seconds — ten notes per day."
+      ]
+    }
+  ]
+}

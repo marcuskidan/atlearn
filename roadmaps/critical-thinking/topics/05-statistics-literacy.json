@@ -1,0 +1,120 @@
+{
+  "id": "statistics-literacy",
+  "title": "Statistics Literacy",
+  "tier": "essential",
+  "learn": {
+    "summary": "You don't need to run statistics to read them defensively — Bergstrom and West's 'Calling Bullshit' course at the University of Washington is built on exactly that premise. Most statistical deception happens before the math: in what was measured, who was sampled, and what got left out. The core questions: who counted, what did they count, and compared to what?",
+    "links": [
+      {
+        "label": "Wikipedia: Calling Bullshit",
+        "url": "https://en.wikipedia.org/wiki/Misuse_of_statistics",
+        "kind": "article"
+      },
+      {
+        "label": "Wikipedia: Misuse of statistics",
+        "url": "https://en.wikipedia.org/wiki/Misuse_of_statistics",
+        "kind": "article"
+      }
+    ]
+  },
+  "do": [
+    "Find one statistic in the news this week and trace it to its original source; note whether the headline matches what was actually measured."
+  ],
+  "children": [
+    {
+      "id": "correlation-vs-causation",
+      "title": "Correlation vs Causation",
+      "tier": "essential",
+      "learn": {
+        "summary": "Two things moving together has at least four explanations: A causes B, B causes A, a third factor C causes both, or coincidence. Ice cream sales correlate with drownings because summer causes both — the classic confounder. Randomized experiments exist precisely because they're the cleanest way to isolate causation; observational headlines ('coffee linked to longevity') almost never justify causal language.",
+        "links": [
+          {
+            "label": "Wikipedia: Correlation does not imply causation",
+            "url": "https://en.wikipedia.org/wiki/Correlation_does_not_imply_causation",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Take one 'X linked to Y' headline and write down all four possible explanations (A→B, B→A, confounder, coincidence) with a plausible story for each."
+      ]
+    },
+    {
+      "id": "selection-bias",
+      "title": "Selection Bias",
+      "tier": "essential",
+      "learn": {
+        "summary": "If the sample isn't representative, the statistics are decoration. The 1936 Literary Digest poll surveyed 2.4 million people and still called the election catastrophically wrong, because its sample skewed wealthy. Online reviews, Twitter polls, and 'people I know' all suffer the same disease: the people who show up differ systematically from the people who don't.",
+        "links": [
+          {
+            "label": "Wikipedia: Selection bias",
+            "url": "https://en.wikipedia.org/wiki/Selection_bias",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "For one survey or review score you rely on this week, write down who was likely included, who was left out, and which direction that skews the result."
+      ]
+    },
+    {
+      "id": "survivorship-bias",
+      "title": "Survivorship Bias",
+      "tier": "recommended",
+      "learn": {
+        "summary": "Abraham Wald's WWII insight: armor the plane where returning bombers show no bullet holes, because planes hit there never came back. Every 'habits of successful founders' listicle has the same flaw — the failed founders with identical habits are invisible. Whenever you study winners, ask what the graveyard looks like.",
+        "links": [
+          {
+            "label": "Wikipedia: Survivorship bias",
+            "url": "https://en.wikipedia.org/wiki/Survivorship_bias",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Pick one success story you admire and list 3 people or companies that did roughly the same things and failed; note what actually differed."
+      ]
+    },
+    {
+      "id": "misleading-charts",
+      "title": "Misleading Charts",
+      "tier": "essential",
+      "learn": {
+        "summary": "The most common chart crimes: truncated y-axes that turn a 2% change into a cliff, cherry-picked date ranges, dual axes tuned to force a narrative, and 3D effects that distort area. Darrell Huff catalogued these in 'How to Lie with Statistics' back in 1954; the tricks haven't changed, only the resolution. Always check the axes before the trend.",
+        "links": [
+          {
+            "label": "Wikipedia: Misleading graph",
+            "url": "https://en.wikipedia.org/wiki/Misleading_graph",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Find one chart in the wild with a truncated axis or cherry-picked window and sketch (or describe) how it would look drawn honestly."
+      ]
+    },
+    {
+      "id": "p-values-plain",
+      "title": "P-values in Plain Language",
+      "tier": "extra",
+      "learn": {
+        "summary": "A p-value is the probability of seeing data this extreme if there were no real effect — it is NOT the probability the finding is true. 'Statistically significant' can describe a tiny, meaningless effect in a huge sample, and p-hacking (testing many things, reporting the hits) manufactures significance from noise; the American Statistical Association issued a rare formal statement warning about all of this in 2016. When you see 'significant', ask: how big is the effect, and how many things did they test?",
+        "links": [
+          {
+            "label": "Wikipedia: P-value",
+            "url": "https://en.wikipedia.org/wiki/P-value",
+            "kind": "article"
+          },
+          {
+            "label": "Wikipedia: Data dredging",
+            "url": "https://en.wikipedia.org/wiki/Data_dredging",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Read the abstract of one study behind a health headline and find the actual effect size; write it next to the headline and compare the impressions."
+      ]
+    }
+  ]
+}

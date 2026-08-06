@@ -1,0 +1,102 @@
+{
+  "id": "deep-sky-objects",
+  "title": "Deep-Sky Objects",
+  "tier": "essential",
+  "learn": {
+    "summary": "Beyond the solar system lie the 'faint fuzzies': star clusters, nebulae, and galaxies. Charles Messier's 1781 catalog of 110 objects — ironically a list of things NOT to confuse with comets — remains the standard beginner target list. Deep-sky observing rewards dark skies, averted vision, and patience more than expensive equipment.",
+    "links": [
+      {
+        "label": "Deep-sky object (Wikipedia)",
+        "url": "https://en.wikipedia.org/wiki/Deep-sky_object",
+        "kind": "article"
+      }
+    ]
+  },
+  "do": [
+    "Start a deep-sky log this week: observe any one Messier object (M45, the Pleiades, is naked-eye) and record date, instrument, and a one-sentence description."
+  ],
+  "children": [
+    {
+      "id": "messier-catalog",
+      "title": "The Messier Catalog",
+      "tier": "essential",
+      "learn": {
+        "summary": "The 110 Messier objects include the sky's best clusters, nebulae, and galaxies visible from mid-northern latitudes, numbered M1 (Crab Nebula) to M110. Completing the list is the classic amateur milestone; obsessives do it in a single dusk-to-dawn 'Messier marathon' in March, when all 110 are theoretically visible in one night. The Astronomical League awards certificates for logged completion.",
+        "links": [
+          {
+            "label": "Messier object (Wikipedia)",
+            "url": "https://en.wikipedia.org/wiki/Messier_object",
+            "kind": "article"
+          },
+          {
+            "label": "Astronomical League Observing Programs",
+            "url": "https://www.astroleague.org/observing-programs/",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Print or bookmark the Messier list, mark the five easiest objects visible this season, and observe your first one this week with whatever optics you have."
+      ]
+    },
+    {
+      "id": "open-and-globular-clusters",
+      "title": "Star Clusters",
+      "tier": "essential",
+      "learn": {
+        "summary": "Open clusters like the Pleiades are loose groups of dozens to hundreds of young stars born together in the galactic disk. Globular clusters like M13 in Hercules are something else entirely: spherical swarms of hundreds of thousands of ancient stars, 10+ billion years old, orbiting the galaxy's halo. Clusters are the most forgiving deep-sky class — many survive suburban light pollution.",
+        "links": [
+          {
+            "label": "Globular cluster (Wikipedia)",
+            "url": "https://en.wikipedia.org/wiki/Globular_cluster",
+            "kind": "article"
+          },
+          {
+            "label": "Open cluster (Wikipedia)",
+            "url": "https://en.wikipedia.org/wiki/Open_cluster",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Observe one open cluster and (if you have optics) one globular this month, and write down how differently they look — loose sparkle versus concentrated glow."
+      ]
+    },
+    {
+      "id": "nebulae",
+      "title": "Nebulae",
+      "tier": "recommended",
+      "learn": {
+        "summary": "The Orion Nebula (M42), a stellar nursery 1,300 light-years away, is visible naked-eye as the fuzzy middle 'star' of Orion's sword and stunning in any instrument. Planetary nebulae like the Ring (M57) are dying stars shedding their outer layers — previews of the Sun's fate in about 5 billion years. Visually, nebulae appear gray-green because your rods can't register color at these light levels; the vivid photos are long exposures.",
+        "links": [
+          {
+            "label": "Orion Nebula (Wikipedia)",
+            "url": "https://en.wikipedia.org/wiki/Orion_Nebula",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "In winter, find the Orion Nebula naked-eye in Orion's sword, then view it with binoculars; in other seasons, pick a season-appropriate nebula from the Messier list instead."
+      ]
+    },
+    {
+      "id": "galaxies",
+      "title": "Galaxies",
+      "tier": "extra",
+      "learn": {
+        "summary": "Galaxies are the deep-sky endgame: island universes of billions of stars, appearing as faint smudges precisely because they are millions of light-years away. Andromeda (M31) is the easiest, followed by the Whirlpool (M51) and the Leo Triplet — all far better under Bortle 1-4 skies. Every galaxy you find visually is a genuine achievement; most people alive have never knowingly seen one.",
+        "links": [
+          {
+            "label": "Galaxy (Wikipedia)",
+            "url": "https://en.wikipedia.org/wiki/Galaxy",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "From the darkest site you can reach this month, find the Andromeda Galaxy by star-hopping from the Great Square of Pegasus (autumn) or plan the attempt for the next season it is up."
+      ]
+    }
+  ]
+}

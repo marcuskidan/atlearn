@@ -1,0 +1,92 @@
+{
+  "id": "first-aid-kit",
+  "title": "Your First-Aid Kit",
+  "tier": "essential",
+  "learn": {
+    "summary": "A kit you've assembled yourself beats a store-bought one you've never opened, because building it teaches you what's inside and why. The Red Cross publishes a recommended contents list for a family of four; the real differentiator isn't contents anyway — it's whether the kit is findable in 10 seconds and audited twice a year.",
+    "links": [
+      {
+        "label": "First aid kit — Wikipedia",
+        "url": "https://en.wikipedia.org/wiki/First_aid_kit",
+        "kind": "article"
+      }
+    ]
+  },
+  "do": [
+    "Tell everyone in your household where the first-aid kit lives (or will live), and put it in that one consistent spot today."
+  ],
+  "children": [
+    {
+      "id": "home-kit",
+      "title": "Building a Home Kit",
+      "tier": "essential",
+      "learn": {
+        "summary": "The Red Cross family-of-four baseline: assorted adhesive bandages, sterile gauze pads (3x3 and 4x4) and roller gauze, adhesive tape, elastic bandage, antiseptic wipes, antibiotic ointment, hydrocortisone cream, tweezers, scissors, nitrile gloves (2+ pairs), an instant cold pack, a digital thermometer, an emergency blanket, and a first-aid guide. Store it in a labeled, waterproof container where adults can grab it fast but small children can't.",
+        "links": [
+          {
+            "label": "First aid kit — Wikipedia",
+            "url": "https://en.wikipedia.org/wiki/First_aid_kit",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Inventory your current supplies against that list this week and buy the missing items in one order — total cost is typically under $40."
+      ]
+    },
+    {
+      "id": "car-travel-kits",
+      "title": "Car & Travel Kits",
+      "tier": "extra",
+      "learn": {
+        "summary": "Your car kit handles two scenarios the home kit doesn't: roadside trauma (add a flashlight, reflective triangle, emergency blanket, and heavier gauze) and being stranded (water, snacks, phone charger, seasonal layers). Heat is the enemy — car interiors exceed 60°C (140°F) in summer, degrading medications and adhesives, so audit car kits more often and skip storing heat-sensitive meds there. A pocket-sized pouch of bandages, wipes, and pain reliever covers 95% of travel needs.",
+        "links": [
+          {
+            "label": "Car emergency kit — ready.gov",
+            "url": "https://www.ready.gov/car",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Assemble a minimal car kit this weekend: bandages, gauze, gloves, flashlight, water bottle, and a blanket in one zip bag in the trunk."
+      ]
+    },
+    {
+      "id": "medication-basics",
+      "title": "Medication Basics Awareness",
+      "tier": "extra",
+      "learn": {
+        "summary": "A sensible OTC lineup: acetaminophen and ibuprofen (they work differently and can be alternated for fever under guidance), an antihistamine like diphenhydramine or cetirizine for allergic reactions, aspirin (for the heart-attack scenario), ORS sachets, and an antacid. Awareness only — read labels, respect max daily doses (acetaminophen's 4 g adult ceiling hides in many combination cold products), and ask a pharmacist about interactions with anything prescribed. Pharmacists are the most underused free medical resource in the country.",
+        "links": [
+          {
+            "label": "Over-the-counter drug — Wikipedia",
+            "url": "https://en.wikipedia.org/wiki/Over-the-counter_drug",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Next pharmacy visit, ask the pharmacist one real question about interactions between your household's medications — it's free and they're glad to answer."
+      ]
+    },
+    {
+      "id": "expiry-audits",
+      "title": "Expiry Audits",
+      "tier": "extra",
+      "learn": {
+        "summary": "Adhesives dry out, ointments separate, and medications lose potency past expiry — a kit that's 5 years stale is a false sense of security. The habit that works: audit twice a year on a memorable trigger, the same clock-change weekends used for smoke-alarm batteries. Check dates, replace anything used or expired, and take expired meds to a pharmacy take-back rather than the trash or toilet.",
+        "links": [
+          {
+            "label": "Shelf life — Wikipedia",
+            "url": "https://en.wikipedia.org/wiki/Shelf_life",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Set two recurring calendar reminders right now — 'Audit first-aid kit + smoke alarms' — on the spring and fall clock-change weekends."
+      ]
+    }
+  ]
+}

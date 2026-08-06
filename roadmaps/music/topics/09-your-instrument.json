@@ -1,0 +1,92 @@
+{
+  "id": "your-instrument",
+  "title": "Your Instrument",
+  "tier": "essential",
+  "learn": {
+    "summary": "Theory becomes music only through an instrument — and the best one is the one you will actually pick up daily. Piano makes theory visible, guitar makes chords portable, and your voice is already installed. Access beats prestige: a cheap keyboard in your living room outperforms a grand piano you never visit.",
+    "links": [
+      {
+        "label": "Musical instrument (Wikipedia)",
+        "url": "https://en.wikipedia.org/wiki/Musical_instrument",
+        "kind": "article"
+      }
+    ]
+  },
+  "do": [
+    "Commit in writing to one instrument for the next 90 days, and put it (or the app for it) physically within reach of your sofa today."
+  ],
+  "children": [
+    {
+      "id": "choosing-an-instrument",
+      "title": "Choosing Honestly",
+      "tier": "essential",
+      "learn": {
+        "summary": "Choose on three honest axes: the sound that gives you chills (motivation fuel), your logistics (space, budget, neighbors), and time-to-gratification. Piano and ukulele reward week one; violin and trumpet punish month three. A 61-key keyboard or a ukulele under modest cost is a serious, legitimate starting instrument.",
+        "links": [
+          {
+            "label": "Musical instrument (Wikipedia)",
+            "url": "https://en.wikipedia.org/wiki/Musical_instrument",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Write a three-line comparison of your top two instrument candidates (sound love, logistics, first-week payoff) and pick the winner by Sunday."
+      ]
+    },
+    {
+      "id": "voice-is-free",
+      "title": "Voice: the Free Instrument",
+      "tier": "extra",
+      "learn": {
+        "summary": "Your voice is a full instrument with zero cost, zero setup, and total portability — and singing is the most direct ear-training there is, because there are no keys to hide behind. Kodály-based music education starts every child on voice first for exactly this reason. Even confirmed instrumentalists progress faster when they sing their lines.",
+        "links": [
+          {
+            "label": "Singing (Wikipedia)",
+            "url": "https://en.wikipedia.org/wiki/Singing",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Sing along to three songs in the car or shower this week at full commitment — treat it as practice, not background noise."
+      ]
+    },
+    {
+      "id": "first-month-reality",
+      "title": "First-Month Reality",
+      "tier": "essential",
+      "learn": {
+        "summary": "Month one sounds bad for everyone — buzzing strings, clunky chord changes, sore fingertips are the curriculum, not a verdict. Fifteen to twenty minutes daily beats two hours on Saturday, because motor skills consolidate between sessions, largely during sleep. Your only real first-month goal: show up daily and play one thing recognizably.",
+        "links": [
+          {
+            "label": "Motor learning (Wikipedia)",
+            "url": "https://en.wikipedia.org/wiki/Motor_learning",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Put a calendar checkmark on every day you touch the instrument for 15 minutes — aim for a 6-of-7 streak this week, quality irrelevant."
+      ]
+    },
+    {
+      "id": "teacher-or-self-taught",
+      "title": "Teacher vs Self-Teaching",
+      "tier": "recommended",
+      "learn": {
+        "summary": "A teacher's irreplaceable value is catching bad physical habits — tension, posture, thumb position — before they calcify; apps and videos cannot watch your hands. If lessons are out of budget, even a single monthly check-in lesson steers months of self-study. Self-teaching works best with a fixed curriculum (a method book or graded syllabus), not algorithmic video drift.",
+        "links": [
+          {
+            "label": "ABRSM",
+            "url": "https://www.abrsm.org",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "This week either book one trial lesson (many teachers offer them cheap) or choose one method book/course and write down its first four milestones."
+      ]
+    }
+  ]
+}

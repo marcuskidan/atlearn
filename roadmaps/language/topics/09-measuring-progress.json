@@ -1,0 +1,92 @@
+{
+  "id": "measuring-progress",
+  "title": "Measuring Progress",
+  "tier": "essential",
+  "learn": {
+    "summary": "Progress in a language is real but invisible day to day, which is why learners quit while improving. Measure against external yardsticks: CEFR can-do statements, comprehension of a benchmark video, or a recorded monthly conversation. The intermediate plateau around B1 is where subjective progress stalls hardest — measurement is what carries you through it.",
+    "links": [
+      {
+        "label": "CEFR",
+        "url": "https://en.wikipedia.org/wiki/Common_European_Framework_of_Reference_for_Languages",
+        "kind": "article"
+      }
+    ]
+  },
+  "do": [
+    "Record a 3-minute monologue about your week today, date it, and repeat monthly; compare recordings every quarter."
+  ],
+  "children": [
+    {
+      "id": "can-do-statements",
+      "title": "Can-Do Statements",
+      "tier": "essential",
+      "learn": {
+        "summary": "The CEFR is built from 'can-do' descriptors — 'can describe experiences and events' (B1), 'can interact with a degree of fluency that makes regular interaction with native speakers possible' (B2). They turn the vague question 'am I fluent yet?' into a checklist you can honestly test against. Self-assess every couple of months, and be stingy: a skill you can only manage on a good day is not yet 'can do'.",
+        "links": [
+          {
+            "label": "CEFR self-assessment",
+            "url": "https://en.wikipedia.org/wiki/Common_European_Framework_of_Reference_for_Languages",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Score yourself against the CEFR grid for all four skills this week and pick the two weakest descriptors as next month's focus."
+      ]
+    },
+    {
+      "id": "plateaus",
+      "title": "Surviving Plateaus",
+      "tier": "recommended",
+      "learn": {
+        "summary": "The plateau effect is a general learning phenomenon: early gains come fast because every word is new, then the curve flattens as remaining gains hide in rarer words and subtler grammar. The B1 plateau is the classic language version — you can communicate, so urgency drops, and comprehensible native content is still tiring. The exit is changing the stimulus: harder input, new skills (debate, writing), or a deadline like a scheduled exam.",
+        "links": [
+          {
+            "label": "Plateau effect",
+            "url": "https://en.wikipedia.org/wiki/Plateau_effect",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "If progress feels flat, change one variable for two weeks: swap your main input source for something one notch harder."
+      ]
+    },
+    {
+      "id": "mock-conversations",
+      "title": "Mock Conversations",
+      "tier": "recommended",
+      "learn": {
+        "summary": "A monthly 'exam-style' conversation with your tutor — unprepared topics, no English, 15 minutes — is the truest single measure of usable ability, far more honest than app streaks or flashcard counts. Record it (with permission) and review: count filler pauses, note breakdowns, and compare to last month's recording. Oral proficiency interviews used by ACTFL and FSI work exactly this way.",
+        "links": [
+          {
+            "label": "ACTFL proficiency guidelines",
+            "url": "https://en.wikipedia.org/wiki/ACTFL_Proficiency_Guidelines",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Schedule a no-English 15-minute mock conversation with your tutor this month and log two strengths and two breakdowns."
+      ]
+    },
+    {
+      "id": "cefr-exams",
+      "title": "Official Exams",
+      "tier": "extra",
+      "learn": {
+        "summary": "Official certificates — DELE for Spanish, DELF/DALF for French, Goethe for German, JLPT for Japanese, HSK for Chinese — give you an external deadline, a structured syllabus, and a credential employers recognize. Even if you never need the paper, registering for an exam is one of the most reliable motivation devices in language learning. Book it 4-6 months out: close enough to focus you, far enough to prepare.",
+        "links": [
+          {
+            "label": "Language proficiency",
+            "url": "https://en.wikipedia.org/wiki/Language_proficiency",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Find your language's official exam, note the next sitting date and fee, and decide this week whether to register."
+      ]
+    }
+  ]
+}

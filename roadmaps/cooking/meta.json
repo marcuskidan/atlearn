@@ -1,0 +1,9 @@
+{
+  "id": "cooking",
+  "emoji": "🍳",
+  "title": "Kitchen Confidence",
+  "tagline": "From mise en place to cooking without recipes, built on salt, fat, acid, and heat",
+  "curricula": "Culinary-school fundamentals and Samin Nosrat's Salt Fat Acid Heat framework",
+  "order": 3,
+  "maintainer": "The Overseer"
+}

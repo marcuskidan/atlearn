@@ -1,0 +1,97 @@
+{
+  "id": "debt-and-credit",
+  "title": "Debt and Credit",
+  "tier": "essential",
+  "learn": {
+    "summary": "Credit is a tool with a price tag: the same borrowing machinery that finances a degree or a home can compound against you at 25% on a card balance. The system runs on credit reports (your history, held by Equifax, Experian, and TransUnion) and credit scores (a number summarizing that history for lenders). Understanding the mechanics — how scores are computed, what interest really costs, how payoff math works — is defense and leverage at once.",
+    "links": [
+      {
+        "label": "CFPB: Credit reports and scores",
+        "url": "https://www.consumerfinance.gov/consumer-tools/credit-reports-and-scores/",
+        "kind": "article"
+      }
+    ]
+  },
+  "do": [
+    "Pull your free credit reports from all three bureaus at annualcreditreport.com (the federally authorized site) and read them for errors — disputed errors are corrected free."
+  ],
+  "children": [
+    {
+      "id": "credit-scores-explained",
+      "title": "How Credit Scores Work",
+      "tier": "essential",
+      "learn": {
+        "summary": "FICO scores (the most common model, ranging 300-850) weight five factors: payment history about 35%, amounts owed / credit utilization about 30%, length of history about 15%, new credit about 10%, and credit mix about 10%. Checking your own score is a 'soft pull' and never hurts it — a persistent myth. The score is not a virtue metric; it predicts repayment likelihood, which is why someone wealthy with no credit history can score poorly.",
+        "links": [
+          {
+            "label": "Wikipedia: Credit score in the United States",
+            "url": "https://en.wikipedia.org/wiki/Credit_score_in_the_United_States",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Find your current credit score through your bank or card app (most show it free), and compute your utilization ratio: total card balances divided by total card limits."
+      ]
+    },
+    {
+      "id": "interest-and-apr",
+      "title": "Interest and APR",
+      "tier": "essential",
+      "learn": {
+        "summary": "APR is the annualized cost of borrowing; on credit cards, interest typically accrues daily (APR/365) on your average balance, and paying only the minimum can stretch a modest balance into decades of payments — which is why U.S. card statements are legally required to show that math. The grace period matters: pay the statement balance in full and most cards charge no interest at all. APR (cost of borrowing) and APY (yield on savings, includes compounding) are cousins, not twins.",
+        "links": [
+          {
+            "label": "Wikipedia: Annual percentage rate",
+            "url": "https://en.wikipedia.org/wiki/Annual_percentage_rate",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Find the minimum-payment warning box on your latest card statement and write down the two numbers: years to pay off at minimums, and total cost that way."
+      ]
+    },
+    {
+      "id": "good-vs-harmful-debt",
+      "title": "Debt: Uses and Dangers",
+      "tier": "recommended",
+      "learn": {
+        "summary": "A useful conceptual lens: debt that finances an appreciating asset or earning capacity (a reasonable mortgage, some education debt) works differently from debt that finances consumption at high rates (card balances, payday loans, which can carry effective APRs in the hundreds of percent). The lens is about the interest rate and what the money bought, not moral categories — 'good' debt at an unaffordable size is still dangerous. A licensed financial advisor or nonprofit credit counselor can help with specifics for your situation.",
+        "links": [
+          {
+            "label": "Wikipedia: Payday loan",
+            "url": "https://en.wikipedia.org/wiki/Payday_loan",
+            "kind": "article"
+          },
+          {
+            "label": "CFPB: Debt collection",
+            "url": "https://www.consumerfinance.gov/consumer-tools/debt-collection/",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "List every debt you have with three columns — balance, interest rate, and what it purchased — and sort the list by interest rate, highest first."
+      ]
+    },
+    {
+      "id": "payoff-strategies",
+      "title": "Payoff Strategy Concepts",
+      "tier": "recommended",
+      "learn": {
+        "summary": "Two named approaches: the avalanche (extra payments to the highest-rate debt first) minimizes total interest mathematically, while the snowball (smallest balance first, popularized by Dave Ramsey) buys motivation through quick wins — and a Harvard Business Review-covered study found the motivational effect is real. Both require paying minimums on everything else. The best method is a personal-psychology question as much as a math one; this is education about the concepts, not a prescription.",
+        "links": [
+          {
+            "label": "Wikipedia: Debt snowball method",
+            "url": "https://en.wikipedia.org/wiki/Debt_snowball_method",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Using your debt list, write out both orderings — by rate (avalanche) and by balance (snowball) — and note which sequence you'd realistically stick with and why."
+      ]
+    }
+  ]
+}

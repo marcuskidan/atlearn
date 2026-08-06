@@ -1,0 +1,97 @@
+{
+  "id": "working-with-thoughts",
+  "title": "Working with Thoughts",
+  "tier": "essential",
+  "learn": {
+    "summary": "Aaron Beck's cognitive model — the backbone of CBT, the most-researched psychotherapy in existence — holds that situations do not cause feelings directly; interpretations do, and interpretations can be examined. Thoughts are mental events, not facts: automatic, fast, and often systematically biased under low mood. Learning to catch, check, and change (or simply unhook from) thoughts is the core cognitive skill.",
+    "links": [
+      {
+        "label": "Cognitive behavioral therapy (Wikipedia)",
+        "url": "https://en.wikipedia.org/wiki/Cognitive_behavioral_therapy",
+        "kind": "article"
+      },
+      {
+        "label": "Aaron T. Beck (Wikipedia)",
+        "url": "https://en.wikipedia.org/wiki/Aaron_T._Beck",
+        "kind": "article"
+      }
+    ]
+  },
+  "do": [
+    "Once this week, catch one strong negative reaction and separate it on paper into three columns: situation (facts only), thought, feeling."
+  ],
+  "children": [
+    {
+      "id": "cbt-model",
+      "title": "The CBT Model",
+      "tier": "essential",
+      "learn": {
+        "summary": "The model is a loop: situation → automatic thought → emotion → behavior → (often) confirmation of the thought. Beck noticed depressed patients had streams of spontaneous negative 'automatic thoughts' they treated as facts; making them visible was the therapeutic breakthrough. The same event ('friend did not text back') routes to entirely different feelings depending on the thought inserted ('they are busy' vs 'they hate me').",
+        "links": [
+          {
+            "label": "Cognitive behavioral therapy (Wikipedia)",
+            "url": "https://en.wikipedia.org/wiki/Cognitive_behavioral_therapy",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Map one recent upset through the full loop on paper: situation → thought → feeling → what you did → what that did to the thought."
+      ]
+    },
+    {
+      "id": "thought-records",
+      "title": "Thought Records",
+      "tier": "essential",
+      "learn": {
+        "summary": "The classic CBT worksheet: log the situation, the hot thought, belief rating (0–100%), evidence for, evidence against, and a balanced alternative thought — then re-rate the belief and the emotion. The goal is not forced positivity but accuracy; balanced thoughts outperform cheerleading because your brain does not believe cheerleading. Doing 10–15 written records builds a mental habit that eventually runs without paper.",
+        "links": [
+          {
+            "label": "Cognitive restructuring (Wikipedia)",
+            "url": "https://en.wikipedia.org/wiki/Cognitive_restructuring",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Complete two full written thought records this week on real upsets, including the evidence-against column — the one everyone wants to skip."
+      ]
+    },
+    {
+      "id": "cognitive-distortions",
+      "title": "Cognitive Distortions",
+      "tier": "essential",
+      "learn": {
+        "summary": "Beck and later David Burns cataloged the recurring bugs: all-or-nothing thinking, catastrophizing, mind reading, fortune telling, overgeneralization, personalization, should statements, emotional reasoning ('I feel it, so it is true'). Everyone runs these; low mood just increases the frequency. Naming the distortion creates instant distance — 'ah, that is catastrophizing' is half the correction.",
+        "links": [
+          {
+            "label": "Cognitive distortion (Wikipedia)",
+            "url": "https://en.wikipedia.org/wiki/Cognitive_distortion",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Identify your top two personal distortions from the standard list, write them on a note, and tally each catch for five days."
+      ]
+    },
+    {
+      "id": "defusion",
+      "title": "Cognitive Defusion",
+      "tier": "recommended",
+      "learn": {
+        "summary": "Acceptance and Commitment Therapy (Steven Hayes) offers a different move than disputing thoughts: unhooking from them. Prefacing a thought with 'I am having the thought that...' or repeating a sticky word until it becomes mere sound turns the thought from a lens you look through into an object you look at. Defusion shines where restructuring struggles — old, well-argued, recurring thoughts that do not yield to evidence.",
+        "links": [
+          {
+            "label": "Acceptance and commitment therapy (Wikipedia)",
+            "url": "https://en.wikipedia.org/wiki/Acceptance_and_commitment_therapy",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Take your stickiest recurring self-criticism and, for three days, restate it each time as 'I notice I am having the thought that ___.' Observe what shifts."
+      ]
+    }
+  ]
+}

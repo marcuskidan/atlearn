@@ -1,0 +1,92 @@
+{
+  "id": "color-and-white-balance",
+  "title": "Color & White Balance",
+  "tier": "essential",
+  "learn": {
+    "summary": "Light has color temperature, measured in kelvin: candlelight glows around 1900 K, tungsten bulbs 3200 K, daylight about 5500 K, open shade 7000 K and up. White balance is the camera compensating so whites stay white — or your deliberate refusal to compensate, for mood. Color decisions are exposure decisions' quieter twin.",
+    "links": [
+      {
+        "label": "Color temperature (Wikipedia)",
+        "url": "https://en.wikipedia.org/wiki/Color_temperature",
+        "kind": "article"
+      }
+    ]
+  },
+  "do": [
+    "Photograph one white object under three light sources today (sunlight, household bulb, phone flashlight) with auto white balance off or locked, and compare the casts."
+  ],
+  "children": [
+    {
+      "id": "white-balance-control",
+      "title": "White Balance Control",
+      "tier": "essential",
+      "learn": {
+        "summary": "Auto white balance guesses — and it guesses wrong at sunsets (neutralizing the gold you came for) and under mixed lighting. Presets (daylight, cloudy, tungsten) or a manual kelvin dial give you the vote back. Shooting RAW makes white balance losslessly re-decidable in the edit; JPEG bakes it in.",
+        "links": [
+          {
+            "label": "Color balance (Wikipedia)",
+            "url": "https://en.wikipedia.org/wiki/Color_balance",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Shoot one sunset or lamp-lit scene twice this week — auto white balance versus a locked \"daylight/sunny\" setting — and see which kept the warmth."
+      ]
+    },
+    {
+      "id": "color-harmony",
+      "title": "Color Harmony",
+      "tier": "recommended",
+      "learn": {
+        "summary": "Complementary pairs sitting opposite on the color wheel — orange/teal, red/green, yellow/purple — create instant visual tension, which is why cinema grades lean orange-and-teal. Analogous schemes (neighboring hues) soothe instead. A photo with two strong colors nearly always beats a photo with six weak ones.",
+        "links": [
+          {
+            "label": "Color theory (Wikipedia)",
+            "url": "https://en.wikipedia.org/wiki/Color_theory",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Hunt one complementary color pair in the wild this week (orange jacket against blue wall, red leaf on green grass) and build a photo around it."
+      ]
+    },
+    {
+      "id": "shooting-for-mood",
+      "title": "Shooting for Mood",
+      "tier": "extra",
+      "learn": {
+        "summary": "Warm casts read as nostalgia, intimacy, and evening; cool casts read as distance, melancholy, and dawn — and you can choose the lie: setting white balance to \"cloudy\" warms a scene, \"tungsten\" plunges daylight into cinematic blue. Accurate color is a default, not a law. Decide the emotion first, then pick the temperature that serves it.",
+        "links": [
+          {
+            "label": "Color temperature (Wikipedia)",
+            "url": "https://en.wikipedia.org/wiki/Color_temperature",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Take one scene and produce a warm version and a cool version (white-balance presets or editing sliders), then title each with the emotion it now carries."
+      ]
+    },
+    {
+      "id": "monochrome-seeing",
+      "title": "Monochrome Seeing",
+      "tier": "recommended",
+      "learn": {
+        "summary": "Strip color away and photographs run on tone, shape, texture, and contrast alone — which is why black-and-white is a perennial teaching tool, not nostalgia. Scenes with strong graphic bones (shadows, silhouettes, geometry) gain power in mono; scenes whose whole point was color simply die. Many phones offer a live mono filter so you can see tonally while shooting.",
+        "links": [
+          {
+            "label": "Monochrome photography (Wikipedia)",
+            "url": "https://en.wikipedia.org/wiki/Monochrome_photography",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Shoot for 30 minutes this week with your camera set to a live black-and-white filter — not converted after — and keep your three strongest frames."
+      ]
+    }
+  ]
+}

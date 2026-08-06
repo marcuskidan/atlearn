@@ -1,0 +1,97 @@
+{
+  "id": "thinking-with-others",
+  "title": "Thinking with Others",
+  "tier": "recommended",
+  "learn": {
+    "summary": "Reasoning improves in the right kind of company: Mercier and Sperber argue human reason evolved for argument, which is why we're sharp at evaluating others' claims and lazy about our own. Structured disagreement — steelmanning, double crux, aggregating independent judgments — converts other people from threats into error-correction machinery. The prerequisite is separating 'being right' from 'winning'.",
+    "links": [
+      {
+        "label": "Wikipedia: The Enigma of Reason",
+        "url": "https://en.wikipedia.org/wiki/Argumentation_theory",
+        "kind": "article"
+      }
+    ]
+  },
+  "do": [
+    "Have one conversation this week where your explicit goal is to understand the other person's position well enough to state it to their satisfaction — and confirm with them that you did."
+  ],
+  "children": [
+    {
+      "id": "steelmanning",
+      "title": "Steelmanning",
+      "tier": "essential",
+      "learn": {
+        "summary": "The opposite of a straw man: engage the strongest version of the opposing view, even stronger than its holder articulated. Rapoport's rules (popularized by Daniel Dennett) formalize it — restate the position so well they say 'thanks, I wish I'd put it that way', list agreements, note what you learned, and only then rebut. Steelmanning is also self-serving: beating a weak version teaches you nothing.",
+        "links": [
+          {
+            "label": "Wikipedia: Straw man",
+            "url": "https://en.wikipedia.org/wiki/Straw_man",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Write a one-paragraph steelman of a position you oppose, then check it against an actual proponent's writing to see what you missed."
+      ]
+    },
+    {
+      "id": "double-crux",
+      "title": "Double Crux",
+      "tier": "extra",
+      "learn": {
+        "summary": "A technique from the Center for Applied Rationality: instead of trading conclusions, each side identifies their 'crux' — a sub-claim such that, if it flipped, their overall position would flip too. When both sides find a shared crux, the argument collapses into a factual question you can actually investigate. Most stuck disagreements are stuck because nobody has located what would actually change anyone's mind.",
+        "links": [
+          {
+            "label": "Wikipedia: Center for Applied Rationality",
+            "url": "https://en.wikipedia.org/wiki/Center_for_Applied_Rationality",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "In your next real disagreement, ask both yourself and the other person: 'what evidence would change your mind?' — and write down whether either of you could answer."
+      ]
+    },
+    {
+      "id": "productive-disagreement",
+      "title": "Productive Disagreement",
+      "tier": "recommended",
+      "learn": {
+        "summary": "Disagreements go bad when they become status contests; they go well when both sides share a scoreboard of what's actually in dispute. Practical moves: separate factual cruxes from value differences (facts can be checked, values negotiated), ask questions before asserting, and give the other person a face-saving path to updating. Research on 'deep canvassing' finds nonjudgmental exchange of personal experiences shifts views more than fact bombardment.",
+        "links": [
+          {
+            "label": "Wikipedia: Nonviolent Communication",
+            "url": "https://en.wikipedia.org/wiki/Nonviolent_Communication",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "In one disagreement this week, ask 3 genuine questions before stating your own view, and note whether the conversation's tone differs from your usual pattern."
+      ]
+    },
+    {
+      "id": "crowds-and-markets",
+      "title": "Crowds and Markets",
+      "tier": "extra",
+      "learn": {
+        "summary": "Francis Galton's 1907 ox-weighing crowd averaged within 1% of the true weight — aggregated independent guesses beat most individuals, a result that holds when errors are uncorrelated. That independence clause is the catch: deliberating groups can converge on confident nonsense (groupthink), which is why techniques like the Delphi method collect estimates before discussion. Prediction markets extend the idea by making people bet, so confidence gets priced.",
+        "links": [
+          {
+            "label": "Wikipedia: Wisdom of the crowd",
+            "url": "https://en.wikipedia.org/wiki/Wisdom_of_the_crowd",
+            "kind": "article"
+          },
+          {
+            "label": "Wikipedia: Prediction market",
+            "url": "https://en.wikipedia.org/wiki/Prediction_market",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Before your next group decision, have everyone write estimates or picks privately first, then compare with what the group would have chosen after open discussion."
+      ]
+    }
+  ]
+}

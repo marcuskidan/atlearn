@@ -1,0 +1,92 @@
+{
+  "id": "knowing-your-numbers",
+  "title": "Knowing Your Numbers",
+  "tier": "essential",
+  "learn": {
+    "summary": "You can't reason about what you haven't measured. Three numbers describe almost any financial situation: what comes in, what goes out, and what you own minus what you owe. This milestone is pure observation — no judgment, no changes yet — because accurate data collected without shame is what makes every later decision possible.",
+    "links": [
+      {
+        "label": "CFPB: Consumer tools",
+        "url": "https://www.consumerfinance.gov/consumer-tools/",
+        "kind": "tool"
+      }
+    ]
+  },
+  "do": [
+    "Gather every account you have (bank, credit, loan, retirement) into one written list with current balances — just the list, no analysis."
+  ],
+  "children": [
+    {
+      "id": "tracking-spending",
+      "title": "Tracking Spending",
+      "tier": "essential",
+      "learn": {
+        "summary": "Studies of self-monitoring consistently show that the act of recording behavior changes it — the same mechanism behind food diaries works for spending. The goal of a first tracking pass isn't control, it's an honest baseline: most people misestimate whole categories by 30% or more until they look. Any method counts: an app, a spreadsheet, or reading two months of statements line by line.",
+        "links": [
+          {
+            "label": "Wikipedia: Personal budget",
+            "url": "https://en.wikipedia.org/wiki/Personal_budget",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Categorize last month's transactions from your bank and card statements into 8-10 categories, and compare the totals to what you would have guessed beforehand."
+      ]
+    },
+    {
+      "id": "net-worth-concept",
+      "title": "Net Worth Concept",
+      "tier": "essential",
+      "learn": {
+        "summary": "Net worth is everything you own (assets) minus everything you owe (liabilities) — a single snapshot number that can be negative, and often is early on, especially with student loans. Its value isn't the level but the trend: tracked quarterly, it shows whether your overall position is improving regardless of month-to-month noise. Income and wealth are different things; a high earner can have a lower net worth than a modest one.",
+        "links": [
+          {
+            "label": "Wikipedia: Net worth",
+            "url": "https://en.wikipedia.org/wiki/Net_worth",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Calculate your net worth once this week (assets minus debts, rough estimates fine) and put a repeating quarterly reminder on your calendar to recalculate it."
+      ]
+    },
+    {
+      "id": "cash-flow",
+      "title": "Cash Flow",
+      "tier": "essential",
+      "learn": {
+        "summary": "Cash flow is income minus outflow over a period — the direction matters more than the size, because persistent negative flow compounds into debt just as surely as positive flow compounds into savings. Timing matters too: the same monthly totals can produce overdrafts or calm depending on when bills land relative to paydays. Mapping your flow reveals whether problems are level problems (not enough in) or timing problems (mismatched dates).",
+        "links": [
+          {
+            "label": "Wikipedia: Cash flow",
+            "url": "https://en.wikipedia.org/wiki/Cash_flow",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Compute one number for last month: total money in minus total money out; then mark on a calendar which week of the month your account balance hits its low point."
+      ]
+    },
+    {
+      "id": "financial-vital-signs",
+      "title": "Financial Vital Signs",
+      "tier": "recommended",
+      "learn": {
+        "summary": "A few ratios act like blood pressure for money: savings rate (percent of income kept), debt-to-income ratio (lenders often look for total debt payments under roughly 36% of gross income), and months of expenses covered by liquid savings. None is a grade — they're indicators that make change visible and comparable over time. A licensed financial advisor can help interpret what target levels make sense for your specific situation.",
+        "links": [
+          {
+            "label": "Wikipedia: Debt-to-income ratio",
+            "url": "https://en.wikipedia.org/wiki/Debt-to-income_ratio",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Calculate your three vital signs — savings rate, debt-to-income ratio, and months of expenses in liquid savings — and write them on the same page as your net worth."
+      ]
+    }
+  ]
+}

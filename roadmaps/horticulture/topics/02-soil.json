@@ -1,0 +1,92 @@
+{
+  "id": "soil",
+  "title": "Soil",
+  "tier": "essential",
+  "learn": {
+    "summary": "Soil is a living system, not dirt: minerals, organic matter, air, water, and billions of organisms per handful. Most garden problems trace back to soil, and most soil problems are fixed the same way — add organic matter yearly. A $15-25 lab soil test from your state Extension service beats guessing every time.",
+    "links": [
+      {
+        "label": "Soil (Wikipedia)",
+        "url": "https://en.wikipedia.org/wiki/Soil",
+        "kind": "article"
+      }
+    ]
+  },
+  "do": [
+    "Order a soil test kit from your state Cooperative Extension this week and pull samples from 4-6 spots at 6 inches deep"
+  ],
+  "children": [
+    {
+      "id": "soil-microbiome",
+      "title": "Soil Microbiome",
+      "tier": "extra",
+      "learn": {
+        "summary": "A teaspoon of healthy soil holds more microbes than there are people on Earth — bacteria, fungi, protozoa, nematodes — cycling nutrients into plant-available forms. Mycorrhizal fungi partner with roughly 80% of plant species, trading soil phosphorus for plant sugars. Feed this web with compost and mulch; tilling and bare soil starve it.",
+        "links": [
+          {
+            "label": "Soil biology (Wikipedia)",
+            "url": "https://en.wikipedia.org/wiki/Soil_biology",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Do a worm count: dig one cubic foot of moist garden soil and count earthworms — 10 or more signals a healthy soil food web"
+      ]
+    },
+    {
+      "id": "texture-structure",
+      "title": "Texture & Structure",
+      "tier": "essential",
+      "learn": {
+        "summary": "Texture is your fixed sand-silt-clay ratio; structure is how those particles clump, and structure is what you can improve. Sandy soil drains fast and starves; clay holds nutrients but waterlogs and compacts. The fix for both extremes is identical: 2-3 inches of compost worked into the top layer every year.",
+        "links": [
+          {
+            "label": "Soil texture (Wikipedia)",
+            "url": "https://en.wikipedia.org/wiki/Soil_texture",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Run the jar test: shake soil and water in a mason jar, let it settle 24 hours, and read your sand/silt/clay layers"
+      ]
+    },
+    {
+      "id": "ph-and-testing",
+      "title": "pH & Testing",
+      "tier": "essential",
+      "learn": {
+        "summary": "Most vegetables want pH 6.0-7.0; blueberries, azaleas, and potatoes prefer acidic 4.5-5.5. Outside a plant's range, nutrients lock up chemically no matter how much fertilizer you add. Raise pH with lime, lower it with elemental sulfur — both take months, so test in fall and amend only per lab recommendation.",
+        "links": [
+          {
+            "label": "Soil pH (Wikipedia)",
+            "url": "https://en.wikipedia.org/wiki/Soil_pH",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "When your soil test results arrive, write the pH and top two nutrient recommendations into your garden notebook and buy only what it prescribes"
+      ]
+    },
+    {
+      "id": "amendments",
+      "title": "Amendments",
+      "tier": "recommended",
+      "learn": {
+        "summary": "Compost is the universal amendment; everything else is situational. Aged manure adds nitrogen but must be composted 6+ months (fresh manure burns roots and carries pathogens); leaf mold improves water retention; sand added to clay makes concrete, not loam — skip it. Target 5% organic matter on your soil test.",
+        "links": [
+          {
+            "label": "Soil conditioner (Wikipedia)",
+            "url": "https://en.wikipedia.org/wiki/Soil_conditioner",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Spread a 2-inch layer of compost on one bed this week and fork it into the top 6 inches"
+      ]
+    }
+  ]
+}

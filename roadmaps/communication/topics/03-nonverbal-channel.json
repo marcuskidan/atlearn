@@ -1,0 +1,92 @@
+{
+  "id": "nonverbal-channel",
+  "title": "The Nonverbal Channel",
+  "tier": "essential",
+  "learn": {
+    "summary": "First, kill the myth: the famous claim that communication is 93 percent nonverbal misreads Albert Mehrabian's narrow 1967 studies, which only covered single ambiguous words about feelings, a limitation Mehrabian himself insists on. Nonverbals still matter enormously; they carry attitude and confidence, and when they contradict your words, listeners believe the body. Train delivery as a channel that supports your content, not a substitute for having any.",
+    "links": [
+      {
+        "label": "Albert Mehrabian (Wikipedia)",
+        "url": "https://en.wikipedia.org/wiki/Albert_Mehrabian",
+        "kind": "article"
+      }
+    ]
+  },
+  "do": [
+    "Video yourself speaking for 2 minutes this week and watch it once with the sound off, listing what your body says."
+  ],
+  "children": [
+    {
+      "id": "mehrabian-myth",
+      "title": "The Mehrabian Myth",
+      "tier": "essential",
+      "learn": {
+        "summary": "Mehrabian's 7-38-55 ratio (words-tone-face) came from experiments where subjects judged feelings from single spoken words like 'maybe'; it says nothing about communication in general, and no speech is 93 percent understandable with the sound off. Knowing this inoculates you against a whole genre of bad body-language training. The defensible takeaway: when verbal and nonverbal conflict, people weight the nonverbal, so make them agree.",
+        "links": [
+          {
+            "label": "Albert Mehrabian (Wikipedia)",
+            "url": "https://en.wikipedia.org/wiki/Albert_Mehrabian",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Explain the 7-38-55 misreading to one colleague or friend this week; teaching it is the fastest way to lock in the correction."
+      ]
+    },
+    {
+      "id": "eye-contact",
+      "title": "Eye Contact",
+      "tier": "essential",
+      "learn": {
+        "summary": "In Western professional contexts, comfortable eye contact runs a few seconds at a time, roughly more while listening than while speaking; an unbroken stare reads as aggression and darting reads as anxiety. For audiences, hold one person for a complete thought, then move to another section of the room. Norms vary sharply by culture, so calibrate before exporting yours.",
+        "links": [
+          {
+            "label": "Eye contact (Wikipedia)",
+            "url": "https://en.wikipedia.org/wiki/Eye_contact",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "In each conversation for 3 days, notice the moment you break eye contact and finish your sentence before looking away."
+      ]
+    },
+    {
+      "id": "voice-dynamics",
+      "title": "Voice: Pace, Pitch, Pause",
+      "tier": "recommended",
+      "learn": {
+        "summary": "Paralanguage, the how of speech, is your biggest delivery lever: vary pace to signal importance, drop pitch at sentence ends to sound certain (rising 'uptalk' turns statements into questions), and pause before key points to create emphasis. Conversational speech runs around 150 words per minute; nervous speakers routinely hit 180 or more. One deliberate pause per minute is worth more than any amount of hand-gesture coaching.",
+        "links": [
+          {
+            "label": "Paralanguage (Wikipedia)",
+            "url": "https://en.wikipedia.org/wiki/Paralanguage",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Read one paragraph aloud twice today: once flat, once with a full 2-second pause before the most important sentence; record and compare."
+      ]
+    },
+    {
+      "id": "posture-and-space",
+      "title": "Posture and Space",
+      "tier": "extra",
+      "learn": {
+        "summary": "Edward Hall's proxemics maps interaction distances: intimate (under about half a meter), personal, social, and public zones, and violating them creates discomfort people cannot name. For speaking, the fundamentals are boring and effective: weight on both feet, hands visible, no barricading behind crossed arms or a lectern. Open posture affects how audiences read you regardless of what it does internally; the famous power-posing hormone claims failed replication.",
+        "links": [
+          {
+            "label": "Proxemics (Wikipedia)",
+            "url": "https://en.wikipedia.org/wiki/Proxemics",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "In your next standing conversation or meeting, plant both feet and keep your hands out of your pockets the entire time."
+      ]
+    }
+  ]
+}

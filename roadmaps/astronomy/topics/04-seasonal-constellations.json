@@ -1,0 +1,74 @@
+{
+  "id": "seasonal-constellations",
+  "title": "Seasonal Constellations",
+  "tier": "essential",
+  "learn": {
+    "summary": "The IAU recognizes 88 constellations, but a practical observer needs perhaps 20 — the bright seasonal anchors that organize everything else. Because Earth orbits the Sun, each season showcases a different quadrant of sky, with the constellations returning like old friends every year. Learn a handful per season and within a year you own the whole sky.",
+    "links": [
+      {
+        "label": "Constellation (Wikipedia)",
+        "url": "https://en.wikipedia.org/wiki/Constellation",
+        "kind": "article"
+      }
+    ]
+  },
+  "do": [
+    "Commit to learning three new constellations this month; sketch each one from the real sky, not from a chart."
+  ],
+  "children": [
+    {
+      "id": "winter-orion",
+      "title": "Winter: Orion & Friends",
+      "tier": "essential",
+      "learn": {
+        "summary": "Orion is the sky's best signpost: its three-star belt points down-left to Sirius (the brightest night star) and up-right to Aldebaran and the Pleiades. Red Betelgeuse and blue-white Rigel show star colors plainly to the naked eye. The Winter Hexagon around Orion contains seven first-magnitude stars — the richest bright-star region in the heavens.",
+        "links": [
+          {
+            "label": "Orion (Wikipedia)",
+            "url": "https://en.wikipedia.org/wiki/Orion_(constellation)",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "In winter, use Orion's belt to find Sirius and Aldebaran in one session, and compare the color of Betelgeuse against Rigel with your naked eye."
+      ]
+    },
+    {
+      "id": "summer-triangle",
+      "title": "Summer Triangle",
+      "tier": "essential",
+      "learn": {
+        "summary": "Vega, Deneb, and Altair — the alpha stars of Lyra, Cygnus, and Aquila — form a huge asterism visible even from cities all summer and fall. Under dark skies the Milky Way pours straight through it, split by the Great Rift of interstellar dust. Deneb looks similar to Altair yet is roughly 100x farther away — a lesson in how deceptive brightness is.",
+        "links": [
+          {
+            "label": "Summer Triangle (Wikipedia)",
+            "url": "https://en.wikipedia.org/wiki/Summer_Triangle",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "On a summer evening, identify all three Summer Triangle stars and name their constellations from memory without an app."
+      ]
+    },
+    {
+      "id": "circumpolar-stars",
+      "title": "Circumpolar Stars",
+      "tier": "essential",
+      "learn": {
+        "summary": "Stars within your latitude's distance of the celestial pole never set — from mid-northern latitudes that means the Big Dipper, Cassiopeia's W, Cepheus, and Draco circle Polaris all night, all year. Cassiopeia and the Big Dipper sit opposite each other across Polaris, so at least one is always well-placed. These are your every-night anchors.",
+        "links": [
+          {
+            "label": "Circumpolar star (Wikipedia)",
+            "url": "https://en.wikipedia.org/wiki/Circumpolar_star",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Find Cassiopeia's W shape tonight and note its orientation relative to Polaris; check again in 3 hours or next month at the same hour and observe the rotation."
+      ]
+    }
+  ]
+}

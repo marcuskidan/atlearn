@@ -1,0 +1,92 @@
+{
+  "id": "burns-environmental",
+  "title": "Burns & Environmental",
+  "tier": "essential",
+  "learn": {
+    "summary": "Heat, cold, and sun injuries share a theme: the first-aid response is simple, but recognizing severity is what saves lives. Cooling a burn correctly, telling heat exhaustion from heat stroke, and spotting hypothermia early are all pattern-recognition skills you can genuinely build before ever taking a course — then call 911 when the severe pattern appears.",
+    "links": [
+      {
+        "label": "Burn — Wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Burn",
+        "kind": "article"
+      }
+    ]
+  },
+  "do": [
+    "Learn the one-liner 'cool the burn with running water for 20 minutes' and post it inside a kitchen cabinet door this week."
+  ],
+  "children": [
+    {
+      "id": "burn-degrees-cooling",
+      "title": "Burn Degrees & Cooling",
+      "tier": "essential",
+      "learn": {
+        "summary": "First-degree burns are red and painful (sunburn-like); second-degree blister; third-degree look white, leathery, or charred and may not hurt because nerves are destroyed. Treatment for minor burns: cool running water — not ice, not butter, not toothpaste — for 20 minutes, then loose sterile covering. Call 911 or seek emergency care for third-degree burns, burns bigger than the person's palm, or any burn to face, hands, genitals, or airway.",
+        "links": [
+          {
+            "label": "Burn — Wikipedia",
+            "url": "https://en.wikipedia.org/wiki/Burn",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Quiz yourself tonight: name the three degrees, the cooling time, and three things never to put on a burn — out loud, from memory."
+      ]
+    },
+    {
+      "id": "heat-exhaustion-vs-stroke",
+      "title": "Heat Exhaustion vs Stroke",
+      "tier": "essential",
+      "learn": {
+        "summary": "Heat exhaustion: heavy sweating, pale clammy skin, nausea, dizziness — move to shade, sip water, cool with wet cloths; recovery in 30 minutes is expected. Heat stroke is a 911 emergency: body temperature at or above 103°F (39.4°C), hot skin that may be dry, confusion, or loss of consciousness — cool aggressively (ice packs to neck, armpits, groin; immersion if possible) while waiting, and give nothing to drink to a confused person.",
+        "links": [
+          {
+            "label": "Heat stroke — Wikipedia",
+            "url": "https://en.wikipedia.org/wiki/Heat_stroke",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Memorize the deciding line — 'confusion means call 911' — and share it with whoever you exercise or work outdoors with."
+      ]
+    },
+    {
+      "id": "cold-injuries",
+      "title": "Hypothermia & Frostbite",
+      "tier": "recommended",
+      "learn": {
+        "summary": "Hypothermia (core below 95°F/35°C) announces itself with the 'umbles' — stumbles, mumbles, fumbles, grumbles — and paradoxically, shivering stopping is a sign of worsening, not improvement. Handle victims gently, get them dry and insulated, and warm the core before the limbs. Frostbite: never rub the tissue and never rewarm if refreezing is possible; use body heat or water at 98.6–102°F (37–39°C), not direct flame or heaters.",
+        "links": [
+          {
+            "label": "Hypothermia — Wikipedia",
+            "url": "https://en.wikipedia.org/wiki/Hypothermia",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Add a packable insulation layer and a beanie to your car or day-hike bag this week — most hypothermia cases happen in air temperatures above freezing."
+      ]
+    },
+    {
+      "id": "sun-protection",
+      "title": "Sun Protection",
+      "tier": "extra",
+      "learn": {
+        "summary": "Sunburn is a first-degree radiation burn, and five or more blistering sunburns in youth roughly doubles melanoma risk. The evidence-backed basics: broad-spectrum SPF 30+, applied 15 minutes before exposure and reapplied every 2 hours (or after swimming), plus shade in the 10 a.m.–4 p.m. window and a real hat. Most people apply about half the tested amount — a full shot-glass worth covers an adult body.",
+        "links": [
+          {
+            "label": "Sunscreen — Wikipedia",
+            "url": "https://en.wikipedia.org/wiki/Sunscreen",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Check your sunscreen's expiry date today (typically 3 years) and put a bottle somewhere you'll actually use it — car, bag, or desk."
+      ]
+    }
+  ]
+}

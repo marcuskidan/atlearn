@@ -1,0 +1,84 @@
+{
+  "id": "getting-started",
+  "title": "Getting Started Under the Sky",
+  "tier": "essential",
+  "learn": {
+    "summary": "Astronomy starts with just your eyes and a dark-ish sky. Your pupils take 20-30 minutes to fully dark-adapt, and a single glance at a phone screen resets the clock — which is why observers use dim red light. Before buying any gear, spend a few nights simply learning what is up there.",
+    "links": [
+      {
+        "label": "Night sky (Wikipedia)",
+        "url": "https://en.wikipedia.org/wiki/Night_sky",
+        "kind": "article"
+      }
+    ]
+  },
+  "do": [
+    "Pick one clear night this week, go outside for 30 uninterrupted minutes with no phone, and count how many more stars you can see at minute 25 than at minute 2."
+  ],
+  "children": [
+    {
+      "id": "dark-adaptation",
+      "title": "Dark Adaptation",
+      "tier": "essential",
+      "learn": {
+        "summary": "Your retina's rod cells, responsible for low-light vision, need 20-30 minutes to regenerate rhodopsin and reach full sensitivity — a gain of roughly 10,000x. Red light preserves this because rods are nearly insensitive to deep red wavelengths. This is the single cheapest upgrade to your observing: patience.",
+        "links": [
+          {
+            "label": "Adaptation of the eye (Wikipedia)",
+            "url": "https://en.wikipedia.org/wiki/Adaptation_(eye)",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Make or buy a red flashlight (rubber band + red cellophane works) and use it on your next night out; note whether faint stars stay visible after checking your star chart."
+      ]
+    },
+    {
+      "id": "light-pollution-bortle",
+      "title": "Light Pollution & Bortle",
+      "tier": "essential",
+      "learn": {
+        "summary": "The Bortle scale rates sky darkness from 1 (pristine, Milky Way casts shadows) to 9 (inner city, only the brightest stars survive). Most suburban skies are Bortle 5-7, where the Milky Way is invisible but planets, the Moon, and bright clusters still shine. Knowing your number tells you what targets are realistic from home versus a drive away.",
+        "links": [
+          {
+            "label": "Bortle scale (Wikipedia)",
+            "url": "https://en.wikipedia.org/wiki/Bortle_scale",
+            "kind": "article"
+          },
+          {
+            "label": "Light pollution (Wikipedia)",
+            "url": "https://en.wikipedia.org/wiki/Light_pollution",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Estimate your home's Bortle class tonight by finding the faintest star you can see in the Little Dipper, then locate the nearest darker site within a 45-minute drive on a light pollution map."
+      ]
+    },
+    {
+      "id": "planetarium-apps",
+      "title": "Planetarium Apps",
+      "tier": "essential",
+      "learn": {
+        "summary": "Stellarium is a free, open-source planetarium that shows exactly what your sky looks like from your location at any time — it is the standard tool for planning sessions. Use it indoors to plan, not outdoors to browse; night mode (red) exists for a reason. Check what is rising, transiting, and setting before you head out.",
+        "links": [
+          {
+            "label": "Stellarium Web",
+            "url": "https://stellarium-web.org/",
+            "kind": "tool"
+          },
+          {
+            "label": "Stellarium (Wikipedia)",
+            "url": "https://en.wikipedia.org/wiki/Stellarium_(software)",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Open Stellarium, set it to 9 PM tonight at your location, and write down the three brightest objects that will be above 30 degrees altitude — then go outside and find all three."
+      ]
+    }
+  ]
+}

@@ -1,0 +1,84 @@
+{
+  "id": "logic-and-fallacies",
+  "title": "Logic and Fallacies",
+  "tier": "essential",
+  "learn": {
+    "summary": "An argument is a set of premises offered in support of a conclusion — and the core skill is separating whether the logic holds from whether the premises are true. Informal logic gives names to the recurring ways arguments go wrong: attacking the person, torching a straw man, forcing false choices. Learn the patterns so you can diagnose reasoning, not so you can win by shouting Latin.",
+    "links": [
+      {
+        "label": "Wikipedia: Argument",
+        "url": "https://en.wikipedia.org/wiki/Argument",
+        "kind": "article"
+      },
+      {
+        "label": "Stanford Encyclopedia: Fallacies",
+        "url": "https://plato.stanford.edu/entries/fallacies/",
+        "kind": "article"
+      }
+    ]
+  },
+  "do": [
+    "Take one opinion piece and rewrite its core argument as numbered premises and a conclusion; mark which premise you find weakest."
+  ],
+  "children": [
+    {
+      "id": "arguments-and-validity",
+      "title": "Arguments and Validity",
+      "tier": "essential",
+      "learn": {
+        "summary": "A valid argument is one where the conclusion must be true if the premises are; a sound argument is valid and has true premises. This split matters: 'all cats are robots, robots can't purr, so cats can't purr' is perfectly valid and completely unsound. Most bad everyday arguments fail on premises, not logic — so check the inputs before fighting about the inference.",
+        "links": [
+          {
+            "label": "Wikipedia: Validity (logic)",
+            "url": "https://en.wikipedia.org/wiki/Validity_(logic)",
+            "kind": "article"
+          },
+          {
+            "label": "Wikipedia: Soundness",
+            "url": "https://en.wikipedia.org/wiki/Soundness",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Write out 2 arguments you encountered this week in premise-conclusion form and label each: valid/invalid, and sound/unsound."
+      ]
+    },
+    {
+      "id": "common-fallacies",
+      "title": "Common Fallacies",
+      "tier": "essential",
+      "learn": {
+        "summary": "A handful of fallacies do most of the damage: ad hominem (attack the person), straw man (attack a distorted version of the claim), false dilemma (only two options presented), slippery slope (chain of doom with no probabilities), and appeal to nature. They persist because each is a corrupted version of a sometimes-legitimate move — character does matter for testimony; some slopes are slippery. The skill is telling the legitimate version from the fallacious one.",
+        "links": [
+          {
+            "label": "Wikipedia: List of fallacies",
+            "url": "https://en.wikipedia.org/wiki/List_of_fallacies",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Collect 5 real fallacy examples from social media or comment sections this week and name the specific fallacy in each."
+      ]
+    },
+    {
+      "id": "fallacy-hunting-pitfalls",
+      "title": "Fallacy-Hunting Pitfalls",
+      "tier": "recommended",
+      "learn": {
+        "summary": "The 'fallacy fallacy' is concluding a claim is false because someone argued for it badly — but true things get defended with terrible arguments all the time. Naming fallacies is also a favorite way to dodge substance ('that's a slippery slope, I win'). Use fallacy-spotting as a prompt to steelman and re-examine the claim, never as a conversation-ending trump card.",
+        "links": [
+          {
+            "label": "Wikipedia: Argument from fallacy",
+            "url": "https://en.wikipedia.org/wiki/Argument_from_fallacy",
+            "kind": "article"
+          }
+        ]
+      },
+      "do": [
+        "Find one claim you dismissed because of a bad argument for it, then spend 10 minutes constructing the best argument for that same claim."
+      ]
+    }
+  ]
+}
