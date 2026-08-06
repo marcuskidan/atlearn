@@ -792,7 +792,10 @@ async function loadIndex(){
   if(EMBEDDED_DATA){ INDEX=EMBEDDED_DATA.index.roadmaps; return; }
   const r=await fetch("roadmaps/index.json");
   if(!r.ok) throw new Error("index.json "+r.status);
-  INDEX=(await r.json()).roadmaps;
+  const idx=await r.json();
+  if(idx.schemaVersion && idx.schemaVersion!==1)
+    console.warn("index.json schemaVersion",idx.schemaVersion,"is newer than this app understands");
+  INDEX=idx.roadmaps;
 }
 async function loadRoadmap(id){
   if(rmCache.has(id)) return rmCache.get(id);
@@ -843,7 +846,16 @@ function maintainerNameOf(entry){
    On sign-in: pull remote, merge, push merged. On network failure: retry,
    and flush when the tab/app goes to background.                        */
 let user = readJSON("hkr:user") || {id:"guest", name:"Guest", provider:null, token:null};
-let store = readJSON(storeKey(user.id)) || {progress:{}};
+/* Stored-data schema versioning: every store blob carries v; migrateStore is
+   the single upgrade hook. v0 (pre-versioning) blobs are wrapped as v1. */
+const STORE_V=1;
+function migrateStore(raw){
+  if(!raw || typeof raw!=="object") return {v:STORE_V, progress:{}};
+  if(!raw.v) raw={v:1, progress:raw.progress||{}};   // v0 → v1
+  // future: if(raw.v===1){ ...upgrade...; raw.v=2; }
+  return raw;
+}
+let store = migrateStore(readJSON(storeKey(user.id)));
 let syncState = "off";   // off | dirty | syncing | synced | error
 function storeKey(uid){ return "hkr:store:"+uid; }
 function readJSON(k){ try{ return JSON.parse(localStorage.getItem(k)); }catch(e){ return null; } }
@@ -885,7 +897,8 @@ async function pullAndMerge(){
   }catch(e){ /* offline is fine — stay local-first */ }
 }
 function mergeStores(a,b){ // last-write-wins per node record
-  const out={progress:{}};
+  a=migrateStore(a); b=migrateStore(b);
+  const out={v:STORE_V, progress:{}};
   const rms=new Set([...Object.keys(a.progress||{}),...Object.keys(b.progress||{})]);
   rms.forEach(rm=>{
     out.progress[rm]={};
@@ -1200,7 +1213,7 @@ async function finishSignIn(u){
   // adopt guest progress into the account store (merge, never overwrite)
   const guestStore=store;
   user=u; localStorage.setItem("hkr:user",JSON.stringify(user));
-  store=readJSON(storeKey(user.id))||{progress:{}};
+  store=migrateStore(readJSON(storeKey(user.id)));
   store=mergeStores(store,guestStore); persistLocal();
   await pullAndMerge();          // bring down other devices' progress
   if(canSync()){ syncState="dirty"; pushRemote(); }
@@ -1224,7 +1237,7 @@ $("signOutBtn").onclick=()=>{
   if(syncState==="dirty") pushRemote();   // flush before switching identity
   user={id:"guest",name:"Guest",provider:null,token:null};
   localStorage.setItem("hkr:user",JSON.stringify(user));
-  store=readJSON(storeKey("guest"))||{progress:{}};
+  store=migrateStore(readJSON(storeKey("guest")));
   paintUser(); toast("Signed out — progress stays on this device.");
   if($("reviewView").classList.contains("active")) goHome();
   else if(currentRm){ renderGraph(); } else renderHome();

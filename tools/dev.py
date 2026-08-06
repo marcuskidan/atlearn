@@ -38,7 +38,8 @@ def rebuild_index():
     roadmaps.sort(key=lambda r: (r["meta"].get("order", 999), r["meta"]["id"]))
     index = [{**r["meta"], "topics": r["files"], "total": r["total"]} for r in roadmaps]
     with open(os.path.join(build.RDIR, "index.json"), "w") as f:
-        json.dump({"generated": True, "roadmaps": index}, f, ensure_ascii=False, indent=1)
+        json.dump({"generated": True, "schemaVersion": 1, "roadmaps": index},
+                  f, ensure_ascii=False, indent=1)
     return []
 
 class H(SimpleHTTPRequestHandler):
