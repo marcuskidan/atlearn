@@ -1,0 +1,70 @@
+# CLAUDE.md — working on Human Knowledge Roadmaps
+
+## What this is
+A roadmap.sh-style app for general human skills. Static app shell (`index.html`)
++ content as small JSON files under `roadmaps/<category>/topics/`. Full details
+and schema: README.md.
+
+## Golden rules
+1. **Content edits happen in topic files only** (`roadmaps/<id>/topics/NN-slug.json`).
+   Never edit `roadmaps/index.json` or `dist/` — both are generated.
+2. After ANY content change, run `python3 tools/build.py` and make it pass.
+   It validates schema, ids, tiers, links, and regenerates the index.
+3. **Every node needs a `do` action** — a specific real-world task doable this
+   week ("Go outside at 9 PM and locate Polaris"), never "practice more".
+   Summaries are 2–3 curated sentences, curriculum-grounded, zero filler.
+4. Links: 1–2 per node, https, stable sources only (Wikipedia / .gov / .edu /
+   major orgs). No deep YouTube links, no blogs, no guessed URLs.
+   **The one hard rule (manifesto): every resource must be freely and legally
+   accessible to everyone** — no paywalls, sign-up walls, or region locks.
+   The build warns on known-paywalled domains; treat those warnings as bugs.
+5. Tiers: `essential` | `recommended` | `extra` (children roughly 50/30/20).
+   Children nest exactly one level — the renderer draws spine topics down the
+   center and children as left/right branches automatically; there is no layout
+   data to maintain.
+6. Explanatory/mission copy lives ONLY on the About page (the manifesto in
+   index.html) — never scatter "what this app is" text into other UI surfaces.
+7. Each roadmap's `meta.json` has a `maintainer` name shown on its card and
+   map header. "The Overseer" is a placeholder — real maps get real names.
+8. Sensitive categories have standing constraints:
+   - `personal-finance`: strictly conceptual education, no advice, no product
+     or investment recommendations; link to consumerfinance.gov / investor.gov.
+   - `first-aid`: awareness-level only; point to certified courses (Red Cross/
+     AHA) and emergency services; never present the app as certification.
+   - `mental-health`: educational self-care framing; keep the
+     professional-help/988 pathways intact.
+
+## Editorial layer
+Structured-edit pipeline (see README "Editorial layer"): contributors propose
+via the in-app editor → per-map maintainers merge with diff review → merged
+topics live in the API's content overlay until `tools/sync.py` folds them into
+the repo files. Rules:
+- Never bypass the overlay model: direct KV writes to content happen ONLY via
+  the merge endpoint (attribution + history) or sync/clear (overseer custody).
+- After running sync.py, always run build.py and commit before `--clear`.
+- Maintainer bindings live in the API's `maintainers` doc (set in-app by the
+  overseer), NOT in meta.json — meta.json `maintainer` is display fallback only.
+
+## Community layer
+In-app suggestion → maintainer/overseer review pipeline (see README "Community layer").
+Rules when touching it:
+- Curated content must never become writable via the API — approved community
+  input either publishes as a separate, labeled tip or exports for manual curation.
+- All user-generated text must go through `esc()` before touching innerHTML.
+- A common maintainer task: take the review queue's "accepted for curation"
+  JSON export and fold each item into the right topic file (respecting the
+  content rules above), then run the build.
+
+## Common tasks
+- **Deepen a topic**: edit its single topic file (add children, improve
+  summaries/links/actions) → run build. Or run `python3 tools/dev.py` and use
+  the in-app ✏️ editor — saves write the same files with validation built in.
+- **Check link health**: `python3 tools/build.py --check-links` →
+  `tools/link-report.json` (dead vs bot-blocked). Fix dead links only with
+  URLs you've verified resolve.
+- **New core topic**: add `NN-slug.json` to the category's `topics/` (the `NN-`
+  prefix is spine order; renumber neighbors if inserting) → run build.
+- **New category**: folder + `meta.json` (id must equal folder name; set
+  `order`) + `topics/` → run build.
+- **Test in browser**: `python3 -m http.server 8123` (content fetch needs HTTP,
+  not file://), or build `--standalone` and open `dist/standalone.html`.

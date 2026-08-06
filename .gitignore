@@ -1,0 +1,9 @@
+.DS_Store
+dist/
+tools/link-report.json
+backups/
+__pycache__/
+*.pyc
+.wrangler/
+server/.dev.vars
+node_modules/

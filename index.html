@@ -1,0 +1,1837 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, maximum-scale=1.0, user-scalable=no">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="theme-color" content="#0f1117">
+<title>Human Knowledge Roadmaps</title>
+<style>
+/* ============================================================
+   HUMAN KNOWLEDGE ROADMAPS — app shell
+   Content lives in roadmaps/<id>/ folders (see README.md).
+   Wrap-ready for iOS via Capacitor/WKWebView (safe-area aware).
+   ============================================================ */
+:root{
+  --bg:#0f1117; --bg2:#161a23; --bg3:#1e2431; --line:#2a3242;
+  --text:#e8ecf4; --muted:#9aa5b8; --faint:#68738a;
+  --accent:#ffd75e; --accent-ink:#1a1503;
+  --green:#4ade80; --blue:#60a5fa; --gray:#8b93a7;
+  --essential:#ffd75e; --recommended:#7dd3fc; --extra:#8b93a7;
+  --radius:14px;
+  --sat:env(safe-area-inset-top,0px); --sab:env(safe-area-inset-bottom,0px);
+  --sal:env(safe-area-inset-left,0px); --sar:env(safe-area-inset-right,0px);
+}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+html,body{height:100%}
+body{
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Roboto,sans-serif;
+  background:var(--bg); color:var(--text);
+  overflow:hidden; overscroll-behavior:none;
+  -webkit-font-smoothing:antialiased;
+}
+button{font:inherit;color:inherit;background:none;border:none;cursor:pointer}
+a{color:var(--blue)}
+
+/* ---------- Top bar ---------- */
+#topbar{
+  position:fixed;top:0;left:0;right:0;z-index:40;
+  padding:calc(10px + var(--sat)) calc(16px + var(--sar)) 10px calc(16px + var(--sal));
+  display:flex;align-items:center;gap:12px;
+  background:rgba(15,17,23,.85);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
+  border-bottom:1px solid var(--line);
+}
+#backBtn{display:none;width:34px;height:34px;border-radius:10px;background:var(--bg3);
+  align-items:center;justify-content:center;font-size:17px;flex:0 0 auto}
+#backBtn.show{display:flex}
+#brand{display:flex;align-items:center;gap:10px;min-width:0}
+#brandMark{width:30px;height:30px;border-radius:9px;background:linear-gradient(135deg,var(--accent),#f59e0b);
+  display:flex;align-items:center;justify-content:center;font-size:16px;flex:0 0 auto}
+#brandText{font-weight:700;font-size:15.5px;letter-spacing:.2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+#brandSub{font-size:11px;color:var(--muted);margin-top:1px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+#topSpacer{flex:1}
+#userArea{display:flex;align-items:center;gap:8px;flex:0 0 auto}
+#signInBtn{background:var(--accent);color:var(--accent-ink);font-weight:700;font-size:13px;
+  padding:8px 14px;border-radius:999px}
+#userChip{display:none;align-items:center;gap:8px;background:var(--bg3);border:1px solid var(--line);
+  padding:5px 12px 5px 6px;border-radius:999px;font-size:13px}
+#userChip.show{display:flex}
+#userAvatar{width:24px;height:24px;border-radius:50%;background:var(--blue);color:#04182e;
+  display:flex;align-items:center;justify-content:center;font-weight:800;font-size:12px}
+#syncDot{width:8px;height:8px;border-radius:50%;background:var(--faint);flex:0 0 auto}
+#syncDot.synced{background:var(--green)}
+#syncDot.dirty,#syncDot.syncing{background:var(--accent)}
+#syncDot.error{background:#f87171}
+#syncDot.off{display:none}
+
+/* ---------- Views ---------- */
+.view{position:fixed;inset:0;overflow:hidden;display:none}
+.view.active{display:block}
+
+/* ---------- Home / category selector ---------- */
+#homeView{overflow-y:auto;-webkit-overflow-scrolling:touch;
+  padding:calc(84px + var(--sat)) calc(16px + var(--sar)) calc(40px + var(--sab)) calc(16px + var(--sal))}
+#homeHero{max-width:960px;margin:6px auto 22px}
+#homeHero h1{font-size:clamp(24px,4.5vw,34px);line-height:1.15;letter-spacing:-.5px}
+#homeHero h1 em{font-style:normal;color:var(--accent)}
+#homeHero p{color:var(--muted);margin-top:8px;font-size:14.5px;max-width:640px;line-height:1.55}
+#grid{max-width:960px;margin:0 auto;display:grid;gap:14px;
+  grid-template-columns:repeat(auto-fill,minmax(270px,1fr))}
+.card{
+  text-align:left;background:var(--bg2);border:1px solid var(--line);border-radius:var(--radius);
+  padding:18px;display:flex;flex-direction:column;gap:10px;
+  transition:transform .15s,border-color .15s;
+}
+.card:hover{transform:translateY(-2px);border-color:#3b465c}
+.card .row1{display:flex;align-items:center;gap:12px}
+.card .emoji{width:44px;height:44px;border-radius:12px;background:var(--bg3);
+  display:flex;align-items:center;justify-content:center;font-size:22px;flex:0 0 auto}
+.card h3{font-size:16px}
+.card .tag{color:var(--muted);font-size:13px;line-height:1.5}
+.card .curr{font-size:11px;color:var(--faint);line-height:1.4}
+.card .meta{display:flex;align-items:center;justify-content:space-between;
+  font-size:12px;color:var(--faint);margin-top:2px}
+.pbar{height:6px;border-radius:99px;background:var(--bg3);overflow:hidden;flex:1;margin-right:12px}
+.pbar>i{display:block;height:100%;background:linear-gradient(90deg,var(--green),#22c55e);border-radius:99px}
+#loadErr{max-width:640px;margin:40px auto;background:var(--bg2);border:1px solid var(--line);
+  border-radius:var(--radius);padding:24px;font-size:14px;line-height:1.6;color:var(--muted);display:none}
+#loadErr code{background:var(--bg3);padding:2px 6px;border-radius:6px;font-size:12.5px;color:var(--text)}
+.secTitle{max-width:960px;margin:26px auto 12px;font-size:13px;letter-spacing:.8px;
+  text-transform:uppercase;color:var(--faint);display:flex;align-items:center;gap:10px}
+.secTitle::after{content:"";flex:1;height:1px;background:var(--line)}
+#continueWrap{display:none}
+#continueRow{max-width:960px;margin:0 auto;display:grid;gap:14px;
+  grid-template-columns:repeat(auto-fill,minmax(290px,1fr))}
+.ccard{text-align:left;background:linear-gradient(180deg,rgba(255,215,94,.07),transparent 60%),var(--bg2);
+  border:1px solid rgba(255,215,94,.35);border-radius:var(--radius);padding:16px 18px;
+  display:flex;flex-direction:column;gap:9px;transition:transform .15s,border-color .15s}
+.ccard:hover{transform:translateY(-2px);border-color:var(--accent)}
+.ccard .row1{display:flex;align-items:center;gap:10px}
+.ccard .row1 .pct{margin-left:auto;font-size:12px;color:var(--green);font-weight:700}
+.ccard h3{font-size:15px}
+.ccard .nx{font-size:11px;letter-spacing:.6px;text-transform:uppercase;color:var(--faint)}
+.ccard .nxt{font-size:14px;font-weight:650;color:var(--accent);margin-top:-4px}
+.ccard .nxdo{font-size:12.5px;color:var(--muted);line-height:1.5;font-style:italic}
+#heroSub a{color:var(--accent);text-decoration:none;font-weight:600}
+
+/* ---------- About / manifesto ---------- */
+#aboutView{overflow-y:auto;-webkit-overflow-scrolling:touch;
+  padding:calc(90px + var(--sat)) 20px calc(60px + var(--sab))}
+.manifesto{max-width:620px;margin:0 auto}
+.manifesto h1{font-size:clamp(23px,4.5vw,30px);line-height:1.25;letter-spacing:-.4px;margin-bottom:22px}
+.manifesto h2{font-size:19px;margin:34px 0 12px;color:var(--accent)}
+.manifesto p{font-size:15px;line-height:1.75;color:#c9d2e2;margin-bottom:14px}
+.manifesto p b{color:var(--text)}
+.manifesto .sig{margin-top:30px;padding-top:18px;border-top:1px solid var(--line);
+  font-size:13px;color:var(--faint);line-height:1.6}
+#aboutBtn{background:var(--bg3);border:1px solid var(--line);width:34px;height:34px;
+  border-radius:10px;font-size:14px;flex:0 0 auto}
+
+/* ---------- Roadmap view ---------- */
+#mapView{background:
+  radial-gradient(circle at 20% 10%,rgba(96,165,250,.05),transparent 40%),
+  radial-gradient(circle at 80% 90%,rgba(255,215,94,.04),transparent 40%),var(--bg)}
+#scroller{position:absolute;inset:0;overflow:auto;-webkit-overflow-scrolling:touch;
+  padding-top:calc(64px + var(--sat))}
+#canvasOuter{position:relative;margin:0 auto}
+#canvas{position:absolute;top:0;left:0;transform-origin:0 0}
+#edgeSvg{position:absolute;top:0;left:0;pointer-events:none}
+/* roadmap.sh-style edges: solid central spine, dotted branch connectors */
+.edge{fill:none;stroke-linecap:round}
+.edge.spineEdge{stroke:#4f78c9;stroke-width:3}
+.edge.spineLead{stroke:#4f78c9;stroke-width:3;stroke-dasharray:1 8}
+.edge.childEdge{stroke:#4f78c9;stroke-width:2;stroke-dasharray:1 7;opacity:.85}
+.edge.mastered{stroke:var(--green);opacity:.9}
+.node{
+  position:absolute;border-radius:10px;text-align:left;
+  transition:transform .12s,box-shadow .12s;
+}
+.node:hover{transform:scale(1.04);box-shadow:0 8px 24px rgba(0,0,0,.5);z-index:5}
+.node .ntitle{font-weight:650;line-height:1.3}
+.node .nrow{display:flex;align-items:center;gap:6px;margin-top:6px}
+/* Core spine topics — solid yellow, like roadmap.sh */
+.node.spine{
+  background:linear-gradient(180deg,#ffe17a,#fdd14e);
+  border:2px solid #caa22e;color:#1a1503;
+  padding:12px 14px 10px;text-align:center;
+  box-shadow:0 3px 0 #a8862a55;
+}
+.node.spine .ntitle{font-size:14px;font-weight:750;color:#1a1503}
+.node.spine .nrow{justify-content:center;margin-top:7px}
+.node.spine .badge.s0{background:rgba(0,0,0,.12);color:#5c4d13}
+.node.spine .badge.s1{background:rgba(29,78,216,.15);color:#1d4ed8}
+.node.spine .badge.s2{background:rgba(21,128,61,.18);color:#15803d}
+/* Branch subtopics — compact, tier-styled */
+.node.child{background:var(--bg2);border:1.5px solid var(--line);padding:9px 11px 8px}
+.node.child .ntitle{font-size:12.5px}
+.node.child.essential{border-color:rgba(255,215,94,.75);background:linear-gradient(180deg,rgba(255,215,94,.13),rgba(255,215,94,.04)),var(--bg2)}
+.node.child.recommended{border-color:rgba(125,211,252,.55)}
+.node.child.extra{border-style:dashed;border-color:#414b60}
+.node.child.extra .ntitle{color:var(--muted)}
+.badge{font-size:10px;font-weight:700;letter-spacing:.3px;padding:3px 8px;border-radius:99px;
+  display:inline-flex;align-items:center;gap:5px;text-transform:uppercase}
+.node.child .badge{font-size:8.5px;padding:2px 6px}
+.node.child .tierdot{font-size:9px}
+.badge::before{content:"";width:6px;height:6px;border-radius:50%;background:currentColor}
+.badge.s0{background:rgba(139,147,167,.14);color:var(--gray)}
+.badge.s1{background:rgba(96,165,250,.16);color:var(--blue)}
+.badge.s2{background:rgba(74,222,128,.16);color:var(--green)}
+.tierdot{margin-left:auto;font-size:10px;color:var(--faint);letter-spacing:.4px;text-transform:uppercase}
+
+#legend{position:fixed;z-index:30;left:calc(16px + var(--sal));bottom:calc(16px + var(--sab));
+  background:rgba(22,26,35,.92);backdrop-filter:blur(10px);border:1px solid var(--line);
+  border-radius:12px;padding:10px 14px;display:flex;gap:14px;font-size:11.5px;color:var(--muted)}
+#legend span{display:flex;align-items:center;gap:6px}
+#legend i{width:12px;height:12px;border-radius:4px;border:1.6px solid}
+#legend .lc{border-color:#caa22e;background:#fdd14e}
+#legend .le{border-color:rgba(255,215,94,.75);background:rgba(255,215,94,.15)}
+#legend .lr{border-color:rgba(125,211,252,.6)}
+#legend .lx{border-color:#414b60;border-style:dashed}
+#zoomCtl{position:fixed;z-index:30;right:calc(16px + var(--sar));bottom:calc(16px + var(--sab));
+  display:flex;flex-direction:column;gap:6px}
+#zoomCtl button{width:40px;height:40px;border-radius:11px;background:var(--bg2);
+  border:1px solid var(--line);font-size:17px;font-weight:700}
+#zoomCtl button:active{background:var(--bg3)}
+
+/* ---------- Loading overlay ---------- */
+#loading{position:fixed;inset:0;z-index:45;display:none;align-items:center;justify-content:center;
+  background:rgba(15,17,23,.6);backdrop-filter:blur(4px)}
+#loading.show{display:flex}
+.spinner{width:34px;height:34px;border-radius:50%;border:3px solid var(--line);
+  border-top-color:var(--accent);animation:spin .8s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+/* ---------- Drawer ---------- */
+#backdrop{position:fixed;inset:0;background:rgba(5,7,12,.55);z-index:50;opacity:0;
+  pointer-events:none;transition:opacity .25s}
+#backdrop.show{opacity:1;pointer-events:auto}
+#drawer{
+  position:fixed;z-index:60;background:var(--bg2);
+  top:0;right:0;bottom:0;width:min(460px,100%);
+  transform:translateX(105%);transition:transform .28s cubic-bezier(.32,.72,.3,1);
+  display:flex;flex-direction:column;
+  border-left:1px solid var(--line);
+  padding-top:var(--sat);
+}
+#drawer.open{transform:translateX(0)}
+@media (max-width:640px){
+  #drawer{top:auto;left:0;right:0;bottom:0;width:100%;max-height:88%;height:auto;min-height:60%;
+    border-left:none;border-top:1px solid var(--line);border-radius:20px 20px 0 0;
+    transform:translateY(105%);padding-top:0}
+  #drawer.open{transform:translateY(0)}
+  #grabber{width:40px;height:4px;border-radius:99px;background:var(--line);margin:10px auto 0}
+}
+#grabber{display:none}
+@media (max-width:640px){#grabber{display:block}}
+#drawerHead{padding:18px 20px 14px;border-bottom:1px solid var(--line)}
+#drawerHead .kicker{font-size:11px;letter-spacing:.6px;text-transform:uppercase;color:var(--faint);
+  display:flex;align-items:center;gap:8px}
+#drawerHead h2{font-size:19px;margin-top:5px;line-height:1.25;padding-right:36px}
+#closeBtn{position:absolute;top:calc(14px + var(--sat));right:14px;width:32px;height:32px;
+  border-radius:10px;background:var(--bg3);font-size:15px}
+@media (max-width:640px){#closeBtn{top:14px}}
+#statusSeg{display:flex;gap:6px;margin-top:13px}
+#statusSeg button{flex:1;padding:8px 4px;border-radius:10px;font-size:12px;font-weight:650;
+  background:var(--bg3);border:1.4px solid transparent;color:var(--muted)}
+#statusSeg button.on.o0{border-color:var(--gray);color:var(--text)}
+#statusSeg button.on.o1{border-color:var(--blue);color:var(--blue);background:rgba(96,165,250,.1)}
+#statusSeg button.on.o2{border-color:var(--green);color:var(--green);background:rgba(74,222,128,.1)}
+#drawerBody{flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch;
+  padding:6px 20px calc(28px + var(--sab))}
+.sec{margin-top:20px}
+.sec h4{font-size:12px;letter-spacing:.7px;text-transform:uppercase;color:var(--faint);
+  display:flex;align-items:center;gap:8px;margin-bottom:10px}
+.sec h4::after{content:"";flex:1;height:1px;background:var(--line)}
+.sec .summary{font-size:14px;line-height:1.65;color:#c9d2e2}
+.linklist{margin-top:12px;display:flex;flex-direction:column;gap:8px}
+.linklist a{display:flex;align-items:center;gap:10px;background:var(--bg3);border:1px solid var(--line);
+  border-radius:11px;padding:10px 12px;text-decoration:none;color:var(--text);font-size:13.5px}
+.linklist a:hover{border-color:#3b465c}
+.linkkind{font-size:10px;font-weight:800;letter-spacing:.5px;padding:3px 7px;border-radius:6px;
+  flex:0 0 auto;text-transform:uppercase}
+.linkkind.video{background:rgba(248,113,113,.15);color:#f87171}
+.linkkind.article{background:rgba(96,165,250,.15);color:var(--blue)}
+.linkkind.tool{background:rgba(74,222,128,.15);color:var(--green)}
+.steps{display:flex;flex-direction:column;gap:8px}
+.step{display:flex;gap:11px;align-items:flex-start;background:var(--bg3);border:1px solid var(--line);
+  border-radius:11px;padding:11px 12px;cursor:pointer;text-align:left;width:100%}
+.step .box{width:20px;height:20px;border-radius:7px;border:1.6px solid var(--faint);flex:0 0 auto;
+  display:flex;align-items:center;justify-content:center;font-size:12px;margin-top:1px;color:transparent}
+.step.done .box{background:var(--green);border-color:var(--green);color:#052e12}
+.step .stext{font-size:13.5px;line-height:1.5;color:#c9d2e2}
+.step.done .stext{color:var(--faint);text-decoration:line-through}
+#notes{width:100%;min-height:120px;resize:vertical;background:var(--bg3);border:1px solid var(--line);
+  border-radius:11px;padding:12px;color:var(--text);font:inherit;font-size:13.5px;line-height:1.55;outline:none}
+#notes:focus{border-color:var(--blue)}
+#saveHint{font-size:11px;color:var(--faint);margin-top:6px;text-align:right;height:14px}
+#syncNote{margin-top:10px;font-size:12px;color:var(--faint);background:var(--bg3);
+  border:1px dashed var(--line);border-radius:10px;padding:9px 12px;line-height:1.5}
+#syncNote b{color:var(--muted)}
+
+/* ---------- Community ---------- */
+.tipCard{background:var(--bg3);border:1px solid var(--line);border-radius:11px;padding:10px 12px;
+  font-size:13px;line-height:1.55;color:#c9d2e2;margin-bottom:8px}
+.tipCard .tby{font-size:11px;color:var(--faint);margin-top:5px}
+.tipCard a{font-size:12.5px;word-break:break-all}
+#suggestBtn{width:100%;margin-top:4px;padding:11px;border-radius:11px;
+  border:1.5px dashed var(--line);color:var(--muted);font-size:13px;font-weight:600}
+#suggestBtn:hover{border-color:var(--accent);color:var(--accent)}
+#proposeWrap{max-width:960px;margin:28px auto 0;text-align:center}
+#proposeBtn{padding:12px 22px;border-radius:12px;border:1.5px dashed var(--line);
+  color:var(--muted);font-size:14px;font-weight:600}
+#proposeBtn:hover{border-color:var(--accent);color:var(--accent)}
+.modalWrap{position:fixed;inset:0;z-index:80;display:none;align-items:center;justify-content:center;
+  background:rgba(5,7,12,.65);padding:20px}
+.modalWrap.show{display:flex}
+.modalCard{background:var(--bg2);border:1px solid var(--line);border-radius:18px;width:100%;
+  max-width:440px;padding:24px;max-height:88vh;overflow-y:auto}
+.modalCard h3{font-size:17px}
+.modalCard .mctx{color:var(--faint);font-size:12px;margin:6px 0 14px;line-height:1.5}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:14px}
+.chips button{padding:8px 12px;border-radius:99px;background:var(--bg3);
+  border:1.4px solid var(--line);font-size:12.5px;color:var(--muted)}
+.chips button.on{border-color:var(--accent);color:var(--accent);background:rgba(255,215,94,.08)}
+.modalCard textarea{width:100%;min-height:110px;resize:vertical;background:var(--bg3);
+  border:1px solid var(--line);border-radius:11px;padding:11px;color:var(--text);
+  font:inherit;font-size:13.5px;outline:none}
+.modalCard input[type=url]{width:100%;margin-top:10px;background:var(--bg3);border:1px solid var(--line);
+  border-radius:11px;padding:11px;color:var(--text);font:inherit;font-size:13px;outline:none}
+.modalCard textarea:focus,.modalCard input:focus{border-color:var(--blue)}
+.checkRow{display:flex;gap:9px;align-items:flex-start;margin-top:12px;font-size:12.5px;
+  color:var(--muted);cursor:pointer;line-height:1.45}
+.checkRow input{margin-top:2px;accent-color:var(--accent)}
+.modalBtns{display:flex;gap:10px;margin-top:16px}
+.modalBtns button{flex:1;padding:11px;border-radius:11px;font-size:13.5px;font-weight:650;background:var(--bg3)}
+.modalBtns .primary{background:var(--accent);color:var(--accent-ink)}
+.modalBtns .primary:disabled{opacity:.45}
+#reviewBtn{display:none;background:var(--bg3);border:1px solid var(--line);
+  font-size:13px;font-weight:650;padding:8px 13px;border-radius:999px}
+#reviewBtn.show{display:block}
+#reviewView{overflow-y:auto;-webkit-overflow-scrolling:touch;
+  padding:calc(84px + var(--sat)) 16px calc(40px + var(--sab))}
+#reviewInner{max-width:760px;margin:0 auto}
+#reviewInner h2{font-size:20px;margin-bottom:4px}
+#reviewInner .sub{color:var(--muted);font-size:13px;margin-bottom:14px;line-height:1.55}
+.sgCard{background:var(--bg2);border:1px solid var(--line);border-radius:var(--radius);
+  padding:16px;margin-bottom:12px}
+.sgMeta{display:flex;gap:8px;align-items:center;flex-wrap:wrap;font-size:11.5px;
+  color:var(--faint);margin-bottom:8px}
+.sgType{font-size:10px;font-weight:800;letter-spacing:.4px;text-transform:uppercase;
+  padding:3px 8px;border-radius:6px;background:rgba(96,165,250,.15);color:var(--blue)}
+.vbadge{font-size:10px;padding:2px 7px;border-radius:6px;background:rgba(74,222,128,.15);
+  color:var(--green);font-weight:700}
+.sgText{font-size:13.5px;line-height:1.6;color:#c9d2e2;white-space:pre-wrap}
+.sgUrl{font-size:12.5px;margin-top:6px;word-break:break-all}
+.sgActs{display:flex;gap:8px;margin-top:12px;flex-wrap:wrap}
+.sgActs button{padding:8px 13px;border-radius:9px;font-size:12.5px;font-weight:650;
+  background:var(--bg3);border:1px solid var(--line)}
+.sgActs .aTip{color:var(--green)} .sgActs .aAcc{color:var(--accent)} .sgActs .aRej{color:#f87171}
+#copyAccepted{margin:4px 0 14px;padding:9px 14px;border-radius:9px;font-size:12.5px;
+  font-weight:650;background:var(--bg3);border:1px solid var(--line);color:var(--blue)}
+/* proposal diffs */
+.diffBox{background:var(--bg);border:1px solid var(--line);border-radius:10px;
+  padding:12px 14px;margin-top:6px;font-size:12.5px;line-height:1.6;overflow-x:auto}
+.dnode{font-weight:700;margin:8px 0 4px;color:var(--text)}
+.dnode.add{color:var(--green)} .dnode.del{color:#f87171}
+.dfield{font-size:10.5px;letter-spacing:.5px;text-transform:uppercase;color:var(--faint);margin-top:6px}
+.dline{padding:3px 8px;border-radius:6px;margin:2px 0;white-space:pre-wrap}
+.dline.del{background:rgba(248,113,113,.09);color:#fca5a5}
+.dline.add{background:rgba(74,222,128,.09);color:#86efac}
+.histRow{padding:10px 0;border-bottom:1px solid var(--line);font-size:13px;
+  line-height:1.55;color:#c9d2e2;text-align:left}
+.histRow .histAt{font-size:11px;color:var(--faint);margin-top:3px}
+
+/* ---------- Overseer editor ---------- */
+#editBtn{display:none;position:absolute;top:calc(14px + var(--sat));right:54px;width:32px;height:32px;
+  border-radius:10px;background:var(--bg3);font-size:14px}
+@media (max-width:640px){#editBtn{top:14px}}
+#editBtn.show{display:block}
+.edLabel{display:block;font-size:11px;letter-spacing:.6px;text-transform:uppercase;
+  color:var(--faint);margin:16px 0 6px}
+.edInput,.edArea{width:100%;background:var(--bg3);border:1px solid var(--line);border-radius:10px;
+  padding:10px 11px;color:var(--text);font:inherit;font-size:13.5px;outline:none}
+.edInput:focus,.edArea:focus{border-color:var(--blue)}
+.edArea{min-height:96px;resize:vertical;line-height:1.55}
+select.edInput{appearance:none;-webkit-appearance:none}
+.edRow{display:flex;gap:6px;margin-bottom:6px;align-items:center}
+.edRow .edInput{margin:0}
+.edRow .rmX{width:30px;height:34px;flex:0 0 auto;border-radius:8px;background:var(--bg3);
+  color:#f87171;font-size:13px;border:1px solid var(--line)}
+.edRow select{flex:0 0 92px}
+.edAdd{margin-top:2px;padding:8px 12px;border-radius:9px;border:1.5px dashed var(--line);
+  color:var(--muted);font-size:12px;font-weight:600}
+.edAdd:hover{border-color:var(--accent);color:var(--accent)}
+#editorErrs{margin-top:12px;font-size:12.5px;color:#f87171;line-height:1.6;white-space:pre-wrap}
+#edMode{margin-top:10px;font-size:11.5px;color:var(--faint);text-align:center;line-height:1.5}
+.edDanger{margin-top:14px;width:100%;padding:10px;border-radius:10px;font-size:12.5px;
+  font-weight:650;color:#f87171;border:1px solid rgba(248,113,113,.35);background:rgba(248,113,113,.06)}
+#addTopicBtn{display:none;position:fixed;z-index:30;left:calc(16px + var(--sal));
+  bottom:calc(64px + var(--sab));padding:10px 14px;border-radius:11px;background:var(--bg2);
+  border:1.5px dashed var(--line);color:var(--muted);font-size:12.5px;font-weight:650}
+#addTopicBtn.show{display:block}
+#addTopicBtn:hover{border-color:var(--accent);color:var(--accent)}
+
+/* ---------- Auth modal ---------- */
+#authModal{position:fixed;inset:0;z-index:80;display:none;align-items:center;justify-content:center;
+  background:rgba(5,7,12,.65);padding:20px}
+#authModal.show{display:flex}
+#authCard{background:var(--bg2);border:1px solid var(--line);border-radius:18px;width:100%;
+  max-width:360px;padding:26px 24px;text-align:center}
+#authCard h3{font-size:18px}
+#authCard p{color:var(--muted);font-size:13px;margin:8px 0 20px;line-height:1.5}
+.ssoBtn{width:100%;display:flex;align-items:center;justify-content:center;gap:10px;
+  padding:12px;border-radius:12px;font-size:14px;font-weight:650;margin-bottom:10px;border:1px solid var(--line)}
+.ssoBtn.google{background:#fff;color:#1f2937}
+.ssoBtn.apple{background:#000;color:#fff;border-color:#333}
+.ssoBtn svg{width:18px;height:18px;flex:0 0 auto}
+#authCancel{margin-top:6px;color:var(--faint);font-size:13px}
+.signout{color:#f87171 !important;font-size:12px}
+
+#toast{position:fixed;left:50%;bottom:calc(24px + var(--sab));transform:translate(-50%,20px);
+  background:var(--bg3);border:1px solid var(--line);color:var(--text);font-size:13px;
+  padding:10px 18px;border-radius:99px;z-index:90;opacity:0;transition:all .3s;pointer-events:none}
+#toast.show{opacity:1;transform:translate(-50%,0)}
+</style>
+</head>
+<body>
+
+<!-- ================= TOP BAR ================= -->
+<header id="topbar">
+  <button id="backBtn" aria-label="Back to roadmaps">←</button>
+  <div id="brand">
+    <div id="brandMark">🗺️</div>
+    <div style="min-width:0">
+      <div id="brandText">Human Knowledge Roadmaps</div>
+      <div id="brandSub">Curated paths for a well-lived life</div>
+    </div>
+  </div>
+  <div id="topSpacer"></div>
+  <div id="userArea">
+    <button id="aboutBtn" title="About this project" aria-label="About">ⓘ</button>
+    <button id="reviewBtn" title="Review community suggestions">🛡️ Review</button>
+    <button id="signInBtn">Sign in</button>
+    <div id="userChip">
+      <div id="userAvatar">G</div><span id="userName">Guest</span>
+      <span id="syncDot" title="Sync status"></span>
+      <button class="signout" id="signOutBtn">Sign out</button>
+    </div>
+  </div>
+</header>
+
+<!-- ================= HOME ================= -->
+<main id="homeView" class="view active">
+  <div id="homeHero">
+    <h1 id="heroTitle">Pick a path. <em>Learn by doing.</em></h1>
+    <p id="heroSub">Step-by-step maps for learning real things — free, for everyone, forever.
+      <a href="#" id="aboutLink">Why this exists →</a></p>
+  </div>
+  <div id="continueWrap">
+    <h2 class="secTitle">Continue your paths</h2>
+    <div id="continueRow"></div>
+    <h2 class="secTitle" style="margin-top:30px">The library</h2>
+  </div>
+  <div id="grid"></div>
+  <div id="loadErr"></div>
+  <div id="proposeWrap"><button id="proposeBtn">🌱 Propose a new roadmap…</button></div>
+</main>
+
+<!-- ================= ABOUT / MANIFESTO ================= -->
+<section id="aboutView" class="view"><div class="manifesto">
+  <h1>The internet democratized content. It never democratized curriculum.</h1>
+  <p>Anyone on Earth can watch a lecture from MIT, read a physics paper, or find ten thousand
+  videos on growing tomatoes. And yet learning anything real still feels like standing in a
+  library where every book has been torn from its shelf and scattered on the floor.</p>
+  <p>That's because access to content was never the hard part. The hard part is
+  <b>sequence</b> — knowing what to learn first, what to skip, what order unlocks what, and
+  how to tell when you've actually learned it. That sequencing layer is what universities
+  really sell. It's what a good mentor gives you. It's what an algorithm will never give you,
+  because an algorithm is optimized for your attention, not your growth.</p>
+  <p>We haven't evolved much past books and universities. Not because the knowledge isn't out
+  there — because the maps aren't.</p>
+  <p><b>We're building the maps.</b></p>
+
+  <h2>What this is</h2>
+  <p>A worldwide, community-built system of learning maps: step-by-step paths for learning
+  things — for joy, for skill, for a richer life. How to read the night sky. How to bring a
+  garden through its first season. How to get a language back that you used to speak. How to
+  practice compassion, deliberately, for ninety days.</p>
+  <p>Think of it the way Wikipedia relates to knowledge. Wikipedia is the world's reference —
+  a place to look things up. This is <b>the world's curriculum</b> — a place to look up how
+  to learn things, built and maintained by the people who learned them.</p>
+  <p>Every map is:</p>
+  <p><b>A path, not a pile.</b> Ordered steps with a clear progression, not a link dump. You
+  always know where you are and what's next.</p>
+  <p><b>Yours when you start it.</b> Start any map and your copy tracks your progress — your
+  checkmarks, your notes, your pace. A map you're walking is a different thing from a map
+  you're reading.</p>
+  <p><b>Made of resources anyone on Earth can open.</b> Our one hard rule: every resource on
+  every map must be freely and legally accessible to everyone. No paywalls, no "just buy the
+  textbook," no region locks. A gold-standard video, an open-access paper, a public-domain
+  classic, a free tool — if the whole world can't open it, it doesn't go on the map.</p>
+  <p><b>Kept alive by people.</b> Links die. Videos get taken down. The best resource in 2026
+  is stale by 2029. Every map has a community behind it whose job includes replacing what
+  breaks with the next-best thing that exists. No curated list on the internet has ever
+  survived this; ours are built to.</p>
+
+  <h2>Curated by humans. On purpose.</h2>
+  <p>Every previous answer to "what should I learn next?" has been an algorithm — a feed
+  hoping to bless you with something relevant between the things it's paid to show you. Feeds
+  are why you can scroll for three hours and come away with nothing.</p>
+  <p>There is no feed here. There is no infinite scroll. When you open this, you see the
+  paths you are walking and where you left off. <b>The front page of this platform is your
+  own life.</b></p>
+  <p>The maps themselves are made the way the best open-source software is made — not by
+  vote, and not by committee:</p>
+  <p><b>Every map has a named maintainer.</b> A real person with real knowledge of the
+  subject, whose name is on the work. They set the standard and have final say.</p>
+  <p><b>Anyone can contribute.</b> Found a better video? A broken link? A step that should
+  come earlier? Propose the change. The maintainer reviews and merges. Many walk the path;
+  some tend it; one person owns it.</p>
+  <p>This is how the most-loved educational resource in software — a community project with
+  millions of users — actually works. It is not a democracy of edits. It is a commons with
+  gardeners.</p>
+
+  <h2>"Hasn't this been tried?"</h2>
+  <p>Yes. Wikiversity launched in 2006 with almost this exact mission. Wikibooks too. They
+  became ghost towns, and it's worth being honest about why — because the fix is the whole
+  design of this project.</p>
+  <p>They failed on <b>product</b>: a wiki page about learning guitar is still just a page.
+  There was nothing to fork, nothing to track, no state, no "you are here." Reading about a
+  path is not walking one.</p>
+  <p>And they failed on <b>governance</b>: Wikipedia's neutral-consensus editing is the right
+  model for facts and the wrong model for teaching. There is no neutral point of view on how
+  to learn something — good curriculum is opinionated. Consensus editing sanded every path
+  down to mush.</p>
+  <p>Trackable, forkable maps solve the first. Named maintainers solve the second. The
+  mission was never wrong. The tools were.</p>
+
+  <h2>What this costs you</h2>
+  <p>Nothing. Every map, every resource, every contribution — free, forever, for everyone.
+  That isn't a promotional period. It's the point.</p>
+  <p>The project sustains itself the way healthy open projects do: the maps are free, and
+  optional conveniences on top of them — synced notes, an AI study companion that knows where
+  you are on your path, backups and extras — support the work for those who want them and can
+  pay. If you never pay a cent, you get the entire library. If you do, you're keeping it open
+  for someone who can't.</p>
+  <div class="sig">Human Knowledge Roadmaps — a commons with gardeners.<br>
+  Want to help? Open any node and suggest an improvement, or propose a new map from the home
+  screen. Every map's maintainer is named on its card.</div>
+</div></section>
+
+<!-- ================= OVERSEER REVIEW ================= -->
+<section id="reviewView" class="view"><div id="reviewInner">
+  <h2>🛡️ Overseer review</h2>
+  <div class="sub">Community suggestions awaiting your decision. <b>Publish as tip</b> makes it
+  publicly visible under its node (clearly marked as community wisdom — curated content is untouched).
+  <b>Accept for curation</b> adds it to your export list to fold into the topic files by hand.</div>
+  <div id="reviewTabs" class="chips">
+    <button data-v="proposals" class="on">Proposed edits</button>
+    <button data-v="pending">Suggestions</button>
+    <button data-v="accepted">Accepted for curation</button>
+  </div>
+  <div id="reviewList"></div>
+  <div id="maintAdmin" style="display:none"></div>
+</div></section>
+
+<!-- ================= MAP HISTORY MODAL ================= -->
+<div id="historyModal" class="modalWrap">
+  <div class="modalCard" style="max-width:520px">
+    <h3>🕘 Map history</h3>
+    <div class="mctx">Every community edit merged into this map — who wrote it, who merged it.</div>
+    <div id="histList"></div>
+    <div class="modalBtns"><button id="histClose">Close</button></div>
+  </div>
+</div>
+
+<!-- ================= ROADMAP ================= -->
+<section id="mapView" class="view">
+  <div id="scroller"><div id="canvasOuter"><div id="canvas">
+    <svg id="edgeSvg"></svg><div id="nodeLayer"></div>
+  </div></div></div>
+  <div id="legend">
+    <span><i class="lc"></i>Core topic</span>
+    <span><i class="le"></i>Essential</span>
+    <span><i class="lr"></i>Recommended</span>
+    <span><i class="lx"></i>Extra</span>
+  </div>
+  <div id="zoomCtl">
+    <button id="zoomIn" aria-label="Zoom in">+</button>
+    <button id="zoomOut" aria-label="Zoom out">−</button>
+    <button id="zoomFit" aria-label="Fit" style="font-size:12px">⤢</button>
+    <button id="histBtn" aria-label="Map history" title="Map history" style="font-size:14px">🕘</button>
+  </div>
+  <button id="addTopicBtn">＋ Add core topic</button>
+</section>
+
+<div id="loading"><div class="spinner"></div></div>
+
+<!-- ================= NODE DRAWER ================= -->
+<div id="backdrop"></div>
+<aside id="drawer" role="dialog" aria-modal="true">
+  <div id="grabber"></div>
+  <div id="drawerHead">
+    <div class="kicker"><span id="dKicker"></span></div>
+    <h2 id="dTitle"></h2>
+    <button id="closeBtn" aria-label="Close">✕</button>
+    <button id="editBtn" aria-label="Edit node" title="Edit this node (overseer)">✏️</button>
+    <div id="statusSeg">
+      <button class="o0" data-s="0">Not Started</button>
+      <button class="o1" data-s="1">In Progress</button>
+      <button class="o2" data-s="2">Mastered</button>
+    </div>
+  </div>
+  <div id="drawerBody">
+    <div class="sec"><h4>📖 Learn</h4>
+      <div class="summary" id="dSummary"></div>
+      <div class="linklist" id="dLinks"></div>
+    </div>
+    <div class="sec"><h4>🛠️ Do / Reflect</h4>
+      <div class="steps" id="dSteps"></div>
+    </div>
+    <div class="sec"><h4>📝 Personal Workspace</h4>
+      <textarea id="notes" placeholder="Your observations, questions, and wins live here…"></textarea>
+      <div id="saveHint"></div>
+      <div id="syncNote"></div>
+    </div>
+    <div class="sec"><h4>💬 Community</h4>
+      <div id="dTips"></div>
+      <button id="suggestBtn">💡 Suggest an improvement…</button>
+    </div>
+  </div>
+  <div id="editorBody" style="display:none;flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch;
+       padding:6px 20px calc(28px + var(--sab))">
+    <label class="edLabel">Title</label>
+    <input id="edTitle" class="edInput" maxlength="60">
+    <label class="edLabel">Tier</label>
+    <select id="edTier" class="edInput">
+      <option value="essential">essential</option>
+      <option value="recommended">recommended</option>
+      <option value="extra">extra</option>
+    </select>
+    <label class="edLabel">📖 Learn — summary</label>
+    <textarea id="edSummary" class="edArea"></textarea>
+    <label class="edLabel">🔗 Links</label>
+    <div id="edLinks"></div>
+    <button class="edAdd" id="edAddLink">＋ Add link</button>
+    <label class="edLabel">🛠️ Do / Reflect actions</label>
+    <div id="edDo"></div>
+    <button class="edAdd" id="edAddDo">＋ Add action</button>
+    <div id="edChildTools"></div>
+    <div id="edNoteWrap" style="display:none">
+      <label class="edLabel">✉️ Note to the maintainer</label>
+      <input id="edNote" class="edInput" maxlength="200"
+        placeholder="Why this change? e.g. 'link was dead, this is the standard replacement'">
+    </div>
+    <div id="editorErrs"></div>
+    <div class="modalBtns">
+      <button id="edCancel">Cancel</button>
+      <button id="edSave" class="primary">Save</button>
+    </div>
+    <div id="edMode"></div>
+  </div>
+</aside>
+
+<!-- ================= SUGGEST MODAL ================= -->
+<div id="suggestModal" class="modalWrap">
+  <div class="modalCard">
+    <h3 id="sgTitle">Suggest an improvement</h3>
+    <div class="mctx" id="sgContext"></div>
+    <div id="sgTypes" class="chips">
+      <button data-t="fix">🔧 Fix / correction</button>
+      <button data-t="link">🔗 Better resource</button>
+      <button data-t="tip">🌟 Field-tested tip</button>
+      <button data-t="topic">🌱 New subtopic</button>
+    </div>
+    <textarea id="sgText"></textarea>
+    <input id="sgUrl" type="url" placeholder="https://  (optional supporting link)">
+    <label class="checkRow"><input type="checkbox" id="sgVerified">
+      I've personally tried, used, or verified this — not just found it online.</label>
+    <label class="checkRow" id="sgFreeRow"><input type="checkbox" id="sgFree">
+      It's freely accessible to everyone — no paywall, sign-up wall, or region lock.</label>
+    <div class="modalBtns">
+      <button id="sgCancel">Cancel</button>
+      <button id="sgSubmit" class="primary">Submit for review</button>
+    </div>
+  </div>
+</div>
+
+<!-- ================= AUTH MODAL ================= -->
+<div id="authModal">
+  <div id="authCard">
+    <h3>Save your journey</h3>
+    <p>Sign in to keep notes and progress synced across your devices.</p>
+    <button class="ssoBtn google" id="googleBtn">
+      <svg viewBox="0 0 48 48"><path fill="#EA4335" d="M24 9.5c3.5 0 6.6 1.2 9 3.5l6.7-6.7C35.6 2.4 30.2 0 24 0 14.6 0 6.5 5.4 2.6 13.2l7.8 6.1C12.3 13.2 17.7 9.5 24 9.5z"/><path fill="#4285F4" d="M46.5 24.5c0-1.6-.1-3.1-.4-4.5H24v9h12.7c-.6 3-2.3 5.5-4.8 7.2l7.5 5.8c4.4-4.1 7.1-10.1 7.1-17.5z"/><path fill="#FBBC05" d="M10.4 28.7a14.5 14.5 0 0 1 0-9.4l-7.8-6.1a24 24 0 0 0 0 21.6l7.8-6.1z"/><path fill="#34A853" d="M24 48c6.2 0 11.4-2 15.4-5.6l-7.5-5.8c-2.1 1.4-4.8 2.2-7.9 2.2-6.3 0-11.7-3.7-13.6-9.1l-7.8 6.1C6.5 42.6 14.6 48 24 48z"/></svg>
+      Continue with Google
+    </button>
+    <button class="ssoBtn apple" id="appleBtn">
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.05 20.28c-.98.95-2.05.8-3.08.35-1.09-.46-2.09-.48-3.24 0-1.44.62-2.2.44-3.06-.35C2.79 15.25 3.51 7.59 9.05 7.31c1.35.07 2.29.74 3.08.8 1.18-.24 2.31-.93 3.57-.84 1.51.12 2.65.72 3.4 1.8-3.12 1.87-2.38 5.98.48 7.13-.57 1.5-1.31 2.99-2.53 4.08zM12.03 7.25c-.15-2.23 1.66-4.07 3.74-4.25.29 2.58-2.34 4.5-3.74 4.25z"/></svg>
+      Continue with Apple
+    </button>
+    <div id="gisButton" style="display:none;margin-bottom:10px;min-height:44px"></div>
+    <div id="authNote" style="font-size:11px;color:var(--faint);margin-top:4px;line-height:1.5"></div>
+    <button id="authCancel">Not now</button>
+  </div>
+</div>
+
+<div id="toast"></div>
+
+<script>
+/* ═══════════════════════════════════════════════════════════════════════════
+   CONFIGURATION
+   ───────────────────────────────────────────────────────────────────────────
+   API_BASE: URL of your sync backend (see server/worker.js). While null,
+   the app is fully functional but progress/notes stay on-device only.
+   After deploying the worker, set e.g. "https://hkr-sync.you.workers.dev".
+   ═══════════════════════════════════════════════════════════════════════════ */
+const API_BASE = null;
+
+/* User ids allowed to open the in-app review queue. This only controls UI
+   visibility — the server enforces the real check via its OVERSEER_IDS var. */
+const OVERSEER_IDS = ["google:demo-user"];
+
+/* Replaced by `python3 tools/build.py --standalone` to inline all content
+   into dist/standalone.html. In the repo version it stays null and content
+   is fetched from the roadmaps/ folder at runtime. Do not edit this line. */
+const EMBEDDED_DATA=null;
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   AUTH — real SSO, with a demo fallback while unconfigured.
+   ───────────────────────────────────────────────────────────────────────────
+   Configure AUTH_CONFIG below + deploy the worker (server/wrangler.toml) and
+   sign-in becomes real: the provider yields an ID token, POST /auth verifies
+   it server-side and returns a long-lived HMAC session token. While client
+   ids are empty, sign-in falls back to local demo accounts (worker accepts
+   those only when its DEV_MODE=1).
+   iOS (Capacitor): a native auth plugin (e.g. @capacitor-firebase/
+   authentication) yields the same ID tokens → same /auth exchange.
+   ═══════════════════════════════════════════════════════════════════════════ */
+const AUTH_CONFIG = {
+  googleClientId: "",   // OAuth Web client id from console.cloud.google.com
+  appleClientId: "",    // Services ID from developer.apple.com (Sign in with Apple JS)
+  appleRedirectURI: "", // registered return URL; defaults to this page's origin
+};
+const AUTH = {
+  realGoogle(){ return !!(API_BASE && AUTH_CONFIG.googleClientId); },
+  realApple(){ return !!(API_BASE && AUTH_CONFIG.appleClientId); },
+  loadScript(src){ return new Promise((res,rej)=>{
+    if(document.querySelector(`script[src="${src}"]`)) return res();
+    const s=document.createElement("script"); s.src=src; s.async=true;
+    s.onload=res; s.onerror=()=>rej(new Error("failed to load "+src));
+    document.head.appendChild(s);
+  });},
+  /* trade a verified provider ID token for our session token */
+  async exchange(provider, id_token, name){
+    const r=await fetch(API_BASE+"/auth",{method:"POST",
+      headers:{"Content-Type":"application/json"},
+      body:JSON.stringify({provider,id_token,name})});
+    const data=await r.json();
+    if(!r.ok) throw new Error(data.error||("auth "+r.status));
+    return {...data.user, token:data.token};
+  },
+  demo(provider){
+    return new Promise(r=>setTimeout(()=>r(provider==="google"
+      ? {id:"google:demo-user", name:"Explorer", email:"you@gmail.com", provider:"google", token:"demo-google-token"}
+      : {id:"apple:demo-user",  name:"Explorer", email:"you@icloud.com", provider:"apple", token:"demo-apple-token"}),600));
+  },
+  async signInApple(){
+    if(!this.realApple()) return this.demo("apple");
+    await this.loadScript("https://appleid.cdn-apple.com/appleauth/static/jsapi/appleid/1/en_US/appleid.auth.js");
+    AppleID.auth.init({ clientId:AUTH_CONFIG.appleClientId, scope:"name email",
+      redirectURI:AUTH_CONFIG.appleRedirectURI||location.origin, usePopup:true });
+    const res=await AppleID.auth.signIn();
+    // Apple sends the user's name only on FIRST authorization — pass it along
+    const nm=res.user&&res.user.name ? `${res.user.name.firstName||""} ${res.user.name.lastName||""}`.trim() : "";
+    return this.exchange("apple", res.authorization.id_token, nm);
+  },
+  /* Google uses its official rendered button (required for reliable ID tokens);
+     mountGoogle() swaps it in when the auth modal opens. */
+  _gisReady:false,
+  async mountGoogle(onCredential){
+    if(!this.realGoogle()) return false;
+    await this.loadScript("https://accounts.google.com/gsi/client");
+    if(!this._gisReady){
+      google.accounts.id.initialize({ client_id:AUTH_CONFIG.googleClientId,
+        callback:(resp)=>onCredential(resp.credential) });
+      this._gisReady=true;
+    }
+    const mount=document.getElementById("gisButton");
+    mount.innerHTML=""; mount.style.display="block";
+    google.accounts.id.renderButton(mount,{theme:"filled_blue",size:"large",width:310,text:"continue_with"});
+    return true;
+  }
+};
+
+/* ═══════════════════════ APP RUNTIME ═══════════════════════ */
+(function(){
+"use strict";
+const $=id=>document.getElementById(id);
+const STATUS_LABEL=["Not Started","In Progress","Mastered"];
+const SPINE_W=240, CHILD_W=190, HGAP=64, VGAP=46, CGAP=12, PAD=70;
+const CANVAS_W = PAD*2 + SPINE_W + 2*(HGAP+CHILD_W);
+function flatten(rm){ return rm.nodes.flatMap(n=>[n,...(n.children||[])]); }
+function parentOf(rm,id){ return rm.nodes.find(n=>(n.children||[]).some(c=>c.id===id))||null; }
+/* escape user-generated text (community content) before injecting into HTML */
+function esc(s){ return String(s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c])); }
+/* stable content hash (djb2) — used to detect stale edit proposals */
+function contentHash(obj){
+  const s=JSON.stringify(obj); let h=5381;
+  for(let i=0;i<s.length;i++) h=((h<<5)+h+s.charCodeAt(i))|0;
+  return (h>>>0).toString(36);
+}
+
+/* ---------- content loading (folder-per-category, file-per-topic) ---------- */
+let INDEX=[];               // entries from roadmaps/index.json
+const rmCache=new Map();    // id -> fully assembled roadmap
+async function loadIndex(){
+  if(EMBEDDED_DATA){ INDEX=EMBEDDED_DATA.index.roadmaps; return; }
+  const r=await fetch("roadmaps/index.json");
+  if(!r.ok) throw new Error("index.json "+r.status);
+  INDEX=(await r.json()).roadmaps;
+}
+async function loadRoadmap(id){
+  if(rmCache.has(id)) return rmCache.get(id);
+  const entry=INDEX.find(r=>r.id===id);
+  let nodes;
+  if(EMBEDDED_DATA){
+    nodes=EMBEDDED_DATA.data[id];
+  }else{
+    nodes=await Promise.all(entry.topics.map(async f=>{
+      const r=await fetch(`roadmaps/${id}/topics/${f}`,{cache:"no-cache"});
+      if(!r.ok) throw new Error(`${id}/${f} ${r.status}`);
+      return r.json();
+    }));
+  }
+  // community edits merged by this map's maintainer render on top of the
+  // static base until the overseer commits them to the repo (overlay model)
+  if(API_BASE && !EMBEDDED_DATA){
+    try{
+      const ov=await (await fetch(`${API_BASE}/content/${id}`)).json();
+      entry.topics.forEach((f,i)=>{ if(ov[f]&&ov[f].topic) nodes[i]=ov[f].topic; });
+    }catch(e){ /* offline → base content */ }
+  }
+  const rm={...entry, nodes};
+  rmCache.set(id,rm);
+  return rm;
+}
+/* ---- editorial roles: who tends which map ---- */
+let MAINTAINERS={};
+async function loadMaintainers(){
+  if(!API_BASE) return;
+  try{ MAINTAINERS=await (await fetch(API_BASE+"/maintainers")).json(); }catch(e){}
+}
+function maintains(rmId){
+  return !!(user.provider && MAINTAINERS[rmId] && MAINTAINERS[rmId].id===user.id);
+}
+function moderatorOfAny(){
+  return isOverseer() || (!!user.provider &&
+    Object.values(MAINTAINERS).some(m=>m&&m.id===user.id));
+}
+function maintainerNameOf(entry){
+  return (MAINTAINERS[entry.id]&&MAINTAINERS[entry.id].name)||entry.maintainer||"";
+}
+
+/* ---------- persistence: local-first store with cloud sync ----------
+   Every node record carries updatedAt; sync is last-write-wins per node,
+   so two devices editing different nodes merge cleanly. Order of events:
+   change → save to localStorage immediately → debounced push to API.
+   On sign-in: pull remote, merge, push merged. On network failure: retry,
+   and flush when the tab/app goes to background.                        */
+let user = readJSON("hkr:user") || {id:"guest", name:"Guest", provider:null, token:null};
+let store = readJSON(storeKey(user.id)) || {progress:{}};
+let syncState = "off";   // off | dirty | syncing | synced | error
+function storeKey(uid){ return "hkr:store:"+uid; }
+function readJSON(k){ try{ return JSON.parse(localStorage.getItem(k)); }catch(e){ return null; } }
+function canSync(){ return !!(API_BASE && user.token); }
+function persistLocal(){ localStorage.setItem(storeKey(user.id), JSON.stringify(store)); }
+function persist(){
+  persistLocal();
+  if(canSync()) scheduleSync();
+}
+let syncT=null;
+function scheduleSync(){
+  syncState="dirty"; paintSync();
+  clearTimeout(syncT); syncT=setTimeout(pushRemote,1500);
+}
+async function pushRemote(){
+  if(!canSync()) return;
+  syncState="syncing"; paintSync();
+  try{
+    const res=await fetch(API_BASE+"/progress",{method:"PUT",
+      headers:{"Authorization":"Bearer "+user.token,"Content-Type":"application/json"},
+      body:JSON.stringify(store)});
+    if(!res.ok) throw new Error(res.status);
+    syncState="synced";
+  }catch(e){
+    syncState="error";
+    clearTimeout(syncT); syncT=setTimeout(pushRemote,10000); // retry
+  }
+  paintSync();
+}
+async function pullAndMerge(){
+  if(!canSync()) return;
+  try{
+    const res=await fetch(API_BASE+"/progress",
+      {headers:{"Authorization":"Bearer "+user.token}});
+    if(res.ok){
+      const remote=await res.json();
+      if(remote && remote.progress){ store=mergeStores(remote,store); persistLocal(); }
+    }
+  }catch(e){ /* offline is fine — stay local-first */ }
+}
+function mergeStores(a,b){ // last-write-wins per node record
+  const out={progress:{}};
+  const rms=new Set([...Object.keys(a.progress||{}),...Object.keys(b.progress||{})]);
+  rms.forEach(rm=>{
+    out.progress[rm]={};
+    const na=(a.progress||{})[rm]||{}, nb=(b.progress||{})[rm]||{};
+    new Set([...Object.keys(na),...Object.keys(nb)]).forEach(nid=>{
+      const ra=na[nid], rb=nb[nid];
+      out.progress[rm][nid] = !ra ? rb : !rb ? ra :
+        ((ra.updatedAt||0)>=(rb.updatedAt||0) ? ra : rb);
+    });
+  });
+  return out;
+}
+document.addEventListener("visibilitychange",()=>{     // flush pending edits
+  if(document.visibilityState==="hidden" && syncState==="dirty") pushRemote();
+});
+function paintSync(){
+  const d=$("syncDot");
+  d.className = canSync() ? syncState : "off";
+  d.title = {off:"Local only", dirty:"Unsaved changes", syncing:"Syncing…",
+             synced:"Synced to cloud", error:"Sync error — will retry"}[canSync()?syncState:"off"];
+}
+function prog(rmId,nodeId){
+  const rm = store.progress[rmId] || (store.progress[rmId]={});
+  return rm[nodeId] || (rm[nodeId]={status:0,notes:"",done:[],updatedAt:0});
+}
+function peek(rmId,nodeId){ return (store.progress[rmId]||{})[nodeId] || {status:0,notes:"",done:[]}; }
+function touch(p){ p.updatedAt=Date.now(); }
+
+/* ---------- state ---------- */
+let currentRm=null, currentNode=null, scale=1, layout=null;
+
+/* ---------- home ----------
+   Manifesto rule: no feed — the front page is your own life. Active paths
+   ("Continue your paths") lead; the full library sits below.              */
+function walking(entry){   // has the user started walking this map?
+  const recs=store.progress[entry.id]||{};
+  return Object.values(recs).some(p=>p.status>0 || (p.notes&&p.notes.trim()) ||
+    (p.done||[]).some(Boolean));
+}
+function nextNodeOf(rm){   // first in-progress node, else first not-yet-mastered
+  const f=flatten(rm);
+  return f.find(n=>peek(rm.id,n.id).status===1) || f.find(n=>peek(rm.id,n.id).status!==2);
+}
+function renderHome(){
+  const grid=$("grid"); grid.innerHTML="";
+  const active=INDEX.filter(walking);
+  $("continueWrap").style.display=active.length?"block":"none";
+  $("heroTitle").innerHTML=active.length?"Welcome back.":"Pick a path. <em>Learn by doing.</em>";
+  INDEX.forEach(entry=>{
+    const recs=store.progress[entry.id]||{};
+    const mastered=Object.values(recs).filter(p=>p.status===2).length;
+    const started=Object.values(recs).filter(p=>p.status===1).length;
+    const total=entry.total;
+    const card=document.createElement("button");
+    card.className="card";
+    card.innerHTML=`
+      <div class="row1"><div class="emoji">${entry.emoji}</div><h3>${entry.title}</h3></div>
+      <div class="tag">${entry.tagline}</div>
+      ${entry.curricula?`<div class="curr">📚 ${entry.curricula}</div>`:""}
+      ${maintainerNameOf(entry)?`<div class="curr">🛡️ Maintained by ${esc(maintainerNameOf(entry))}</div>`:""}
+      <div class="meta">
+        <div class="pbar"><i style="width:${total?Math.round(mastered/total*100):0}%"></i></div>
+        <span>${mastered}/${total} mastered${started?` · ${started} active`:``}</span>
+      </div>`;
+    card.onclick=()=>openRoadmap(entry.id);
+    grid.appendChild(card);
+  });
+  renderContinue(active);
+}
+async function renderContinue(active){
+  const row=$("continueRow"); row.innerHTML="";
+  for(const entry of active){
+    let rm, nx=null;
+    try{ rm=await loadRoadmap(entry.id); nx=nextNodeOf(rm); }catch(e){ continue; }
+    const recs=store.progress[entry.id]||{};
+    const mastered=Object.values(recs).filter(p=>p.status===2).length;
+    const pct=Math.round(mastered/entry.total*100);
+    const card=document.createElement("button");
+    card.className="ccard";
+    card.innerHTML=`
+      <div class="row1"><div class="emoji" style="width:36px;height:36px;font-size:18px;border-radius:10px;
+        background:var(--bg3);display:flex;align-items:center;justify-content:center">${entry.emoji}</div>
+        <h3>${entry.title}</h3><span class="pct">${pct}%</span></div>
+      ${nx?`<div class="nx">Up next</div><div class="nxt">${esc(nx.title)}</div>
+        <div class="nxdo">🛠️ ${esc((nx.do&&nx.do[0]||"").slice(0,110))}${(nx.do&&nx.do[0]||"").length>110?"…":""}</div>`
+        :`<div class="nxdo">🌟 Every node mastered — walk it again or tend the map.</div>`}`;
+    card.onclick=async ()=>{ await openRoadmap(entry.id); if(nx) openNode(nx.id); };
+    row.appendChild(card);
+  }
+}
+
+/* ---------- roadmap render ---------- */
+async function openRoadmap(id){
+  $("loading").classList.add("show");
+  try{ currentRm=await loadRoadmap(id); }
+  catch(e){
+    $("loading").classList.remove("show");
+    toast("⚠️ Couldn't load roadmap content"); return;
+  }
+  $("loading").classList.remove("show");
+  $("homeView").classList.remove("active");
+  $("reviewView").classList.remove("active");
+  $("aboutView").classList.remove("active");
+  $("mapView").classList.add("active");
+  $("backBtn").classList.add("show");
+  $("brandText").textContent=currentRm.emoji+" "+currentRm.title;
+  const mName=maintainerNameOf(currentRm);
+  $("brandSub").textContent=(currentRm.curricula||currentRm.tagline)+
+    (mName?` · maintained by ${mName}`:"");
+  scale=Math.min(1,(window.innerWidth-24)/CANVAS_W);
+  renderGraph();
+  $("addTopicBtn").classList.toggle("show", devMode||isOverseer());
+  $("scroller").scrollTop=0;
+}
+function goHome(){
+  $("mapView").classList.remove("active");
+  $("reviewView").classList.remove("active");
+  $("aboutView").classList.remove("active");
+  $("homeView").classList.add("active");
+  $("addTopicBtn").classList.remove("show");
+  $("backBtn").classList.remove("show");
+  $("brandText").textContent="Human Knowledge Roadmaps";
+  $("brandSub").textContent="Curated paths for a well-lived life";
+  currentRm=null; renderHome();
+}
+function renderGraph(){
+  /* Spine layout: core topics stack straight down the center; each spine
+     topic's children fan out into left/right branch stacks (roadmap.sh). */
+  const layer=$("nodeLayer"), svg=$("edgeSvg");
+  layer.innerHTML=""; svg.innerHTML="";
+  const cx=CANVAS_W/2, els=new Map();
+  const mk=(n,cls)=>{
+    const el=document.createElement("button");
+    el.className=`node ${cls} ${n.tier}`;
+    el.style.width=(cls==="spine"?SPINE_W:CHILD_W)+"px";
+    const p=peek(currentRm.id,n.id);
+    el.innerHTML=`<div class="ntitle">${n.title}</div>
+      <div class="nrow"><span class="badge s${p.status}">${STATUS_LABEL[p.status]}</span>
+      ${cls==="child"?`<span class="tierdot">${n.tier}</span>`:""}</div>`;
+    el.onclick=()=>openNode(n.id);
+    layer.appendChild(el); els.set(n.id,el);
+  };
+  currentRm.nodes.forEach(n=>{ mk(n,"spine"); (n.children||[]).forEach(c=>mk(c,"child")); });
+  // pass 2: measure real heights, then position nodes and collect edges
+  const H=id=>els.get(id).offsetHeight;
+  const paths=[];
+  let y=PAD, prevBottom=null, prevMastered=false, firstSy=null;
+  currentRm.nodes.forEach(n=>{
+    const sh=H(n.id), kids=n.children||[];
+    const L=[],R=[]; kids.forEach((k,i)=>((i%2?L:R).push(k)));
+    const stackH=a=>a.reduce((s,k)=>s+H(k.id),0)+Math.max(0,a.length-1)*CGAP;
+    const rowH=Math.max(sh,stackH(L),stackH(R));
+    const sy=y+(rowH-sh)/2;
+    if(firstSy===null) firstSy=sy;
+    const sEl=els.get(n.id);
+    sEl.style.left=(cx-SPINE_W/2)+"px"; sEl.style.top=sy+"px";
+    const m=peek(currentRm.id,n.id).status===2;
+    if(prevBottom!==null)
+      paths.push({d:`M ${cx} ${prevBottom} L ${cx} ${sy}`,cls:"spineEdge"+(m&&prevMastered?" mastered":"")});
+    prevBottom=sy+sh; prevMastered=m;
+    const rowMid=y+rowH/2;
+    [[L,-1],[R,1]].forEach(([arr,dir])=>{
+      let cy=rowMid-stackH(arr)/2;
+      arr.forEach(k=>{
+        const kh=H(k.id);
+        const kx= dir<0 ? cx-SPINE_W/2-HGAP-CHILD_W : cx+SPINE_W/2+HGAP;
+        const kEl=els.get(k.id);
+        kEl.style.left=kx+"px"; kEl.style.top=cy+"px";
+        const x1= dir<0 ? cx-SPINE_W/2 : cx+SPINE_W/2, y1=sy+sh/2;
+        const x2= dir<0 ? kx+CHILD_W : kx, y2=cy+kh/2;
+        const mx=(x1+x2)/2;
+        paths.push({d:`M ${x1} ${y1} C ${mx} ${y1}, ${mx} ${y2}, ${x2} ${y2}`,
+          cls:"childEdge"+(peek(currentRm.id,k.id).status===2?" mastered":"")});
+        cy+=kh+CGAP;
+      });
+    });
+    y+=rowH+VGAP;
+  });
+  // dotted lead-in above the first core topic, like roadmap.sh
+  if(firstSy!==null)
+    paths.unshift({d:`M ${cx} ${Math.max(10,firstSy-56)} L ${cx} ${firstSy}`,cls:"spineLead"});
+  const height=y-VGAP+PAD;
+  layout={width:CANVAS_W,height};
+  svg.setAttribute("width",CANVAS_W); svg.setAttribute("height",height);
+  paths.forEach(p=>{
+    const path=document.createElementNS("http://www.w3.org/2000/svg","path");
+    path.setAttribute("d",p.d); path.setAttribute("class","edge "+p.cls);
+    svg.appendChild(path);
+  });
+  applyZoom();
+}
+function applyZoom(){
+  $("canvas").style.transform=`scale(${scale})`;
+  const o=$("canvasOuter");
+  o.style.width=layout.width*scale+"px";
+  o.style.height=layout.height*scale+"px";
+}
+$("zoomIn").onclick=()=>{ scale=Math.min(1.6,scale+0.15); applyZoom(); };
+$("zoomOut").onclick=()=>{ scale=Math.max(0.35,scale-0.15); applyZoom(); };
+$("zoomFit").onclick=()=>{ scale=Math.min(1,(window.innerWidth-24)/layout.width); applyZoom(); };
+
+/* ---------- node drawer ---------- */
+function openNode(nodeId){
+  currentNode=flatten(currentRm).find(n=>n.id===nodeId);
+  const par=parentOf(currentRm,nodeId);
+  const p=prog(currentRm.id,nodeId);
+  $("dKicker").textContent=`${currentRm.title}${par?" · "+par.title:""} · ${currentNode.tier.toUpperCase()}`;
+  $("dTitle").textContent=currentNode.title;
+  $("dSummary").textContent=currentNode.learn.summary;
+  const links=$("dLinks"); links.innerHTML="";
+  (currentNode.learn.links||[]).forEach(l=>{
+    const a=document.createElement("a");
+    a.href=l.url; a.target="_blank"; a.rel="noopener";
+    a.innerHTML=`<span class="linkkind ${l.kind}">${l.kind}</span><span>${l.label}</span>`;
+    links.appendChild(a);
+  });
+  const steps=$("dSteps"); steps.innerHTML="";
+  currentNode.do.forEach((s,i)=>{
+    const b=document.createElement("button");
+    b.className="step"+(p.done[i]?" done":"");
+    b.innerHTML=`<span class="box">✓</span><span class="stext">${s}</span>`;
+    b.onclick=()=>{
+      p.done[i]=!p.done[i];
+      if(p.status===0 && p.done[i]) p.status=1;  // auto-advance on first action
+      touch(p); persist(); openNode(nodeId); renderGraph();
+    };
+    steps.appendChild(b);
+  });
+  $("notes").value=p.notes||"";
+  $("saveHint").textContent="";
+  $("syncNote").innerHTML = user.provider
+    ? (canSync()
+        ? `☁️ Signed in as <b>${user.name}</b> — notes & progress sync to your account automatically.`
+        : `✅ Signed in as <b>${user.name}</b> — saved on this device. Cloud sync activates once the app's API_BASE is configured.`)
+    : `💾 Saved on this device. <b>Sign in</b> (top right) to sync notes & progress across devices.`;
+  paintStatusSeg(p.status);
+  $("editorBody").style.display="none"; $("drawerBody").style.display="";
+  $("editBtn").classList.toggle("show", canEdit());
+  $("dTips").innerHTML="";
+  loadTips(currentRm.id).then(t=>{           // async: fill community tips when they arrive
+    if(currentNode && currentNode.id===nodeId) renderTips(t[nodeId]||[]);
+  });
+  $("backdrop").classList.add("show");
+  $("drawer").classList.add("open");
+}
+function paintStatusSeg(s){
+  document.querySelectorAll("#statusSeg button").forEach(b=>
+    b.classList.toggle("on", +b.dataset.s===s));
+}
+document.querySelectorAll("#statusSeg button").forEach(b=>{
+  b.onclick=()=>{
+    if(!currentNode) return;
+    const p=prog(currentRm.id,currentNode.id);
+    p.status=+b.dataset.s; touch(p); persist(); paintStatusSeg(p.status); renderGraph();
+    if(p.status===2) toast("🌟 Mastered: "+currentNode.title);
+  };
+});
+let notesT=null;
+$("notes").addEventListener("input",()=>{
+  if(!currentNode) return;
+  const p=prog(currentRm.id,currentNode.id);
+  p.notes=$("notes").value;
+  if(p.status===0 && p.notes.trim()) p.status=1;
+  touch(p);
+  $("saveHint").textContent="Saving…";
+  clearTimeout(notesT);
+  notesT=setTimeout(()=>{
+    persist();
+    $("saveHint").textContent=canSync()?"Synced ✓":"Saved ✓";
+    renderGraph(); paintStatusSeg(p.status);
+  },500);
+});
+function closeDrawer(){
+  $("drawer").classList.remove("open");
+  $("backdrop").classList.remove("show");
+  currentNode=null;
+}
+$("closeBtn").onclick=closeDrawer;
+$("backdrop").onclick=closeDrawer;
+document.addEventListener("keydown",e=>{ if(e.key==="Escape"){ closeDrawer();
+  $("authModal").classList.remove("show"); $("suggestModal").classList.remove("show");
+  $("historyModal").classList.remove("show"); }});
+
+/* ---------- auth ---------- */
+function paintUser(){
+  const signed=!!user.provider;
+  $("signInBtn").style.display=signed?"none":"block";
+  $("userChip").classList.toggle("show",signed);
+  if(signed){
+    $("userChip").title="User id: "+user.id+" (use this in OVERSEER_IDS)";
+    $("userName").textContent=user.name;
+    $("userAvatar").textContent=user.name[0].toUpperCase();
+    $("userAvatar").style.background = user.provider==="google" ? "#4285F4" : "#e5e7eb";
+    $("userAvatar").style.color = user.provider==="google" ? "#fff" : "#111";
+  }
+  $("reviewBtn").classList.toggle("show", moderatorOfAny());
+  paintSync();
+}
+$("signInBtn").onclick=async ()=>{
+  $("authModal").classList.add("show");
+  const real=await AUTH.mountGoogle(async cred=>{     // official GIS button path
+    try{ await finishSignIn(await AUTH.exchange("google",cred)); }
+    catch(e){ toast("Google sign-in failed: "+e.message); }
+  }).catch(()=>false);
+  $("googleBtn").style.display=real?"none":"flex";    // custom button = demo path
+  $("authNote").textContent=(AUTH.realGoogle()||AUTH.realApple())
+    ? "" : "Demo mode — configure AUTH_CONFIG and API_BASE for real sign-in.";
+};
+$("authCancel").onclick=()=>$("authModal").classList.remove("show");
+/* shared post-auth flow for demo and real paths */
+async function finishSignIn(u){
+  // adopt guest progress into the account store (merge, never overwrite)
+  const guestStore=store;
+  user=u; localStorage.setItem("hkr:user",JSON.stringify(user));
+  store=readJSON(storeKey(user.id))||{progress:{}};
+  store=mergeStores(store,guestStore); persistLocal();
+  await pullAndMerge();          // bring down other devices' progress
+  if(canSync()){ syncState="dirty"; pushRemote(); }
+  paintUser(); $("authModal").classList.remove("show");
+  toast(`Welcome, ${user.name}! ${canSync()?"Progress now syncs to your account.":"Progress saved under your account on this device."}`);
+  if(currentRm){ renderGraph(); if(currentNode) openNode(currentNode.id); } else renderHome();
+}
+async function doSignIn(provider){
+  const btn = provider==="google"?$("googleBtn"):$("appleBtn");
+  const orig=btn.innerHTML;
+  btn.style.opacity=.6; btn.textContent="Signing in…";
+  try{
+    const u = provider==="google" ? await AUTH.demo("google") : await AUTH.signInApple();
+    await finishSignIn(u);
+  }catch(e){ toast("Sign-in failed: "+(e.message||"cancelled")); }
+  btn.style.opacity=1; btn.innerHTML=orig;
+}
+$("googleBtn").onclick=()=>doSignIn("google");
+$("appleBtn").onclick=()=>doSignIn("apple");
+$("signOutBtn").onclick=()=>{
+  if(syncState==="dirty") pushRemote();   // flush before switching identity
+  user={id:"guest",name:"Guest",provider:null,token:null};
+  localStorage.setItem("hkr:user",JSON.stringify(user));
+  store=readJSON(storeKey("guest"))||{progress:{}};
+  paintUser(); toast("Signed out — progress stays on this device.");
+  if($("reviewView").classList.contains("active")) goHome();
+  else if(currentRm){ renderGraph(); } else renderHome();
+  closeDrawer();
+};
+
+/* ---------- community layer ----------
+   BDFL pipeline, GitHub-free: signed-in users submit structured suggestions;
+   the overseer reviews in-app; approved items surface as clearly-labeled
+   community tips (curated content is never writable through this path). */
+const tipsCache=new Map();
+async function loadTips(rmId){
+  if(!API_BASE) return {};
+  if(tipsCache.has(rmId)) return tipsCache.get(rmId);
+  try{
+    const r=await fetch(`${API_BASE}/tips/${rmId}`);
+    const t=r.ok? await r.json() : {};
+    tipsCache.set(rmId,t); return t;
+  }catch(e){ return {}; }
+}
+function renderTips(list){
+  const box=$("dTips"); box.innerHTML="";
+  list.forEach(t=>{
+    const d=document.createElement("div"); d.className="tipCard";
+    d.innerHTML=`${esc(t.text)}
+      ${t.url?`<div><a href="${esc(t.url)}" target="_blank" rel="noopener">${esc(t.url)}</a></div>`:""}
+      <div class="tby">🌟 community tip · by ${esc(t.by)}</div>`;
+    box.appendChild(d);
+  });
+}
+
+let sgCtx=null, sgType="tip";
+const SG_HINTS={
+  fix:"What's wrong or outdated, and what should it say instead? Be specific.",
+  link:"Which resource, and why is it better than what's there? Paste the link below.",
+  tip:"What did you learn doing this in the real world that others should know?",
+  topic:"What subtopic is missing here, and what would its real-world action be?"
+};
+function openSuggest(ctx){
+  if(!user.provider){ $("authModal").classList.add("show"); toast("Sign in to contribute"); return; }
+  sgCtx=ctx;
+  const isRm=ctx.mode==="roadmap";
+  $("sgTitle").textContent=isRm?"Propose a new roadmap":"Suggest an improvement";
+  $("sgContext").textContent=isRm
+    ? "Describe it as a simple outline — core topics with subtopics, like a table of contents. The overseer reviews every proposal."
+    : `For “${ctx.nodeTitle}” in ${currentRm.title}. Nothing changes until the overseer approves it.`;
+  $("sgTypes").style.display=isRm?"none":"flex";
+  sgType=isRm?"roadmap":"tip"; paintSgType();
+  $("sgText").value=""; $("sgUrl").value=""; $("sgVerified").checked=false;
+  $("sgFree").checked=false;
+  $("sgText").placeholder=isRm
+    ? "e.g.\nBirdwatching Basics\n- Gear: binoculars before anything\n- Field marks & identification\n- Songs and calls\n- Habitats through the seasons\n- Keeping a life list"
+    : SG_HINTS[sgType];
+  $("suggestModal").classList.add("show");
+}
+function paintSgType(){
+  document.querySelectorAll("#sgTypes button").forEach(b=>
+    b.classList.toggle("on", b.dataset.t===sgType));
+  if(sgCtx && sgCtx.mode!=="roadmap") $("sgText").placeholder=SG_HINTS[sgType]||"";
+}
+document.querySelectorAll("#sgTypes button").forEach(b=>{
+  b.onclick=()=>{ sgType=b.dataset.t; paintSgType(); };
+});
+function queueOutbox(rec){
+  const ob=readJSON("hkr:outbox")||[];
+  ob.push({...rec, by:{id:user.id,name:user.name}, createdAt:Date.now(),
+           status:"pending", local:true, id:"local-"+Date.now()});
+  localStorage.setItem("hkr:outbox",JSON.stringify(ob));
+}
+async function submitSuggestion(){
+  const text=$("sgText").value.trim();
+  if(text.length<20){ toast("A little more detail, please (20+ characters)"); return; }
+  if((sgType==="link"||sgType==="tip") && !$("sgVerified").checked){
+    toast("Please confirm you've personally tried or verified it"); return; }
+  if((sgType==="link"||$("sgUrl").value.trim()) && !$("sgFree").checked){
+    toast("The one hard rule: resources must be freely accessible to everyone"); return; }
+  const rec={ roadmap:sgCtx.mode==="roadmap"?"":currentRm.id,
+    node:sgCtx.node||"", nodeTitle:sgCtx.nodeTitle||"",
+    type:sgType, text, url:$("sgUrl").value.trim(), verified:$("sgVerified").checked };
+  if(API_BASE){
+    $("sgSubmit").disabled=true;
+    try{
+      const r=await fetch(API_BASE+"/suggestions",{method:"POST",
+        headers:{"Authorization":"Bearer "+user.token,"Content-Type":"application/json"},
+        body:JSON.stringify(rec)});
+      if(!r.ok) throw new Error(r.status);
+      toast("🙏 Submitted — the overseer will review it");
+    }catch(e){ queueOutbox(rec); toast("Couldn't reach the server — saved on this device"); }
+    $("sgSubmit").disabled=false;
+  }else{
+    queueOutbox(rec);
+    toast("Saved locally — submits once a community server is configured");
+  }
+  $("suggestModal").classList.remove("show");
+}
+$("sgSubmit").onclick=submitSuggestion;
+$("sgCancel").onclick=()=>$("suggestModal").classList.remove("show");
+$("suggestBtn").onclick=()=>openSuggest({node:currentNode.id,nodeTitle:currentNode.title});
+$("proposeBtn").onclick=()=>openSuggest({mode:"roadmap"});
+
+/* ---- overseer review queue ---- */
+function isOverseer(){ return !!user.provider && OVERSEER_IDS.includes(user.id); }
+let reviewTab="proposals";
+async function fetchSuggestions(status){
+  if(!API_BASE) return (readJSON("hkr:outbox")||[]).filter(s=>s.status===status);
+  const r=await fetch(`${API_BASE}/suggestions?status=${status}`,
+    {headers:{Authorization:"Bearer "+user.token}});
+  if(!r.ok) throw new Error(r.status);
+  return (await r.json()).suggestions;
+}
+function openReview(){
+  $("homeView").classList.remove("active");
+  $("mapView").classList.remove("active");
+  $("aboutView").classList.remove("active");
+  $("reviewView").classList.add("active");
+  $("backBtn").classList.add("show");
+  $("brandText").textContent=isOverseer()?"🛡️ Overseer review":"🧑‍🌾 Maintainer review";
+  $("brandSub").textContent=isOverseer()?"All maps":"Your maps";
+  renderReview();
+  renderMaintAdmin();
+}
+$("reviewBtn").onclick=openReview;
+document.querySelectorAll("#reviewTabs button").forEach(b=>{
+  b.onclick=()=>{ reviewTab=b.dataset.v;
+    document.querySelectorAll("#reviewTabs button").forEach(x=>
+      x.classList.toggle("on",x===b));
+    renderReview(); };
+});
+/* ---- structured edit proposals: diff review + merge ---- */
+function renderDiff(a,b){   // a = current live topic, b = proposed topic
+  const ma=new Map(flatten({nodes:[a]}).map(n=>[n.id,n]));
+  const mb=new Map(flatten({nodes:[b]}).map(n=>[n.id,n]));
+  let html="";
+  const fieldRow=(label,x,y)=>`<div class="dfield">${label}</div>
+    <div class="dline del">− ${esc(x||"(empty)")}</div>
+    <div class="dline add">+ ${esc(y||"(empty)")}</div>`;
+  for(const [id,nb] of mb) if(!ma.has(id))
+    html+=`<div class="dnode add">＋ New subtopic “${esc(nb.title)}” (${esc(nb.tier)})</div>`;
+  for(const [id,na] of ma) if(!mb.has(id))
+    html+=`<div class="dnode del">－ Removed “${esc(na.title)}”</div>`;
+  for(const [id,na] of ma){
+    const nb=mb.get(id); if(!nb) continue;
+    let rows="";
+    if(na.title!==nb.title) rows+=fieldRow("title",na.title,nb.title);
+    if(na.tier!==nb.tier) rows+=fieldRow("tier",na.tier,nb.tier);
+    if((na.learn||{}).summary!==(nb.learn||{}).summary)
+      rows+=fieldRow("summary",(na.learn||{}).summary,(nb.learn||{}).summary);
+    const la=((na.learn||{}).links||[]).map(l=>l.url).join("  ·  ");
+    const lb=((nb.learn||{}).links||[]).map(l=>l.url).join("  ·  ");
+    if(la!==lb) rows+=fieldRow("links",la,lb);
+    const da=(na.do||[]).join("  |  "), db=(nb.do||[]).join("  |  ");
+    if(da!==db) rows+=fieldRow("do actions",da,db);
+    if(rows) html+=`<div class="dnode">● ${esc(nb.title)}</div>${rows}`;
+  }
+  return html||"<i>No changes detected.</i>";
+}
+async function renderProposals(list){
+  let items=[];
+  try{
+    const r=await fetch(`${API_BASE}/proposals?status=pending`,
+      {headers:{Authorization:"Bearer "+user.token}});
+    if(!r.ok) throw new Error(r.status);
+    items=(await r.json()).proposals;
+  }catch(e){ list.innerHTML="<div class='sub'>Couldn't load proposals from the server.</div>"; return; }
+  list.innerHTML="";
+  if(!items.length){ list.innerHTML="<div class='sub'>No proposed edits waiting. 🎉</div>"; return; }
+  for(const p of items){
+    let current=null, stale=false;
+    try{
+      const rm=await loadRoadmap(p.roadmap);
+      const idx=rm.topics.indexOf(p.file);
+      current=idx>=0 ? rm.nodes[idx] : null;
+      stale=!!current && contentHash(current)!==p.baseHash;
+    }catch(e){}
+    const d=document.createElement("div"); d.className="sgCard";
+    d.innerHTML=`<div class="sgMeta"><span class="sgType">edit</span>
+        ${stale?'<span class="vbadge" style="background:rgba(255,215,94,.15);color:var(--accent)">⚠ map changed since this was proposed</span>':""}
+        <span>${esc(p.roadmap)} · ${esc(p.topic.title)}</span><span>by ${esc(p.by.name)}</span></div>
+      ${p.note?`<div class="sgText" style="margin-bottom:6px">✉️ ${esc(p.note)}</div>`:""}
+      <div class="diffBox">${current?renderDiff(current,p.topic):"<i>Topic not found in the current map.</i>"}</div>`;
+    const acts=document.createElement("div"); acts.className="sgActs";
+    const bm=document.createElement("button"); bm.className="aTip";
+    bm.textContent="✅ Merge & publish";
+    bm.onclick=()=>decideProposal(p.id,"merge",p.roadmap);
+    const br=document.createElement("button"); br.className="aRej";
+    br.textContent="✕ Reject";
+    br.onclick=()=>decideProposal(p.id,"reject",p.roadmap);
+    acts.appendChild(bm); acts.appendChild(br); d.appendChild(acts);
+    list.appendChild(d);
+  }
+}
+async function decideProposal(id,action,rmId){
+  try{
+    const r=await fetch(API_BASE+"/proposals/decide",{method:"POST",
+      headers:{Authorization:"Bearer "+user.token,"Content-Type":"application/json"},
+      body:JSON.stringify({id,action})});
+    if(!r.ok) throw new Error(r.status);
+    rmCache.delete(rmId);
+    toast(action==="merge"?"✅ Merged — live for everyone, logged in history":"Rejected");
+  }catch(e){ toast("Decision failed — try again"); }
+  renderReview();
+}
+/* ---- overseer: appoint the gardeners ---- */
+function renderMaintAdmin(){
+  const box=$("maintAdmin");
+  if(!isOverseer()||!API_BASE){ box.style.display="none"; return; }
+  box.style.display="block";
+  box.innerHTML=`<h2 class="secTitle" style="margin-top:36px">Gardeners — who tends each map</h2>
+    <div class="sub">Bind a verified user id (from their user-chip tooltip) and a display name to each
+    map. Maintainers review and merge for their map only; unassigned maps fall to you.</div>`;
+  INDEX.forEach(e=>{
+    const m=MAINTAINERS[e.id]||{};
+    const row=document.createElement("div"); row.className="edRow"; row.style.marginBottom="8px";
+    row.innerHTML=`<span style="flex:0 0 160px;font-size:12.5px;color:var(--muted)">${e.emoji} ${esc(e.title)}</span>
+      <input class="edInput mId" data-rm="${e.id}" placeholder="user id (google:…)" value="${esc(m.id||"")}">
+      <input class="edInput mName" data-rm="${e.id}" placeholder="display name" value="${esc(m.name||"")}" style="flex:0 0 140px">`;
+    box.appendChild(row);
+  });
+  const save=document.createElement("button"); save.className="edAdd";
+  save.textContent="💾 Save gardeners";
+  save.onclick=async ()=>{
+    const doc={};
+    box.querySelectorAll(".mId").forEach(inp=>{
+      const rm=inp.dataset.rm, id=inp.value.trim();
+      const name=box.querySelector(`.mName[data-rm="${rm}"]`).value.trim();
+      if(id) doc[rm]={id, name:name||id};
+    });
+    try{
+      const r=await fetch(API_BASE+"/maintainers",{method:"PUT",
+        headers:{Authorization:"Bearer "+user.token,"Content-Type":"application/json"},
+        body:JSON.stringify(doc)});
+      if(!r.ok) throw new Error(r.status);
+      MAINTAINERS=doc; toast("🧑‍🌾 Gardeners updated"); renderHome();
+    }catch(e){ toast("Save failed — try again"); }
+  };
+  box.appendChild(save);
+}
+async function renderReview(){
+  const list=$("reviewList"); list.innerHTML="<div class='sub'>Loading…</div>";
+  if(reviewTab==="proposals"){
+    if(!API_BASE){ list.innerHTML="<div class='sub'>⚠️ Proposed edits need a community server (API_BASE).</div>"; return; }
+    return renderProposals(list);
+  }
+  let items=[];
+  try{ items=await fetchSuggestions(reviewTab); }
+  catch(e){ list.innerHTML="<div class='sub'>Couldn't load suggestions from the server.</div>"; return; }
+  list.innerHTML="";
+  if(!API_BASE)
+    list.innerHTML="<div class='sub'>⚠️ No community server configured (API_BASE) — showing suggestions saved on this device only.</div>";
+  if(reviewTab==="accepted" && items.length){
+    const cp=document.createElement("button"); cp.id="copyAccepted";
+    cp.textContent="📋 Copy all as JSON (for editing into topic files)";
+    cp.onclick=()=>{ navigator.clipboard.writeText(JSON.stringify(items,null,2));
+      toast("Copied — paste into your editing session"); };
+    list.appendChild(cp);
+  }
+  if(!items.length){
+    list.innerHTML+="<div class='sub'>Nothing here. 🎉</div>"; return; }
+  items.forEach(s=>{
+    const d=document.createElement("div"); d.className="sgCard";
+    d.innerHTML=`<div class="sgMeta"><span class="sgType">${esc(s.type)}</span>
+        ${s.verified?'<span class="vbadge">✓ personally verified</span>':""}
+        <span>${s.roadmap?esc(s.roadmap):"new roadmap proposal"}${s.nodeTitle?" · "+esc(s.nodeTitle):""}</span>
+        <span>by ${esc(s.by.name)}</span></div>
+      <div class="sgText">${esc(s.text)}</div>
+      ${s.url?`<div class="sgUrl"><a href="${esc(s.url)}" target="_blank" rel="noopener">${esc(s.url)}</a></div>`:""}`;
+    if(reviewTab==="pending"){
+      const acts=document.createElement("div"); acts.className="sgActs";
+      const canTip=!!(s.roadmap && s.node);
+      if(canTip){
+        const bt=document.createElement("button"); bt.className="aTip";
+        bt.textContent="🌟 Publish as tip"; bt.onclick=()=>decide(s.id,"tip");
+        acts.appendChild(bt);
+      }
+      const ba=document.createElement("button"); ba.className="aAcc";
+      ba.textContent="📥 Accept for curation"; ba.onclick=()=>decide(s.id,"accept");
+      const br=document.createElement("button"); br.className="aRej";
+      br.textContent="✕ Reject"; br.onclick=()=>decide(s.id,"reject");
+      acts.appendChild(ba); acts.appendChild(br);
+      d.appendChild(acts);
+    }
+    if(reviewTab==="accepted" && canEdit() && s.roadmap && s.node){
+      const acts=document.createElement("div"); acts.className="sgActs";
+      const eb=document.createElement("button"); eb.className="aAcc";
+      eb.textContent="✏️ Edit this node now";
+      eb.onclick=async ()=>{ await openRoadmap(s.roadmap); openNode(s.node); openEditor(s.node); };
+      acts.appendChild(eb); d.appendChild(acts);
+    }
+    list.appendChild(d);
+  });
+}
+async function decide(id,action){
+  if(!API_BASE){
+    const ob=readJSON("hkr:outbox")||[];
+    const s=ob.find(x=>x.id===id);
+    if(s) s.status={tip:"published",accept:"accepted",reject:"rejected"}[action];
+    localStorage.setItem("hkr:outbox",JSON.stringify(ob));
+  }else{
+    try{
+      const r=await fetch(API_BASE+"/decide",{method:"POST",
+        headers:{Authorization:"Bearer "+user.token,"Content-Type":"application/json"},
+        body:JSON.stringify({id,action})});
+      if(!r.ok) throw new Error(r.status);
+      tipsCache.clear();   // published tips should appear on next node open
+    }catch(e){ toast("Decision failed — try again"); return; }
+  }
+  toast({tip:"🌟 Published as community tip",accept:"📥 Accepted for curation",
+         reject:"Rejected"}[action]);
+  renderReview();
+}
+
+/* ---------- overseer editor ----------
+   Two modes, auto-detected:
+   - tools/dev.py running (localhost): saves PUT straight to the topic JSON
+     files on disk, validated server-side with the build rules, index rebuilt.
+   - production/static: saving downloads the topic file + copies its JSON, for
+     the maintainer to drop into the repo and run tools/build.py.            */
+let devMode=false;
+/* Anyone signed in can open the editor — what Save does depends on role:
+   dev server → writes files; maintainer/overseer → merges live (overlay);
+   contributor → submits a proposal for the map's maintainer to review. */
+function canEdit(){ return devMode || !!user.provider; }
+function editorMode(){
+  if(devMode) return "dev";
+  if(!API_BASE) return "export";
+  if(isOverseer() || (currentRm&&maintains(currentRm.id))) return "merge";
+  return user.provider ? "propose" : "export";
+}
+function deepClone(o){ return JSON.parse(JSON.stringify(o)); }
+let edCtx=null;   // {spineIdx, childIdx|null, topic: working copy of the spine topic}
+
+function nodeLocation(nodeId){
+  const i=currentRm.nodes.findIndex(n=>n.id===nodeId);
+  if(i>=0) return {spineIdx:i, childIdx:null};
+  for(let s=0;s<currentRm.nodes.length;s++){
+    const c=(currentRm.nodes[s].children||[]).findIndex(k=>k.id===nodeId);
+    if(c>=0) return {spineIdx:s, childIdx:c};
+  }
+  return null;
+}
+function edTarget(){ return edCtx.childIdx==null ? edCtx.topic : edCtx.topic.children[edCtx.childIdx]; }
+function topicFile(){ return currentRm.topics[edCtx.spineIdx]; }
+
+function edLinkBlock(l){
+  const d=document.createElement("div"); d.className="edLinkBlock"; d.style.marginBottom="10px";
+  d.innerHTML=`<div class="edRow">
+      <input class="edInput lLabel" placeholder="Label" value="${esc(l.label||"")}">
+      <select class="edInput lKind">
+        <option value="article">article</option><option value="video">video</option>
+        <option value="tool">tool</option></select>
+      <button class="rmX" title="Remove link">✕</button></div>
+    <input class="edInput lUrl" placeholder="https://…" value="${esc(l.url||"")}">`;
+  d.querySelector(".lKind").value=l.kind||"article";
+  d.querySelector(".rmX").onclick=()=>d.remove();
+  return d;
+}
+function edDoRow(text){
+  const d=document.createElement("div"); d.className="edRow";
+  d.innerHTML=`<input class="edInput dText" placeholder="A real-world action doable this week…"
+      value="${esc(text||"")}"><button class="rmX" title="Remove action">✕</button>`;
+  d.querySelector(".rmX").onclick=()=>d.remove();
+  return d;
+}
+function paintEditorFields(){
+  const n=edTarget();
+  $("edTitle").value=n.title; $("edTier").value=n.tier;
+  $("edSummary").value=n.learn.summary;
+  const lk=$("edLinks"); lk.innerHTML=""; (n.learn.links||[]).forEach(l=>lk.appendChild(edLinkBlock(l)));
+  const dd=$("edDo"); dd.innerHTML=""; (n.do||[]).forEach(t=>dd.appendChild(edDoRow(t)));
+  renderChildTools();
+}
+function openEditor(nodeId){
+  const loc=nodeLocation(nodeId); if(!loc) return;
+  edCtx={...loc, topic:deepClone(currentRm.nodes[loc.spineIdx]),
+         baseHash:contentHash(currentRm.nodes[loc.spineIdx])};
+  paintEditorFields();
+  $("editorErrs").textContent="";
+  $("edSave").disabled=false;
+  const mode=editorMode();
+  $("edNoteWrap").style.display = mode==="propose" ? "block" : "none";
+  $("edNote").value="";
+  $("edSave").textContent = {dev:"Save", merge:"Save & publish",
+                             propose:"Propose change", export:"Export JSON"}[mode];
+  $("edMode").innerHTML = {
+    dev:`💾 Saves directly to <b>roadmaps/${esc(currentRm.id)}/topics/${esc(topicFile())}</b> — dev server detected.`,
+    merge:`🛡️ You maintain this map — saving publishes immediately and is logged in the map's public history.`,
+    propose:`🌱 This goes to <b>${esc(maintainerNameOf(currentRm)||"the maintainer")}</b> for review — nothing changes until they merge it. Your name goes on the change.`,
+    export:`📦 Not connected — Save downloads the topic file to drop into
+       <b>roadmaps/${esc(currentRm.id)}/topics/</b> and run tools/build.py.`,
+  }[mode];
+  $("drawerBody").style.display="none";
+  $("editorBody").style.display="block";
+}
+function closeEditor(){
+  $("editorBody").style.display="none";
+  $("drawerBody").style.display="";
+  edCtx=null;
+}
+function renderChildTools(){
+  const box=$("edChildTools"); box.innerHTML="";
+  if(edCtx.childIdx==null){
+    const b=document.createElement("button"); b.className="edAdd"; b.style.marginTop="16px";
+    b.textContent="＋ Add subtopic under this core topic";
+    b.onclick=()=>{
+      commitFields();   // keep any typing on the current node
+      (edCtx.topic.children=edCtx.topic.children||[]).push({
+        id:"new-"+Date.now().toString(36), title:"New subtopic", tier:"recommended",
+        learn:{summary:"", links:[]}, do:[""] });
+      edCtx.childIdx=edCtx.topic.children.length-1;
+      paintEditorFields();
+      toast("New subtopic — fill it in, then Save writes the whole topic");
+    };
+    box.appendChild(b);
+  }else{
+    const del=document.createElement("button"); del.className="edDanger";
+    del.textContent="🗑 Delete this subtopic";
+    del.onclick=()=>{
+      edCtx.topic.children.splice(edCtx.childIdx,1);
+      edCtx.childIdx=null;
+      paintEditorFields();
+      toast("Removed from working copy — Save to apply");
+    };
+    box.appendChild(del);
+  }
+}
+function commitFields(){
+  const n=edTarget();
+  n.title=$("edTitle").value.trim();
+  n.tier=$("edTier").value;
+  n.learn.summary=$("edSummary").value.trim();
+  n.learn.links=[...$("edLinks").querySelectorAll(".edLinkBlock")].map(b=>({
+    label:b.querySelector(".lLabel").value.trim(),
+    url:b.querySelector(".lUrl").value.trim(),
+    kind:b.querySelector(".lKind").value,
+  })).filter(l=>l.label||l.url);
+  n.do=[...$("edDo").querySelectorAll(".dText")].map(i=>i.value.trim()).filter(Boolean);
+  if(n.id.startsWith("new-")){    // finalize slug from the title once it has one
+    let slug=n.title.toLowerCase().replace(/[^a-z0-9]+/g,"-").replace(/^-|-$/g,"").slice(0,40);
+    if(slug){
+      const taken=new Set(flatten({nodes:[edCtx.topic]}).filter(x=>x!==n).map(x=>x.id));
+      while(taken.has(slug)) slug+="-2";
+      n.id=slug;
+    }
+  }
+  return n;
+}
+async function reloadCurrentRoadmap(reopenNodeId){
+  const id=currentRm.id;
+  rmCache.delete(id);
+  try{ const r=await fetch("roadmaps/index.json",{cache:"no-cache"});
+       INDEX=(await r.json()).roadmaps; }catch(e){}
+  currentRm=await loadRoadmap(id);
+  renderGraph();
+  if(reopenNodeId && flatten(currentRm).some(n=>n.id===reopenNodeId)) openNode(reopenNodeId);
+  else closeDrawer();
+}
+async function saveEditor(){
+  const n=commitFields();
+  const errs=[];
+  if(!n.title) errs.push("Title is required.");
+  if(n.learn.summary.length<20) errs.push("Summary too short — write 2–3 curated sentences.");
+  n.learn.links.forEach(l=>{
+    if(!/^https:\/\//.test(l.url)) errs.push(`Link URL must be https:// — “${l.label||l.url}”`);
+    if(!l.label) errs.push("Every link needs a label."); });
+  if(!n.do.length) errs.push("At least one Do/Reflect action (core philosophy: no read-only nodes).");
+  if(errs.length){ $("editorErrs").textContent=errs.join("\n"); return; }
+  const fname=topicFile(), reopen=n.id, mode=editorMode();
+  if(mode==="dev"){
+    $("edSave").disabled=true;
+    try{
+      const r=await fetch(`/dev/topic/${currentRm.id}/${fname}`,{method:"PUT",
+        headers:{"Content-Type":"application/json"}, body:JSON.stringify(edCtx.topic)});
+      const data=await r.json();
+      if(!r.ok) throw new Error((data.errors||[data.error||r.status]).join("\n"));
+      toast("💾 Saved to "+data.saved);
+      closeEditor();
+      await reloadCurrentRoadmap(reopen);
+    }catch(e){
+      $("editorErrs").textContent=String(e.message||e);
+      $("edSave").disabled=false;
+    }
+  }else if(mode==="merge"||mode==="propose"){
+    $("edSave").disabled=true;
+    try{
+      const body={roadmap:currentRm.id, file:fname, baseHash:edCtx.baseHash,
+                  topic:edCtx.topic, note:$("edNote").value.trim()};
+      const r=await fetch(API_BASE+"/proposals",{method:"POST",
+        headers:{Authorization:"Bearer "+user.token,"Content-Type":"application/json"},
+        body:JSON.stringify(body)});
+      const data=await r.json();
+      if(!r.ok) throw new Error(data.error||r.status);
+      if(mode==="merge"){   // maintainers merge their own change immediately
+        const r2=await fetch(API_BASE+"/proposals/decide",{method:"POST",
+          headers:{Authorization:"Bearer "+user.token,"Content-Type":"application/json"},
+          body:JSON.stringify({id:data.id,action:"merge"})});
+        if(!r2.ok) throw new Error("merge failed");
+        toast("🛡️ Published — live for everyone, logged in the map's history");
+        closeEditor();
+        await reloadCurrentRoadmap(reopen);
+      }else{
+        toast("🌱 Proposed — the maintainer will review your change");
+        closeEditor();
+      }
+    }catch(e){
+      $("editorErrs").textContent=String(e.message||e);
+      $("edSave").disabled=false;
+    }
+  }else{
+    const json=JSON.stringify(edCtx.topic,null,2);
+    try{ await navigator.clipboard.writeText(json); }catch(e){}
+    const blob=new Blob([json],{type:"application/json"});
+    const a=document.createElement("a");
+    a.href=URL.createObjectURL(blob); a.download=fname; a.click();
+    URL.revokeObjectURL(a.href);
+    toast(`📦 Downloaded ${fname} (and copied JSON) — replace it in roadmaps/${currentRm.id}/topics/ and run tools/build.py`);
+    closeEditor();
+  }
+}
+$("editBtn").onclick=()=>{ if(currentNode) openEditor(currentNode.id); };
+$("edCancel").onclick=closeEditor;
+$("edSave").onclick=saveEditor;
+$("edAddLink").onclick=()=>$("edLinks").appendChild(edLinkBlock({label:"",url:"",kind:"article"}));
+$("edAddDo").onclick=()=>$("edDo").appendChild(edDoRow(""));
+$("addTopicBtn").onclick=async ()=>{
+  if(!devMode){ toast("Adding topics needs the dev server — run: python3 tools/dev.py"); return; }
+  const title=(prompt("New core topic title:")||"").trim(); if(!title) return;
+  const slug=title.toLowerCase().replace(/[^a-z0-9]+/g,"-").replace(/^-|-$/g,"").slice(0,40);
+  try{
+    const r=await fetch(`/dev/topic/${currentRm.id}`,{method:"POST",
+      headers:{"Content-Type":"application/json"}, body:JSON.stringify({slug,title})});
+    const data=await r.json();
+    if(!r.ok) throw new Error(data.error||(data.errors||[]).join("; "));
+    toast("Created "+data.file+" — opening editor");
+    await reloadCurrentRoadmap(slug);
+    openEditor(slug);
+  }catch(e){ toast("Failed: "+(e.message||e)); }
+};
+
+/* ---------- public map history ---------- */
+$("histBtn").onclick=async ()=>{
+  if(!currentRm) return;
+  if(!API_BASE){ toast("History appears once the app is connected to its server"); return; }
+  const list=$("histList"); list.innerHTML="<i>Loading…</i>";
+  $("historyModal").classList.add("show");
+  try{
+    const h=await (await fetch(`${API_BASE}/history/${currentRm.id}`)).json();
+    list.innerHTML=h.length
+      ? h.map(e=>`<div class="histRow"><b>${esc(e.topicTitle)}</b> — edited by ${esc(e.by)},
+          merged by ${esc(e.mergedBy)}${e.note?` · “${esc(e.note)}”`:""}
+          <div class="histAt">${new Date(e.at).toLocaleString()}</div></div>`).join("")
+      : "<i>No community edits merged yet — this map is all base curriculum.</i>";
+  }catch(e){ list.innerHTML="Couldn't load history."; }
+};
+$("histClose").onclick=()=>$("historyModal").classList.remove("show");
+
+/* ---------- about / manifesto ---------- */
+function openAbout(){
+  $("homeView").classList.remove("active");
+  $("mapView").classList.remove("active");
+  $("reviewView").classList.remove("active");
+  $("aboutView").classList.add("active");
+  $("backBtn").classList.add("show");
+  $("brandText").textContent="About";
+  $("brandSub").textContent="The world's curriculum — free, forever";
+  document.querySelector("#aboutView").scrollTop=0;
+  closeDrawer();
+}
+$("aboutBtn").onclick=openAbout;
+$("aboutLink").onclick=(e)=>{ e.preventDefault(); openAbout(); };
+
+/* ---------- misc ---------- */
+let toastT=null;
+function toast(msg){
+  const t=$("toast"); t.textContent=msg; t.classList.add("show");
+  clearTimeout(toastT); toastT=setTimeout(()=>t.classList.remove("show"),2600);
+}
+$("backBtn").onclick=goHome;
+window.addEventListener("resize",()=>{
+  if(!currentRm) return;
+  scale=Math.min(1,(window.innerWidth-24)/CANVAS_W);
+  applyZoom();
+});
+
+/* ---------- boot ---------- */
+(async function boot(){
+  paintUser();
+  if(!EMBEDDED_DATA){   // overseer dev server detection (tools/dev.py)
+    fetch("/dev/ping").then(r=>r.ok?r.json():null).then(d=>{
+      if(d&&d.ok){ devMode=true;
+        toast("🛠 Dev server detected — in-app editing saves to real files"); }
+    }).catch(()=>{});
+  }
+  try{
+    await loadIndex();
+    await loadMaintainers();
+    paintUser();          // review-button visibility depends on maintainer roles
+    renderHome();
+    if(user.provider && canSync()){ await pullAndMerge(); renderHome(); }
+  }catch(e){
+    const el=$("loadErr");
+    el.style.display="block";
+    el.innerHTML=`<b>Couldn't load roadmap content.</b><br><br>
+      This app loads its content from the <code>roadmaps/</code> folder, which requires
+      serving over HTTP (browsers block <code>fetch()</code> on <code>file://</code>).<br><br>
+      Run <code>python3 -m http.server 8123</code> in the project folder and open
+      <code>http://localhost:8123</code> — or use the pre-bundled
+      <code>dist/standalone.html</code>, which works anywhere.`;
+  }
+})();
+})();
+</script>
+</body>
+</html>
