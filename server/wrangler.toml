@@ -25,5 +25,10 @@ APPLE_CLIENT_ID = ""
 OVERSEER_IDS = ""
 # Your app's URL once deployed, e.g. "https://hkr.pages.dev". "" means allow any origin.
 ALLOWED_ORIGIN = ""
+# GitHub PR bridge: repo that in-app merges land in as bot-authored PRs,
+# e.g. "marcuskidan/human-knowledge-roadmaps". Leave "" to disable the bridge.
+# The token is a SECRET: npx wrangler secret put GITHUB_TOKEN
+# (fine-grained token, this repo only, Contents + Pull requests read/write).
+GITHUB_REPO = ""
 # "1" accepts demo tokens for local testing. NEVER set to "1" in production.
 DEV_MODE = ""

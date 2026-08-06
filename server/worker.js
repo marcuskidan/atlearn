@@ -100,7 +100,11 @@ async function authenticate(request, env) {
   const auth = request.headers.get("Authorization") || "";
   const token = auth.startsWith("Bearer ") ? auth.slice(7) : null;
   if (!token) return null;
-  if (env.DEV_MODE === "1") {   // local testing only — never set DEV_MODE in production
+  // Demo tokens: local testing only. Even if DEV_MODE leaks into production,
+  // the localhost-origin requirement makes it inert.
+  const devOk = env.DEV_MODE === "1" &&
+    (!env.ALLOWED_ORIGIN || env.ALLOWED_ORIGIN.startsWith("http://localhost"));
+  if (devOk) {
     if (token === "demo-google-token") return { id: "google:demo-user", name: "Explorer" };
     if (token === "demo-apple-token") return { id: "apple:demo-user", name: "Explorer" };
   }
@@ -109,13 +113,100 @@ async function authenticate(request, env) {
   return payload ? { id: payload.id, name: payload.name } : null;
 }
 
+/** Per-user daily write quota for community submissions (suggestions+proposals).
+    KV isn't atomic — this damps abuse, it isn't billing. */
+async function rateLimited(env, uid) {
+  const day = new Date().toISOString().slice(0, 10).replace(/-/g, "");
+  const key = `rl:${uid}:${day}`;
+  const n = parseInt((await env.STORE.get(key)) || "0", 10);
+  if (n >= 20) return true;
+  await env.STORE.put(key, String(n + 1), { expirationTtl: 172800 });
+  return false;
+}
+
+/* How long decided (merged/rejected/published/accepted) records stay readable
+   before KV expires them. The permanent merge ledger is history:<rm>. */
+const DECIDED_TTL = 90 * 86400;
+
 const SUGGESTION_TYPES = ["fix", "link", "tip", "topic", "roadmap"];
+
+/* ---------------- GitHub PR bridge ----------------
+   In-app merges become bot-authored pull requests: CI validates, auto-merge
+   lands them, and GitHub preserves full history. Contributors never need a
+   GitHub account — attribution travels in the commit message and PR body.   */
+function b64std(str) {   // standard base64 of UTF-8 text (GitHub contents API)
+  const bytes = enc.encode(str);
+  let bin = "";
+  for (const b of bytes) bin += String.fromCharCode(b);
+  return btoa(bin);
+}
+async function ghApi(env, path, init = {}) {
+  const res = await fetch(`https://api.github.com${path}`, {
+    ...init,
+    headers: {
+      "Authorization": `Bearer ${env.GITHUB_TOKEN}`,
+      "Accept": "application/vnd.github+json",
+      "User-Agent": "hkr-worker",
+      "Content-Type": "application/json",
+      ...(init.headers || {}),
+    },
+  });
+  const data = await res.json().catch(() => ({}));
+  if (!res.ok) throw new Error(`GitHub ${path}: ${res.status} ${data.message || ""}`);
+  return data;
+}
+async function openContentPR(env, rec) {
+  const repo = env.GITHUB_REPO;                       // e.g. "marcuskidan/human-knowledge-roadmaps"
+  const filePath = `roadmaps/${rec.roadmap}/topics/${rec.file}`;
+  const branch = `edit/${rec.id}`;
+  const main = await ghApi(env, `/repos/${repo}/git/ref/heads/main`);
+  await ghApi(env, `/repos/${repo}/git/refs`, { method: "POST",
+    body: JSON.stringify({ ref: `refs/heads/${branch}`, sha: main.object.sha }) });
+  let fileSha;
+  try {
+    const f = await ghApi(env, `/repos/${repo}/contents/${filePath}?ref=main`);
+    fileSha = f.sha;
+  } catch (e) { /* file may be new */ }
+  const message =
+    `Content: ${rec.topic.title} (${rec.roadmap})\n\n` +
+    `Proposed by ${rec.by.name} via the app; merged in-app by ${rec.decidedBy.name}.` +
+    (rec.note ? `\nNote: ${rec.note}` : "") + `\nProposal: ${rec.id}`;
+  await ghApi(env, `/repos/${repo}/contents/${filePath}`, { method: "PUT",
+    body: JSON.stringify({ message, branch,
+      content: b64std(JSON.stringify(rec.topic, null, 2) + "\n"),
+      ...(fileSha ? { sha: fileSha } : {}) }) });
+  const pr = await ghApi(env, `/repos/${repo}/pulls`, { method: "POST",
+    body: JSON.stringify({
+      title: `Content: ${rec.topic.title} (${rec.roadmap})`,
+      head: branch, base: "main",
+      body: `Merged in-app by **${rec.decidedBy.name}** (maintainer of ${rec.roadmap}). ` +
+        `Proposed by **${rec.by.name}**.` +
+        (rec.note ? `\n\n> ${rec.note}` : "") +
+        `\n\nProposal id: \`${rec.id}\`. Auto-merges when CI passes. ` +
+        `Content licensed CC BY-SA 4.0.` }) });
+  try {   // wait-for-CI auto-merge is GraphQL-only; if unavailable the PR just stays open
+    await ghApi(env, `/graphql`, { method: "POST",
+      body: JSON.stringify({
+        query: `mutation($id:ID!){enablePullRequestAutoMerge(input:{pullRequestId:$id,mergeMethod:SQUASH}){clientMutationId}}`,
+        variables: { id: pr.node_id } }) });
+  } catch (e) { /* best-effort */ }
+  return pr.number;
+}
 
 export default {
   async fetch(request, env) {
     CORS = corsFor(env);
     JSONH = { ...CORS, "Content-Type": "application/json" };
     if (request.method === "OPTIONS") return new Response(null, { headers: CORS });
+    // Fail-closed origin check: with ALLOWED_ORIGIN configured, refuse
+    // cross-origin writes; unconfigured deployments get a warning header.
+    if (env.ALLOWED_ORIGIN) {
+      const origin = request.headers.get("Origin");
+      if (origin && origin !== env.ALLOWED_ORIGIN && request.method !== "GET")
+        return j({ error: "origin not allowed" }, 403);
+    } else {
+      JSONH = { ...JSONH, "X-HKR-Warning": "ALLOWED_ORIGIN unset" };
+    }
     const url = new URL(request.url);
     const path = url.pathname;
 
@@ -187,7 +278,7 @@ export default {
     /* ---- everything else requires a session ---- */
     const user = await authenticate(request, env);
     if (!user) return j({ error: "unauthorized" }, 401);
-    const overseers = (env.OVERSEER_IDS || "").split(",").map((s) => s.trim());
+    const overseers = (env.OVERSEER_IDS || "").split(",").map((s) => s.trim()).filter(Boolean);
     const isOverseer = overseers.includes(user.id);
     const maintainers = JSON.parse((await env.STORE.get("maintainers")) || "{}");
     // gardeners: the overseer moderates everywhere; a maintainer moderates their map
@@ -215,7 +306,10 @@ export default {
     }
 
     /* ---- community: submit a suggestion ---- */
+    const trusted = isOverseer || moderatedMaps.length > 0;  // gardeners skip quotas
     if (path === "/suggestions" && request.method === "POST") {
+      if (!trusted && await rateLimited(env, user.id))
+        return j({ error: "daily contribution limit reached — try again tomorrow" }, 429);
       let s;
       try { s = await request.json(); } catch { return j({ error: "bad json" }, 400); }
       if (!SUGGESTION_TYPES.includes(s.type)) return j({ error: "bad type" }, 400);
@@ -280,12 +374,15 @@ export default {
         });
         await env.STORE.put(tipsKey, JSON.stringify(tips));
       }
-      await env.STORE.put(key, JSON.stringify(rec));
+      // decided records expire after 90 days (published tips + history persist)
+      await env.STORE.put(key, JSON.stringify(rec), { expirationTtl: DECIDED_TTL });
       return j({ ok: true, status: rec.status });
     }
 
     /* ---- editorial: submit a structured edit proposal (any signed-in user) ---- */
     if (path === "/proposals" && request.method === "POST") {
+      if (!trusted && await rateLimited(env, user.id))
+        return j({ error: "daily contribution limit reached — try again tomorrow" }, 429);
       let p;
       try { p = await request.json(); } catch { return j({ error: "bad json" }, 400); }
       const rm = String(p.roadmap || ""), file = String(p.file || "");
@@ -351,8 +448,21 @@ export default {
           topicTitle: rec.topic.title, by: rec.by.name,
           mergedBy: user.name, note: rec.note || "" });
         await env.STORE.put(hKey, JSON.stringify(hist.slice(0, 200)));
+        // GitHub PR bridge: land the merged topic in the repo as a bot-authored
+        // pull request (auto-merged when CI passes). Contributors never need
+        // GitHub — attribution travels in the PR body. Failure is non-fatal:
+        // the overlay already serves the change; sync.py remains the fallback.
+        if (env.GITHUB_TOKEN && env.GITHUB_REPO) {
+          try { await openContentPR(env, rec); }
+          catch (e) {
+            await env.STORE.put(`ghlog:${rec.id}`,
+              JSON.stringify({ at: Date.now(), error: String(e.message || e) }),
+              { expirationTtl: DECIDED_TTL });
+          }
+        }
       }
-      await env.STORE.put(`proposal:${rec.id}`, JSON.stringify(rec));
+      await env.STORE.put(`proposal:${rec.id}`, JSON.stringify(rec),
+        { expirationTtl: DECIDED_TTL });
       return j({ ok: true, status: rec.status });
     }
 
@@ -370,6 +480,22 @@ export default {
       return j({ ok: true });
     }
 
+    /* ---- ops: full KV dump for backups (overseer only) ---- */
+    if (path === "/admin/dump" && request.method === "GET") {
+      if (!isOverseer) return j({ error: "overseer only" }, 403);
+      const keys = [];
+      let cursor;
+      do {
+        const page = await env.STORE.list({ cursor });
+        for (const k of page.keys) {
+          if (k.name.startsWith("rl:")) continue;   // ephemeral quota counters
+          keys.push({ name: k.name, value: await env.STORE.get(k.name) });
+        }
+        cursor = page.list_complete ? null : page.cursor;
+      } while (cursor);
+      return j({ exportedAt: new Date().toISOString(), count: keys.length, keys });
+    }
+
     /* ---- repo custody: overseer clears an overlay after committing it to git ---- */
     if (request.method === "DELETE" && path.startsWith("/content/")) {
       if (!isOverseer) return j({ error: "overseer only" }, 403);
@@ -382,3 +508,7 @@ export default {
     return j({ error: "not found" }, 404);
   },
 };
+
+/* Named exports for the node test suite (harmless to the Worker runtime). */
+export { signSession, verifySession, verifyIdToken, authenticate,
+         rateLimited, openContentPR, b64std };
