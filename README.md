@@ -19,8 +19,10 @@ change = editing a small JSON file and rebuilding.
 
 ```
 index.html                  app shell (renderer, drawer, auth, sync) — no content inside
+config.js                   deployment config (Firebase web config + repo name)
 roadmaps/
   index.json                GENERATED catalog — never edit by hand
+  search.json               GENERATED search index (every node title)
   astronomy/
     meta.json               {id, emoji, title, tagline, curricula, order}
     topics/
@@ -94,28 +96,37 @@ See **DEPLOY.md** — the short version: create a Firebase project (enable
 Google sign-in, create Firestore, paste `firestore.rules`, hand-create the
 `meta/roles` doc), push the repo public to GitHub with Pages set to "GitHub
 Actions", add the service-account JSON as the one Actions secret, and run
-`python3 tools/configure.py` to paste the Firebase config into index.html.
+`python3 tools/configure.py` to write the Firebase config into `config.js`.
 Unconfigured checkouts run in full local/demo mode, always.
 
 ## Overseer editing (in-app content tools)
 
 Run `python3 tools/dev.py` and every node in the app grows a ✏️ button:
-edit the title, tier, summary, links, and do-actions in a form; add or delete
-subtopics; add whole core topics ("＋ Add core topic" on the map). Saves are
-validated with the build rules (schema, https links, mandatory do-action) and
-written prettily to `roadmaps/<id>/topics/<file>` with the index regenerated —
-every save is an ordinary git-diffable file change. Without the dev server
-(e.g. on the deployed site), the same editor exports instead: Save downloads
-the topic file and copies its JSON for you to drop into the repo.
+edit the title, tier, summary, links, and do-actions in a form; add, delete,
+and reorder subtopics — or send one to a different core topic; add whole core
+topics at any spine position ("＋ Add core topic"); delete core topics; and
+reorder the whole spine ("⇅ Reorganize"). Every action is one of five
+structural ops (`edit` / `add` / `remove` / `spine` / `move`) validated with
+the build rules and written to `roadmaps/<id>/topics/` + `meta.json`'s
+`spine` list — ordinary git-diffable file changes. Without the dev server
+(e.g. on the deployed site), the same editor merges, proposes, or exports
+depending on who you are — same ops, different destination.
 
 The review queue's **Accepted for curation** tab links the two systems: each
 accepted community suggestion gets an "✏️ Edit this node now" button that
 jumps straight into the editor.
 
-**Link health**: `python3 tools/build.py --check-links` probes every content
-URL (politely: per-host serialization, retries) and writes
-`tools/link-report.json` separating truly-dead links from bot-blocked ones.
-Run it before releases or in CI.
+**Link health**: a weekly GitHub Action (lychee) probes every content URL and
+maintains a single "link rot" issue; 403/429 responses count as bot-blocking,
+not rot. Trigger it on demand from the repo's Actions tab.
+
+## Finding things & sharing them
+
+Every view has a shareable address: `#/astronomy` opens a map,
+`#/astronomy/polaris` opens a map with that node's drawer open — paste-able
+links, working back/forward, bookmarks. The home screen's search box covers
+every node in every map (index generated at build time into
+`roadmaps/search.json`); picking a result is just navigation to its link.
 
 ## Notes & progress sync
 
@@ -165,7 +176,7 @@ The manifesto's governance, implemented — three roles, one editor:
 
 Governance is transparent by design: the roles doc and the merged-content
 overlay are public reads, and the permanent edit record is the repository's
-own public commit history (the 🕘 button on any map shows it).
+own public commit history (the 🕘 button on any map opens it directly).
 
 ## Community layer (GitHub-free contributions)
 
@@ -203,14 +214,13 @@ domain experts and everyday learners, so the same loop lives **inside the app**:
 ## Testing
 
 - `python3 -m unittest discover -s tests` — validator tests, runs anywhere with python3.
-- `tests/test.html` via `python3 tools/dev.py` — browser runner for the app's pure
-  logic (merge/hash/diff/migration), sharing `tests/cases.json` with CI.
-- CI (GitHub Actions) additionally runs `node --test tests/` (client logic
-  extracted from index.html) and the **security-rules suite** against the
+- `node --test tests/` — the app's pure logic (merge/hash/diff/migration),
+  extracted from index.html and run against `tests/cases.json`.
+- CI (GitHub Actions) runs both, plus the **security-rules suite** against the
   Firestore emulator — `firestore.rules` is the entire server-side boundary,
-  so it is tested like one — plus content validation + index freshness on
-  every push and PR. A weekly workflow probes every content URL and maintains
-  a single "link rot" issue.
+  so it is tested like one — and content validation + index freshness on
+  every push and PR. A weekly lychee workflow probes every content URL and
+  maintains a single "link rot" issue.
 
 ## Privacy
 

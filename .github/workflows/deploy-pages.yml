@@ -26,9 +26,14 @@ jobs:
       - uses: actions/checkout@v4
         with:
           ref: main
+      - name: Assemble the site — app files only, not tools/tests/workflows
+        run: |
+          mkdir _site
+          cp index.html config.js _site/
+          cp -R roadmaps _site/
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3
         with:
-          path: .
+          path: _site
       - id: deployment
         uses: actions/deploy-pages@v4

@@ -14,6 +14,35 @@ service cloud.firestore {
     }
     function moderates(rm) { return isOverseer() || maintains(rm); }
 
+    // ---- structural-op grammar, shared by proposals and merged docs ----
+    // One vocabulary for every change to a map:
+    //   edit   {file, topic}                  rewrite one core topic
+    //   add    {file, topic, after}           new core topic ("" = at the top)
+    //   remove {file}                         delete a core topic
+    //   spine  {spine: [files…]}              reorder core topics
+    //   move   {file, topic, file2, topic2}   subtopic moved between topics
+    // Docs without `kind` are legacy edits. Entry-level checks the rules
+    // language can't express (spine entries, topic internals) are re-validated
+    // by tools/land.mjs + build.py before anything reaches the repo.
+    function validFile(f) {
+      return f is string && f.matches('[0-9][0-9]-[a-z0-9-]+\\.json');
+    }
+    function validTopic(t) {
+      return t is map && t.keys().hasAll(['id','title','tier','learn','do']);
+    }
+    function opKind(d) { return ('kind' in d) ? d.kind : 'edit'; }
+    function validStructOp(d) {
+      return (opKind(d) == 'edit'   && validFile(d.file) && validTopic(d.topic))
+          || (opKind(d) == 'add'    && validFile(d.file) && validTopic(d.topic)
+                                    && (d.after == '' || validFile(d.after)))
+          || (opKind(d) == 'remove' && validFile(d.file))
+          || (opKind(d) == 'spine'  && d.spine is list
+                                    && d.spine.size() >= 2 && d.spine.size() <= 60)
+          || (opKind(d) == 'move'   && validFile(d.file) && validFile(d.file2)
+                                    && d.file != d.file2
+                                    && validTopic(d.topic) && validTopic(d.topic2));
+    }
+
     // Who tends which map. Bootstrapped ONCE by hand in the Firebase console;
     // rules never allow create — "allow create when missing" would be a race
     // anyone with the project id could win.
@@ -64,13 +93,12 @@ service cloud.firestore {
     match /proposals/{id} {
       allow create: if signedIn()
         && request.resource.data.keys().hasOnly(
-             ['roadmap','file','baseHash','topic','note','by','createdAt','status'])
+             ['roadmap','kind','file','file2','baseHash','baseHash2','topic','topic2',
+              'after','spine','note','by','createdAt','status'])
         && request.resource.data.by.uid == request.auth.uid
         && request.resource.data.status == 'pending'
         && request.resource.data.roadmap.matches('[a-z0-9-]{1,50}')
-        && request.resource.data.file.matches('[0-9][0-9]-[a-z0-9-]+\\.json')
-        && request.resource.data.topic is map
-        && request.resource.data.topic.keys().hasAll(['id','title','tier','learn','do'])
+        && validStructOp(request.resource.data)
         && request.resource.data.note is string
         && request.resource.data.note.size() <= 1000
         && request.resource.data.createdAt == request.time;
@@ -90,9 +118,10 @@ service cloud.firestore {
       allow create: if moderates(request.resource.data.roadmap)
         && request.resource.data.mergedBy.uid == request.auth.uid
         && request.resource.data.keys().hasOnly(
-             ['roadmap','file','topic','by','mergedBy','note','at'])
+             ['roadmap','kind','file','file2','topic','topic2','after','spine',
+              'by','mergedBy','note','at'])
         && request.resource.data.roadmap.matches('[a-z0-9-]{1,50}')
-        && request.resource.data.file.matches('[0-9][0-9]-[a-z0-9-]+\\.json');
+        && validStructOp(request.resource.data);
       allow update, delete: if false;
     }
   }

@@ -1,4 +1,7 @@
 name: Link check
+# Weekly probe of every content URL. lychee does the crawling (retries,
+# rate limits, UA handling); failures land in a single "link-rot" issue that
+# is updated in place. 403/429 responses are treated as bot-blocking, not rot.
 on:
   schedule:
     - cron: "0 6 * * 1"   # Mondays 06:00 UTC
@@ -13,36 +16,24 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: Probe every content URL
-        run: python3 tools/build.py --check-links
-      - uses: actions/upload-artifact@v4
+        id: lychee
+        uses: lycheeverse/lychee-action@v2
         with:
-          name: link-report
-          path: tools/link-report.json
-      - name: File or update the link-rot issue
+          args: --no-progress --accept '200..=299,403,429' 'roadmaps/**/*.json'
+          output: link-report.md
+          fail: false
+      - name: Find the open link-rot issue
+        if: steps.lychee.outputs.exit_code != 0
+        id: issue
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
-          python3 - <<'EOF'
-          import json
-          r = json.load(open("tools/link-report.json"))
-          dead = r["dead"]
-          lines = [f"Weekly link check: **{len(dead)} dead link(s)** "
-                   f"({r['ok']}/{r['checked']} OK, "
-                   f"{len(r['maybe_bot_blocked'])} bot-blocked).", ""]
-          for u, v in dead.items():
-              lines.append(f"- `{u}` ({v['status']}) — {', '.join(v['nodes'][:3])}")
-          lines += ["", "Fix with verified replacements, then run "
-                        "`python3 tools/build.py --check-links` to confirm."]
-          open("body.md", "w").write("\n".join(lines))
-          open("dead_count", "w").write(str(len(dead)))
-          EOF
-          if [ "$(cat dead_count)" -gt 0 ]; then
-            N=$(gh issue list --label link-rot --state open --json number --jq '.[0].number' || true)
-            if [ -n "$N" ]; then
-              gh issue edit "$N" --body-file body.md
-            else
-              gh issue create --title "Link rot report" --label link-rot --body-file body.md
-            fi
-          else
-            echo "No dead links 🎉"
-          fi
+          echo "number=$(gh issue list --label link-rot --state open --json number --jq '.[0].number')" >> "$GITHUB_OUTPUT"
+      - name: File or update the link-rot issue
+        if: steps.lychee.outputs.exit_code != 0
+        uses: peter-evans/create-issue-from-file@v5
+        with:
+          title: Link rot report
+          content-filepath: link-report.md
+          labels: link-rot
+          issue-number: ${{ steps.issue.outputs.number }}

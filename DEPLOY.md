@@ -44,7 +44,7 @@ Then in the repo's web settings:
 ## Stage 3 — Wire and become overseer (~5 min)
 
 ```bash
-python3 tools/configure.py     # paste the firebaseConfig object + owner/repo
+python3 tools/configure.py     # paste the firebaseConfig object + owner/repo → writes config.js
 python3 tools/build.py --standalone
 git add -A && git commit -m "Configure Firebase + repo" && git push
 ```
@@ -60,8 +60,10 @@ no more console visits.
 - [ ] Sign in; sync dot turns green; progress survives reload and a second device
 - [ ] Suggest from a node; it appears in 🛡️ Review; publish it as a tip
 - [ ] Edit a node (✏️) as a maintainer → Save & publish → change is live
-      immediately; within ~15 min the **Land content** Action commits it to
-      the repo with attribution and redeploys (check the Actions tab + 🕘)
+      immediately via the overlay; run the **Land content** Action from the
+      Actions tab (or wait for its 6-hourly schedule) and confirm one run
+      commits it with attribution, redeploys, and retires the overlay doc
+      (check the Actions tab + 🕘)
 - [ ] Signed out / unconfigured browsers still work fully in local mode
 
 ## Operations

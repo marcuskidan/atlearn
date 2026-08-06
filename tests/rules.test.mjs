@@ -129,6 +129,70 @@ guard("merged overlay: public read; moderator-only create; immutable to clients"
     .update({ topic: { id: "evil" } }));
 });
 
+const TOPIC = { id: "t", title: "T", tier: "essential",
+  learn: { summary: "s", links: [] }, do: ["a"] };
+
+guard("structural kinds: valid add/remove/spine/move accepted for merged", async () => {
+  const base = { roadmap: "astro", by: { uid: "u", name: "U" },
+    mergedBy: { uid: "gardener-uid", name: "Stella" }, note: "", at: 1 };
+  await rut.assertSucceeds(db("gardener-uid").collection("merged")
+    .add({ ...base, kind: "add", file: "11-new.json", topic: TOPIC, after: "" }));
+  await rut.assertSucceeds(db("gardener-uid").collection("merged")
+    .add({ ...base, kind: "add", file: "11-new.json", topic: TOPIC, after: "02-old.json" }));
+  await rut.assertSucceeds(db("gardener-uid").collection("merged")
+    .add({ ...base, kind: "remove", file: "03-old.json" }));
+  await rut.assertSucceeds(db("gardener-uid").collection("merged")
+    .add({ ...base, kind: "spine", spine: ["02-b.json", "01-a.json"] }));
+  await rut.assertSucceeds(db("gardener-uid").collection("merged")
+    .add({ ...base, kind: "move", file: "01-a.json", topic: TOPIC,
+           file2: "02-b.json", topic2: { ...TOPIC, id: "t2" } }));
+});
+
+guard("structural kinds: malformed docs rejected", async () => {
+  const base = { roadmap: "astro", by: { uid: "u", name: "U" },
+    mergedBy: { uid: "gardener-uid", name: "Stella" }, note: "", at: 1 };
+  // unknown kind
+  await rut.assertFails(db("gardener-uid").collection("merged")
+    .add({ ...base, kind: "rename", file: "01-a.json", topic: TOPIC }));
+  // add without a position
+  await rut.assertFails(db("gardener-uid").collection("merged")
+    .add({ ...base, kind: "add", file: "11-new.json", topic: TOPIC }));
+  // remove with a path-traversal file name
+  await rut.assertFails(db("gardener-uid").collection("merged")
+    .add({ ...base, kind: "remove", file: "../meta.json" }));
+  // spine that isn't a list
+  await rut.assertFails(db("gardener-uid").collection("merged")
+    .add({ ...base, kind: "spine", spine: "01-a.json" }));
+  // move onto itself
+  await rut.assertFails(db("gardener-uid").collection("merged")
+    .add({ ...base, kind: "move", file: "01-a.json", topic: TOPIC,
+           file2: "01-a.json", topic2: TOPIC }));
+  // non-moderator can never create merged docs, structural or not
+  await rut.assertFails(db("user-uid").collection("merged")
+    .add({ ...base, mergedBy: { uid: "user-uid", name: "U" },
+           kind: "remove", file: "03-old.json" }));
+});
+
+guard("structural proposals: contributors can propose add/remove/spine/move", async () => {
+  const base = { roadmap: "astro", note: "why this helps",
+    by: { uid: "user-uid", name: "U" }, status: "pending" };
+  await rut.assertSucceeds(db("user-uid").collection("proposals")
+    .add({ ...base, kind: "add", file: "11-new.json", topic: TOPIC, after: "",
+           createdAt: sgTs() }));
+  await rut.assertSucceeds(db("user-uid").collection("proposals")
+    .add({ ...base, kind: "remove", file: "03-old.json", baseHash: "h",
+           createdAt: sgTs() }));
+  await rut.assertSucceeds(db("user-uid").collection("proposals")
+    .add({ ...base, kind: "spine", spine: ["02-b.json", "01-a.json"], baseHash: "h",
+           createdAt: sgTs() }));
+  await rut.assertSucceeds(db("user-uid").collection("proposals")
+    .add({ ...base, kind: "move", file: "01-a.json", topic: TOPIC, baseHash: "h",
+           file2: "02-b.json", topic2: { ...TOPIC, id: "t2" }, baseHash2: "h2",
+           createdAt: sgTs() }));
+  await rut.assertFails(db("user-uid").collection("proposals")
+    .add({ ...base, kind: "spine", spine: [], createdAt: sgTs() }));
+});
+
 guard("proposal lifecycle: create shape enforced; decision status-only", async () => {
   const prop = { roadmap: "astro", file: "02-topic.json", baseHash: "h",
     topic: { id: "t", title: "T", tier: "essential", learn: { summary: "s", links: [] }, do: ["a"] },

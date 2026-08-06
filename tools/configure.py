@@ -5,11 +5,11 @@ Wire the app to its two hosted services (Firebase + GitHub).
     python3 tools/configure.py            # interactive; Enter keeps current value
     python3 tools/configure.py --show     # print what's configured now
 
-Writes into index.html only:
+Writes config.js only (index.html is never touched):
   FIREBASE_CONFIG  — paste the JSON config object from the Firebase console
                      (Project settings → Your apps → SDK setup and configuration).
-                     Blank keeps/clears it → app runs in local/demo mode.
-  GITHUB_REPO      — "owner/repo", powers the public map-history view.
+                     Blank keeps it; 'null' clears it → app runs in local/demo mode.
+  GITHUB_REPO      — "owner/repo", powers the public map-history link.
 
 These values are public-by-design (they ship to every browser anyway).
 The only real secret is the Firebase service-account JSON, which lives in
@@ -18,14 +18,31 @@ GitHub Actions (FIREBASE_SERVICE_ACCOUNT) and on the overseer's machine.
 import json, os, re, sys
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-HTML = os.path.join(ROOT, "index.html")
+CONF = os.path.join(ROOT, "config.js")
 
-def read(): return open(HTML, encoding="utf-8").read()
+TEMPLATE = """/* App configuration — the only file to edit when wiring the hosted services.
+   These values are public-by-design (they ship to every browser anyway); the
+   only real secret is the Firebase service-account JSON, which lives in
+   GitHub Actions. Run `python3 tools/configure.py` for a guided setup, or
+   edit by hand. */
+window.HKR_CONFIG = {{
+  /* Firebase web-app config object (Firebase console → Project settings →
+     Your apps). While null, the app runs fully functional in local/demo
+     mode — progress stays on-device, contributions queue locally. */
+  FIREBASE_CONFIG: {fb},
+  /* "owner/repo", e.g. "marcuskidan/human-knowledge-roadmaps" — powers the
+     public map-history link. */
+  GITHUB_REPO: "{repo}",
+}};
+"""
 
 def current():
-    h = read()
-    fb = re.search(r'const FIREBASE_CONFIG\s*=\s*(\{.*?\}|null);', h, re.S)
-    gh = re.search(r'const GITHUB_REPO\s*=\s*"([^"]*)"', h)
+    try:
+        src = open(CONF, encoding="utf-8").read()
+    except FileNotFoundError:
+        return {"firebase": "null", "repo": ""}
+    fb = re.search(r'FIREBASE_CONFIG:\s*(\{.*?\}|null),', src, re.S)
+    gh = re.search(r'GITHUB_REPO:\s*"([^"]*)"', src)
     return {"firebase": (fb.group(1) if fb else "null"),
             "repo": (gh.group(1) if gh else "")}
 
@@ -36,25 +53,20 @@ def main():
         print("GITHUB_REPO:    ", cur["repo"] or "(not set)")
         return
     print("App configuration — press Enter to keep the current value.\n")
-    print(f"Firebase config object (paste the whole {{...}} on one line, or 'null' to clear)")
+    print("Firebase config object (paste the whole {...} on one line, or 'null' to clear)")
     fb = input(f"  [{('configured' if cur['firebase'] != 'null' else 'not set')}]: ").strip()
     repo = input(f"GitHub repo (owner/repo)\n  [{cur['repo'] or 'not set'}]: ").strip()
 
-    h = read()
-    if fb:
-        if fb != "null":
-            try: json.loads(re.sub(r'(\w+):', r'"\1":', fb))  # tolerate JS-style keys
+    fb = fb or cur["firebase"]
+    if fb != "null":
+        try: json.loads(re.sub(r'(\w+):', r'"\1":', fb))  # tolerate JS-style keys
+        except Exception:
+            try: json.loads(fb)
             except Exception:
-                try: json.loads(fb)
-                except Exception:
-                    print("⚠️  That doesn't parse as JSON — writing it anyway; check the app loads.")
-        h = re.sub(r'const FIREBASE_CONFIG\s*=\s*(\{.*?\}|null);',
-                   f'const FIREBASE_CONFIG = {fb};', h, count=1, flags=re.S)
-    if repo:
-        h = re.sub(r'const GITHUB_REPO\s*=\s*"[^"]*"',
-                   f'const GITHUB_REPO = "{repo}"', h, count=1)
-    open(HTML, "w", encoding="utf-8").write(h)
-    print("\n✅ Wrote index.html.")
+                print("⚠️  That doesn't parse as JSON — writing it anyway; check the app loads.")
+    open(CONF, "w", encoding="utf-8").write(
+        TEMPLATE.format(fb=fb, repo=repo or cur["repo"]))
+    print("\n✅ Wrote config.js.")
     print("Next: python3 tools/build.py --standalone   (refresh the bundle), commit, push.")
 
 if __name__ == "__main__":

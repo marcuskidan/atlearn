@@ -77,6 +77,25 @@ a{color:var(--blue)}
 #homeHero h1{font-size:clamp(24px,4.5vw,34px);line-height:1.15;letter-spacing:-.5px}
 #homeHero h1 em{font-style:normal;color:var(--accent)}
 #homeHero p{color:var(--muted);margin-top:8px;font-size:14.5px;max-width:640px;line-height:1.55}
+#searchWrap{max-width:560px;margin-top:18px;position:relative}
+#searchBox{width:100%;padding:12px 16px;border-radius:12px;border:1px solid var(--line);
+  background:var(--bg2);color:var(--text);font-size:15px;outline:none;
+  transition:border-color .15s}
+#searchBox:focus{border-color:var(--accent)}
+#searchBox::placeholder{color:var(--faint)}
+#searchResults{display:none;position:absolute;top:calc(100% + 6px);left:0;right:0;z-index:40;
+  background:var(--bg2);border:1px solid var(--line);border-radius:12px;
+  max-height:min(340px,50vh);overflow-y:auto;box-shadow:0 14px 34px rgba(0,0,0,.5)}
+.sres{display:flex;gap:11px;align-items:center;padding:10px 14px;
+  border-bottom:1px solid var(--line);color:var(--text);text-decoration:none;text-align:left}
+.sres:last-child{border-bottom:0}
+.sres:hover,.sres:focus{background:var(--bg3)}
+.sres .sremo{font-size:16px;flex:0 0 auto}
+.sres .srtxt{min-width:0}
+.sres .srtxt b{display:block;font-size:14px;font-weight:600;overflow:hidden;
+  text-overflow:ellipsis;white-space:nowrap}
+.sres .srtxt small{color:var(--faint);font-size:11.5px}
+.snone{padding:12px 14px;color:var(--faint);font-size:13px}
 #grid{max-width:960px;margin:0 auto;display:grid;gap:14px;
   grid-template-columns:repeat(auto-fill,minmax(270px,1fr))}
 .card{
@@ -339,9 +358,6 @@ a{color:var(--blue)}
 .dline{padding:3px 8px;border-radius:6px;margin:2px 0;white-space:pre-wrap}
 .dline.del{background:rgba(248,113,113,.09);color:#fca5a5}
 .dline.add{background:rgba(74,222,128,.09);color:#86efac}
-.histRow{padding:10px 0;border-bottom:1px solid var(--line);font-size:13px;
-  line-height:1.55;color:#c9d2e2;text-align:left}
-.histRow .histAt{font-size:11px;color:var(--faint);margin-top:3px}
 
 /* ---------- Overseer editor ---------- */
 #editBtn{display:none;position:absolute;top:calc(14px + var(--sat));right:54px;width:32px;height:32px;
@@ -372,6 +388,23 @@ select.edInput{appearance:none;-webkit-appearance:none}
   border:1.5px dashed var(--line);color:var(--muted);font-size:12.5px;font-weight:650}
 #addTopicBtn.show{display:block}
 #addTopicBtn:hover{border-color:var(--accent);color:var(--accent)}
+#reorgBtn{display:none;position:fixed;z-index:30;left:calc(16px + var(--sal));
+  bottom:calc(110px + var(--sab));padding:10px 14px;border-radius:11px;background:var(--bg2);
+  border:1.5px dashed var(--line);color:var(--muted);font-size:12.5px;font-weight:650}
+#reorgBtn.show{display:block}
+#reorgBtn:hover{border-color:var(--accent);color:var(--accent)}
+.reorgRow{display:flex;align-items:center;gap:10px;padding:8px 10px;border:1px solid var(--line);
+  border-radius:10px;margin-bottom:6px;background:var(--bg3);font-size:13px;text-align:left}
+.reorgRow b{flex:1;font-weight:600;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.reorgRow button{width:26px;height:26px;border-radius:8px;background:var(--bg2);border:1px solid var(--line)}
+.reorgRow button:disabled{opacity:.3}
+.edChildRow{display:flex;align-items:center;gap:8px;padding:7px 10px;border:1px solid var(--line);
+  border-radius:10px;margin-bottom:6px;background:var(--bg3);font-size:12.5px}
+.edChildRow b{flex:1;font-weight:600;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.edChildRow button,.edChildRow select{height:26px;border-radius:8px;background:var(--bg2);
+  border:1px solid var(--line);font-size:11px;color:var(--muted)}
+.edChildRow button{width:26px}
+.edChildRow button:disabled{opacity:.3}
 
 /* ---------- Auth modal ---------- */
 #authModal{position:fixed;inset:0;z-index:80;display:none;align-items:center;justify-content:center;
@@ -426,6 +459,11 @@ select.edInput{appearance:none;-webkit-appearance:none}
     <h1 id="heroTitle">Pick a path. <em>Learn by doing.</em></h1>
     <p id="heroSub">Step-by-step maps for learning real things — free, for everyone, forever.
       <a href="#" id="aboutLink">Why this exists →</a></p>
+    <div id="searchWrap">
+      <input id="searchBox" type="search" placeholder="Search every map — try “knife”, “Polaris”, “budget”…"
+        autocomplete="off" spellcheck="false" aria-label="Search all roadmaps">
+      <div id="searchResults" role="listbox"></div>
+    </div>
   </div>
   <div id="continueWrap">
     <h2 class="secTitle">Continue your paths</h2>
@@ -535,16 +573,6 @@ select.edInput{appearance:none;-webkit-appearance:none}
   <div id="maintAdmin" style="display:none"></div>
 </div></section>
 
-<!-- ================= MAP HISTORY MODAL ================= -->
-<div id="historyModal" class="modalWrap">
-  <div class="modalCard" style="max-width:520px">
-    <h3>🕘 Map history</h3>
-    <div class="mctx">Every community edit merged into this map — who wrote it, who merged it.</div>
-    <div id="histList"></div>
-    <div class="modalBtns"><button id="histClose">Close</button></div>
-  </div>
-</div>
-
 <!-- ================= ROADMAP ================= -->
 <section id="mapView" class="view">
   <div id="scroller"><div id="canvasOuter"><div id="canvas">
@@ -563,7 +591,22 @@ select.edInput{appearance:none;-webkit-appearance:none}
     <button id="histBtn" aria-label="Map history" title="Map history" style="font-size:14px">🕘</button>
   </div>
   <button id="addTopicBtn">＋ Add core topic</button>
+  <button id="reorgBtn">⇅ Reorganize</button>
 </section>
+
+<!-- ================= REORGANIZE MODAL ================= -->
+<div id="reorgModal" class="modalWrap">
+  <div class="modalCard" style="max-width:460px">
+    <h3>⇅ Reorganize this map</h3>
+    <div class="mctx">Reorder the core topics of the spine. Subtopics travel with their core topic.</div>
+    <div id="reorgList"></div>
+    <div class="modalBtns">
+      <button id="reorgCancel">Cancel</button>
+      <button id="reorgSave" class="primary">Save order</button>
+    </div>
+    <div id="reorgMode" style="margin-top:10px;font-size:11.5px;color:var(--faint);text-align:center;line-height:1.5"></div>
+  </div>
+</div>
 
 <div id="loading"><div class="spinner"></div></div>
 
@@ -610,6 +653,10 @@ select.edInput{appearance:none;-webkit-appearance:none}
       <option value="recommended">recommended</option>
       <option value="extra">extra</option>
     </select>
+    <div id="edPosWrap" style="display:none">
+      <label class="edLabel">📍 Position on the spine</label>
+      <select id="edPos" class="edInput"></select>
+    </div>
     <label class="edLabel">📖 Learn — summary</label>
     <textarea id="edSummary" class="edArea"></textarea>
     <label class="edLabel">🔗 Links</label>
@@ -680,20 +727,16 @@ select.edInput{appearance:none;-webkit-appearance:none}
 
 <div id="toast"></div>
 
+<script src="config.js"></script>
 <script>
 /* ═══════════════════════════════════════════════════════════════════════════
    CONFIGURATION — the whole backend is two hosted services, zero servers.
-   ───────────────────────────────────────────────────────────────────────────
-   FIREBASE_CONFIG: the web-app config object from your Firebase console
-   (Project settings → Your apps). While null, the app is fully functional in
-   local/demo mode — progress stays on-device, contributions queue locally.
+   Values live in config.js (edit it directly or run tools/configure.py).
    Firebase Auth handles accounts (Google/Apple), Firestore holds all dynamic
    data behind firestore.rules, and a GitHub Action lands merged content into
-   the repo. See DEPLOY.md.
-   GITHUB_REPO: "owner/repo" — powers the public map-history view.
+   the repo. See DEPLOY.md. Missing config.js ⇒ local/demo mode.
    ═══════════════════════════════════════════════════════════════════════════ */
-const FIREBASE_CONFIG = null;   // set by tools/configure.py
-const GITHUB_REPO = "";         // e.g. "marcuskidan/human-knowledge-roadmaps"
+const {FIREBASE_CONFIG=null, GITHUB_REPO=""} = (window.HKR_CONFIG || {});
 
 /* Replaced by `python3 tools/build.py --standalone` to inline all content
    into dist/standalone.html. In the repo version it stays null and content
@@ -768,6 +811,34 @@ function contentHash(obj){
   for(let i=0;i<s.length;i++) h=((h<<5)+h+s.charCodeAt(i))|0;
   return (h>>>0).toString(36);
 }
+/* Apply merged structural docs to a map's parallel (topics, nodes) arrays.
+   One grammar everywhere: edit | add | remove | spine | move (see rules).
+   Pure — returns new arrays, applies docs in `at` order, tolerates docs that
+   already landed (add of an existing file, remove of a gone file, …). */
+function applyMergedDocs(topics, nodes, docs){
+  topics=topics.slice(); nodes=nodes.slice();
+  docs.slice().sort((a,b)=>(a.at||0)-(b.at||0)).forEach(m=>{
+    const kind=m.kind||"edit", i=topics.indexOf(m.file);
+    if(kind==="edit"){
+      if(i>=0) nodes[i]=m.topic;
+    }else if(kind==="add"){
+      if(i>=0) return;   // already landed in the static base
+      const p=m.after===""?0:(topics.indexOf(m.after)>=0?topics.indexOf(m.after)+1:topics.length);
+      topics.splice(p,0,m.file); nodes.splice(p,0,m.topic);
+    }else if(kind==="remove"){
+      if(i>=0){ topics.splice(i,1); nodes.splice(i,1); }
+    }else if(kind==="spine"){
+      const pos=new Map(m.spine.map((f,x)=>[f,x]));
+      const order=topics.map((_,x)=>x).sort((a,b)=>
+        (pos.has(topics[a])?pos.get(topics[a]):999)-(pos.has(topics[b])?pos.get(topics[b]):999));
+      topics=order.map(x=>topics[x]); nodes=order.map(x=>nodes[x]);
+    }else if(kind==="move"){
+      if(i>=0) nodes[i]=m.topic;
+      const j=topics.indexOf(m.file2); if(j>=0) nodes[j]=m.topic2;
+    }
+  });
+  return {topics, nodes};
+}
 
 /* ---------- content loading (folder-per-category, file-per-topic) ---------- */
 let INDEX=[];               // entries from roadmaps/index.json
@@ -797,19 +868,22 @@ async function loadRoadmap(id){
   // Community edits merged by this map's maintainer render on top of the
   // static base until the landing Action commits them to the repo. The
   // `merged` collection is public-read — it IS the overlay.
+  let topics=entry.topics;
   if(FIREBASE_CONFIG && !EMBEDDED_DATA){
     try{
       const F=await fb();
       if(F){
         const snap=await F.getDocs(F.query(
           F.collection(F.db,"merged"), F.where("roadmap","==",id)));
-        const ov={};
-        snap.forEach(d=>{ const m=d.data(); ov[m.file]=m.topic; });
-        entry.topics.forEach((f,i)=>{ if(ov[f]) nodes[i]=ov[f]; });
+        const docs=[]; snap.forEach(d=>docs.push(d.data()));
+        if(docs.length){
+          const applied=applyMergedDocs(topics, nodes, docs);
+          topics=applied.topics; nodes=applied.nodes;
+        }
       }
     }catch(e){ /* offline → base content */ }
   }
-  const rm={...entry, nodes};
+  const rm={...entry, topics, nodes};
   rmCache.set(id,rm);
   return rm;
 }
@@ -1008,8 +1082,10 @@ async function openRoadmap(id){
     (mName?` · maintained by ${mName}`:"");
   scale=Math.min(1,(window.innerWidth-24)/CANVAS_W);
   renderGraph();
-  $("addTopicBtn").classList.toggle("show", devMode||isOverseer());
+  $("addTopicBtn").classList.toggle("show", canEdit());
+  $("reorgBtn").classList.toggle("show", canEdit());
   $("scroller").scrollTop=0;
+  reflectHash("/"+id);
 }
 function goHome(){
   $("mapView").classList.remove("active");
@@ -1017,10 +1093,12 @@ function goHome(){
   $("aboutView").classList.remove("active");
   $("homeView").classList.add("active");
   $("addTopicBtn").classList.remove("show");
+  $("reorgBtn").classList.remove("show");
   $("backBtn").classList.remove("show");
   $("brandText").textContent="Human Knowledge Roadmaps";
   $("brandSub").textContent="Curated paths for a well-lived life";
   currentRm=null; renderHome();
+  reflectHash("/");
 }
 function renderGraph(){
   /* Spine layout: core topics stack straight down the center; each spine
@@ -1031,6 +1109,7 @@ function renderGraph(){
   const mk=(n,cls)=>{
     const el=document.createElement("button");
     el.className=`node ${cls} ${n.tier}`;
+    el.dataset.id=n.id;
     el.style.width=(cls==="spine"?SPINE_W:CHILD_W)+"px";
     const p=peek(currentRm.id,n.id);
     el.innerHTML=`<div class="ntitle">${n.title}</div>
@@ -1143,6 +1222,7 @@ function openNode(nodeId){
   });
   $("backdrop").classList.add("show");
   $("drawer").classList.add("open");
+  reflectHash("/"+currentRm.id+"/"+encodeURIComponent(nodeId));
 }
 function paintStatusSeg(s){
   document.querySelectorAll("#statusSeg button").forEach(b=>
@@ -1172,6 +1252,8 @@ $("notes").addEventListener("input",()=>{
   },500);
 });
 function closeDrawer(){
+  if(currentNode && currentRm && $("mapView").classList.contains("active"))
+    reflectHash("/"+currentRm.id);
   $("drawer").classList.remove("open");
   $("backdrop").classList.remove("show");
   currentNode=null;
@@ -1180,7 +1262,7 @@ $("closeBtn").onclick=closeDrawer;
 $("backdrop").onclick=closeDrawer;
 document.addEventListener("keydown",e=>{ if(e.key==="Escape"){ closeDrawer();
   $("authModal").classList.remove("show"); $("suggestModal").classList.remove("show");
-  $("historyModal").classList.remove("show"); }});
+  $("reorgModal").classList.remove("show"); }});
 
 /* ---------- auth ---------- */
 function paintUser(){
@@ -1419,27 +1501,73 @@ function renderDiff(a,b){   // a = current live topic, b = proposed topic
   }
   return html||"<i>No changes detected.</i>";
 }
+/* One review card per proposal, whatever its kind. `rm` is the map with the
+   live overlay applied, so staleness is judged against what users see now. */
+function proposalSummary(p, rm){
+  const kind=p.kind||"edit";
+  const cur=f=>{ const i=rm?rm.topics.indexOf(f):-1; return i>=0?rm.nodes[i]:null; };
+  if(kind==="edit"){
+    const current=cur(p.file);
+    return { label:"edit", title:p.topic.title,
+      stale:!!current && contentHash(current)!==p.baseHash,
+      body:`<div class="diffBox">${current?renderDiff(current,p.topic):"<i>Topic not found in the current map.</i>"}</div>` };
+  }
+  if(kind==="add"){
+    const anchor=p.after!==""?cur(p.after):null;
+    const posTitle=p.after===""?"at the top of the map"
+      :(anchor?`after “${esc(anchor.title)}”`:"at the end");
+    const empty={id:p.topic.id, title:"", tier:p.topic.tier, learn:{summary:"",links:[]}, do:[]};
+    return { label:"new topic", title:p.topic.title, stale:false,
+      body:`<div class="sub" style="margin-bottom:6px">Placed ${posTitle} · ${(p.topic.children||[]).length} subtopic(s)</div>
+            <div class="diffBox">${renderDiff(empty,p.topic)}</div>` };
+  }
+  if(kind==="remove"){
+    const current=cur(p.file);
+    return { label:"remove topic", title:current?current.title:p.file,
+      stale:!!current && !!p.baseHash && contentHash(current)!==p.baseHash,
+      body:current
+        ?`<div class="diffBox"><div class="dnode del">－ Removes “${esc(current.title)}” and its ${(current.children||[]).length} subtopic(s)</div></div>`
+        :`<div class="sub">Topic already gone from the current map.</div>` };
+  }
+  if(kind==="spine"){
+    const title=f=>{ const c=cur(f); return c?c.title:f; };
+    const rows=p.spine.map((f,i)=>{
+      const was=rm?rm.topics.indexOf(f):-1, moved=was>=0&&was!==i;
+      return `<div class="dline ${moved?"add":""}">${i+1}. ${esc(title(f))}${moved?` (was ${was+1})`:""}</div>`;
+    }).join("");
+    return { label:"reorder", title:"New spine order",
+      stale:!!rm && !!p.baseHash && contentHash(rm.topics)!==p.baseHash,
+      body:`<div class="diffBox">${rows}</div>` };
+  }
+  if(kind==="move"){
+    const src=cur(p.file), dst=cur(p.file2);
+    const dstIds=dst?new Set(flatten({nodes:[dst]}).map(x=>x.id)):new Set();
+    const moved=(p.topic2.children||[]).find(k=>!dstIds.has(k.id));
+    return { label:"move subtopic", title:moved?moved.title:"a subtopic",
+      stale:(!!src && !!p.baseHash && contentHash(src)!==p.baseHash)
+          ||(!!dst && !!p.baseHash2 && contentHash(dst)!==p.baseHash2),
+      body:`<div class="diffBox"><div class="dnode">→ Moves “${esc(moved?moved.title:"?")}”
+        from “${esc(src?src.title:p.file)}” to “${esc(dst?dst.title:p.file2)}”</div></div>` };
+  }
+  return { label:kind, title:"(unknown change)", stale:false, body:"" };
+}
 async function renderProposals(list){
   let items=[];
   try{
     items=await fetchModerated("proposals","pending");
   }catch(e){ list.innerHTML="<div class='sub'>Couldn't load proposals from the server.</div>"; return; }
   list.innerHTML="";
-  if(!items.length){ list.innerHTML="<div class='sub'>No proposed edits waiting. 🎉</div>"; return; }
+  if(!items.length){ list.innerHTML="<div class='sub'>No proposed changes waiting. 🎉</div>"; return; }
   for(const p of items){
-    let current=null, stale=false;
-    try{
-      const rm=await loadRoadmap(p.roadmap);
-      const idx=rm.topics.indexOf(p.file);
-      current=idx>=0 ? rm.nodes[idx] : null;
-      stale=!!current && contentHash(current)!==p.baseHash;
-    }catch(e){}
+    let rm=null;
+    try{ rm=await loadRoadmap(p.roadmap); }catch(e){}
+    const s=proposalSummary(p, rm);
     const d=document.createElement("div"); d.className="sgCard";
-    d.innerHTML=`<div class="sgMeta"><span class="sgType">edit</span>
-        ${stale?'<span class="vbadge" style="background:rgba(255,215,94,.15);color:var(--accent)">⚠ map changed since this was proposed</span>':""}
-        <span>${esc(p.roadmap)} · ${esc(p.topic.title)}</span><span>by ${esc(p.by.name)}</span></div>
+    d.innerHTML=`<div class="sgMeta"><span class="sgType">${esc(s.label)}</span>
+        ${s.stale?'<span class="vbadge" style="background:rgba(255,215,94,.15);color:var(--accent)">⚠ map changed since this was proposed</span>':""}
+        <span>${esc(p.roadmap)} · ${esc(s.title)}</span><span>by ${esc(p.by.name)}</span></div>
       ${p.note?`<div class="sgText" style="margin-bottom:6px">✉️ ${esc(p.note)}</div>`:""}
-      <div class="diffBox">${current?renderDiff(current,p.topic):"<i>Topic not found in the current map.</i>"}</div>`;
+      ${s.body}`;
     const acts=document.createElement("div"); acts.className="sgActs";
     const bm=document.createElement("button"); bm.className="aTip";
     bm.textContent="✅ Merge & publish";
@@ -1460,10 +1588,13 @@ async function decideProposal(p,action){
         decidedAt:Date.now(), decidedBy:{uid:user.id, name:user.name} });
     if(action==="merge"){
       // the merged doc is instantly live (public-read overlay) AND the queue
-      // entry the landing Action turns into an attributed repo commit
+      // entry the landing Action turns into an attributed repo commit —
+      // carry over exactly the structural fields this kind uses
+      const core={roadmap:p.roadmap, kind:p.kind||"edit"};
+      ["file","file2","topic","topic2","after","spine"].forEach(k=>{
+        if(p[k]!==undefined) core[k]=p[k]; });
       batch.set(F.doc(F.collection(F.db,"merged")),
-        { roadmap:p.roadmap, file:p.file, topic:p.topic,
-          by:p.by, mergedBy:{uid:user.id, name:user.name},
+        { ...core, by:p.by, mergedBy:{uid:user.id, name:user.name},
           note:p.note||"", at:Date.now() });
     }
     await batch.commit();
@@ -1620,7 +1751,7 @@ function nodeLocation(nodeId){
   return null;
 }
 function edTarget(){ return edCtx.childIdx==null ? edCtx.topic : edCtx.topic.children[edCtx.childIdx]; }
-function topicFile(){ return currentRm.topics[edCtx.spineIdx]; }
+function topicFile(){ return edCtx.newTopic ? null : currentRm.topics[edCtx.spineIdx]; }
 
 function edLinkBlock(l){
   const d=document.createElement("div"); d.className="edLinkBlock"; d.style.marginBottom="10px";
@@ -1650,20 +1781,19 @@ function paintEditorFields(){
   const dd=$("edDo"); dd.innerHTML=""; (n.do||[]).forEach(t=>dd.appendChild(edDoRow(t)));
   renderChildTools();
 }
-function openEditor(nodeId){
-  const loc=nodeLocation(nodeId); if(!loc) return;
-  edCtx={...loc, topic:deepClone(currentRm.nodes[loc.spineIdx]),
-         baseHash:contentHash(currentRm.nodes[loc.spineIdx])};
-  paintEditorFields();
+function paintEditorChrome(){
   $("editorErrs").textContent="";
   $("edSave").disabled=false;
-  const mode=editorMode();
+  const mode=editorMode(), isNew=!!edCtx.newTopic;
+  $("edPosWrap").style.display = isNew ? "block" : "none";
   $("edNoteWrap").style.display = mode==="propose" ? "block" : "none";
   $("edNote").value="";
-  $("edSave").textContent = {dev:"Save", merge:"Save & publish",
-                             propose:"Propose change", export:"Export JSON"}[mode];
+  $("edSave").textContent = {dev:isNew?"Create topic":"Save",
+                             merge:isNew?"Create & publish":"Save & publish",
+                             propose:isNew?"Propose new topic":"Propose change",
+                             export:"Export JSON"}[mode];
   $("edMode").innerHTML = {
-    dev:`💾 Saves directly to <b>roadmaps/${esc(currentRm.id)}/topics/${esc(topicFile())}</b> — dev server detected.`,
+    dev:`💾 Saves directly to <b>roadmaps/${esc(currentRm.id)}/topics/${esc(topicFile()||"(new file)")}</b> — dev server detected.`,
     merge:`🛡️ You maintain this map — saving publishes immediately and is logged in the map's public history.`,
     propose:`🌱 This goes to <b>${esc(maintainerNameOf(currentRm)||"the maintainer")}</b> for review — nothing changes until they merge it. Your name goes on the change, licensed CC BY-SA 4.0.`,
     export:`📦 Not connected — Save downloads the topic file to drop into
@@ -1672,10 +1802,39 @@ function openEditor(nodeId){
   $("drawerBody").style.display="none";
   $("editorBody").style.display="block";
 }
+function openEditor(nodeId){
+  const loc=nodeLocation(nodeId); if(!loc) return;
+  edCtx={...loc, topic:deepClone(currentRm.nodes[loc.spineIdx]),
+         baseHash:contentHash(currentRm.nodes[loc.spineIdx])};
+  paintEditorFields();
+  paintEditorChrome();
+}
+function openEditorNew(){
+  edCtx={newTopic:true, spineIdx:null, childIdx:null, baseHash:null,
+    topic:{id:"new-"+Date.now().toString(36), title:"", tier:"essential",
+           learn:{summary:"", links:[]}, do:[""], children:[]}};
+  const sel=$("edPos"); sel.innerHTML="";
+  const top=document.createElement("option");
+  top.value=""; top.textContent="⬆ At the top of the map";
+  sel.appendChild(top);
+  currentRm.topics.forEach((f,i)=>{
+    const o=document.createElement("option");
+    o.value=f; o.textContent="After: "+currentRm.nodes[i].title;
+    sel.appendChild(o);
+  });
+  sel.value=currentRm.topics[currentRm.topics.length-1]??"";
+  paintEditorFields();
+  paintEditorChrome();
+  // the editor lives inside the node drawer — open it without a node
+  $("backdrop").classList.add("show");
+  $("drawer").classList.add("open");
+}
 function closeEditor(){
+  const wasNew=!!(edCtx&&edCtx.newTopic);
   $("editorBody").style.display="none";
   $("drawerBody").style.display="";
   edCtx=null;
+  if(wasNew) closeDrawer();
 }
 function renderChildTools(){
   const box=$("edChildTools"); box.innerHTML="";
@@ -1692,7 +1851,59 @@ function renderChildTools(){
       toast("New subtopic — fill it in, then Save writes the whole topic");
     };
     box.appendChild(b);
+    const kids=edCtx.topic.children||[];
+    if(kids.length){
+      const lab=document.createElement("div"); lab.className="edLabel";
+      lab.style.marginTop="14px";
+      lab.textContent="🌿 Subtopics — reorder here, or send one to another core topic";
+      box.appendChild(lab);
+      kids.forEach((k,i)=>{
+        const row=document.createElement("div"); row.className="edChildRow";
+        const t=document.createElement("b"); t.textContent=k.title||"(untitled)";
+        row.appendChild(t);
+        const up=document.createElement("button"); up.textContent="↑"; up.title="Move up";
+        up.disabled=i===0;
+        up.onclick=()=>{ commitFields();
+          [kids[i-1],kids[i]]=[kids[i],kids[i-1]];
+          paintEditorFields();
+          toast("Reordered in working copy — Save to apply"); };
+        const dn=document.createElement("button"); dn.textContent="↓"; dn.title="Move down";
+        dn.disabled=i===kids.length-1;
+        dn.onclick=()=>{ commitFields();
+          [kids[i+1],kids[i]]=[kids[i],kids[i+1]];
+          paintEditorFields();
+          toast("Reordered in working copy — Save to apply"); };
+        const ed=document.createElement("button"); ed.textContent="✎"; ed.title="Edit this subtopic";
+        ed.onclick=()=>{ commitFields(); edCtx.childIdx=i; paintEditorFields(); };
+        row.appendChild(up); row.appendChild(dn); row.appendChild(ed);
+        if(!edCtx.newTopic && currentRm.topics.length>1){
+          const mv=document.createElement("select"); mv.title="Move to another core topic";
+          const o0=document.createElement("option"); o0.value=""; o0.textContent="→ move to…";
+          mv.appendChild(o0);
+          currentRm.topics.forEach((f,ti)=>{
+            if(ti===edCtx.spineIdx) return;
+            const o=document.createElement("option");
+            o.value=String(ti); o.textContent=currentRm.nodes[ti].title;
+            mv.appendChild(o);
+          });
+          mv.onchange=()=>{ if(mv.value!=="") moveChild(i, +mv.value); };
+          row.appendChild(mv);
+        }
+        box.appendChild(row);
+      });
+    }
+    if(!edCtx.newTopic){
+      const del=document.createElement("button"); del.className="edDanger";
+      del.textContent="🗑 Delete this core topic from the map…";
+      del.onclick=deleteCoreTopic;
+      box.appendChild(del);
+    }
   }else{
+    const back=document.createElement("button"); back.className="edAdd";
+    back.style.marginTop="16px";
+    back.textContent="↩ Back to the core topic";
+    back.onclick=()=>{ commitFields(); edCtx.childIdx=null; paintEditorFields(); };
+    box.appendChild(back);
     const del=document.createElement("button"); del.className="edDanger";
     del.textContent="🗑 Delete this subtopic";
     del.onclick=()=>{
@@ -1703,6 +1914,70 @@ function renderChildTools(){
     };
     box.appendChild(del);
   }
+}
+/* ---- structural ops: one submit path per editor mode ----
+   Returns true (applied), "proposed", or false (not sent). */
+async function submitStructural(op, successMsg){
+  const mode=editorMode();
+  if(mode==="export"){
+    toast("Structure changes need the dev server (tools/dev.py) or a signed-in, connected app");
+    return false;
+  }
+  if(mode==="dev"){
+    const {baseHash, baseHash2, ...core}=op;
+    const r=await fetch("/dev/apply",{method:"POST",
+      headers:{"Content-Type":"application/json"},
+      body:JSON.stringify({rm:currentRm.id, ...core})});
+    const data=await r.json();
+    if(!r.ok) throw new Error((data.errors||[data.error||r.status]).join("\n"));
+    toast("💾 "+successMsg);
+    return true;
+  }
+  const F=await fb(); if(!F) throw new Error("offline — try again");
+  if(mode==="merge"){
+    const {baseHash, baseHash2, ...core}=op;
+    await F.addDoc(F.collection(F.db,"merged"),
+      { roadmap:currentRm.id, ...core, by:{uid:user.id, name:user.name},
+        mergedBy:{uid:user.id, name:user.name}, note:"", at:Date.now() });
+    rmCache.delete(currentRm.id);
+    toast("🛡️ "+successMsg+" — live now; lands in the public record within the hour");
+    return true;
+  }
+  const note=(prompt("Why? A short note helps the maintainer review this change:")||"").trim();
+  if(note.length<5){ toast("A short reason is required to propose a structure change"); return false; }
+  await F.addDoc(F.collection(F.db,"proposals"),
+    { roadmap:currentRm.id, ...op, note, by:{uid:user.id, name:user.name},
+      createdAt:F.serverTimestamp(), status:"pending" });
+  toast("🌱 Proposed — the maintainer will review your change");
+  return "proposed";
+}
+async function moveChild(ci, ti){
+  commitFields();
+  const child=edCtx.topic.children[ci], target=deepClone(currentRm.nodes[ti]);
+  if(!child) return;
+  if(!confirm(`Move “${child.title}” to “${target.title}”? Unsaved edits to this topic travel with it.`)){
+    paintEditorFields(); return;
+  }
+  const source=deepClone(edCtx.topic);
+  source.children.splice(ci,1);
+  (target.children=target.children||[]).push(child);
+  const op={kind:"move", file:topicFile(), topic:source,
+            file2:currentRm.topics[ti], topic2:target,
+            baseHash:edCtx.baseHash, baseHash2:contentHash(currentRm.nodes[ti])};
+  try{
+    const done=await submitStructural(op, `Moved “${child.title}” to “${target.title}”`);
+    if(done){ closeEditor(); if(done!=="proposed") await reloadCurrentRoadmap(); }
+    else paintEditorFields();
+  }catch(e){ $("editorErrs").textContent=String(e.message||e); paintEditorFields(); }
+}
+async function deleteCoreTopic(){
+  const t=edCtx.topic, kids=(t.children||[]).length;
+  if(!confirm(`Delete “${t.title}”${kids?` and its ${kids} subtopic${kids>1?"s":""}`:""} from this map?`)) return;
+  const op={kind:"remove", file:topicFile(), baseHash:edCtx.baseHash};
+  try{
+    const done=await submitStructural(op, `Removed “${t.title}”`);
+    if(done){ closeEditor(); closeDrawer(); if(done!=="proposed") await reloadCurrentRoadmap(); }
+  }catch(e){ $("editorErrs").textContent=String(e.message||e); }
 }
 function commitFields(){
   const n=edTarget();
@@ -1718,7 +1993,12 @@ function commitFields(){
   if(n.id.startsWith("new-")){    // finalize slug from the title once it has one
     let slug=n.title.toLowerCase().replace(/[^a-z0-9]+/g,"-").replace(/^-|-$/g,"").slice(0,40);
     if(slug){
+      // ids must be unique across the whole map (build.py enforces it) —
+      // count everything except the subtree we're replacing
       const taken=new Set(flatten({nodes:[edCtx.topic]}).filter(x=>x!==n).map(x=>x.id));
+      const own=edCtx.newTopic?new Set()
+        :new Set(flatten({nodes:[currentRm.nodes[edCtx.spineIdx]]}).map(x=>x.id));
+      flatten(currentRm).forEach(x=>{ if(!own.has(x.id)) taken.add(x.id); });
       while(taken.has(slug)) slug+="-2";
       n.id=slug;
     }
@@ -1739,18 +2019,79 @@ async function saveEditor(){
   const n=commitFields();
   const errs=[];
   if(!n.title) errs.push("Title is required.");
+  if(edCtx.newTopic && edCtx.topic.id.startsWith("new-"))
+    errs.push("Give the new topic a title first — its id comes from it.");
   if(n.learn.summary.length<20) errs.push("Summary too short — write 2–3 curated sentences.");
   n.learn.links.forEach(l=>{
     if(!/^https:\/\//.test(l.url)) errs.push(`Link URL must be https:// — “${l.label||l.url}”`);
     if(!l.label) errs.push("Every link needs a label."); });
   if(!n.do.length) errs.push("At least one Do/Reflect action (core philosophy: no read-only nodes).");
   if(errs.length){ $("editorErrs").textContent=errs.join("\n"); return; }
-  const fname=topicFile(), reopen=n.id, mode=editorMode();
+  const reopen=edCtx.topic.id, mode=editorMode();
+
+  if(edCtx.newTopic){
+    // a brand-new core topic — the `add` op (file name = next free NN-slug)
+    const after=$("edPos").value;
+    if(currentRm.topics.some(f=>f.endsWith(`-${edCtx.topic.id}.json`))){
+      $("editorErrs").textContent=`A topic named “${edCtx.topic.id}” already exists in this map.`;
+      return;
+    }
+    let nn=currentRm.topics.length+1, fname;
+    do{ fname=String(nn).padStart(2,"0")+"-"+edCtx.topic.id+".json"; nn++; }
+    while(currentRm.topics.includes(fname));
+    if(mode==="export"){
+      const json=JSON.stringify(edCtx.topic,null,2);
+      try{ await navigator.clipboard.writeText(json); }catch(e){}
+      const blob=new Blob([json],{type:"application/json"});
+      const a=document.createElement("a");
+      a.href=URL.createObjectURL(blob); a.download=fname; a.click();
+      URL.revokeObjectURL(a.href);
+      toast(`📦 Downloaded ${fname} — drop it into roadmaps/${currentRm.id}/topics/ and run tools/build.py`);
+      closeEditor(); return;
+    }
+    $("edSave").disabled=true;
+    try{
+      if(mode==="dev"){
+        const r=await fetch("/dev/apply",{method:"POST",
+          headers:{"Content-Type":"application/json"},
+          body:JSON.stringify({rm:currentRm.id, kind:"add", topic:edCtx.topic, after})});
+        const data=await r.json();
+        if(!r.ok) throw new Error((data.errors||[data.error||r.status]).join("\n"));
+        toast("💾 Created "+data.file);
+      }else{
+        const F=await fb(); if(!F) throw new Error("offline — try again");
+        if(mode==="merge"){
+          await F.addDoc(F.collection(F.db,"merged"),
+            { roadmap:currentRm.id, kind:"add", file:fname, topic:edCtx.topic, after,
+              by:{uid:user.id, name:user.name}, mergedBy:{uid:user.id, name:user.name},
+              note:$("edNote").value.trim(), at:Date.now() });
+          rmCache.delete(currentRm.id);
+          toast("🛡️ Published — the new topic is live now");
+        }else{
+          await F.addDoc(F.collection(F.db,"proposals"),
+            { roadmap:currentRm.id, kind:"add", file:fname, topic:edCtx.topic, after,
+              note:$("edNote").value.trim(), by:{uid:user.id, name:user.name},
+              createdAt:F.serverTimestamp(), status:"pending" });
+          toast("🌱 Proposed — the maintainer will review your new topic");
+          closeEditor(); return;
+        }
+      }
+      closeEditor();
+      await reloadCurrentRoadmap(reopen);
+    }catch(e){
+      $("editorErrs").textContent=String(e.message||e);
+      $("edSave").disabled=false;
+    }
+    return;
+  }
+
+  const fname=topicFile();
   if(mode==="dev"){
     $("edSave").disabled=true;
     try{
-      const r=await fetch(`/dev/topic/${currentRm.id}/${fname}`,{method:"PUT",
-        headers:{"Content-Type":"application/json"}, body:JSON.stringify(edCtx.topic)});
+      const r=await fetch("/dev/apply",{method:"POST",
+        headers:{"Content-Type":"application/json"},
+        body:JSON.stringify({rm:currentRm.id, kind:"edit", file:fname, topic:edCtx.topic})});
       const data=await r.json();
       if(!r.ok) throw new Error((data.errors||[data.error||r.status]).join("\n"));
       toast("💾 Saved to "+data.saved);
@@ -1764,16 +2105,17 @@ async function saveEditor(){
     $("edSave").disabled=true;
     try{
       const F=await fb(); if(!F) throw new Error("offline — try again");
-      const base={ roadmap:currentRm.id, file:fname, baseHash:edCtx.baseHash,
+      const base={ roadmap:currentRm.id, kind:"edit", file:fname, baseHash:edCtx.baseHash,
                    topic:edCtx.topic, note:$("edNote").value.trim(),
                    by:{uid:user.id, name:user.name} };
       if(mode==="merge"){
         // maintainer editing their own map: the merged doc IS the record —
         // it serves instantly as overlay and the landing Action commits it
         await F.addDoc(F.collection(F.db,"merged"),
-          { roadmap:base.roadmap, file:base.file, topic:base.topic,
+          { roadmap:base.roadmap, kind:"edit", file:base.file, topic:base.topic,
             by:base.by, mergedBy:{uid:user.id, name:user.name},
             note:base.note, at:Date.now() });
+        rmCache.delete(currentRm.id);
         toast("🛡️ Published — live now; lands in the public record within the hour");
         closeEditor();
         await reloadCurrentRoadmap(reopen);
@@ -1803,62 +2145,61 @@ $("edCancel").onclick=closeEditor;
 $("edSave").onclick=saveEditor;
 $("edAddLink").onclick=()=>$("edLinks").appendChild(edLinkBlock({label:"",url:"",kind:"article"}));
 $("edAddDo").onclick=()=>$("edDo").appendChild(edDoRow(""));
-$("addTopicBtn").onclick=async ()=>{
-  if(!devMode){ toast("Adding topics needs the dev server — run: python3 tools/dev.py"); return; }
-  const title=(prompt("New core topic title:")||"").trim(); if(!title) return;
-  const slug=title.toLowerCase().replace(/[^a-z0-9]+/g,"-").replace(/^-|-$/g,"").slice(0,40);
+$("addTopicBtn").onclick=()=>{
+  if(!currentRm) return;
+  openEditorNew();
+};
+
+/* ---- reorganize the spine (the `spine` op behind a simple modal) ---- */
+let reorgOrder=null;
+function renderReorg(){
+  const list=$("reorgList"); list.innerHTML="";
+  reorgOrder.forEach((t,i)=>{
+    const row=document.createElement("div"); row.className="reorgRow";
+    const b=document.createElement("b"); b.textContent=`${i+1}. ${t.title}`;
+    row.appendChild(b);
+    const up=document.createElement("button"); up.textContent="↑"; up.disabled=i===0;
+    up.onclick=()=>{ [reorgOrder[i-1],reorgOrder[i]]=[reorgOrder[i],reorgOrder[i-1]]; renderReorg(); };
+    const dn=document.createElement("button"); dn.textContent="↓"; dn.disabled=i===reorgOrder.length-1;
+    dn.onclick=()=>{ [reorgOrder[i+1],reorgOrder[i]]=[reorgOrder[i],reorgOrder[i+1]]; renderReorg(); };
+    row.appendChild(up); row.appendChild(dn);
+    list.appendChild(row);
+  });
+}
+$("reorgBtn").onclick=()=>{
+  if(!currentRm) return;
+  reorgOrder=currentRm.topics.map((f,i)=>({file:f, title:currentRm.nodes[i].title}));
+  renderReorg();
+  $("reorgMode").textContent={
+    dev:"💾 Saves the new order directly to meta.json — dev server detected.",
+    merge:"🛡️ You maintain this map — the new order publishes immediately.",
+    propose:"🌱 Your proposed order goes to the maintainer for review (you'll be asked for a short reason).",
+    export:"📦 Not connected — structure changes need the dev server or a signed-in, connected app."}[editorMode()];
+  $("reorgModal").classList.add("show");
+};
+$("reorgCancel").onclick=()=>$("reorgModal").classList.remove("show");
+$("reorgSave").onclick=async ()=>{
+  const spine=reorgOrder.map(t=>t.file);
+  if(spine.join("\n")===currentRm.topics.join("\n")){
+    $("reorgModal").classList.remove("show"); return;
+  }
   try{
-    const r=await fetch(`/dev/topic/${currentRm.id}`,{method:"POST",
-      headers:{"Content-Type":"application/json"}, body:JSON.stringify({slug,title})});
-    const data=await r.json();
-    if(!r.ok) throw new Error(data.error||(data.errors||[]).join("; "));
-    toast("Created "+data.file+" — opening editor");
-    await reloadCurrentRoadmap(slug);
-    openEditor(slug);
+    const done=await submitStructural(
+      {kind:"spine", spine, baseHash:contentHash(currentRm.topics)}, "Map reorganized");
+    if(done){
+      $("reorgModal").classList.remove("show");
+      if(done!=="proposed") await reloadCurrentRoadmap();
+    }
   }catch(e){ toast("Failed: "+(e.message||e)); }
 };
 
-/* ---------- public map history ---------- */
-$("histBtn").onclick=async ()=>{
+/* ---------- public map history: the repo's commit log IS the record ---------- */
+$("histBtn").onclick=()=>{
   if(!currentRm) return;
   if(!GITHUB_REPO){ toast("History appears once GITHUB_REPO is configured"); return; }
-  const list=$("histList"); list.innerHTML="<i>Loading…</i>";
-  $("historyModal").classList.add("show");
-  let html="";
-  // edits merged in-app but not yet landed by the Action
-  if(FIREBASE_CONFIG){
-    try{
-      const F=await fb();
-      if(F){
-        const snap=await F.getDocs(F.query(
-          F.collection(F.db,"merged"), F.where("roadmap","==",currentRm.id)));
-        snap.forEach(d=>{ const m=d.data();
-          html+=`<div class="histRow"><b>${esc(m.topic.title)}</b> — edited by ${esc(m.by.name)},
-            merged by ${esc(m.mergedBy.name)}${m.note?` · “${esc(m.note)}”`:""}
-            <div class="histAt">live now · landing in the public record…</div></div>`; });
-      }
-    }catch(e){}
-  }
-  // the permanent public record: the repo's own commit log
-  try{
-    const r=await fetch(`https://api.github.com/repos/${GITHUB_REPO}/commits`+
-      `?path=roadmaps/${currentRm.id}/topics/&per_page=30`);
-    if(!r.ok) throw new Error(r.status);
-    const commits=await r.json();
-    html+=commits.map(c=>{
-      const [title,...rest]=(c.commit.message||"").split("\n");
-      return `<div class="histRow"><b>${esc(title)}</b>
-        ${rest.filter(Boolean).slice(0,2).map(l=>`<div>${esc(l)}</div>`).join("")}
-        <div class="histAt">${new Date(c.commit.author.date).toLocaleString()}</div></div>`;
-    }).join("");
-    list.innerHTML=html||"<i>No edits recorded yet — this map is all base curriculum.</i>";
-  }catch(e){
-    list.innerHTML=html+`<div class="histRow"><i>The public record is temporarily
-      unavailable (GitHub rate limit) — try again in an hour, or browse the
-      repository's commit history directly.</i></div>`;
-  }
+  window.open(`https://github.com/${GITHUB_REPO}/commits/main/roadmaps/${currentRm.id}/topics`,
+    "_blank","noopener");
 };
-$("histClose").onclick=()=>$("historyModal").classList.remove("show");
 
 /* ---------- about / manifesto ---------- */
 function openAbout(){
@@ -1871,6 +2212,7 @@ function openAbout(){
   $("brandSub").textContent="The world's curriculum — free, forever";
   document.querySelector("#aboutView").scrollTop=0;
   closeDrawer();
+  reflectHash("/about");
 }
 $("aboutBtn").onclick=openAbout;
 $("aboutLink").onclick=(e)=>{ e.preventDefault(); openAbout(); };
@@ -1900,10 +2242,104 @@ window.addEventListener("resize",()=>{
   applyZoom();
 });
 
-/* ---------- test hook: pure functions exposed only under ?hkrtest ---------- */
-if(new URLSearchParams(location.search).has("hkrtest"))
-  window.HKR_TEST={mergeStores,contentHash,renderDiff,editorMode,migrateStore,esc,flatten,
-    _setRole(u,dev,rm,maint){ user=u; devMode=dev; currentRm=rm; MAINTAINERS=maint||{}; }};
+/* ---------- URL routing: the hash is a shareable address ----------
+   #/              home                #/about           the manifesto
+   #/<map>         a roadmap           #/<map>/<node>    node drawer open
+   Navigation functions call reflectHash() to keep the address bar honest;
+   external changes (pasted links, back/forward) flow through applyRoute(). */
+let selfNav=0, applyingRoute=false;
+function reflectHash(h){
+  if(applyingRoute) return;   // the address bar caused this navigation — it's already right
+  const want="#"+h;
+  if(location.hash===want || (h==="/" && (location.hash===""||location.hash==="#"))) return;
+  selfNav++; location.hash=want;
+}
+async function applyRoute(){
+  const [map,node]=location.hash.replace(/^#\/?/,"").split("/")
+    .filter(Boolean).map(decodeURIComponent);
+  applyingRoute=true;
+  try{
+    if(!map){ if(!$("homeView").classList.contains("active")) goHome(); closeDrawer(); return; }
+    if(map==="about"){ openAbout(); return; }
+    if(!INDEX.find(r=>r.id===map)){ goHome(); return; }
+    if(!currentRm || currentRm.id!==map || !$("mapView").classList.contains("active"))
+      await openRoadmap(map);
+    if(node && flatten(currentRm).some(n=>n.id===node)){ openNode(node); revealNode(node); }
+    else closeDrawer();
+  }finally{ applyingRoute=false; }
+}
+function revealNode(id){   // scroll a deep-linked node into view
+  try{
+    const el=document.querySelector(`#nodeLayer .node[data-id="${CSS.escape(id)}"]`);
+    if(el) $("scroller").scrollTop=Math.max(0, el.offsetTop*scale-140);
+  }catch(e){}
+}
+window.addEventListener("hashchange",()=>{
+  if(selfNav>0){ selfNav--; return; }
+  applyRoute();
+});
+
+/* ---------- search: every node in every map ----------
+   Index generated by build.py → roadmaps/search.json (titles only, lazy-
+   loaded on first focus); standalone derives it from EMBEDDED_DATA. Results
+   are plain #/map/node links — routing does the navigation. */
+let SEARCH=null, searchT=null;
+async function loadSearch(){
+  if(SEARCH) return SEARCH;
+  if(EMBEDDED_DATA){
+    SEARCH=[];
+    for(const [rid,nodes] of Object.entries(EMBEDDED_DATA.data))
+      nodes.forEach(n=>{
+        SEARCH.push({rm:rid,id:n.id,t:n.title,tier:n.tier,core:true});
+        (n.children||[]).forEach(c=>SEARCH.push({rm:rid,id:c.id,t:c.title,tier:c.tier,core:false}));
+      });
+  }else{
+    try{ SEARCH=(await (await fetch("roadmaps/search.json")).json()).nodes; }
+    catch(e){ SEARCH=[]; }
+  }
+  return SEARCH;
+}
+function hideSearch(){ $("searchResults").style.display="none"; }
+function runSearch(qRaw){
+  const q=qRaw.trim().toLowerCase(), box=$("searchResults");
+  if(q.length<2){ hideSearch(); return; }
+  const mapOf=id=>INDEX.find(r=>r.id===id)||{};
+  const maps=INDEX.filter(r=>r.title.toLowerCase().includes(q)||r.id.includes(q));
+  const nodes=(SEARCH||[]).filter(n=>n.t.toLowerCase().includes(q))
+    .sort((a,b)=>{
+      const as=a.t.toLowerCase().startsWith(q), bs=b.t.toLowerCase().startsWith(q);
+      if(as!==bs) return as?-1:1;
+      if(a.core!==b.core) return a.core?-1:1;
+      return a.t.localeCompare(b.t);
+    });
+  const rows=[
+    ...maps.slice(0,3).map(m=>({href:"#/"+m.id, icon:m.emoji, title:m.title, sub:"open the map"})),
+    ...nodes.slice(0,12).map(n=>{
+      const m=mapOf(n.rm);
+      return {href:"#/"+n.rm+"/"+encodeURIComponent(n.id), icon:m.emoji||"·",
+              title:n.t, sub:(m.title||n.rm)+" · "+(n.core?"core topic":n.tier)};
+    })];
+  box.innerHTML=rows.length
+    ? rows.map(r=>`<a class="sres" href="${r.href}"><span class="sremo">${r.icon}</span>
+        <span class="srtxt"><b>${esc(r.title)}</b><small>${esc(r.sub)}</small></span></a>`).join("")
+    : `<div class="snone">No matches in any map yet.</div>`;
+  box.style.display="block";
+}
+$("searchBox").addEventListener("focus",loadSearch);
+$("searchBox").addEventListener("input",()=>{
+  clearTimeout(searchT);
+  searchT=setTimeout(async ()=>{ await loadSearch(); runSearch($("searchBox").value); },120);
+});
+$("searchBox").addEventListener("keydown",e=>{
+  if(e.key==="Escape"){ $("searchBox").value=""; hideSearch(); $("searchBox").blur(); }
+  if(e.key==="Enter"){ const a=$("searchResults").querySelector("a.sres"); if(a) a.click(); }
+});
+$("searchResults").addEventListener("click",e=>{
+  if(e.target.closest("a.sres")){ $("searchBox").value=""; hideSearch(); }
+});
+document.addEventListener("click",e=>{
+  if(!e.target.closest("#searchWrap")) hideSearch();
+});
 
 /* ---------- boot ---------- */
 (async function boot(){
@@ -1936,6 +2372,7 @@ if(new URLSearchParams(location.search).has("hkrtest"))
     await loadMaintainers();
     paintUser();          // review-button visibility depends on maintainer roles
     renderHome();
+    if(location.hash.length>2) applyRoute();   // honor a pasted deep link
     if(user.provider && canSync()){ await pullAndMerge(); renderHome(); }
   }catch(e){
     const el=$("loadErr");

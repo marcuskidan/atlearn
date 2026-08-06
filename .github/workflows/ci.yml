@@ -12,7 +12,7 @@ jobs:
       - name: Validate content + regenerate index
         run: python3 tools/build.py
       - name: Index freshness
-        run: git diff --exit-code roadmaps/index.json
+        run: git diff --exit-code roadmaps/index.json roadmaps/search.json
       - name: Standalone bundle smoke
         run: python3 tools/build.py --standalone
       - name: Python tests

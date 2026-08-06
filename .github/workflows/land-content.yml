@@ -1,10 +1,12 @@
 name: Land content
 # Turns in-app merges (Firestore `merged` docs) into attributed commits on
-# main, then redeploys Pages. The service-account secret lives here — the
-# app itself never holds repo credentials.
+# main, redeploys Pages, then retires the landed docs — one run, start to
+# finish. The service-account secret lives here — the app itself never holds
+# repo credentials. The Firestore overlay serves merges instantly, so the
+# relaxed cadence is invisible to users; use "Run workflow" to land on demand.
 on:
   schedule:
-    - cron: "*/15 * * * *"
+    - cron: "17 */6 * * *"
   workflow_dispatch:
 
 permissions:
@@ -19,10 +21,9 @@ jobs:
     runs-on: ubuntu-latest
     outputs:
       landed: ${{ steps.land.outputs.landed }}
+      landed_ids: ${{ steps.land.outputs.landed_ids }}
     steps:
       - uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
       - uses: actions/setup-node@v4
         with:
           node-version: 20
@@ -30,9 +31,7 @@ jobs:
       - id: land
         env:
           FIREBASE_SERVICE_ACCOUNT: ${{ secrets.FIREBASE_SERVICE_ACCOUNT }}
-        run: |
-          node tools/land.mjs
-          echo "landed=$(cat .landed)" >> "$GITHUB_OUTPUT"
+        run: node tools/land.mjs
 
   deploy:
     needs: land
@@ -42,3 +41,19 @@ jobs:
       contents: read
       pages: write
       id-token: write
+
+  retire:
+    # only after the deploy succeeds — until then the overlay must keep serving
+    needs: [land, deploy]
+    if: needs.land.outputs.landed != '0'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - run: npm install --no-save firebase-admin
+      - env:
+          FIREBASE_SERVICE_ACCOUNT: ${{ secrets.FIREBASE_SERVICE_ACCOUNT }}
+          RETIRE_IDS: ${{ needs.land.outputs.landed_ids }}
+        run: node tools/land.mjs --retire

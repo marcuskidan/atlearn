@@ -27,7 +27,7 @@ function extractFn(src, name) {
 }
 
 const fns = ["esc", "flatten", "contentHash", "migrateStore", "mergeStores",
-             "renderDiff", "editorMode"];
+             "renderDiff", "editorMode", "applyMergedDocs"];
 const script = `
 let devMode=false, FIREBASE_CONFIG=null, user={provider:null,id:"guest"},
     currentRm=null, MAINTAINERS={}, OVERSEERS=["overseer-uid"];
@@ -35,7 +35,7 @@ const STORE_V=1;
 ${extractFn(html, "isOverseer")}
 ${extractFn(html, "maintains")}
 ${fns.map((n) => extractFn(html, n)).join("\n")}
-({ esc, flatten, contentHash, migrateStore, mergeStores, renderDiff,
+({ esc, flatten, contentHash, migrateStore, mergeStores, renderDiff, applyMergedDocs,
    editorModeWith(o){
      devMode=o.devMode||false;
      FIREBASE_CONFIG=("FIREBASE_CONFIG" in o)?o.FIREBASE_CONFIG:null;
@@ -121,6 +121,52 @@ test("editorMode role matrix", () => {
     MAINTAINERS: maint }), "propose");
   assert.equal(api.editorModeWith({ FIREBASE_CONFIG: CFG,
     user: { provider: null, id: "guest" }, currentRm: rm }), "export");
+});
+
+test("applyMergedDocs: the five structural kinds", () => {
+  const T = (id) => ({ id, title: id.toUpperCase(), tier: "essential",
+    learn: { summary: "s", links: [] }, do: ["d"], children: [] });
+  const topics = ["01-a.json", "02-b.json", "03-c.json"];
+  const nodes = [T("a"), T("b"), T("c")];
+
+  let r = api.applyMergedDocs(topics, nodes,
+    [{ kind: "edit", file: "02-b.json", topic: { ...T("b"), title: "B2" }, at: 1 }]);
+  assert.equal(r.nodes[1].title, "B2");
+  assert.deepEqual(nodes.map((n) => n.title), ["A", "B", "C"], "inputs not mutated");
+
+  r = api.applyMergedDocs(topics, nodes,
+    [{ kind: "add", file: "04-d.json", topic: T("d"), after: "01-a.json", at: 1 }]);
+  assert.deepEqual(r.topics, ["01-a.json", "04-d.json", "02-b.json", "03-c.json"]);
+  r = api.applyMergedDocs(topics, nodes,
+    [{ kind: "add", file: "04-d.json", topic: T("d"), after: "", at: 1 }]);
+  assert.equal(r.topics[0], "04-d.json", "empty after = top of the map");
+  r = api.applyMergedDocs(topics, nodes,
+    [{ kind: "add", file: "02-b.json", topic: T("x"), after: "", at: 1 }]);
+  assert.deepEqual(r.topics, topics, "add of an already-landed file is a no-op");
+
+  r = api.applyMergedDocs(topics, nodes, [{ kind: "remove", file: "02-b.json", at: 1 }]);
+  assert.deepEqual(r.topics, ["01-a.json", "03-c.json"]);
+  assert.deepEqual(r.nodes.map((n) => n.id), ["a", "c"]);
+
+  r = api.applyMergedDocs(topics, nodes,
+    [{ kind: "spine", spine: ["03-c.json", "01-a.json", "02-b.json"], at: 1 }]);
+  assert.deepEqual(r.nodes.map((n) => n.id), ["c", "a", "b"]);
+
+  const src = T("a");
+  const dst = { ...T("b"), children: [T("moved")] };
+  r = api.applyMergedDocs(topics, nodes,
+    [{ kind: "move", file: "01-a.json", topic: src, file2: "02-b.json", topic2: dst, at: 1 }]);
+  assert.equal(r.nodes[1].children[0].id, "moved");
+
+  r = api.applyMergedDocs(topics, nodes, [
+    { kind: "edit", file: "04-d.json", topic: { ...T("d"), title: "D2" }, at: 2 },
+    { kind: "add", file: "04-d.json", topic: T("d"), after: "", at: 1 },
+  ]);
+  assert.equal(r.nodes[0].title, "D2", "docs apply in `at` order across kinds");
+
+  const legacy = api.applyMergedDocs(topics, nodes,
+    [{ file: "03-c.json", topic: { ...T("c"), title: "C2" }, at: 1 }]);
+  assert.equal(legacy.nodes[2].title, "C2", "docs without kind behave as edits");
 });
 
 test("flatten and esc basics", () => {

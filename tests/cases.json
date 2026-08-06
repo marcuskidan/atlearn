@@ -1,5 +1,5 @@
 {
-  "comment": "Shared data-driven cases for the client's pure logic. Consumed by tests/client.test.mjs (node, CI) and tests/test.html (browser, local). expect paths are <roadmap>.<node>.<field> resolved against result.progress.",
+  "comment": "Data-driven cases for the client's pure logic, consumed by tests/client.test.mjs. expect paths are <roadmap>.<node>.<field> resolved against result.progress.",
   "mergeStores": [
     {
       "name": "disjoint roadmaps union",

@@ -4,7 +4,8 @@ Human Knowledge Roadmaps — build tool.
 
   python3 tools/build.py               validate all content + regenerate roadmaps/index.json
   python3 tools/build.py --standalone  also emit dist/standalone.html (single file, data inlined)
-  python3 tools/build.py --check-links probe every content URL, write tools/link-report.json
+
+(Link health is checked by lychee in .github/workflows/link-check.yml.)
 
 Content model (the only things a maintainer edits):
   roadmaps/<id>/meta.json          {id, emoji, title, tagline, curricula, order?}
@@ -67,6 +68,19 @@ def load_all():
         if meta.get("id") != rid: errs.append(f"{rid}: meta id {meta.get('id')!r} != folder name")
         topic_files = sorted(glob.glob(os.path.join(d, "topics", "*.json")))
         if not topic_files: errs.append(f"{rid}: no topic files"); continue
+        # Spine order: meta.json may carry an explicit `spine` (list of topic
+        # file names) — the order authority for structural edits. Without it,
+        # sorted file names (the NN- prefix) decide, as always.
+        spine = meta.get("spine")
+        if spine is not None:
+            names = [os.path.basename(t) for t in topic_files]
+            if sorted(spine) != sorted(names):
+                errs.append(f"{rid}: meta.json spine doesn't match topic files "
+                            f"(missing {sorted(set(names)-set(spine))}, "
+                            f"extra {sorted(set(spine)-set(names))})")
+            else:
+                pos = {f: i for i, f in enumerate(spine)}
+                topic_files.sort(key=lambda t: pos[os.path.basename(t)])
         ids, nodes = set(), []
         for tf in topic_files:
             rel = f"{rid}/topics/{os.path.basename(tf)}"
@@ -84,15 +98,33 @@ def load_all():
         for w in warns: print("  ~", w)
     return roadmaps, errs
 
-def main():
-    roadmaps, errs = load_all()
-    if errs: fail(errs)
+def write_index(roadmaps):
+    """Sort roadmaps, derive the public index, write roadmaps/index.json and
+    roadmaps/search.json (every node title, powering the in-app search).
+    (Also used by tools/dev.py after every in-app editor save.)"""
     # explicit 'order' in meta.json wins; unordered roadmaps go last alphabetically
     roadmaps.sort(key=lambda r: (r["meta"].get("order", 999), r["meta"]["id"]))
     index = [{**r["meta"], "topics": r["files"], "total": r["total"]} for r in roadmaps]
     with open(os.path.join(RDIR, "index.json"), "w") as f:
         json.dump({"generated": True, "schemaVersion": 1, "roadmaps": index},
                   f, ensure_ascii=False, indent=1)
+    search = []
+    for r in roadmaps:
+        rid = r["meta"]["id"]
+        for n in r["nodes"]:
+            search.append({"rm": rid, "id": n["id"], "t": n["title"],
+                           "tier": n["tier"], "core": True})
+            for c in n.get("children", []):
+                search.append({"rm": rid, "id": c["id"], "t": c["title"],
+                               "tier": c["tier"], "core": False})
+    with open(os.path.join(RDIR, "search.json"), "w") as f:
+        json.dump({"generated": True, "nodes": search}, f, ensure_ascii=False)
+    return index
+
+def main():
+    roadmaps, errs = load_all()
+    if errs: fail(errs)
+    index = write_index(roadmaps)
     grand = sum(r["total"] for r in roadmaps)
     print(f"\nOK: {len(roadmaps)} roadmaps, {grand} nodes -> roadmaps/index.json")
 
@@ -105,68 +137,18 @@ def main():
             fail(["index.html: EMBEDDED_DATA marker not found"])
         html = html.replace(marker, "const EMBEDDED_DATA=" +
                             json.dumps(embedded, ensure_ascii=False) + ";")
+        # inline config.js so the single file works from file:// too
+        conf_tag = '<script src="config.js"></script>'
+        if conf_tag not in html:
+            fail(["index.html: config.js script tag not found"])
+        conf = open(os.path.join(ROOT, "config.js"), encoding="utf-8").read()
+        html = html.replace(conf_tag, "<script>\n" + conf + "</script>")
         os.makedirs(os.path.join(ROOT, "dist"), exist_ok=True)
         out = os.path.join(ROOT, "dist", "standalone.html")
         open(out, "w", encoding="utf-8").write(html)
         print(f"OK: standalone bundle -> dist/standalone.html ({len(html)/1024:.0f} KB)")
     return roadmaps
 
-def check_links(roadmaps):
-    """Probe every content URL politely (per-host serialization + retries);
-    write tools/link-report.json with failures."""
-    import concurrent.futures, urllib.request, urllib.error, time, collections
-    from urllib.parse import urlparse
-    urls = {}
-    def walk(rid, n):
-        for l in n.get("learn", {}).get("links", []):
-            urls.setdefault(l["url"], []).append(f"{rid}:{n.get('id')}")
-        for c in n.get("children", []): walk(rid, c)
-    for r in roadmaps:
-        for n in r["nodes"]: walk(r["meta"]["id"], n)
-    print(f"\nChecking {len(urls)} unique URLs…")
-    def probe(u):
-        req = urllib.request.Request(u, method="GET", headers={
-            "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) "
-                          "AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126 Safari/537.36"})
-        try:
-            with urllib.request.urlopen(req, timeout=25) as resp:
-                return resp.status
-        except urllib.error.HTTPError as e:
-            return e.code
-        except Exception as e:
-            return f"ERR {type(e).__name__}"
-    def probe_host(host, host_urls):
-        # one host = one lane: sequential, spaced, with retries on 429/errors
-        out = {}
-        for u in host_urls:
-            st = probe(u)
-            for attempt in (1, 2):
-                if isinstance(st, int) and st not in (429,) and st < 500: break
-                time.sleep(2.5 * attempt)
-                st = probe(u)
-            out[u] = st
-            time.sleep(0.5)
-        return out
-    by_host = collections.defaultdict(list)
-    for u in urls: by_host[urlparse(u).netloc].append(u)
-    results = {}
-    with concurrent.futures.ThreadPoolExecutor(max_workers=8) as ex:
-        for out in ex.map(lambda kv: probe_host(*kv), by_host.items()):
-            results.update(out)
-    bad = {u: {"status": st, "nodes": urls[u]} for u, st in results.items()
-           if not (isinstance(st, int) and st < 400)}
-    # 403 after retries is usually bot-blocking, not a dead link — flag separately
-    dead = {u: v for u, v in bad.items() if v["status"] != 403}
-    blocked = {u: v for u, v in bad.items() if v["status"] == 403}
-    report = {"checked": len(urls), "ok": len(urls) - len(bad),
-              "dead": dead, "maybe_bot_blocked": blocked}
-    out = os.path.join(ROOT, "tools", "link-report.json")
-    json.dump(report, open(out, "w"), ensure_ascii=False, indent=1)
-    print(f"link check: {report['ok']}/{len(urls)} ok, "
-          f"{len(dead)} dead, {len(blocked)} possibly bot-blocked -> tools/link-report.json")
-
 if __name__ == "__main__":
-    rms = main()
-    if "--check-links" in sys.argv:
-        check_links(rms)
+    main()
 
