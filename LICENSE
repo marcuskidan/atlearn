@@ -23,5 +23,5 @@ SOFTWARE.
 ---
 
 Scope: this MIT license covers the software in this repository — index.html,
-server/, tools/, tests/, and build configuration. The learning-map content
-under roadmaps/ is licensed separately: see LICENSE-CONTENT.md.
+tools/, tests/, firestore.rules, and build/CI configuration. The learning-map
+content under roadmaps/ is licensed separately: see LICENSE-CONTENT.md.

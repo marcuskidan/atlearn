@@ -1,0 +1,99 @@
+rules_version = '2';
+// Human Knowledge Roadmaps — the entire server-side security boundary.
+// Tested by tests/rules.test.mjs against the Firestore emulator (CI `rules` job).
+// Governance is transparent: roles and the merged-content overlay are public reads.
+service cloud.firestore {
+  match /databases/{db}/documents {
+
+    function signedIn() { return request.auth != null; }
+    function roles() { return get(/databases/$(db)/documents/meta/roles).data; }
+    function isOverseer() { return signedIn() && request.auth.uid in roles().overseers; }
+    function maintains(rm) {
+      return signedIn() && rm in roles().maintainers
+          && roles().maintainers[rm].uid == request.auth.uid;
+    }
+    function moderates(rm) { return isOverseer() || maintains(rm); }
+
+    // Who tends which map. Bootstrapped ONCE by hand in the Firebase console;
+    // rules never allow create — "allow create when missing" would be a race
+    // anyone with the project id could win.
+    match /meta/roles {
+      allow read: if true;
+      allow update: if isOverseer();
+      allow create, delete: if false;
+    }
+
+    // Each user's progress/notes blob. 1 MiB doc limit is Firestore-native.
+    match /users/{uid} {
+      allow read, write: if signedIn() && request.auth.uid == uid;
+    }
+
+    // Approved community tips, shown under nodes. Public read.
+    match /tips/{rm} {
+      allow read: if true;
+      allow write: if moderates(rm);
+    }
+
+    match /suggestions/{id} {
+      allow create: if signedIn()
+        && request.resource.data.keys().hasOnly(
+             ['roadmap','node','nodeTitle','type','text','url','verified','by','createdAt','status'])
+        && request.resource.data.by.uid == request.auth.uid
+        && request.resource.data.status == 'pending'
+        && request.resource.data.type in ['fix','link','tip','topic','roadmap']
+        && request.resource.data.text is string
+        && request.resource.data.text.size() >= 20
+        && request.resource.data.text.size() <= 4000
+        && request.resource.data.url is string
+        && request.resource.data.url.size() <= 500
+        && (request.resource.data.url == '' || request.resource.data.url.matches('https://.*'))
+        && request.resource.data.roadmap is string
+        && request.resource.data.roadmap.size() <= 50
+        && request.resource.data.node is string
+        && request.resource.data.node.size() <= 80
+        && request.resource.data.nodeTitle.size() <= 120
+        && request.resource.data.createdAt == request.time;
+      allow read: if isOverseer() || maintains(resource.data.roadmap);
+      allow update: if moderates(resource.data.roadmap)
+        && request.resource.data.diff(resource.data).affectedKeys()
+             .hasOnly(['status','decidedAt','decidedBy'])
+        && request.resource.data.status in ['published','accepted','rejected'];
+      allow delete: if isOverseer();
+    }
+
+    match /proposals/{id} {
+      allow create: if signedIn()
+        && request.resource.data.keys().hasOnly(
+             ['roadmap','file','baseHash','topic','note','by','createdAt','status'])
+        && request.resource.data.by.uid == request.auth.uid
+        && request.resource.data.status == 'pending'
+        && request.resource.data.roadmap.matches('[a-z0-9-]{1,50}')
+        && request.resource.data.file.matches('[0-9][0-9]-[a-z0-9-]+\\.json')
+        && request.resource.data.topic is map
+        && request.resource.data.topic.keys().hasAll(['id','title','tier','learn','do'])
+        && request.resource.data.note is string
+        && request.resource.data.note.size() <= 1000
+        && request.resource.data.createdAt == request.time;
+      allow read: if isOverseer() || maintains(resource.data.roadmap);
+      allow update: if moderates(resource.data.roadmap)
+        && request.resource.data.diff(resource.data).affectedKeys()
+             .hasOnly(['status','decidedAt','decidedBy'])
+        && request.resource.data.status in ['merged','rejected'];
+      allow delete: if isOverseer();
+    }
+
+    // Merged edits: the live content overlay (public read) AND the landing
+    // queue for the GitHub Action. The Action uses the Admin SDK (bypasses
+    // rules) to stamp committedSha / clean up.
+    match /merged/{id} {
+      allow read: if true;
+      allow create: if moderates(request.resource.data.roadmap)
+        && request.resource.data.mergedBy.uid == request.auth.uid
+        && request.resource.data.keys().hasOnly(
+             ['roadmap','file','topic','by','mergedBy','note','at'])
+        && request.resource.data.roadmap.matches('[a-z0-9-]{1,50}')
+        && request.resource.data.file.matches('[0-9][0-9]-[a-z0-9-]+\\.json');
+      allow update, delete: if false;
+    }
+  }
+}

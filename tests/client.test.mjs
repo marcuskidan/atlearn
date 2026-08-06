@@ -29,15 +29,16 @@ function extractFn(src, name) {
 const fns = ["esc", "flatten", "contentHash", "migrateStore", "mergeStores",
              "renderDiff", "editorMode"];
 const script = `
-let devMode=false, API_BASE=null, user={provider:null,id:"guest"},
-    currentRm=null, MAINTAINERS={}, OVERSEER_IDS=["google:overseer"];
+let devMode=false, FIREBASE_CONFIG=null, user={provider:null,id:"guest"},
+    currentRm=null, MAINTAINERS={}, OVERSEERS=["overseer-uid"];
 const STORE_V=1;
-function isOverseer(){ return !!user.provider && OVERSEER_IDS.includes(user.id); }
-function maintains(rmId){ return !!(user.provider && MAINTAINERS[rmId] && MAINTAINERS[rmId].id===user.id); }
+${extractFn(html, "isOverseer")}
+${extractFn(html, "maintains")}
 ${fns.map((n) => extractFn(html, n)).join("\n")}
 ({ esc, flatten, contentHash, migrateStore, mergeStores, renderDiff,
    editorModeWith(o){
-     devMode=o.devMode||false; API_BASE=("API_BASE" in o)?o.API_BASE:null;
+     devMode=o.devMode||false;
+     FIREBASE_CONFIG=("FIREBASE_CONFIG" in o)?o.FIREBASE_CONFIG:null;
      user=o.user||{provider:null,id:"guest"}; currentRm=o.currentRm||null;
      MAINTAINERS=o.MAINTAINERS||{};
      return editorMode();
@@ -105,19 +106,20 @@ test("renderDiff reports adds, removals, and field changes", () => {
 
 test("editorMode role matrix", () => {
   const rm = { id: "astro" };
-  const maint = { astro: { id: "apple:m", name: "M" } };
+  const maint = { astro: { uid: "maint-uid", name: "M" } };
+  const CFG = { projectId: "x" };
   assert.equal(api.editorModeWith({ devMode: true }), "dev");
-  assert.equal(api.editorModeWith({ API_BASE: null,
-    user: { provider: "google", id: "google:x" } }), "export");
-  assert.equal(api.editorModeWith({ API_BASE: "https://api",
-    user: { provider: "google", id: "google:overseer" }, currentRm: rm }), "merge");
-  assert.equal(api.editorModeWith({ API_BASE: "https://api",
-    user: { provider: "apple", id: "apple:m" }, currentRm: rm,
+  assert.equal(api.editorModeWith({ FIREBASE_CONFIG: null,
+    user: { provider: "google", id: "someone" } }), "export");
+  assert.equal(api.editorModeWith({ FIREBASE_CONFIG: CFG,
+    user: { provider: "google", id: "overseer-uid" }, currentRm: rm }), "merge");
+  assert.equal(api.editorModeWith({ FIREBASE_CONFIG: CFG,
+    user: { provider: "apple", id: "maint-uid" }, currentRm: rm,
     MAINTAINERS: maint }), "merge");
-  assert.equal(api.editorModeWith({ API_BASE: "https://api",
-    user: { provider: "apple", id: "apple:m" }, currentRm: { id: "cooking" },
+  assert.equal(api.editorModeWith({ FIREBASE_CONFIG: CFG,
+    user: { provider: "apple", id: "maint-uid" }, currentRm: { id: "cooking" },
     MAINTAINERS: maint }), "propose");
-  assert.equal(api.editorModeWith({ API_BASE: "https://api",
+  assert.equal(api.editorModeWith({ FIREBASE_CONFIG: CFG,
     user: { provider: null, id: "guest" }, currentRm: rm }), "export");
 });
 

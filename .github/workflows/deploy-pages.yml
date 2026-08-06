@@ -1,0 +1,34 @@
+name: Deploy Pages
+# Deterministic deploys: Pages source is set to "GitHub Actions" in repo
+# settings, and this workflow is the only thing that publishes — invoked on
+# every push to main and by the landing workflow after it commits content.
+on:
+  push:
+    branches: [main]
+  workflow_call:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: .
+      - id: deployment
+        uses: actions/deploy-pages@v4

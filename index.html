@@ -673,7 +673,6 @@ select.edInput{appearance:none;-webkit-appearance:none}
       <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.05 20.28c-.98.95-2.05.8-3.08.35-1.09-.46-2.09-.48-3.24 0-1.44.62-2.2.44-3.06-.35C2.79 15.25 3.51 7.59 9.05 7.31c1.35.07 2.29.74 3.08.8 1.18-.24 2.31-.93 3.57-.84 1.51.12 2.65.72 3.4 1.8-3.12 1.87-2.38 5.98.48 7.13-.57 1.5-1.31 2.99-2.53 4.08zM12.03 7.25c-.15-2.23 1.66-4.07 3.74-4.25.29 2.58-2.34 4.5-3.74 4.25z"/></svg>
       Continue with Apple
     </button>
-    <div id="gisButton" style="display:none;margin-bottom:10px;min-height:44px"></div>
     <div id="authNote" style="font-size:11px;color:var(--faint);margin-top:4px;line-height:1.5"></div>
     <button id="authCancel">Not now</button>
   </div>
@@ -683,87 +682,72 @@ select.edInput{appearance:none;-webkit-appearance:none}
 
 <script>
 /* ═══════════════════════════════════════════════════════════════════════════
-   CONFIGURATION
+   CONFIGURATION — the whole backend is two hosted services, zero servers.
    ───────────────────────────────────────────────────────────────────────────
-   API_BASE: URL of your sync backend (see server/worker.js). While null,
-   the app is fully functional but progress/notes stay on-device only.
-   After deploying the worker, set e.g. "https://hkr-sync.you.workers.dev".
+   FIREBASE_CONFIG: the web-app config object from your Firebase console
+   (Project settings → Your apps). While null, the app is fully functional in
+   local/demo mode — progress stays on-device, contributions queue locally.
+   Firebase Auth handles accounts (Google/Apple), Firestore holds all dynamic
+   data behind firestore.rules, and a GitHub Action lands merged content into
+   the repo. See DEPLOY.md.
+   GITHUB_REPO: "owner/repo" — powers the public map-history view.
    ═══════════════════════════════════════════════════════════════════════════ */
-const API_BASE = null;
-
-/* User ids allowed to open the in-app review queue. This only controls UI
-   visibility — the server enforces the real check via its OVERSEER_IDS var. */
-const OVERSEER_IDS = ["google:demo-user"];
+const FIREBASE_CONFIG = null;   // set by tools/configure.py
+const GITHUB_REPO = "";         // e.g. "marcuskidan/human-knowledge-roadmaps"
 
 /* Replaced by `python3 tools/build.py --standalone` to inline all content
    into dist/standalone.html. In the repo version it stays null and content
    is fetched from the roadmaps/ folder at runtime. Do not edit this line. */
 const EMBEDDED_DATA=null;
 
+/* ---- Firebase SDK: pinned modular build, loaded on demand via dynamic
+   import (works inside this classic script). Unloadable/blocked CDN ⇒ the
+   app degrades to local/demo mode — that behavior is a guarantee. ---- */
+const FB_VER="12.1.0";
+let FB=null, FB_FAILED=false;
+async function fb(){
+  if(!FIREBASE_CONFIG || FB_FAILED) return null;
+  if(FB) return FB;
+  try{
+    const base=`https://www.gstatic.com/firebasejs/${FB_VER}`;
+    const [appM,authM,fsM]=await Promise.all([
+      import(`${base}/firebase-app.js`),
+      import(`${base}/firebase-auth.js`),
+      import(`${base}/firebase-firestore.js`)]);
+    const app=appM.initializeApp(FIREBASE_CONFIG);
+    FB={ auth:authM.getAuth(app), db:fsM.getFirestore(app), ...authM, ...fsM };
+  }catch(e){
+    console.warn("Firebase SDK unavailable — staying in local mode:",e.message);
+    FB_FAILED=true; return null;
+  }
+  return FB;
+}
+
 /* ═══════════════════════════════════════════════════════════════════════════
-   AUTH — real SSO, with a demo fallback while unconfigured.
-   ───────────────────────────────────────────────────────────────────────────
-   Configure AUTH_CONFIG below + deploy the worker (server/wrangler.toml) and
-   sign-in becomes real: the provider yields an ID token, POST /auth verifies
-   it server-side and returns a long-lived HMAC session token. While client
-   ids are empty, sign-in falls back to local demo accounts (worker accepts
-   those only when its DEV_MODE=1).
-   iOS (Capacitor): a native auth plugin (e.g. @capacitor-firebase/
-   authentication) yields the same ID tokens → same /auth exchange.
+   AUTH — Firebase popup sign-in (Google/Apple), demo fallback while
+   unconfigured. No session tokens anywhere: the SDK holds the session and
+   Firestore rules verify it server-side.
+   iOS (Capacitor): @capacitor-firebase/authentication yields the same
+   Firebase user, so app and web share one identity.
    ═══════════════════════════════════════════════════════════════════════════ */
-const AUTH_CONFIG = {
-  googleClientId: "",   // OAuth Web client id from console.cloud.google.com
-  appleClientId: "",    // Services ID from developer.apple.com (Sign in with Apple JS)
-  appleRedirectURI: "", // registered return URL; defaults to this page's origin
-};
 const AUTH = {
-  realGoogle(){ return !!(API_BASE && AUTH_CONFIG.googleClientId); },
-  realApple(){ return !!(API_BASE && AUTH_CONFIG.appleClientId); },
-  loadScript(src){ return new Promise((res,rej)=>{
-    if(document.querySelector(`script[src="${src}"]`)) return res();
-    const s=document.createElement("script"); s.src=src; s.async=true;
-    s.onload=res; s.onerror=()=>rej(new Error("failed to load "+src));
-    document.head.appendChild(s);
-  });},
-  /* trade a verified provider ID token for our session token */
-  async exchange(provider, id_token, name){
-    const r=await fetch(API_BASE+"/auth",{method:"POST",
-      headers:{"Content-Type":"application/json"},
-      body:JSON.stringify({provider,id_token,name})});
-    const data=await r.json();
-    if(!r.ok) throw new Error(data.error||("auth "+r.status));
-    return {...data.user, token:data.token};
-  },
   demo(provider){
     return new Promise(r=>setTimeout(()=>r(provider==="google"
-      ? {id:"google:demo-user", name:"Explorer", email:"you@gmail.com", provider:"google", token:"demo-google-token"}
-      : {id:"apple:demo-user",  name:"Explorer", email:"you@icloud.com", provider:"apple", token:"demo-apple-token"}),600));
+      ? {id:"google:demo-user", name:"Explorer", email:"you@gmail.com", provider:"google"}
+      : {id:"apple:demo-user",  name:"Explorer", email:"you@icloud.com", provider:"apple"}),600));
   },
-  async signInApple(){
-    if(!this.realApple()) return this.demo("apple");
-    await this.loadScript("https://appleid.cdn-apple.com/appleauth/static/jsapi/appleid/1/en_US/appleid.auth.js");
-    AppleID.auth.init({ clientId:AUTH_CONFIG.appleClientId, scope:"name email",
-      redirectURI:AUTH_CONFIG.appleRedirectURI||location.origin, usePopup:true });
-    const res=await AppleID.auth.signIn();
-    // Apple sends the user's name only on FIRST authorization — pass it along
-    const nm=res.user&&res.user.name ? `${res.user.name.firstName||""} ${res.user.name.lastName||""}`.trim() : "";
-    return this.exchange("apple", res.authorization.id_token, nm);
+  fromFirebaseUser(u, provider){
+    return { id:u.uid, name:u.displayName||"Explorer", email:u.email||"",
+             provider, real:true };
   },
-  /* Google uses its official rendered button (required for reliable ID tokens);
-     mountGoogle() swaps it in when the auth modal opens. */
-  _gisReady:false,
-  async mountGoogle(onCredential){
-    if(!this.realGoogle()) return false;
-    await this.loadScript("https://accounts.google.com/gsi/client");
-    if(!this._gisReady){
-      google.accounts.id.initialize({ client_id:AUTH_CONFIG.googleClientId,
-        callback:(resp)=>onCredential(resp.credential) });
-      this._gisReady=true;
-    }
-    const mount=document.getElementById("gisButton");
-    mount.innerHTML=""; mount.style.display="block";
-    google.accounts.id.renderButton(mount,{theme:"filled_blue",size:"large",width:310,text:"continue_with"});
-    return true;
+  async signIn(provider){
+    const F=await fb();
+    if(!F) return this.demo(provider);
+    const prov = provider==="google"
+      ? new F.GoogleAuthProvider()
+      : new F.OAuthProvider("apple.com");
+    const res=await F.signInWithPopup(F.auth, prov);
+    return this.fromFirebaseUser(res.user, provider);
   }
 };
 
@@ -810,30 +794,45 @@ async function loadRoadmap(id){
       return r.json();
     }));
   }
-  // community edits merged by this map's maintainer render on top of the
-  // static base until the overseer commits them to the repo (overlay model)
-  if(API_BASE && !EMBEDDED_DATA){
+  // Community edits merged by this map's maintainer render on top of the
+  // static base until the landing Action commits them to the repo. The
+  // `merged` collection is public-read — it IS the overlay.
+  if(FIREBASE_CONFIG && !EMBEDDED_DATA){
     try{
-      const ov=await (await fetch(`${API_BASE}/content/${id}`)).json();
-      entry.topics.forEach((f,i)=>{ if(ov[f]&&ov[f].topic) nodes[i]=ov[f].topic; });
+      const F=await fb();
+      if(F){
+        const snap=await F.getDocs(F.query(
+          F.collection(F.db,"merged"), F.where("roadmap","==",id)));
+        const ov={};
+        snap.forEach(d=>{ const m=d.data(); ov[m.file]=m.topic; });
+        entry.topics.forEach((f,i)=>{ if(ov[f]) nodes[i]=ov[f]; });
+      }
     }catch(e){ /* offline → base content */ }
   }
   const rm={...entry, nodes};
   rmCache.set(id,rm);
   return rm;
 }
-/* ---- editorial roles: who tends which map ---- */
-let MAINTAINERS={};
+/* ---- editorial roles: who tends which map (public meta/roles doc) ---- */
+let MAINTAINERS={}, OVERSEERS=[];
 async function loadMaintainers(){
-  if(!API_BASE) return;
-  try{ MAINTAINERS=await (await fetch(API_BASE+"/maintainers")).json(); }catch(e){}
+  if(!FIREBASE_CONFIG) return;
+  try{
+    const F=await fb(); if(!F) return;
+    const snap=await F.getDoc(F.doc(F.db,"meta","roles"));
+    if(snap.exists()){
+      const d=snap.data();
+      MAINTAINERS=d.maintainers||{};
+      OVERSEERS=d.overseers||[];
+    }
+  }catch(e){}
 }
 function maintains(rmId){
-  return !!(user.provider && MAINTAINERS[rmId] && MAINTAINERS[rmId].id===user.id);
+  return !!(user.provider && MAINTAINERS[rmId] && MAINTAINERS[rmId].uid===user.id);
 }
 function moderatorOfAny(){
   return isOverseer() || (!!user.provider &&
-    Object.values(MAINTAINERS).some(m=>m&&m.id===user.id));
+    Object.values(MAINTAINERS).some(m=>m&&m.uid===user.id));
 }
 function maintainerNameOf(entry){
   return (MAINTAINERS[entry.id]&&MAINTAINERS[entry.id].name)||entry.maintainer||"";
@@ -845,7 +844,7 @@ function maintainerNameOf(entry){
    change → save to localStorage immediately → debounced push to API.
    On sign-in: pull remote, merge, push merged. On network failure: retry,
    and flush when the tab/app goes to background.                        */
-let user = readJSON("hkr:user") || {id:"guest", name:"Guest", provider:null, token:null};
+let user = readJSON("hkr:user") || {id:"guest", name:"Guest", provider:null};
 /* Stored-data schema versioning: every store blob carries v; migrateStore is
    the single upgrade hook. v0 (pre-versioning) blobs are wrapped as v1. */
 const STORE_V=1;
@@ -859,7 +858,7 @@ let store = migrateStore(readJSON(storeKey(user.id)));
 let syncState = "off";   // off | dirty | syncing | synced | error
 function storeKey(uid){ return "hkr:store:"+uid; }
 function readJSON(k){ try{ return JSON.parse(localStorage.getItem(k)); }catch(e){ return null; } }
-function canSync(){ return !!(API_BASE && user.token); }
+function canSync(){ return !!(FIREBASE_CONFIG && !FB_FAILED && user.provider && user.real); }
 function persistLocal(){ localStorage.setItem(storeKey(user.id), JSON.stringify(store)); }
 function persist(){
   persistLocal();
@@ -874,10 +873,9 @@ async function pushRemote(){
   if(!canSync()) return;
   syncState="syncing"; paintSync();
   try{
-    const res=await fetch(API_BASE+"/progress",{method:"PUT",
-      headers:{"Authorization":"Bearer "+user.token,"Content-Type":"application/json"},
-      body:JSON.stringify(store)});
-    if(!res.ok) throw new Error(res.status);
+    const F=await fb(); if(!F) throw new Error("sdk unavailable");
+    await F.setDoc(F.doc(F.db,"users",user.id),
+      {...store, updatedAt:F.serverTimestamp()});
     syncState="synced";
   }catch(e){
     syncState="error";
@@ -888,10 +886,10 @@ async function pushRemote(){
 async function pullAndMerge(){
   if(!canSync()) return;
   try{
-    const res=await fetch(API_BASE+"/progress",
-      {headers:{"Authorization":"Bearer "+user.token}});
-    if(res.ok){
-      const remote=await res.json();
+    const F=await fb(); if(!F) return;
+    const snap=await F.getDoc(F.doc(F.db,"users",user.id));
+    if(snap.exists()){
+      const remote=snap.data();
       if(remote && remote.progress){ store=mergeStores(remote,store); persistLocal(); }
     }
   }catch(e){ /* offline is fine — stay local-first */ }
@@ -1132,7 +1130,7 @@ function openNode(nodeId){
   $("syncNote").innerHTML = (user.provider
     ? (canSync()
         ? `☁️ Signed in as <b>${user.name}</b> — notes & progress sync to your account automatically.`
-        : `✅ Signed in as <b>${user.name}</b> — saved on this device. Cloud sync activates once the app's API_BASE is configured.`)
+        : `✅ Signed in as <b>${user.name}</b> — saved on this device. Cloud sync activates once the app is connected (FIREBASE_CONFIG).`)
     : `💾 Saved on this device. <b>Sign in</b> (top right) to sync notes & progress across devices.`)
     + ` <a href="#" id="exportDataLink">Download my data</a>`;
   $("exportDataLink").onclick=(e)=>{ e.preventDefault(); exportMyData(); };
@@ -1190,7 +1188,7 @@ function paintUser(){
   $("signInBtn").style.display=signed?"none":"block";
   $("userChip").classList.toggle("show",signed);
   if(signed){
-    $("userChip").title="User id: "+user.id+" (use this in OVERSEER_IDS)";
+    $("userChip").title="User id: "+user.id+" (used for gardener/overseer roles)";
     $("userName").textContent=user.name;
     $("userAvatar").textContent=user.name[0].toUpperCase();
     $("userAvatar").style.background = user.provider==="google" ? "#4285F4" : "#e5e7eb";
@@ -1199,15 +1197,10 @@ function paintUser(){
   $("reviewBtn").classList.toggle("show", moderatorOfAny());
   paintSync();
 }
-$("signInBtn").onclick=async ()=>{
+$("signInBtn").onclick=()=>{
   $("authModal").classList.add("show");
-  const real=await AUTH.mountGoogle(async cred=>{     // official GIS button path
-    try{ await finishSignIn(await AUTH.exchange("google",cred)); }
-    catch(e){ toast("Google sign-in failed: "+e.message); }
-  }).catch(()=>false);
-  $("googleBtn").style.display=real?"none":"flex";    // custom button = demo path
-  $("authNote").textContent=(AUTH.realGoogle()||AUTH.realApple())
-    ? "" : "Demo mode — configure AUTH_CONFIG and API_BASE for real sign-in.";
+  $("authNote").textContent=FIREBASE_CONFIG
+    ? "" : "Demo mode — set FIREBASE_CONFIG (tools/configure.py) for real sign-in.";
 };
 $("authCancel").onclick=()=>$("authModal").classList.remove("show");
 /* shared post-auth flow for demo and real paths */
@@ -1228,16 +1221,18 @@ async function doSignIn(provider){
   const orig=btn.innerHTML;
   btn.style.opacity=.6; btn.textContent="Signing in…";
   try{
-    const u = provider==="google" ? await AUTH.demo("google") : await AUTH.signInApple();
+    const u = await AUTH.signIn(provider);   // Firebase popup, or demo fallback
+    await loadMaintainers();                 // roles may matter to this user
     await finishSignIn(u);
   }catch(e){ toast("Sign-in failed: "+(e.message||"cancelled")); }
   btn.style.opacity=1; btn.innerHTML=orig;
 }
 $("googleBtn").onclick=()=>doSignIn("google");
 $("appleBtn").onclick=()=>doSignIn("apple");
-$("signOutBtn").onclick=()=>{
+$("signOutBtn").onclick=async ()=>{
   if(syncState==="dirty") pushRemote();   // flush before switching identity
-  user={id:"guest",name:"Guest",provider:null,token:null};
+  if(user.real){ const F=await fb(); if(F) try{ await F.signOut(F.auth); }catch(e){} }
+  user={id:"guest",name:"Guest",provider:null};
   localStorage.setItem("hkr:user",JSON.stringify(user));
   store=migrateStore(readJSON(storeKey("guest")));
   paintUser(); toast("Signed out — progress stays on this device.");
@@ -1252,11 +1247,12 @@ $("signOutBtn").onclick=()=>{
    community tips (curated content is never writable through this path). */
 const tipsCache=new Map();
 async function loadTips(rmId){
-  if(!API_BASE) return {};
+  if(!FIREBASE_CONFIG) return {};
   if(tipsCache.has(rmId)) return tipsCache.get(rmId);
   try{
-    const r=await fetch(`${API_BASE}/tips/${rmId}`);
-    const t=r.ok? await r.json() : {};
+    const F=await fb(); if(!F) return {};
+    const snap=await F.getDoc(F.doc(F.db,"tips",rmId));
+    const t=snap.exists()? snap.data() : {};
     tipsCache.set(rmId,t); return t;
   }catch(e){ return {}; }
 }
@@ -1319,19 +1315,19 @@ async function submitSuggestion(){
   const rec={ roadmap:sgCtx.mode==="roadmap"?"":currentRm.id,
     node:sgCtx.node||"", nodeTitle:sgCtx.nodeTitle||"",
     type:sgType, text, url:$("sgUrl").value.trim(), verified:$("sgVerified").checked };
-  if(API_BASE){
+  if(canSync()){
     $("sgSubmit").disabled=true;
     try{
-      const r=await fetch(API_BASE+"/suggestions",{method:"POST",
-        headers:{"Authorization":"Bearer "+user.token,"Content-Type":"application/json"},
-        body:JSON.stringify(rec)});
-      if(!r.ok) throw new Error(r.status);
-      toast("🙏 Submitted — the overseer will review it");
+      const F=await fb(); if(!F) throw new Error("offline");
+      await F.addDoc(F.collection(F.db,"suggestions"),
+        {...rec, by:{uid:user.id, name:user.name},
+         createdAt:F.serverTimestamp(), status:"pending"});
+      toast("🙏 Submitted — the maintainer will review it");
     }catch(e){ queueOutbox(rec); toast("Couldn't reach the server — saved on this device"); }
     $("sgSubmit").disabled=false;
   }else{
     queueOutbox(rec);
-    toast("Saved locally — submits once a community server is configured");
+    toast("Saved locally — submits once the app is connected & you're signed in");
   }
   $("suggestModal").classList.remove("show");
 }
@@ -1341,14 +1337,41 @@ $("suggestBtn").onclick=()=>openSuggest({node:currentNode.id,nodeTitle:currentNo
 $("proposeBtn").onclick=()=>openSuggest({mode:"roadmap"});
 
 /* ---- overseer review queue ---- */
-function isOverseer(){ return !!user.provider && OVERSEER_IDS.includes(user.id); }
+function isOverseer(){
+  if(!user.provider) return false;
+  if(!FIREBASE_CONFIG) return user.id==="google:demo-user";  // demo/local mode
+  return OVERSEERS.includes(user.id);
+}
 let reviewTab="proposals";
+/* Moderation queries must be rules-provable: overseers list a whole
+   collection; maintainers issue one where(roadmap==rm) query per map. */
+function moderatedMapIds(){
+  if(isOverseer()) return null;   // null ⇒ unscoped (overseer)
+  return Object.keys(MAINTAINERS).filter(rm=>MAINTAINERS[rm]&&MAINTAINERS[rm].uid===user.id);
+}
+async function fetchModerated(coll, status){
+  const F=await fb(); if(!F) throw new Error("offline");
+  const base=F.collection(F.db,coll);
+  const scopes=moderatedMapIds();
+  const queries = scopes===null
+    ? [F.query(base, F.where("status","==",status))]
+    : scopes.map(rm=>F.query(base,
+        F.where("status","==",status), F.where("roadmap","==",rm)));
+  const out=[];
+  for(const q of queries){
+    const snap=await F.getDocs(q);
+    snap.forEach(d=>{
+      const rec={id:d.id, ...d.data()};
+      if(rec.createdAt&&rec.createdAt.toMillis) rec.createdAt=rec.createdAt.toMillis();
+      out.push(rec);
+    });
+  }
+  out.sort((a,b)=>(b.createdAt||0)-(a.createdAt||0));
+  return out;
+}
 async function fetchSuggestions(status){
-  if(!API_BASE) return (readJSON("hkr:outbox")||[]).filter(s=>s.status===status);
-  const r=await fetch(`${API_BASE}/suggestions?status=${status}`,
-    {headers:{Authorization:"Bearer "+user.token}});
-  if(!r.ok) throw new Error(r.status);
-  return (await r.json()).suggestions;
+  if(!canSync()) return (readJSON("hkr:outbox")||[]).filter(s=>s.status===status);
+  return fetchModerated("suggestions", status);
 }
 function openReview(){
   $("homeView").classList.remove("active");
@@ -1399,10 +1422,7 @@ function renderDiff(a,b){   // a = current live topic, b = proposed topic
 async function renderProposals(list){
   let items=[];
   try{
-    const r=await fetch(`${API_BASE}/proposals?status=pending`,
-      {headers:{Authorization:"Bearer "+user.token}});
-    if(!r.ok) throw new Error(r.status);
-    items=(await r.json()).proposals;
+    items=await fetchModerated("proposals","pending");
   }catch(e){ list.innerHTML="<div class='sub'>Couldn't load proposals from the server.</div>"; return; }
   list.innerHTML="";
   if(!items.length){ list.innerHTML="<div class='sub'>No proposed edits waiting. 🎉</div>"; return; }
@@ -1423,56 +1443,67 @@ async function renderProposals(list){
     const acts=document.createElement("div"); acts.className="sgActs";
     const bm=document.createElement("button"); bm.className="aTip";
     bm.textContent="✅ Merge & publish";
-    bm.onclick=()=>decideProposal(p.id,"merge",p.roadmap);
+    bm.onclick=()=>decideProposal(p,"merge");
     const br=document.createElement("button"); br.className="aRej";
     br.textContent="✕ Reject";
-    br.onclick=()=>decideProposal(p.id,"reject",p.roadmap);
+    br.onclick=()=>decideProposal(p,"reject");
     acts.appendChild(bm); acts.appendChild(br); d.appendChild(acts);
     list.appendChild(d);
   }
 }
-async function decideProposal(id,action,rmId){
+async function decideProposal(p,action){
   try{
-    const r=await fetch(API_BASE+"/proposals/decide",{method:"POST",
-      headers:{Authorization:"Bearer "+user.token,"Content-Type":"application/json"},
-      body:JSON.stringify({id,action})});
-    if(!r.ok) throw new Error(r.status);
-    rmCache.delete(rmId);
-    toast(action==="merge"?"✅ Merged — live for everyone, logged in history":"Rejected");
+    const F=await fb(); if(!F) throw new Error("offline");
+    const batch=F.writeBatch(F.db);
+    batch.update(F.doc(F.db,"proposals",p.id),
+      { status:action==="merge"?"merged":"rejected",
+        decidedAt:Date.now(), decidedBy:{uid:user.id, name:user.name} });
+    if(action==="merge"){
+      // the merged doc is instantly live (public-read overlay) AND the queue
+      // entry the landing Action turns into an attributed repo commit
+      batch.set(F.doc(F.collection(F.db,"merged")),
+        { roadmap:p.roadmap, file:p.file, topic:p.topic,
+          by:p.by, mergedBy:{uid:user.id, name:user.name},
+          note:p.note||"", at:Date.now() });
+    }
+    await batch.commit();
+    rmCache.delete(p.roadmap);
+    toast(action==="merge"
+      ? "✅ Published — live now; lands in the public record within the hour"
+      : "Rejected");
   }catch(e){ toast("Decision failed — try again"); }
   renderReview();
 }
-/* ---- overseer: appoint the gardeners ---- */
+/* ---- overseer: appoint the gardeners (meta/roles doc) ---- */
 function renderMaintAdmin(){
   const box=$("maintAdmin");
-  if(!isOverseer()||!API_BASE){ box.style.display="none"; return; }
+  if(!isOverseer()||!canSync()){ box.style.display="none"; return; }
   box.style.display="block";
   box.innerHTML=`<h2 class="secTitle" style="margin-top:36px">Gardeners — who tends each map</h2>
     <div class="sub">Bind a verified user id (from their user-chip tooltip) and a display name to each
-    map. Maintainers review and merge for their map only; unassigned maps fall to you.</div>`;
+    map. Maintainers review and merge for their map only; unassigned maps fall to you.
+    Governance is public: anyone can read who tends what.</div>`;
   INDEX.forEach(e=>{
     const m=MAINTAINERS[e.id]||{};
     const row=document.createElement("div"); row.className="edRow"; row.style.marginBottom="8px";
     row.innerHTML=`<span style="flex:0 0 160px;font-size:12.5px;color:var(--muted)">${e.emoji} ${esc(e.title)}</span>
-      <input class="edInput mId" data-rm="${e.id}" placeholder="user id (google:…)" value="${esc(m.id||"")}">
+      <input class="edInput mId" data-rm="${e.id}" placeholder="user id (uid)" value="${esc(m.uid||"")}">
       <input class="edInput mName" data-rm="${e.id}" placeholder="display name" value="${esc(m.name||"")}" style="flex:0 0 140px">`;
     box.appendChild(row);
   });
   const save=document.createElement("button"); save.className="edAdd";
   save.textContent="💾 Save gardeners";
   save.onclick=async ()=>{
-    const doc={};
+    const maint={};
     box.querySelectorAll(".mId").forEach(inp=>{
-      const rm=inp.dataset.rm, id=inp.value.trim();
+      const rm=inp.dataset.rm, uid=inp.value.trim();
       const name=box.querySelector(`.mName[data-rm="${rm}"]`).value.trim();
-      if(id) doc[rm]={id, name:name||id};
+      if(uid) maint[rm]={uid, name:name||uid};
     });
     try{
-      const r=await fetch(API_BASE+"/maintainers",{method:"PUT",
-        headers:{Authorization:"Bearer "+user.token,"Content-Type":"application/json"},
-        body:JSON.stringify(doc)});
-      if(!r.ok) throw new Error(r.status);
-      MAINTAINERS=doc; toast("🧑‍🌾 Gardeners updated"); renderHome();
+      const F=await fb(); if(!F) throw new Error("offline");
+      await F.updateDoc(F.doc(F.db,"meta","roles"), {maintainers:maint});
+      MAINTAINERS=maint; toast("🧑‍🌾 Gardeners updated"); renderHome();
     }catch(e){ toast("Save failed — try again"); }
   };
   box.appendChild(save);
@@ -1480,15 +1511,15 @@ function renderMaintAdmin(){
 async function renderReview(){
   const list=$("reviewList"); list.innerHTML="<div class='sub'>Loading…</div>";
   if(reviewTab==="proposals"){
-    if(!API_BASE){ list.innerHTML="<div class='sub'>⚠️ Proposed edits need a community server (API_BASE).</div>"; return; }
+    if(!canSync()){ list.innerHTML="<div class='sub'>⚠️ Proposed edits appear once the app is connected (FIREBASE_CONFIG) and you're signed in.</div>"; return; }
     return renderProposals(list);
   }
   let items=[];
   try{ items=await fetchSuggestions(reviewTab); }
   catch(e){ list.innerHTML="<div class='sub'>Couldn't load suggestions from the server.</div>"; return; }
   list.innerHTML="";
-  if(!API_BASE)
-    list.innerHTML="<div class='sub'>⚠️ No community server configured (API_BASE) — showing suggestions saved on this device only.</div>";
+  if(!canSync())
+    list.innerHTML="<div class='sub'>⚠️ Not connected — showing suggestions saved on this device only.</div>";
   if(reviewTab==="accepted" && items.length){
     const cp=document.createElement("button"); cp.id="copyAccepted";
     cp.textContent="📋 Copy all as JSON (for editing into topic files)";
@@ -1511,13 +1542,13 @@ async function renderReview(){
       const canTip=!!(s.roadmap && s.node);
       if(canTip){
         const bt=document.createElement("button"); bt.className="aTip";
-        bt.textContent="🌟 Publish as tip"; bt.onclick=()=>decide(s.id,"tip");
+        bt.textContent="🌟 Publish as tip"; bt.onclick=()=>decide(s,"tip");
         acts.appendChild(bt);
       }
       const ba=document.createElement("button"); ba.className="aAcc";
-      ba.textContent="📥 Accept for curation"; ba.onclick=()=>decide(s.id,"accept");
+      ba.textContent="📥 Accept for curation"; ba.onclick=()=>decide(s,"accept");
       const br=document.createElement("button"); br.className="aRej";
-      br.textContent="✕ Reject"; br.onclick=()=>decide(s.id,"reject");
+      br.textContent="✕ Reject"; br.onclick=()=>decide(s,"reject");
       acts.appendChild(ba); acts.appendChild(br);
       d.appendChild(acts);
     }
@@ -1531,18 +1562,26 @@ async function renderReview(){
     list.appendChild(d);
   });
 }
-async function decide(id,action){
-  if(!API_BASE){
+async function decide(s,action){
+  if(!canSync()){
     const ob=readJSON("hkr:outbox")||[];
-    const s=ob.find(x=>x.id===id);
-    if(s) s.status={tip:"published",accept:"accepted",reject:"rejected"}[action];
+    const rec=ob.find(x=>x.id===s.id);
+    if(rec) rec.status={tip:"published",accept:"accepted",reject:"rejected"}[action];
     localStorage.setItem("hkr:outbox",JSON.stringify(ob));
   }else{
     try{
-      const r=await fetch(API_BASE+"/decide",{method:"POST",
-        headers:{Authorization:"Bearer "+user.token,"Content-Type":"application/json"},
-        body:JSON.stringify({id,action})});
-      if(!r.ok) throw new Error(r.status);
+      const F=await fb(); if(!F) throw new Error("offline");
+      const batch=F.writeBatch(F.db);
+      batch.update(F.doc(F.db,"suggestions",s.id),
+        { status:{tip:"published",accept:"accepted",reject:"rejected"}[action],
+          decidedAt:Date.now(), decidedBy:{uid:user.id, name:user.name} });
+      if(action==="tip" && s.roadmap && s.node){
+        batch.set(F.doc(F.db,"tips",s.roadmap),
+          { [s.node]: F.arrayUnion({ id:s.id, text:s.text, url:s.url||"",
+              by:s.by.name, type:s.type, at:Date.now() }) },
+          { merge:true });
+      }
+      await batch.commit();
       tipsCache.clear();   // published tips should appear on next node open
     }catch(e){ toast("Decision failed — try again"); return; }
   }
@@ -1564,7 +1603,7 @@ let devMode=false;
 function canEdit(){ return devMode || !!user.provider; }
 function editorMode(){
   if(devMode) return "dev";
-  if(!API_BASE) return "export";
+  if(!FIREBASE_CONFIG) return "export";
   if(isOverseer() || (currentRm&&maintains(currentRm.id))) return "merge";
   return user.provider ? "propose" : "export";
 }
@@ -1724,22 +1763,23 @@ async function saveEditor(){
   }else if(mode==="merge"||mode==="propose"){
     $("edSave").disabled=true;
     try{
-      const body={roadmap:currentRm.id, file:fname, baseHash:edCtx.baseHash,
-                  topic:edCtx.topic, note:$("edNote").value.trim()};
-      const r=await fetch(API_BASE+"/proposals",{method:"POST",
-        headers:{Authorization:"Bearer "+user.token,"Content-Type":"application/json"},
-        body:JSON.stringify(body)});
-      const data=await r.json();
-      if(!r.ok) throw new Error(data.error||r.status);
-      if(mode==="merge"){   // maintainers merge their own change immediately
-        const r2=await fetch(API_BASE+"/proposals/decide",{method:"POST",
-          headers:{Authorization:"Bearer "+user.token,"Content-Type":"application/json"},
-          body:JSON.stringify({id:data.id,action:"merge"})});
-        if(!r2.ok) throw new Error("merge failed");
-        toast("🛡️ Published — live for everyone, logged in the map's history");
+      const F=await fb(); if(!F) throw new Error("offline — try again");
+      const base={ roadmap:currentRm.id, file:fname, baseHash:edCtx.baseHash,
+                   topic:edCtx.topic, note:$("edNote").value.trim(),
+                   by:{uid:user.id, name:user.name} };
+      if(mode==="merge"){
+        // maintainer editing their own map: the merged doc IS the record —
+        // it serves instantly as overlay and the landing Action commits it
+        await F.addDoc(F.collection(F.db,"merged"),
+          { roadmap:base.roadmap, file:base.file, topic:base.topic,
+            by:base.by, mergedBy:{uid:user.id, name:user.name},
+            note:base.note, at:Date.now() });
+        toast("🛡️ Published — live now; lands in the public record within the hour");
         closeEditor();
         await reloadCurrentRoadmap(reopen);
       }else{
+        await F.addDoc(F.collection(F.db,"proposals"),
+          {...base, createdAt:F.serverTimestamp(), status:"pending"});
         toast("🌱 Proposed — the maintainer will review your change");
         closeEditor();
       }
@@ -1781,17 +1821,42 @@ $("addTopicBtn").onclick=async ()=>{
 /* ---------- public map history ---------- */
 $("histBtn").onclick=async ()=>{
   if(!currentRm) return;
-  if(!API_BASE){ toast("History appears once the app is connected to its server"); return; }
+  if(!GITHUB_REPO){ toast("History appears once GITHUB_REPO is configured"); return; }
   const list=$("histList"); list.innerHTML="<i>Loading…</i>";
   $("historyModal").classList.add("show");
+  let html="";
+  // edits merged in-app but not yet landed by the Action
+  if(FIREBASE_CONFIG){
+    try{
+      const F=await fb();
+      if(F){
+        const snap=await F.getDocs(F.query(
+          F.collection(F.db,"merged"), F.where("roadmap","==",currentRm.id)));
+        snap.forEach(d=>{ const m=d.data();
+          html+=`<div class="histRow"><b>${esc(m.topic.title)}</b> — edited by ${esc(m.by.name)},
+            merged by ${esc(m.mergedBy.name)}${m.note?` · “${esc(m.note)}”`:""}
+            <div class="histAt">live now · landing in the public record…</div></div>`; });
+      }
+    }catch(e){}
+  }
+  // the permanent public record: the repo's own commit log
   try{
-    const h=await (await fetch(`${API_BASE}/history/${currentRm.id}`)).json();
-    list.innerHTML=h.length
-      ? h.map(e=>`<div class="histRow"><b>${esc(e.topicTitle)}</b> — edited by ${esc(e.by)},
-          merged by ${esc(e.mergedBy)}${e.note?` · “${esc(e.note)}”`:""}
-          <div class="histAt">${new Date(e.at).toLocaleString()}</div></div>`).join("")
-      : "<i>No community edits merged yet — this map is all base curriculum.</i>";
-  }catch(e){ list.innerHTML="Couldn't load history."; }
+    const r=await fetch(`https://api.github.com/repos/${GITHUB_REPO}/commits`+
+      `?path=roadmaps/${currentRm.id}/topics/&per_page=30`);
+    if(!r.ok) throw new Error(r.status);
+    const commits=await r.json();
+    html+=commits.map(c=>{
+      const [title,...rest]=(c.commit.message||"").split("\n");
+      return `<div class="histRow"><b>${esc(title)}</b>
+        ${rest.filter(Boolean).slice(0,2).map(l=>`<div>${esc(l)}</div>`).join("")}
+        <div class="histAt">${new Date(c.commit.author.date).toLocaleString()}</div></div>`;
+    }).join("");
+    list.innerHTML=html||"<i>No edits recorded yet — this map is all base curriculum.</i>";
+  }catch(e){
+    list.innerHTML=html+`<div class="histRow"><i>The public record is temporarily
+      unavailable (GitHub rate limit) — try again in an hour, or browse the
+      repository's commit history directly.</i></div>`;
+  }
 };
 $("histClose").onclick=()=>$("historyModal").classList.remove("show");
 
@@ -1848,6 +1913,23 @@ if(new URLSearchParams(location.search).has("hkrtest"))
       if(d&&d.ok){ devMode=true;
         toast("🛠 Dev server detected — in-app editing saves to real files"); }
     }).catch(()=>{});
+  }
+  // Firebase session rehydration: the SDK holds the session; sync what it says
+  if(FIREBASE_CONFIG){
+    fb().then(F=>{
+      if(!F) return;
+      F.onAuthStateChanged(F.auth, (fu)=>{
+        if(fu && (!user.real || user.id!==fu.uid)){
+          const provider=(fu.providerData[0]&&fu.providerData[0].providerId||"google").includes("apple")?"apple":"google";
+          finishSignIn(AUTH.fromFirebaseUser(fu, provider));
+        }else if(!fu && user.real){
+          user={id:"guest",name:"Guest",provider:null};
+          localStorage.setItem("hkr:user",JSON.stringify(user));
+          store=migrateStore(readJSON(storeKey("guest")));
+          paintUser(); renderHome();
+        }
+      });
+    });
   }
   try{
     await loadIndex();

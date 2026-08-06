@@ -29,9 +29,15 @@ roadmaps/
       ...
   horticulture/ …           one folder per category, same shape
 tools/build.py              validate all content + regenerate index.json (+ standalone bundle)
-server/worker.js            reference cloud-sync backend (Cloudflare Worker)
+tools/land.mjs              GitHub Action script: lands in-app merges as repo commits
+firestore.rules             the entire server-side security boundary (Firebase)
 dist/standalone.html        GENERATED single-file build (all content inlined)
 ```
+
+**There are no servers.** Hosting is GitHub Pages; accounts and dynamic data
+are Firebase Auth + Firestore behind `firestore.rules`; content lands in the
+repo via GitHub Actions. See DEPLOY.md — going live is two console setups and
+one secret.
 
 ## Editing content (humans and AI)
 
@@ -84,17 +90,12 @@ too (read-only). Opening `index.html` via `file://` shows a friendly error;
 
 ## Deploying (once, ~30 minutes)
 
-1. **API** — in `server/`: follow the numbered steps at the top of
-   `wrangler.toml` (`wrangler login` → create KV → set `SESSION_SECRET` →
-   `wrangler deploy`). Put the printed URL in `index.html` as `API_BASE`.
-2. **App** — deploy the repo folder to any static host, e.g.
-   `npx wrangler pages deploy . --project-name=hkr` (or Netlify/GitHub Pages).
-3. **Sign-in** — create a Google OAuth Web client (console.cloud.google.com)
-   and/or an Apple Services ID (developer.apple.com); put the ids in
-   `AUTH_CONFIG` (index.html) and in the worker's `[vars]`, and register your
-   app's URL as an authorized origin with each provider.
-4. **Overseer** — sign in once, copy your user id from the user-chip tooltip,
-   and put it in `OVERSEER_IDS` (worker vars, and index.html for the UI).
+See **DEPLOY.md** — the short version: create a Firebase project (enable
+Google sign-in, create Firestore, paste `firestore.rules`, hand-create the
+`meta/roles` doc), push the repo public to GitHub with Pages set to "GitHub
+Actions", add the service-account JSON as the one Actions secret, and run
+`python3 tools/configure.py` to paste the Firebase config into index.html.
+Unconfigured checkouts run in full local/demo mode, always.
 
 ## Overseer editing (in-app content tools)
 
@@ -121,8 +122,9 @@ Run it before releases or in CI.
 The app is **local-first**: every status change, checked action, and note is
 saved to `localStorage` instantly and works fully offline or signed out.
 
-When a user signs in *and* `API_BASE` (top of `index.html`) points at a deployed
-backend, a sync layer activates:
+When a user signs in *and* `FIREBASE_CONFIG` (top of `index.html`) is set,
+sync activates — the user's store lives in their own Firestore document
+(`users/{uid}`), readable and writable only by them per `firestore.rules`:
 
 - every node record carries `updatedAt`; sync merges **last-write-wins per node**,
   so two devices editing different nodes never clobber each other
@@ -131,14 +133,11 @@ backend, a sync layer activates:
 - on sign-in the app pulls the remote copy, merges it with local (including any
   guest progress), and pushes the merged result
 
-**Auth is real**: the app uses Google Identity Services (official rendered
-button) and Sign in with Apple JS; `POST /auth` on the worker verifies the
-provider's RS256 ID token against its JWKS (audience, issuer, expiry,
-signature) and issues a 180-day HMAC session token. While `AUTH_CONFIG` ids
-are empty the app falls back to local demo accounts — the worker only accepts
-those when its `DEV_MODE=1` var is set, so production is never spoofable.
-On iOS, a Capacitor auth plugin yields the same ID tokens → same `/auth`
-exchange, so browser and app share one identity and one sync system.
+**Auth is Firebase Auth** — Google (and optionally Apple) popup sign-in; the
+SDK holds the session and Firestore verifies it server-side. There are no
+custom tokens anywhere. While `FIREBASE_CONFIG` is null the app falls back to
+local demo accounts that never touch the network. On iOS, a Capacitor Firebase
+auth plugin yields the same identity, so browser and app share one account.
 
 ## Editorial layer (the commons with gardeners)
 
@@ -155,18 +154,18 @@ The manifesto's governance, implemented — three roles, one editor:
   live for every user, attributed, and logged in the map's public **history**
   (🕘 on the map view). Their own edits publish immediately ("Save & publish").
   Stale proposals (base changed since proposed) are flagged.
-- **The overseer** (platform-level): appoints gardeners, moderates everywhere,
-  and reviews new-map proposals. **Repo custody is automated by the GitHub PR
-  bridge**: every in-app merge also opens a bot-authored pull request against
-  this repository (attribution in the PR body — contributors never need a
-  GitHub account); CI validates it and auto-merge lands it. The server-side
-  content overlay serves the change instantly in the meantime. Fallbacks:
-  `python3 tools/sync.py --api <url>` pulls overlays into the repo by hand,
-  `--status` warns if merged edits sit unsynced >14 days, `--clear` empties
-  overlays once the base has caught up.
+- **The overseer** (platform-level): appoints gardeners in the in-app
+  "Gardeners" panel (stored in the public `meta/roles` doc), moderates
+  everywhere, and reviews new-map proposals. **Repo custody is automated**:
+  a merge instantly creates a public-read `merged` doc that the app renders
+  as a live overlay, and the scheduled **Land content** Action turns it into
+  an attributed commit on main — validated by `tools/build.py` first — then
+  redeploys Pages and retires the overlay doc. Contributors never need a
+  GitHub account; their name travels in the commit message.
 
-Governance is transparent by design: `GET /maintainers`, `GET /history/<map>`,
-and `GET /content/<map>` are all public endpoints.
+Governance is transparent by design: the roles doc and the merged-content
+overlay are public reads, and the permanent edit record is the repository's
+own public commit history (the 🕘 button on any map shows it).
 
 ## Community layer (GitHub-free contributions)
 
@@ -178,9 +177,9 @@ domain experts and everyday learners, so the same loop lives **inside the app**:
   simple outline. Forms embed the quality bar (including an "I've personally
   tried/verified this" attestation, echoing roadmap.sh's contribution rules).
   Sign-in is required to submit — the equivalent of needing a GitHub account.
-- **Review** — users listed in `OVERSEER_IDS` (in `index.html` for UI, in the
-  worker's env for enforcement) get an in-app 🛡️ Review queue with three
-  decisions per suggestion:
+- **Review** — overseers and per-map maintainers (bound in the public
+  `meta/roles` doc, enforced by `firestore.rules`) get an in-app 🛡️ Review
+  queue with three decisions per suggestion:
   - **Publish as tip** → instantly visible to all users under that node, in a
     clearly-labeled 💬 Community section. Curated LEARN/DO content is never
     modified by this path — BDFL curation stays intact.
@@ -188,16 +187,14 @@ domain experts and everyday learners, so the same loop lives **inside the app**:
     for the maintainer to fold into the topic files by hand (or with AI help),
     then `python3 tools/build.py`.
   - **Reject** → archived.
-- All community text is HTML-escaped on render; the server validates types,
-  lengths, and https-only URLs. Without a configured `API_BASE`, suggestions
-  queue locally on-device so the UX stays honest offline.
-
-Endpoints (all in `server/worker.js`): `POST /suggestions`, `GET /suggestions?status=`
-(overseer), `POST /decide` (overseer), `GET /tips/<roadmap>` (public).
+- All community text is HTML-escaped on render; `firestore.rules` enforces
+  auth, shapes, lengths, and https-only URLs at the database boundary.
+  Without `FIREBASE_CONFIG`, suggestions queue locally on-device so the UX
+  stays honest offline.
 
 ## Licensing
 
-- **Code** (index.html, server/, tools/, tests/): [MIT](LICENSE).
+- **Code** (index.html, tools/, tests/, firestore.rules): [MIT](LICENSE).
 - **Content** (everything under roadmaps/): [CC BY-SA 4.0](LICENSE-CONTENT.md) —
   Wikipedia's license; the maps are a commons and derivatives stay open.
   Linked external resources retain their own licenses.
@@ -208,11 +205,12 @@ Endpoints (all in `server/worker.js`): `POST /suggestions`, `GET /suggestions?st
 - `python3 -m unittest discover -s tests` — validator tests, runs anywhere with python3.
 - `tests/test.html` via `python3 tools/dev.py` — browser runner for the app's pure
   logic (merge/hash/diff/migration), sharing `tests/cases.json` with CI.
-- CI (GitHub Actions) additionally runs `node --test tests/` — client logic
-  extracted from index.html plus full worker tests (auth, permissions, rate
-  limits, the PR bridge) — and validates content + index freshness on every
-  push and PR. A weekly workflow probes every content URL and maintains a
-  single "link rot" issue.
+- CI (GitHub Actions) additionally runs `node --test tests/` (client logic
+  extracted from index.html) and the **security-rules suite** against the
+  Firestore emulator — `firestore.rules` is the entire server-side boundary,
+  so it is tested like one — plus content validation + index freshness on
+  every push and PR. A weekly workflow probes every content URL and maintains
+  a single "link rot" issue.
 
 ## Privacy
 

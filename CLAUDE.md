@@ -34,16 +34,20 @@ and schema: README.md.
    - `mental-health`: educational self-care framing; keep the
      professional-help/988 pathways intact.
 
-## Editorial layer
+## Editorial layer (no servers)
 Structured-edit pipeline (see README "Editorial layer"): contributors propose
-via the in-app editor → per-map maintainers merge with diff review → merged
-topics live in the API's content overlay until `tools/sync.py` folds them into
-the repo files. Rules:
-- Never bypass the overlay model: direct KV writes to content happen ONLY via
-  the merge endpoint (attribution + history) or sync/clear (overseer custody).
-- After running sync.py, always run build.py and commit before `--clear`.
-- Maintainer bindings live in the API's `maintainers` doc (set in-app by the
-  overseer), NOT in meta.json — meta.json `maintainer` is display fallback only.
+via the in-app editor → per-map maintainers merge with diff review → the
+merged edit becomes a public-read `merged/{id}` Firestore doc that serves
+instantly as a content overlay AND queues for the **Land content** GitHub
+Action, which validates it with build.py and commits it to main with
+attribution (then Pages redeploys). Rules:
+- `firestore.rules` is the entire server-side security boundary — any change
+  to it must extend tests/rules.test.mjs, and clients must only get abilities
+  the rules actually enforce.
+- The landing Action (tools/land.mjs) is the only writer of repo content from
+  community data; it must always run build.py before committing.
+- Maintainer bindings live in the public `meta/roles` Firestore doc (set
+  in-app by the overseer) — meta.json `maintainer` is display fallback only.
 
 ## Community layer
 In-app suggestion → maintainer/overseer review pipeline (see README "Community layer").
@@ -64,10 +68,9 @@ Rules when touching it:
   requires updating tests/client.test.mjs.
 - Stored-data schema changes go through `migrateStore()` (bump STORE_V, add an
   upgrade branch) — never change record shapes without a migration.
-- Decided suggestions/proposals expire from KV after 90 days — export
-  accepted-for-curation items within that window.
-- Overlay health: `python3 tools/sync.py --api <url> --status` should stay
-  clean; stale overlays mean the GitHub PR bridge is failing (check ghlog:).
+- Landing health: `merged` docs should retire within two Action runs
+  (~30 min); a doc stuck with an `error` field needs overseer attention
+  (fix the content or clear the doc via the Firebase console).
 
 ## Common tasks
 - **Deepen a topic**: edit its single topic file (add children, improve

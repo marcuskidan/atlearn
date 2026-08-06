@@ -1,182 +1,89 @@
 # Going live
 
-Checklist to get Human Knowledge Roadmaps on the internet with real sign-in,
-real sync, and a working community pipeline. Budget ~45 minutes for a first
-run. Nothing here is irreversible — you can deploy, test, and redeploy freely.
+Two hosted services, zero servers: **GitHub** (public repo → Pages hosting,
+Actions for CI + landing merges) and **Firebase** (accounts + database behind
+`firestore.rules`). Budget ~30 minutes. Run
+`python3 tools/configure.py --show` anytime to see what's wired.
 
-Run `python3 tools/configure.py --show` at any point to see what's wired up.
+## Stage 1 — Firebase (~15 min, all in the console)
 
----
+1. console.firebase.google.com → **Add project** (no Analytics needed).
+2. **Build → Authentication → Get started** → enable **Google** provider.
+   (Apple later if you join the Apple Developer Program — Sign in with Apple
+   needs a Services ID + key from developer.apple.com.)
+3. **Build → Firestore Database → Create database** (production mode).
+4. **Rules tab** → paste the contents of `firestore.rules` → Publish.
+5. **Bootstrap governance** (one-time, by hand — the rules deliberately never
+   allow creating this doc): Firestore → Start collection → id `meta` →
+   doc id `roles` → fields:
+   - `overseers` (array) — leave empty for now; you'll add your uid in Stage 3
+   - `maintainers` (map) — empty
+6. **Project settings → Your apps → Web app** → register → copy the
+   `firebaseConfig` object.
+7. **Project settings → Service accounts → Generate new private key** —
+   download the JSON. This is the ONLY secret: it goes into GitHub Actions
+   (Stage 2) and stays on your machine for backups. Never in the repo.
 
-## Stage 0 — Accounts you'll need
-
-| What | Cost | Needed for |
-|---|---|---|
-| Cloudflare account | free | hosting the app + API |
-| Google Cloud project | free | "Continue with Google" |
-| Apple Developer Program | $99/year | "Continue with Apple" (optional on web; **required** if you ship to the App Store while offering Google sign-in) |
-
-Skip Apple for now if you're only doing web — Google alone is enough to launch.
-
----
-
-## Stage 1 — Deploy the API (~10 min)
-
-```bash
-cd server
-npx wrangler login                      # opens browser, authorizes Cloudflare
-npx wrangler kv namespace create STORE  # prints an id
-```
-
-Paste that id into `server/wrangler.toml` (replacing `REPLACE_WITH_KV_NAMESPACE_ID`).
+## Stage 2 — GitHub (~10 min)
 
 ```bash
-npx wrangler secret put SESSION_SECRET   # paste any long random string, e.g.
-                                         # `openssl rand -base64 48`
-npx wrangler deploy
+brew install gh && gh auth login
+cd "/path/to/human-knowledge-roadmaps"
+gh repo create human-knowledge-roadmaps --public --source=. --push
 ```
 
-Wrangler prints a URL like `https://hkr-api.<you>.workers.dev`. Save it.
+Then in the repo's web settings:
+1. **Settings → Pages → Source: GitHub Actions.** The `Deploy Pages` workflow
+   publishes on every push to main — your app URL becomes
+   `https://<you>.github.io/human-knowledge-roadmaps/`.
+2. **Settings → Secrets and variables → Actions → New repository secret**:
+   name `FIREBASE_SERVICE_ACCOUNT`, value = the entire service-account JSON.
+3. Authentication (Firebase console) → **Authorized domains** → add
+   `<you>.github.io`.
 
-**Verify:** `curl https://hkr-api.<you>.workers.dev/tips/astronomy` → `{}`.
-
----
-
-## Stage 2 — Google sign-in (~10 min)
-
-1. console.cloud.google.com → create a project (any name).
-2. **APIs & Services → OAuth consent screen**: External, fill app name +
-   support email. Scopes stay default (email/profile/openid) — these are
-   non-sensitive, so **no Google verification review is required**. Publish
-   the app (otherwise you're capped at 100 test users).
-3. **Credentials → Create credentials → OAuth client ID → Web application**.
-   Authorized JavaScript origins — add both:
-   - `http://localhost:8123` (for local testing)
-   - your app URL from Stage 3 (come back and add it after)
-4. Copy the client id (`…apps.googleusercontent.com`).
-
-> Sign in with Apple, if you do it: developer.apple.com → Identifiers →
-> create a **Services ID**, enable Sign in with Apple, register your domain and
-> return URL. Note Apple **rejects `localhost`** — Apple sign-in can only be
-> tested on your real https URL.
-
----
-
-## Stage 3 — Deploy the app (~5 min)
-
-From the project root:
+## Stage 3 — Wire and become overseer (~5 min)
 
 ```bash
-npx wrangler pages deploy . --project-name=hkr
+python3 tools/configure.py     # paste the firebaseConfig object + owner/repo
+python3 tools/build.py --standalone
+git add -A && git commit -m "Configure Firebase + repo" && git push
 ```
 
-Prints something like `https://hkr.pages.dev`. (Netlify, Vercel, GitHub Pages
-all work the same way — it's a static folder.)
+Open the live URL, **Sign in** with Google, hover the user chip — the tooltip
+shows your uid. In the Firebase console, add that uid to
+`meta/roles → overseers`. Reload: the 🛡️ Review button appears, and the
+Gardeners panel inside it lets you appoint per-map maintainers from now on —
+no more console visits.
 
-Now go back to Google's Credentials screen and add that URL to **Authorized
-JavaScript origins**.
+## Stage 4 — Smoke test
 
----
+- [ ] Sign in; sync dot turns green; progress survives reload and a second device
+- [ ] Suggest from a node; it appears in 🛡️ Review; publish it as a tip
+- [ ] Edit a node (✏️) as a maintainer → Save & publish → change is live
+      immediately; within ~15 min the **Land content** Action commits it to
+      the repo with attribution and redeploys (check the Actions tab + 🕘)
+- [ ] Signed out / unconfigured browsers still work fully in local mode
 
-## Stage 4 — Wire it together (~2 min)
+## Operations
+
+- **Backups (monthly)**: `npm install --no-save firebase-admin && node tools/backup.mjs`
+  with `GOOGLE_APPLICATION_CREDENTIALS` pointing at the service-account JSON.
+  Backups land in gitignored `backups/` — they contain user data; keep private.
+- **Bus factor**: add a second trusted uid to `meta/roles → overseers`; keep
+  the service-account JSON and Firebase/GitHub account access in a password
+  manager.
+- **Quotas**: Firestore free tier = 50k reads / 20k writes per day — plenty
+  for early community scale; the Blaze pay-as-you-go upgrade is the growth
+  path (and enables `gcloud firestore export` managed backups).
+- **Hardening, on first abuse** (deliberately not built yet): Firebase
+  App Check (reCAPTCHA) to gate non-browser clients, and a rules-level
+  per-user write throttle. The rules already enforce auth, shape, and size
+  caps; worst-case spam is a human-reviewed queue plus quota consumption —
+  an annoyance, not a bill.
+
+## Updating content
 
 ```bash
-python3 tools/configure.py
+python3 tools/dev.py           # edit in-app with the ✏️ buttons
+git add -A && git commit -m "Content: ..." && git push    # Pages redeploys
 ```
-
-Answer the five prompts (API URL, Google client id, Apple id or blank, app URL,
-overseer id — leave overseer as-is for now). Then redeploy both:
-
-```bash
-cd server && npx wrangler deploy && cd ..
-npx wrangler pages deploy . --project-name=hkr
-```
-
----
-
-## Stage 5 — Make yourself the overseer (~3 min)
-
-1. Open your live URL, click **Sign in**, use the real Google button.
-2. Hover the user chip (top right) — the tooltip shows your verified id,
-   e.g. `google:110234567890`.
-3. `python3 tools/configure.py` again, paste that id at the overseer prompt.
-4. Redeploy both (same two commands as Stage 4).
-5. Reload — the 🛡️ **Review** button appears.
-
-**Confirm `DEV_MODE` is empty in `wrangler.toml`.** If it's `"1"`, anyone can
-sign in as the demo user. It should only ever be `1` on localhost.
-
----
-
-## Stage 6 — Smoke test the live site (~5 min)
-
-- [ ] Sign in with Google; the sync dot in the user chip turns green
-- [ ] Mark a node Mastered, write a note; reload — both persist
-- [ ] Sign in on your phone; same progress appears
-- [ ] Submit a suggestion from a node's 💬 Community section
-- [ ] Open 🛡️ Review, publish it as a tip; it appears under that node
-- [ ] Sign out; confirm the app still works (local-only) for guests
-
----
-
-## Stage 6½ — GitHub PR bridge (once the repo exists)
-
-In-app merges can land in the GitHub repo automatically as bot-authored PRs:
-
-1. Create a **fine-grained personal access token** (github.com → Settings →
-   Developer settings): scope it to this one repository, permissions
-   **Contents: read/write** and **Pull requests: read/write**.
-2. `cd server && npx wrangler secret put GITHUB_TOKEN` (paste the token) and
-   set `GITHUB_REPO = "yourname/human-knowledge-roadmaps"` in wrangler.toml,
-   then `npx wrangler deploy`.
-3. Enable auto-merge on the repo (Settings → General → "Allow auto-merge") so
-   green-CI PRs land unattended.
-4. Health check habit: `python3 tools/sync.py --api <url> --status` — warns if
-   merged edits are sitting unsynced (bridge failing → check `ghlog:` keys via
-   the admin dump).
-
-## Stage 7 — Before you invite people
-
-- **Watch the KV write limit.** Cloudflare's free tier allows **1,000 KV writes
-  per day**; every debounced progress save is one write. That's fine for
-  dozens of casual users, tight for hundreds. Workers Paid ($5/mo) raises it to
-  1M/day — the single most likely thing to bite you as users arrive.
-- **Custom domain** (optional): Cloudflare Pages → Custom domains. Remember to
-  add the new origin to Google's authorized origins and `ALLOWED_ORIGIN`.
-- **Back up your community data** — it lives only in KV:
-  `npx wrangler kv key list --binding=STORE` and `kv key get` to export.
-- **Have a moderation plan** before promoting the app anywhere public. Right
-  now suggestions have no rate limiting; if you get spammed, the fastest lever
-  is temporarily clearing `OVERSEER_IDS`-adjacent access or pausing the
-  `/suggestions` POST branch in the worker.
-- **Re-run the link checker** before any launch push:
-  `python3 tools/build.py --check-links`.
-
----
-
-## Bus factor — do this before you have users you'd hate to lose
-
-- **Second overseer**: add a second trusted account's verified id to
-  `OVERSEER_IDS` (comma-separated, both in the worker vars and index.html).
-  Losing every overseer account permanently strands overlay custody
-  (`DELETE /content/:rm`) and the admin dump.
-- **Record in a password manager**: the SESSION_SECRET value, the KV namespace
-  id, the GitHub bot token, and Cloudflare account access.
-- **Backups**: run `python3 tools/backup.py --api <url> --token <overseer-token>`
-  monthly — it dumps every KV key (user progress, tips, proposals, overlays,
-  history, maintainers) to `backups/hkr-dump-YYYYMMDD.json`. KV is otherwise
-  the only copy of everything users and contributors have made.
-- **Safe-to-commit note**: everything `tools/configure.py` writes (API_BASE,
-  OAuth client ids, KV namespace id, overseer ids) is public-by-design
-  configuration, safe in a public repo. The only true secrets are
-  SESSION_SECRET and GITHUB_TOKEN, which live in wrangler secrets, never files.
-
-## Updating content after launch
-
-```bash
-python3 tools/dev.py                  # edit in-app with the ✏️ buttons
-npx wrangler pages deploy . --project-name=hkr
-```
-
-Content is static files, so a content update is just a redeploy — user progress
-and community data live in KV and are untouched by it.
