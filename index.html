@@ -422,6 +422,53 @@ select.edInput{appearance:none;-webkit-appearance:none}
 #authCancel{margin-top:6px;color:var(--faint);font-size:13px}
 .signout{color:#f87171 !important;font-size:12px}
 
+/* ---------- Account & collections ---------- */
+#accountView,#collectionsView{overflow-y:auto;-webkit-overflow-scrolling:touch;
+  padding:calc(84px + var(--sat)) 16px calc(40px + var(--sab))}
+#accountInner,#collectionsInner{max-width:760px;margin:0 auto}
+#accountInner h2,#collectionsInner h2{font-size:20px;margin-bottom:4px}
+#accountInner .sub,#collectionsInner .sub{color:var(--muted);font-size:13px;
+  margin-bottom:14px;line-height:1.55}
+#userChip{cursor:pointer}
+.acctCard{background:var(--bg2);border:1px solid var(--line);border-radius:var(--radius);
+  padding:18px;margin-bottom:14px}
+.acctRow{display:flex;align-items:center;gap:12px}
+.acctAvatar{width:44px;height:44px;border-radius:50%;background:var(--blue);color:#04182e;
+  display:flex;align-items:center;justify-content:center;font-weight:800;font-size:19px;flex:0 0 auto}
+.acctName{font-size:16px;font-weight:700}
+.acctMail{font-size:12.5px;color:var(--muted)}
+.uidRow{display:flex;align-items:center;gap:8px;margin-top:14px;font-size:12px;color:var(--faint)}
+.uidRow code{background:var(--bg3);padding:3px 8px;border-radius:7px;font-size:11.5px;
+  color:var(--muted);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:55%}
+.roleChips{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
+.roleChip{font-size:11px;font-weight:700;letter-spacing:.4px;text-transform:uppercase;
+  padding:4px 10px;border-radius:99px;background:rgba(96,165,250,.14);color:var(--blue)}
+.roleChip.gold{background:rgba(255,215,94,.13);color:var(--accent)}
+.roleChip.green{background:rgba(74,222,128,.14);color:var(--green)}
+.acctBtns{display:flex;gap:8px;flex-wrap:wrap;margin-top:16px}
+.acctBtns button{padding:9px 14px;border-radius:10px;font-size:12.5px;font-weight:650;
+  background:var(--bg3);border:1px solid var(--line)}
+.collCard{background:var(--bg2);border:1px solid var(--line);border-radius:var(--radius);
+  padding:16px 18px;margin-bottom:12px}
+.collCard.featured{border-color:rgba(255,215,94,.45)}
+.collHead{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap}
+.collHead h3{font-size:16px}
+.collBy{font-size:11.5px;color:var(--faint)}
+.collBlurb{font-size:13px;color:var(--muted);line-height:1.55;margin-top:6px}
+.collMaps{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+.collChip{display:flex;align-items:center;gap:7px;background:var(--bg3);border:1px solid var(--line);
+  border-radius:99px;padding:6px 12px 6px 8px;font-size:12.5px;color:var(--text);text-decoration:none}
+.collChip:hover{border-color:#3b465c}
+.fstar{font-size:10px;font-weight:800;letter-spacing:.4px;text-transform:uppercase;
+  padding:3px 8px;border-radius:6px;background:rgba(255,215,94,.15);color:var(--accent)}
+#collNew{margin:2px 0 16px;padding:10px 16px;border-radius:11px;border:1.5px dashed var(--line);
+  color:var(--muted);font-size:13px;font-weight:600}
+#collNew:hover{border-color:var(--accent);color:var(--accent)}
+.collPick{display:flex;flex-direction:column;gap:6px;max-height:220px;overflow-y:auto;
+  border:1px solid var(--line);border-radius:11px;padding:10px;margin-top:6px;background:var(--bg3)}
+.collPick label{display:flex;gap:9px;align-items:center;font-size:13px;cursor:pointer}
+.collPick input{accent-color:var(--accent)}
+
 #toast{position:fixed;left:50%;bottom:calc(24px + var(--sab));transform:translate(-50%,20px);
   background:var(--bg3);border:1px solid var(--line);color:var(--text);font-size:13px;
   padding:10px 18px;border-radius:99px;z-index:90;opacity:0;transition:all .3s;pointer-events:none}
@@ -458,7 +505,8 @@ select.edInput{appearance:none;-webkit-appearance:none}
   <div id="homeHero">
     <h1 id="heroTitle">Pick a path. <em>Learn by doing.</em></h1>
     <p id="heroSub">Step-by-step maps for learning real things — free, for everyone, forever.
-      <a href="#" id="aboutLink">Why this exists →</a></p>
+      <a href="#" id="aboutLink">Why this exists →</a> ·
+      <a href="#/collections">Browse collections →</a></p>
     <div id="searchWrap">
       <input id="searchBox" type="search" placeholder="Search every map — try “knife”, “Polaris”, “budget”…"
         autocomplete="off" spellcheck="false" aria-label="Search all roadmaps">
@@ -555,7 +603,7 @@ select.edInput{appearance:none;-webkit-appearance:none}
   for someone who can't.</p>
   <div class="sig">Human Knowledge Roadmaps — a commons with gardeners.<br>
   Want to help? Open any node and suggest an improvement, or propose a new map from the home
-  screen. Every map's maintainer is named on its card.</div>
+  screen. Every map's maintainer is named at the top of its map.</div>
 </div></section>
 
 <!-- ================= OVERSEER REVIEW ================= -->
@@ -570,7 +618,18 @@ select.edInput{appearance:none;-webkit-appearance:none}
     <button data-v="accepted">Accepted for curation</button>
   </div>
   <div id="reviewList"></div>
-  <div id="maintAdmin" style="display:none"></div>
+</div></section>
+
+<!-- ================= ACCOUNT ================= -->
+<section id="accountView" class="view"><div id="accountInner"></div></section>
+
+<!-- ================= COLLECTIONS ================= -->
+<section id="collectionsView" class="view"><div id="collectionsInner">
+  <h2>🧺 Collections</h2>
+  <div class="sub">Shelves of the library — groups of maps, curated and ordered by the
+    people who walk them. Anyone signed in can make one.</div>
+  <button id="collNew">＋ Create a collection…</button>
+  <div id="collList"></div>
 </div></section>
 
 <!-- ================= ROADMAP ================= -->
@@ -605,6 +664,26 @@ select.edInput{appearance:none;-webkit-appearance:none}
       <button id="reorgSave" class="primary">Save order</button>
     </div>
     <div id="reorgMode" style="margin-top:10px;font-size:11.5px;color:var(--faint);text-align:center;line-height:1.5"></div>
+  </div>
+</div>
+
+<!-- ================= COLLECTION MODAL ================= -->
+<div id="collModal" class="modalWrap">
+  <div class="modalCard" style="max-width:480px">
+    <h3 id="collModalTitle">Create a collection</h3>
+    <div class="mctx">Group existing maps into a shelf others can browse. You curate it;
+      your name is on it.</div>
+    <label class="edLabel">Title</label>
+    <input id="collTitle" class="edInput" maxlength="60" placeholder="e.g. Learning the Natural World">
+    <label class="edLabel">What ties it together? (optional)</label>
+    <textarea id="collBlurb" class="edArea" style="min-height:70px" maxlength="300"></textarea>
+    <label class="edLabel">Maps on this shelf</label>
+    <div id="collPick" class="collPick"></div>
+    <div class="modalBtns">
+      <button id="collCancel">Cancel</button>
+      <button id="collSave" class="primary">Save collection</button>
+    </div>
+    <button id="collDelete" class="edDanger" style="display:none">🗑 Delete this collection…</button>
   </div>
 </div>
 
@@ -888,7 +967,7 @@ async function loadRoadmap(id){
   return rm;
 }
 /* ---- editorial roles: who tends which map (public meta/roles doc) ---- */
-let MAINTAINERS={}, OVERSEERS=[];
+let MAINTAINERS={}, OVERSEERS=[], SUPERADMINS=[];
 async function loadMaintainers(){
   if(!FIREBASE_CONFIG) return;
   try{
@@ -898,6 +977,7 @@ async function loadMaintainers(){
       const d=snap.data();
       MAINTAINERS=d.maintainers||{};
       OVERSEERS=d.overseers||[];
+      SUPERADMINS=d.superadmins||[];
     }
   }catch(e){}
 }
@@ -1002,6 +1082,12 @@ function touch(p){ p.updatedAt=Date.now(); }
 /* ---------- state ---------- */
 let currentRm=null, currentNode=null, scale=1, layout=null;
 
+/* one view active at a time — every navigation goes through here */
+function showView(id){
+  ["homeView","mapView","reviewView","aboutView","accountView","collectionsView"]
+    .forEach(v=>$(v).classList.toggle("active",v===id));
+}
+
 /* ---------- home ----------
    Manifesto rule: no feed — the front page is your own life. Active paths
    ("Continue your paths") lead; the full library sits below.              */
@@ -1020,21 +1106,19 @@ function renderHome(){
   $("continueWrap").style.display=active.length?"block":"none";
   $("heroTitle").innerHTML=active.length?"Welcome back.":"Pick a path. <em>Learn by doing.</em>";
   INDEX.forEach(entry=>{
+    // Library cards are deliberately spare — emoji + title, plus a quiet
+    // progress bar once you've mastered something. Everything else (tagline,
+    // curricula, maintainer) lives on the map itself.
     const recs=store.progress[entry.id]||{};
     const mastered=Object.values(recs).filter(p=>p.status===2).length;
-    const started=Object.values(recs).filter(p=>p.status===1).length;
     const total=entry.total;
     const card=document.createElement("button");
     card.className="card";
     card.innerHTML=`
       <div class="row1"><div class="emoji">${entry.emoji}</div><h3>${entry.title}</h3></div>
-      <div class="tag">${entry.tagline}</div>
-      ${entry.curricula?`<div class="curr">📚 ${entry.curricula}</div>`:""}
-      ${maintainerNameOf(entry)?`<div class="curr">🛡️ Maintained by ${esc(maintainerNameOf(entry))}</div>`:""}
-      <div class="meta">
-        <div class="pbar"><i style="width:${total?Math.round(mastered/total*100):0}%"></i></div>
-        <span>${mastered}/${total} mastered${started?` · ${started} active`:``}</span>
-      </div>`;
+      ${mastered?`<div class="meta">
+        <div class="pbar" style="margin-right:0"><i style="width:${total?Math.round(mastered/total*100):0}%"></i></div>
+      </div>`:""}`;
     card.onclick=()=>openRoadmap(entry.id);
     grid.appendChild(card);
   });
@@ -1071,10 +1155,7 @@ async function openRoadmap(id){
     toast("⚠️ Couldn't load roadmap content"); return;
   }
   $("loading").classList.remove("show");
-  $("homeView").classList.remove("active");
-  $("reviewView").classList.remove("active");
-  $("aboutView").classList.remove("active");
-  $("mapView").classList.add("active");
+  showView("mapView");
   $("backBtn").classList.add("show");
   $("brandText").textContent=currentRm.emoji+" "+currentRm.title;
   const mName=maintainerNameOf(currentRm);
@@ -1088,10 +1169,7 @@ async function openRoadmap(id){
   reflectHash("/"+id);
 }
 function goHome(){
-  $("mapView").classList.remove("active");
-  $("reviewView").classList.remove("active");
-  $("aboutView").classList.remove("active");
-  $("homeView").classList.add("active");
+  showView("homeView");
   $("addTopicBtn").classList.remove("show");
   $("reorgBtn").classList.remove("show");
   $("backBtn").classList.remove("show");
@@ -1262,7 +1340,7 @@ $("closeBtn").onclick=closeDrawer;
 $("backdrop").onclick=closeDrawer;
 document.addEventListener("keydown",e=>{ if(e.key==="Escape"){ closeDrawer();
   $("authModal").classList.remove("show"); $("suggestModal").classList.remove("show");
-  $("reorgModal").classList.remove("show"); }});
+  $("reorgModal").classList.remove("show"); $("collModal").classList.remove("show"); }});
 
 /* ---------- auth ---------- */
 function paintUser(){
@@ -1279,6 +1357,8 @@ function paintUser(){
   $("reviewBtn").classList.toggle("show", moderatorOfAny());
   paintSync();
 }
+/* the chip is the door to the account page (sign-out button excepted) */
+$("userChip").onclick=(e)=>{ if(e.target.id!=="signOutBtn") openAccount(); };
 $("signInBtn").onclick=()=>{
   $("authModal").classList.add("show");
   $("authNote").textContent=FIREBASE_CONFIG
@@ -1296,7 +1376,9 @@ async function finishSignIn(u){
   if(canSync()){ syncState="dirty"; pushRemote(); }
   paintUser(); $("authModal").classList.remove("show");
   toast(`Welcome, ${user.name}! ${canSync()?"Progress now syncs to your account.":"Progress saved under your account on this device."}`);
-  if(currentRm){ renderGraph(); if(currentNode) openNode(currentNode.id); } else renderHome();
+  if($("accountView").classList.contains("active")) renderAccount();
+  else if($("collectionsView").classList.contains("active")) renderCollections();
+  else if(currentRm){ renderGraph(); if(currentNode) openNode(currentNode.id); } else renderHome();
 }
 async function doSignIn(provider){
   const btn = provider==="google"?$("googleBtn"):$("appleBtn");
@@ -1319,6 +1401,8 @@ $("signOutBtn").onclick=async ()=>{
   store=migrateStore(readJSON(storeKey("guest")));
   paintUser(); toast("Signed out — progress stays on this device.");
   if($("reviewView").classList.contains("active")) goHome();
+  else if($("accountView").classList.contains("active")) renderAccount();
+  else if($("collectionsView").classList.contains("active")) renderCollections();
   else if(currentRm){ renderGraph(); } else renderHome();
   closeDrawer();
 };
@@ -1419,10 +1503,15 @@ $("suggestBtn").onclick=()=>openSuggest({node:currentNode.id,nodeTitle:currentNo
 $("proposeBtn").onclick=()=>openSuggest({mode:"roadmap"});
 
 /* ---- overseer review queue ---- */
+function isSuperadmin(){
+  if(!user.provider) return false;
+  if(!FIREBASE_CONFIG) return user.id==="google:demo-user";  // demo/local mode
+  return SUPERADMINS.includes(user.id);
+}
 function isOverseer(){
   if(!user.provider) return false;
   if(!FIREBASE_CONFIG) return user.id==="google:demo-user";  // demo/local mode
-  return OVERSEERS.includes(user.id);
+  return OVERSEERS.includes(user.id) || SUPERADMINS.includes(user.id);
 }
 let reviewTab="proposals";
 /* Moderation queries must be rules-provable: overseers list a whole
@@ -1456,15 +1545,11 @@ async function fetchSuggestions(status){
   return fetchModerated("suggestions", status);
 }
 function openReview(){
-  $("homeView").classList.remove("active");
-  $("mapView").classList.remove("active");
-  $("aboutView").classList.remove("active");
-  $("reviewView").classList.add("active");
+  showView("reviewView");
   $("backBtn").classList.add("show");
   $("brandText").textContent=isOverseer()?"🛡️ Overseer review":"🧑‍🌾 Maintainer review";
   $("brandSub").textContent=isOverseer()?"All maps":"Your maps";
   renderReview();
-  renderMaintAdmin();
 }
 $("reviewBtn").onclick=openReview;
 document.querySelectorAll("#reviewTabs button").forEach(b=>{
@@ -1605,15 +1690,79 @@ async function decideProposal(p,action){
   }catch(e){ toast("Decision failed — try again"); }
   renderReview();
 }
-/* ---- overseer: appoint the gardeners (meta/roles doc) ---- */
-function renderMaintAdmin(){
-  const box=$("maintAdmin");
-  if(!isOverseer()||!canSync()){ box.style.display="none"; return; }
-  box.style.display="block";
-  box.innerHTML=`<h2 class="secTitle" style="margin-top:36px">Gardeners — who tends each map</h2>
-    <div class="sub">Bind a verified user id (from their user-chip tooltip) and a display name to each
-    map. Maintainers review and merge for their map only; unassigned maps fall to you.
-    Governance is public: anyone can read who tends what.</div>`;
+/* ---------- account page ----------
+   Identity, roles, data portability — and for overseers/superadmin, the
+   governance panel that edits the public meta/roles doc (see GOVERNANCE.md:
+   overseers bind gardeners; the superadmin binds overseers; the superadmin
+   list itself is console-only by rule). */
+function roleChipsHtml(){
+  const chips=[];
+  if(isSuperadmin()) chips.push('<span class="roleChip gold">👑 Superadmin</span>');
+  else if(isOverseer()) chips.push('<span class="roleChip gold">🛡️ Overseer</span>');
+  Object.keys(MAINTAINERS)
+    .filter(rm=>MAINTAINERS[rm]&&MAINTAINERS[rm].uid===user.id)
+    .forEach(rm=>{ const e=INDEX.find(r=>r.id===rm);
+      chips.push(`<span class="roleChip green">🧑‍🌾 ${esc(e?e.title:rm)}</span>`); });
+  if(!chips.length) chips.push('<span class="roleChip">Contributor</span>');
+  return chips.join("");
+}
+function openAccount(){
+  showView("accountView");
+  $("backBtn").classList.add("show");
+  $("brandText").textContent="Your account";
+  $("brandSub").textContent="Identity, roles, and your data";
+  closeDrawer();
+  renderAccount();
+  reflectHash("/account");
+}
+function renderAccount(){
+  const box=$("accountInner");
+  if(!user.provider){
+    box.innerHTML=`<h2>Your account</h2>
+      <div class="sub">Sign in to sync progress across devices, contribute to maps,
+      and curate collections.</div>
+      <button class="edAdd" id="acctSignIn">Sign in</button>`;
+    $("acctSignIn").onclick=()=>$("authModal").classList.add("show");
+    return;
+  }
+  box.innerHTML=`<h2>Your account</h2>
+    <div class="sub">Who you are here, and what you tend.</div>
+    <div class="acctCard">
+      <div class="acctRow">
+        <div class="acctAvatar">${esc(user.name[0].toUpperCase())}</div>
+        <div><div class="acctName">${esc(user.name)}</div>
+          ${user.email?`<div class="acctMail">${esc(user.email)}</div>`:""}</div>
+      </div>
+      <div class="roleChips">${roleChipsHtml()}</div>
+      <div class="uidRow">User id <code>${esc(user.id)}</code>
+        <button class="edAdd" id="acctCopyUid" style="margin:0;padding:4px 10px">Copy</button></div>
+      <div class="acctBtns">
+        ${moderatorOfAny()?`<button id="acctReview">🛡️ Review queue</button>`:""}
+        <button id="acctExport">📦 Download my data</button>
+        <button id="acctSignOut" style="color:#f87171">Sign out</button>
+      </div>
+    </div>
+    <div id="acctGov"></div>`;
+  $("acctCopyUid").onclick=async ()=>{
+    try{ await navigator.clipboard.writeText(user.id);
+      toast("Copied — this id is how roles bind to you"); }
+    catch(e){ toast("Couldn't copy — select it by hand"); }
+  };
+  $("acctExport").onclick=exportMyData;
+  $("acctSignOut").onclick=()=>$("signOutBtn").onclick();
+  if(moderatorOfAny()) $("acctReview").onclick=openReview;
+  renderGovPanel();
+}
+/* ---- governance panel: appoint gardeners (overseer+) & overseers (superadmin) ---- */
+function renderGovPanel(){
+  const box=$("acctGov");
+  if(!isOverseer()){ box.innerHTML=""; return; }
+  const guardSave=()=>{ if(!canSync()){
+    toast("Connect Firebase (config.js) to save roles"); return false; } return true; };
+  box.innerHTML=`<h2 class="secTitle" style="margin-top:26px">Gardeners — who tends each map</h2>
+    <div class="sub">Bind a verified user id (they can copy theirs from their own account page)
+    and a display name to each map. Gardeners review and merge for their map only; unassigned
+    maps fall to the overseers. Bindings are public — anyone can read who tends what.</div>`;
   INDEX.forEach(e=>{
     const m=MAINTAINERS[e.id]||{};
     const row=document.createElement("div"); row.className="edRow"; row.style.marginBottom="8px";
@@ -1625,6 +1774,7 @@ function renderMaintAdmin(){
   const save=document.createElement("button"); save.className="edAdd";
   save.textContent="💾 Save gardeners";
   save.onclick=async ()=>{
+    if(!guardSave()) return;
     const maint={};
     box.querySelectorAll(".mId").forEach(inp=>{
       const rm=inp.dataset.rm, uid=inp.value.trim();
@@ -1634,11 +1784,202 @@ function renderMaintAdmin(){
     try{
       const F=await fb(); if(!F) throw new Error("offline");
       await F.updateDoc(F.doc(F.db,"meta","roles"), {maintainers:maint});
-      MAINTAINERS=maint; toast("🧑‍🌾 Gardeners updated"); renderHome();
+      MAINTAINERS=maint; toast("🧑‍🌾 Gardeners updated"); renderAccount();
     }catch(e){ toast("Save failed — try again"); }
   };
   box.appendChild(save);
+  if(!isSuperadmin()) return;
+  const h=document.createElement("h2"); h.className="secTitle"; h.style.marginTop="26px";
+  h.textContent="Overseers — the editorial board";
+  const sub=document.createElement("div"); sub.className="sub";
+  sub.textContent="One user id per line. Overseers decide which maps exist and appoint "+
+    "gardeners. Only you (superadmin) can change this list — and the superadmin list "+
+    "itself can only be changed by hand in the Firebase console, by design.";
+  const ta=document.createElement("textarea"); ta.className="edArea"; ta.id="ovList";
+  ta.style.minHeight="80px"; ta.value=OVERSEERS.join("\n");
+  const save2=document.createElement("button"); save2.className="edAdd";
+  save2.textContent="💾 Save overseers";
+  save2.onclick=async ()=>{
+    if(!guardSave()) return;
+    const list=ta.value.split("\n").map(s=>s.trim()).filter(Boolean);
+    try{
+      const F=await fb(); if(!F) throw new Error("offline");
+      await F.updateDoc(F.doc(F.db,"meta","roles"), {overseers:list});
+      OVERSEERS=list; toast("🛡️ Overseers updated"); renderAccount();
+    }catch(e){ toast("Save failed — try again"); }
+  };
+  box.appendChild(h); box.appendChild(sub); box.appendChild(ta); box.appendChild(save2);
 }
+/* ---------- collections: owner-curated shelves of maps ----------
+   A collection is a pointer, not content — it groups existing maps, so it
+   needs no review pipeline: the owner IS the filter (GOVERNANCE.md's fork
+   valve). Connected: public-read `collections` Firestore docs. Local/demo:
+   the same records in localStorage, marked device-only. Overseers moderate
+   with exactly two switches: featured and hidden. */
+function collConnected(){ return !!(FIREBASE_CONFIG && !FB_FAILED); }
+function localCollections(){ return readJSON("hkr:collections")||[]; }
+function saveLocalCollections(list){ localStorage.setItem("hkr:collections",JSON.stringify(list)); }
+async function loadCollections(){
+  if(collConnected()){
+    try{
+      const F=await fb(); if(!F) throw new Error("sdk unavailable");
+      const snap=await F.getDocs(F.collection(F.db,"collections"));
+      const out=[];
+      snap.forEach(d=>{
+        const rec={id:d.id, ...d.data()};
+        ["createdAt","updatedAt"].forEach(k=>{
+          if(rec[k]&&rec[k].toMillis) rec[k]=rec[k].toMillis(); });
+        out.push(rec);
+      });
+      return out;
+    }catch(e){ /* offline → device-only shelves */ }
+  }
+  return localCollections();
+}
+function openCollections(){
+  showView("collectionsView");
+  $("backBtn").classList.add("show");
+  $("brandText").textContent="🧺 Collections";
+  $("brandSub").textContent="Shelves of the library, curated by its walkers";
+  closeDrawer();
+  renderCollections();
+  reflectHash("/collections");
+}
+async function renderCollections(){
+  const list=$("collList"); list.innerHTML="<div class='sub'>Loading…</div>";
+  const items=(await loadCollections())
+    .filter(c=>!c.hidden || isOverseer() || (user.provider&&c.owner.uid===user.id))
+    .sort((a,b)=>((b.featured?1:0)-(a.featured?1:0)) || (b.updatedAt||0)-(a.updatedAt||0));
+  list.innerHTML="";
+  if(!collConnected())
+    list.innerHTML="<div class='sub'>⚠️ Not connected — collections here live on this device only.</div>";
+  if(!items.length){
+    list.innerHTML+="<div class='sub'>No shelves yet. Make the first one — group the maps you'd hand to a friend.</div>";
+    return;
+  }
+  items.forEach(c=>{
+    const mapsHtml=(c.maps||[]).map(id=>{
+      const e=INDEX.find(r=>r.id===id);
+      // ids not in the index (retired maps, junk) are simply not rendered
+      return e?`<a class="collChip" href="#/${e.id}"><span>${e.emoji}</span><span>${esc(e.title)}</span></a>`:"";
+    }).join("");
+    const d=document.createElement("div");
+    d.className="collCard"+(c.featured?" featured":"");
+    d.innerHTML=`<div class="collHead">
+        ${c.featured?'<span class="fstar">★ Featured</span>':""}
+        ${c.hidden?'<span class="fstar" style="background:rgba(248,113,113,.15);color:#f87171">Hidden</span>':""}
+        <h3>${esc(c.title)}</h3><span class="collBy">a shelf by ${esc(c.owner.name)}</span></div>
+      ${c.blurb?`<div class="collBlurb">${esc(c.blurb)}</div>`:""}
+      <div class="collMaps">${mapsHtml||'<span class="collBy">(these maps have left the library)</span>'}</div>`;
+    const mine=!!user.provider && c.owner.uid===user.id;
+    if(mine || isOverseer()){
+      const acts=document.createElement("div"); acts.className="sgActs";
+      if(mine){
+        const be=document.createElement("button"); be.textContent="✎ Edit";
+        be.onclick=()=>openCollModal(c); acts.appendChild(be);
+      }
+      if(isOverseer()){
+        const bf=document.createElement("button"); bf.className="aAcc";
+        bf.textContent=c.featured?"★ Unfeature":"☆ Feature";
+        bf.onclick=()=>moderateCollection(c,{featured:!c.featured});
+        const bh=document.createElement("button"); bh.className="aRej";
+        bh.textContent=c.hidden?"Unhide":"Hide";
+        bh.onclick=()=>moderateCollection(c,{hidden:!c.hidden});
+        acts.appendChild(bf); acts.appendChild(bh);
+      }
+      d.appendChild(acts);
+    }
+    list.appendChild(d);
+  });
+}
+let collEditing=null;
+function openCollModal(c){
+  if(!user.provider){ $("authModal").classList.add("show"); toast("Sign in to curate a collection"); return; }
+  collEditing=c||null;
+  $("collModalTitle").textContent=c?"Edit your collection":"Create a collection";
+  $("collTitle").value=c?c.title:"";
+  $("collBlurb").value=c?(c.blurb||""):"";
+  const pick=$("collPick"); pick.innerHTML="";
+  const sel=new Set(c?c.maps:[]);
+  INDEX.forEach(e=>{
+    const l=document.createElement("label");
+    l.innerHTML=`<input type="checkbox" value="${e.id}" ${sel.has(e.id)?"checked":""}>
+      <span>${e.emoji} ${esc(e.title)}</span>`;
+    pick.appendChild(l);
+  });
+  $("collDelete").style.display=c?"block":"none";
+  $("collModal").classList.add("show");
+}
+/* writes go to Firestore when this identity can, otherwise to the device */
+function collCloud(c){ return collConnected() && canSync() && !(c&&c.local); }
+async function saveCollModal(){
+  const title=$("collTitle").value.trim(), blurb=$("collBlurb").value.trim();
+  const maps=[...$("collPick").querySelectorAll("input:checked")].map(i=>i.value);
+  if(title.length<3){ toast("Give the shelf a name (3+ characters)"); return; }
+  if(!maps.length){ toast("Pick at least one map"); return; }
+  $("collSave").disabled=true;
+  try{
+    if(collCloud(collEditing)){
+      const F=await fb(); if(!F) throw new Error("offline");
+      if(collEditing){
+        await F.updateDoc(F.doc(F.db,"collections",collEditing.id),
+          {title, blurb, maps, updatedAt:F.serverTimestamp()});
+      }else{
+        await F.addDoc(F.collection(F.db,"collections"),
+          {title, blurb, maps, owner:{uid:user.id, name:user.name},
+           featured:false, hidden:false,
+           createdAt:F.serverTimestamp(), updatedAt:F.serverTimestamp()});
+      }
+    }else{
+      const list=localCollections();
+      if(collEditing){
+        const rec=list.find(x=>x.id===collEditing.id);
+        if(rec) Object.assign(rec,{title, blurb, maps, updatedAt:Date.now()});
+      }else{
+        list.push({id:"local-"+Date.now().toString(36), title, blurb, maps,
+          owner:{uid:user.id, name:user.name}, featured:false, hidden:false,
+          local:true, createdAt:Date.now(), updatedAt:Date.now()});
+      }
+      saveLocalCollections(list);
+    }
+    $("collModal").classList.remove("show");
+    toast(collEditing?"Shelf updated":"🧺 Collection created");
+    renderCollections();
+  }catch(e){ toast("Save failed — try again"); }
+  $("collSave").disabled=false;
+}
+async function deleteCollModal(){
+  if(!collEditing) return;
+  if(!confirm(`Delete “${collEditing.title}”? This removes the shelf — never the maps on it.`)) return;
+  try{
+    if(collCloud(collEditing)){
+      const F=await fb(); if(!F) throw new Error("offline");
+      await F.deleteDoc(F.doc(F.db,"collections",collEditing.id));
+    }else{
+      saveLocalCollections(localCollections().filter(x=>x.id!==collEditing.id));
+    }
+    $("collModal").classList.remove("show");
+    toast("Shelf deleted"); renderCollections();
+  }catch(e){ toast("Delete failed — try again"); }
+}
+async function moderateCollection(c,patch){
+  try{
+    if(collCloud(c)){
+      const F=await fb(); if(!F) throw new Error("offline");
+      await F.updateDoc(F.doc(F.db,"collections",c.id), patch);
+    }else{
+      const list=localCollections();
+      const rec=list.find(x=>x.id===c.id);
+      if(rec){ Object.assign(rec,patch); saveLocalCollections(list); }
+    }
+    renderCollections();
+  }catch(e){ toast("Failed — try again"); }
+}
+$("collNew").onclick=()=>openCollModal(null);
+$("collSave").onclick=saveCollModal;
+$("collCancel").onclick=()=>$("collModal").classList.remove("show");
+$("collDelete").onclick=deleteCollModal;
+
 async function renderReview(){
   const list=$("reviewList"); list.innerHTML="<div class='sub'>Loading…</div>";
   if(reviewTab==="proposals"){
@@ -2203,10 +2544,7 @@ $("histBtn").onclick=()=>{
 
 /* ---------- about / manifesto ---------- */
 function openAbout(){
-  $("homeView").classList.remove("active");
-  $("mapView").classList.remove("active");
-  $("reviewView").classList.remove("active");
-  $("aboutView").classList.add("active");
+  showView("aboutView");
   $("backBtn").classList.add("show");
   $("brandText").textContent="About";
   $("brandSub").textContent="The world's curriculum — free, forever";
@@ -2244,6 +2582,7 @@ window.addEventListener("resize",()=>{
 
 /* ---------- URL routing: the hash is a shareable address ----------
    #/              home                #/about           the manifesto
+   #/account       your account        #/collections     the shelves
    #/<map>         a roadmap           #/<map>/<node>    node drawer open
    Navigation functions call reflectHash() to keep the address bar honest;
    external changes (pasted links, back/forward) flow through applyRoute(). */
@@ -2261,6 +2600,8 @@ async function applyRoute(){
   try{
     if(!map){ if(!$("homeView").classList.contains("active")) goHome(); closeDrawer(); return; }
     if(map==="about"){ openAbout(); return; }
+    if(map==="account"){ openAccount(); return; }
+    if(map==="collections"){ openCollections(); return; }
     if(!INDEX.find(r=>r.id===map)){ goHome(); return; }
     if(!currentRm || currentRm.id!==map || !$("mapView").classList.contains("active"))
       await openRoadmap(map);

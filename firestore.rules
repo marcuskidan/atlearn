@@ -7,7 +7,15 @@ service cloud.firestore {
 
     function signedIn() { return request.auth != null; }
     function roles() { return get(/databases/$(db)/documents/meta/roles).data; }
-    function isOverseer() { return signedIn() && request.auth.uid in roles().overseers; }
+    // Superadmin = the project steward (GOVERNANCE.md). The list is only ever
+    // edited by hand in the Firebase console — no rule below allows writing it.
+    function isSuperadmin() {
+      return signedIn() && request.auth.uid in roles().get('superadmins', []);
+    }
+    function isOverseer() {
+      return isSuperadmin()
+          || (signedIn() && request.auth.uid in roles().get('overseers', []));
+    }
     function maintains(rm) {
       return signedIn() && rm in roles().maintainers
           && roles().maintainers[rm].uid == request.auth.uid;
@@ -45,10 +53,18 @@ service cloud.firestore {
 
     // Who tends which map. Bootstrapped ONCE by hand in the Firebase console;
     // rules never allow create — "allow create when missing" would be a race
-    // anyone with the project id could win.
+    // anyone with the project id could win. Escalation ladder: overseers bind
+    // gardeners; the superadmin binds overseers; `superadmins` itself is
+    // immutable to every client (console-only), so a compromised overseer or
+    // superadmin account can never mint new root.
     match /meta/roles {
       allow read: if true;
-      allow update: if isOverseer();
+      allow update: if (isSuperadmin()
+          && request.resource.data.diff(resource.data).affectedKeys()
+               .hasOnly(['maintainers','overseers']))
+        || (isOverseer()
+          && request.resource.data.diff(resource.data).affectedKeys()
+               .hasOnly(['maintainers']));
       allow create, delete: if false;
     }
 
@@ -123,6 +139,44 @@ service cloud.firestore {
         && request.resource.data.roadmap.matches('[a-z0-9-]{1,50}')
         && validStructOp(request.resource.data);
       allow update, delete: if false;
+    }
+
+    // Collections: owner-curated shelves of existing maps (GOVERNANCE.md's
+    // "fork valve"). Pointers, not content — they can't touch topic files, so
+    // no review pipeline: the owner IS the filter. Overseers moderate with
+    // exactly two switches (featured / hidden). `maps` entries can't be
+    // iterated by the rules language; the client renders only ids it finds in
+    // the index, so junk entries are inert.
+    function validCollection(d) {
+      return d.keys().hasOnly(['title','blurb','maps','owner',
+                               'featured','hidden','createdAt','updatedAt'])
+        && d.title is string && d.title.size() >= 3 && d.title.size() <= 60
+        && d.blurb is string && d.blurb.size() <= 300
+        && d.maps is list && d.maps.size() >= 1 && d.maps.size() <= 30
+        && d.owner is map
+        && d.owner.uid is string && d.owner.uid.size() <= 128
+        && d.owner.name is string && d.owner.name.size() <= 80
+        && d.featured is bool && d.hidden is bool;
+    }
+    match /collections/{id} {
+      allow read: if true;
+      allow create: if signedIn()
+        && request.resource.data.owner.uid == request.auth.uid
+        && validCollection(request.resource.data)
+        && request.resource.data.featured == false
+        && request.resource.data.hidden == false
+        && request.resource.data.createdAt == request.time
+        && request.resource.data.updatedAt == request.time;
+      allow update: if (signedIn()
+          && resource.data.owner.uid == request.auth.uid
+          && validCollection(request.resource.data)
+          && request.resource.data.diff(resource.data).affectedKeys()
+               .hasOnly(['title','blurb','maps','updatedAt']))
+        || (isOverseer()
+          && request.resource.data.diff(resource.data).affectedKeys()
+               .hasOnly(['featured','hidden']));
+      allow delete: if isOverseer()
+        || (signedIn() && resource.data.owner.uid == request.auth.uid);
     }
   }
 }

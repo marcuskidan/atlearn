@@ -152,22 +152,27 @@ auth plugin yields the same identity, so browser and app share one account.
 
 ## Editorial layer (the commons with gardeners)
 
-The manifesto's governance, implemented — three roles, one editor:
+The manifesto's governance, implemented (the full constitution — who decides
+what, and why — is [GOVERNANCE.md](GOVERNANCE.md)). Three working roles, one
+editor:
 
 - **Contributors** (any signed-in user): every node's ✏️ editor is open to them,
   but Save becomes **Propose change** — the edited topic ships to the backend
   with a base-version hash and a note to the maintainer. No git, no JSON, just
   the same form the maintainer uses.
-- **Maintainers** (one per map, appointed by the overseer in the in-app
-  "Gardeners" panel and bound to a verified user id): they see a review queue
+- **Maintainers** (one per map, appointed by the overseer in the account
+  page's Governance panel and bound to a verified user id): they see a review queue
   for *their* maps with field-level **diffs** (− old / + new per summary, links,
   do-actions; added/removed subtopics), and one click **merges** — instantly
   live for every user, attributed, and logged in the map's public **history**
   (🕘 on the map view). Their own edits publish immediately ("Save & publish").
   Stale proposals (base changed since proposed) are flagged.
-- **The overseer** (platform-level): appoints gardeners in the in-app
-  "Gardeners" panel (stored in the public `meta/roles` doc), moderates
-  everywhere, and reviews new-map proposals. **Repo custody is automated**:
+- **Overseers** (platform-level): appoint gardeners in the account page's
+  Governance panel (stored in the public `meta/roles` doc), moderate
+  everywhere, and review new-map proposals. The **superadmin** (project
+  steward) appoints overseers from the same panel; the superadmin list itself
+  is only ever edited by hand in the Firebase console — no API path can
+  mint root. **Repo custody is automated**:
   a merge instantly creates a public-read `merged` doc that the app renders
   as a live overlay, and the scheduled **Land content** Action turns it into
   an attributed commit on main — validated by `tools/build.py` first — then
@@ -202,6 +207,13 @@ domain experts and everyday learners, so the same loop lives **inside the app**:
   auth, shapes, lengths, and https-only URLs at the database boundary.
   Without `FIREBASE_CONFIG`, suggestions queue locally on-device so the UX
   stays honest offline.
+- **Collections** (`#/collections`) — owner-curated shelves of existing maps
+  ("Learning the Natural World"). They're pointers, not content, so they need
+  no review pipeline: any signed-in user creates and manages their own;
+  overseers have exactly two moderation switches (feature ★ / hide). This is
+  GOVERNANCE.md's "fork valve" — disagreeing with how the library is organized
+  has a productive answer that isn't a governance fight. Offline/unconfigured,
+  shelves live in localStorage, clearly marked device-only.
 
 ## Licensing
 

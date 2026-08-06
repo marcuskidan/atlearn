@@ -19,6 +19,7 @@ before(async () => {
   // seed roles with the admin backdoor
   await testEnv.withSecurityRulesDisabled(async (ctx) => {
     await ctx.firestore().doc("meta/roles").set({
+      superadmins: ["super-uid"],
       overseers: ["overseer-uid"],
       maintainers: { astro: { uid: "gardener-uid", name: "Stella" } },
     });
@@ -49,13 +50,39 @@ guard("owner can read/write own progress", async () => {
   await rut.assertSucceeds(db("me").doc("users/me").get());
 });
 
-guard("roles: public read, overseer-only update, create/delete denied", async () => {
+guard("roles: public read; create/delete always denied", async () => {
   await rut.assertSucceeds(db(null).doc("meta/roles").get());
   await rut.assertFails(db("user-uid").doc("meta/roles")
     .update({ overseers: ["user-uid"] }));
-  await rut.assertSucceeds(db("overseer-uid").doc("meta/roles")
-    .update({ overseers: ["overseer-uid"], maintainers: { astro: { uid: "gardener-uid", name: "Stella" } } }));
   await rut.assertFails(db("overseer-uid").doc("meta/roles").delete());
+});
+
+guard("roles escalation ladder: overseers bind gardeners only; superadmin binds overseers; superadmins immutable", async () => {
+  // overseer may rebind gardeners…
+  await rut.assertSucceeds(db("overseer-uid").doc("meta/roles")
+    .update({ maintainers: { astro: { uid: "new-gardener", name: "Nova" } } }));
+  // …but cannot change the overseer bench or mint root
+  await rut.assertFails(db("overseer-uid").doc("meta/roles")
+    .update({ overseers: ["overseer-uid", "friend-uid"] }));
+  await rut.assertFails(db("overseer-uid").doc("meta/roles")
+    .update({ superadmins: ["overseer-uid"] }));
+  // superadmin appoints overseers and gardeners…
+  await rut.assertSucceeds(db("super-uid").doc("meta/roles")
+    .update({ overseers: ["overseer-uid", "second-overseer"],
+              maintainers: { astro: { uid: "gardener-uid", name: "Stella" } } }));
+  // …but even the superadmin cannot grow the root list through the API
+  await rut.assertFails(db("super-uid").doc("meta/roles")
+    .update({ superadmins: ["super-uid", "evil-uid"] }));
+  // superadmin implies overseer powers elsewhere (moderates any map)
+  await rut.assertSucceeds(db("super-uid").doc("tips/cooking").set({ n1: [] }));
+  // restore seed state for later tests
+  await testEnv.withSecurityRulesDisabled(async (ctx) => {
+    await ctx.firestore().doc("meta/roles").set({
+      superadmins: ["super-uid"],
+      overseers: ["overseer-uid"],
+      maintainers: { astro: { uid: "gardener-uid", name: "Stella" } },
+    });
+  });
 });
 
 guard("suggestion create: signed-in with valid shape succeeds", async () => {
@@ -209,4 +236,60 @@ guard("proposal lifecycle: create shape enforced; decision status-only", async (
     .update({ status: "merged", topic: { id: "swapped" } }));
   await rut.assertSucceeds(db("gardener-uid").doc(`proposals/${ref.id}`)
     .update({ status: "merged", decidedAt: 2, decidedBy: { uid: "gardener-uid", name: "Stella" } }));
+});
+
+/* ---- collections: owner-curated shelves of maps ---- */
+const collection = (over = {}) => ({
+  title: "Learning the Natural World", blurb: "Sky, garden, weather.",
+  maps: ["astro", "gardening"], owner: { uid: "user-uid", name: "U" },
+  featured: false, hidden: false,
+  createdAt: sgTs(), updatedAt: sgTs(), ...over,
+});
+
+guard("collections: signed-in owner creates with valid shape; public read", async () => {
+  await rut.assertSucceeds(db("user-uid").collection("collections").add(collection()));
+  await rut.assertSucceeds(db(null).collection("collections").get());
+});
+
+guard("collections create rejected: anonymous, spoofed owner, self-feature, bad shape", async () => {
+  await rut.assertFails(db(null).collection("collections").add(collection()));
+  await rut.assertFails(db("user-uid").collection("collections")
+    .add(collection({ owner: { uid: "other-uid", name: "X" } })));
+  await rut.assertFails(db("user-uid").collection("collections")
+    .add(collection({ featured: true })));
+  await rut.assertFails(db("user-uid").collection("collections")
+    .add(collection({ hidden: true })));
+  await rut.assertFails(db("user-uid").collection("collections")
+    .add(collection({ title: "ab" })));
+  await rut.assertFails(db("user-uid").collection("collections")
+    .add(collection({ maps: [] })));
+  await rut.assertFails(db("user-uid").collection("collections")
+    .add(collection({ extra: "field" })));
+});
+
+guard("collections update/delete: owner curates, overseer moderates, strangers do neither", async () => {
+  let ref;
+  await testEnv.withSecurityRulesDisabled(async (ctx) => {
+    ref = await ctx.firestore().collection("collections")
+      .add(collection({ createdAt: new Date(), updatedAt: new Date() }));
+  });
+  const path = `collections/${ref.id}`;
+  // owner: content yes, moderation switches no
+  await rut.assertSucceeds(db("user-uid").doc(path)
+    .update({ title: "Natural World, v2", maps: ["astro"], updatedAt: new Date() }));
+  await rut.assertFails(db("user-uid").doc(path).update({ featured: true }));
+  await rut.assertFails(db("user-uid").doc(path)
+    .update({ owner: { uid: "user-uid", name: "New Name" } }));
+  // stranger: nothing
+  await rut.assertFails(db("someone").doc(path).update({ title: "Hijacked!!" }));
+  await rut.assertFails(db("someone").doc(path).delete());
+  // overseer: moderation switches yes, content no
+  await rut.assertSucceeds(db("overseer-uid").doc(path)
+    .update({ featured: true }));
+  await rut.assertSucceeds(db("super-uid").doc(path)
+    .update({ hidden: true }));
+  await rut.assertFails(db("overseer-uid").doc(path)
+    .update({ title: "Overseer rewrite" }));
+  // owner may delete their own
+  await rut.assertSucceeds(db("user-uid").doc(path).delete());
 });

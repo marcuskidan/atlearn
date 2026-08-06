@@ -29,8 +29,10 @@ and schema: README.md.
    `spine` automatically; when hand-inserting without one, renumber neighbors.
 6. Explanatory/mission copy lives ONLY on the About page (the manifesto in
    index.html) — never scatter "what this app is" text into other UI surfaces.
-7. Each roadmap's `meta.json` has a `maintainer` name shown on its card and
-   map header. "The Overseer" is a placeholder — real maps get real names.
+7. Each roadmap's `meta.json` has a `maintainer` name shown on its map header
+   ("· maintained by …"). Library cards are deliberately spare — emoji + title
+   + progress bar only; never add copy to them. "The Overseer" is a
+   placeholder — real maps get real names.
 8. Sensitive categories have standing constraints:
    - `personal-finance`: strictly conceptual education, no advice, no product
      or investment recommendations; link to consumerfinance.gov / investor.gov.
@@ -58,7 +60,13 @@ extend it in ALL five places at once). Rules:
 - The landing Action (tools/land.mjs) is the only writer of repo content from
   community data; it must always run build.py before committing.
 - Maintainer bindings live in the public `meta/roles` Firestore doc (set
-  in-app by the overseer) — meta.json `maintainer` is display fallback only.
+  in-app from the account page's Governance panel) — meta.json `maintainer`
+  is display fallback only. Role ladder (GOVERNANCE.md): overseers bind
+  gardeners; the superadmin binds overseers; `superadmins` itself is
+  console-only — no rule may ever allow a client to write it.
+- Collections (`collections/{id}` docs, `#/collections`) are pointers to maps,
+  never content — keep them incapable of touching topic files. Owner-write
+  with shape caps; overseer moderation is exactly two flags (featured/hidden).
 
 ## Community layer
 In-app suggestion → maintainer/overseer review pipeline (see README "Community layer").

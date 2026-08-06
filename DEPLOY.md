@@ -16,7 +16,8 @@ Actions for CI + landing merges) and **Firebase** (accounts + database behind
 5. **Bootstrap governance** (one-time, by hand — the rules deliberately never
    allow creating this doc): Firestore → Start collection → id `meta` →
    doc id `roles` → fields:
-   - `overseers` (array) — leave empty for now; you'll add your uid in Stage 3
+   - `superadmins` (array) — leave empty for now; you'll add your uid in Stage 3
+   - `overseers` (array) — empty
    - `maintainers` (map) — empty
 6. **Project settings → Your apps → Web app** → register → copy the
    `firebaseConfig` object.
@@ -41,7 +42,7 @@ Then in the repo's web settings:
 3. Authentication (Firebase console) → **Authorized domains** → add
    `<you>.github.io`.
 
-## Stage 3 — Wire and become overseer (~5 min)
+## Stage 3 — Wire and become superadmin (~5 min)
 
 ```bash
 python3 tools/configure.py     # paste the firebaseConfig object + owner/repo → writes config.js
@@ -49,11 +50,14 @@ python3 tools/build.py --standalone
 git add -A && git commit -m "Configure Firebase + repo" && git push
 ```
 
-Open the live URL, **Sign in** with Google, hover the user chip — the tooltip
-shows your uid. In the Firebase console, add that uid to
-`meta/roles → overseers`. Reload: the 🛡️ Review button appears, and the
-Gardeners panel inside it lets you appoint per-map maintainers from now on —
-no more console visits.
+Open the live URL, **Sign in** with Google, click your name (top right) —
+your account page shows your uid with a Copy button. In the Firebase console,
+add that uid to `meta/roles → superadmins`. Reload: your account page grows a
+**Governance** panel where you appoint per-map gardeners and the overseer
+board from now on — no more console visits. (This is the ONLY console-managed
+role, by design: `firestore.rules` never lets any client — even you — edit
+the `superadmins` list, so a compromised account can't mint new root.
+See GOVERNANCE.md.)
 
 ## Stage 4 — Smoke test
 
