@@ -238,6 +238,54 @@ guard("proposal lifecycle: create shape enforced; decision status-only", async (
     .update({ status: "merged", decidedAt: 2, decidedBy: { uid: "maintainer-uid", name: "Stella" } }));
 });
 
+/* ---- forks: personal versions of maps (Personalize) ---- */
+const fork = (over = {}) => ({
+  base: "astro", title: "Astronomy, Nova's way",
+  ops: [{ kind: "edit", file: "01-start.json", at: 1,
+          topic: { id: "s", title: "S", tier: "essential",
+                   learn: { summary: "x", links: [] }, do: ["a"] } }],
+  owner: { uid: "user-uid", name: "U" }, hidden: false,
+  createdAt: sgTs(), updatedAt: sgTs(), ...over,
+});
+
+guard("forks: signed-in owner creates; public read", async () => {
+  await rut.assertSucceeds(db("user-uid").collection("forks").add(fork()));
+  await rut.assertSucceeds(db(null).collection("forks").get());
+});
+
+guard("forks create rejected: anonymous, spoofed owner, self-hidden, bad shape", async () => {
+  await rut.assertFails(db(null).collection("forks").add(fork()));
+  await rut.assertFails(db("user-uid").collection("forks")
+    .add(fork({ owner: { uid: "other-uid", name: "X" } })));
+  await rut.assertFails(db("user-uid").collection("forks")
+    .add(fork({ hidden: true })));
+  await rut.assertFails(db("user-uid").collection("forks")
+    .add(fork({ base: "../escape" })));
+  await rut.assertFails(db("user-uid").collection("forks")
+    .add(fork({ ops: "not-a-list" })));
+  await rut.assertFails(db("user-uid").collection("forks")
+    .add(fork({ extra: "field" })));
+});
+
+guard("forks update/delete: owner edits, admin hides, strangers do neither", async () => {
+  let ref;
+  await testEnv.withSecurityRulesDisabled(async (ctx) => {
+    ref = await ctx.firestore().collection("forks")
+      .add(fork({ createdAt: new Date(), updatedAt: new Date() }));
+  });
+  const path = `forks/${ref.id}`;
+  await rut.assertSucceeds(db("user-uid").doc(path)
+    .update({ title: "Astronomy, revised", ops: [], updatedAt: new Date() }));
+  await rut.assertFails(db("user-uid").doc(path).update({ hidden: true }));
+  await rut.assertFails(db("user-uid").doc(path)
+    .update({ owner: { uid: "user-uid", name: "Renamed" } }));
+  await rut.assertFails(db("someone").doc(path).update({ title: "Hijacked!" }));
+  await rut.assertFails(db("someone").doc(path).delete());
+  await rut.assertSucceeds(db("admin-uid").doc(path).update({ hidden: true }));
+  await rut.assertFails(db("admin-uid").doc(path).update({ title: "Admin rewrite" }));
+  await rut.assertSucceeds(db("user-uid").doc(path).delete());
+});
+
 /* ---- collections: owner-curated shelves of maps ---- */
 const collection = (over = {}) => ({
   title: "Learning the Natural World", blurb: "Sky, garden, weather.",

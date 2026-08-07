@@ -30,16 +30,18 @@ const fns = ["esc", "flatten", "contentHash", "migrateStore", "mergeStores",
              "renderDiff", "editorMode", "applyMergedDocs"];
 const script = `
 let devMode=false, FIREBASE_CONFIG=null, user={provider:null,id:"guest"},
-    currentRm=null, MAINTAINERS={}, ADMINS=["admin-uid"], SUPERADMINS=[];
+    currentRm=null, currentFork=null, MAINTAINERS={}, ADMINS=["admin-uid"], SUPERADMINS=[];
 const STORE_V=1;
 ${extractFn(html, "isAdmin")}
 ${extractFn(html, "maintains")}
+${extractFn(html, "forkOwned")}
 ${fns.map((n) => extractFn(html, n)).join("\n")}
 ({ esc, flatten, contentHash, migrateStore, mergeStores, renderDiff, applyMergedDocs,
    editorModeWith(o){
      devMode=o.devMode||false;
      FIREBASE_CONFIG=("FIREBASE_CONFIG" in o)?o.FIREBASE_CONFIG:null;
      user=o.user||{provider:null,id:"guest"}; currentRm=o.currentRm||null;
+     currentFork=o.currentFork||null;
      MAINTAINERS=o.MAINTAINERS||{};
      return editorMode();
    } })

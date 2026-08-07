@@ -67,6 +67,13 @@ extend it in ALL five places at once). Rules:
 - Collections (`collections/{id}` docs, `#/collections`) are pointers to maps,
   never content — keep them incapable of touching topic files. Owner-write
   with shape caps; admin moderation is exactly two flags (featured/hidden).
+- Personal versions (`forks/{id}` docs, `#/fork/<id>`, the ✨ Personalize
+  button) are ops-over-base, never copies: {base, title, ops[], owner},
+  rendered through the same `applyMergedDocs` as the merged overlay. Untouched
+  topics track the canonical map automatically; "reset to standard" = dropping
+  that topic's ops. Forks never reach the repo pipeline. Owner-write, admin
+  moderation = `hidden` flag only. Keep the Personalize button quiet —
+  suggesting improvements to the shared map is the preferred path.
 
 ## Community layer
 In-app suggestion → maintainer/admin review pipeline (see README "Community layer").
@@ -82,8 +89,9 @@ Rules when touching it:
 - **Run tests before committing**: `python3 -m unittest discover -s tests`
   and `node --test tests/`. Don't break the extraction harness: the client tests
   brace-match `mergeStores`/`contentHash`/`renderDiff`/`editorMode`/
-  `migrateStore`/`esc`/`flatten`/`applyMergedDocs` out of index.html by name;
-  renaming them requires updating tests/client.test.mjs.
+  `migrateStore`/`esc`/`flatten`/`applyMergedDocs`/`isAdmin`/`maintains`/
+  `forkOwned` out of index.html by name; renaming them requires updating
+  tests/client.test.mjs.
 - Stored-data schema changes go through `migrateStore()` (bump STORE_V, add an
   upgrade branch) — never change record shapes without a migration.
 - Landing health: the **Land content** Action lands, deploys, and retires

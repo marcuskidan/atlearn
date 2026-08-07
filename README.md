@@ -221,6 +221,17 @@ domain experts and everyday learners, so the same loop lives **inside the app**:
   GOVERNANCE.md's "fork valve" — disagreeing with how the library is organized
   has a productive answer that isn't a governance fight. Offline/unconfigured,
   shelves live in localStorage, clearly marked device-only.
+- **Personal versions** (✨ Personalize, quiet at the bottom of every map) —
+  any signed-in user gets an editable copy of a map: the full editor, no
+  role required, saves going only to their version. A fork is stored as
+  *changes over the living base* (`forks/{id}`: base + the same five
+  structural ops, rendered through `applyMergedDocs`), so untouched topics
+  keep tracking the canonical map as it improves; per-topic "reset to
+  standard" drops the divergence. Shareable via `#/fork/<id>` (viewing is
+  free for anyone, always), listed with copy-link on the owner's account
+  page, one per map per user, capped at 100 changes. Walking progress is
+  shared with the base map thanks to stable node ids. Admin moderation is a
+  single `hidden` flag; personal versions never touch the repo pipeline.
 
 ## Licensing
 

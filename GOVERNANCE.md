@@ -108,9 +108,42 @@ Here, in ascending order of effort:
    answer that isn't a governance fight.
 2. **Proposals** — every rejection is recorded; a pattern of good rejected
    ideas is evidence admins can act on.
-3. **The full fork** — the content is CC BY-SA 4.0 and the code is MIT.
+3. **Personal versions** (the ✨ Personalize button) — anyone signed in can
+   make an editable copy of any map: reorder it, rewrite it, add to it, and
+   share the link. A personal version is stored as *changes over the living
+   base*, so everything its owner hasn't touched keeps improving with the
+   canonical map, and any topic can be reset to standard at any time. It is
+   deliberately quiet in the interface: suggesting an improvement to the
+   shared map is always the preferred act; personalizing is the escape hatch.
+4. **The full fork** — the content is CC BY-SA 4.0 and the code is MIT.
    Anyone can take the entire commons and grow it elsewhere. That this is
    possible is precisely what keeps the roles honest.
+
+**When a personal version outgrows the trunk:** a personal version that
+draws more walkers than the canonical map is not a crisis — it is the
+succession signal working. Because personal versions are stored as changes,
+they are reviewable proposals in waiting: the admins' expected response is
+to invite the merge, and where the author has shown sustained judgment, to
+offer them the maintainership. Write-ups of taste belong in maps; popularity
+of a version is evidence, never a coup.
+
+## The paid tier, when it exists
+
+Payments (a hosted no-code stack — e.g. Stripe's Firebase integration) may
+eventually fund the project through conveniences. Three invariants outrank
+any pricing decision:
+
+- **Viewing is always free.** Every map, every collection, every shared
+  personal version, for everyone, forever. A shared link must never rot
+  behind a paywall.
+- **Contributing to the commons is never paywalled.** Suggestions,
+  proposals, and public personal versions stay free — a pressure valve with
+  a tollbooth doesn't release pressure, and taxing the passionate is how a
+  commons starves.
+- **Lapsing freezes, never deletes.** If a subscription ends, the person's
+  paid-tier creations become read-only — still public if they were public,
+  still walkable, always exportable — and editable again on return. Payment
+  gates creation and editing, never existence or access.
 
 ## Stewardship, not ownership
 

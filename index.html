@@ -215,6 +215,26 @@ a{color:var(--blue)}
   border:1px solid var(--line);font-size:17px;font-weight:700}
 #zoomCtl button:active{background:var(--bg3)}
 
+/* ---------- Personal versions (Personalize) ---------- */
+#forkBanner{display:none;position:fixed;z-index:30;top:calc(64px + var(--sat));
+  left:50%;transform:translateX(-50%);max-width:min(720px,92vw);
+  background:rgba(22,26,35,.94);backdrop-filter:blur(10px);
+  border:1px solid rgba(255,215,94,.4);border-radius:12px;padding:8px 14px;
+  font-size:12.5px;color:var(--muted);align-items:center;gap:10px;flex-wrap:wrap}
+#forkBanner.show{display:flex}
+#forkBanner a{color:var(--accent);text-decoration:none;font-weight:600}
+#forkBanner button{background:var(--bg3);border:1px solid var(--line);border-radius:8px;
+  padding:4px 10px;font-size:11.5px;color:var(--muted)}
+#forkBanner button:hover{border-color:var(--accent);color:var(--accent)}
+/* deliberately quiet — suggesting improvements to the shared map is the
+   preferred path; personalizing is the escape hatch */
+#personalizeBtn{display:none;position:fixed;z-index:30;left:50%;transform:translateX(-50%);
+  bottom:calc(16px + var(--sab));padding:8px 14px;border-radius:99px;
+  background:rgba(22,26,35,.85);border:1px dashed var(--line);
+  color:var(--faint);font-size:12px}
+#personalizeBtn.show{display:block}
+#personalizeBtn:hover{border-color:var(--accent);color:var(--accent)}
+
 /* ---------- Loading overlay ---------- */
 #loading{position:fixed;inset:0;z-index:45;display:none;align-items:center;justify-content:center;
   background:rgba(15,17,23,.6);backdrop-filter:blur(4px)}
@@ -667,8 +687,10 @@ select.edInput{appearance:none;-webkit-appearance:none}
     <button id="zoomFit" aria-label="Fit" style="font-size:12px">⤢</button>
     <button id="histBtn" aria-label="Map history" title="Map history" style="font-size:14px">🕘</button>
   </div>
+  <div id="forkBanner"></div>
   <button id="addTopicBtn">＋ Add core topic</button>
   <button id="reorgBtn">⇅ Reorganize</button>
+  <button id="personalizeBtn" title="Make your own editable version of this map">✨ Personalize</button>
 </section>
 
 <!-- ================= REORGANIZE MODAL ================= -->
@@ -1100,6 +1122,7 @@ function touch(p){ p.updatedAt=Date.now(); }
 
 /* ---------- state ---------- */
 let currentRm=null, currentNode=null, scale=1, layout=null;
+let currentFork=null;   // set while viewing a personal version (Personalize)
 
 /* one view active at a time — every navigation goes through here */
 function showView(id){
@@ -1174,6 +1197,10 @@ async function openRoadmap(id){
     toast("⚠️ Couldn't load roadmap content"); return;
   }
   $("loading").classList.remove("show");
+  currentFork=null;                          // standard map: fork chrome off
+  $("forkBanner").classList.remove("show");
+  $("histBtn").style.display="";
+  $("personalizeBtn").classList.add("show");
   showView("mapView");
   $("backBtn").classList.add("show");
   $("brandText").textContent=currentRm.emoji+" "+currentRm.title;
@@ -1190,7 +1217,7 @@ function goHome(){
   $("reorgBtn").classList.remove("show");
   $("backBtn").classList.remove("show");
   $("brandText").textContent="Waihona";
-  currentRm=null; renderHome();
+  currentRm=null; currentFork=null; renderHome();
   reflectHash("/");
 }
 function renderGraph(){
@@ -1313,9 +1340,10 @@ function openNode(nodeId){
   loadTips(currentRm.id).then(t=>{           // async: fill community tips when they arrive
     if(currentNode && currentNode.id===nodeId) renderTips(t[nodeId]||[]);
   });
+  $("suggestBtn").style.display = currentFork ? "none" : "";   // suggestions serve the shared map
   $("backdrop").classList.add("show");
   $("drawer").classList.add("open");
-  reflectHash("/"+currentRm.id+"/"+encodeURIComponent(nodeId));
+  reflectHash(mapPath()+"/"+encodeURIComponent(nodeId));
 }
 function paintStatusSeg(s){
   document.querySelectorAll("#statusSeg button").forEach(b=>
@@ -1345,7 +1373,7 @@ $("notes").addEventListener("input",()=>{
 });
 function closeDrawer(){
   if(currentNode && currentRm && $("mapView").classList.contains("active"))
-    reflectHash("/"+currentRm.id);
+    reflectHash(mapPath());
   $("drawer").classList.remove("open");
   $("backdrop").classList.remove("show");
   currentNode=null;
@@ -1779,6 +1807,7 @@ function renderAccount(){
         <button id="acctSignOut" style="color:#f87171">Sign out</button>
       </div>
     </div>
+    <div id="acctForks"></div>
     <div id="acctGov"></div>`;
   $("acctCopyUid").onclick=async ()=>{
     try{ await navigator.clipboard.writeText(user.id);
@@ -1789,6 +1818,7 @@ function renderAccount(){
   $("acctSignOut").onclick=()=>$("signOutBtn").onclick();
   if(moderatorOfAny()) $("acctReview").onclick=openReview;
   renderGovPanel();
+  renderMyForks();   // async; fills #acctForks when the list arrives
 }
 /* ---- governance panel: appoint maintainers (admin+) & admins (superadmin) ----
    meta/roles fields: maintainers (map), admins (array), superadmins (array,
@@ -2045,6 +2075,194 @@ $("collMapSearch").addEventListener("input",()=>{
   });
 });
 
+/* ---------- personal versions ("Personalize") ----------
+   A fork is ops-over-base, NOT a copy: {base, title, ops[], owner}. It renders
+   through the same applyMergedDocs as the merged overlay, so every topic the
+   owner hasn't touched keeps tracking the canonical map as it improves —
+   drift is opt-in per topic, and "reset to standard" just drops that topic's
+   ops. Stable node ids mean walking progress is shared with the base map.
+   Connected: public-read `forks` docs. Local/demo: localStorage, device-only. */
+function forkOwned(){ return !!(currentFork && user.provider && currentFork.owner.uid===user.id); }
+function localForks(){ return readJSON("hkr:forks")||[]; }
+function saveLocalForks(l){ localStorage.setItem("hkr:forks",JSON.stringify(l)); }
+function forkCloud(f){ return collConnected() && canSync() && !(f&&f.local); }
+function mapPath(){ return currentFork ? "/fork/"+currentFork.id : "/"+currentRm.id; }
+async function fetchFork(id){
+  if(collConnected() && !id.startsWith("local-")){
+    try{
+      const F=await fb(); if(!F) throw new Error("sdk unavailable");
+      const snap=await F.getDoc(F.doc(F.db,"forks",id));
+      if(snap.exists()){
+        const rec={id:snap.id, ...snap.data()};
+        ["createdAt","updatedAt"].forEach(k=>{ if(rec[k]&&rec[k].toMillis) rec[k]=rec[k].toMillis(); });
+        return rec;
+      }
+    }catch(e){}
+  }
+  return localForks().find(f=>f.id===id)||null;
+}
+async function myForks(){
+  const local=localForks().filter(f=>f.owner&&f.owner.uid===user.id);
+  if(!(collConnected() && canSync())) return local;
+  try{
+    const F=await fb(); if(!F) throw new Error("sdk unavailable");
+    const snap=await F.getDocs(F.query(F.collection(F.db,"forks"),
+      F.where("owner.uid","==",user.id)));
+    const out=[];
+    snap.forEach(d=>{
+      const rec={id:d.id, ...d.data()};
+      ["createdAt","updatedAt"].forEach(k=>{ if(rec[k]&&rec[k].toMillis) rec[k]=rec[k].toMillis(); });
+      out.push(rec);
+    });
+    return out.concat(local);
+  }catch(e){ return local; }
+}
+function deriveForkRm(baseRm, f){
+  const applied=applyMergedDocs(baseRm.topics, baseRm.nodes, f.ops||[]);
+  return {...baseRm, topics:applied.topics, nodes:applied.nodes};
+}
+async function openFork(id, nodeId){
+  $("loading").classList.add("show");
+  let f=null, base=null;
+  try{ f=await fetchFork(id); if(f) base=await loadRoadmap(f.base); }catch(e){}
+  $("loading").classList.remove("show");
+  if(!f || !base){ toast("⚠️ That personal version isn't available"); goHome(); return; }
+  if(f.hidden && !(user.provider&&f.owner.uid===user.id) && !isAdmin()){
+    toast("⚠️ That personal version isn't available"); goHome(); return; }
+  currentFork=f;
+  currentRm=deriveForkRm(base, f);
+  showView("mapView");
+  $("backBtn").classList.add("show");
+  $("brandText").textContent="✨ "+f.title;
+  scale=Math.min(1,(window.innerWidth-24)/CANVAS_W);
+  renderGraph();
+  paintForkBanner(base);
+  $("addTopicBtn").classList.toggle("show", canEdit());
+  $("reorgBtn").classList.toggle("show", canEdit());
+  $("personalizeBtn").classList.remove("show");
+  $("histBtn").style.display="none";   // history belongs to the standard map
+  $("scroller").scrollTop=0;
+  reflectHash("/fork/"+id);
+  if(nodeId && flatten(currentRm).some(n=>n.id===nodeId)){ openNode(nodeId); revealNode(nodeId); }
+}
+function paintForkBanner(base){
+  const b=$("forkBanner"), mine=forkOwned();
+  b.innerHTML=`<span>✨ ${esc(currentFork.title)} —
+      ${mine?"your personal version":"a personal version by "+esc(currentFork.owner.name)} of
+      <a href="#/${esc(currentFork.base)}">${esc(base.emoji)} ${esc(base.title)}</a></span>
+    <button id="forkShare" title="Copy a link to this version">🔗 Share</button>
+    ${mine?'<button id="forkDelete" title="Delete this version">🗑</button>':""}`;
+  $("forkShare").onclick=async ()=>{
+    const url=location.origin+location.pathname+"#/fork/"+currentFork.id;
+    try{ await navigator.clipboard.writeText(url);
+      toast(currentFork.local?"Link copied — this version lives only on this device":"🔗 Link copied — anyone can open it"); }
+    catch(e){ toast("Couldn't copy — the address bar has it"); }
+  };
+  if(mine) $("forkDelete").onclick=deleteFork;
+  b.classList.add("show");
+}
+async function personalize(){
+  if(!currentRm) return;
+  if(!user.provider){ $("authModal").classList.add("show"); toast("Sign in to make your own version"); return; }
+  const baseId=currentRm.id;
+  const mine=(await myForks()).filter(f=>f.base===baseId);
+  if(mine.length){   // one personal version per map: reopen it instead of piling up copies
+    toast("Opening your version of this map");
+    location.hash="#/fork/"+mine[0].id; return;
+  }
+  const rec={base:baseId, title:currentRm.title+" — "+user.name+"'s version",
+             ops:[], owner:{uid:user.id, name:user.name}, hidden:false};
+  try{
+    if(collConnected() && canSync()){
+      const F=await fb(); if(!F) throw new Error("offline");
+      const ref=await F.addDoc(F.collection(F.db,"forks"),
+        {...rec, createdAt:F.serverTimestamp(), updatedAt:F.serverTimestamp()});
+      location.hash="#/fork/"+ref.id;
+    }else{
+      const id="local-"+Date.now().toString(36);
+      saveLocalForks([...localForks(), {...rec, id, local:true, createdAt:Date.now(), updatedAt:Date.now()}]);
+      location.hash="#/fork/"+id;
+    }
+    toast("✨ This copy is yours — edits here never touch the standard map");
+  }catch(e){ toast("Couldn't create your version — try again"); }
+}
+$("personalizeBtn").onclick=personalize;
+async function saveForkOps(ops){
+  const f=currentFork;
+  if(ops.length>100) throw new Error("This version has hit its 100-change limit — reset some topics to the standard map first");
+  if(forkCloud(f)){
+    const F=await fb(); if(!F) throw new Error("offline — try again");
+    await F.updateDoc(F.doc(F.db,"forks",f.id), {ops, updatedAt:F.serverTimestamp()});
+  }else{
+    const list=localForks(), rec=list.find(x=>x.id===f.id);
+    if(!rec) throw new Error("This version is gone from this device");
+    rec.ops=ops; rec.updatedAt=Date.now(); saveLocalForks(list);
+  }
+  f.ops=ops;
+}
+async function appendForkOps(newOps){
+  let ops=(currentFork.ops||[]).slice();
+  newOps.forEach(op=>{
+    // compaction: only the latest edit per file (and latest spine) matters
+    if(op.kind==="edit") ops=ops.filter(o=>!(o.kind==="edit"&&o.file===op.file));
+    if(op.kind==="spine") ops=ops.filter(o=>o.kind!=="spine");
+    ops.push({...op, at:Date.now()});
+  });
+  await saveForkOps(ops);
+}
+async function resetForkTopic(file){
+  await saveForkOps((currentFork.ops||[]).filter(o=>!(o.file===file||o.file2===file)));
+}
+async function deleteFork(){
+  if(!confirm(`Delete “${currentFork.title}”? The standard map is untouched.`)) return;
+  const f=currentFork;
+  try{
+    if(forkCloud(f)){
+      const F=await fb(); if(!F) throw new Error("offline");
+      await F.deleteDoc(F.doc(F.db,"forks",f.id));
+    }else saveLocalForks(localForks().filter(x=>x.id!==f.id));
+    toast("Personal version deleted");
+    location.hash="#/"+f.base;
+  }catch(e){ toast("Delete failed — try again"); }
+}
+async function renderMyForks(){
+  const box=$("acctForks"); if(!box) return;
+  const forks=await myForks();
+  if(!forks.length){ box.innerHTML=""; return; }
+  box.innerHTML='<h2 class="secTitle" style="margin-top:26px">Your personal versions</h2>'+
+    '<div class="sub">Editable copies of maps, yours alone. Share a link from here — viewing is free for everyone, always.</div>';
+  forks.sort((a,b)=>(b.updatedAt||0)-(a.updatedAt||0)).forEach(f=>{
+    const e=INDEX.find(r=>r.id===f.base);
+    const d=document.createElement("div"); d.className="collCard";
+    d.innerHTML=`<div class="collHead"><h3>✨ ${esc(f.title)}</h3>
+      <span class="collBy">personal version of ${e?esc(e.emoji+" "+e.title):esc(f.base)}
+      · ${(f.ops||[]).length} change${(f.ops||[]).length===1?"":"s"}${f.local?" · this device only":""}</span></div>`;
+    const acts=document.createElement("div"); acts.className="sgActs";
+    const op=document.createElement("button"); op.textContent="Open";
+    op.onclick=()=>{ location.hash="#/fork/"+f.id; };
+    const cp=document.createElement("button"); cp.className="aAcc"; cp.textContent="🔗 Copy link";
+    cp.onclick=async ()=>{
+      try{ await navigator.clipboard.writeText(location.origin+location.pathname+"#/fork/"+f.id);
+        toast(f.local?"Link copied — this version lives only on this device":"🔗 Link copied"); }
+      catch(err){ toast("Couldn't copy"); }
+    };
+    const del=document.createElement("button"); del.className="aRej"; del.textContent="🗑 Delete";
+    del.onclick=async ()=>{
+      if(!confirm(`Delete “${f.title}”? The standard map is untouched.`)) return;
+      try{
+        if(collConnected() && canSync() && !f.local){
+          const F=await fb(); if(!F) throw new Error("offline");
+          await F.deleteDoc(F.doc(F.db,"forks",f.id));
+        }else saveLocalForks(localForks().filter(x=>x.id!==f.id));
+        toast("Deleted"); renderAccount();
+      }catch(err){ toast("Delete failed — try again"); }
+    };
+    acts.appendChild(op); acts.appendChild(cp); acts.appendChild(del);
+    d.appendChild(acts);
+    box.appendChild(d);
+  });
+}
+
 async function renderReview(){
   const list=$("reviewList"); list.innerHTML="<div class='sub'>Loading…</div>";
   if(reviewTab==="proposals"){
@@ -2137,8 +2355,12 @@ let devMode=false;
 /* Anyone signed in can open the editor — what Save does depends on role:
    dev server → writes files; maintainer/admin → merges live (overlay);
    contributor → submits a proposal for the map's maintainer to review. */
-function canEdit(){ return devMode || !!user.provider; }
+function canEdit(){
+  if(currentFork) return forkOwned();   // someone else's personal version: walk it, don't edit it
+  return devMode || !!user.provider;
+}
 function editorMode(){
+  if(currentFork && forkOwned()) return "fork";   // saves go to the personal version, nowhere else
   if(devMode) return "dev";
   if(!FIREBASE_CONFIG) return "export";
   if(isAdmin() || (currentRm&&maintains(currentRm.id))) return "merge";
@@ -2197,11 +2419,14 @@ function paintEditorChrome(){
   $("edSave").textContent = {dev:isNew?"Create topic":"Save",
                              merge:isNew?"Create & publish":"Save & publish",
                              propose:isNew?"Propose new topic":"Propose change",
+                             fork:isNew?"Add to your version":"Save to your version",
                              export:"Export JSON"}[mode];
   $("edMode").innerHTML = {
     dev:`💾 Saves directly to <b>roadmaps/${esc(currentRm.id)}/topics/${esc(topicFile()||"(new file)")}</b> — dev server detected.`,
     merge:`🛡️ You maintain this map — saving publishes immediately and is logged in the map's public history.`,
     propose:`🌱 This goes to <b>${esc(maintainerNameOf(currentRm)||"the maintainer")}</b> for review — nothing changes until they merge it. Your name goes on the change, licensed CC BY-SA 4.0.`,
+    fork:`✨ This is <b>${esc(currentFork?currentFork.title:"")}</b> — saves change only your
+       personal version, never the standard map.`,
     export:`📦 Not connected — Save downloads the topic file to drop into
        <b>roadmaps/${esc(currentRm.id)}/topics/</b> and run tools/build.py.`,
   }[mode];
@@ -2298,6 +2523,22 @@ function renderChildTools(){
         box.appendChild(row);
       });
     }
+    if(!edCtx.newTopic && editorMode()==="fork"
+       && (currentFork.ops||[]).some(o=>o.file===topicFile()||o.file2===topicFile())){
+      // drift control: drop this topic's ops and follow the standard map again
+      const rst=document.createElement("button"); rst.className="edAdd"; rst.style.marginTop="14px";
+      rst.textContent="↩ Reset this topic to the standard version";
+      rst.onclick=async ()=>{
+        if(!confirm("Discard your changes to this topic? It will follow the standard map again, including future updates.")) return;
+        try{
+          await resetForkTopic(topicFile());
+          toast("↩ This topic follows the standard map again");
+          closeEditor();
+          await reloadCurrentRoadmap();
+        }catch(e){ toast(String(e.message||e)); }
+      };
+      box.appendChild(rst);
+    }
     if(!edCtx.newTopic){
       const del=document.createElement("button"); del.className="edDanger";
       del.textContent="🗑 Delete this core topic from the map…";
@@ -2328,6 +2569,12 @@ async function submitStructural(op, successMsg){
   if(mode==="export"){
     toast("Structure changes need the dev server (tools/dev.py) or a signed-in, connected app");
     return false;
+  }
+  if(mode==="fork"){
+    const {baseHash, baseHash2, ...core}=op;
+    await appendForkOps([core]);
+    toast("✨ "+successMsg+" — saved to your version");
+    return true;
   }
   if(mode==="dev"){
     const {baseHash, baseHash2, ...core}=op;
@@ -2412,11 +2659,17 @@ function commitFields(){
   return n;
 }
 async function reloadCurrentRoadmap(reopenNodeId){
-  const id=currentRm.id;
-  rmCache.delete(id);
-  try{ const r=await fetch("roadmaps/index.json",{cache:"no-cache"});
-       INDEX=(await r.json()).roadmaps; }catch(e){}
-  currentRm=await loadRoadmap(id);
+  if(currentFork){   // re-derive the personal version over the fresh base
+    rmCache.delete(currentFork.base);
+    const base=await loadRoadmap(currentFork.base);
+    currentRm=deriveForkRm(base, currentFork);
+  }else{
+    const id=currentRm.id;
+    rmCache.delete(id);
+    try{ const r=await fetch("roadmaps/index.json",{cache:"no-cache"});
+         INDEX=(await r.json()).roadmaps; }catch(e){}
+    currentRm=await loadRoadmap(id);
+  }
   renderGraph();
   if(reopenNodeId && flatten(currentRm).some(n=>n.id===reopenNodeId)) openNode(reopenNodeId);
   else closeDrawer();
@@ -2457,7 +2710,10 @@ async function saveEditor(){
     }
     $("edSave").disabled=true;
     try{
-      if(mode==="dev"){
+      if(mode==="fork"){
+        await appendForkOps([{kind:"add", file:fname, topic:edCtx.topic, after}]);
+        toast("✨ Added to your version");
+      }else if(mode==="dev"){
         const r=await fetch("/dev/apply",{method:"POST",
           headers:{"Content-Type":"application/json"},
           body:JSON.stringify({rm:currentRm.id, kind:"add", topic:edCtx.topic, after})});
@@ -2492,7 +2748,18 @@ async function saveEditor(){
   }
 
   const fname=topicFile();
-  if(mode==="dev"){
+  if(mode==="fork"){
+    $("edSave").disabled=true;
+    try{
+      await appendForkOps([{kind:"edit", file:fname, topic:edCtx.topic}]);
+      toast("✨ Saved to your version");
+      closeEditor();
+      await reloadCurrentRoadmap(reopen);
+    }catch(e){
+      $("editorErrs").textContent=String(e.message||e);
+      $("edSave").disabled=false;
+    }
+  }else if(mode==="dev"){
     $("edSave").disabled=true;
     try{
       const r=await fetch("/dev/apply",{method:"POST",
@@ -2647,6 +2914,7 @@ window.addEventListener("resize",()=>{
 /* ---------- URL routing: the hash is a shareable address ----------
    #/              home                #/about           the manifesto
    #/account       your account        #/collections     the shelves
+   #/fork/<id>     a personal version  (#/fork/<id>/<node> opens its drawer)
    #/<map>         a roadmap           #/<map>/<node>    node drawer open
    Navigation functions call reflectHash() to keep the address bar honest;
    external changes (pasted links, back/forward) flow through applyRoute(). */
@@ -2658,16 +2926,23 @@ function reflectHash(h){
   selfNav++; location.hash=want;
 }
 async function applyRoute(){
-  const [map,node]=location.hash.replace(/^#\/?/,"").split("/")
+  const parts=location.hash.replace(/^#\/?/,"").split("/")
     .filter(Boolean).map(decodeURIComponent);
+  const [map,node]=parts;
   applyingRoute=true;
   try{
     if(!map){ if(!$("homeView").classList.contains("active")) goHome(); closeDrawer(); return; }
     if(map==="about"){ openAbout(); return; }
     if(map==="account"){ openAccount(); return; }
     if(map==="collections"){ openCollections(); return; }
+    if(map==="fork"){   // #/fork/<id>[/<node>] — a shared personal version
+      if(parts[1]) await openFork(parts[1], parts[2]); else goHome();
+      return;
+    }
     if(!INDEX.find(r=>r.id===map)){ goHome(); return; }
-    if(!currentRm || currentRm.id!==map || !$("mapView").classList.contains("active"))
+    // a fork view carries its base map's id — leaving it for the standard
+    // map must always re-render, so currentFork forces the reload
+    if(currentFork || !currentRm || currentRm.id!==map || !$("mapView").classList.contains("active"))
       await openRoadmap(map);
     if(node && flatten(currentRm).some(n=>n.id===node)){ openNode(node); revealNode(node); }
     else closeDrawer();

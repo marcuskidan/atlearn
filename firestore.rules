@@ -158,6 +158,45 @@ service cloud.firestore {
         && d.owner.name is string && d.owner.name.size() <= 80
         && d.featured is bool && d.hidden is bool;
     }
+    // Personal versions ("Personalize"): a fork is NOT a copy — it's the base
+    // map's id plus a saved list of structural ops, rendered client-side over
+    // the live base by the same applyMergedDocs used for the merged overlay.
+    // Untouched topics therefore track the canonical map automatically; only
+    // op-covered topics diverge. Ops can't be iterated by the rules language
+    // (same caveat as collection `maps` / spine entries): the client validates
+    // and escapes on render, and forks never reach the repo pipeline, so a
+    // malformed op can only garble its own fork. Admin moderation = `hidden`.
+    function validFork(d) {
+      return d.keys().hasOnly(['base','title','ops','owner',
+                               'hidden','createdAt','updatedAt'])
+        && d.base is string && d.base.matches('[a-z0-9-]{1,50}')
+        && d.title is string && d.title.size() >= 3 && d.title.size() <= 80
+        && d.ops is list && d.ops.size() <= 100
+        && d.owner is map
+        && d.owner.uid is string && d.owner.uid.size() <= 128
+        && d.owner.name is string && d.owner.name.size() <= 80
+        && d.hidden is bool;
+    }
+    match /forks/{id} {
+      allow read: if true;
+      allow create: if signedIn()
+        && request.resource.data.owner.uid == request.auth.uid
+        && validFork(request.resource.data)
+        && request.resource.data.hidden == false
+        && request.resource.data.createdAt == request.time
+        && request.resource.data.updatedAt == request.time;
+      allow update: if (signedIn()
+          && resource.data.owner.uid == request.auth.uid
+          && validFork(request.resource.data)
+          && request.resource.data.diff(resource.data).affectedKeys()
+               .hasOnly(['title','ops','updatedAt']))
+        || (isAdmin()
+          && request.resource.data.diff(resource.data).affectedKeys()
+               .hasOnly(['hidden']));
+      allow delete: if isAdmin()
+        || (signedIn() && resource.data.owner.uid == request.auth.uid);
+    }
+
     match /collections/{id} {
       allow read: if true;
       allow create: if signedIn()
