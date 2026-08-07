@@ -1,5 +1,5 @@
 rules_version = '2';
-// Human Knowledge Roadmaps — the entire server-side security boundary.
+// Waihona — the entire server-side security boundary.
 // Tested by tests/rules.test.mjs against the Firestore emulator (CI `rules` job).
 // Governance is transparent: roles and the merged-content overlay are public reads.
 service cloud.firestore {
@@ -7,20 +7,20 @@ service cloud.firestore {
 
     function signedIn() { return request.auth != null; }
     function roles() { return get(/databases/$(db)/documents/meta/roles).data; }
-    // Superadmin = the project steward (GOVERNANCE.md). The list is only ever
+    // Superadmin = the project admin (GOVERNANCE.md). The list is only ever
     // edited by hand in the Firebase console — no rule below allows writing it.
     function isSuperadmin() {
       return signedIn() && request.auth.uid in roles().get('superadmins', []);
     }
-    function isOverseer() {
+    function isAdmin() {
       return isSuperadmin()
-          || (signedIn() && request.auth.uid in roles().get('overseers', []));
+          || (signedIn() && request.auth.uid in roles().get('admins', []));
     }
     function maintains(rm) {
       return signedIn() && rm in roles().maintainers
           && roles().maintainers[rm].uid == request.auth.uid;
     }
-    function moderates(rm) { return isOverseer() || maintains(rm); }
+    function moderates(rm) { return isAdmin() || maintains(rm); }
 
     // ---- structural-op grammar, shared by proposals and merged docs ----
     // One vocabulary for every change to a map:
@@ -53,16 +53,16 @@ service cloud.firestore {
 
     // Who tends which map. Bootstrapped ONCE by hand in the Firebase console;
     // rules never allow create — "allow create when missing" would be a race
-    // anyone with the project id could win. Escalation ladder: overseers bind
-    // gardeners; the superadmin binds overseers; `superadmins` itself is
-    // immutable to every client (console-only), so a compromised overseer or
+    // anyone with the project id could win. Escalation ladder: admins bind
+    // maintainers; the superadmin binds admins; `superadmins` itself is
+    // immutable to every client (console-only), so a compromised admin or
     // superadmin account can never mint new root.
     match /meta/roles {
       allow read: if true;
       allow update: if (isSuperadmin()
           && request.resource.data.diff(resource.data).affectedKeys()
-               .hasOnly(['maintainers','overseers']))
-        || (isOverseer()
+               .hasOnly(['maintainers','admins']))
+        || (isAdmin()
           && request.resource.data.diff(resource.data).affectedKeys()
                .hasOnly(['maintainers']));
       allow create, delete: if false;
@@ -98,12 +98,12 @@ service cloud.firestore {
         && request.resource.data.node.size() <= 80
         && request.resource.data.nodeTitle.size() <= 120
         && request.resource.data.createdAt == request.time;
-      allow read: if isOverseer() || maintains(resource.data.roadmap);
+      allow read: if isAdmin() || maintains(resource.data.roadmap);
       allow update: if moderates(resource.data.roadmap)
         && request.resource.data.diff(resource.data).affectedKeys()
              .hasOnly(['status','decidedAt','decidedBy'])
         && request.resource.data.status in ['published','accepted','rejected'];
-      allow delete: if isOverseer();
+      allow delete: if isAdmin();
     }
 
     match /proposals/{id} {
@@ -118,12 +118,12 @@ service cloud.firestore {
         && request.resource.data.note is string
         && request.resource.data.note.size() <= 1000
         && request.resource.data.createdAt == request.time;
-      allow read: if isOverseer() || maintains(resource.data.roadmap);
+      allow read: if isAdmin() || maintains(resource.data.roadmap);
       allow update: if moderates(resource.data.roadmap)
         && request.resource.data.diff(resource.data).affectedKeys()
              .hasOnly(['status','decidedAt','decidedBy'])
         && request.resource.data.status in ['merged','rejected'];
-      allow delete: if isOverseer();
+      allow delete: if isAdmin();
     }
 
     // Merged edits: the live content overlay (public read) AND the landing
@@ -143,7 +143,7 @@ service cloud.firestore {
 
     // Collections: owner-curated shelves of existing maps (GOVERNANCE.md's
     // "fork valve"). Pointers, not content — they can't touch topic files, so
-    // no review pipeline: the owner IS the filter. Overseers moderate with
+    // no review pipeline: the owner IS the filter. Admins moderate with
     // exactly two switches (featured / hidden). `maps` entries can't be
     // iterated by the rules language; the client renders only ids it finds in
     // the index, so junk entries are inert.
@@ -172,10 +172,10 @@ service cloud.firestore {
           && validCollection(request.resource.data)
           && request.resource.data.diff(resource.data).affectedKeys()
                .hasOnly(['title','blurb','maps','updatedAt']))
-        || (isOverseer()
+        || (isAdmin()
           && request.resource.data.diff(resource.data).affectedKeys()
                .hasOnly(['featured','hidden']));
-      allow delete: if isOverseer()
+      allow delete: if isAdmin()
         || (signedIn() && resource.data.owner.uid == request.auth.uid);
     }
   }

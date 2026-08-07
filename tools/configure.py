@@ -13,7 +13,7 @@ Writes config.js only (index.html is never touched):
 
 These values are public-by-design (they ship to every browser anyway).
 The only real secret is the Firebase service-account JSON, which lives in
-GitHub Actions (FIREBASE_SERVICE_ACCOUNT) and on the overseer's machine.
+GitHub Actions (FIREBASE_SERVICE_ACCOUNT) and on the admin's machine.
 """
 import json, os, re, sys
 
@@ -30,7 +30,7 @@ window.HKR_CONFIG = {{
      Your apps). While null, the app runs fully functional in local/demo
      mode — progress stays on-device, contributions queue locally. */
   FIREBASE_CONFIG: {fb},
-  /* "owner/repo", e.g. "marcuskidan/human-knowledge-roadmaps" — powers the
+  /* "owner/repo", e.g. "marcuskidan/waihona" — powers the
      public map-history link. */
   GITHUB_REPO: "{repo}",
 }};

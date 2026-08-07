@@ -30,9 +30,9 @@ const fns = ["esc", "flatten", "contentHash", "migrateStore", "mergeStores",
              "renderDiff", "editorMode", "applyMergedDocs"];
 const script = `
 let devMode=false, FIREBASE_CONFIG=null, user={provider:null,id:"guest"},
-    currentRm=null, MAINTAINERS={}, OVERSEERS=["overseer-uid"];
+    currentRm=null, MAINTAINERS={}, ADMINS=["admin-uid"], SUPERADMINS=[];
 const STORE_V=1;
-${extractFn(html, "isOverseer")}
+${extractFn(html, "isAdmin")}
 ${extractFn(html, "maintains")}
 ${fns.map((n) => extractFn(html, n)).join("\n")}
 ({ esc, flatten, contentHash, migrateStore, mergeStores, renderDiff, applyMergedDocs,
@@ -112,7 +112,7 @@ test("editorMode role matrix", () => {
   assert.equal(api.editorModeWith({ FIREBASE_CONFIG: null,
     user: { provider: "google", id: "someone" } }), "export");
   assert.equal(api.editorModeWith({ FIREBASE_CONFIG: CFG,
-    user: { provider: "google", id: "overseer-uid" }, currentRm: rm }), "merge");
+    user: { provider: "google", id: "admin-uid" }, currentRm: rm }), "merge");
   assert.equal(api.editorModeWith({ FIREBASE_CONFIG: CFG,
     user: { provider: "apple", id: "maint-uid" }, currentRm: rm,
     MAINTAINERS: maint }), "merge");

@@ -8,7 +8,7 @@ window.HKR_CONFIG = {
      Your apps). While null, the app runs fully functional in local/demo
      mode — progress stays on-device, contributions queue locally. */
   FIREBASE_CONFIG: null,
-  /* "owner/repo", e.g. "marcuskidan/human-knowledge-roadmaps" — powers the
+  /* "owner/repo", e.g. "marcuskidan/waihona" — powers the
      public map-history link. */
   GITHUB_REPO: "",
 };

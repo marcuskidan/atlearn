@@ -1,4 +1,4 @@
-# CLAUDE.md — working on Human Knowledge Roadmaps
+# CLAUDE.md — working on Waihona
 
 ## What this is
 A roadmap.sh-style app for general human skills. Static app shell (`index.html`)
@@ -31,7 +31,7 @@ and schema: README.md.
    index.html) — never scatter "what this app is" text into other UI surfaces.
 7. Each roadmap's `meta.json` has a `maintainer` name shown on its map header
    ("· maintained by …"). Library cards are deliberately spare — emoji + title
-   + progress bar only; never add copy to them. "The Overseer" is a
+   + progress bar only; never add copy to them. "The Admins" is a
    placeholder — real maps get real names.
 8. Sensitive categories have standing constraints:
    - `personal-finance`: strictly conceptual education, no advice, no product
@@ -61,15 +61,15 @@ extend it in ALL five places at once). Rules:
   community data; it must always run build.py before committing.
 - Maintainer bindings live in the public `meta/roles` Firestore doc (set
   in-app from the account page's Governance panel) — meta.json `maintainer`
-  is display fallback only. Role ladder (GOVERNANCE.md): overseers bind
-  gardeners; the superadmin binds overseers; `superadmins` itself is
+  is display fallback only. Role ladder (GOVERNANCE.md): admins bind
+  maintainers; the superadmin binds admins; `superadmins` itself is
   console-only — no rule may ever allow a client to write it.
 - Collections (`collections/{id}` docs, `#/collections`) are pointers to maps,
   never content — keep them incapable of touching topic files. Owner-write
-  with shape caps; overseer moderation is exactly two flags (featured/hidden).
+  with shape caps; admin moderation is exactly two flags (featured/hidden).
 
 ## Community layer
-In-app suggestion → maintainer/overseer review pipeline (see README "Community layer").
+In-app suggestion → maintainer/admin review pipeline (see README "Community layer").
 Rules when touching it:
 - Curated content must never become writable via the API — approved community
   input either publishes as a separate, labeled tip or exports for manual curation.
@@ -89,7 +89,7 @@ Rules when touching it:
 - Landing health: the **Land content** Action lands, deploys, and retires
   `merged` docs in a single run (scheduled every 6 h; trigger it from the
   Actions tab to land on demand — the overlay serves users instantly either
-  way). A doc stuck with an `error` field needs overseer attention
+  way). A doc stuck with an `error` field needs admin attention
   (fix the content or clear the doc via the Firebase console).
 
 ## Common tasks

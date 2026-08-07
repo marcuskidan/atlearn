@@ -1,6 +1,6 @@
 // Backup — dump every Firestore collection (user progress, suggestions,
 // proposals, tips, merged, roles) to a dated local file. Run monthly, on the
-// overseer's machine only — backups contain user data and stay out of git.
+// admin's machine only — backups contain user data and stay out of git.
 //
 //   export GOOGLE_APPLICATION_CREDENTIALS=~/secrets/hkr-service-account.json
 //   npm install --no-save firebase-admin && node tools/backup.mjs

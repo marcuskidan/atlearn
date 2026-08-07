@@ -13,7 +13,7 @@ permission) in the fix's release notes.
 
 Highest-interest areas:
 - **`firestore.rules`** — the entire server-side security boundary: role
-  checks (overseer/maintainer), per-user data isolation, shape/size
+  checks (admin/maintainer), per-user data isolation, shape/size
   enforcement on community submissions.
 - Stored user data: progress/notes documents in Firestore and localStorage.
 - XSS via community-submitted text (all user text must pass through `esc()`

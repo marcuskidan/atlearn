@@ -55,7 +55,7 @@ public history and in the repository's change records.
 ## Governance
 
 Each map's maintainer has final say on its content — good curriculum is
-opinionated, and this is not a democracy of edits. The platform overseer
+opinionated, and this is not a democracy of edits. The platform admins
 appoints maintainers and moderates platform-wide. Rejections aren't personal;
 maintainers curate for the learner walking the path. See the manifesto (the
 app's About page) for why it works this way.

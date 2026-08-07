@@ -20,8 +20,8 @@ before(async () => {
   await testEnv.withSecurityRulesDisabled(async (ctx) => {
     await ctx.firestore().doc("meta/roles").set({
       superadmins: ["super-uid"],
-      overseers: ["overseer-uid"],
-      maintainers: { astro: { uid: "gardener-uid", name: "Stella" } },
+      admins: ["admin-uid"],
+      maintainers: { astro: { uid: "maintainer-uid", name: "Stella" } },
     });
   });
 });
@@ -53,34 +53,34 @@ guard("owner can read/write own progress", async () => {
 guard("roles: public read; create/delete always denied", async () => {
   await rut.assertSucceeds(db(null).doc("meta/roles").get());
   await rut.assertFails(db("user-uid").doc("meta/roles")
-    .update({ overseers: ["user-uid"] }));
-  await rut.assertFails(db("overseer-uid").doc("meta/roles").delete());
+    .update({ admins: ["user-uid"] }));
+  await rut.assertFails(db("admin-uid").doc("meta/roles").delete());
 });
 
-guard("roles escalation ladder: overseers bind gardeners only; superadmin binds overseers; superadmins immutable", async () => {
-  // overseer may rebind gardeners…
-  await rut.assertSucceeds(db("overseer-uid").doc("meta/roles")
-    .update({ maintainers: { astro: { uid: "new-gardener", name: "Nova" } } }));
-  // …but cannot change the overseer bench or mint root
-  await rut.assertFails(db("overseer-uid").doc("meta/roles")
-    .update({ overseers: ["overseer-uid", "friend-uid"] }));
-  await rut.assertFails(db("overseer-uid").doc("meta/roles")
-    .update({ superadmins: ["overseer-uid"] }));
-  // superadmin appoints overseers and gardeners…
+guard("roles escalation ladder: admins bind maintainers only; superadmin binds admins; superadmins immutable", async () => {
+  // admin may rebind maintainers…
+  await rut.assertSucceeds(db("admin-uid").doc("meta/roles")
+    .update({ maintainers: { astro: { uid: "new-maintainer", name: "Nova" } } }));
+  // …but cannot change the admin bench or mint root
+  await rut.assertFails(db("admin-uid").doc("meta/roles")
+    .update({ admins: ["admin-uid", "friend-uid"] }));
+  await rut.assertFails(db("admin-uid").doc("meta/roles")
+    .update({ superadmins: ["admin-uid"] }));
+  // superadmin appoints admins and maintainers…
   await rut.assertSucceeds(db("super-uid").doc("meta/roles")
-    .update({ overseers: ["overseer-uid", "second-overseer"],
-              maintainers: { astro: { uid: "gardener-uid", name: "Stella" } } }));
+    .update({ admins: ["admin-uid", "second-admin"],
+              maintainers: { astro: { uid: "maintainer-uid", name: "Stella" } } }));
   // …but even the superadmin cannot grow the root list through the API
   await rut.assertFails(db("super-uid").doc("meta/roles")
     .update({ superadmins: ["super-uid", "evil-uid"] }));
-  // superadmin implies overseer powers elsewhere (moderates any map)
+  // superadmin implies admin powers elsewhere (moderates any map)
   await rut.assertSucceeds(db("super-uid").doc("tips/cooking").set({ n1: [] }));
   // restore seed state for later tests
   await testEnv.withSecurityRulesDisabled(async (ctx) => {
     await ctx.firestore().doc("meta/roles").set({
       superadmins: ["super-uid"],
-      overseers: ["overseer-uid"],
-      maintainers: { astro: { uid: "gardener-uid", name: "Stella" } },
+      admins: ["admin-uid"],
+      maintainers: { astro: { uid: "maintainer-uid", name: "Stella" } },
     });
   });
 });
@@ -110,13 +110,13 @@ guard("suggestion moderation: scoped to the map's maintainer", async () => {
   });
   const path = `suggestions/${ref.id}`;
   await rut.assertFails(db("user-uid").doc(path).get());
-  await rut.assertSucceeds(db("gardener-uid").doc(path).get());
+  await rut.assertSucceeds(db("maintainer-uid").doc(path).get());
   await rut.assertFails(db("user-uid").doc(path)
     .update({ status: "published", decidedAt: 1, decidedBy: { uid: "user-uid" } }));
-  await rut.assertFails(db("gardener-uid").doc(path)
+  await rut.assertFails(db("maintainer-uid").doc(path)
     .update({ status: "published", text: "tampered with the text" }));
-  await rut.assertSucceeds(db("gardener-uid").doc(path)
-    .update({ status: "published", decidedAt: 1, decidedBy: { uid: "gardener-uid", name: "Stella" } }));
+  await rut.assertSucceeds(db("maintainer-uid").doc(path)
+    .update({ status: "published", decidedAt: 1, decidedBy: { uid: "maintainer-uid", name: "Stella" } }));
 });
 
 guard("maintainer of astro cannot moderate another map", async () => {
@@ -125,34 +125,34 @@ guard("maintainer of astro cannot moderate another map", async () => {
     ref = await ctx.firestore().collection("suggestions")
       .add(suggestion({ roadmap: "cooking", createdAt: new Date() }));
   });
-  await rut.assertFails(db("gardener-uid").doc(`suggestions/${ref.id}`).get());
-  await rut.assertFails(db("gardener-uid").doc(`suggestions/${ref.id}`)
-    .update({ status: "rejected", decidedAt: 1, decidedBy: { uid: "gardener-uid" } }));
-  await rut.assertSucceeds(db("overseer-uid").doc(`suggestions/${ref.id}`)
-    .update({ status: "rejected", decidedAt: 1, decidedBy: { uid: "overseer-uid", name: "O" } }));
+  await rut.assertFails(db("maintainer-uid").doc(`suggestions/${ref.id}`).get());
+  await rut.assertFails(db("maintainer-uid").doc(`suggestions/${ref.id}`)
+    .update({ status: "rejected", decidedAt: 1, decidedBy: { uid: "maintainer-uid" } }));
+  await rut.assertSucceeds(db("admin-uid").doc(`suggestions/${ref.id}`)
+    .update({ status: "rejected", decidedAt: 1, decidedBy: { uid: "admin-uid", name: "O" } }));
 });
 
 guard("tips: public read; only that map's moderator writes", async () => {
   await rut.assertSucceeds(db(null).doc("tips/astro").get());
   await rut.assertFails(db("user-uid").doc("tips/astro").set({ n1: [] }));
-  await rut.assertSucceeds(db("gardener-uid").doc("tips/astro").set({ n1: [] }));
-  await rut.assertFails(db("gardener-uid").doc("tips/cooking").set({ n1: [] }));
+  await rut.assertSucceeds(db("maintainer-uid").doc("tips/astro").set({ n1: [] }));
+  await rut.assertFails(db("maintainer-uid").doc("tips/cooking").set({ n1: [] }));
 });
 
 guard("merged overlay: public read; moderator-only create; immutable to clients", async () => {
   const doc = { roadmap: "astro", file: "01-start.json",
     topic: { id: "s", title: "S", tier: "essential", learn: { summary: "x", links: [] }, do: ["a"] },
-    by: { uid: "user-uid", name: "U" }, mergedBy: { uid: "gardener-uid", name: "Stella" }, note: "", at: 1 };
+    by: { uid: "user-uid", name: "U" }, mergedBy: { uid: "maintainer-uid", name: "Stella" }, note: "", at: 1 };
   await rut.assertFails(db("user-uid").collection("merged")
     .add({ ...doc, mergedBy: { uid: "user-uid", name: "U" } }));
-  await rut.assertSucceeds(db("gardener-uid").collection("merged").add(doc));
+  await rut.assertSucceeds(db("maintainer-uid").collection("merged").add(doc));
   await rut.assertSucceeds(db(null).collection("merged").get());
   let ref;
   await testEnv.withSecurityRulesDisabled(async (ctx) => {
     ref = await ctx.firestore().collection("merged").add(doc);
   });
-  await rut.assertFails(db("gardener-uid").doc(`merged/${ref.id}`).delete());
-  await rut.assertFails(db("overseer-uid").doc(`merged/${ref.id}`)
+  await rut.assertFails(db("maintainer-uid").doc(`merged/${ref.id}`).delete());
+  await rut.assertFails(db("admin-uid").doc(`merged/${ref.id}`)
     .update({ topic: { id: "evil" } }));
 });
 
@@ -161,37 +161,37 @@ const TOPIC = { id: "t", title: "T", tier: "essential",
 
 guard("structural kinds: valid add/remove/spine/move accepted for merged", async () => {
   const base = { roadmap: "astro", by: { uid: "u", name: "U" },
-    mergedBy: { uid: "gardener-uid", name: "Stella" }, note: "", at: 1 };
-  await rut.assertSucceeds(db("gardener-uid").collection("merged")
+    mergedBy: { uid: "maintainer-uid", name: "Stella" }, note: "", at: 1 };
+  await rut.assertSucceeds(db("maintainer-uid").collection("merged")
     .add({ ...base, kind: "add", file: "11-new.json", topic: TOPIC, after: "" }));
-  await rut.assertSucceeds(db("gardener-uid").collection("merged")
+  await rut.assertSucceeds(db("maintainer-uid").collection("merged")
     .add({ ...base, kind: "add", file: "11-new.json", topic: TOPIC, after: "02-old.json" }));
-  await rut.assertSucceeds(db("gardener-uid").collection("merged")
+  await rut.assertSucceeds(db("maintainer-uid").collection("merged")
     .add({ ...base, kind: "remove", file: "03-old.json" }));
-  await rut.assertSucceeds(db("gardener-uid").collection("merged")
+  await rut.assertSucceeds(db("maintainer-uid").collection("merged")
     .add({ ...base, kind: "spine", spine: ["02-b.json", "01-a.json"] }));
-  await rut.assertSucceeds(db("gardener-uid").collection("merged")
+  await rut.assertSucceeds(db("maintainer-uid").collection("merged")
     .add({ ...base, kind: "move", file: "01-a.json", topic: TOPIC,
            file2: "02-b.json", topic2: { ...TOPIC, id: "t2" } }));
 });
 
 guard("structural kinds: malformed docs rejected", async () => {
   const base = { roadmap: "astro", by: { uid: "u", name: "U" },
-    mergedBy: { uid: "gardener-uid", name: "Stella" }, note: "", at: 1 };
+    mergedBy: { uid: "maintainer-uid", name: "Stella" }, note: "", at: 1 };
   // unknown kind
-  await rut.assertFails(db("gardener-uid").collection("merged")
+  await rut.assertFails(db("maintainer-uid").collection("merged")
     .add({ ...base, kind: "rename", file: "01-a.json", topic: TOPIC }));
   // add without a position
-  await rut.assertFails(db("gardener-uid").collection("merged")
+  await rut.assertFails(db("maintainer-uid").collection("merged")
     .add({ ...base, kind: "add", file: "11-new.json", topic: TOPIC }));
   // remove with a path-traversal file name
-  await rut.assertFails(db("gardener-uid").collection("merged")
+  await rut.assertFails(db("maintainer-uid").collection("merged")
     .add({ ...base, kind: "remove", file: "../meta.json" }));
   // spine that isn't a list
-  await rut.assertFails(db("gardener-uid").collection("merged")
+  await rut.assertFails(db("maintainer-uid").collection("merged")
     .add({ ...base, kind: "spine", spine: "01-a.json" }));
   // move onto itself
-  await rut.assertFails(db("gardener-uid").collection("merged")
+  await rut.assertFails(db("maintainer-uid").collection("merged")
     .add({ ...base, kind: "move", file: "01-a.json", topic: TOPIC,
            file2: "01-a.json", topic2: TOPIC }));
   // non-moderator can never create merged docs, structural or not
@@ -232,10 +232,10 @@ guard("proposal lifecycle: create shape enforced; decision status-only", async (
   await testEnv.withSecurityRulesDisabled(async (ctx) => {
     ref = await ctx.firestore().collection("proposals").add({ ...prop, createdAt: new Date() });
   });
-  await rut.assertFails(db("gardener-uid").doc(`proposals/${ref.id}`)
+  await rut.assertFails(db("maintainer-uid").doc(`proposals/${ref.id}`)
     .update({ status: "merged", topic: { id: "swapped" } }));
-  await rut.assertSucceeds(db("gardener-uid").doc(`proposals/${ref.id}`)
-    .update({ status: "merged", decidedAt: 2, decidedBy: { uid: "gardener-uid", name: "Stella" } }));
+  await rut.assertSucceeds(db("maintainer-uid").doc(`proposals/${ref.id}`)
+    .update({ status: "merged", decidedAt: 2, decidedBy: { uid: "maintainer-uid", name: "Stella" } }));
 });
 
 /* ---- collections: owner-curated shelves of maps ---- */
@@ -267,7 +267,7 @@ guard("collections create rejected: anonymous, spoofed owner, self-feature, bad 
     .add(collection({ extra: "field" })));
 });
 
-guard("collections update/delete: owner curates, overseer moderates, strangers do neither", async () => {
+guard("collections update/delete: owner curates, admin moderates, strangers do neither", async () => {
   let ref;
   await testEnv.withSecurityRulesDisabled(async (ctx) => {
     ref = await ctx.firestore().collection("collections")
@@ -283,13 +283,13 @@ guard("collections update/delete: owner curates, overseer moderates, strangers d
   // stranger: nothing
   await rut.assertFails(db("someone").doc(path).update({ title: "Hijacked!!" }));
   await rut.assertFails(db("someone").doc(path).delete());
-  // overseer: moderation switches yes, content no
-  await rut.assertSucceeds(db("overseer-uid").doc(path)
+  // admin: moderation switches yes, content no
+  await rut.assertSucceeds(db("admin-uid").doc(path)
     .update({ featured: true }));
   await rut.assertSucceeds(db("super-uid").doc(path)
     .update({ hidden: true }));
-  await rut.assertFails(db("overseer-uid").doc(path)
-    .update({ title: "Overseer rewrite" }));
+  await rut.assertFails(db("admin-uid").doc(path)
+    .update({ title: "Admin rewrite" }));
   // owner may delete their own
   await rut.assertSucceeds(db("user-uid").doc(path).delete());
 });

@@ -1,0 +1,11 @@
+{
+  "_comment": "The admins' public wanted list (GOVERNANCE.md 'How the library grows'). Shown on the home screen as proposal invitations. Hand-edited by admins; not touched by build.py.",
+  "wanted": [
+    { "title": "Birdwatching", "note": "gear, field marks, songs and calls, habitats through the seasons" },
+    { "title": "Learning to Swim as an Adult", "note": "water comfort, floating, first strokes, open-water basics" },
+    { "title": "Home Repair Essentials", "note": "tools, walls, plumbing basics, electrical safety, when to call a pro" },
+    { "title": "Chess from Zero", "note": "rules, tactics, first openings, endgame basics, playing real games" },
+    { "title": "Everyday Cybersecurity", "note": "passwords, phishing, backups, privacy settings, securing family accounts" },
+    { "title": "Baking Bread", "note": "flour and hydration, kneading, fermentation, first loaves, sourdough" }
+  ]
+}

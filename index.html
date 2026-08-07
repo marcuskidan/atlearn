@@ -7,10 +7,11 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="theme-color" content="#0f1117">
-<title>Human Knowledge Roadmaps</title>
+<meta name="description" content="Waihona is a free online library of learning roadmaps — step-by-step paths for learning real-world skills — written and tended by a community of volunteers, every map kept by a named maintainer.">
+<title>Waihona</title>
 <style>
 /* ============================================================
-   HUMAN KNOWLEDGE ROADMAPS — app shell
+   WAIHONA — app shell
    Content lives in roadmaps/<id>/ folders (see README.md).
    Wrap-ready for iOS via Capacitor/WKWebView (safe-area aware).
    ============================================================ */
@@ -50,7 +51,6 @@ a{color:var(--blue)}
 #brandMark{width:30px;height:30px;border-radius:9px;background:linear-gradient(135deg,var(--accent),#f59e0b);
   display:flex;align-items:center;justify-content:center;font-size:16px;flex:0 0 auto}
 #brandText{font-weight:700;font-size:15.5px;letter-spacing:.2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-#brandSub{font-size:11px;color:var(--muted);margin-top:1px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 #topSpacer{flex:1}
 #userArea{display:flex;align-items:center;gap:8px;flex:0 0 auto}
 #signInBtn{background:var(--accent);color:var(--accent-ink);font-weight:700;font-size:13px;
@@ -162,7 +162,7 @@ a{color:var(--blue)}
 .edge.spineEdge{stroke:#4f78c9;stroke-width:3}
 .edge.spineLead{stroke:#4f78c9;stroke-width:3;stroke-dasharray:1 8}
 .edge.childEdge{stroke:#4f78c9;stroke-width:2;stroke-dasharray:1 7;opacity:.85}
-.edge.mastered{stroke:var(--green);opacity:.9}
+.edge.done{stroke:var(--green);opacity:.9}
 .node{
   position:absolute;border-radius:10px;text-align:left;
   transition:transform .12s,box-shadow .12s;
@@ -189,11 +189,12 @@ a{color:var(--blue)}
 .node.child.recommended{border-color:rgba(125,211,252,.55)}
 .node.child.extra{border-style:dashed;border-color:#414b60}
 .node.child.extra .ntitle{color:var(--muted)}
-.badge{font-size:10px;font-weight:700;letter-spacing:.3px;padding:3px 8px;border-radius:99px;
-  display:inline-flex;align-items:center;gap:5px;text-transform:uppercase}
-.node.child .badge{font-size:8.5px;padding:2px 6px}
+/* status badges are symbols: ○ not started · ⋯ in progress · ✓ done
+   (color carries the state; the title attribute carries the words) */
+.badge{font-size:12px;font-weight:800;line-height:1;padding:3px 9px;border-radius:99px;
+  display:inline-flex;align-items:center;justify-content:center}
+.node.child .badge{font-size:10px;padding:2px 7px}
 .node.child .tierdot{font-size:9px}
-.badge::before{content:"";width:6px;height:6px;border-radius:50%;background:currentColor}
 .badge.s0{background:rgba(139,147,167,.14);color:var(--gray)}
 .badge.s1{background:rgba(96,165,250,.16);color:var(--blue)}
 .badge.s2{background:rgba(74,222,128,.16);color:var(--green)}
@@ -252,8 +253,8 @@ a{color:var(--blue)}
   border-radius:10px;background:var(--bg3);font-size:15px}
 @media (max-width:640px){#closeBtn{top:14px}}
 #statusSeg{display:flex;gap:6px;margin-top:13px}
-#statusSeg button{flex:1;padding:8px 4px;border-radius:10px;font-size:12px;font-weight:650;
-  background:var(--bg3);border:1.4px solid transparent;color:var(--muted)}
+#statusSeg button{flex:1;padding:8px 4px;border-radius:10px;font-size:16px;font-weight:800;
+  line-height:1;background:var(--bg3);border:1.4px solid transparent;color:var(--muted)}
 #statusSeg button.on.o0{border-color:var(--gray);color:var(--text)}
 #statusSeg button.on.o1{border-color:var(--blue);color:var(--blue);background:rgba(96,165,250,.1)}
 #statusSeg button.on.o2{border-color:var(--green);color:var(--green);background:rgba(74,222,128,.1)}
@@ -298,6 +299,13 @@ a{color:var(--blue)}
   border:1.5px dashed var(--line);color:var(--muted);font-size:13px;font-weight:600}
 #suggestBtn:hover{border-color:var(--accent);color:var(--accent)}
 #proposeWrap{max-width:960px;margin:28px auto 0;text-align:center}
+#wantedRow{display:none;flex-wrap:wrap;gap:8px;justify-content:center;align-items:center;
+  margin-bottom:14px}
+#wantedRow.show{display:flex}
+.wantedLbl{font-size:12px;color:var(--faint)}
+.wantedChip{padding:7px 13px;border-radius:99px;background:var(--bg2);
+  border:1px solid var(--line);font-size:12.5px;color:var(--muted)}
+.wantedChip:hover{border-color:var(--accent);color:var(--accent)}
 #proposeBtn{padding:12px 22px;border-radius:12px;border:1.5px dashed var(--line);
   color:var(--muted);font-size:14px;font-weight:600}
 #proposeBtn:hover{border-color:var(--accent);color:var(--accent)}
@@ -359,7 +367,7 @@ a{color:var(--blue)}
 .dline.del{background:rgba(248,113,113,.09);color:#fca5a5}
 .dline.add{background:rgba(74,222,128,.09);color:#86efac}
 
-/* ---------- Overseer editor ---------- */
+/* ---------- Node editor ---------- */
 #editBtn{display:none;position:absolute;top:calc(14px + var(--sat));right:54px;width:32px;height:32px;
   border-radius:10px;background:var(--bg3);font-size:14px}
 @media (max-width:640px){#editBtn{top:14px}}
@@ -461,6 +469,11 @@ select.edInput{appearance:none;-webkit-appearance:none}
 .collChip:hover{border-color:#3b465c}
 .fstar{font-size:10px;font-weight:800;letter-spacing:.4px;text-transform:uppercase;
   padding:3px 8px;border-radius:6px;background:rgba(255,215,94,.15);color:var(--accent)}
+#collSearch{width:100%;max-width:420px;display:block;margin:10px 0 14px;padding:11px 15px;
+  border-radius:11px;border:1px solid var(--line);background:var(--bg2);color:var(--text);
+  font-size:14px;outline:none;transition:border-color .15s}
+#collSearch:focus{border-color:var(--accent)}
+#collSearch::placeholder{color:var(--faint)}
 #collNew{margin:2px 0 16px;padding:10px 16px;border-radius:11px;border:1.5px dashed var(--line);
   color:var(--muted);font-size:13px;font-weight:600}
 #collNew:hover{border-color:var(--accent);color:var(--accent)}
@@ -483,8 +496,7 @@ select.edInput{appearance:none;-webkit-appearance:none}
   <div id="brand">
     <div id="brandMark">🗺️</div>
     <div style="min-width:0">
-      <div id="brandText">Human Knowledge Roadmaps</div>
-      <div id="brandSub">Curated paths for a well-lived life</div>
+      <div id="brandText">Waihona</div>
     </div>
   </div>
   <div id="topSpacer"></div>
@@ -520,7 +532,10 @@ select.edInput{appearance:none;-webkit-appearance:none}
   </div>
   <div id="grid"></div>
   <div id="loadErr"></div>
-  <div id="proposeWrap"><button id="proposeBtn">🌱 Propose a new roadmap…</button></div>
+  <div id="proposeWrap">
+    <div id="wantedRow"></div>
+    <button id="proposeBtn">🌱 Propose a new roadmap…</button>
+  </div>
 </main>
 
 <!-- ================= ABOUT / MANIFESTO ================= -->
@@ -595,20 +610,23 @@ select.edInput{appearance:none;-webkit-appearance:none}
 
   <h2>What this costs you</h2>
   <p>Nothing. Every map, every resource, every contribution — free, forever, for everyone.
-  That isn't a promotional period. It's the point.</p>
+  No ads, ever. That isn't a promotional period. It's the point.</p>
   <p>The project sustains itself the way healthy open projects do: the maps are free, and
   optional conveniences on top of them — synced notes, an AI study companion that knows where
   you are on your path, backups and extras — support the work for those who want them and can
   pay. If you never pay a cent, you get the entire library. If you do, you're keeping it open
   for someone who can't.</p>
-  <div class="sig">Human Knowledge Roadmaps — a commons with gardeners.<br>
+  <div class="sig">Waihona — the free curriculum. A commons with gardeners.<br>
+  A world where anyone can follow the path to learning anything they want, for free —
+  supported by all the resources the internet has to offer, peer-reviewed by people who
+  have walked the path themselves.<br>
   Want to help? Open any node and suggest an improvement, or propose a new map from the home
-  screen. Every map's maintainer is named at the top of its map.</div>
+  screen. Every map has a named maintainer with final say.</div>
 </div></section>
 
-<!-- ================= OVERSEER REVIEW ================= -->
+<!-- ================= REVIEW QUEUE ================= -->
 <section id="reviewView" class="view"><div id="reviewInner">
-  <h2>🛡️ Overseer review</h2>
+  <h2>🛡️ Review queue</h2>
   <div class="sub">Community suggestions awaiting your decision. <b>Publish as tip</b> makes it
   publicly visible under its node (clearly marked as community wisdom — curated content is untouched).
   <b>Accept for curation</b> adds it to your export list to fold into the topic files by hand.</div>
@@ -626,8 +644,8 @@ select.edInput{appearance:none;-webkit-appearance:none}
 <!-- ================= COLLECTIONS ================= -->
 <section id="collectionsView" class="view"><div id="collectionsInner">
   <h2>🧺 Collections</h2>
-  <div class="sub">Shelves of the library — groups of maps, curated and ordered by the
-    people who walk them. Anyone signed in can make one.</div>
+  <input id="collSearch" type="search" placeholder="Search collections…"
+    autocomplete="off" spellcheck="false" aria-label="Search collections">
   <button id="collNew">＋ Create a collection…</button>
   <div id="collList"></div>
 </div></section>
@@ -671,13 +689,13 @@ select.edInput{appearance:none;-webkit-appearance:none}
 <div id="collModal" class="modalWrap">
   <div class="modalCard" style="max-width:480px">
     <h3 id="collModalTitle">Create a collection</h3>
-    <div class="mctx">Group existing maps into a shelf others can browse. You curate it;
-      your name is on it.</div>
     <label class="edLabel">Title</label>
     <input id="collTitle" class="edInput" maxlength="60" placeholder="e.g. Learning the Natural World">
     <label class="edLabel">What ties it together? (optional)</label>
     <textarea id="collBlurb" class="edArea" style="min-height:70px" maxlength="300"></textarea>
     <label class="edLabel">Maps on this shelf</label>
+    <input id="collMapSearch" class="edInput" type="search" placeholder="Search maps…"
+      autocomplete="off" spellcheck="false" aria-label="Search maps to add">
     <div id="collPick" class="collPick"></div>
     <div class="modalBtns">
       <button id="collCancel">Cancel</button>
@@ -697,11 +715,11 @@ select.edInput{appearance:none;-webkit-appearance:none}
     <div class="kicker"><span id="dKicker"></span></div>
     <h2 id="dTitle"></h2>
     <button id="closeBtn" aria-label="Close">✕</button>
-    <button id="editBtn" aria-label="Edit node" title="Edit this node (overseer)">✏️</button>
+    <button id="editBtn" aria-label="Edit node" title="Edit this node">✏️</button>
     <div id="statusSeg">
-      <button class="o0" data-s="0">Not Started</button>
-      <button class="o1" data-s="1">In Progress</button>
-      <button class="o2" data-s="2">Mastered</button>
+      <button class="o0" data-s="0" title="Not Started" aria-label="Not Started">○</button>
+      <button class="o1" data-s="1" title="In Progress" aria-label="In Progress">⋯</button>
+      <button class="o2" data-s="2" title="Done" aria-label="Done">✓</button>
     </div>
   </div>
   <div id="drawerBody">
@@ -877,7 +895,8 @@ const AUTH = {
 (function(){
 "use strict";
 const $=id=>document.getElementById(id);
-const STATUS_LABEL=["Not Started","In Progress","Mastered"];
+const STATUS_LABEL=["Not Started","In Progress","Done"];   // tooltips/aria only
+const STATUS_ICON=["○","⋯","✓"];   // grey circle / blue ellipsis / green check
 const SPINE_W=240, CHILD_W=190, HGAP=64, VGAP=46, CGAP=12, PAD=70;
 const CANVAS_W = PAD*2 + SPINE_W + 2*(HGAP+CHILD_W);
 function flatten(rm){ return rm.nodes.flatMap(n=>[n,...(n.children||[])]); }
@@ -967,7 +986,7 @@ async function loadRoadmap(id){
   return rm;
 }
 /* ---- editorial roles: who tends which map (public meta/roles doc) ---- */
-let MAINTAINERS={}, OVERSEERS=[], SUPERADMINS=[];
+let MAINTAINERS={}, ADMINS=[], SUPERADMINS=[];
 async function loadMaintainers(){
   if(!FIREBASE_CONFIG) return;
   try{
@@ -976,7 +995,7 @@ async function loadMaintainers(){
     if(snap.exists()){
       const d=snap.data();
       MAINTAINERS=d.maintainers||{};
-      OVERSEERS=d.overseers||[];
+      ADMINS=d.admins||[];
       SUPERADMINS=d.superadmins||[];
     }
   }catch(e){}
@@ -985,7 +1004,7 @@ function maintains(rmId){
   return !!(user.provider && MAINTAINERS[rmId] && MAINTAINERS[rmId].uid===user.id);
 }
 function moderatorOfAny(){
-  return isOverseer() || (!!user.provider &&
+  return isAdmin() || (!!user.provider &&
     Object.values(MAINTAINERS).some(m=>m&&m.uid===user.id));
 }
 function maintainerNameOf(entry){
@@ -1096,7 +1115,7 @@ function walking(entry){   // has the user started walking this map?
   return Object.values(recs).some(p=>p.status>0 || (p.notes&&p.notes.trim()) ||
     (p.done||[]).some(Boolean));
 }
-function nextNodeOf(rm){   // first in-progress node, else first not-yet-mastered
+function nextNodeOf(rm){   // first in-progress node, else first not-yet-done
   const f=flatten(rm);
   return f.find(n=>peek(rm.id,n.id).status===1) || f.find(n=>peek(rm.id,n.id).status!==2);
 }
@@ -1107,17 +1126,17 @@ function renderHome(){
   $("heroTitle").innerHTML=active.length?"Welcome back.":"Pick a path. <em>Learn by doing.</em>";
   INDEX.forEach(entry=>{
     // Library cards are deliberately spare — emoji + title, plus a quiet
-    // progress bar once you've mastered something. Everything else (tagline,
+    // progress bar once you've done something. Everything else (tagline,
     // curricula, maintainer) lives on the map itself.
     const recs=store.progress[entry.id]||{};
-    const mastered=Object.values(recs).filter(p=>p.status===2).length;
+    const done=Object.values(recs).filter(p=>p.status===2).length;
     const total=entry.total;
     const card=document.createElement("button");
     card.className="card";
     card.innerHTML=`
       <div class="row1"><div class="emoji">${entry.emoji}</div><h3>${entry.title}</h3></div>
-      ${mastered?`<div class="meta">
-        <div class="pbar" style="margin-right:0"><i style="width:${total?Math.round(mastered/total*100):0}%"></i></div>
+      ${done?`<div class="meta">
+        <div class="pbar" style="margin-right:0"><i style="width:${total?Math.round(done/total*100):0}%"></i></div>
       </div>`:""}`;
     card.onclick=()=>openRoadmap(entry.id);
     grid.appendChild(card);
@@ -1130,8 +1149,8 @@ async function renderContinue(active){
     let rm, nx=null;
     try{ rm=await loadRoadmap(entry.id); nx=nextNodeOf(rm); }catch(e){ continue; }
     const recs=store.progress[entry.id]||{};
-    const mastered=Object.values(recs).filter(p=>p.status===2).length;
-    const pct=Math.round(mastered/entry.total*100);
+    const done=Object.values(recs).filter(p=>p.status===2).length;
+    const pct=Math.round(done/entry.total*100);
     const card=document.createElement("button");
     card.className="ccard";
     card.innerHTML=`
@@ -1140,7 +1159,7 @@ async function renderContinue(active){
         <h3>${entry.title}</h3><span class="pct">${pct}%</span></div>
       ${nx?`<div class="nx">Up next</div><div class="nxt">${esc(nx.title)}</div>
         <div class="nxdo">🛠️ ${esc((nx.do&&nx.do[0]||"").slice(0,110))}${(nx.do&&nx.do[0]||"").length>110?"…":""}</div>`
-        :`<div class="nxdo">🌟 Every node mastered — walk it again or tend the map.</div>`}`;
+        :`<div class="nxdo">🌟 Every node done — walk it again or tend the map.</div>`}`;
     card.onclick=async ()=>{ await openRoadmap(entry.id); if(nx) openNode(nx.id); };
     row.appendChild(card);
   }
@@ -1158,9 +1177,6 @@ async function openRoadmap(id){
   showView("mapView");
   $("backBtn").classList.add("show");
   $("brandText").textContent=currentRm.emoji+" "+currentRm.title;
-  const mName=maintainerNameOf(currentRm);
-  $("brandSub").textContent=(currentRm.curricula||currentRm.tagline)+
-    (mName?` · maintained by ${mName}`:"");
   scale=Math.min(1,(window.innerWidth-24)/CANVAS_W);
   renderGraph();
   $("addTopicBtn").classList.toggle("show", canEdit());
@@ -1173,8 +1189,7 @@ function goHome(){
   $("addTopicBtn").classList.remove("show");
   $("reorgBtn").classList.remove("show");
   $("backBtn").classList.remove("show");
-  $("brandText").textContent="Human Knowledge Roadmaps";
-  $("brandSub").textContent="Curated paths for a well-lived life";
+  $("brandText").textContent="Waihona";
   currentRm=null; renderHome();
   reflectHash("/");
 }
@@ -1191,7 +1206,7 @@ function renderGraph(){
     el.style.width=(cls==="spine"?SPINE_W:CHILD_W)+"px";
     const p=peek(currentRm.id,n.id);
     el.innerHTML=`<div class="ntitle">${n.title}</div>
-      <div class="nrow"><span class="badge s${p.status}">${STATUS_LABEL[p.status]}</span>
+      <div class="nrow"><span class="badge s${p.status}" title="${STATUS_LABEL[p.status]}">${STATUS_ICON[p.status]}</span>
       ${cls==="child"?`<span class="tierdot">${n.tier}</span>`:""}</div>`;
     el.onclick=()=>openNode(n.id);
     layer.appendChild(el); els.set(n.id,el);
@@ -1200,7 +1215,7 @@ function renderGraph(){
   // pass 2: measure real heights, then position nodes and collect edges
   const H=id=>els.get(id).offsetHeight;
   const paths=[];
-  let y=PAD, prevBottom=null, prevMastered=false, firstSy=null;
+  let y=PAD, prevBottom=null, prevDone=false, firstSy=null;
   currentRm.nodes.forEach(n=>{
     const sh=H(n.id), kids=n.children||[];
     const L=[],R=[]; kids.forEach((k,i)=>((i%2?L:R).push(k)));
@@ -1212,8 +1227,8 @@ function renderGraph(){
     sEl.style.left=(cx-SPINE_W/2)+"px"; sEl.style.top=sy+"px";
     const m=peek(currentRm.id,n.id).status===2;
     if(prevBottom!==null)
-      paths.push({d:`M ${cx} ${prevBottom} L ${cx} ${sy}`,cls:"spineEdge"+(m&&prevMastered?" mastered":"")});
-    prevBottom=sy+sh; prevMastered=m;
+      paths.push({d:`M ${cx} ${prevBottom} L ${cx} ${sy}`,cls:"spineEdge"+(m&&prevDone?" done":"")});
+    prevBottom=sy+sh; prevDone=m;
     const rowMid=y+rowH/2;
     [[L,-1],[R,1]].forEach(([arr,dir])=>{
       let cy=rowMid-stackH(arr)/2;
@@ -1226,7 +1241,7 @@ function renderGraph(){
         const x2= dir<0 ? kx+CHILD_W : kx, y2=cy+kh/2;
         const mx=(x1+x2)/2;
         paths.push({d:`M ${x1} ${y1} C ${mx} ${y1}, ${mx} ${y2}, ${x2} ${y2}`,
-          cls:"childEdge"+(peek(currentRm.id,k.id).status===2?" mastered":"")});
+          cls:"childEdge"+(peek(currentRm.id,k.id).status===2?" done":"")});
         cy+=kh+CGAP;
       });
     });
@@ -1311,7 +1326,6 @@ document.querySelectorAll("#statusSeg button").forEach(b=>{
     if(!currentNode) return;
     const p=prog(currentRm.id,currentNode.id);
     p.status=+b.dataset.s; touch(p); persist(); paintStatusSeg(p.status); renderGraph();
-    if(p.status===2) toast("🌟 Mastered: "+currentNode.title);
   };
 });
 let notesT=null;
@@ -1348,7 +1362,7 @@ function paintUser(){
   $("signInBtn").style.display=signed?"none":"block";
   $("userChip").classList.toggle("show",signed);
   if(signed){
-    $("userChip").title="User id: "+user.id+" (used for gardener/overseer roles)";
+    $("userChip").title="User id: "+user.id+" (roles bind to this id — see your account page)";
     $("userName").textContent=user.name;
     $("userAvatar").textContent=user.name[0].toUpperCase();
     $("userAvatar").style.background = user.provider==="google" ? "#4285F4" : "#e5e7eb";
@@ -1409,7 +1423,7 @@ $("signOutBtn").onclick=async ()=>{
 
 /* ---------- community layer ----------
    BDFL pipeline, GitHub-free: signed-in users submit structured suggestions;
-   the overseer reviews in-app; approved items surface as clearly-labeled
+   maintainers/admins review in-app; approved items surface as clearly-labeled
    community tips (curated content is never writable through this path). */
 const tipsCache=new Map();
 async function loadTips(rmId){
@@ -1446,12 +1460,14 @@ function openSuggest(ctx){
   const isRm=ctx.mode==="roadmap";
   $("sgTitle").textContent=isRm?"Propose a new roadmap":"Suggest an improvement";
   $("sgContext").textContent=isRm
-    ? "Describe it as a simple outline — core topics with subtopics, like a table of contents. The overseer reviews every proposal."
-    : `For “${ctx.nodeTitle}” in ${currentRm.title}. Nothing changes until the overseer approves it.`;
+    ? "Describe it as a simple outline — core topics with subtopics, like a table of contents. The admins review every proposal."
+    : `For “${ctx.nodeTitle}” in ${currentRm.title}. Nothing changes until the maintainer approves it.`;
   $("sgTypes").style.display=isRm?"none":"flex";
   sgType=isRm?"roadmap":"tip"; paintSgType();
   $("sgText").value=""; $("sgUrl").value=""; $("sgVerified").checked=false;
   $("sgFree").checked=false;
+  if(isRm && ctx.wanted)   // arriving via a wanted-map chip: start the outline
+    $("sgText").value=ctx.wanted.title+"\n- "+(ctx.wanted.note?`\n\n(The admins noted: ${ctx.wanted.note})`:"");
   $("sgText").placeholder=isRm
     ? "e.g.\nBirdwatching Basics\n- Gear: binoculars before anything\n- Field marks & identification\n- Songs and calls\n- Habitats through the seasons\n- Keeping a life list"
     : SG_HINTS[sgType];
@@ -1502,22 +1518,45 @@ $("sgCancel").onclick=()=>$("suggestModal").classList.remove("show");
 $("suggestBtn").onclick=()=>openSuggest({node:currentNode.id,nodeTitle:currentNode.title});
 $("proposeBtn").onclick=()=>openSuggest({mode:"roadmap"});
 
-/* ---- overseer review queue ---- */
+/* ---- wanted maps: the admins' public request list (roadmaps/wanted.json) ----
+   A chip is a pre-addressed proposal: clicking one opens the new-roadmap form
+   with the wanted title (and the admins' note) already in place. */
+async function renderWanted(){
+  if(EMBEDDED_DATA) return;   // standalone bundle: no wanted list, no fetch
+  try{
+    const r=await fetch("roadmaps/wanted.json",{cache:"no-cache"});
+    if(!r.ok) return;
+    const w=(await r.json()).wanted||[];
+    if(!w.length) return;
+    const row=$("wantedRow");
+    row.innerHTML='<span class="wantedLbl">Maps the library is looking for:</span>';
+    w.forEach(x=>{
+      const b=document.createElement("button"); b.className="wantedChip";
+      b.textContent="🌱 "+x.title;
+      if(x.note) b.title=x.note;
+      b.onclick=()=>openSuggest({mode:"roadmap", wanted:x});
+      row.appendChild(b);
+    });
+    row.classList.add("show");
+  }catch(e){ /* no list, no row */ }
+}
+
+/* ---- review queue (admins see all maps; maintainers their own) ---- */
 function isSuperadmin(){
   if(!user.provider) return false;
   if(!FIREBASE_CONFIG) return user.id==="google:demo-user";  // demo/local mode
   return SUPERADMINS.includes(user.id);
 }
-function isOverseer(){
+function isAdmin(){
   if(!user.provider) return false;
   if(!FIREBASE_CONFIG) return user.id==="google:demo-user";  // demo/local mode
-  return OVERSEERS.includes(user.id) || SUPERADMINS.includes(user.id);
+  return ADMINS.includes(user.id) || SUPERADMINS.includes(user.id);
 }
 let reviewTab="proposals";
-/* Moderation queries must be rules-provable: overseers list a whole
+/* Moderation queries must be rules-provable: admins list a whole
    collection; maintainers issue one where(roadmap==rm) query per map. */
 function moderatedMapIds(){
-  if(isOverseer()) return null;   // null ⇒ unscoped (overseer)
+  if(isAdmin()) return null;   // null ⇒ unscoped (admin)
   return Object.keys(MAINTAINERS).filter(rm=>MAINTAINERS[rm]&&MAINTAINERS[rm].uid===user.id);
 }
 async function fetchModerated(coll, status){
@@ -1547,8 +1586,7 @@ async function fetchSuggestions(status){
 function openReview(){
   showView("reviewView");
   $("backBtn").classList.add("show");
-  $("brandText").textContent=isOverseer()?"🛡️ Overseer review":"🧑‍🌾 Maintainer review";
-  $("brandSub").textContent=isOverseer()?"All maps":"Your maps";
+  $("brandText").textContent=isAdmin()?"🛡️ Admin review":"🧑‍🌾 Maintainer review";
   renderReview();
 }
 $("reviewBtn").onclick=openReview;
@@ -1691,14 +1729,14 @@ async function decideProposal(p,action){
   renderReview();
 }
 /* ---------- account page ----------
-   Identity, roles, data portability — and for overseers/superadmin, the
+   Identity, roles, data portability — and for admins/superadmin, the
    governance panel that edits the public meta/roles doc (see GOVERNANCE.md:
-   overseers bind gardeners; the superadmin binds overseers; the superadmin
+   admins bind maintainers; the superadmin binds admins; the superadmin
    list itself is console-only by rule). */
 function roleChipsHtml(){
   const chips=[];
   if(isSuperadmin()) chips.push('<span class="roleChip gold">👑 Superadmin</span>');
-  else if(isOverseer()) chips.push('<span class="roleChip gold">🛡️ Overseer</span>');
+  else if(isAdmin()) chips.push('<span class="roleChip gold">🛡️ Admin</span>');
   Object.keys(MAINTAINERS)
     .filter(rm=>MAINTAINERS[rm]&&MAINTAINERS[rm].uid===user.id)
     .forEach(rm=>{ const e=INDEX.find(r=>r.id===rm);
@@ -1710,7 +1748,6 @@ function openAccount(){
   showView("accountView");
   $("backBtn").classList.add("show");
   $("brandText").textContent="Your account";
-  $("brandSub").textContent="Identity, roles, and your data";
   closeDrawer();
   renderAccount();
   reflectHash("/account");
@@ -1753,16 +1790,18 @@ function renderAccount(){
   if(moderatorOfAny()) $("acctReview").onclick=openReview;
   renderGovPanel();
 }
-/* ---- governance panel: appoint gardeners (overseer+) & overseers (superadmin) ---- */
+/* ---- governance panel: appoint maintainers (admin+) & admins (superadmin) ----
+   meta/roles fields: maintainers (map), admins (array), superadmins (array,
+   console-only — see firestore.rules). */
 function renderGovPanel(){
   const box=$("acctGov");
-  if(!isOverseer()){ box.innerHTML=""; return; }
+  if(!isAdmin()){ box.innerHTML=""; return; }
   const guardSave=()=>{ if(!canSync()){
     toast("Connect Firebase (config.js) to save roles"); return false; } return true; };
-  box.innerHTML=`<h2 class="secTitle" style="margin-top:26px">Gardeners — who tends each map</h2>
+  box.innerHTML=`<h2 class="secTitle" style="margin-top:26px">Maintainers — who tends each map</h2>
     <div class="sub">Bind a verified user id (they can copy theirs from their own account page)
-    and a display name to each map. Gardeners review and merge for their map only; unassigned
-    maps fall to the overseers. Bindings are public — anyone can read who tends what.</div>`;
+    and a display name to each map. Maintainers review and merge for their map only; unassigned
+    maps fall to the admins. Bindings are public — anyone can read who tends what.</div>`;
   INDEX.forEach(e=>{
     const m=MAINTAINERS[e.id]||{};
     const row=document.createElement("div"); row.className="edRow"; row.style.marginBottom="8px";
@@ -1772,7 +1811,7 @@ function renderGovPanel(){
     box.appendChild(row);
   });
   const save=document.createElement("button"); save.className="edAdd";
-  save.textContent="💾 Save gardeners";
+  save.textContent="💾 Save maintainers";
   save.onclick=async ()=>{
     if(!guardSave()) return;
     const maint={};
@@ -1784,28 +1823,28 @@ function renderGovPanel(){
     try{
       const F=await fb(); if(!F) throw new Error("offline");
       await F.updateDoc(F.doc(F.db,"meta","roles"), {maintainers:maint});
-      MAINTAINERS=maint; toast("🧑‍🌾 Gardeners updated"); renderAccount();
+      MAINTAINERS=maint; toast("🧑‍🌾 Maintainers updated"); renderAccount();
     }catch(e){ toast("Save failed — try again"); }
   };
   box.appendChild(save);
   if(!isSuperadmin()) return;
   const h=document.createElement("h2"); h.className="secTitle"; h.style.marginTop="26px";
-  h.textContent="Overseers — the editorial board";
+  h.textContent="Admins — the editorial board";
   const sub=document.createElement("div"); sub.className="sub";
-  sub.textContent="One user id per line. Overseers decide which maps exist and appoint "+
-    "gardeners. Only you (superadmin) can change this list — and the superadmin list "+
+  sub.textContent="One user id per line. Admins decide which maps exist and appoint "+
+    "maintainers. Only you (superadmin) can change this list — and the superadmin list "+
     "itself can only be changed by hand in the Firebase console, by design.";
   const ta=document.createElement("textarea"); ta.className="edArea"; ta.id="ovList";
-  ta.style.minHeight="80px"; ta.value=OVERSEERS.join("\n");
+  ta.style.minHeight="80px"; ta.value=ADMINS.join("\n");
   const save2=document.createElement("button"); save2.className="edAdd";
-  save2.textContent="💾 Save overseers";
+  save2.textContent="💾 Save admins";
   save2.onclick=async ()=>{
     if(!guardSave()) return;
     const list=ta.value.split("\n").map(s=>s.trim()).filter(Boolean);
     try{
       const F=await fb(); if(!F) throw new Error("offline");
-      await F.updateDoc(F.doc(F.db,"meta","roles"), {overseers:list});
-      OVERSEERS=list; toast("🛡️ Overseers updated"); renderAccount();
+      await F.updateDoc(F.doc(F.db,"meta","roles"), {admins:list});
+      ADMINS=list; toast("🛡️ Admins updated"); renderAccount();
     }catch(e){ toast("Save failed — try again"); }
   };
   box.appendChild(h); box.appendChild(sub); box.appendChild(ta); box.appendChild(save2);
@@ -1814,7 +1853,7 @@ function renderGovPanel(){
    A collection is a pointer, not content — it groups existing maps, so it
    needs no review pipeline: the owner IS the filter (GOVERNANCE.md's fork
    valve). Connected: public-read `collections` Firestore docs. Local/demo:
-   the same records in localStorage, marked device-only. Overseers moderate
+   the same records in localStorage, marked device-only. Admins moderate
    with exactly two switches: featured and hidden. */
 function collConnected(){ return !!(FIREBASE_CONFIG && !FB_FAILED); }
 function localCollections(){ return readJSON("hkr:collections")||[]; }
@@ -1840,21 +1879,36 @@ function openCollections(){
   showView("collectionsView");
   $("backBtn").classList.add("show");
   $("brandText").textContent="🧺 Collections";
-  $("brandSub").textContent="Shelves of the library, curated by its walkers";
   closeDrawer();
+  $("collSearch").value="";
   renderCollections();
   reflectHash("/collections");
 }
+let collItems=[];
 async function renderCollections(){
   const list=$("collList"); list.innerHTML="<div class='sub'>Loading…</div>";
-  const items=(await loadCollections())
-    .filter(c=>!c.hidden || isOverseer() || (user.provider&&c.owner.uid===user.id))
+  collItems=(await loadCollections())
+    .filter(c=>!c.hidden || isAdmin() || (user.provider&&c.owner.uid===user.id))
     .sort((a,b)=>((b.featured?1:0)-(a.featured?1:0)) || (b.updatedAt||0)-(a.updatedAt||0));
-  list.innerHTML="";
+  paintCollections();
+}
+/* search matches title, blurb, curator, and the titles of the maps shelved */
+function collMatches(c,q){
+  if(!q) return true;
+  return [c.title, c.blurb||"", (c.owner&&c.owner.name)||"",
+      ...(c.maps||[]).map(id=>{ const e=INDEX.find(r=>r.id===id); return e?e.title:id; })]
+    .join(" ").toLowerCase().includes(q);
+}
+function paintCollections(){
+  const list=$("collList"); list.innerHTML="";
+  const q=$("collSearch").value.trim().toLowerCase();
   if(!collConnected())
     list.innerHTML="<div class='sub'>⚠️ Not connected — collections here live on this device only.</div>";
+  const items=collItems.filter(c=>collMatches(c,q));
   if(!items.length){
-    list.innerHTML+="<div class='sub'>No shelves yet. Make the first one — group the maps you'd hand to a friend.</div>";
+    list.innerHTML+= q
+      ? "<div class='sub'>No shelves match your search.</div>"
+      : "<div class='sub'>No shelves yet. Make the first one — group the maps you'd hand to a friend.</div>";
     return;
   }
   items.forEach(c=>{
@@ -1872,13 +1926,13 @@ async function renderCollections(){
       ${c.blurb?`<div class="collBlurb">${esc(c.blurb)}</div>`:""}
       <div class="collMaps">${mapsHtml||'<span class="collBy">(these maps have left the library)</span>'}</div>`;
     const mine=!!user.provider && c.owner.uid===user.id;
-    if(mine || isOverseer()){
+    if(mine || isAdmin()){
       const acts=document.createElement("div"); acts.className="sgActs";
       if(mine){
         const be=document.createElement("button"); be.textContent="✎ Edit";
         be.onclick=()=>openCollModal(c); acts.appendChild(be);
       }
-      if(isOverseer()){
+      if(isAdmin()){
         const bf=document.createElement("button"); bf.className="aAcc";
         bf.textContent=c.featured?"★ Unfeature":"☆ Feature";
         bf.onclick=()=>moderateCollection(c,{featured:!c.featured});
@@ -1907,6 +1961,7 @@ function openCollModal(c){
       <span>${e.emoji} ${esc(e.title)}</span>`;
     pick.appendChild(l);
   });
+  $("collMapSearch").value="";
   $("collDelete").style.display=c?"block":"none";
   $("collModal").classList.add("show");
 }
@@ -1979,6 +2034,16 @@ $("collNew").onclick=()=>openCollModal(null);
 $("collSave").onclick=saveCollModal;
 $("collCancel").onclick=()=>$("collModal").classList.remove("show");
 $("collDelete").onclick=deleteCollModal;
+$("collSearch").addEventListener("input",paintCollections);
+/* checked boxes stay checked while hidden — filtering never drops a selection */
+$("collMapSearch").addEventListener("input",()=>{
+  const q=$("collMapSearch").value.trim().toLowerCase();
+  $("collPick").querySelectorAll("label").forEach(l=>{
+    // match the visible title AND the map id ("cook" finds Kitchen Confidence)
+    const hay=(l.textContent+" "+l.querySelector("input").value).toLowerCase();
+    l.style.display=(!q || hay.includes(q))?"":"none";
+  });
+});
 
 async function renderReview(){
   const list=$("reviewList"); list.innerHTML="<div class='sub'>Loading…</div>";
@@ -2062,7 +2127,7 @@ async function decide(s,action){
   renderReview();
 }
 
-/* ---------- overseer editor ----------
+/* ---------- node editor ----------
    Two modes, auto-detected:
    - tools/dev.py running (localhost): saves PUT straight to the topic JSON
      files on disk, validated server-side with the build rules, index rebuilt.
@@ -2070,13 +2135,13 @@ async function decide(s,action){
      the maintainer to drop into the repo and run tools/build.py.            */
 let devMode=false;
 /* Anyone signed in can open the editor — what Save does depends on role:
-   dev server → writes files; maintainer/overseer → merges live (overlay);
+   dev server → writes files; maintainer/admin → merges live (overlay);
    contributor → submits a proposal for the map's maintainer to review. */
 function canEdit(){ return devMode || !!user.provider; }
 function editorMode(){
   if(devMode) return "dev";
   if(!FIREBASE_CONFIG) return "export";
-  if(isOverseer() || (currentRm&&maintains(currentRm.id))) return "merge";
+  if(isAdmin() || (currentRm&&maintains(currentRm.id))) return "merge";
   return user.provider ? "propose" : "export";
 }
 function deepClone(o){ return JSON.parse(JSON.stringify(o)); }
@@ -2547,7 +2612,6 @@ function openAbout(){
   showView("aboutView");
   $("backBtn").classList.add("show");
   $("brandText").textContent="About";
-  $("brandSub").textContent="The world's curriculum — free, forever";
   document.querySelector("#aboutView").scrollTop=0;
   closeDrawer();
   reflectHash("/about");
@@ -2562,7 +2626,7 @@ function exportMyData(){
   const blob=new Blob([JSON.stringify(payload,null,1)],{type:"application/json"});
   const a=document.createElement("a");
   a.href=URL.createObjectURL(blob);
-  a.download=`hkr-data-${user.id.replace(/[^a-z0-9]+/gi,"-")}-${new Date().toISOString().slice(0,10)}.json`;
+  a.download=`waihona-data-${user.id.replace(/[^a-z0-9]+/gi,"-")}-${new Date().toISOString().slice(0,10)}.json`;
   a.click(); URL.revokeObjectURL(a.href);
   toast("📦 Your notes & progress, downloaded — yours to keep");
 }
@@ -2685,7 +2749,7 @@ document.addEventListener("click",e=>{
 /* ---------- boot ---------- */
 (async function boot(){
   paintUser();
-  if(!EMBEDDED_DATA){   // overseer dev server detection (tools/dev.py)
+  if(!EMBEDDED_DATA){   // dev server detection (tools/dev.py)
     fetch("/dev/ping").then(r=>r.ok?r.json():null).then(d=>{
       if(d&&d.ok){ devMode=true;
         toast("🛠 Dev server detected — in-app editing saves to real files"); }
@@ -2713,6 +2777,7 @@ document.addEventListener("click",e=>{
     await loadMaintainers();
     paintUser();          // review-button visibility depends on maintainer roles
     renderHome();
+    renderWanted();       // async; the row appears when the list arrives
     if(location.hash.length>2) applyRoute();   // honor a pasted deep link
     if(user.provider && canSync()){ await pullAndMerge(); renderHome(); }
   }catch(e){

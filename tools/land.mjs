@@ -10,7 +10,7 @@
 //   3. after Pages deploys, the workflow calls this script again with
 //      --retire (ids in $RETIRE_IDS) to delete the docs — the static base
 //      has caught up, so the overlay is no longer needed.
-//   Validation failure → stamps {error} and skips until an overseer clears it.
+//   Validation failure → stamps {error} and skips until an admin clears it.
 //
 // Local dry run:  node tools/land.mjs --dry   (needs GOOGLE_APPLICATION_CREDENTIALS)
 import { execSync } from "node:child_process";

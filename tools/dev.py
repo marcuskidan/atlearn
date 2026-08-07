@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Overseer dev server — serve the app AND make the in-app editor write real files.
+Waihona dev server — serve the app AND make the in-app editor write real files.
 
     python3 tools/dev.py          # http://localhost:8123
 
@@ -188,5 +188,5 @@ class H(SimpleHTTPRequestHandler):
     def log_message(self, *a): pass
 
 if __name__ == "__main__":
-    print(f"Overseer dev server: http://localhost:{PORT}  (in-app editing saves to real files)")
+    print(f"Waihona dev server: http://localhost:{PORT}  (in-app editing saves to real files)")
     ThreadingHTTPServer(("127.0.0.1", PORT), H).serve_forever()

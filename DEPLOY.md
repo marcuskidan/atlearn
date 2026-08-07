@@ -17,7 +17,7 @@ Actions for CI + landing merges) and **Firebase** (accounts + database behind
    allow creating this doc): Firestore → Start collection → id `meta` →
    doc id `roles` → fields:
    - `superadmins` (array) — leave empty for now; you'll add your uid in Stage 3
-   - `overseers` (array) — empty
+   - `admins` (array) — the admin board — empty
    - `maintainers` (map) — empty
 6. **Project settings → Your apps → Web app** → register → copy the
    `firebaseConfig` object.
@@ -29,14 +29,14 @@ Actions for CI + landing merges) and **Firebase** (accounts + database behind
 
 ```bash
 brew install gh && gh auth login
-cd "/path/to/human-knowledge-roadmaps"
-gh repo create human-knowledge-roadmaps --public --source=. --push
+cd "/path/to/waihona"
+gh repo create waihona --public --source=. --push
 ```
 
 Then in the repo's web settings:
 1. **Settings → Pages → Source: GitHub Actions.** The `Deploy Pages` workflow
    publishes on every push to main — your app URL becomes
-   `https://<you>.github.io/human-knowledge-roadmaps/`.
+   `https://<you>.github.io/waihona/`.
 2. **Settings → Secrets and variables → Actions → New repository secret**:
    name `FIREBASE_SERVICE_ACCOUNT`, value = the entire service-account JSON.
 3. Authentication (Firebase console) → **Authorized domains** → add
@@ -53,7 +53,7 @@ git add -A && git commit -m "Configure Firebase + repo" && git push
 Open the live URL, **Sign in** with Google, click your name (top right) —
 your account page shows your uid with a Copy button. In the Firebase console,
 add that uid to `meta/roles → superadmins`. Reload: your account page grows a
-**Governance** panel where you appoint per-map gardeners and the overseer
+**Governance** panel where you appoint per-map maintainers and the admin
 board from now on — no more console visits. (This is the ONLY console-managed
 role, by design: `firestore.rules` never lets any client — even you — edit
 the `superadmins` list, so a compromised account can't mint new root.
@@ -75,7 +75,8 @@ See GOVERNANCE.md.)
 - **Backups (monthly)**: `npm install --no-save firebase-admin && node tools/backup.mjs`
   with `GOOGLE_APPLICATION_CREDENTIALS` pointing at the service-account JSON.
   Backups land in gitignored `backups/` — they contain user data; keep private.
-- **Bus factor**: add a second trusted uid to `meta/roles → overseers`; keep
+- **Bus factor**: add a second trusted uid to `meta/roles → admins`
+  (the admin board); keep
   the service-account JSON and Firebase/GitHub account access in a password
   manager.
 - **Quotas**: Firestore free tier = 50k reads / 20k writes per day — plenty

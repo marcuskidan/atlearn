@@ -7,7 +7,7 @@ node_modules/
 
 # The one real secret in this architecture: the Firebase service-account key.
 # It lives ONLY in GitHub Actions (FIREBASE_SERVICE_ACCOUNT) and on the
-# overseer's machine — these patterns catch an accidental drop into the repo.
+# admin's machine — these patterns catch an accidental drop into the repo.
 *service-account*.json
 *firebase-adminsdk*.json
 

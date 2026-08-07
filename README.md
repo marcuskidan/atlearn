@@ -1,7 +1,14 @@
-# Human Knowledge Roadmaps
+# Waihona
 
-Curated, action-oriented learning roadmaps for general human skills — observational
-astronomy, applied compassion, home horticulture, first aid, and more. Inspired by
+**Waihona is a free online library of learning roadmaps — step-by-step paths
+for learning real-world skills — written and tended by a community of
+volunteers, every map kept by a named maintainer.** The free curriculum, in
+the sense that Wikipedia is the free encyclopedia.
+
+*Waihona* (Hawaiian): a repository — a place where treasured things are kept.
+
+Action-oriented maps for general human skills — observational astronomy,
+applied compassion, home horticulture, first aid, and more. Inspired by
 [roadmap.sh](https://roadmap.sh), but for life instead of code.
 
 **The mission** lives on the app's About page (ⓘ in the top bar) — the
@@ -84,9 +91,9 @@ sharing or embedding in the iOS app as an offline fallback).
 python3 tools/dev.py
 ```
 
-then open http://localhost:8123. This is the **overseer dev server**: it serves
+then open http://localhost:8123. This is the **dev server**: it serves
 the app *and* enables the in-app content editor to save straight to the topic
-files (see "Overseer editing" below). Plain `python3 -m http.server 8123` works
+files (see "In-app editing" below). Plain `python3 -m http.server 8123` works
 too (read-only). Opening `index.html` via `file://` shows a friendly error;
 `dist/standalone.html` works anywhere.
 
@@ -99,7 +106,7 @@ Actions", add the service-account JSON as the one Actions secret, and run
 `python3 tools/configure.py` to write the Firebase config into `config.js`.
 Unconfigured checkouts run in full local/demo mode, always.
 
-## Overseer editing (in-app content tools)
+## In-app editing (content tools)
 
 Run `python3 tools/dev.py` and every node in the app grows a ✏️ button:
 edit the title, tier, summary, links, and do-actions in a form; add, delete,
@@ -160,19 +167,19 @@ editor:
   but Save becomes **Propose change** — the edited topic ships to the backend
   with a base-version hash and a note to the maintainer. No git, no JSON, just
   the same form the maintainer uses.
-- **Maintainers** (one per map, appointed by the overseer in the account
+- **Maintainers** (one per map, appointed by an admin in the account
   page's Governance panel and bound to a verified user id): they see a review queue
   for *their* maps with field-level **diffs** (− old / + new per summary, links,
   do-actions; added/removed subtopics), and one click **merges** — instantly
   live for every user, attributed, and logged in the map's public **history**
   (🕘 on the map view). Their own edits publish immediately ("Save & publish").
   Stale proposals (base changed since proposed) are flagged.
-- **Overseers** (platform-level): appoint gardeners in the account page's
+- **Admins** (platform-level): appoint maintainers in the account page's
   Governance panel (stored in the public `meta/roles` doc), moderate
-  everywhere, and review new-map proposals. The **superadmin** (project
-  steward) appoints overseers from the same panel; the superadmin list itself
-  is only ever edited by hand in the Firebase console — no API path can
-  mint root. **Repo custody is automated**:
+  everywhere, and review new-map proposals. The **superadmin** (root role)
+  appoints admins
+  from the same panel; the superadmin list itself is only ever edited by hand
+  in the Firebase console — no API path can mint root. **Repo custody is automated**:
   a merge instantly creates a public-read `merged` doc that the app renders
   as a live overlay, and the scheduled **Land content** Action turns it into
   an attributed commit on main — validated by `tools/build.py` first — then
@@ -193,7 +200,7 @@ domain experts and everyday learners, so the same loop lives **inside the app**:
   simple outline. Forms embed the quality bar (including an "I've personally
   tried/verified this" attestation, echoing roadmap.sh's contribution rules).
   Sign-in is required to submit — the equivalent of needing a GitHub account.
-- **Review** — overseers and per-map maintainers (bound in the public
+- **Review** — admins and per-map maintainers (bound in the public
   `meta/roles` doc, enforced by `firestore.rules`) get an in-app 🛡️ Review
   queue with three decisions per suggestion:
   - **Publish as tip** → instantly visible to all users under that node, in a
@@ -210,7 +217,7 @@ domain experts and everyday learners, so the same loop lives **inside the app**:
 - **Collections** (`#/collections`) — owner-curated shelves of existing maps
   ("Learning the Natural World"). They're pointers, not content, so they need
   no review pipeline: any signed-in user creates and manages their own;
-  overseers have exactly two moderation switches (feature ★ / hide). This is
+  admins have exactly two moderation switches (feature ★ / hide). This is
   GOVERNANCE.md's "fork valve" — disagreeing with how the library is organized
   has a productive answer that isn't a governance fight. Offline/unconfigured,
   shelves live in localStorage, clearly marked device-only.

@@ -9,7 +9,7 @@
    "tagline": "Learn the night sky with your eyes, binoculars, and eventually a telescope.",
    "curricula": "University Astronomy 101 syllabi and the Astronomical League's observing programs",
    "order": 1,
-   "maintainer": "The Overseer",
+   "maintainer": "The Admins",
    "topics": [
     "01-getting-started.json",
     "02-celestial-sphere.json",
@@ -31,7 +31,7 @@
    "tagline": "Grow food and flowers that actually thrive, from soil test to seed saving",
    "curricula": "Cooperative Extension Master Gardener curricula",
    "order": 2,
-   "maintainer": "The Overseer",
+   "maintainer": "The Admins",
    "topics": [
     "01-know-your-site.json",
     "02-soil.json",
@@ -53,7 +53,7 @@
    "tagline": "From mise en place to cooking without recipes, built on salt, fat, acid, and heat",
    "curricula": "Culinary-school fundamentals and Samin Nosrat's Salt Fat Acid Heat framework",
    "order": 3,
-   "maintainer": "The Overseer",
+   "maintainer": "The Admins",
    "topics": [
     "01-setup-mise-en-place.json",
     "02-knife-skills.json",
@@ -76,7 +76,7 @@
    "tagline": "Build a body that works — strength, endurance, and mobility for real life.",
    "curricula": "NASM & ACE training fundamentals, physical-literacy curricula",
    "order": 4,
-   "maintainer": "The Overseer",
+   "maintainer": "The Admins",
    "topics": [
     "01-honest-baseline.json",
     "02-aerobic-base.json",
@@ -98,7 +98,7 @@
    "tagline": "Know what to do in the minutes before help arrives — and get certified for real.",
    "curricula": "Red Cross & AHA first-aid curricula, FEMA preparedness guidance",
    "order": 5,
-   "maintainer": "The Overseer",
+   "maintainer": "The Admins",
    "topics": [
     "01-first-principles.json",
     "02-get-certified.json",
@@ -120,7 +120,7 @@
    "tagline": "Evidence-based self-care skills — and knowing when to get real help",
    "curricula": "CBT protocols (Beck), Kabat-Zinn's MBSR, WHO mental-health guidance",
    "order": 6,
-   "maintainer": "The Overseer",
+   "maintainer": "The Admins",
    "topics": [
     "01-how-stress-works.json",
     "02-body-foundations.json",
@@ -142,7 +142,7 @@
    "tagline": "Train attention and equanimity with a practice that actually survives contact with real life",
    "curricula": "MBSR 8-week protocol (Kabat-Zinn), contemplative-science research literature",
    "order": 7,
-   "maintainer": "The Overseer",
+   "maintainer": "The Admins",
    "topics": [
     "01-what-meditation-is.json",
     "02-sitting-down.json",
@@ -164,7 +164,7 @@
    "tagline": "Train the skill of caring well — for others and yourself",
    "curricula": "Stanford CCT, Rosenberg's Nonviolent Communication, Neff's self-compassion research",
    "order": 8,
-   "maintainer": "The Overseer",
+   "maintainer": "The Admins",
    "topics": [
     "01-presence-attention.json",
     "02-listening.json",
@@ -185,7 +185,7 @@
    "tagline": "From listening well to holding a room: the speaking skills nobody formally teaches you",
    "curricula": "Toastmasters Pathways, university interpersonal-communication curricula",
    "order": 9,
-   "maintainer": "The Overseer",
+   "maintainer": "The Admins",
    "topics": [
     "01-listening-first.json",
     "02-clear-everyday-speech.json",
@@ -207,7 +207,7 @@
    "tagline": "Spot weak claims, tame your biases, and reason clearly about a noisy world.",
    "curricula": "Informal-logic courses, UW's Calling Bullshit curriculum, and Tetlock's Good Judgment forecasting research",
    "order": 10,
-   "maintainer": "The Overseer",
+   "maintainer": "The Admins",
    "topics": [
     "01-claims-vs-evidence.json",
     "02-your-biased-brain.json",
@@ -229,7 +229,7 @@
    "tagline": "Understand how money actually works — compounding, credit, taxes, and risk — without the sales pitch.",
    "curricula": "CFPB financial well-being framework and Jump$tart Coalition national standards",
    "order": 11,
-   "maintainer": "The Overseer",
+   "maintainer": "The Admins",
    "topics": [
     "01-money-psychology.json",
     "02-knowing-your-numbers.json",
@@ -251,7 +251,7 @@
    "tagline": "From zero to real conversations, using the science of how adults actually acquire languages",
    "curricula": "CEFR framework, FSI language-learning research, Krashen's comprehensible-input theory",
    "order": 12,
-   "maintainer": "The Overseer",
+   "maintainer": "The Admins",
    "topics": [
     "01-choose-and-commit.json",
     "02-sound-first.json",
@@ -273,7 +273,7 @@
    "tagline": "Clear thinking made visible — from clean sentences to work you actually ship",
    "curricula": "University composition curricula, Zinsser's On Writing Well, Strunk & White's The Elements of Style",
    "order": 13,
-   "maintainer": "The Overseer",
+   "maintainer": "The Admins",
    "topics": [
     "01-why-and-for-whom.json",
     "02-clarity-and-concision.json",
@@ -295,7 +295,7 @@
    "tagline": "Train your eye and hand from first marks to a durable daily practice.",
    "curricula": "Classical atelier training, Drawabox, and Betty Edwards' Drawing on the Right Side of the Brain",
    "order": 14,
-   "maintainer": "The Overseer",
+   "maintainer": "The Admins",
    "topics": [
     "01-learning-to-see.json",
     "02-line-and-contour.json",
@@ -317,7 +317,7 @@
    "tagline": "Learn how music actually works — rhythm, melody, harmony, and a trained ear.",
    "curricula": "ABRSM Music Theory Grades 1–3 and aural-skills syllabi",
    "order": 15,
-   "maintainer": "The Overseer",
+   "maintainer": "The Admins",
    "topics": [
     "01-how-music-works.json",
     "02-rhythm-mastery.json",
@@ -340,7 +340,7 @@
    "tagline": "See light, master exposure, and make deliberate photographs — phone camera included.",
    "curricula": "University photo-fundamentals courses (exposure, composition, critique)",
    "order": 16,
-   "maintainer": "The Overseer",
+   "maintainer": "The Admins",
    "topics": [
     "01-seeing-light.json",
     "02-exposure-triangle.json",
