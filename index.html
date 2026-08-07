@@ -136,7 +136,7 @@ a{color:var(--blue)}
 #heroSub a{color:var(--accent);text-decoration:none;font-weight:600}
 
 /* ---------- About / manifesto ---------- */
-#aboutView{overflow-y:auto;-webkit-overflow-scrolling:touch;
+#aboutView,#privacyView{overflow-y:auto;-webkit-overflow-scrolling:touch;
   padding:calc(90px + var(--sat)) 20px calc(60px + var(--sab))}
 .manifesto{max-width:620px;margin:0 auto}
 .manifesto h1{font-size:clamp(23px,4.5vw,30px);line-height:1.25;letter-spacing:-.4px;margin-bottom:22px}
@@ -457,7 +457,14 @@ select.edInput{appearance:none;-webkit-appearance:none}
 #accountInner h2,#collectionsInner h2{font-size:20px;margin-bottom:4px}
 #accountInner .sub,#collectionsInner .sub{color:var(--muted);font-size:13px;
   margin-bottom:14px;line-height:1.55}
-#userChip{cursor:pointer}
+#userChip{cursor:pointer;position:relative}
+/* a decision arrived for one of your contributions — see your account page */
+#userChip.hasNews::after{content:"";position:absolute;top:-3px;right:-3px;
+  width:10px;height:10px;border-radius:50%;background:var(--accent);
+  border:2px solid var(--bg)}
+.tipFlag{margin-left:8px;font-size:10px;color:var(--faint);padding:1px 6px;
+  border-radius:6px;border:1px solid transparent}
+.tipFlag:hover{color:#f87171;border-color:var(--line)}
 .acctCard{background:var(--bg2);border:1px solid var(--line);border-radius:var(--radius);
   padding:18px;margin-bottom:14px}
 .acctRow{display:flex;align-items:center;gap:12px}
@@ -654,12 +661,54 @@ select.edInput{appearance:none;-webkit-appearance:none}
     <button data-v="proposals" class="on">Proposed edits</button>
     <button data-v="pending">Suggestions</button>
     <button data-v="accepted">Accepted for curation</button>
+    <button data-v="reports" style="display:none">⚑ Reports</button>
   </div>
   <div id="reviewList"></div>
 </div></section>
 
 <!-- ================= ACCOUNT ================= -->
 <section id="accountView" class="view"><div id="accountInner"></div></section>
+
+<!-- ================= PRIVACY ================= -->
+<section id="privacyView" class="view"><div class="manifesto">
+  <h1>Privacy</h1>
+  <p>Waihona collects as little as it can and sells nothing. This page is the
+  complete list of what exists about you and where.</p>
+
+  <h2>If you never sign in</h2>
+  <p>Everything — progress, notes, personal versions, shelves — lives in your
+  browser's local storage. We hold nothing, and nothing leaves your device.</p>
+
+  <h2>If you sign in</h2>
+  <p><b>Your identity:</b> the display name, email, and user id your sign-in
+  provider (Google or Apple) shares. We create no passwords and see none.</p>
+  <p><b>Your progress and notes:</b> stored in one private database record
+  that only your account can read or write — enforced server-side by the
+  database's security rules, which are public in the project repository.</p>
+
+  <h2>What becomes public</h2>
+  <p><b>Contributions are public speech.</b> Suggestions and proposals carry
+  your display name to the map's maintainer; a merged change lands in the
+  public GitHub repository, permanently attributed to you, licensed
+  CC BY-SA 4.0. Collections and personal versions you create are public
+  pages showing your display name.</p>
+
+  <h2>What we don't do</h2>
+  <p>No ads. No analytics or tracking scripts. No selling, sharing, or
+  profiling. The app talks to exactly two services: Firebase (accounts and
+  database) and GitHub Pages (the maps themselves).</p>
+
+  <h2>Your controls</h2>
+  <p><b>Download my data</b> — on your account page, one click exports
+  everything as JSON.</p>
+  <p><b>Delete my account</b> — also on your account page. Removes your
+  identity, progress, notes, personal versions, shelves, and any
+  contributions still waiting for review. Contributions already merged into
+  maps remain part of the public record under their license — like a merged
+  pull request, they've become part of the commons.</p>
+  <p>Anything else, or a full attribution-scrub request: see SECURITY.md in
+  the project repository.</p>
+</div></section>
 
 <!-- ================= COLLECTIONS ================= -->
 <section id="collectionsView" class="view"><div id="collectionsInner">
@@ -840,6 +889,9 @@ select.edInput{appearance:none;-webkit-appearance:none}
       Continue with Apple
     </button>
     <div id="authNote" style="font-size:11px;color:var(--faint);margin-top:4px;line-height:1.5"></div>
+    <div style="font-size:11px;margin-top:8px">
+      <a href="#/privacy" id="authPrivacy" style="color:var(--faint)">What we store — privacy</a>
+    </div>
     <button id="authCancel">Not now</button>
   </div>
 </div>
@@ -1126,7 +1178,7 @@ let currentFork=null;   // set while viewing a personal version (Personalize)
 
 /* one view active at a time — every navigation goes through here */
 function showView(id){
-  ["homeView","mapView","reviewView","aboutView","accountView","collectionsView"]
+  ["homeView","mapView","reviewView","aboutView","accountView","collectionsView","privacyView"]
     .forEach(v=>$(v).classList.toggle("active",v===id));
 }
 
@@ -1421,6 +1473,7 @@ async function finishSignIn(u){
   if($("accountView").classList.contains("active")) renderAccount();
   else if($("collectionsView").classList.contains("active")) renderCollections();
   else if(currentRm){ renderGraph(); if(currentNode) openNode(currentNode.id); } else renderHome();
+  checkContribNews();   // light the chip if decisions arrived while away
 }
 async function doSignIn(provider){
   const btn = provider==="google"?$("googleBtn"):$("appleBtn");
@@ -1470,7 +1523,11 @@ function renderTips(list){
     const d=document.createElement("div"); d.className="tipCard";
     d.innerHTML=`${esc(t.text)}
       ${t.url?`<div><a href="${esc(t.url)}" target="_blank" rel="noopener">${esc(t.url)}</a></div>`:""}
-      <div class="tby">🌟 community tip · by ${esc(t.by)}</div>`;
+      <div class="tby">🌟 community tip · by ${esc(t.by)}
+        <button class="tipFlag" title="Report this tip">⚑</button></div>`;
+    d.querySelector(".tipFlag").onclick=()=>reportContent("tip",
+      {roadmap:currentRm.id, node:currentNode?currentNode.id:"", tipId:t.id||"",
+       title:(t.text||"").slice(0,80)});
     box.appendChild(d);
   });
 }
@@ -1615,6 +1672,7 @@ function openReview(){
   showView("reviewView");
   $("backBtn").classList.add("show");
   $("brandText").textContent=isAdmin()?"🛡️ Admin review":"🧑‍🌾 Maintainer review";
+  document.querySelector('#reviewTabs [data-v="reports"]').style.display=isAdmin()?"":"none";
   renderReview();
 }
 $("reviewBtn").onclick=openReview;
@@ -1731,12 +1789,20 @@ async function renderProposals(list){
   }
 }
 async function decideProposal(p,action){
+  let reason="";
+  if(action==="reject"){
+    // GOVERNANCE: a rejection should name the charter rule it hit — the
+    // author reads this on their account page
+    reason=(prompt("Why? Name the charter rule or reason — the contributor will see this:")||"").trim();
+    if(!reason){ toast("A reason is required to reject — the contributor deserves to know why"); return; }
+  }
   try{
     const F=await fb(); if(!F) throw new Error("offline");
     const batch=F.writeBatch(F.db);
     batch.update(F.doc(F.db,"proposals",p.id),
       { status:action==="merge"?"merged":"rejected",
-        decidedAt:Date.now(), decidedBy:{uid:user.id, name:user.name} });
+        decidedAt:Date.now(), decidedBy:{uid:user.id, name:user.name},
+        ...(reason?{reason}:{}) });
     if(action==="merge"){
       // the merged doc is instantly live (public-read overlay) AND the queue
       // entry the landing Action turns into an attributed repo commit —
@@ -1806,9 +1872,15 @@ function renderAccount(){
         <button id="acctExport">📦 Download my data</button>
         <button id="acctSignOut" style="color:#f87171">Sign out</button>
       </div>
+      <div class="uidRow" style="margin-top:12px">
+        <a href="#/privacy" style="font-size:12px">Privacy — what exists about you, and how to erase it</a>
+      </div>
     </div>
+    <div id="acctContrib"></div>
     <div id="acctForks"></div>
-    <div id="acctGov"></div>`;
+    <div id="acctGov"></div>
+    <button class="edDanger" id="acctDelete" style="max-width:340px;margin:30px auto 0;display:block">
+      🗑 Delete my account and data…</button>`;
   $("acctCopyUid").onclick=async ()=>{
     try{ await navigator.clipboard.writeText(user.id);
       toast("Copied — this id is how roles bind to you"); }
@@ -1816,9 +1888,11 @@ function renderAccount(){
   };
   $("acctExport").onclick=exportMyData;
   $("acctSignOut").onclick=()=>$("signOutBtn").onclick();
+  $("acctDelete").onclick=deleteMyAccount;
   if(moderatorOfAny()) $("acctReview").onclick=openReview;
   renderGovPanel();
-  renderMyForks();   // async; fills #acctForks when the list arrives
+  renderMyForks();          // async; fills #acctForks when the list arrives
+  renderMyContributions();  // async; fills #acctContrib + clears the news badge
 }
 /* ---- governance panel: appoint maintainers (admin+) & admins (superadmin) ----
    meta/roles fields: maintainers (map), admins (array), superadmins (array,
@@ -1956,23 +2030,27 @@ function paintCollections(){
       ${c.blurb?`<div class="collBlurb">${esc(c.blurb)}</div>`:""}
       <div class="collMaps">${mapsHtml||'<span class="collBy">(these maps have left the library)</span>'}</div>`;
     const mine=!!user.provider && c.owner.uid===user.id;
-    if(mine || isAdmin()){
-      const acts=document.createElement("div"); acts.className="sgActs";
-      if(mine){
-        const be=document.createElement("button"); be.textContent="✎ Edit";
-        be.onclick=()=>openCollModal(c); acts.appendChild(be);
-      }
-      if(isAdmin()){
-        const bf=document.createElement("button"); bf.className="aAcc";
-        bf.textContent=c.featured?"★ Unfeature":"☆ Feature";
-        bf.onclick=()=>moderateCollection(c,{featured:!c.featured});
-        const bh=document.createElement("button"); bh.className="aRej";
-        bh.textContent=c.hidden?"Unhide":"Hide";
-        bh.onclick=()=>moderateCollection(c,{hidden:!c.hidden});
-        acts.appendChild(bf); acts.appendChild(bh);
-      }
-      d.appendChild(acts);
+    const acts=document.createElement("div"); acts.className="sgActs";
+    if(mine){
+      const be=document.createElement("button"); be.textContent="✎ Edit";
+      be.onclick=()=>openCollModal(c); acts.appendChild(be);
     }
+    if(isAdmin()){
+      const bf=document.createElement("button"); bf.className="aAcc";
+      bf.textContent=c.featured?"★ Unfeature":"☆ Feature";
+      bf.onclick=()=>moderateCollection(c,{featured:!c.featured});
+      const bh=document.createElement("button"); bh.className="aRej";
+      bh.textContent=c.hidden?"Unhide":"Hide";
+      bh.onclick=()=>moderateCollection(c,{hidden:!c.hidden});
+      acts.appendChild(bf); acts.appendChild(bh);
+    }
+    if(!mine){
+      const fl=document.createElement("button"); fl.textContent="⚑";
+      fl.title="Report this shelf";
+      fl.onclick=()=>reportContent("collection",{id:c.id, title:c.title});
+      acts.appendChild(fl);
+    }
+    if(acts.childNodes.length) d.appendChild(acts);
     list.appendChild(d);
   });
 }
@@ -2151,7 +2229,8 @@ function paintForkBanner(base){
       ${mine?"your personal version":"a personal version by "+esc(currentFork.owner.name)} of
       <a href="#/${esc(currentFork.base)}">${esc(base.emoji)} ${esc(base.title)}</a></span>
     <button id="forkShare" title="Copy a link to this version">🔗 Share</button>
-    ${mine?'<button id="forkDelete" title="Delete this version">🗑</button>':""}`;
+    ${mine?'<button id="forkDelete" title="Delete this version">🗑</button>'
+          :'<button id="forkReport" title="Report this version">⚑</button>'}`;
   $("forkShare").onclick=async ()=>{
     const url=location.origin+location.pathname+"#/fork/"+currentFork.id;
     try{ await navigator.clipboard.writeText(url);
@@ -2159,6 +2238,8 @@ function paintForkBanner(base){
     catch(e){ toast("Couldn't copy — the address bar has it"); }
   };
   if(mine) $("forkDelete").onclick=deleteFork;
+  else $("forkReport").onclick=()=>reportContent("fork",
+    {id:currentFork.id, title:currentFork.title});
   b.classList.add("show");
 }
 async function personalize(){
@@ -2263,8 +2344,204 @@ async function renderMyForks(){
   });
 }
 
+/* ---------- the contributor feedback loop ----------
+   Submitting into silence is how a commons loses people (GOVERNANCE:
+   review latency). Authors can read their own suggestions/proposals by
+   rule, so the account page shows every contribution with its outcome and
+   the decision's reason; a dot on the user chip announces fresh decisions. */
+const CONTRIB_STATUS={
+  pending:  ["⏳ Waiting for review","var(--muted)"],
+  published:["🌟 Published as a community tip","var(--green)"],
+  accepted: ["📥 Accepted for curation","var(--accent)"],
+  merged:   ["✅ Merged — live on the map","var(--green)"],
+  rejected: ["✕ Not taken","#f87171"],
+};
+async function myContributions(){
+  if(!canSync())
+    return (readJSON("hkr:outbox")||[]).map(s=>({ctype:"suggestion", ...s}));
+  const out=[];
+  try{
+    const F=await fb(); if(!F) return [];
+    for(const coll of ["suggestions","proposals"]){
+      const snap=await F.getDocs(F.query(F.collection(F.db,coll),
+        F.where("by.uid","==",user.id)));
+      snap.forEach(d=>{
+        const r={ctype:coll.slice(0,-1), id:d.id, ...d.data()};
+        if(r.createdAt&&r.createdAt.toMillis) r.createdAt=r.createdAt.toMillis();
+        out.push(r);
+      });
+    }
+  }catch(e){}
+  out.sort((a,b)=>(b.createdAt||0)-(a.createdAt||0));
+  return out;
+}
+function seenKey(){ return "hkr:seenDecisions:"+user.id; }
+function paintContribBadge(on){ $("userChip").classList.toggle("hasNews", !!on); }
+async function checkContribNews(){
+  if(!canSync()) return;
+  const last=+localStorage.getItem(seenKey())||0;
+  try{
+    const items=await myContributions();
+    paintContribBadge(items.some(c=>c.status && c.status!=="pending" && (c.decidedAt||0)>last));
+  }catch(e){}
+}
+async function renderMyContributions(){
+  const box=$("acctContrib"); if(!box) return;
+  const items=await myContributions();
+  localStorage.setItem(seenKey(), String(Date.now()));   // seeing them clears the badge
+  paintContribBadge(false);
+  if(!items.length){ box.innerHTML=""; return; }
+  box.innerHTML='<h2 class="secTitle" style="margin-top:26px">Your contributions</h2>'+
+    '<div class="sub">Everything you\'ve suggested or proposed, and what became of it.</div>';
+  items.forEach(c=>{
+    const [label,color]=CONTRIB_STATUS[c.status]||[esc(c.status||"?"),"var(--muted)"];
+    const what=c.ctype==="proposal"
+      ? `${esc(c.kind||"edit")} · ${esc(c.roadmap)}${c.topic&&c.topic.title?" · "+esc(c.topic.title):""}`
+      : `${esc(c.type||"")} · ${c.roadmap?esc(c.roadmap):"new roadmap idea"}${c.nodeTitle?" · "+esc(c.nodeTitle):""}`;
+    const d=document.createElement("div"); d.className="sgCard";
+    d.innerHTML=`<div class="sgMeta"><span class="sgType">${esc(c.ctype)}</span><span>${what}</span></div>
+      ${c.text?`<div class="sgText" style="font-size:12.5px">${esc(c.text.slice(0,160))}${c.text.length>160?"…":""}</div>`:""}
+      <div style="margin-top:8px;font-size:12.5px;font-weight:650;color:${color}">${label}</div>
+      ${c.reason?`<div class="sgText" style="margin-top:4px;font-size:12px">✉️ ${esc(c.reason)}</div>`:""}`;
+    if(c.status==="pending" && canSync() && !c.local){
+      const acts=document.createElement("div"); acts.className="sgActs";
+      const w=document.createElement("button"); w.className="aRej"; w.textContent="Withdraw";
+      w.onclick=async ()=>{
+        if(!confirm("Withdraw this contribution?")) return;
+        try{
+          const F=await fb(); if(!F) throw new Error("offline");
+          await F.deleteDoc(F.doc(F.db, c.ctype==="proposal"?"proposals":"suggestions", c.id));
+          toast("Withdrawn"); renderMyContributions();
+        }catch(e){ toast("Couldn't withdraw — try again"); }
+      };
+      acts.appendChild(w); d.appendChild(acts);
+    }
+    box.appendChild(d);
+  });
+}
+
+/* ---------- privacy & the right to leave ---------- */
+function openPrivacy(){
+  showView("privacyView");
+  $("backBtn").classList.add("show");
+  $("brandText").textContent="Privacy";
+  document.querySelector("#privacyView").scrollTop=0;
+  closeDrawer();
+  reflectHash("/privacy");
+}
+async function deleteMyAccount(){
+  if(!confirm("Delete your account and data? Progress, notes, personal versions, shelves, and pending contributions are removed. Contributions already merged into maps stay in the public record (CC BY-SA)— see the Privacy page.")) return;
+  if(!confirm("This cannot be undone. Really delete everything?")) return;
+  const uid=user.id;
+  try{
+    if(canSync()){
+      const F=await fb(); if(!F) throw new Error("offline");
+      try{ await F.deleteDoc(F.doc(F.db,"users",uid)); }catch(e){}
+      for(const coll of ["forks","collections"]){
+        try{
+          const snap=await F.getDocs(F.query(F.collection(F.db,coll),
+            F.where("owner.uid","==",uid)));
+          for(const d of snap.docs){ try{ await F.deleteDoc(d.ref); }catch(e){} }
+        }catch(e){}
+      }
+      for(const coll of ["suggestions","proposals"]){
+        try{
+          const snap=await F.getDocs(F.query(F.collection(F.db,coll),
+            F.where("by.uid","==",uid)));
+          for(const d of snap.docs){
+            if(d.data().status==="pending"){ try{ await F.deleteDoc(d.ref); }catch(e){} }
+          }
+        }catch(e){}
+      }
+      try{ if(F.auth.currentUser) await F.auth.currentUser.delete(); }
+      catch(e){  // Firebase wants a recent login for account removal
+        try{ await F.signOut(F.auth); }catch(_){}
+        toast("Data deleted. To fully remove the sign-in identity, sign in once more and delete again.");
+      }
+    }
+    localStorage.removeItem(storeKey(uid));
+    localStorage.removeItem(seenKey());
+    saveLocalForks(localForks().filter(f=>!(f.owner&&f.owner.uid===uid)));
+    saveLocalCollections(localCollections().filter(c=>!(c.owner&&c.owner.uid===uid)));
+    localStorage.setItem("hkr:outbox",
+      JSON.stringify((readJSON("hkr:outbox")||[]).filter(s=>!(s.by&&s.by.id===uid))));
+    user={id:"guest", name:"Guest", provider:null};
+    localStorage.setItem("hkr:user", JSON.stringify(user));
+    store=migrateStore(readJSON(storeKey("guest")));
+    paintUser(); goHome();
+    toast("Your account and data are deleted. Walk on as a guest anytime.");
+  }catch(e){ toast("Deletion hit a problem — try again, or see the Privacy page"); }
+}
+
+/* ---------- reports: the community's flag on public content ---------- */
+async function reportContent(kind, target){
+  if(!user.provider){ $("authModal").classList.add("show"); toast("Sign in to report"); return; }
+  const text=(prompt("What's wrong here? One sentence helps the admins act:")||"").trim();
+  if(text.length<5){ if(text) toast("A few more words, please"); return; }
+  try{
+    if(canSync()){
+      const F=await fb(); if(!F) throw new Error("offline");
+      await F.addDoc(F.collection(F.db,"reports"),
+        {kind, target, text, by:{uid:user.id, name:user.name}, createdAt:F.serverTimestamp()});
+    }else{
+      const list=readJSON("hkr:reports")||[];
+      list.push({id:"local-"+Date.now().toString(36), kind, target, text,
+                 by:{uid:user.id, name:user.name}, createdAt:Date.now(), local:true});
+      localStorage.setItem("hkr:reports", JSON.stringify(list));
+    }
+    toast("⚑ Reported — the admins will take a look");
+  }catch(e){ toast("Couldn't send the report — try again"); }
+}
+async function renderReports(list){
+  if(!isAdmin()){ list.innerHTML="<div class='sub'>Reports are admin-only.</div>"; return; }
+  let items=[];
+  if(canSync()){
+    try{
+      const F=await fb(); if(!F) throw new Error("offline");
+      const snap=await F.getDocs(F.collection(F.db,"reports"));
+      snap.forEach(d=>{
+        const r={id:d.id, ...d.data()};
+        if(r.createdAt&&r.createdAt.toMillis) r.createdAt=r.createdAt.toMillis();
+        items.push(r);
+      });
+    }catch(e){ list.innerHTML="<div class='sub'>Couldn't load reports.</div>"; return; }
+  }else items=readJSON("hkr:reports")||[];
+  items.sort((a,b)=>(b.createdAt||0)-(a.createdAt||0));
+  list.innerHTML="";
+  if(!items.length){ list.innerHTML="<div class='sub'>No reports. 🎉</div>"; return; }
+  items.forEach(r=>{
+    const d=document.createElement("div"); d.className="sgCard";
+    d.innerHTML=`<div class="sgMeta"><span class="sgType">⚑ ${esc(r.kind)}</span>
+        <span>${esc((r.target&&(r.target.title||r.target.id))||"")}</span>
+        <span>by ${esc(r.by.name)}</span></div>
+      <div class="sgText">${esc(r.text)}</div>`;
+    const acts=document.createElement("div"); acts.className="sgActs";
+    const open=document.createElement("button"); open.textContent="Open it";
+    open.onclick=()=>{
+      if(r.kind==="collection") location.hash="#/collections";
+      else if(r.kind==="fork" && r.target&&r.target.id) location.hash="#/fork/"+r.target.id;
+      else if(r.kind==="tip" && r.target&&r.target.roadmap)
+        location.hash="#/"+r.target.roadmap+(r.target.node?"/"+encodeURIComponent(r.target.node):"");
+    };
+    const dis=document.createElement("button"); dis.className="aRej"; dis.textContent="Dismiss";
+    dis.onclick=async ()=>{
+      try{
+        if(canSync() && !r.local){
+          const F=await fb(); if(!F) throw new Error("offline");
+          await F.deleteDoc(F.doc(F.db,"reports",r.id));
+        }else localStorage.setItem("hkr:reports",
+          JSON.stringify((readJSON("hkr:reports")||[]).filter(x=>x.id!==r.id)));
+        renderReview();
+      }catch(e){ toast("Failed — try again"); }
+    };
+    acts.appendChild(open); acts.appendChild(dis); d.appendChild(acts);
+    list.appendChild(d);
+  });
+}
+
 async function renderReview(){
   const list=$("reviewList"); list.innerHTML="<div class='sub'>Loading…</div>";
+  if(reviewTab==="reports") return renderReports(list);
   if(reviewTab==="proposals"){
     if(!canSync()){ list.innerHTML="<div class='sub'>⚠️ Proposed edits appear once the app is connected (FIREBASE_CONFIG) and you're signed in.</div>"; return; }
     return renderProposals(list);
@@ -2318,10 +2595,16 @@ async function renderReview(){
   });
 }
 async function decide(s,action){
+  let reason="";
+  if(action==="reject"){
+    reason=(prompt("Why? Name the charter rule or reason — the contributor will see this:")||"").trim();
+    if(!reason){ toast("A reason is required to reject — the contributor deserves to know why"); return; }
+  }
   if(!canSync()){
     const ob=readJSON("hkr:outbox")||[];
     const rec=ob.find(x=>x.id===s.id);
-    if(rec) rec.status={tip:"published",accept:"accepted",reject:"rejected"}[action];
+    if(rec){ rec.status={tip:"published",accept:"accepted",reject:"rejected"}[action];
+             rec.decidedAt=Date.now(); if(reason) rec.reason=reason; }
     localStorage.setItem("hkr:outbox",JSON.stringify(ob));
   }else{
     try{
@@ -2329,7 +2612,8 @@ async function decide(s,action){
       const batch=F.writeBatch(F.db);
       batch.update(F.doc(F.db,"suggestions",s.id),
         { status:{tip:"published",accept:"accepted",reject:"rejected"}[action],
-          decidedAt:Date.now(), decidedBy:{uid:user.id, name:user.name} });
+          decidedAt:Date.now(), decidedBy:{uid:user.id, name:user.name},
+          ...(reason?{reason}:{}) });
       if(action==="tip" && s.roadmap && s.node){
         batch.set(F.doc(F.db,"tips",s.roadmap),
           { [s.node]: F.arrayUnion({ id:s.id, text:s.text, url:s.url||"",
@@ -2914,7 +3198,7 @@ window.addEventListener("resize",()=>{
 /* ---------- URL routing: the hash is a shareable address ----------
    #/              home                #/about           the manifesto
    #/account       your account        #/collections     the shelves
-   #/fork/<id>     a personal version  (#/fork/<id>/<node> opens its drawer)
+   #/privacy       the privacy page    #/fork/<id>       a personal version
    #/<map>         a roadmap           #/<map>/<node>    node drawer open
    Navigation functions call reflectHash() to keep the address bar honest;
    external changes (pasted links, back/forward) flow through applyRoute(). */
@@ -2935,6 +3219,7 @@ async function applyRoute(){
     if(map==="about"){ openAbout(); return; }
     if(map==="account"){ openAccount(); return; }
     if(map==="collections"){ openCollections(); return; }
+    if(map==="privacy"){ openPrivacy(); return; }
     if(map==="fork"){   // #/fork/<id>[/<node>] — a shared personal version
       if(parts[1]) await openFork(parts[1], parts[2]); else goHome();
       return;
@@ -3054,7 +3339,7 @@ document.addEventListener("click",e=>{
     renderHome();
     renderWanted();       // async; the row appears when the list arrives
     if(location.hash.length>2) applyRoute();   // honor a pasted deep link
-    if(user.provider && canSync()){ await pullAndMerge(); renderHome(); }
+    if(user.provider && canSync()){ await pullAndMerge(); renderHome(); checkContribNews(); }
   }catch(e){
     const el=$("loadErr");
     el.style.display="block";

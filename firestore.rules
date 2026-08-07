@@ -98,12 +98,19 @@ service cloud.firestore {
         && request.resource.data.node.size() <= 80
         && request.resource.data.nodeTitle.size() <= 120
         && request.resource.data.createdAt == request.time;
-      allow read: if isAdmin() || maintains(resource.data.roadmap);
+      // authors can always see their own contribution and its outcome —
+      // the feedback loop is what keeps contributors (GOVERNANCE: review
+      // latency kills a commons). `reason` rides along on decisions so a
+      // rejection can name the charter rule it hit.
+      allow read: if isAdmin() || maintains(resource.data.roadmap)
+        || (signedIn() && resource.data.by.uid == request.auth.uid);
       allow update: if moderates(resource.data.roadmap)
         && request.resource.data.diff(resource.data).affectedKeys()
-             .hasOnly(['status','decidedAt','decidedBy'])
+             .hasOnly(['status','decidedAt','decidedBy','reason'])
         && request.resource.data.status in ['published','accepted','rejected'];
-      allow delete: if isAdmin();
+      allow delete: if isAdmin()
+        || (signedIn() && resource.data.by.uid == request.auth.uid
+            && resource.data.status == 'pending');
     }
 
     match /proposals/{id} {
@@ -118,12 +125,15 @@ service cloud.firestore {
         && request.resource.data.note is string
         && request.resource.data.note.size() <= 1000
         && request.resource.data.createdAt == request.time;
-      allow read: if isAdmin() || maintains(resource.data.roadmap);
+      allow read: if isAdmin() || maintains(resource.data.roadmap)
+        || (signedIn() && resource.data.by.uid == request.auth.uid);
       allow update: if moderates(resource.data.roadmap)
         && request.resource.data.diff(resource.data).affectedKeys()
-             .hasOnly(['status','decidedAt','decidedBy'])
+             .hasOnly(['status','decidedAt','decidedBy','reason'])
         && request.resource.data.status in ['merged','rejected'];
-      allow delete: if isAdmin();
+      allow delete: if isAdmin()
+        || (signedIn() && resource.data.by.uid == request.auth.uid
+            && resource.data.status == 'pending');
     }
 
     // Merged edits: the live content overlay (public read) AND the landing
@@ -195,6 +205,23 @@ service cloud.firestore {
                .hasOnly(['hidden']));
       allow delete: if isAdmin()
         || (signedIn() && resource.data.owner.uid == request.auth.uid);
+    }
+
+    // Reports: the community's flag on public content (tips, collections,
+    // personal versions). Write-only for users, read/delete for admins —
+    // a report is a message to the moderators, not public speech.
+    match /reports/{id} {
+      allow create: if signedIn()
+        && request.resource.data.keys().hasOnly(['kind','target','text','by','createdAt'])
+        && request.resource.data.kind in ['tip','collection','fork']
+        && request.resource.data.target is map
+        && request.resource.data.text is string
+        && request.resource.data.text.size() >= 5
+        && request.resource.data.text.size() <= 500
+        && request.resource.data.by.uid == request.auth.uid
+        && request.resource.data.createdAt == request.time;
+      allow read, delete: if isAdmin();
+      allow update: if false;
     }
 
     match /collections/{id} {

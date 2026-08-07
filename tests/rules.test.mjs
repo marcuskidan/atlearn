@@ -119,6 +119,54 @@ guard("suggestion moderation: scoped to the map's maintainer", async () => {
     .update({ status: "published", decidedAt: 1, decidedBy: { uid: "maintainer-uid", name: "Stella" } }));
 });
 
+guard("contributor feedback loop: author reads own, deletes own pending only; decisions carry a reason", async () => {
+  let ref;
+  await testEnv.withSecurityRulesDisabled(async (ctx) => {
+    ref = await ctx.firestore().collection("suggestions").add(suggestion({ createdAt: new Date() }));
+  });
+  const path = `suggestions/${ref.id}`;
+  // author sees their own submission; a stranger still cannot
+  await rut.assertSucceeds(db("user-uid").doc(path).get());
+  await rut.assertFails(db("someone").doc(path).get());
+  // decision may carry a reason the author will read
+  await rut.assertSucceeds(db("maintainer-uid").doc(path)
+    .update({ status: "rejected", decidedAt: 1, reason: "Charter rule 1: the link is paywalled",
+              decidedBy: { uid: "maintainer-uid", name: "Stella" } }));
+  // once decided, the author can no longer withdraw it
+  await rut.assertFails(db("user-uid").doc(path).delete());
+  // …but a pending one they can
+  let ref2;
+  await testEnv.withSecurityRulesDisabled(async (ctx) => {
+    ref2 = await ctx.firestore().collection("suggestions").add(suggestion({ createdAt: new Date() }));
+  });
+  await rut.assertFails(db("someone").doc(`suggestions/${ref2.id}`).delete());
+  await rut.assertSucceeds(db("user-uid").doc(`suggestions/${ref2.id}`).delete());
+});
+
+guard("reports: signed-in create with shape caps; admin-only read/delete; immutable", async () => {
+  const report = { kind: "collection", target: { id: "coll-1", title: "Spam shelf" },
+    text: "This collection is advertising a paid course.",
+    by: { uid: "user-uid", name: "U" }, createdAt: sgTs() };
+  await rut.assertSucceeds(db("user-uid").collection("reports").add(report));
+  await rut.assertFails(db(null).collection("reports").add(report));
+  await rut.assertFails(db("user-uid").collection("reports")
+    .add({ ...report, by: { uid: "other", name: "X" } }));
+  await rut.assertFails(db("user-uid").collection("reports")
+    .add({ ...report, kind: "map" }));
+  await rut.assertFails(db("user-uid").collection("reports")
+    .add({ ...report, text: "spam" }));   // under the 5-char floor
+  let ref;
+  await testEnv.withSecurityRulesDisabled(async (ctx) => {
+    ref = await ctx.firestore().collection("reports").add({ ...report, createdAt: new Date() });
+  });
+  await rut.assertFails(db("user-uid").doc(`reports/${ref.id}`).get());
+  await rut.assertSucceeds(db("admin-uid").doc(`reports/${ref.id}`).get());
+  await rut.assertFails(db("user-uid").doc(`reports/${ref.id}`).delete());
+  await rut.assertFails(db("admin-uid").doc(`reports/${ref.id}`)
+    .update({ text: "edited" }));
+  await rut.assertSucceeds(db("admin-uid").doc(`reports/${ref.id}`).delete());
+});
+
 guard("maintainer of astro cannot moderate another map", async () => {
   let ref;
   await testEnv.withSecurityRulesDisabled(async (ctx) => {
