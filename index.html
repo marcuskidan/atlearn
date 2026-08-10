@@ -65,21 +65,19 @@ html[data-theme=dark]{
 }
 html[data-theme=dark] .ssoBtn.google{background:#fff;color:#1f2937}
 *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
-html,body{height:100%}
+html{height:100%} body{min-height:100%}
 body{
   font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Roboto,sans-serif;
   background:var(--bg); color:var(--text);
-  overflow:hidden; overscroll-behavior:none;
+  overflow-x:hidden; overscroll-behavior-y:none;
   -webkit-font-smoothing:antialiased;
-  display:flex;flex-direction:column;
 }
 button{font:inherit;color:inherit;background:none;border:none;cursor:pointer}
 a{color:var(--blue)}
 
 /* ---------- Top bar ---------- */
-/* static, in the document — content scrolls below it, never under it */
+/* in the document flow — it scrolls away with the page like any header */
 #topbar{
-  flex:0 0 auto;
   padding:calc(10px + var(--sat)) calc(16px + var(--sar)) 10px calc(16px + var(--sal));
   display:flex;align-items:center;gap:12px;
   background:var(--bg);
@@ -91,8 +89,6 @@ a{color:var(--blue)}
 #backBtn.show{display:flex}
 #brand{display:flex;align-items:center;gap:9px;min-width:0;cursor:pointer}
 #brandMark{font-size:19px;flex:0 0 auto;display:flex;align-items:center;justify-content:center}
-#brandText{font-family:var(--serif);font-weight:400;font-size:21px;letter-spacing:.2px;
-  white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 #topSpacer{flex:1}
 #userArea{display:flex;align-items:center;gap:8px;flex:0 0 auto}
 #signInBtn{background:var(--ink);color:var(--paper);font-weight:600;font-size:13px;
@@ -109,12 +105,11 @@ a{color:var(--blue)}
 #syncDot.off{display:none}
 
 /* ---------- Views (flex children below the static top bar) ---------- */
-.view{position:relative;flex:1;min-height:0;overflow:hidden;display:none}
+.view{position:relative;display:none}
 .view.active{display:block}
 
 /* ---------- Home / category selector ---------- */
-#homeView{overflow-y:auto;-webkit-overflow-scrolling:touch;
-  padding:24px calc(16px + var(--sar)) calc(40px + var(--sab)) calc(16px + var(--sal))}
+#homeView{padding:24px calc(16px + var(--sar)) calc(40px + var(--sab)) calc(16px + var(--sal))}
 #homeHero{max-width:960px;margin:18px auto 30px}
 #homeHero h1{font-family:var(--serif);font-weight:400;font-size:clamp(30px,5vw,44px);
   line-height:1.12;letter-spacing:-.2px}
@@ -178,7 +173,6 @@ a{color:var(--blue)}
 
 /* ---------- About / manifesto (and every scrolling document view) ---------- */
 #aboutView,#privacyView,#atlasView,#journalView,#guildView,#healthView,#categoryView{
-  overflow-y:auto;-webkit-overflow-scrolling:touch;
   padding:26px 20px calc(60px + var(--sab))}
 .manifesto{max-width:620px;margin:0 auto}
 .manifesto h1{font-family:var(--serif);font-weight:400;font-size:clamp(26px,4.5vw,34px);
@@ -199,7 +193,7 @@ a{color:var(--blue)}
    centered spine with branches left and right; narrow screens read as
    an outline, children indented beneath their core topic in true order. */
 #mapView{background:var(--bg)}
-#scroller{position:absolute;inset:0;overflow-y:auto;-webkit-overflow-scrolling:touch}
+#scroller{position:relative}
 #mapFlow{position:relative;max-width:940px;margin:0 auto;
   padding:30px calc(16px + var(--sar)) calc(90px + var(--sab)) calc(16px + var(--sal))}
 /* the spine rule runs the length of the walk; cards sit on it */
@@ -262,7 +256,7 @@ a{color:var(--blue)}
 .tierdot{margin-left:auto;font-size:10px;color:var(--faint);letter-spacing:.4px;text-transform:uppercase}
 
 /* ---------- Personal versions (Personalize) ---------- */
-#forkBanner{display:none;position:fixed;z-index:30;top:calc(66px + var(--sat));
+#forkBanner{display:none;position:fixed;z-index:30;top:calc(10px + var(--sat));
   left:50%;transform:translateX(-50%);max-width:min(720px,92vw);
   background:color-mix(in srgb,var(--bg2) 96%,transparent);backdrop-filter:blur(10px);
   border:1px solid var(--line2);border-radius:4px;padding:8px 14px;
@@ -574,8 +568,7 @@ a{color:var(--blue)}
 #reviewBtn{display:none;border:1px solid var(--line);
   font-size:13px;font-weight:650;padding:8px 13px;border-radius:4px}
 #reviewBtn.show{display:block}
-#reviewView{overflow-y:auto;-webkit-overflow-scrolling:touch;
-  padding:24px 16px calc(40px + var(--sab))}
+#reviewView{padding:24px 16px calc(40px + var(--sab))}
 #reviewInner{max-width:760px;margin:0 auto}
 #reviewInner h2{font-family:var(--serif);font-weight:400;font-size:24px;margin-bottom:4px}
 #reviewInner .sub{color:var(--muted);font-size:13px;margin-bottom:14px;line-height:1.55}
@@ -677,8 +670,7 @@ select.edInput{appearance:none;-webkit-appearance:none}
 .signout{color:var(--red) !important;font-size:12px}
 
 /* ---------- Account & collections ---------- */
-#accountView,#collectionsView{overflow-y:auto;-webkit-overflow-scrolling:touch;
-  padding:24px 16px calc(40px + var(--sab))}
+#accountView,#collectionsView{padding:24px 16px calc(40px + var(--sab))}
 #accountInner,#collectionsInner{max-width:760px;margin:0 auto}
 #accountInner h2,#collectionsInner h2{font-family:var(--serif);font-weight:400;font-size:24px;margin-bottom:4px}
 #accountInner .sub,#collectionsInner .sub{color:var(--muted);font-size:13px;
@@ -748,9 +740,6 @@ select.edInput{appearance:none;-webkit-appearance:none}
   <button id="backBtn" aria-label="Back to roadmaps">←</button>
   <div id="brand" role="link" aria-label="Home" title="Home">
     <div id="brandMark">🗺️</div>
-    <div style="min-width:0">
-      <div id="brandText"></div>
-    </div>
   </div>
   <div id="topSpacer"></div>
   <div id="userArea">
@@ -771,7 +760,7 @@ select.edInput{appearance:none;-webkit-appearance:none}
   <div id="homeHero">
     <h1 id="heroTitle">Atlearn</h1>
     <p id="heroSub">A world where anyone can follow the path to learning anything they
-      want, for free — supported by all the resources the internet has to offer,
+      want, for free, supported by all the resources the internet has to offer,
       peer-reviewed by people who have walked the path themselves.
       <a href="#" id="aboutLink">Why this exists →</a> ·
       <span id="heroCollLink" style="display:none"><a href="#/collections">Browse collections →</a> ·</span>
@@ -874,7 +863,7 @@ select.edInput{appearance:none;-webkit-appearance:none}
   pay. If you never pay a cent, you get the entire library. If you do, you're keeping it open
   for someone who can't.</p>
   <div class="sig">Atlearn — the free curriculum. A commons with gardeners.<br>
-  A world where anyone can follow the path to learning anything they want, for free —
+  A world where anyone can follow the path to learning anything they want, for free,
   supported by all the resources the internet has to offer, peer-reviewed by people who
   have walked the path themselves.<br>
   Want to help? Open any node and suggest an improvement, or propose a new map from the home
@@ -1677,6 +1666,7 @@ function showView(id){
   ["homeView","mapView","reviewView","aboutView","accountView","collectionsView","privacyView",
    "atlasView","journalView","guildView","healthView","categoryView"]
     .forEach(v=>$(v).classList.toggle("active",v===id));
+  document.scrollingElement.scrollTop=0;   // the document is the scroller
 }
 
 /* ---------- home ----------
@@ -1768,12 +1758,10 @@ async function openRoadmap(id){
   $("forkBanner").classList.remove("show");
   showView("mapView");
   $("backBtn").classList.add("show");
-  $("brandText").textContent=currentRm.emoji+" "+currentRm.title;
   renderMapHeader();
   renderGraph();
   $("addTopicBtn").classList.toggle("show", ownsSurface());
   $("reorgBtn").classList.toggle("show", ownsSurface());
-  $("scroller").scrollTop=0;
   reflectHash("/"+id+"/map");
 }
 /* The map's chrome, kept minimal: title · one byline · small buttons.
@@ -1838,9 +1826,7 @@ async function openCategory(id, forcePicker=false){
   if(!forcePicker && branches.length===0){ openRoadmap(id); return; }
   showView("categoryView");
   $("backBtn").classList.add("show");
-  $("brandText").textContent=e.emoji+" "+e.title;
   closeDrawer();
-  $("categoryView").scrollTop=0;
   catId=id;
   const who=maintainerNameOf(e);
   // Identity in as few lines as it takes: title, a byline only when a real
@@ -2237,7 +2223,6 @@ function goHome(){
   $("addTopicBtn").classList.remove("show");
   $("reorgBtn").classList.remove("show");
   $("backBtn").classList.remove("show");
-  $("brandText").textContent="";   // home: the hero carries the wordmark
   currentRm=null; currentFork=null; renderHome();
   reflectHash("/");
 }
@@ -2791,8 +2776,6 @@ async function fetchSuggestions(status){
 function openReview(){
   showView("reviewView");
   $("backBtn").classList.add("show");
-  $("brandText").textContent=isAdmin()?"🛡️ Admin review"
-    :moderatorOfAny()?"🧑‍🌾 Maintainer review":"🪴 Steward review";
   // steward-only viewers get exactly their scope: trivial-proposal review.
   // Suggestions are author-or-moderator readable by rules, so those tabs
   // would always be empty for a steward — hide them rather than mislead.
@@ -3140,7 +3123,6 @@ function roleChipsHtml(){
 function openAccount(){
   showView("accountView");
   $("backBtn").classList.add("show");
-  $("brandText").textContent="Your account";
   closeDrawer();
   renderAccount();
   reflectHash("/account");
@@ -3461,7 +3443,6 @@ async function loadCollections(){
 function openCollections(){
   showView("collectionsView");
   $("backBtn").classList.add("show");
-  $("brandText").textContent="🧺 Collections";
   closeDrawer();
   $("collSearch").value="";
   renderCollections();
@@ -3475,9 +3456,7 @@ let atlasSort="order";
 function openAtlas(){
   showView("atlasView");
   $("backBtn").classList.add("show");
-  $("brandText").textContent="🗺 The Atlas";
   closeDrawer();
-  $("atlasView").scrollTop=0;
   renderAtlas();
   reflectHash("/atlas");
 }
@@ -3596,9 +3575,7 @@ $("atlasSearch").addEventListener("input",()=>{
 async function openHealth(){
   showView("healthView");
   $("backBtn").classList.add("show");
-  $("brandText").textContent="🩺 Vital signs";
   closeDrawer();
-  $("healthView").scrollTop=0;
   reflectHash("/health");
   const body=$("healthBody");
   body.innerHTML="<div class='sub'>Loading…</div>";
@@ -3658,9 +3635,7 @@ async function openGuild(gid){
   if(!g){ toast("⚠️ That guild doesn't exist (yet)"); goHome(); return; }
   showView("guildView");
   $("backBtn").classList.add("show");
-  $("brandText").textContent="🏛 "+g.title;
   closeDrawer();
-  $("guildView").scrollTop=0;
   const guides=Object.values(g.guides||{});
   $("guildHead").innerHTML=`<h2>🏛 ${esc(g.title)}</h2>
     ${g.blurb?`<div class="sub">${esc(g.blurb)}</div>`:""}
@@ -3817,7 +3792,6 @@ function liveJournalEntries(){
 function openJournal(ctx){
   showView("journalView");
   $("backBtn").classList.add("show");
-  $("brandText").textContent="📓 Journal";
   closeDrawer();
   const sel=$("jMap"); sel.innerHTML="";
   const all=document.createElement("option");
@@ -4136,13 +4110,11 @@ async function openFork(id, nodeId){
   currentRm=deriveForkRm(base, f);
   showView("mapView");
   $("backBtn").classList.add("show");
-  $("brandText").textContent="✨ "+f.title;
   renderMapHeader();
   renderGraph();
   paintForkBanner(base);
   $("addTopicBtn").classList.toggle("show", ownsSurface());
   $("reorgBtn").classList.toggle("show", ownsSurface());
-  $("scroller").scrollTop=0;
   reflectHash("/fork/"+id);
   if(nodeId && flatten(currentRm).some(n=>n.id===nodeId)){ openNode(nodeId); revealNode(nodeId); }
 }
@@ -4383,8 +4355,6 @@ async function renderMyContributions(){
 function openPrivacy(){
   showView("privacyView");
   $("backBtn").classList.add("show");
-  $("brandText").textContent="Privacy";
-  document.querySelector("#privacyView").scrollTop=0;
   closeDrawer();
   reflectHash("/privacy");
 }
@@ -5353,8 +5323,6 @@ $("reorgSave").onclick=async ()=>{
 function openAbout(){
   showView("aboutView");
   $("backBtn").classList.add("show");
-  $("brandText").textContent="About";
-  document.querySelector("#aboutView").scrollTop=0;
   closeDrawer();
   reflectHash("/about");
 }

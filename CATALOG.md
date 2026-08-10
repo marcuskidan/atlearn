@@ -47,10 +47,10 @@ Journeys: J2.
 - `#backBtn` ← — goes UP one level (`goUp()`): map → its category picker ·
   fork → its base's picker · guild → the map whose door was used · all
   other views → home. (everyone)
-- `#brand` 🗺️ + `#brandText` — clickable, goes home; text carries the
-  current view's context and stays EMPTY on home (the hero owns the
-  wordmark). The top bar is static, in the document — content scrolls
-  below it, never under it. (everyone)
+- `#brand` 🗺️ — the mark alone, clickable, goes home. No wordmark, no
+  context titles: every page names itself in its own heading. The top
+  bar sits in the document flow and scrolls away with the page.
+  (everyone)
 - `#themeBtn` ☾/☀ — flips light/dark. The choice sticks to the device
   (`atlearn-theme` in localStorage, applied before first paint) and, when
   signed in, to the account (`store.settings.theme`, LWW), so it follows
