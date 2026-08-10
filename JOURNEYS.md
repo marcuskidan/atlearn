@@ -443,6 +443,31 @@ EXPECT — the 40-topic cap speaks in the editor rather than truncating;
 progress on a personal map is keyed `u:<id>` and never collides with a
 category; admins see 🙈 Hide/👁 Unhide on reported maps.
 
+### J29 · Map maker · A name worth sharing: handle, page, listed work   [Tier E]
+INTENTION — The champion persona's first ask (LATER.md §4b): a bio link
+can't be `#/umap/x8Ttq2`. A handle is a first-come claim; the page it
+opens is the creator's own shelf — listing there is the owner's act and
+never touches the library.
+COVERED ELSEWHERE — rules.test.mjs handle guards (claim/collide/spoof/
+release) + usermap slug/listed guards (born unlisted on the page too).
+STEPS
+1. Account page → "Your page" → type a name → Claim → the section shows
+   @name with copy-link and release. A second account claiming the same
+   name is told it's taken.
+2. On a personal map's panel → "🌍 Put on your page" → the map gains its
+   slug (from the title) and the state line reads "Listed on your page".
+   Home shelf, Atlas, and search still show nothing.
+3. Open `#/@name` in a private window → the page lists the map (and any
+   published branches); rows open them. `#/@name/<slug>` opens the map
+   directly.
+4. "Take off your page" → the page no longer lists it; the direct link
+   still works (a link is a door, the page is a shelf).
+5. Release the handle (confirm) → `#/@name` says no one holds it;
+   listed flags remain on the docs, meaningless until a new claim.
+EXPECT — handles are 3–30 chars of a-z 0-9 dashes, lowercased on entry;
+one handle per person is the norm the UI assumes (the first claim wins
+if data ever says otherwise).
+
 # Group V — Gardeners · *scoped authority, publicly recorded*
 
 ### J17 · Maintainer · Review: diff, merge-to-overlay, reject-with-reason   [Tier E]

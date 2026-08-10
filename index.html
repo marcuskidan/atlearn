@@ -953,6 +953,14 @@ select.edInput{appearance:none;-webkit-appearance:none}
   <div id="collList"></div>
 </div></section>
 
+<!-- ================= CREATOR PAGE =================
+  #/@handle — one person's own shelf: the personal maps they list and the
+  branches they publish. The creator's surface, never the library's. -->
+<section id="creatorView" class="view"><div id="creatorInner">
+  <div id="creatorHead"></div>
+  <div id="creatorMaps"></div>
+</div></section>
+
 <!-- ================= ATLAS =================
   Discovery is a place you GO, never a stream that comes to you. Sorting is by
   transparent fixed criteria, printed on the page — never engagement. -->
@@ -1689,7 +1697,7 @@ let currentFork=null;   // set while viewing a personal version (Personalize)
 /* one view active at a time — every navigation goes through here */
 function showView(id){
   ["homeView","mapView","reviewView","aboutView","accountView","collectionsView","privacyView",
-   "atlasView","journalView","guildView","healthView","categoryView"]
+   "atlasView","journalView","guildView","healthView","categoryView","creatorView"]
     .forEach(v=>$(v).classList.toggle("active",v===id));
   document.scrollingElement.scrollTop=0;   // the document is the scroller
 }
@@ -3269,6 +3277,7 @@ function renderAccount(){
       </div>
     </div>
     <div id="acctContrib"></div>
+    <div id="acctPage"></div>
     <div id="acctUmaps"></div>
     <div id="acctForks"></div>
     <div id="acctGov"></div>
@@ -3285,6 +3294,7 @@ function renderAccount(){
   $("acctDelete").onclick=deleteMyAccount;
   if(moderatorOfAny()||stewardOfAny()) $("acctReview").onclick=openReview;
   renderGovPanel();
+  renderMyPage();           // async; fills #acctPage (handle claim / page link)
   renderMyUmaps();          // async; fills #acctUmaps when the list arrives
   renderMyForks();          // async; fills #acctForks when the list arrives
   renderMyContributions();  // async; fills #acctContrib + clears the news badge
@@ -4493,10 +4503,14 @@ function paintUmapPanel(){
     ${u.lineage?`<span class="fpState">⑂ branched from
       <a href="#/umap/${esc(u.lineage.from)}">${esc(u.lineage.title)}</a>
       by ${esc(u.lineage.owner)}</span>`:""}
-    ${mine?`<span class="fpState">🔒 Only people with the link can open this</span>`:""}
+    ${mine?`<span class="fpState">${u.listed===true
+        ?"🌍 Listed on your page"
+        :"🔒 Only people with the link can open this"}</span>`:""}
     <div class="fpRow">
     <button id="umapShare" title="Copy a link to this map">🔗 Share</button>
     <button id="umapBranch" title="Make your own full copy of this map">⑂ Branch</button>
+    ${mine?`<button id="umapList" title="Your page lists the work you choose to show — #/@your-handle">${
+      u.listed===true?"Take off your page":"🌍 Put on your page"}</button>`:""}
     ${mine?`<button id="umapOffer"
       title="Propose this map for the library — the admins review it against the charter">🌱 Offer to the library</button>`:""}
     ${mine?'<button id="umapDelete" title="Delete this map">🗑</button>'
@@ -4514,6 +4528,27 @@ function paintUmapPanel(){
     catch(e){ toast("Couldn't copy — the address bar has it"); }
   };
   $("umapBranch").onclick=branchUmap;
+  if($("umapList")) $("umapList").onclick=async ()=>{
+    try{
+      if(u.listed===true){
+        await updateUmap({listed:false});
+        toast("🔒 Off your page — the link still works");
+        paintUmapPanel(); return;
+      }
+      const h=await myHandle();
+      if(!h){ toast("Claim a handle on your account page first"); return; }
+      const fields={listed:true};
+      if(!u.slug){   // first listing names the map's address, once
+        const mine=await myUmaps();
+        let s=slugify(u.title), base=s, n=2;
+        while(mine.some(m=>m.id!==u.id && m.slug===s)) s=base+"-"+(n++);
+        fields.slug=s;
+      }
+      await updateUmap(fields);
+      toast("🌍 On your page — #/@"+h+"/"+(currentFork.slug||fields.slug));
+      paintUmapPanel();
+    }catch(e){ toast("Couldn't update this map — try again"); }
+  };
   if($("umapOffer")) $("umapOffer").onclick=()=>{
     // Stage 3: the road INTO the library is the existing proposal path —
     // this door just fills the outline in. Import stays a human act.
@@ -4671,6 +4706,145 @@ async function renderMyUmaps(){
     d.appendChild(acts);
     box.appendChild(d);
   });
+}
+
+/* ---------- handles + creator pages (#/@handle[/slug]) ----------
+   A handle is a first-come claim on a public name; a creator page is that
+   person's own shelf — the personal maps they list and the branches they
+   publish. It is the creator's surface, never the library's: nothing here
+   feeds the home shelf, the Atlas, or search. */
+let HANDLE_CACHE=null;   // {uid, handle|null} — reset implicitly by uid check
+async function myHandle(){
+  if(!(collConnected() && canSync())) return null;
+  if(HANDLE_CACHE && HANDLE_CACHE.uid===user.id) return HANDLE_CACHE.handle;
+  let h=null;
+  try{
+    const F=await fb(); if(!F) return null;
+    const snap=await F.getDocs(F.query(F.collection(F.db,"handles"),
+      F.where("uid","==",user.id)));
+    snap.forEach(d=>{ if(!h) h=d.id; });
+  }catch(e){}
+  HANDLE_CACHE={uid:user.id, handle:h};
+  return h;
+}
+function slugify(t){
+  return String(t).toLowerCase().replace(/[^a-z0-9]+/g,"-")
+    .replace(/^-+|-+$/g,"").slice(0,60) || "map";
+}
+async function openCreator(handle, slug){
+  const h=String(handle||"").toLowerCase();
+  if(!h){ goHome(); return; }
+  if(!collConnected()){ toast("Creator pages need the connected app"); goHome(); return; }
+  $("loading").classList.add("show");
+  let uid=null, name="";
+  try{
+    const F=await fb();
+    const snap=await F.getDoc(F.doc(F.db,"handles",h));
+    if(snap.exists()){ uid=snap.data().uid; name=snap.data().name; }
+  }catch(e){}
+  if(!uid){
+    $("loading").classList.remove("show");
+    toast("⚠️ No one holds @"+h); goHome(); return;
+  }
+  const maps=[], branches=[];
+  try{
+    const F=await fb();
+    const ms=await F.getDocs(F.query(F.collection(F.db,"usermaps"),
+      F.where("owner.uid","==",uid)));
+    ms.forEach(d=>{ const r={id:d.id, ...d.data()};
+      ["createdAt","updatedAt"].forEach(k=>{ if(r[k]&&r[k].toMillis) r[k]=r[k].toMillis(); });
+      if(r.listed===true && !r.hidden) maps.push(r); });
+    const fs=await F.getDocs(F.query(F.collection(F.db,"forks"),
+      F.where("owner.uid","==",uid)));
+    fs.forEach(d=>{ const r={id:d.id, ...d.data()};
+      ["createdAt","updatedAt"].forEach(k=>{ if(r[k]&&r[k].toMillis) r[k]=r[k].toMillis(); });
+      if(r.public===true && !r.hidden) branches.push(r); });
+  }catch(e){}
+  $("loading").classList.remove("show");
+  if(slug){
+    const m=maps.find(x=>x.slug===slug);
+    if(m){ openUmap(m.id); return; }
+    toast("⚠️ That map isn't on this page");   // fall through to the page itself
+  }
+  showView("creatorView");
+  $("backBtn").classList.add("show");
+  closeDrawer();
+  $("creatorHead").innerHTML=`<h2>${esc(name)}</h2>
+    <div class="sub">@${esc(h)}</div>`;
+  const box=$("creatorMaps"); box.innerHTML="";
+  const row=(emoji,title,sub,go)=>{
+    const d=document.createElement("button"); d.className="collCard";
+    d.style.display="block"; d.style.width="100%"; d.style.textAlign="left";
+    d.innerHTML=`<div class="collHead"><h3>${esc(emoji)} ${esc(title)}</h3>
+      <span class="collBy">${esc(sub)}</span></div>`;
+    d.onclick=go;
+    box.appendChild(d);
+  };
+  maps.sort((a,b)=>(b.updatedAt||0)-(a.updatedAt||0)).forEach(u=>
+    row(u.emoji||"🗺", u.title, u.tagline||"a personal map",
+      ()=>{ location.hash="#/umap/"+u.id; }));
+  branches.sort((a,b)=>(b.updatedAt||0)-(a.updatedAt||0)).forEach(f=>{
+    const e=INDEX.find(r=>r.id===f.base);
+    row("✨", f.title, f.subtitle || ("a version of "+(e?e.title:f.base)),
+      ()=>{ location.hash="#/fork/"+f.id; });
+  });
+  if(!maps.length && !branches.length){
+    const none=document.createElement("div"); none.className="sub";
+    none.textContent="Nothing listed yet.";
+    box.appendChild(none);
+  }
+  reflectHash("/@"+h);
+}
+async function renderMyPage(){
+  const box=$("acctPage"); if(!box) return;
+  if(!(collConnected() && canSync())){ box.innerHTML=""; return; }
+  const h=await myHandle();
+  if(!box.isConnected) return;   // stale render
+  box.innerHTML='<h2 class="secTitle" style="margin-top:26px">Your page</h2>';
+  if(h){
+    const sub=document.createElement("div"); sub.className="sub";
+    sub.innerHTML=`Your public work — listed maps and published branches —
+      lives at <a href="#/@${esc(h)}">@${esc(h)}</a>.`;
+    const acts=document.createElement("div"); acts.className="sgActs";
+    const cp=document.createElement("button"); cp.className="aAcc"; cp.textContent="🔗 Copy link";
+    cp.onclick=async ()=>{
+      try{ await navigator.clipboard.writeText(location.origin+location.pathname+"#/@"+h);
+        toast("🔗 Link copied"); }
+      catch(e){ toast("Couldn't copy"); }
+    };
+    const rel=document.createElement("button"); rel.className="aRej"; rel.textContent="Release @"+h;
+    rel.onclick=async ()=>{
+      if(!confirm(`Release @${h}? The page goes dark and anyone may claim the name.`)) return;
+      try{
+        const F=await fb(); if(!F) throw new Error("offline");
+        await F.deleteDoc(F.doc(F.db,"handles",h));
+        HANDLE_CACHE={uid:user.id, handle:null};
+        toast("Released"); renderAccount();
+      }catch(e){ toast("Couldn't release — try again"); }
+    };
+    acts.appendChild(cp); acts.appendChild(rel);
+    box.appendChild(sub); box.appendChild(acts);
+  }else{
+    const row=document.createElement("div"); row.className="edRow";
+    row.innerHTML=`<input class="edInput" id="handleIn" maxlength="30"
+        placeholder="a-name-like-this" autocomplete="off" spellcheck="false">
+      <button class="edAdd" id="handleClaim" style="margin:0">Claim</button>`;
+    box.appendChild(row);
+    $("handleClaim").onclick=async ()=>{
+      const want=$("handleIn").value.trim().toLowerCase();
+      if(!/^[a-z0-9-]{3,30}$/.test(want)){
+        toast("3–30 characters: letters, numbers, dashes"); return; }
+      try{
+        const F=await fb(); if(!F) throw new Error("offline");
+        await F.setDoc(F.doc(F.db,"handles",want),
+          {uid:user.id, name:user.name, createdAt:F.serverTimestamp()});
+        HANDLE_CACHE={uid:user.id, handle:want};
+        toast("@"+want+" is yours");
+        renderAccount();
+      }catch(e){ toast("@"+want+" is taken — try another"); }
+    };
+    $("handleIn").onkeydown=(e)=>{ if(e.key==="Enter") $("handleClaim").click(); };
+  }
 }
 async function renderMyForks(){
   const box=$("acctForks"); if(!box) return;
@@ -5846,6 +6020,7 @@ $("brand").onclick=goHome;
    #/privacy       the privacy page    #/atlas           every map, listed
    #/journal[/rm]  the journal         #/health          vital signs
    #/guild/<id>    a guild hall        #/fork/<id>[/<n>] a personal version
+   #/umap/<id>[/<n>] a personal map    #/@handle[/slug]  a creator's page
    #/<cat>         the version picker  #/<cat>/map       the official map
    #/<cat>/<node>  node drawer open
    (The review queue is deliberately NOT URL-addressable — it's a role
@@ -5880,6 +6055,10 @@ async function applyRoute(){
     }
     if(map==="umap"){   // #/umap/<id>[/<node>] — a from-scratch personal map
       if(parts[1]) await openUmap(parts[1], parts[2]); else goHome();
+      return;
+    }
+    if(map.startsWith("@")){   // #/@handle[/slug] — a creator's own shelf
+      await openCreator(map.slice(1), parts[1]);
       return;
     }
     if(!INDEX.find(r=>r.id===map)){ goHome(); return; }

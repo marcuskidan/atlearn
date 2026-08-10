@@ -307,6 +307,32 @@ home, account page, shared links. Journeys: J28.
   standard exists). (owner)
 - Suppressed like forks: 💡 suggest, tips, per-link ⚑ flags,
   💬 Discussion, 🏅/🏛/orphan extras, what's-new.
+- `#umapList` (owner, on the panel) — "🌍 Put on your page / Take off
+  your page": flips `listed` (born false, rules-forced) and, on first
+  listing, stamps the map's `slug` (auto from the title, deduped among
+  the owner's maps). Listing targets the CREATOR PAGE only — never the
+  library. Needs a claimed handle.
+
+## 5c · Creator page — `#/@handle[/slug]`
+
+Purpose: one person's own shelf — the personal maps they list and the
+branches they publish; the creator's surface, never the library's
+(nothing here feeds home, Atlas, or search). Reached: shared links,
+account page. Journeys: J29.
+
+- `handles/{handle}` — first-come claim docs {uid,name,createdAt},
+  public read, no update (claim or release only), `[a-z0-9-]{3,30}`.
+  No squatting protection beyond first-come at v1.
+- `#/@handle` — `#creatorView`: name + @handle, then rows: listed
+  usermaps (emoji · title · tagline) and public branches (✨ · title ·
+  subtitle or "a version of <base>"), recency-sorted, hidden filtered.
+  Empty state "Nothing listed yet." (everyone, connected)
+- `#/@handle/slug` — resolves to that creator's listed usermap with the
+  slug and opens it (`#/umap/<id>` takes over as canonical); unknown
+  slug falls back to the page with a toast. (everyone, connected)
+- Account §9 "Your page" — claim input (`#handleIn` + Claim) when
+  unclaimed; link + 🔗 Copy link + Release (confirm) when held.
+  (signed-in, connected)
 
 ## 6 · Atlas — `#/atlas`
 
@@ -372,6 +398,8 @@ the governance controls. Reached: user chip. Journeys: J9, J20.
 - "Your contributions" — status per suggestion/proposal (⏳/🌟/📥/✅/✕ with
   the written rejection reason) + Withdraw while pending. (author,
   connected)
+- "Your page" — claim/release a handle; link to `#/@handle` (§5c).
+  (signed-in, connected)
 - "Your maps" — from-scratch personal maps: Open / 🔗 Copy link /
   🗑 Delete per usermap. (owner, connected)
 - "Your personal versions" — Open / 🔗 Copy link / 🗑 Delete per fork.

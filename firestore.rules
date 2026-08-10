@@ -478,7 +478,8 @@ service cloud.firestore {
     // natural total cap. Admin moderation = `hidden`, exactly like forks.
     function validUserMap(d) {
       return d.keys().hasOnly(['title','emoji','tagline','about','topics',
-                               'owner','lineage','hidden','createdAt','updatedAt'])
+                               'owner','lineage','slug','listed','hidden',
+                               'createdAt','updatedAt'])
         && d.title is string && d.title.size() >= 3 && d.title.size() <= 80
         && d.emoji is string && d.emoji.size() >= 1 && d.emoji.size() <= 8
         && (!('tagline' in d) || (d.tagline is string && d.tagline.size() <= 140))
@@ -494,6 +495,10 @@ service cloud.firestore {
             && d.lineage.from is string && d.lineage.from.size() <= 128
             && d.lineage.title is string && d.lineage.title.size() <= 80
             && d.lineage.owner is string && d.lineage.owner.size() <= 80))
+        // slug + listed: the creator-page shelf (#/@handle) — the owner's own
+        // surface, never the library's. Born unlisted, same as branches.
+        && (!('slug' in d) || (d.slug is string && d.slug.matches('[a-z0-9-]{1,60}')))
+        && (!('listed' in d) || d.listed is bool)
         && d.hidden is bool;
     }
     match /usermaps/{id} {
@@ -502,18 +507,38 @@ service cloud.firestore {
         && request.resource.data.owner.uid == request.auth.uid
         && validUserMap(request.resource.data)
         && request.resource.data.hidden == false
+        && request.resource.data.get('listed', false) == false
         && request.resource.data.createdAt == request.time
         && request.resource.data.updatedAt == request.time;
       allow update: if (signedIn()
           && resource.data.owner.uid == request.auth.uid
           && validUserMap(request.resource.data)
           && request.resource.data.diff(resource.data).affectedKeys()
-               .hasOnly(['title','emoji','tagline','about','topics','updatedAt']))
+               .hasOnly(['title','emoji','tagline','about','topics',
+                         'slug','listed','updatedAt']))
         || (isAdmin()
           && request.resource.data.diff(resource.data).affectedKeys()
                .hasOnly(['hidden']));
       allow delete: if isAdmin()
         || (signedIn() && resource.data.owner.uid == request.auth.uid);
+    }
+
+    // Handles: first-come claims on a public name (#/@handle). One doc per
+    // handle, id = the handle itself; create-only-if-absent IS the claim
+    // semantics (Firestore create fails on an existing doc). No squatting
+    // protection beyond first-come at v1 (plan Stage 4). Release = delete.
+    match /handles/{h} {
+      allow read: if true;
+      allow create: if signedIn()
+        && h.matches('[a-z0-9-]{3,30}')
+        && request.resource.data.keys().hasOnly(['uid','name','createdAt'])
+        && request.resource.data.uid == request.auth.uid
+        && request.resource.data.name is string
+        && request.resource.data.name.size() >= 1
+        && request.resource.data.name.size() <= 80
+        && request.resource.data.createdAt == request.time;
+      allow delete: if signedIn() && resource.data.uid == request.auth.uid;
+      // no update: a handle is claimed or released, never edited
     }
 
     // Reports: the community's flag on public content — user-generated

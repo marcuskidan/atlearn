@@ -973,6 +973,44 @@ guard("usermaps update/delete: owner edits, admin hides, strangers do neither", 
   await rut.assertSucceeds(db("user-uid").doc(path).delete());
 });
 
+guard("usermaps: slug + listed — born unlisted, owner lists onto their page", async () => {
+  await rut.assertFails(db("user-uid").collection("usermaps")
+    .add(umap({ listed: true })));                                  // born unlisted
+  await rut.assertFails(db("user-uid").collection("usermaps")
+    .add(umap({ slug: "Has Spaces!" })));
+  let ref;
+  await testEnv.withSecurityRulesDisabled(async (ctx) => {
+    ref = await ctx.firestore().collection("usermaps")
+      .add(umap({ createdAt: new Date(), updatedAt: new Date() }));
+  });
+  const path = `usermaps/${ref.id}`;
+  await rut.assertSucceeds(db("user-uid").doc(path)
+    .update({ slug: "night-kitchen", listed: true, updatedAt: new Date() }));
+  await rut.assertFails(db("someone").doc(path)
+    .update({ listed: false, updatedAt: new Date() }));
+  await rut.assertFails(db("admin-uid").doc(path)
+    .update({ listed: false, updatedAt: new Date() }));             // owner's shelf, not moderation
+});
+
+/* ---- handles: first-come public names ---- */
+guard("handles: claim, collide, spoof, release", async () => {
+  const rec = { uid: "user-uid", name: "U", createdAt: sgTs() };
+  await rut.assertSucceeds(db("user-uid").doc("handles/nova").set(rec));
+  await rut.assertFails(db(null).doc("handles/ghost").set(rec));
+  await rut.assertFails(db("someone").doc("handles/imposter")
+    .set({ uid: "user-uid", name: "X", createdAt: sgTs() }));       // spoofed uid
+  await rut.assertFails(db("user-uid").doc("handles/ab").set(rec)); // too short
+  await rut.assertFails(db("user-uid").doc("handles/Bad_Name").set(rec));
+  await rut.assertFails(db("user-uid").doc("handles/nova2")
+    .set({ ...rec, extra: "field" }));
+  // a claimed handle cannot be taken, edited, or released by another
+  await rut.assertFails(db("someone")
+    .doc("handles/nova").set({ uid: "someone", name: "S", createdAt: sgTs() }));
+  await rut.assertFails(db("someone").doc("handles/nova").delete());
+  await rut.assertSucceeds(db(null).doc("handles/nova").get());
+  await rut.assertSucceeds(db("user-uid").doc("handles/nova").delete());
+});
+
 /* ---- collections: owner-curated shelves of maps ---- */
 const collection = (over = {}) => ({
   title: "Learning the Natural World", blurb: "Sky, garden, weather.",

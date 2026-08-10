@@ -175,7 +175,10 @@ four places at once: ops.mjs, rules, editor UI, overlay). Rules:
   (never automated). Creation is free and uncapped (Marcus, 2026-08-10).
   Branching a personal map = a FULL COPY (never ops-over-base — the
   source is deletable), with `lineage` {from,title,owner} stamped at
-  create, immutable, attribution-only.
+  create, immutable, attribution-only. Handles (`handles/{handle}`,
+  first-come, claim-or-release only) open creator pages `#/@handle` —
+  the creator's OWN shelf (listed usermaps via owner-flipped `listed` +
+  auto `slug`, plus published branches); never a library surface.
 - The journal is TUCKED AWAY (not core right now): #/journal and sync remain
   functional, but its only entry point is the account page's 📓 button —
   no map-header button, no drawer link, no reflect-prompt glyphs.
@@ -210,7 +213,7 @@ Rules when touching it:
   notes/links) → J1,J7,J13 · auth/sign-in → J10 · journal → J8 · account/
   privacy → J9,J20 · suggest/tips → J11 · node editor → J12,J22 · report/
   flags → J13,J14 · forks → J15,J16 · personal maps → J28 ·
-  review queue → J17,J18,J19 ·
+  handles/creator pages → J29 · review queue → J17,J18,J19 ·
   governance panel/roles → J20,J21 · dev.py/ops.mjs/build.py → J22,J23 ·
   land.mjs/Actions → J24 · succession/link policy → J25 · guilds → J26 ·
   stewardship review → J27 ·

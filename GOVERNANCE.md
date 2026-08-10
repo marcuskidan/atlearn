@@ -196,7 +196,10 @@ Here, in ascending order of effort:
 **Below the commons: personal maps.** Anyone signed in can also make a
 map *from scratch* — free, uncapped, owned outright, shareable by link,
 and absent from every library surface. Existence needs no one's approval;
-the shelf does. The library remains the true commons — what is listed is
+the shelf does. A creator may claim a handle and list their own work at
+`@their-name` — that page is the creator's shelf, not the library's:
+what appears there is their choice alone, and it feeds none of the
+commons' surfaces. The library remains the true commons — what is listed is
 what landed in the repository, worked on by the world and admitted
 through the existing proposal path, with admission criteria in the
 spirit of wiki notability rules. A personal map that deserves the shelf
