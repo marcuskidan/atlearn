@@ -14,7 +14,7 @@
 //
 // Local dry run:  node tools/land.mjs --dry   (needs GOOGLE_APPLICATION_CREDENTIALS)
 import { execSync } from "node:child_process";
-import { appendFileSync } from "node:fs";
+import { appendFileSync, writeSync } from "node:fs";
 import { dirname } from "node:path";
 import { fileURLToPath } from "node:url";
 import admin from "firebase-admin";
@@ -24,11 +24,30 @@ const ROOT = dirname(dirname(fileURLToPath(import.meta.url)));
 const DRY = process.argv.includes("--dry");
 const sh = (cmd) => execSync(cmd, { cwd: ROOT, stdio: "pipe" }).toString().trim();
 
-admin.initializeApp({
-  credential: process.env.FIREBASE_SERVICE_ACCOUNT
-    ? admin.credential.cert(JSON.parse(process.env.FIREBASE_SERVICE_ACCOUNT))
-    : admin.credential.applicationDefault(),
-});
+// Credential failures must diagnose themselves publicly: the repo is public
+// but run LOGS need a sign-in — ::error:: annotations don't. Say what is
+// wrong with the secret (absent / not JSON / incomplete / rejected) without
+// ever echoing a byte of it. writeSync so process.exit can't truncate.
+const fatal = (msg) => {
+  writeSync(1, (process.env.GITHUB_ACTIONS ? `::error::${msg}` : msg) + "\n");
+  process.exit(1);
+};
+
+const raw = process.env.FIREBASE_SERVICE_ACCOUNT;
+let credential;
+if (raw) {
+  let sa;
+  try { sa = JSON.parse(raw); }
+  catch { fatal(`FIREBASE_SERVICE_ACCOUNT is not valid JSON (${raw.length} chars) — re-paste the whole service-account file into the Actions secret (DEPLOY.md Stage 2).`); }
+  const missing = ["project_id", "client_email", "private_key"].filter((k) => !sa[k]);
+  if (missing.length) fatal(`FIREBASE_SERVICE_ACCOUNT is JSON but lacks ${missing.join(", ")} — paste the unmodified service-account JSON from the Firebase console.`);
+  credential = admin.credential.cert(sa);
+} else if (process.env.GITHUB_ACTIONS) {
+  fatal("FIREBASE_SERVICE_ACCOUNT is empty in this run — create a repository Actions secret named exactly FIREBASE_SERVICE_ACCOUNT (Settings → Secrets and variables → Actions).");
+} else {
+  credential = admin.credential.applicationDefault(); // local dry runs
+}
+admin.initializeApp({ credential });
 const db = admin.firestore();
 
 // --retire: deploy finished; the static base now covers these docs.
@@ -41,7 +60,14 @@ if (process.argv.includes("--retire")) {
   process.exit(0);
 }
 
-const snap = await db.collection("merged").orderBy("at").get();
+let snap;
+try {
+  snap = await db.collection("merged").orderBy("at").get();
+} catch (e) {
+  // secret parsed but Google rejected it — disabled/deleted key, wrong
+  // project, or a private_key mangled in a way cert() can't detect
+  fatal(`Firestore rejected the service-account credential (${e.code ?? "no code"}): ${String(e.message).slice(0, 300)}`);
+}
 
 const rollback = () => { sh("git checkout -- roadmaps/"); sh("git clean -fd -- roadmaps/"); };
 // The op grammar's file mutations live in tools/ops.mjs — shared verbatim

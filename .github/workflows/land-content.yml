@@ -8,6 +8,14 @@ on:
   schedule:
     - cron: "17 */6 * * *"
   workflow_dispatch:
+  # landing-infra edits prove themselves on push: with an empty queue the
+  # run is a no-op credential check; with a queue it just lands early
+  push:
+    branches: [main]
+    paths:
+      - tools/land.mjs
+      - tools/ops.mjs
+      - .github/workflows/land-content.yml
 
 permissions:
   contents: write
