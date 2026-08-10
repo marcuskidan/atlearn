@@ -178,13 +178,12 @@ Header (`#mapHeader`, kept minimal by rule):
 
 The map itself (`#mapFlow` — a document, not a canvas):
 - The map reflows to the screen and scrolls like a page — no zoom, no pan,
-  no controls to learn. Wide screens: core topics down a center spine
-  rule; sides carry meaning — essential branches sit RIGHT (ink rule
-  facing the spine), recommended/extra sit LEFT — joined by dotted curves
-  drawn per row (`drawBranchEdges`). Narrow screens: an outline — each
-  core topic followed by its children in true order, indented on a dotted
-  rule. Breakpoint and resize re-render live (`MAP_STACK`, debounced
-  resize).
+  no controls to learn. Reading order IS the layout: core topics run down
+  a left spine rule, and each topic's subtopics stack to its right in
+  true file order, joined by dotted curves drawn per row
+  (`drawBranchEdges`). Narrow screens: an outline — each core topic
+  followed by its children indented on a dotted rule. Breakpoint and
+  resize re-render live (`MAP_STACK`, debounced resize).
 - Nodes (spine + branches) — click opens the drawer; each carries a status
   glyph ○/⋯/✓, and branches state their tier in words (no separate key).
   (everyone)

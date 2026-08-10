@@ -200,20 +200,20 @@ a{color:var(--blue)}
 #mapView{background:var(--bg)}
 #scroller{position:absolute;inset:0;overflow-y:auto;-webkit-overflow-scrolling:touch;
   padding-top:calc(64px + var(--sat))}
-#mapFlow{position:relative;max-width:940px;margin:0 auto;
+#mapFlow{position:relative;max-width:860px;margin:0 auto;
   padding:30px calc(16px + var(--sar)) calc(90px + var(--sab)) calc(16px + var(--sal))}
-/* the spine rule runs the length of the walk; cards sit on it */
-#mapFlow::before{content:"";position:absolute;left:50%;top:14px;bottom:80px;
-  width:2px;margin-left:-1px;background:var(--line2)}
+/* the spine rule runs the length of the walk, down the core-topic column */
+#mapFlow::before{content:"";position:absolute;top:14px;bottom:80px;
+  left:calc(16px + var(--sal) + 129px);width:2px;background:var(--line2)}
 #mapFlow.stacked::before{display:none}
+/* reading order is the layout: core topic left, its subtopics right,
+   in true file order — the eye walks the spine, then the branches */
 .mapRow{position:relative;display:grid;
-  grid-template-columns:minmax(0,1fr) 250px minmax(0,1fr);
+  grid-template-columns:260px minmax(0,1fr);
   column-gap:52px;align-items:center;margin-bottom:46px}
 .mapRow:last-child{margin-bottom:0}
-.spineCell{position:relative;display:flex;align-items:center;justify-content:center}
-.kidCol{display:flex;flex-direction:column;gap:10px;min-width:0}
-.kidCol.l{align-items:flex-end}
-.kidCol.r{align-items:flex-start}
+.spineCell{position:relative;display:flex;align-items:center}
+.kidCol{display:flex;flex-direction:column;gap:10px;min-width:0;align-items:flex-start}
 /* dotted curves join each branch to its core topic (drawn per row) */
 .rowSvg{position:absolute;inset:0;width:100%;height:100%;
   pointer-events:none;overflow:visible}
@@ -243,7 +243,7 @@ a{color:var(--blue)}
 .node.spine .badge.s1{background:var(--blue-soft);color:var(--blue)}
 .node.spine .badge.s2{background:var(--green-soft);color:var(--green)}
 /* Branch subtopics — tier is border weight, not color */
-.node.child{position:relative;width:min(100%,250px);
+.node.child{position:relative;width:min(100%,300px);
   background:var(--bg2);border:1px solid var(--line2);padding:9px 11px 8px}
 .node.child .ntitle{font-size:12.5px}
 .node.child.essential{border-left:3px solid var(--ink)}
@@ -2227,15 +2227,11 @@ function renderGraph(){
     row.className="mapRow"+(wide?"":" stack");
     const kids=n.children||[];
     if(wide){
-      /* sides carry meaning: the walk's must-dos sit right (their ink
-         rule facing the spine), enrichment sits left — every map reads
-         with the same grammar, no layout data to maintain */
-      const L=document.createElement("div"), R=document.createElement("div");
-      L.className="kidCol l"; R.className="kidCol r";
-      kids.forEach(k=>(k.tier==="essential"?R:L).appendChild(mk(k,"child")));
       const S=document.createElement("div"); S.className="spineCell";
       S.appendChild(mk(n,"spine"));
-      row.append(L,S,R);
+      const K=document.createElement("div"); K.className="kidCol";
+      kids.forEach(k=>K.appendChild(mk(k,"child")));
+      row.append(S,K);
     }else{
       row.appendChild(mk(n,"spine"));
       if(kids.length){
@@ -4844,7 +4840,7 @@ function closeEditor(){
 function renderChildTools(){
   const box=$("edChildTools"); box.innerHTML="";
   if(edCtx.childIdx==null){
-    const b=document.createElement("button"); b.className="edAdd"; b.style.marginTop="16px";
+    const b=document.createElement("button"); b.className="edAdd"; b.style.marginTop="10px";
     b.textContent="＋ Add subtopic under this core topic";
     b.onclick=()=>{
       commitFields();   // keep any typing on the current node
@@ -4855,12 +4851,11 @@ function renderChildTools(){
       paintEditorFields();
       toast("New subtopic — fill it in, then Save writes the whole topic");
     };
-    box.appendChild(b);
     const kids=edCtx.topic.children||[];
     if(kids.length){
       const lab=document.createElement("div"); lab.className="edLabel";
       lab.style.marginTop="14px";
-      lab.textContent="🌿 Subtopics — reorder here, or send one to another core topic";
+      lab.textContent="🌿 Subtopics";
       box.appendChild(lab);
       kids.forEach((k,i)=>{
         const row=document.createElement("div"); row.className="edChildRow";
@@ -4897,6 +4892,7 @@ function renderChildTools(){
         box.appendChild(row);
       });
     }
+    box.appendChild(b);
     if(!edCtx.newTopic && editorMode()==="fork"
        && (currentFork.ops||[]).some(o=>o.file===topicFile()||o.file2===topicFile())){
       // drift control: drop this topic's ops and follow the standard map again
