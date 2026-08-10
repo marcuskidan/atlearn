@@ -214,11 +214,12 @@ a{color:var(--blue)}
 .kidCol{display:flex;flex-direction:column;gap:10px;min-width:0}
 .kidCol.l{align-items:flex-end}
 .kidCol.r{align-items:flex-start}
-/* dotted leaders reach from each branch toward the spine */
-.kidCol .node.child::after{content:"";position:absolute;top:50%;width:52px;
-  border-top:1px dotted var(--line2)}
-.kidCol.l .node.child::after{right:-52px}
-.kidCol.r .node.child::after{left:-52px}
+/* dotted curves join each branch to its core topic (drawn per row) */
+.rowSvg{position:absolute;inset:0;width:100%;height:100%;
+  pointer-events:none;overflow:visible}
+.edge{fill:none;stroke-linecap:round}
+.edge.childEdge{stroke:var(--line2);stroke-width:1.5;stroke-dasharray:1 6}
+.edge.done{stroke:var(--green)}
 /* narrow: the outline form */
 .mapRow.stack{display:block;margin-bottom:28px}
 .kidList{margin:10px 0 0 12px;padding-left:16px;border-left:1px dotted var(--line2);
@@ -2226,9 +2227,12 @@ function renderGraph(){
     row.className="mapRow"+(wide?"":" stack");
     const kids=n.children||[];
     if(wide){
+      /* sides carry meaning: the walk's must-dos sit right (their ink
+         rule facing the spine), enrichment sits left — every map reads
+         with the same grammar, no layout data to maintain */
       const L=document.createElement("div"), R=document.createElement("div");
       L.className="kidCol l"; R.className="kidCol r";
-      kids.forEach((k,i)=>(i%2?L:R).appendChild(mk(k,"child")));
+      kids.forEach(k=>(k.tier==="essential"?R:L).appendChild(mk(k,"child")));
       const S=document.createElement("div"); S.className="spineCell";
       S.appendChild(mk(n,"spine"));
       row.append(L,S,R);
@@ -2242,7 +2246,41 @@ function renderGraph(){
     }
     flow.appendChild(row);
   });
+  if(wide) drawBranchEdges(flow);
 }
+function drawBranchEdges(flow){
+  /* dotted curves from each branch to its core topic — measured from the
+     settled layout, redrawn whenever the map re-renders or resizes */
+  const NS="http://www.w3.org/2000/svg";
+  flow.querySelectorAll(".mapRow").forEach(row=>{
+    const spine=row.querySelector(".node.spine");
+    const kids=row.querySelectorAll(".kidCol .node.child");
+    if(!spine || !kids.length) return;
+    const svg=document.createElementNS(NS,"svg");
+    svg.setAttribute("class","rowSvg");
+    const rr=row.getBoundingClientRect(), sr=spine.getBoundingClientRect();
+    const y1=sr.top+sr.height/2-rr.top;
+    kids.forEach(k=>{
+      const kr=k.getBoundingClientRect();
+      const left=kr.left<sr.left;
+      const x1=(left?sr.left:sr.right)-rr.left;
+      const x2=(left?kr.right:kr.left)-rr.left;
+      const y2=kr.top+kr.height/2-rr.top;
+      const mx=(x1+x2)/2;
+      const p=document.createElementNS(NS,"path");
+      p.setAttribute("d",`M ${x1} ${y1} C ${mx} ${y1}, ${mx} ${y2}, ${x2} ${y2}`);
+      p.setAttribute("class","edge childEdge"
+        +(peek(currentRm.id,k.dataset.id).status===2?" done":""));
+      svg.appendChild(p);
+    });
+    row.insertBefore(svg,row.firstChild);
+  });
+}
+let mapResizeT=null;
+window.addEventListener("resize",()=>{
+  if(!currentRm || !$("mapView").classList.contains("active")) return;
+  clearTimeout(mapResizeT); mapResizeT=setTimeout(renderGraph,150);
+});
 
 /* ---------- node drawer ---------- */
 function openNode(nodeId){
