@@ -428,10 +428,13 @@ service cloud.firestore {
     // and escapes on render, and forks never reach the repo pipeline, so a
     // malformed op can only garble its own fork. Admin moderation = `hidden`.
     function validFork(d) {
-      return d.keys().hasOnly(['base','title','ops','owner',
+      return d.keys().hasOnly(['base','title','subtitle','ops','owner',
                                'hidden','createdAt','updatedAt'])
         && d.base is string && d.base.matches('[a-z0-9-]{1,50}')
         && d.title is string && d.title.size() >= 3 && d.title.size() <= 80
+        // subtitle: the branch's one-line self-description ("beginner
+        // version") shown on the picker row — optional, owner's words
+        && (!('subtitle' in d) || (d.subtitle is string && d.subtitle.size() <= 90))
         && d.ops is list && d.ops.size() <= 100
         && d.owner is map
         && d.owner.uid is string && d.owner.uid.size() <= 128
@@ -450,7 +453,7 @@ service cloud.firestore {
           && resource.data.owner.uid == request.auth.uid
           && validFork(request.resource.data)
           && request.resource.data.diff(resource.data).affectedKeys()
-               .hasOnly(['title','ops','updatedAt']))
+               .hasOnly(['title','subtitle','ops','updatedAt']))
         || (isAdmin()
           && request.resource.data.diff(resource.data).affectedKeys()
                .hasOnly(['hidden']));

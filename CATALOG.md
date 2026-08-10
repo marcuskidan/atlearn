@@ -104,19 +104,23 @@ to the official map (one version = nothing to pick); the map's
 deliberate doors to branch discovery and "start your own". Journeys: J5,
 J15.
 
-- `#catHead` — title · byline ("maintained by X" / "held by the community &
-  admins — awaiting its named maintainer") · tagline · endpoint (**→** the
-  promise) · disclaimer (gated maps). (everyone)
+- `#catHead` — title · byline (rendered only when a real maintainer is
+  named — placeholders are not facts, so pre-adoption maps show no byline)
+  · tagline · disclaimer (gated maps). The endpoint lives on the Atlas,
+  where comparison is the point. (everyone)
 - `#catSearch` — filters branches by title or tender. (everyone; renders at
   2+ branches)
 - `#catSorts` — transparent sort chips: recently tended / most changed /
   newest — never engagement. (everyone; renders at 2+ branches)
 - Official row — pinned first; opens `#/<cat>/map`; carries orphan/archived
   suffixes when applicable. (everyone)
-- Branch rows — every public personal version: title, "tended by", change
-  count, date, "(hidden)" label for owner/admin viewers; click opens the
-  fork. (everyone on a configured app — `forksOfMap` is a public read, no
-  sign-in required; hidden forks visible to owner + admins only)
+- Branch rows — every public personal version: title, the owner's
+  one-line **subtitle** ("the beginner version" — how this branch is
+  different, in the owner's words), "tended by", date, "(hidden)" label
+  for owner/admin viewers; click opens the fork. Op counts are sort data,
+  never display copy. (everyone on a configured app — `forksOfMap` is a
+  public read, no sign-in required; hidden forks visible to owner +
+  admins only)
 - Branch count line — "N community branches". (everyone, at 1+)
 - "＋ Start your own branch" row — creates the visitor's personal version
   (one per map per user; re-click opens the existing one) — the ONLY
@@ -140,7 +144,8 @@ J21, J23.
 Header (`#mapHeader`, kept minimal by rule):
 - Title + badges — `⚕ scope-limited` (gated), state badge (draft/archived).
   (everyone)
-- Byline — maintainer name or community-held line. (everyone)
+- Byline — the maintainer's name; absent until a real name exists (the
+  "The Admins" placeholder never renders). (everyone)
 - `⑂ all versions` — back to the picker (forced open). (everyone)
 - `#histBtn` 🕘 history — opens the map's GitHub commit log; meta altitude,
   so it lives in this header row, never among the canvas controls. Official
@@ -219,7 +224,9 @@ its owner alone. Reached: picker branch rows, account page, shared links.
 Journeys: J15, J16.
 
 - `#forkBanner` — "✨ <title> — a personal version by <owner> of <base>"
-  with base link · `🔗 Share` (copies the URL) · `🗑` delete (owner) ·
+  with base link · the branch **subtitle** (`#forkSub`, one line ≤90 chars,
+  italic; `✎` inline edit for the owner — the same line renders on the
+  picker's branch row) · `🔗 Share` (copies the URL) · `🗑` delete (owner) ·
   `⚑` report (non-owners) · `🙈 Hide / 👁 Unhide` from public listings
   (admin — the rules' one fork-moderation switch). (everyone sees the
   banner)
@@ -410,8 +417,8 @@ erase it. Reached: About footer, auth modal, account page. Journeys: J9.
 - **Suggest** `#suggestModal` — three modes, no type chips: node mode is
   TIP-ONLY ("Share a field-tested tip" — fixes, better resources, and
   missing subtopics belong to the ✏️ editor, one door per intent; the
-  modal's context line says so), plus roadmap and adopt modes. `#sgText`,
-  `#sgUrl`
+  context line is just the node's name, no process explanation), plus
+  roadmap and adopt modes. `#sgText`, `#sgUrl`
   (affiliate params auto-stripped on blur), `#sgVerified` personally-
   verified check, `#sgFree` one-hard-rule check, `#sgAffiliated` +
   description (disclosure is the deal), CC BY-SA notice. (signed-in;

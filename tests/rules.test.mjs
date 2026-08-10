@@ -811,6 +811,24 @@ guard("forks: signed-in owner creates; public read", async () => {
   await rut.assertSucceeds(db(null).collection("forks").get());
 });
 
+guard("forks: subtitle — optional, capped, owner-editable", async () => {
+  await rut.assertSucceeds(db("user-uid").collection("forks")
+    .add(fork({ subtitle: "the beginner version" })));
+  await rut.assertFails(db("user-uid").collection("forks")
+    .add(fork({ subtitle: "x".repeat(91) })));
+  await rut.assertFails(db("user-uid").collection("forks")
+    .add(fork({ subtitle: 42 })));
+  let ref;
+  await testEnv.withSecurityRulesDisabled(async (ctx) => {
+    ref = await ctx.firestore().collection("forks")
+      .add(fork({ createdAt: new Date(), updatedAt: new Date() }));
+  });
+  await rut.assertSucceeds(db("user-uid").doc(`forks/${ref.id}`)
+    .update({ subtitle: "for southern skies", updatedAt: new Date() }));
+  await rut.assertFails(db("someone").doc(`forks/${ref.id}`)
+    .update({ subtitle: "hijacked" }));
+});
+
 guard("forks create rejected: anonymous, spoofed owner, self-hidden, bad shape", async () => {
   await rut.assertFails(db(null).collection("forks").add(fork()));
   await rut.assertFails(db("user-uid").collection("forks")

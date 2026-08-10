@@ -133,6 +133,9 @@ curated lesson.
 public, walkable by anyone, without a fight over the original.
 
 - ● One branch per map per person; edit it freely with the full editor.
+- ● A one-line subtitle in your own words — "the beginner version" — on
+  your branch's page and its row on the category page, so walkers know
+  what makes it different before opening it.
 - ● Topics you haven't touched keep tracking the official map; any topic
   can be reset to standard.
 - ● Share by link; your walking progress carries across versions.

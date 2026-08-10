@@ -222,6 +222,13 @@ a{color:var(--blue)}
   font-size:12.5px;color:var(--muted);align-items:center;gap:10px;flex-wrap:wrap}
 #forkBanner.show{display:flex}
 #forkBanner a{color:var(--accent);text-decoration:none;font-weight:600}
+#forkBanner .forkSub{display:block;color:var(--faint);font-style:italic}
+#forkBanner .forkSubInput{display:block;width:100%;margin-top:2px;background:var(--bg3);
+  border:1px solid var(--line);border-radius:7px;padding:4px 8px;font-size:12px;
+  color:var(--fg)}
+#forkBanner #forkSubEdit{border:none;background:none;padding:0 0 0 4px;
+  color:var(--faint);font-size:11px}
+#forkBanner #forkSubEdit:hover{color:var(--accent)}
 #forkBanner button{background:var(--bg3);border:1px solid var(--line);border-radius:8px;
   padding:4px 10px;font-size:11.5px;color:var(--muted)}
 #forkBanner button:hover{border-color:var(--accent);color:var(--accent)}
@@ -285,6 +292,7 @@ a{color:var(--blue)}
 .forkRow .fTxt{flex:1;min-width:0}
 .forkRow .fTxt b{display:block;font-size:13px}
 .forkRow .fTxt small{display:block;color:var(--faint);font-size:11px;margin-top:1px}
+.forkRow .fTxt .fSub{display:block;color:var(--muted);font-size:12px;margin-top:1px}
 .forkRow.forkStart{border-style:dashed;background:none}
 .forkRow.forkStart .fTxt b{color:var(--muted)}
 .forkRow.forkStart:hover .fTxt b{color:var(--accent)}
@@ -1110,7 +1118,7 @@ select.edInput{appearance:none;-webkit-appearance:none}
       <div id="syncNote"></div>
     </div>
     <div class="sec" id="dSignInSec" style="display:none">
-      <a href="#" id="drawerSignIn">🔑 Sign in to keep your progress and add notes — free, syncs across devices</a>
+      <a href="#" id="drawerSignIn">🔑 Sign in to keep your progress and notes</a>
     </div>
     <div class="sec" id="dTipsSec" style="display:none"><h4>💬 Community</h4>
       <div id="dTips"></div>
@@ -1158,7 +1166,7 @@ select.edInput{appearance:none;-webkit-appearance:none}
         (author, employee, affiliate, sponsor…).</span>
       </label>
       <input id="edAffiliation" class="edInput" maxlength="300" style="display:none;margin-top:6px"
-        placeholder="Describe the affiliation — disclosure keeps the commons honest">
+        placeholder="Describe the affiliation">
     </div>
     <div id="editorErrs"></div>
     <div class="modalBtns">
@@ -1183,11 +1191,11 @@ select.edInput{appearance:none;-webkit-appearance:none}
     <label class="checkRow" id="sgAffRow"><input type="checkbox" id="sgAffiliated">
       I have an affiliation with this resource (author, employee, affiliate, sponsor…).</label>
     <input id="sgAffiliation" type="text" maxlength="300" style="display:none"
-      placeholder="Describe the affiliation — disclosure keeps the commons honest">
+      placeholder="Describe the affiliation">
 
-    <div class="mctx" style="margin:10px 0 0">By submitting, you license your contribution
-      under <a href="https://creativecommons.org/licenses/by-sa/4.0/" target="_blank"
-      rel="noopener">CC BY-SA 4.0</a> — the maps stay a commons.</div>
+    <div class="mctx" style="margin:10px 0 0">Contributions are licensed
+      <a href="https://creativecommons.org/licenses/by-sa/4.0/" target="_blank"
+      rel="noopener">CC BY-SA 4.0</a>.</div>
     <div class="modalBtns">
       <button id="sgCancel">Cancel</button>
       <button id="sgSubmit" class="primary">Submit for review</button>
@@ -1702,17 +1710,17 @@ function renderMapHeader(){
   if(type==="gated") badges.push(`<span class="mhBadge gated">⚕ scope-limited</span>`);
   if(state!=="published") badges.push(`<span class="mhBadge state">${esc(state)}</span>`);
   const who=maintainerNameOf(e);
+  // A byline states a fact or stays silent: "The Admins" is the
+  // pre-adoption placeholder (CLAUDE.md rule 7), and a placeholder is not
+  // a fact a reader needs — the surface says nothing until a name exists.
   const byline = currentFork
     ? "✨ a personal version by "+esc(currentFork.owner&&currentFork.owner.name||"a walker")
       +` of <a href="#/${esc(e.id)}">${esc(e.title)}</a>`
-    // "The Admins" is the pre-adoption placeholder (CLAUDE.md rule 7)
-    : (!who || who==="The Admins")
-      ? "held by the community &amp; admins — awaiting its named maintainer"
-      : "maintained by "+esc(who);
+    : (!who || who==="The Admins") ? "" : "maintained by "+esc(who);
   h.innerHTML=`
     <div class="mhTop"><h1>${esc(currentFork?currentFork.title:e.title)}</h1>
       ${badges.join("")}</div>
-    <div class="mhByline">${byline}</div>
+    ${byline?`<div class="mhByline">${byline}</div>`:""}
     <div class="mhActions" id="mhActions"></div>
     <div id="mhAboutLead"></div>
     ${e.disclaimer?`<div class="mhDisclaimer">⚠️ ${esc(e.disclaimer)}</div>`:""}
@@ -1758,15 +1766,13 @@ async function openCategory(id, forcePicker=false){
   $("categoryView").scrollTop=0;
   catId=id;
   const who=maintainerNameOf(e);
+  // Identity in as few lines as it takes: title, a byline only when a real
+  // name exists, one tagline. The endpoint speaks on the Atlas, where
+  // comparison is the point — repeating it here restates the tagline.
   $("catHead").innerHTML=`
     <h2>${esc(e.title)}</h2>
-    <div class="catByline">${(!who||who==="The Admins")
-      ? "held by the community &amp; admins — awaiting its named maintainer"
-      : "maintained by "+esc(who)}</div>
-    <div class="catLead">
-      ${e.tagline?esc(e.tagline):""}
-      ${e.endpoint?`<div class="catEndpoint"><b>→</b> ${esc(e.endpoint)}</div>`:""}
-    </div>
+    ${(!who||who==="The Admins")?"":`<div class="catByline">maintained by ${esc(who)}</div>`}
+    <div class="catLead">${e.tagline?esc(e.tagline):""}</div>
     ${e.disclaimer?`<div class="catDisclaimer">⚠️ ${esc(e.disclaimer)}</div>`:""}`;
   catBranchesCache={id, branches};
   $("catSearch").value=""; catSort="tended";
@@ -1884,16 +1890,22 @@ function renderCatBranches(){
     b.classList.toggle("on", b.dataset.sort===catSort));
   const box=$("catBranches");
   box.innerHTML="";
+  // The row states facts or stays quiet: a real maintainer's name, an
+  // orphan flag, an archive flag — never the placeholder explaining itself.
+  const officialFacts=[
+    (!who||who==="The Admins")?"":"maintained by "+esc(who),
+    orphaned(id)?"🍂 seeking maintainer":"",
+    (e.state||"published")==="archived"?"archived":"",
+  ].filter(Boolean).join(" · ");
   const official=document.createElement("button"); official.className="forkRow official";
   official.innerHTML=`<span class="fEmoji">${esc(e.emoji)}</span>
     <span class="fTxt"><b>${esc(e.title)} — official</b>
-      <small>${(!who||who==="The Admins")?"held by the community &amp; admins":"maintained by "+esc(who)}${
-        orphaned(id)?" · 🍂 seeking maintainer":""}${
-        (e.state||"published")==="archived"?" · archived":""}</small></span>`;
+      ${officialFacts?`<small>${officialFacts}</small>`:""}</span>`;
   official.onclick=()=>openRoadmap(id);
   box.appendChild(official);
   let list=branches.filter(f=>!q
     || (f.title||"").toLowerCase().includes(q)
+    || (f.subtitle||"").toLowerCase().includes(q)
     || (f.owner&&f.owner.name||"").toLowerCase().includes(q));
   list=[...list].sort((a,b)=>
     catSort==="changed" ? ((b.ops||[]).length-(a.ops||[]).length) || (b.updatedAt||0)-(a.updatedAt||0)
@@ -1908,11 +1920,13 @@ function renderCatBranches(){
   }
   list.forEach(f=>{
     const row=document.createElement("button"); row.className="forkRow";
-    const changes=(f.ops||[]).length;
+    // The branch explains itself in its owner's words (subtitle) — the op
+    // count stays sort data, never display copy (machine facts off walker
+    // surfaces).
     row.innerHTML=`<span class="fEmoji">✨</span>
       <span class="fTxt"><b>${esc(f.title)}</b>
+        ${f.subtitle?`<span class="fSub">${esc(f.subtitle)}</span>`:""}
         <small>tended by ${esc(f.owner&&f.owner.name||"a walker")}
-          · ${changes} change${changes!==1?"s":""}
           ${f.updatedAt?" · "+new Date(f.updatedAt).toLocaleDateString():""}
           ${f.hidden?" · (hidden)":""}</small></span>`;
     row.onclick=()=>{ location.hash="#/fork/"+f.id; };
@@ -1920,7 +1934,7 @@ function renderCatBranches(){
   });
   if(q && !list.length){
     const none=document.createElement("div"); none.className="sub";
-    none.textContent="No branch matches — the trunk above is always here.";
+    none.textContent="No branch matches.";
     box.appendChild(none);
   }
   const mine=user.provider && branches.some(f=>f.owner&&f.owner.uid===user.id);
@@ -2361,7 +2375,7 @@ document.querySelectorAll("#statusSeg button").forEach(b=>{
 let guestNudged=false;
 function guestNudge(){
   if(guestNudged) return; guestNudged=true;
-  toast("✓ Marked for this visit — sign in (free) to keep your progress");
+  toast("✓ Marked for this visit — sign in to keep it");
 }
 let notesT=null;
 $("notes").addEventListener("input",()=>{
@@ -2533,7 +2547,7 @@ function openSuggest(ctx){
     ? "Describe it as a simple outline — core topics with subtopics, like a table of contents. The admins review every proposal."
     : isAdopt
     ? `Make your case to tend “${currentRm.title}”: your history with the subject, your contribution record here, and how you'd keep it alive. A recorded successor has right of first refusal; the admins confirm the strongest candidate.`
-    : `For “${ctx.nodeTitle}” in ${currentRm.title} — shown beside the lesson, credited to you, once the maintainer approves. (To change the lesson itself, use the node's ✏️ editor.)`;
+    : `For “${ctx.nodeTitle}” in ${currentRm.title}.`;
   sgType=isRm?"roadmap":isAdopt?"adopt":"tip";
   $("sgText").value=""; $("sgUrl").value=""; $("sgVerified").checked=false;
   $("sgFree").checked=false;
@@ -2605,7 +2619,7 @@ $("sgAffiliated").onchange=()=>{
 $("sgUrl").addEventListener("blur",()=>{
   const v=$("sgUrl").value.trim();
   const clean=stripAffiliate(v);
-  if(clean!==v){ $("sgUrl").value=clean; toast("Stripped tracking params — clean links only"); }
+  if(clean!==v){ $("sgUrl").value=clean; toast("Removed tracking parameters"); }
 });
 $("suggestBtn").onclick=()=>openSuggest({node:currentNode.id,nodeTitle:currentNode.title});
 $("proposeBtn").onclick=()=>openSuggest({mode:"roadmap"});
@@ -3463,11 +3477,12 @@ async function renderAtlas(){
       chips.push(`<span class="fresh" title="Resources verified within the last 90 days">✓ fresh</span>`);
     if(e.cadence) chips.push(`<span>⏱ ${esc(e.cadence)}</span>`);
     const who=maintainerNameOf(e);
+    const named=(who && who!=="The Admins")?who:"";   // placeholders are not facts
     const row=document.createElement("button");
     row.className="atlasRow";
     row.innerHTML=`<span class="aremo">${e.emoji}</span>
       <span class="artxt"><b>${esc(e.title)}</b>
-        <small>${esc(e.endpoint||e.tagline||"")}${who?" · "+esc(who):""}</small></span>
+        <small>${esc(e.endpoint||e.tagline||"")}${named?" · "+esc(named):""}</small></span>
       <span class="archips">${chips.join("")}</span>`;
     row.onclick=()=>openCategory(e.id);
     list.appendChild(row);
@@ -3648,7 +3663,7 @@ async function renderGuildTalk(g){
   }catch(e){ box.innerHTML="<div class='sub'>Couldn't load the talk space.</div>"; return; }
   items.sort((a,b)=>(a.createdAt||0)-(b.createdAt||0));
   box.innerHTML="";
-  if(!items.length) box.innerHTML="<div class='sub'>Quiet so far. Say hello — guilds are where maintainers grow from.</div>";
+  if(!items.length) box.innerHTML="<div class='sub'>Quiet so far.</div>";
   items.forEach(c=>{
     const row=document.createElement("div"); row.className="cmtRow";
     row.innerHTML=`<b>${esc(c.by&&c.by.name||"?")}</b>
@@ -3832,7 +3847,7 @@ function paintCollections(){
   if(!items.length){
     list.innerHTML+= q
       ? "<div class='sub'>No shelves match your search.</div>"
-      : "<div class='sub'>No shelves yet. Make the first one — group the maps you'd hand to a friend.</div>";
+      : "<div class='sub'>No shelves yet.</div>";
     return;
   }
   items.forEach(c=>{
@@ -4037,9 +4052,14 @@ async function openFork(id, nodeId){
 }
 function paintForkBanner(base){
   const b=$("forkBanner"), mine=forkOwned();
+  // The subtitle is the branch's own one-line answer to "how is this
+  // different?" — the owner's words, shown here and on the picker row.
+  const sub=currentFork.subtitle||"";
   b.innerHTML=`<span>✨ ${esc(currentFork.title)} —
       ${mine?"your personal version":"a personal version by "+esc(currentFork.owner.name)} of
-      <a href="#/${esc(currentFork.base)}">${esc(base.emoji)} ${esc(base.title)}</a></span>
+      <a href="#/${esc(currentFork.base)}">${esc(base.emoji)} ${esc(base.title)}</a>
+      <span id="forkSub" class="forkSub">${esc(sub)}</span>${
+        mine?`<button id="forkSubEdit" title="One line: how is this branch different?">${sub?"✎":"✎ add a subtitle"}</button>`:""}</span>
     <button id="forkShare" title="Copy a link to this version">🔗 Share</button>
     ${mine?'<button id="forkDelete" title="Delete this version">🗑</button>'
           :'<button id="forkReport" title="Report this version">⚑</button>'}
@@ -4057,6 +4077,29 @@ function paintForkBanner(base){
   if(mine) $("forkDelete").onclick=deleteFork;
   else $("forkReport").onclick=()=>reportContent("fork",
     {id:currentFork.id, title:currentFork.title});
+  if($("forkSubEdit")) $("forkSubEdit").onclick=()=>{
+    const holder=$("forkSub");
+    const input=document.createElement("input");
+    input.className="forkSubInput"; input.maxLength=90;
+    input.value=currentFork.subtitle||"";
+    input.placeholder="e.g. the beginner version";
+    holder.replaceWith(input); $("forkSubEdit").style.display="none"; input.focus();
+    const save=async ()=>{
+      const subtitle=input.value.trim();
+      if(subtitle!==(currentFork.subtitle||"")){
+        try{
+          const F=await fb(); if(!F) throw new Error("offline");
+          await F.updateDoc(F.doc(F.db,"forks",currentFork.id),
+            {subtitle, updatedAt:F.serverTimestamp()});
+          currentFork.subtitle=subtitle;
+        }catch(e){ toast("Couldn't save the subtitle"); }
+      }
+      paintForkBanner(base);
+    };
+    input.onblur=save;
+    input.onkeydown=(ev)=>{ if(ev.key==="Enter") input.blur();
+      if(ev.key==="Escape"){ input.value=currentFork.subtitle||""; input.blur(); } };
+  };
   // admin moderation: the rules' one fork switch (hidden) — report recourse
   // short of deletion; nothing else may ever write someone else's fork
   if($("forkHide")) $("forkHide").onclick=async ()=>{

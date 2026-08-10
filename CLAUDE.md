@@ -46,7 +46,10 @@ non-technical); see the Engineering-hygiene rules below.
 7. Each roadmap's `meta.json` has a `maintainer` name shown on its map header
    ("· maintained by …"). Library cards are deliberately spare — emoji + title
    + progress bar only; never add copy to them. "The Admins" is a
-   placeholder — real maps get real names. meta.json also carries the map's
+   placeholder — real maps get real names, and THE PLACEHOLDER NEVER
+   RENDERS: bylines (map header, picker, official row, atlas) state a real
+   name or stay silent — a surface never explains its own governance
+   status ("held by the community…" is banned copy). meta.json also carries the map's
    identity fields, all rendered ONLY on the map header (renderMapHeader) or
    the Atlas (#/atlas): `type` (skill default | practice | gated — gated
    REQUIRES `disclaimer`), `state` (published default | draft | archived —
@@ -106,14 +109,18 @@ four places at once: ops.mjs, rules, editor UI, overlay). Rules:
   never content — keep them incapable of touching topic files. Owner-write
   with shape caps; admin moderation is exactly two flags (featured/hidden).
 - Personal versions (`forks/{id}` docs, `#/fork/<id>`, the ✨ Personalize
-  button) are ops-over-base, never copies: {base, title, ops[], owner},
+  button) are ops-over-base, never copies: {base, title, subtitle?, ops[],
+  owner} — `subtitle` is the branch's one-line self-description (≤90,
+  owner-edited ✎ on the fork banner, shown on the picker row: "the
+  beginner version"),
   rendered through the same `applyMergedDocs` as the merged overlay. Untouched
   topics track the canonical map automatically; "reset to standard" = dropping
   that topic's ops. Forks never reach the repo pipeline. Owner-write, admin
   moderation = `hidden` flag only. Keep the Personalize button quiet —
   suggesting improvements to the shared map is the preferred path. Discovery:
   `#/<category>` is the CATEGORY PAGE (openCategory) — the version picker:
-  plain-text identity (title, byline, tagline, endpoint; Wikipedia-style, no
+  plain-text identity (title, byline-when-named, tagline; endpoint is
+  Atlas-only; Wikipedia-style, no
   toggles), then the official branch row pinned first, every public branch
   below with search (title/maintainer) and transparent sort chips (recently
   tended / most changed / newest — never engagement; controls appear at 2+
@@ -132,7 +139,7 @@ four places at once: ops.mjs, rules, editor UI, overlay). Rules:
   versions + discussion/report/guild extras) · the wiki-editable `about`
   lead ([ edit ] → dev save / instant merge / proposal by role). The about
   renders on the OFFICIAL map page only — never on branches, never on the
-  category picker (that page stays tagline + endpoint + branch list). Gated disclaimers and orphan banners
+  category picker (that page stays tagline + branch list). Gated disclaimers and orphan banners
   are the only always-visible blocks. No explanatory copy on screen (rule 6).
   The reading surface is consumption-first: STRUCTURAL affordances (about
   [edit], Reorganize, Add core topic) render only for devMode or the map's

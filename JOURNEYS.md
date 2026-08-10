@@ -369,10 +369,13 @@ STEPS
    `#/<cat>/map` in another tab to confirm).
 3. Untouched topics still track the base; "↩ Reset this topic to the
    standard version" drops the divergence.
-4. 🔗 Share → open the link in a private window → renders read-only.
-5. Atlas shows "⑂ 1 version" on that map; the category picker lists the
-   branch with attribution.
-6. 🗑 Delete → picker and Atlas revert.
+4. Banner ✎ → type a subtitle ("the beginner version") → Enter; it renders
+   in the banner and on the picker's branch row (the owner's one-line
+   answer to "how is this different?").
+5. 🔗 Share → open the link in a private window → renders read-only.
+6. Atlas shows "⑂ 1 version" on that map; the category picker lists the
+   branch with attribution and the subtitle.
+7. 🗑 Delete → picker and Atlas revert.
 EXPECT — the 100-op cap message appears rather than silent truncation if
 ever hit; walking progress on the fork shares the base map's records.
 
