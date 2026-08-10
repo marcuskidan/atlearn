@@ -73,6 +73,8 @@ body{
   -webkit-font-smoothing:antialiased;
 }
 button{font:inherit;color:inherit;background:none;border:none;cursor:pointer}
+/* while a sheet or panel is up, the document behind it holds still */
+html.sheetOpen{overflow:hidden}
 a{color:var(--blue)}
 
 /* ---------- Top bar ---------- */
@@ -492,6 +494,7 @@ a{color:var(--blue)}
 #statusSeg button.on.o1{border-color:var(--blue);color:var(--blue);background:var(--blue-soft)}
 #statusSeg button.on.o2{border-color:var(--green);color:var(--green);background:var(--green-soft)}
 #drawerBody{flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch;
+  overscroll-behavior:contain;
   padding:6px 20px calc(28px + var(--sab))}
 .sec{margin-top:20px}
 .sec h4{font-size:12px;letter-spacing:.7px;text-transform:uppercase;color:var(--faint);
@@ -963,11 +966,6 @@ select.edInput{appearance:none;-webkit-appearance:none}
   </div>
   <div id="atlasFilters"></div>
   <div id="atlasList"></div>
-  <div class="atlasCaption" style="margin-top:14px">
-    Every map, listed by fixed criteria a human can explain — no engagement
-    ranking, no trending, no feed. Draft maps stay out of sight; archived maps
-    remain readable forever.
-  </div>
 </div></section>
 
 <!-- ================= VITAL SIGNS =================
@@ -2457,6 +2455,7 @@ function openNode(nodeId){
   $("dTipsSec").style.display = (currentFork || ro) ? "none" : "";
   $("backdrop").classList.add("show");
   $("drawer").classList.add("open");
+  document.documentElement.classList.add("sheetOpen");
   reflectHash(mapPath()+"/"+encodeURIComponent(nodeId));
 }
 function paintStatusSeg(s){
@@ -2499,10 +2498,40 @@ function closeDrawer(){
     reflectHash(mapPath());
   $("drawer").classList.remove("open");
   $("backdrop").classList.remove("show");
+  document.documentElement.classList.remove("sheetOpen");
   currentNode=null;
 }
 $("closeBtn").onclick=closeDrawer;
 $("backdrop").onclick=closeDrawer;
+/* mobile sheet gesture: pull the grabber (or the head) down to close.
+   The drag follows the finger; past 90px it lets go, else it springs back. */
+(function(){
+  const drawer=$("drawer");
+  let startY=null, dy=0;
+  const start=(e)=>{
+    if(e.target.closest("button,input,select,textarea")) return;
+    startY=e.touches[0].clientY; dy=0;
+    drawer.style.transition="none";
+  };
+  const move=(e)=>{
+    if(startY===null) return;
+    dy=Math.max(0, e.touches[0].clientY-startY);
+    if(dy>0){ drawer.style.transform=`translateY(${dy}px)`; e.preventDefault(); }
+  };
+  const end=()=>{
+    if(startY===null) return;
+    drawer.style.transition=""; drawer.style.transform="";
+    if(dy>90) closeDrawer();
+    startY=null; dy=0;
+  };
+  [["grabber"],["drawerHead"]].forEach(([id])=>{
+    const el=$(id);
+    el.addEventListener("touchstart",start,{passive:true});
+    el.addEventListener("touchmove",move,{passive:false});
+    el.addEventListener("touchend",end);
+    el.addEventListener("touchcancel",end);
+  });
+})();
 document.addEventListener("keydown",e=>{ if(e.key==="Escape"){ closeDrawer();
   $("authModal").classList.remove("show"); $("suggestModal").classList.remove("show");
   $("reorgModal").classList.remove("show"); $("collModal").classList.remove("show");
@@ -4935,6 +4964,7 @@ function openEditorNew(){
   // the editor lives inside the node drawer — open it without a node
   $("backdrop").classList.add("show");
   $("drawer").classList.add("open");
+  document.documentElement.classList.add("sheetOpen");
 }
 function closeEditor(){
   const wasNew=!!(edCtx&&edCtx.newTopic);
