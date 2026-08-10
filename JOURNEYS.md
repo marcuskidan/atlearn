@@ -358,24 +358,32 @@ STEPS
 
 # Group IV — Fork owner · *the fork valve: disagreement without a governance fight*
 
-### J15 · Fork owner · Branch lifecycle: create, edit, reset, share, delete   [Tier E]
-INTENTION — A personal version is *changes over the living base* — public,
-quiet, resettable; divergence happens in the open (GOVERNANCE fork valve).
-COVERED ELSEWHERE — rules.test.mjs fork trio; client.test.mjs
-applyMergedDocs (D). Journey-only: the visible lifecycle.
+### J15 · Fork owner · Branch lifecycle: create, edit, publish, share, delete   [Tier E]
+INTENTION — A personal version is *changes over the living base* — born
+UNLISTED, resettable; reaching the public listings is the owner's
+deliberate act (GOVERNANCE fork valve: the commons is not fillable by
+accident).
+COVERED ELSEWHERE — rules.test.mjs fork guards incl. born-unlisted +
+intro; client.test.mjs applyMergedDocs (D). Journey-only: the visible
+lifecycle.
 STEPS
 1. Category page → "＋ Start your own branch" → fork created → `#/fork/<id>`;
-   the row now reads "Open your branch" (one per map per user).
+   toast says it's private; the row now reads "Open your branch" (one per
+   map per user). The picker does NOT list it for others yet.
 2. Edit one topic in the fork → save → base map unchanged (open
    `#/<cat>/map` in another tab to confirm).
 3. Untouched topics still track the base; "↩ Reset this topic to the
    standard version" drops the divergence.
-4. Banner ✎ → type a subtitle ("the beginner version") → Enter; it renders
-   in the banner and on the picker's branch row (the owner's one-line
-   answer to "how is this different?").
-5. 🔗 Share → open the link in a private window → renders read-only.
-6. Atlas shows "⑂ 1 version" on that map; the category picker lists the
-   branch with attribution and the subtitle.
+4. ✨ button (bottom-left) opens the branch panel: ✎ subtitle ("the
+   beginner version") → Enter; it renders on the panel and, once listed,
+   on the picker's branch row. "[ write an intro for your branch ]" on
+   the map header saves prose to the fork doc — rendered to every
+   visitor, exactly like the official about but owner-held.
+5. Panel: 🌍 Publish to the category page → the picker lists the branch
+   with attribution and subtitle; Atlas shows "⑂ 1 version". Make
+   private → both revert; the direct link still works.
+6. 🔗 Share → open the link in a private window → renders read-only
+   (listed or not — a link is a door, the listing is the shelf).
 7. 🗑 Delete → picker and Atlas revert.
 EXPECT — the 100-op cap message appears rather than silent truncation if
 ever hit; walking progress on the fork shares the base map's records.
@@ -387,8 +395,9 @@ COVERED ELSEWHERE — client.test.mjs editorMode (fork only when owned).
 STEPS
 1. Open a shared `#/fork/<id>` signed out, then signed in as a non-owner.
 EXPECT
-- Map renders through the overlay; NO ✏️/structural tools, NO about lead,
-  NO 🕘, NO 💡 (suggestions serve the shared map).
+- Map renders through the overlay; NO ✏️/structural tools, NO 🕘, NO 💡
+  (suggestions serve the shared map). The owner's intro prose (if any)
+  renders read-only; the ✨ panel offers Share/⚑ only.
 - The banner offers 🔗 Share and ⚑ Report (non-owners); "⑂ all versions"
   and backBtn both return to the base's category picker.
 - Admins additionally see 🙈 Hide/👁 Unhide (report recourse short of

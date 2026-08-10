@@ -256,12 +256,20 @@ a{color:var(--blue)}
 .tierdot{margin-left:auto;font-size:10px;color:var(--faint);letter-spacing:.4px;text-transform:uppercase}
 
 /* ---------- Personal versions (Personalize) ---------- */
-#forkBanner{display:none;position:fixed;z-index:30;top:calc(10px + var(--sat));
-  left:50%;transform:translateX(-50%);max-width:min(720px,92vw);
-  background:color-mix(in srgb,var(--bg2) 96%,transparent);backdrop-filter:blur(10px);
-  border:1px solid var(--line2);border-radius:4px;padding:8px 14px;
-  font-size:12.5px;color:var(--muted);align-items:center;gap:10px;flex-wrap:wrap}
+#forkBtn{display:none;position:fixed;z-index:30;left:calc(16px + var(--sal));
+  bottom:calc(16px + var(--sab));padding:10px 14px;border-radius:4px;background:var(--bg2);
+  border:1px solid var(--line2);color:var(--muted);font-size:12.5px;font-weight:650}
+#forkBtn.show{display:block}
+#forkBtn:hover{border-color:var(--ink);color:var(--ink)}
+#forkBanner{display:none;position:fixed;z-index:35;left:calc(16px + var(--sal));
+  bottom:calc(64px + var(--sab));max-width:min(420px,calc(100vw - 32px));
+  background:var(--bg2);border:1px solid var(--line2);border-radius:4px;
+  padding:12px 14px;box-shadow:var(--shadow);
+  font-size:12.5px;color:var(--muted);flex-direction:column;
+  align-items:flex-start;gap:9px}
 #forkBanner.show{display:flex}
+#forkBanner .fpState{color:var(--faint)}
+#forkBanner .fpRow{display:flex;gap:6px;flex-wrap:wrap}
 #forkBanner a{color:var(--blue);text-decoration:none;font-weight:600}
 #forkBanner .forkSub{display:block;color:var(--faint);font-style:italic}
 #forkBanner .forkSubInput{display:block;width:100%;margin-top:2px;background:var(--bg3);
@@ -1031,6 +1039,7 @@ select.edInput{appearance:none;-webkit-appearance:none}
 <section id="mapView" class="view">
   <div id="scroller"><div id="mapHeader"></div><div id="mapFlow"></div></div>
   <div id="forkBanner"></div>
+  <button id="forkBtn"></button>
   <button id="addTopicBtn">＋ Add core topic</button>
   <button id="reorgBtn">⇅ Reorganize</button>
 </section>
@@ -1756,6 +1765,7 @@ async function openRoadmap(id){
   $("loading").classList.remove("show");
   currentFork=null;                          // standard map: fork chrome off
   $("forkBanner").classList.remove("show");
+  $("forkBtn").classList.remove("show");
   showView("mapView");
   $("backBtn").classList.add("show");
   renderMapHeader();
@@ -1790,7 +1800,7 @@ function renderMapHeader(){
     <div id="mhAboutLead"></div>
     ${e.disclaimer?`<div class="mhDisclaimer">⚠️ ${esc(e.disclaimer)}</div>`:""}
     <div id="mhStateBanner"></div>`;
-  if(!currentFork) renderMapAbout(e.id, e);   // the trunk's lead prose, wiki-editable
+  renderMapAbout(e.id, e);   // trunk: the wiki-editable lead · branch: the owner's intro
   // ⑂ all versions: the small, always-present way back to the category page
   const br=document.createElement("button");
   br.textContent="⑂ all versions";
@@ -1839,7 +1849,7 @@ async function openCategory(id, forcePicker=false){
     ${e.disclaimer?`<div class="catDisclaimer">⚠️ ${esc(e.disclaimer)}</div>`:""}`;
   catBranchesCache={id, branches};
   $("catSearch").value=""; catSort="tended";
-  $("catControls").style.display=catBranchesCache.branches.length>1?"flex":"none";
+  $("catControls").style.display="flex";   // search + sorts always present
   renderCatBranches();
   reflectHash("/"+id);
 }
@@ -1868,6 +1878,21 @@ async function aboutOf(id, fallback){
 }
 async function renderMapAbout(id, e){
   const box=$("mhAboutLead"); if(!box) return;
+  if(currentFork){
+    // the branch's own intro — the owner's prose, stored on the fork doc
+    const text=currentFork.about||"";
+    catAboutText=text;
+    const paras=text.split(/\n\s*\n/).map(p=>p.trim()).filter(Boolean)
+      .map(p=>`<p>${esc(p)}</p>`).join("");
+    const owner=forkOwned();
+    box.innerHTML = owner
+      ? (paras
+          ? paras+`<span class="wikiEdit">[ <a href="#" id="mapAboutEdit">edit</a> ]</span>`
+          : `<span class="wikiEdit">[ <a href="#" id="mapAboutEdit">write an intro for your branch</a> ]</span>`)
+      : paras;
+    if(owner) $("mapAboutEdit").onclick=(ev)=>{ ev.preventDefault(); openAboutEditor(id); };
+    return;
+  }
   const text=await aboutOf(id, e.about||"");
   if(!box.isConnected || !currentRm || currentRm.id!==id || currentFork) return;   // stale render
   catAboutText=text;
@@ -1888,15 +1913,18 @@ function openAboutEditor(id){
     $("authModal").classList.add("show"); toast("Sign in to edit"); return; }
   if(!devMode && !canSync()){
     toast("Editing needs the connected app or the dev server"); return; }
-  const mode = devMode ? "dev" : (isAdmin()||maintains(id)) ? "merge" : "propose";
+  const mode = (currentFork&&forkOwned()) ? "fork"
+    : devMode ? "dev" : (isAdmin()||maintains(id)) ? "merge" : "propose";
   $("abText").value=catAboutText;
   $("abNote").value="";
   $("abNoteWrap").style.display=mode==="propose"?"block":"none";
-  $("abSave").textContent={dev:"Save", merge:"Save & publish", propose:"Propose change"}[mode];
+  $("abSave").textContent={dev:"Save", merge:"Save & publish", propose:"Propose change",
+    fork:"Save"}[mode];
   $("abMode").innerHTML={
     dev:`💾 Saves directly to <b>roadmaps/${esc(id)}/meta.json</b> — dev server detected.`,
     merge:`🛡️ You moderate this map — saving publishes immediately, attributed in the public record.`,
     propose:`🌱 This goes to the maintainer for review — nothing changes until they merge it. Your name goes on the change, licensed CC BY-SA 4.0.`,
+    fork:`✨ Your branch's intro — saves to your version, nowhere else.`,
   }[mode];
   $("aboutModal").classList.add("show");
   $("abSave").onclick=()=>saveAbout(id, mode);
@@ -1904,7 +1932,8 @@ function openAboutEditor(id){
 }
 async function saveAbout(id, mode){
   const text=$("abText").value.trim();
-  if(text.length<20){ toast("A real paragraph, please (20+ characters)"); return; }
+  // a branch owner may clear their intro; shared surfaces need substance
+  if(mode!=="fork" && text.length<20){ toast("A real paragraph, please (20+ characters)"); return; }
   $("abSave").disabled=true;
   try{
     if(mode==="dev"){
@@ -1922,6 +1951,12 @@ async function saveAbout(id, mode){
           by:{uid:user.id, name:user.name}, mergedBy:{uid:user.id, name:user.name},
           note:"", at:Date.now() });
       toast("🛡️ Published — live now; lands in the public record within the hour");
+    }else if(mode==="fork"){
+      const F=await fb(); if(!F) throw new Error("offline — try again");
+      await F.updateDoc(F.doc(F.db,"forks",currentFork.id),
+        {about:text, updatedAt:F.serverTimestamp()});
+      currentFork.about=text;
+      toast("✨ Saved to your branch");
     }else{
       const F=await fb(); if(!F) throw new Error("offline — try again");
       await F.addDoc(F.collection(F.db,"proposals"),
@@ -1932,7 +1967,8 @@ async function saveAbout(id, mode){
     }
     $("aboutModal").classList.remove("show");
     const e=INDEX.find(r=>r.id===id);
-    if(e && mode!=="propose" && currentRm && currentRm.id===id && !currentFork)
+    if(mode==="fork" && currentFork) renderMapAbout(id, e);
+    else if(e && mode!=="propose" && currentRm && currentRm.id===id && !currentFork)
       renderMapAbout(id, e);
   }catch(err){ toast("Couldn't save — "+String(err.message||err).slice(0,80)); }
   $("abSave").disabled=false;
@@ -1991,7 +2027,7 @@ function renderCatBranches(){
         ${f.subtitle?`<span class="fSub">${esc(f.subtitle)}</span>`:""}
         <small>tended by ${esc(f.owner&&f.owner.name||"a walker")}
           ${f.updatedAt?" · "+new Date(f.updatedAt).toLocaleDateString():""}
-          ${f.hidden?" · (hidden)":""}</small></span>`;
+          ${f.hidden?" · (hidden)":""}${f.public!==true?" · (not listed)":""}</small></span>`;
     row.onclick=()=>{ location.hash="#/fork/"+f.id; };
     box.appendChild(row);
   });
@@ -2222,6 +2258,8 @@ function goHome(){
   showView("homeView");
   $("addTopicBtn").classList.remove("show");
   $("reorgBtn").classList.remove("show");
+  $("forkBanner").classList.remove("show");
+  $("forkBtn").classList.remove("show");
   $("backBtn").classList.remove("show");
   currentRm=null; currentFork=null; renderHome();
   reflectHash("/");
@@ -3472,7 +3510,7 @@ async function forkCounts(){
       const snap=await F.getDocs(F.collection(F.db,"forks"));
       snap.forEach(d=>{
         const f=d.data();
-        if(!f.hidden) counts[f.base]=(counts[f.base]||0)+1;
+        if(f.public===true && !f.hidden) counts[f.base]=(counts[f.base]||0)+1;
       });
     }catch(e){}
   }
@@ -4062,8 +4100,10 @@ async function forksOfMap(rmId){
       out.push(rec);
     });
   }catch(e){}
+  const ownOrAdmin=f=>isAdmin() || (user.provider&&f.owner&&f.owner.uid===user.id);
   return out
-    .filter(f=>!f.hidden || isAdmin() || (user.provider&&f.owner&&f.owner.uid===user.id))
+    .filter(f=>f.public===true || ownOrAdmin(f))   // unlisted branches stay link-only
+    .filter(f=>!f.hidden || ownOrAdmin(f))
     .sort((a,b)=>(b.updatedAt||0)-(a.updatedAt||0));   // recency of tending — transparent, never engagement
 }
 async function fetchFork(id){
@@ -4119,15 +4159,34 @@ async function openFork(id, nodeId){
   if(nodeId && flatten(currentRm).some(n=>n.id===nodeId)){ openNode(nodeId); revealNode(nodeId); }
 }
 function paintForkBanner(base){
+  // The branch chrome is a small corner button; the panel opens on demand
+  // instead of floating over the map.
+  const btn=$("forkBtn");
+  btn.textContent="✨ "+(forkOwned()?"Your branch":"This branch");
+  btn.classList.add("show");
+  btn.onclick=()=>{
+    const open=$("forkBanner").classList.toggle("show");
+    if(open) paintForkPanel(base);
+  };
+  paintForkPanel(base);
+  $("forkBanner").classList.remove("show");
+}
+function paintForkPanel(base){
   const b=$("forkBanner"), mine=forkOwned();
   // The subtitle is the branch's own one-line answer to "how is this
   // different?" — the owner's words, shown here and on the picker row.
   const sub=currentFork.subtitle||"";
+  const listed=currentFork.public===true;
   b.innerHTML=`<span>✨ ${esc(currentFork.title)} —
       ${mine?"your personal version":"a personal version by "+esc(currentFork.owner.name)} of
       <a href="#/${esc(currentFork.base)}">${esc(base.emoji)} ${esc(base.title)}</a>
       <span id="forkSub" class="forkSub">${esc(sub)}</span>${
         mine?`<button id="forkSubEdit" title="One line: how is this branch different?">${sub?"✎":"✎ add a subtitle"}</button>`:""}</span>
+    ${mine?`<span class="fpState">${listed
+        ?`🌍 Listed on the ${esc(base.title)} page`
+        :"🔒 Only people with the link can open this"}</span>`:""}
+    <div class="fpRow">
+    ${mine?`<button id="forkPublish">${listed?"Make private":"🌍 Publish to the category page"}</button>`:""}
     <button id="forkShare" title="Copy a link to this version">🔗 Share</button>
     ${mine?'<button id="forkDelete" title="Delete this version">🗑</button>'
           :'<button id="forkReport" title="Report this version">⚑</button>'}
@@ -4135,7 +4194,21 @@ function paintForkBanner(base){
       ?`<button id="forkHide" title="${currentFork.hidden
           ?"Restore this version to public listings"
           :"Hide this version from public listings (the owner keeps access)"}">${
-          currentFork.hidden?"👁 Unhide":"🙈 Hide"}</button>`:""}`;
+          currentFork.hidden?"👁 Unhide":"🙈 Hide"}</button>`:""}
+    </div>`;
+  if($("forkPublish")) $("forkPublish").onclick=async ()=>{
+    try{
+      const F=await fb(); if(!F) throw new Error("offline");
+      const pub=!listed;
+      await F.updateDoc(F.doc(F.db,"forks",currentFork.id),
+        {public:pub, updatedAt:F.serverTimestamp()});
+      currentFork.public=pub;
+      FORK_COUNTS=null;   // the Atlas branch counts just changed
+      toast(pub?"🌍 Listed — walkers browsing this map's versions can find it"
+               :"🔒 Private again — the link still works");
+      paintForkPanel(base);
+    }catch(e){ toast("Couldn't update this version — try again"); }
+  };
   $("forkShare").onclick=async ()=>{
     const url=location.origin+location.pathname+"#/fork/"+currentFork.id;
     try{ await navigator.clipboard.writeText(url);
@@ -4162,7 +4235,7 @@ function paintForkBanner(base){
           currentFork.subtitle=subtitle;
         }catch(e){ toast("Couldn't save the subtitle"); }
       }
-      paintForkBanner(base);
+      paintForkPanel(base);
     };
     input.onblur=save;
     input.onkeydown=(ev)=>{ if(ev.key==="Enter") input.blur();
@@ -4178,10 +4251,9 @@ function paintForkBanner(base){
       currentFork.hidden=hidden;
       toast(hidden?"🙈 Hidden from listings — the owner keeps access"
                   :"👁 Restored to public listings");
-      paintForkBanner(base);
+      paintForkPanel(base);
     }catch(e){ toast("Couldn't update this version — try again"); }
   };
-  b.classList.add("show");
 }
 async function personalize(){
   if(!currentRm) return;
@@ -4195,14 +4267,15 @@ async function personalize(){
   if(!(collConnected() && canSync())){
     toast("Personal versions need the connected app"); return; }
   const rec={base:baseId, title:currentRm.title+" — "+user.name+"'s version",
-             ops:[], owner:{uid:user.id, name:user.name}, hidden:false};
+             ops:[], owner:{uid:user.id, name:user.name}, hidden:false,
+             public:false};   // born unlisted — publishing is a deliberate act
   try{
     const F=await fb(); if(!F) throw new Error("offline");
     const ref=await F.addDoc(F.collection(F.db,"forks"),
       {...rec, createdAt:F.serverTimestamp(), updatedAt:F.serverTimestamp()});
     location.hash="#/fork/"+ref.id;
     FORK_COUNTS=null;   // the Atlas branch counts just changed
-    toast("✨ This copy is yours — edits here never touch the standard map");
+    toast("✨ This copy is yours — private until you publish it from the ✨ button");
   }catch(e){ toast("Couldn't create your version — try again"); }
 }
 async function saveForkOps(ops){

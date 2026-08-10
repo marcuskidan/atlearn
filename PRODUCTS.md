@@ -138,6 +138,11 @@ curated lesson.
 public, walkable by anyone, without a fight over the original.
 
 - ● One branch per map per person; edit it freely with the full editor.
+- ● Born unlisted: a new branch is yours alone, shareable by link, and
+  reaches the map's public version list only when you publish it — the
+  public space cannot be filled by accident.
+- ● An intro paragraph in your own words, rendered to every visitor like
+  the official map's lead.
 - ● A one-line subtitle in your own words — "the beginner version" — on
   your branch's page and its row on the category page, so walkers know
   what makes it different before opening it.

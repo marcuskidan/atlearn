@@ -180,11 +180,15 @@ Here, in ascending order of effort:
    standard at any time. It is deliberately quiet in the interface:
    suggesting an improvement to the shared map is always the preferred act;
    a personal branch is the escape hatch.
-   **And the branches are public**: every map's page lists its community
-   versions under the official trunk — named, attributed, dated, ordered by
-   recency of tending (never by engagement). Divergence happens in the open,
-   the way a public fork network keeps an open-source project honest; a
-   branch that walkers keep choosing is the succession signal below.
+   **And the listed branches are public**: every map's page lists its
+   community versions under the official trunk — named, attributed, dated,
+   ordered by recency of tending (never by engagement). Divergence happens
+   in the open, the way a public fork network keeps an open-source project
+   honest; a branch that walkers keep choosing is the succession signal
+   below. A branch is **born unlisted** — shareable by link from day one,
+   but reaching the public list is its owner's deliberate act (the publish
+   switch on the branch panel). The commons cannot be filled by accident,
+   and the listing stays a shelf of versions someone chose to offer.
 4. **The full fork** — the content is CC BY-SA 4.0 and the code is MIT.
    Anyone can take the entire commons and grow it elsewhere. That this is
    possible is precisely what keeps the roles honest.

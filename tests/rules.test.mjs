@@ -802,7 +802,7 @@ const fork = (over = {}) => ({
   ops: [{ kind: "edit", file: "01-start.json", at: 1,
           topic: { id: "s", title: "S", tier: "essential",
                    learn: { summary: "x", links: [] }, do: ["a"] } }],
-  owner: { uid: "user-uid", name: "U" }, hidden: false,
+  owner: { uid: "user-uid", name: "U" }, hidden: false, public: false,
   createdAt: sgTs(), updatedAt: sgTs(), ...over,
 });
 
@@ -860,6 +860,40 @@ guard("forks update/delete: owner edits, admin hides, strangers do neither", asy
   await rut.assertSucceeds(db("admin-uid").doc(path).update({ hidden: true }));
   await rut.assertFails(db("admin-uid").doc(path).update({ title: "Admin rewrite" }));
   await rut.assertSucceeds(db("user-uid").doc(path).delete());
+});
+
+guard("forks: born unlisted — publishing is the owner's deliberate act", async () => {
+  // creation may never list a branch; the field itself is create-forced false
+  await rut.assertFails(db("user-uid").collection("forks")
+    .add(fork({ public: true })));
+  let ref;
+  await testEnv.withSecurityRulesDisabled(async (ctx) => {
+    ref = await ctx.firestore().collection("forks")
+      .add(fork({ createdAt: new Date(), updatedAt: new Date() }));
+  });
+  const path = `forks/${ref.id}`;
+  // the owner lists and unlists; strangers and admins may not
+  await rut.assertSucceeds(db("user-uid").doc(path)
+    .update({ public: true, updatedAt: new Date() }));
+  await rut.assertFails(db("someone").doc(path)
+    .update({ public: false, updatedAt: new Date() }));
+  await rut.assertFails(db("admin-uid").doc(path)
+    .update({ public: false, updatedAt: new Date() }));
+});
+
+guard("forks: the intro paragraph — owner's prose, capped, owner-only", async () => {
+  let ref;
+  await testEnv.withSecurityRulesDisabled(async (ctx) => {
+    ref = await ctx.firestore().collection("forks")
+      .add(fork({ createdAt: new Date(), updatedAt: new Date() }));
+  });
+  const path = `forks/${ref.id}`;
+  await rut.assertSucceeds(db("user-uid").doc(path)
+    .update({ about: "This branch teaches the southern sky first.", updatedAt: new Date() }));
+  await rut.assertFails(db("user-uid").doc(path)
+    .update({ about: "x".repeat(4001), updatedAt: new Date() }));
+  await rut.assertFails(db("someone").doc(path)
+    .update({ about: "hijacked", updatedAt: new Date() }));
 });
 
 /* ---- collections: owner-curated shelves of maps ---- */

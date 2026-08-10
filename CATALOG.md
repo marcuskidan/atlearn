@@ -114,13 +114,15 @@ J15.
   named — placeholders are not facts, so pre-adoption maps show no byline)
   · tagline · disclaimer (gated maps). The endpoint lives on the Atlas,
   where comparison is the point. (everyone)
-- `#catSearch` — filters branches by title or tender. (everyone; renders at
-  2+ branches)
+- `#catSearch` — filters branches by title or tender. (everyone; always
+  rendered)
 - `#catSorts` — transparent sort chips: recently tended / most changed /
-  newest — never engagement. (everyone; renders at 2+ branches)
+  newest — never engagement. (everyone; always rendered)
 - Official row — pinned first; opens `#/<cat>/map`; carries orphan/archived
   suffixes when applicable. (everyone)
-- Branch rows — every public personal version: title, the owner's
+- Branch rows — every LISTED personal version (`public:true`; unlisted
+  branches stay link-only and appear here — marked "(not listed)" — for
+  their owner and admins alone): title, the owner's
   one-line **subtitle** ("the beginner version" — how this branch is
   different, in the owner's words), "tended by", date, "(hidden)" label
   for owner/admin viewers; click opens the fork. Op counts are sort data,
@@ -237,13 +239,16 @@ Purpose: a community branch — ops-over-base, walkable by all, editable by
 its owner alone. Reached: picker branch rows, account page, shared links.
 Journeys: J15, J16.
 
-- `#forkBanner` — "✨ <title> — a personal version by <owner> of <base>"
-  with base link · the branch **subtitle** (`#forkSub`, one line ≤90 chars,
-  italic; `✎` inline edit for the owner — the same line renders on the
-  picker's branch row) · `🔗 Share` (copies the URL) · `🗑` delete (owner) ·
-  `⚑` report (non-owners) · `🙈 Hide / 👁 Unhide` from public listings
-  (admin — the rules' one fork-moderation switch). (everyone sees the
-  banner)
+- `#forkBtn` ✨ (bottom-left, with the structural tools) opens
+  `#forkBanner`, the branch panel: "✨ <title> — a personal version by
+  <owner> of <base>" with base link · the branch **subtitle** (`#forkSub`,
+  one line ≤90 chars; `✎` inline edit for the owner — the same line
+  renders on the picker's branch row) · the listing state + `🌍 Publish
+  to the category page / Make private` (owner — branches are BORN
+  UNLISTED; `public` flag, rules-forced false at create) · `🔗 Share`
+  (copies the URL — links work regardless of listing) · `🗑` delete
+  (owner) · `⚑` report (non-owners) · `🙈 Hide / 👁 Unhide` (admin — the
+  rules' one fork-moderation switch). (everyone sees the panel)
 - Full map + drawer render through the overlay engine; walking progress is
   shared with the base map (stable node ids). (everyone)
 - ✏️ / ＋ Add topic / ⇅ Reorganize — fork editing, saves go only to the
@@ -253,9 +258,13 @@ Journeys: J15, J16.
   batch of proposals against the base map (same op grammar both sides), so
   GOVERNANCE's "forks are reviewable proposals in waiting" becomes one
   click instead of hand re-entry. Decision 2026-08-09. (fork owner)
-- Suppressed on forks by design: about lead, [ edit ], 💡 suggest, per-link
-  ⚑ flags, 💬 Discussion, 🏅/🏛/orphan extras, 🕘 history, ⚑ report-map
-  (report-the-fork lives in the banner instead).
+- Branch intro — `#mhAboutLead` renders the fork doc's `about` prose
+  (≤4000 chars) to every visitor, exactly like the official lead;
+  "[ edit ]" / "[ write an intro for your branch ]" for the owner, saved
+  via the about modal's fork mode. (prose: everyone; edit: fork owner)
+- Suppressed on forks by design: the OFFICIAL about pipeline, 💡 suggest,
+  per-link ⚑ flags, 💬 Discussion, 🏅/🏛/orphan extras, 🕘 history,
+  ⚑ report-map (report-the-fork lives in the panel instead).
 
 ## 6 · Atlas — `#/atlas`
 

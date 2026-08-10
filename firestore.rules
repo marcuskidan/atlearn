@@ -428,17 +428,23 @@ service cloud.firestore {
     // and escapes on render, and forks never reach the repo pipeline, so a
     // malformed op can only garble its own fork. Admin moderation = `hidden`.
     function validFork(d) {
-      return d.keys().hasOnly(['base','title','subtitle','ops','owner',
-                               'hidden','createdAt','updatedAt'])
+      return d.keys().hasOnly(['base','title','subtitle','about','ops','owner',
+                               'hidden','public','createdAt','updatedAt'])
         && d.base is string && d.base.matches('[a-z0-9-]{1,50}')
         && d.title is string && d.title.size() >= 3 && d.title.size() <= 80
         // subtitle: the branch's one-line self-description ("beginner
         // version") shown on the picker row — optional, owner's words
         && (!('subtitle' in d) || (d.subtitle is string && d.subtitle.size() <= 90))
+        // about: the branch's intro prose, mirroring the official map's lead
+        && (!('about' in d) || (d.about is string && d.about.size() <= 4000))
         && d.ops is list && d.ops.size() <= 100
         && d.owner is map
         && d.owner.uid is string && d.owner.uid.size() <= 128
         && d.owner.name is string && d.owner.name.size() <= 80
+        // public: listed on the category page. Branches are BORN UNLISTED —
+        // creation forces false; listing is the owner's deliberate act.
+        // (Optional so pre-field docs stay editable; absent reads as false.)
+        && (!('public' in d) || d.public is bool)
         && d.hidden is bool;
     }
     match /forks/{id} {
@@ -447,13 +453,14 @@ service cloud.firestore {
         && request.resource.data.owner.uid == request.auth.uid
         && validFork(request.resource.data)
         && request.resource.data.hidden == false
+        && request.resource.data.public == false
         && request.resource.data.createdAt == request.time
         && request.resource.data.updatedAt == request.time;
       allow update: if (signedIn()
           && resource.data.owner.uid == request.auth.uid
           && validFork(request.resource.data)
           && request.resource.data.diff(resource.data).affectedKeys()
-               .hasOnly(['title','subtitle','ops','updatedAt']))
+               .hasOnly(['title','subtitle','about','ops','public','updatedAt']))
         || (isAdmin()
           && request.resource.data.diff(resource.data).affectedKeys()
                .hasOnly(['hidden']));
