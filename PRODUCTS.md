@@ -42,8 +42,10 @@ tracking, nothing asked of the visitor.
 - ● Home shelf — every map as a spare card; your active paths pinned on
   top with the next real-world action, once you have any.
 - ● The map — a visual path per skill: core topics down the spine,
-  subtopics branching off. Every topic opens a card with a short lesson,
-  1–2 trusted free links, and a concrete do-this-week action.
+  subtopics branching off. It reads at natural size on any screen —
+  scrolling is the only gesture, nothing to zoom or learn. Every topic
+  opens a card with a short lesson, 1–2 trusted free links, and a
+  concrete do-this-week action.
 - ● Search — find a topic by name; when names run out, search reaches
   into summaries and actions.
 - ● The Atlas — browse all maps by honest, explainable criteria

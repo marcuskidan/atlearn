@@ -152,7 +152,7 @@ Header (`#mapHeader`, kept minimal by rule):
   "The Admins" placeholder never renders). (everyone)
 - `⑂ all versions` — back to the picker (forced open). (everyone)
 - `#histBtn` 🕘 history — opens the map's GitHub commit log; meta altitude,
-  so it lives in this header row, never among the canvas controls. Official
+  so it lives in this header row, never on the map itself. Official
   map only; absent while `GITHUB_REPO` is unset. (everyone when configured)
 - `#mhAboutLead` — the wiki-editable about prose (meta.json `about`,
   overlay-aware); renders on the official map only, never on forks.
@@ -176,10 +176,14 @@ Header (`#mapHeader`, kept minimal by rule):
   (connected)
 - `.mhDisclaimer` ⚠️ — gated-map scope disclaimer. (everyone, gated maps)
 
-Canvas & floating chrome:
+The map itself (`#mapFlow` — a document, not a canvas):
+- The map reflows to the screen and scrolls like a page — no zoom, no pan,
+  no controls to learn. Wide screens: core topics down a center spine rule,
+  children flanking left/right with dotted leaders. Narrow screens: an
+  outline — each core topic followed by its children in true order,
+  indented on a dotted rule. The breakpoint re-renders live (`MAP_STACK`).
 - Nodes (spine + branches) — click opens the drawer; each carries a status
-  glyph ○/⋯/✓ and tier styling. `#legend` — static key. (everyone)
-- `#zoomIn` / `#zoomOut` / `#zoomFit` — canvas scale, canvas controls only.
+  glyph ○/⋯/✓, and branches state their tier in words (no separate key).
   (everyone)
 - `#addTopicBtn` ＋ Add core topic · `#reorgBtn` ⇅ Reorganize — structural
   tools. (owner)
@@ -189,8 +193,9 @@ Canvas & floating chrome:
 Purpose: one node's learn/do/reflect content plus the walker's workspace;
 read-only for signed-out visitors. Journeys: J1, J7, J11, J12, J13.
 
-- `#dKicker` / `#dTitle` — map · parent · TIER, node title. `#closeBtn` ✕
-  (also backdrop click, Esc). (everyone)
+- The head is quiet: the walker just tapped the titled card, so the sheet
+  doesn't restate it — one row of `#statusSeg` plus the corner buttons.
+  `#closeBtn` ✕ (also backdrop click, Esc). (everyone)
 - 📖 Learn — `#dSummary` prose + `#dLinks` resource rows: kind chip
   (article/video/tool), minutes, language tag, stale-verification dot.
   (everyone)

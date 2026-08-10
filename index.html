@@ -192,29 +192,45 @@ a{color:var(--blue)}
   border-radius:4px;font-size:14px;flex:0 0 auto}
 #aboutBtn:hover,#themeBtn:hover{border-color:var(--ink);color:var(--ink)}
 
-/* ---------- Roadmap view ---------- */
+/* ---------- Roadmap view ----------
+   The map is a document: it reflows to the screen and scrolls like a
+   page — no zoom, no pan, nothing to learn. Wide screens read as a
+   centered spine with branches left and right; narrow screens read as
+   an outline, children indented beneath their core topic in true order. */
 #mapView{background:var(--bg)}
-#scroller{position:absolute;inset:0;overflow:auto;-webkit-overflow-scrolling:touch;
+#scroller{position:absolute;inset:0;overflow-y:auto;-webkit-overflow-scrolling:touch;
   padding-top:calc(64px + var(--sat))}
-#canvasOuter{position:relative;margin:0 auto}
-#canvas{position:absolute;top:0;left:0;transform-origin:0 0}
-#edgeSvg{position:absolute;top:0;left:0;pointer-events:none}
-/* ink edges: solid central spine, dotted branch connectors */
-.edge{fill:none;stroke-linecap:round}
-.edge.spineEdge{stroke:var(--ink);stroke-width:2}
-.edge.spineLead{stroke:var(--ink);stroke-width:2;stroke-dasharray:1 8}
-.edge.childEdge{stroke:var(--line2);stroke-width:1.5;stroke-dasharray:1 6}
-.edge.done{stroke:var(--green)}
-.node{
-  position:absolute;border-radius:3px;text-align:left;
-  transition:transform .12s,box-shadow .12s;
-}
+#mapFlow{position:relative;max-width:940px;margin:0 auto;
+  padding:30px calc(16px + var(--sar)) calc(90px + var(--sab)) calc(16px + var(--sal))}
+/* the spine rule runs the length of the walk; cards sit on it */
+#mapFlow::before{content:"";position:absolute;left:50%;top:14px;bottom:80px;
+  width:2px;margin-left:-1px;background:var(--line2)}
+#mapFlow.stacked::before{display:none}
+.mapRow{position:relative;display:grid;
+  grid-template-columns:minmax(0,1fr) 250px minmax(0,1fr);
+  column-gap:52px;align-items:center;margin-bottom:46px}
+.mapRow:last-child{margin-bottom:0}
+.spineCell{position:relative;display:flex;align-items:center;justify-content:center}
+.kidCol{display:flex;flex-direction:column;gap:10px;min-width:0}
+.kidCol.l{align-items:flex-end}
+.kidCol.r{align-items:flex-start}
+/* dotted leaders reach from each branch toward the spine */
+.kidCol .node.child::after{content:"";position:absolute;top:50%;width:52px;
+  border-top:1px dotted var(--line2)}
+.kidCol.l .node.child::after{right:-52px}
+.kidCol.r .node.child::after{left:-52px}
+/* narrow: the outline form */
+.mapRow.stack{display:block;margin-bottom:28px}
+.kidList{margin:10px 0 0 12px;padding-left:16px;border-left:1px dotted var(--line2);
+  display:flex;flex-direction:column;gap:8px}
+.mapRow.stack .node.child{width:100%}
+.node{border-radius:3px;text-align:left;transition:transform .12s,box-shadow .12s}
 .node:hover{transform:translate(-1px,-1px);box-shadow:var(--shadow);z-index:5}
 .node .ntitle{font-weight:650;line-height:1.3}
 .node .nrow{display:flex;align-items:center;gap:6px;margin-top:6px}
 /* Core spine topics — paper cards cut in ink, serif titles */
 .node.spine{
-  background:var(--bg2);
+  width:100%;background:var(--bg2);
   border:1px solid var(--ink);color:var(--text);
   padding:12px 14px 10px;text-align:center;
   box-shadow:2px 2px 0 var(--line2);
@@ -226,7 +242,8 @@ a{color:var(--blue)}
 .node.spine .badge.s1{background:var(--blue-soft);color:var(--blue)}
 .node.spine .badge.s2{background:var(--green-soft);color:var(--green)}
 /* Branch subtopics — tier is border weight, not color */
-.node.child{background:var(--bg2);border:1px solid var(--line2);padding:9px 11px 8px}
+.node.child{position:relative;width:min(100%,250px);
+  background:var(--bg2);border:1px solid var(--line2);padding:9px 11px 8px}
 .node.child .ntitle{font-size:12.5px}
 .node.child.essential{border-left:3px solid var(--ink)}
 .node.child.recommended{border-color:var(--line2)}
@@ -242,22 +259,6 @@ a{color:var(--blue)}
 .badge.s1{background:var(--blue-soft);color:var(--blue)}
 .badge.s2{background:var(--green-soft);color:var(--green)}
 .tierdot{margin-left:auto;font-size:10px;color:var(--faint);letter-spacing:.4px;text-transform:uppercase}
-
-#legend{position:fixed;z-index:30;left:calc(16px + var(--sal));bottom:calc(16px + var(--sab));
-  background:color-mix(in srgb,var(--bg2) 94%,transparent);backdrop-filter:blur(10px);
-  border:1px solid var(--line);
-  border-radius:4px;padding:10px 14px;display:flex;gap:14px;font-size:11.5px;color:var(--muted)}
-#legend span{display:flex;align-items:center;gap:6px}
-#legend i{width:12px;height:12px;border-radius:2px;border:1.6px solid}
-#legend .lc{border-color:var(--ink);background:var(--bg2);box-shadow:1.5px 1.5px 0 var(--line2)}
-#legend .le{border-color:var(--line2);border-left:3px solid var(--ink)}
-#legend .lr{border-color:var(--line2)}
-#legend .lx{border-color:var(--line2);border-style:dashed}
-#zoomCtl{position:fixed;z-index:30;right:calc(16px + var(--sar));bottom:calc(16px + var(--sab));
-  display:flex;flex-direction:column;gap:6px}
-#zoomCtl button{width:40px;height:40px;border-radius:4px;background:var(--bg2);
-  border:1px solid var(--line2);font-size:17px;font-weight:700}
-#zoomCtl button:active{background:var(--bg3)}
 
 /* ---------- Personal versions (Personalize) ---------- */
 #forkBanner{display:none;position:fixed;z-index:30;top:calc(64px + var(--sat));
@@ -475,15 +476,13 @@ a{color:var(--blue)}
 }
 #grabber{display:none}
 @media (max-width:640px){#grabber{display:block}}
-#drawerHead{padding:18px 20px 14px;border-bottom:1px solid var(--line)}
-#drawerHead .kicker{font-size:11px;letter-spacing:.6px;text-transform:uppercase;color:var(--faint);
-  display:flex;align-items:center;gap:8px}
-#drawerHead h2{font-family:var(--serif);font-weight:400;font-size:21px;margin-top:5px;
-  line-height:1.25;padding-right:36px}
+/* the head is quiet: the walker just tapped the titled card, so the sheet
+   doesn't restate it — only the status segment and the corner buttons */
+#drawerHead{padding:14px 20px;border-bottom:1px solid var(--line)}
 #closeBtn{position:absolute;top:calc(14px + var(--sat));right:14px;width:32px;height:32px;
   border-radius:4px;border:1px solid var(--line);background:var(--bg2);font-size:15px}
 @media (max-width:640px){#closeBtn{top:14px}}
-#statusSeg{display:flex;gap:6px;margin-top:13px}
+#statusSeg{display:flex;gap:6px;margin-right:84px}
 #statusSeg button{flex:1;padding:8px 4px;border-radius:4px;font-size:16px;font-weight:800;
   line-height:1;background:var(--bg3);border:1.4px solid transparent;color:var(--muted)}
 #statusSeg button.on.o0{border-color:var(--gray);color:var(--text)}
@@ -1030,20 +1029,7 @@ select.edInput{appearance:none;-webkit-appearance:none}
 
 <!-- ================= ROADMAP ================= -->
 <section id="mapView" class="view">
-  <div id="scroller"><div id="mapHeader"></div><div id="canvasOuter"><div id="canvas">
-    <svg id="edgeSvg"></svg><div id="nodeLayer"></div>
-  </div></div></div>
-  <div id="legend">
-    <span><i class="lc"></i>Core topic</span>
-    <span><i class="le"></i>Essential</span>
-    <span><i class="lr"></i>Recommended</span>
-    <span><i class="lx"></i>Extra</span>
-  </div>
-  <div id="zoomCtl">
-    <button id="zoomIn" aria-label="Zoom in">+</button>
-    <button id="zoomOut" aria-label="Zoom out">−</button>
-    <button id="zoomFit" aria-label="Fit" style="font-size:12px">⤢</button>
-  </div>
+  <div id="scroller"><div id="mapHeader"></div><div id="mapFlow"></div></div>
   <div id="forkBanner"></div>
   <button id="addTopicBtn">＋ Add core topic</button>
   <button id="reorgBtn">⇅ Reorganize</button>
@@ -1136,11 +1122,9 @@ select.edInput{appearance:none;-webkit-appearance:none}
 
 <!-- ================= NODE DRAWER ================= -->
 <div id="backdrop"></div>
-<aside id="drawer" role="dialog" aria-modal="true">
+<aside id="drawer" role="dialog" aria-modal="true" aria-label="Topic">
   <div id="grabber"></div>
   <div id="drawerHead">
-    <div class="kicker"><span id="dKicker"></span></div>
-    <h2 id="dTitle"></h2>
     <button id="closeBtn" aria-label="Close">✕</button>
     <button id="editBtn" aria-label="Edit node" title="Edit this node">✏️</button>
     <div id="statusSeg">
@@ -1347,10 +1331,14 @@ const AUTH = {
 const $=id=>document.getElementById(id);
 const STATUS_LABEL=["Not Started","In Progress","Done"];   // tooltips/aria only
 const STATUS_ICON=["○","⋯","✓"];   // grey circle / blue ellipsis / green check
-const SPINE_W=240, CHILD_W=190, HGAP=64, VGAP=46, CGAP=12, PAD=70;
-const CANVAS_W = PAD*2 + SPINE_W + 2*(HGAP+CHILD_W);
+/* The map lays itself out with CSS (see #mapFlow) — the only layout
+   decision left to JS is which form to render: spine-with-branches on
+   wide screens, outline on narrow ones. */
+const MAP_STACK=window.matchMedia("(max-width:719px)");
+MAP_STACK.addEventListener("change",()=>{
+  if(currentRm && $("mapView").classList.contains("active")) renderGraph();
+});
 function flatten(rm){ return rm.nodes.flatMap(n=>[n,...(n.children||[])]); }
-function parentOf(rm,id){ return rm.nodes.find(n=>(n.children||[]).some(c=>c.id===id))||null; }
 /* escape user-generated text (community content) before injecting into HTML */
 function esc(s){ return String(s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c])); }
 /* stable content hash (djb2) — used to detect stale edit proposals */
@@ -1640,7 +1628,7 @@ function peek(rmId,nodeId){ return (store.progress[rmId]||{})[nodeId] || {status
 function touch(p){ p.updatedAt=Date.now(); }
 
 /* ---------- state ---------- */
-let currentRm=null, currentNode=null, scale=1, layout=null;
+let currentRm=null, currentNode=null;
 let currentFork=null;   // set while viewing a personal version (Personalize)
 
 /* one view active at a time — every navigation goes through here */
@@ -1742,7 +1730,6 @@ async function openRoadmap(id){
   $("backBtn").classList.add("show");
   $("brandText").textContent=currentRm.emoji+" "+currentRm.title;
   renderMapHeader();
-  scale=Math.min(1,(window.innerWidth-24)/CANVAS_W);
   renderGraph();
   $("addTopicBtn").classList.toggle("show", ownsSurface());
   $("reorgBtn").classList.toggle("show", ownsSurface());
@@ -2215,89 +2202,52 @@ function goHome(){
   reflectHash("/");
 }
 function renderGraph(){
-  /* Spine layout: core topics stack straight down the center; each spine
-     topic's children fan out into left/right branch stacks (roadmap.sh). */
-  const layer=$("nodeLayer"), svg=$("edgeSvg");
-  layer.innerHTML=""; svg.innerHTML="";
-  const cx=CANVAS_W/2, els=new Map();
+  /* The map is a document that reflows (see #mapFlow in the stylesheet):
+     wide screens get core topics down a center spine with children
+     flanking left/right; narrow screens get an outline — each core topic
+     followed by its children in true order. Same data, no zoom state. */
+  const flow=$("mapFlow");
+  const wide=!MAP_STACK.matches;
+  flow.classList.toggle("stacked",!wide);
+  flow.innerHTML="";
   const mk=(n,cls)=>{
     const el=document.createElement("button");
-    el.className=`node ${cls} ${n.tier}`;
+    el.className=`node ${cls} ${esc(n.tier)}`;
     el.dataset.id=n.id;
-    el.style.width=(cls==="spine"?SPINE_W:CHILD_W)+"px";
     const p=peek(currentRm.id,n.id);
-    el.innerHTML=`<div class="ntitle">${n.title}</div>
+    el.innerHTML=`<div class="ntitle">${esc(n.title)}</div>
       <div class="nrow"><span class="badge s${p.status}" title="${STATUS_LABEL[p.status]}">${STATUS_ICON[p.status]}</span>
-      ${cls==="child"?`<span class="tierdot">${n.tier}</span>`:""}</div>`;
+      ${cls==="child"?`<span class="tierdot">${esc(n.tier)}</span>`:""}</div>`;
     el.onclick=()=>openNode(n.id);
-    layer.appendChild(el); els.set(n.id,el);
+    return el;
   };
-  currentRm.nodes.forEach(n=>{ mk(n,"spine"); (n.children||[]).forEach(c=>mk(c,"child")); });
-  // pass 2: measure real heights, then position nodes and collect edges
-  const H=id=>els.get(id).offsetHeight;
-  const paths=[];
-  let y=PAD, prevBottom=null, prevDone=false, firstSy=null;
   currentRm.nodes.forEach(n=>{
-    const sh=H(n.id), kids=n.children||[];
-    const L=[],R=[]; kids.forEach((k,i)=>((i%2?L:R).push(k)));
-    const stackH=a=>a.reduce((s,k)=>s+H(k.id),0)+Math.max(0,a.length-1)*CGAP;
-    const rowH=Math.max(sh,stackH(L),stackH(R));
-    const sy=y+(rowH-sh)/2;
-    if(firstSy===null) firstSy=sy;
-    const sEl=els.get(n.id);
-    sEl.style.left=(cx-SPINE_W/2)+"px"; sEl.style.top=sy+"px";
-    const m=peek(currentRm.id,n.id).status===2;
-    if(prevBottom!==null)
-      paths.push({d:`M ${cx} ${prevBottom} L ${cx} ${sy}`,cls:"spineEdge"+(m&&prevDone?" done":"")});
-    prevBottom=sy+sh; prevDone=m;
-    const rowMid=y+rowH/2;
-    [[L,-1],[R,1]].forEach(([arr,dir])=>{
-      let cy=rowMid-stackH(arr)/2;
-      arr.forEach(k=>{
-        const kh=H(k.id);
-        const kx= dir<0 ? cx-SPINE_W/2-HGAP-CHILD_W : cx+SPINE_W/2+HGAP;
-        const kEl=els.get(k.id);
-        kEl.style.left=kx+"px"; kEl.style.top=cy+"px";
-        const x1= dir<0 ? cx-SPINE_W/2 : cx+SPINE_W/2, y1=sy+sh/2;
-        const x2= dir<0 ? kx+CHILD_W : kx, y2=cy+kh/2;
-        const mx=(x1+x2)/2;
-        paths.push({d:`M ${x1} ${y1} C ${mx} ${y1}, ${mx} ${y2}, ${x2} ${y2}`,
-          cls:"childEdge"+(peek(currentRm.id,k.id).status===2?" done":"")});
-        cy+=kh+CGAP;
-      });
-    });
-    y+=rowH+VGAP;
+    const row=document.createElement("div");
+    row.className="mapRow"+(wide?"":" stack");
+    const kids=n.children||[];
+    if(wide){
+      const L=document.createElement("div"), R=document.createElement("div");
+      L.className="kidCol l"; R.className="kidCol r";
+      kids.forEach((k,i)=>(i%2?L:R).appendChild(mk(k,"child")));
+      const S=document.createElement("div"); S.className="spineCell";
+      S.appendChild(mk(n,"spine"));
+      row.append(L,S,R);
+    }else{
+      row.appendChild(mk(n,"spine"));
+      if(kids.length){
+        const kl=document.createElement("div"); kl.className="kidList";
+        kids.forEach(k=>kl.appendChild(mk(k,"child")));
+        row.appendChild(kl);
+      }
+    }
+    flow.appendChild(row);
   });
-  // dotted lead-in above the first core topic, like roadmap.sh
-  if(firstSy!==null)
-    paths.unshift({d:`M ${cx} ${Math.max(10,firstSy-56)} L ${cx} ${firstSy}`,cls:"spineLead"});
-  const height=y-VGAP+PAD;
-  layout={width:CANVAS_W,height};
-  svg.setAttribute("width",CANVAS_W); svg.setAttribute("height",height);
-  paths.forEach(p=>{
-    const path=document.createElementNS("http://www.w3.org/2000/svg","path");
-    path.setAttribute("d",p.d); path.setAttribute("class","edge "+p.cls);
-    svg.appendChild(path);
-  });
-  applyZoom();
 }
-function applyZoom(){
-  $("canvas").style.transform=`scale(${scale})`;
-  const o=$("canvasOuter");
-  o.style.width=layout.width*scale+"px";
-  o.style.height=layout.height*scale+"px";
-}
-$("zoomIn").onclick=()=>{ scale=Math.min(1.6,scale+0.15); applyZoom(); };
-$("zoomOut").onclick=()=>{ scale=Math.max(0.35,scale-0.15); applyZoom(); };
-$("zoomFit").onclick=()=>{ scale=Math.min(1,(window.innerWidth-24)/layout.width); applyZoom(); };
 
 /* ---------- node drawer ---------- */
 function openNode(nodeId){
   currentNode=flatten(currentRm).find(n=>n.id===nodeId);
-  const par=parentOf(currentRm,nodeId);
   const p=prog(currentRm.id,nodeId);
-  $("dKicker").textContent=`${currentRm.title}${par?" · "+par.title:""} · ${currentNode.tier.toUpperCase()}`;
-  $("dTitle").textContent=currentNode.title;
   $("dSummary").textContent=currentNode.learn.summary;
   const links=$("dLinks"); links.innerHTML="";
   (currentNode.learn.links||[]).forEach(l=>{
@@ -4091,7 +4041,6 @@ async function openFork(id, nodeId){
   $("backBtn").classList.add("show");
   $("brandText").textContent="✨ "+f.title;
   renderMapHeader();
-  scale=Math.min(1,(window.innerWidth-24)/CANVAS_W);
   renderGraph();
   paintForkBanner(base);
   $("addTopicBtn").classList.toggle("show", ownsSurface());
@@ -5362,11 +5311,7 @@ function goUp(){
 }
 $("backBtn").onclick=goUp;
 $("brand").onclick=goHome;
-window.addEventListener("resize",()=>{
-  if(!currentRm) return;
-  scale=Math.min(1,(window.innerWidth-24)/CANVAS_W);
-  applyZoom();
-});
+
 
 /* ---------- URL routing: the hash is a shareable address ----------
    #/              home                #/about           the manifesto
@@ -5420,8 +5365,8 @@ async function applyRoute(){
 }
 function revealNode(id){   // scroll a deep-linked node into view
   try{
-    const el=document.querySelector(`#nodeLayer .node[data-id="${CSS.escape(id)}"]`);
-    if(el) $("scroller").scrollTop=Math.max(0, el.offsetTop*scale-140);
+    const el=document.querySelector(`#mapFlow .node[data-id="${CSS.escape(id)}"]`);
+    if(el) el.scrollIntoView({block:"center"});
   }catch(e){}
 }
 window.addEventListener("hashchange",()=>{

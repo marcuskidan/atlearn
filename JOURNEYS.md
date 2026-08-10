@@ -116,7 +116,8 @@ STEPS
 3. Click a spine node → drawer opens.
 4. Tick the first Do step.
 EXPECT
-- Drawer: title/summary/links/do-list render; status segment AND step
+- Drawer: summary/links/do-list render (no restated title — the tapped
+  card already said it); status segment AND step
   checkboxes are LIVE; NO notes box, NO 💡, NO ⚑ link flags, NO ✏️, and no
   💬 Community heading while the node has no tips.
 - The first tick marks the step, auto-advances status to ⋯ (drawer and map
