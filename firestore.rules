@@ -478,7 +478,7 @@ service cloud.firestore {
     // natural total cap. Admin moderation = `hidden`, exactly like forks.
     function validUserMap(d) {
       return d.keys().hasOnly(['title','emoji','tagline','about','topics',
-                               'owner','hidden','createdAt','updatedAt'])
+                               'owner','lineage','hidden','createdAt','updatedAt'])
         && d.title is string && d.title.size() >= 3 && d.title.size() <= 80
         && d.emoji is string && d.emoji.size() >= 1 && d.emoji.size() <= 8
         && (!('tagline' in d) || (d.tagline is string && d.tagline.size() <= 140))
@@ -487,6 +487,13 @@ service cloud.firestore {
         && d.owner is map
         && d.owner.uid is string && d.owner.uid.size() <= 128
         && d.owner.name is string && d.owner.name.size() <= 80
+        // lineage: attribution for a branched copy — plain strings stamped at
+        // create (never owner-updatable), so a deleted source breaks nothing
+        && (!('lineage' in d) || (d.lineage is map
+            && d.lineage.keys().hasOnly(['from','title','owner'])
+            && d.lineage.from is string && d.lineage.from.size() <= 128
+            && d.lineage.title is string && d.lineage.title.size() <= 80
+            && d.lineage.owner is string && d.lineage.owner.size() <= 80))
         && d.hidden is bool;
     }
     match /usermaps/{id} {

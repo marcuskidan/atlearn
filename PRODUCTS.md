@@ -177,8 +177,9 @@ existence needs no approval; the library's shelf does.
 - ● A name, an emoji, a one-line tagline, and an intro in your own
   words — all editable from the map's corner panel.
 - ● Manage every map you've made from your account page.
-- ○ Branch someone's personal map — a full copy with credit to where it
-  came from (planned).
+- ● Branch anyone's personal map — a full copy of your own, with credit
+  to where it came from; if the original is later deleted, your copy
+  stands.
 - ○ "Offer this map to the library" — files the existing new-roadmap
   proposal for the admins to review against the charter (planned).
 

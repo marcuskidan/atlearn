@@ -292,8 +292,13 @@ home, account page, shared links. Journeys: J28.
 - `#forkBtn` 🗺 opens `#forkBanner` as the map panel: title + ✎ rename
   (inline emoji+title inputs) · tagline (≤140, ✎ inline edit) · "🔒 Only
   people with the link can open this" (there is no publish — nothing to
-  list into; the library is the repo) · 🔗 Share · 🗑 delete (owner) ·
-  ⚑ report kind `usermap` (non-owners) · 🙈/👁 admin hide. (everyone)
+  list into; the library is the repo) · 🔗 Share · `#umapBranch`
+  ⑂ Branch (anyone signed-in + connected: a FULL COPY as a new usermap —
+  no ops-over-base, a deleted source breaks nothing; `lineage`
+  {from,title,owner} stamped at create, immutable, rendered as
+  "⑂ branched from <title> by <owner>" on the panel) · 🗑 delete
+  (owner) · ⚑ report kind `usermap` (non-owners) · 🙈/👁 admin hide.
+  (everyone)
 - ✏️ / ＋ Add topic / ⇅ Reorganize / side lists — the full editor, owner
   only; caps: 40 core topics, 1 MiB doc. No reset-to-standard (no
   standard exists). (owner)

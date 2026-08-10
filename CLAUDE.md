@@ -173,6 +173,9 @@ four places at once: ops.mjs, rules, editor UI, overlay). Rules:
   shelf, atlas, search, picker — the link is the door). The road INTO the
   library is the existing new-roadmap proposal path plus a human import
   (never automated). Creation is free and uncapped (Marcus, 2026-08-10).
+  Branching a personal map = a FULL COPY (never ops-over-base — the
+  source is deletable), with `lineage` {from,title,owner} stamped at
+  create, immutable, attribution-only.
 - The journal is TUCKED AWAY (not core right now): #/journal and sync remain
   functional, but its only entry point is the account page's 📓 button —
   no map-header button, no drawer link, no reflect-prompt glyphs.

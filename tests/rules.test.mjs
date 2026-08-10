@@ -934,6 +934,25 @@ guard("usermaps create rejected: anonymous, spoofed owner, self-hidden, bad shap
     .add(umap({ extra: "field" })));
 });
 
+guard("usermaps: lineage — stamped at create, immutable, shape-capped", async () => {
+  const lin = { from: "source-doc-id", title: "Night Kitchen", owner: "Nova" };
+  await rut.assertSucceeds(db("user-uid").collection("usermaps")
+    .add(umap({ lineage: lin })));
+  await rut.assertFails(db("user-uid").collection("usermaps")
+    .add(umap({ lineage: { from: "x" } })));                       // missing keys
+  await rut.assertFails(db("user-uid").collection("usermaps")
+    .add(umap({ lineage: { ...lin, extra: "field" } })));
+  await rut.assertFails(db("user-uid").collection("usermaps")
+    .add(umap({ lineage: { ...lin, title: "x".repeat(81) } })));
+  let ref;
+  await testEnv.withSecurityRulesDisabled(async (ctx) => {
+    ref = await ctx.firestore().collection("usermaps")
+      .add(umap({ lineage: lin, createdAt: new Date(), updatedAt: new Date() }));
+  });
+  await rut.assertFails(db("user-uid").doc(`usermaps/${ref.id}`)
+    .update({ lineage: { ...lin, owner: "Rewritten" }, updatedAt: new Date() }));
+});
+
 guard("usermaps update/delete: owner edits, admin hides, strangers do neither", async () => {
   let ref;
   await testEnv.withSecurityRulesDisabled(async (ctx) => {

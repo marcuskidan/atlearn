@@ -427,7 +427,12 @@ STEPS
    offers Share/⚑ only; back goes home. Guest ticks are session-memory,
    sign-in adopts them (J1's loop, unchanged on a personal map).
 5. Account page → "Your maps" lists it: Open / 🔗 Copy link / 🗑 Delete.
-6. 🗑 Delete (panel or account) → the link stops working; nothing else
+6. Signed in as a SECOND user with the link → panel → "⑂ Branch" → a
+   full copy opens as their own map, panel reads "⑂ branched from
+   <title> by <owner>"; edits to the copy never touch the source, and
+   deleting the source leaves the copy (and its attribution line)
+   standing.
+7. 🗑 Delete (panel or account) → the link stops working; nothing else
    in the library moved at any point.
 EXPECT — the 40-topic cap speaks in the editor rather than truncating;
 progress on a personal map is keyed `u:<id>` and never collides with a

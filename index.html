@@ -4488,9 +4488,13 @@ function paintUmapPanel(){
       ${mine?"your map":"a personal map by "+esc(u.owner.name)}
       <span id="umapTag" class="forkSub">${esc(tag)}</span>${
         mine?`<button id="umapTagEdit" title="One line: what is this map?">${tag?"✎":"✎ add a tagline"}</button>`:""}</span>
+    ${u.lineage?`<span class="fpState">⑂ branched from
+      <a href="#/umap/${esc(u.lineage.from)}">${esc(u.lineage.title)}</a>
+      by ${esc(u.lineage.owner)}</span>`:""}
     ${mine?`<span class="fpState">🔒 Only people with the link can open this</span>`:""}
     <div class="fpRow">
     <button id="umapShare" title="Copy a link to this map">🔗 Share</button>
+    <button id="umapBranch" title="Make your own full copy of this map">⑂ Branch</button>
     ${mine?'<button id="umapDelete" title="Delete this map">🗑</button>'
           :'<button id="umapReport" title="Report this map">⚑</button>'}
     ${!mine&&isAdmin()&&canSync()
@@ -4505,6 +4509,7 @@ function paintUmapPanel(){
       toast("🔗 Link copied — anyone can open it"); }
     catch(e){ toast("Couldn't copy — the address bar has it"); }
   };
+  $("umapBranch").onclick=branchUmap;
   if(mine) $("umapDelete").onclick=deleteUmap;
   else $("umapReport").onclick=()=>reportContent("usermap",
     {id:u.id, title:u.title});
@@ -4569,6 +4574,27 @@ function paintUmapPanel(){
     tIn.onblur=()=>setTimeout(()=>{ if(document.activeElement!==eIn) save(); },0);
     eIn.onblur=()=>setTimeout(()=>{ if(document.activeElement!==tIn) save(); },0);
   };
+}
+async function branchUmap(){
+  // Stage 2 of the personal-maps plan: a branch of a personal map is a FULL
+  // COPY, never ops-over-base — there is no living trunk to track, and a
+  // deletable source must break nothing. Lineage rides along as plain
+  // strings, for attribution alone.
+  if(!user.provider){ $("authModal").classList.add("show"); toast("Sign in to branch this map"); return; }
+  if(!(collConnected() && canSync())){ toast("Personal maps need the connected app"); return; }
+  const u=currentFork;
+  try{
+    const F=await fb(); if(!F) throw new Error("offline");
+    const ref=await F.addDoc(F.collection(F.db,"usermaps"),
+      {title:u.title, emoji:u.emoji||"🗺",
+       ...(u.tagline?{tagline:u.tagline}:{}),
+       topics:deepClone(u.topics||[]),
+       owner:{uid:user.id, name:user.name}, hidden:false,
+       lineage:{from:u.id, title:u.title, owner:u.owner.name},
+       createdAt:F.serverTimestamp(), updatedAt:F.serverTimestamp()});
+    location.hash="#/umap/"+ref.id;
+    toast("⑂ Yours — a full copy, private; share the link to show it");
+  }catch(e){ toast("Couldn't branch this map — try again"); }
 }
 async function deleteUmap(){
   if(!confirm(`Delete “${currentFork.title}”? Its link stops working.`)) return;
