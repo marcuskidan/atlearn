@@ -16,5 +16,6 @@ node_modules/
 
 # Deferred-work notes — local reminders, not part of the published project
 LATER.md
+PLAN-*.md
 roadmaps/health.json
 firestore-debug.log
