@@ -215,11 +215,11 @@ a{color:var(--blue)}
 /* Core spine topics — paper cards cut in ink, serif titles */
 .node.spine{
   background:var(--bg2);
-  border:2px solid var(--ink);color:var(--text);
+  border:1px solid var(--ink);color:var(--text);
   padding:12px 14px 10px;text-align:center;
-  box-shadow:3px 3px 0 var(--ink);
+  box-shadow:2px 2px 0 var(--line2);
 }
-.node.spine:hover{transform:translate(-1px,-1px);box-shadow:4px 4px 0 var(--ink)}
+.node.spine:hover{transform:translate(-1px,-1px);box-shadow:3px 3px 0 var(--line2)}
 .node.spine .ntitle{font-family:var(--serif);font-size:15px;font-weight:700;color:var(--text)}
 .node.spine .nrow{justify-content:center;margin-top:7px}
 .node.spine .badge.s0{background:var(--bg3);color:var(--muted)}
@@ -228,7 +228,7 @@ a{color:var(--blue)}
 /* Branch subtopics — tier is border weight, not color */
 .node.child{background:var(--bg2);border:1px solid var(--line2);padding:9px 11px 8px}
 .node.child .ntitle{font-size:12.5px}
-.node.child.essential{border:1.5px solid var(--ink)}
+.node.child.essential{border:1px solid var(--ink)}
 .node.child.recommended{border-color:var(--line2)}
 .node.child.extra{border-style:dashed;border-color:var(--line2)}
 .node.child.extra .ntitle{color:var(--muted)}
@@ -249,7 +249,7 @@ a{color:var(--blue)}
   border-radius:4px;padding:10px 14px;display:flex;gap:14px;font-size:11.5px;color:var(--muted)}
 #legend span{display:flex;align-items:center;gap:6px}
 #legend i{width:12px;height:12px;border-radius:2px;border:1.6px solid}
-#legend .lc{border-color:var(--ink);background:var(--bg2);box-shadow:1.5px 1.5px 0 var(--ink)}
+#legend .lc{border-color:var(--ink);background:var(--bg2);box-shadow:1.5px 1.5px 0 var(--line2)}
 #legend .le{border-color:var(--ink)}
 #legend .lr{border-color:var(--line2)}
 #legend .lx{border-color:var(--line2);border-style:dashed}
