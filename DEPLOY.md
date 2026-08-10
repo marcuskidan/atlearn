@@ -20,9 +20,16 @@ Open `config.js` anytime to see what's wired — it's two fields.
    - `superadmins` (array) — leave empty for now; you'll add your uid in Stage 3
    - `admins` (array) — the admin board — empty
    - `maintainers` (map) — empty
-6. **Project settings → Your apps → Web app** → register → copy the
+6. **Project settings → General → Public-facing name** → set it to
+   `Atlearn`, and set the support email. Without this, Google's sign-in
+   popup and its "you shared data with…" emails name the raw auth host
+   (`atlearn-62281.firebaseapp.com`) instead of the product. (Same field,
+   deeper: Cloud Console → APIs & Services → OAuth consent screen. A logo
+   can be added there too, but a logo sends the app into Google's
+   verification queue — the name alone applies immediately.)
+7. **Project settings → Your apps → Web app** → register → copy the
    `firebaseConfig` object.
-7. **Project settings → Service accounts → Generate new private key** —
+8. **Project settings → Service accounts → Generate new private key** —
    download the JSON. This is the ONLY secret: it goes into GitHub Actions
    (Stage 2) and stays on your machine for backups. Never in the repo.
 
