@@ -164,6 +164,13 @@ class H(SimpleHTTPRequestHandler):
     def __init__(self, *a, **kw):
         super().__init__(*a, directory=ROOT, **kw)
 
+    def end_headers(self):
+        # dev serves live working-tree files — a browser-cached config.js or
+        # index.html silently shows stale code (bit us: Firebase config edits
+        # kept sign-in in demo mode until a hard reload)
+        self.send_header("Cache-Control", "no-store")
+        super().end_headers()
+
     def _json(self, code, obj):
         body = json.dumps(obj).encode()
         self.send_response(code)
