@@ -2346,6 +2346,19 @@ window.addEventListener("resize",()=>{
 });
 
 /* ---------- node drawer ---------- */
+/* Drawer HTML builders — pure, extraction-tested (tests/client.test.mjs).
+   Fork ops carry attacker-controlled topic content, and the drawer renders
+   it to anyone with the link: every field goes through esc(). */
+function linkRowHTML(l){
+  const bits=[];
+  if(l.minutes) bits.push(`<span class="lmeta">· ${+l.minutes} min</span>`);
+  if(l.lang&&l.lang!=="en") bits.push(`<span class="lmeta">[${esc(l.lang)}]</span>`);
+  // quiet freshness signal: only speak up when verification has gone stale
+  if(l.verified && (Date.now()-new Date(l.verified))/864e5>365)
+    bits.push(`<span class="lstale" title="Last verified ${esc(l.verified)}">•</span>`);
+  return `<span class="linkkind ${esc(l.kind)}">${esc(l.kind)}</span><span>${esc(l.label)}${bits.join("")}</span>`;
+}
+function stepHTML(s){ return `<span class="box">✓</span><span class="stext">${esc(s)}</span>`; }
 function openNode(nodeId){
   currentNode=flatten(currentRm).find(n=>n.id===nodeId);
   const p=prog(currentRm.id,nodeId);
@@ -2355,13 +2368,7 @@ function openNode(nodeId){
     const row=document.createElement("div"); row.className="linkRow";
     const a=document.createElement("a");
     a.href=l.url; a.target="_blank"; a.rel="noopener";
-    const bits=[];
-    if(l.minutes) bits.push(`<span class="lmeta">· ${+l.minutes} min</span>`);
-    if(l.lang&&l.lang!=="en") bits.push(`<span class="lmeta">[${esc(l.lang)}]</span>`);
-    // quiet freshness signal: only speak up when verification has gone stale
-    if(l.verified && (Date.now()-new Date(l.verified))/864e5>365)
-      bits.push(`<span class="lstale" title="Last verified ${esc(l.verified)}">•</span>`);
-    a.innerHTML=`<span class="linkkind ${l.kind}">${l.kind}</span><span>${l.label}${bits.join("")}</span>`;
+    a.innerHTML=linkRowHTML(l);
     row.appendChild(a);
     // one-tap resource flag: dead / stale / didn't help (one per user per link)
     if(!currentFork && canSync()){
@@ -2392,7 +2399,7 @@ function openNode(nodeId){
   currentNode.do.forEach((s,i)=>{
     const b=document.createElement("button");
     b.className="step"+(p.done[i]?" done":"");
-    b.innerHTML=`<span class="box">✓</span><span class="stext">${s}</span>`;
+    b.innerHTML=stepHTML(s);
     b.onclick=()=>{
       if(!ro && !canSync()){ toast(NEEDS_APP); return; }   // demo/dev identities: honest, never a fake save
       p.done[i]=!p.done[i];
@@ -2411,7 +2418,7 @@ function openNode(nodeId){
   prompts.forEach((s,i)=>{
     const b=document.createElement("button");
     b.className="step"+((p.ref||[])[i]?" done":"");
-    b.innerHTML=`<span class="box">✓</span><span class="stext">${esc(s)}</span>`;
+    b.innerHTML=stepHTML(s);
     b.onclick=()=>{
       if(!ro && !canSync()){ toast(NEEDS_APP); return; }
       p.ref=p.ref||[]; p.ref[i]=!p.ref[i];

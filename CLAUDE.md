@@ -202,7 +202,8 @@ Rules when touching it:
   and `node --test tests/`. Don't break the extraction harness: the client tests
   brace-match `mergeStores`/`contentHash`/`renderDiff`/`editorMode`/
   `migrateStore`/`esc`/`flatten`/`applyMergedDocs`/`isAdmin`/`maintains`/
-  `forkOwned`/`textDelta`/`classifyEditWeight` out of index.html by name;
+  `forkOwned`/`textDelta`/`classifyEditWeight`/`linkRowHTML`/`stepHTML`
+  out of index.html by name;
   renaming them requires updating tests/client.test.mjs. The one extractor
   is tools/extract.mjs — the client tests import it, and tools/succession.mjs
   uses it to pull `contentHash` from index.html so proposal baseHashes never

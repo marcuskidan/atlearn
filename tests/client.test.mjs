@@ -17,7 +17,7 @@ const cases = JSON.parse(readFileSync(join(root, "tests", "cases.json"), "utf8")
 
 const fns = ["esc", "flatten", "contentHash", "migrateStore", "mergeStores",
              "renderDiff", "editorMode", "applyMergedDocs",
-             "textDelta", "classifyEditWeight"];
+             "textDelta", "classifyEditWeight", "linkRowHTML", "stepHTML"];
 const script = `
 let devMode=false, FIREBASE_CONFIG=null, user={provider:null,id:"guest"},
     currentRm=null, currentFork=null, MAINTAINERS={}, ADMINS=["admin-uid"], SUPERADMINS=[];
@@ -27,7 +27,7 @@ ${extractFn(html, "maintains")}
 ${extractFn(html, "forkOwned")}
 ${fns.map((n) => extractFn(html, n)).join("\n")}
 ({ esc, flatten, contentHash, migrateStore, mergeStores, renderDiff, applyMergedDocs,
-   textDelta, classifyEditWeight,
+   textDelta, classifyEditWeight, linkRowHTML, stepHTML,
    editorModeWith(o){
      devMode=o.devMode||false;
      FIREBASE_CONFIG=("FIREBASE_CONFIG" in o)?o.FIREBASE_CONFIG:null;
@@ -128,6 +128,24 @@ test("renderDiff escapes user-controlled HTML", () => {
   assert.ok(!out.includes("<img"), "img tag must be escaped");
   assert.ok(!out.includes("<script>"), "script tag must be escaped");
   assert.ok(out.includes("&lt;img"), "escaped form present");
+});
+
+test("drawer render escapes user-controlled HTML (fork content)", () => {
+  // Fork ops carry attacker-controlled topics; the drawer renders them to
+  // anyone with the link. Every injected field must arrive escaped.
+  const evilLink = { kind: '"><img src=x onerror=alert(1)>',
+    label: "<script>bad()</script>", url: "https://a.example/x",
+    lang: "<b>xx</b>", minutes: 5 };
+  const row = api.linkRowHTML(evilLink);
+  assert.ok(!row.includes("<img"), "img tag must be escaped");
+  assert.ok(!row.includes('"><'), "kind must not break out of the class attribute");
+  assert.ok(!row.includes("<script>"), "script tag must be escaped");
+  assert.ok(!row.includes("<b>"), "lang must be escaped");
+  assert.ok(row.includes("&lt;script&gt;"), "escaped form present");
+
+  const step = api.stepHTML('<img src=x onerror=alert(1)>');
+  assert.ok(!step.includes("<img"), "step text must be escaped");
+  assert.ok(step.includes("&lt;img"), "escaped form present");
 });
 
 test("renderDiff reports adds, removals, and field changes", () => {
