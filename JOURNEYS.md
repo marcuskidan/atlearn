@@ -403,6 +403,36 @@ EXPECT
 - Admins additionally see 🙈 Hide/👁 Unhide (report recourse short of
   deletion).
 
+### J28 · Map maker · Personal map lifecycle: create, edit, share, delete   [Tier E]
+INTENTION — Creation without permission, a commons with a bar (Marcus,
+2026-08-10): a personal map exists the moment its owner names it — free,
+uncapped, absent from every library surface; the shelf is the repo and
+is reached only through review. The link is the door.
+COVERED ELSEWHERE — rules.test.mjs usermap guards (create/spoof/oversize/
+stranger/admin-hidden-only); client.test.mjs applyMergedDocs +
+drawer-escape (D — usermap content renders through the same escaped
+builders). Journey-only: the visible lifecycle.
+STEPS
+1. Home, signed in + connected → "🗺 Start a personal map…" → name it →
+   Create → `#/umap/<id>` opens with the starter topic's editor;
+   toast states the fact: private, link-shareable.
+2. Edit the starter topic, add a topic, reorganize, set a child's side —
+   the full editor; every save toast says "your map". The library shelf,
+   Atlas, and search show nothing new (in another tab).
+3. 🗺 corner button → panel: ✎ rename (emoji + title), ✎ tagline,
+   "[ write an intro for your map ]" on the header — all owner-held
+   facts, no publish control anywhere (nothing to list into).
+4. 🔗 Share → open the link in a private window → renders read-only:
+   no ✏️/structural tools, no ⑂ all versions, no 🕘, no 💡; panel
+   offers Share/⚑ only; back goes home. Guest ticks are session-memory,
+   sign-in adopts them (J1's loop, unchanged on a personal map).
+5. Account page → "Your maps" lists it: Open / 🔗 Copy link / 🗑 Delete.
+6. 🗑 Delete (panel or account) → the link stops working; nothing else
+   in the library moved at any point.
+EXPECT — the 40-topic cap speaks in the editor rather than truncating;
+progress on a personal map is keyed `u:<id>` and never collides with a
+category; admins see 🙈 Hide/👁 Unhide on reported maps.
+
 # Group V — Gardeners · *scoped authority, publicly recorded*
 
 ### J17 · Maintainer · Review: diff, merge-to-overlay, reject-with-reason   [Tier E]

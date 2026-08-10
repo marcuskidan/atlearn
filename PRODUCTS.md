@@ -24,6 +24,7 @@ product" means in the build today:
 | 3 · The Journal | Signed-in walkers | A private record, never public |
 | 4 · Contributing | Any signed-in user | Improve the shared map; a named human decides |
 | 5 · Personal versions | Any signed-in user | Disagree productively — your own branch |
+| 5b · Personal maps | Any signed-in user | Make any map from scratch — no permission needed |
 | 6 · Collections | Any signed-in user | Shelves of maps to hand to a friend |
 | 7 · The Review desk | Maintainers & helpers | Fast decisions, public record |
 | 8 · Governance | Role-holders | Authority is scoped, named, public |
@@ -160,6 +161,34 @@ feature stays quiet by design — suggesting improvements is the preferred
 path.
 
 *Detail: CATALOG §5 · Proof: J15, J16.*
+
+## 5b · Personal maps — creation without permission
+
+**For:** any signed-in user.
+**Promise:** make a map of anything, from scratch, free and uncapped —
+existence needs no approval; the library's shelf does.
+
+- ● Start from the home page: name it and you're in it, editor open.
+- ● The full editor — topics, subtopics, sides, links, do-actions —
+  on a map that is entirely yours.
+- ● Private by nature: absent from the shelf, the Atlas, and search;
+  anyone with the link can walk it, and walkers' progress saves to
+  their own accounts.
+- ● A name, an emoji, a one-line tagline, and an intro in your own
+  words — all editable from the map's corner panel.
+- ● Manage every map you've made from your account page.
+- ○ Branch someone's personal map — a full copy with credit to where it
+  came from (planned).
+- ○ "Offer this map to the library" — files the existing new-roadmap
+  proposal for the admins to review against the charter (planned).
+
+**Deliberate limits** — personal maps live outside the commons: the
+library is the repo, worked on by the world and admitted by review, so
+personal maps have no listing surface at all. Creation stays free and
+uncapped (raw text is cheap); a future paid tier may add rich media,
+never entry. Reports and admin hiding work exactly as on branches.
+
+*Detail: CATALOG §5b · Proof: J28.*
 
 ## 6 · Collections
 

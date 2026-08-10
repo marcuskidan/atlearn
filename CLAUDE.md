@@ -160,6 +160,19 @@ four places at once: ops.mjs, rules, editor UI, overlay). Rules:
   Both signed-in only. The category picker COLLAPSES at zero visible
   branches (cards/atlas/search go straight to the map; ⑂ and backBtn
   force it open — openCategory(id, forcePicker)).
+- Personal maps (`usermaps/{id}` docs, `#/umap/<id>`, the home page's
+  "🗺 Start a personal map…" door) are FROM-SCRATCH maps below the commons:
+  the doc carries its full `topics` list (no base, no ops — nothing to
+  track), owner-write with shape caps (≤40 topics; 1 MiB doc limit is the
+  total cap), admin moderation = `hidden` only, reports kind `usermap`.
+  They ride the fork machinery — `currentFork` tagged `umap:true`, so
+  forkOwned/canEdit/ownsSurface/editorMode work unchanged; the editor
+  still speaks ops and `appendForkOps` applies them via applyMergedDocs,
+  persisting the whole topic list. Progress keys are `u:<docId>`.
+  Existence needs no approval; EVERY library surface excludes them (no
+  shelf, atlas, search, picker — the link is the door). The road INTO the
+  library is the existing new-roadmap proposal path plus a human import
+  (never automated). Creation is free and uncapped (Marcus, 2026-08-10).
 - The journal is TUCKED AWAY (not core right now): #/journal and sync remain
   functional, but its only entry point is the account page's 📓 button —
   no map-header button, no drawer link, no reflect-prompt glyphs.
@@ -193,7 +206,8 @@ Rules when touching it:
   links → J2 · atlas → J4 · category picker → J5,J15 · drawer (status/steps/
   notes/links) → J1,J7,J13 · auth/sign-in → J10 · journal → J8 · account/
   privacy → J9,J20 · suggest/tips → J11 · node editor → J12,J22 · report/
-  flags → J13,J14 · forks → J15,J16 · review queue → J17,J18,J19 ·
+  flags → J13,J14 · forks → J15,J16 · personal maps → J28 ·
+  review queue → J17,J18,J19 ·
   governance panel/roles → J20,J21 · dev.py/ops.mjs/build.py → J22,J23 ·
   land.mjs/Actions → J24 · succession/link policy → J25 · guilds → J26 ·
   stewardship review → J27 ·

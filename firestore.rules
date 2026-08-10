@@ -468,6 +468,47 @@ service cloud.firestore {
         || (signedIn() && resource.data.owner.uid == request.auth.uid);
     }
 
+    // Personal maps: from-scratch maps below the commons. Unlike a fork
+    // (ops over a living base) a personal map carries its full topic list
+    // directly — there is no base to track. They live only in Firestore,
+    // never the repo, and are absent from every library surface: the link
+    // is the door. Deep per-node validation is not expressible in rules
+    // (the forks stance): the client escapes on render, and a malformed
+    // topic can only garble its own map. The 1 MiB doc limit is the
+    // natural total cap. Admin moderation = `hidden`, exactly like forks.
+    function validUserMap(d) {
+      return d.keys().hasOnly(['title','emoji','tagline','about','topics',
+                               'owner','hidden','createdAt','updatedAt'])
+        && d.title is string && d.title.size() >= 3 && d.title.size() <= 80
+        && d.emoji is string && d.emoji.size() >= 1 && d.emoji.size() <= 8
+        && (!('tagline' in d) || (d.tagline is string && d.tagline.size() <= 140))
+        && (!('about' in d) || (d.about is string && d.about.size() <= 4000))
+        && d.topics is list && d.topics.size() >= 1 && d.topics.size() <= 40
+        && d.owner is map
+        && d.owner.uid is string && d.owner.uid.size() <= 128
+        && d.owner.name is string && d.owner.name.size() <= 80
+        && d.hidden is bool;
+    }
+    match /usermaps/{id} {
+      allow read: if true;
+      allow create: if signedIn()
+        && request.resource.data.owner.uid == request.auth.uid
+        && validUserMap(request.resource.data)
+        && request.resource.data.hidden == false
+        && request.resource.data.createdAt == request.time
+        && request.resource.data.updatedAt == request.time;
+      allow update: if (signedIn()
+          && resource.data.owner.uid == request.auth.uid
+          && validUserMap(request.resource.data)
+          && request.resource.data.diff(resource.data).affectedKeys()
+               .hasOnly(['title','emoji','tagline','about','topics','updatedAt']))
+        || (isAdmin()
+          && request.resource.data.diff(resource.data).affectedKeys()
+               .hasOnly(['hidden']));
+      allow delete: if isAdmin()
+        || (signedIn() && resource.data.owner.uid == request.auth.uid);
+    }
+
     // Reports: the community's flag on public content — user-generated
     // surfaces (tips, collections, personal versions) AND, since the safety
     // queue landed, canonical map content (kind 'map', target {roadmap, node?,
@@ -480,7 +521,7 @@ service cloud.firestore {
       allow create: if signedIn()
         && request.resource.data.keys().hasOnly(
              ['kind','target','text','severity','status','by','createdAt'])
-        && request.resource.data.kind in ['tip','collection','fork','map']
+        && request.resource.data.kind in ['tip','collection','fork','usermap','map']
         && request.resource.data.target is map
         && request.resource.data.severity in ['normal','safety']
         && request.resource.data.status == 'open'

@@ -548,9 +548,9 @@ a{color:var(--blue)}
 .wantedChip{padding:7px 13px;border-radius:3px;background:var(--bg2);
   border:1px solid var(--line);font-size:12.5px;color:var(--muted)}
 .wantedChip:hover{border-color:var(--ink);color:var(--ink)}
-#proposeBtn{padding:12px 22px;border-radius:4px;border:1.5px dashed var(--line2);
+#proposeBtn,#startMapBtn{padding:12px 22px;border-radius:4px;border:1.5px dashed var(--line2);
   color:var(--muted);font-size:14px;font-weight:600}
-#proposeBtn:hover{border-color:var(--ink);color:var(--ink)}
+#proposeBtn:hover,#startMapBtn:hover{border-color:var(--ink);color:var(--ink)}
 .modalWrap{position:fixed;inset:0;z-index:80;display:none;align-items:center;justify-content:center;
   background:var(--scrim);padding:20px}
 .modalWrap.show{display:flex}
@@ -791,7 +791,8 @@ select.edInput{appearance:none;-webkit-appearance:none}
   <div id="loadErr"></div>
   <div id="proposeWrap">
     <div id="wantedRow"></div>
-    <button id="proposeBtn">🌱 Propose a new roadmap…</button>
+    <button id="proposeBtn">🌱 Propose a map for the library…</button>
+    <button id="startMapBtn">🗺 Start a personal map…</button>
   </div>
 </main>
 
@@ -1073,6 +1074,23 @@ select.edInput{appearance:none;-webkit-appearance:none}
     <div class="modalBtns">
       <button id="abCancel">Cancel</button>
       <button id="abSave" class="primary">Save</button>
+    </div>
+  </div>
+</div>
+
+<!-- ================= START A PERSONAL MAP ================= -->
+<div id="umapModal" class="modalWrap">
+  <div class="modalCard" style="max-width:420px">
+    <h3>Start a personal map</h3>
+    <div class="edRow">
+      <input id="umEmoji" class="edInput" maxlength="8" style="max-width:64px"
+        value="🗺" aria-label="Map emoji">
+      <input id="umTitle" class="edInput" maxlength="80"
+        placeholder="Name the map" aria-label="Map name">
+    </div>
+    <div class="modalBtns">
+      <button id="umCancel">Cancel</button>
+      <button id="umCreate" class="primary">Create</button>
     </div>
   </div>
 </div>
@@ -1787,8 +1805,10 @@ function renderMapHeader(){
   // pre-adoption placeholder (CLAUDE.md rule 7), and a placeholder is not
   // a fact a reader needs — the surface says nothing until a name exists.
   const byline = currentFork
-    ? "✨ a personal version by "+esc(currentFork.owner&&currentFork.owner.name||"a walker")
-      +` of <a href="#/${esc(e.id)}">${esc(e.title)}</a>`
+    ? (currentFork.umap
+        ? "🗺 a personal map by "+esc(currentFork.owner&&currentFork.owner.name||"a walker")
+        : "✨ a personal version by "+esc(currentFork.owner&&currentFork.owner.name||"a walker")
+          +` of <a href="#/${esc(e.id)}">${esc(e.title)}</a>`)
     : (!who || who==="The Admins") ? "" : "maintained by "+esc(who);
   h.innerHTML=`
     <div class="mhTop"><h1>${esc(currentFork?currentFork.title:e.title)}</h1>
@@ -1799,12 +1819,16 @@ function renderMapHeader(){
     ${e.disclaimer?`<div class="mhDisclaimer">⚠️ ${esc(e.disclaimer)}</div>`:""}
     <div id="mhStateBanner"></div>`;
   renderMapAbout(e.id, e);   // trunk: the wiki-editable lead · branch: the owner's intro
-  // ⑂ all versions: the small, always-present way back to the category page
-  const br=document.createElement("button");
-  br.textContent="⑂ all versions";
-  br.title="Every public version of this category — the official branch and the community's";
-  br.onclick=()=>{ openCategory(currentFork?currentFork.base:e.id, true); };
-  $("mhActions").appendChild(br);
+  // ⑂ all versions: the small, always-present way back to the category page.
+  // A personal map has no category — it lives below the commons, off every
+  // shelf — so the button would point at nothing; it stays off.
+  if(!(currentFork&&currentFork.umap)){
+    const br=document.createElement("button");
+    br.textContent="⑂ all versions";
+    br.title="Every public version of this category — the official branch and the community's";
+    br.onclick=()=>{ openCategory(currentFork?currentFork.base:e.id, true); };
+    $("mhActions").appendChild(br);
+  }
   // 🕘 history: a meta action, so it lives with the header's meta row —
   // never among the canvas controls, never on forks, silent until configured
   if(!currentFork && GITHUB_REPO){
@@ -1886,7 +1910,7 @@ async function renderMapAbout(id, e){
     box.innerHTML = owner
       ? (paras
           ? paras+`<span class="wikiEdit">[ <a href="#" id="mapAboutEdit">edit</a> ]</span>`
-          : `<span class="wikiEdit">[ <a href="#" id="mapAboutEdit">write an intro for your branch</a> ]</span>`)
+          : `<span class="wikiEdit">[ <a href="#" id="mapAboutEdit">write an intro for your ${currentFork.umap?"map":"branch"}</a> ]</span>`)
       : paras;
     if(owner) $("mapAboutEdit").onclick=(ev)=>{ ev.preventDefault(); openAboutEditor(id); };
     return;
@@ -1951,10 +1975,10 @@ async function saveAbout(id, mode){
       toast("🛡️ Published — live now; lands in the public record within the hour");
     }else if(mode==="fork"){
       const F=await fb(); if(!F) throw new Error("offline — try again");
-      await F.updateDoc(F.doc(F.db,"forks",currentFork.id),
+      await F.updateDoc(F.doc(F.db, currentFork.umap?"usermaps":"forks", currentFork.id),
         {about:text, updatedAt:F.serverTimestamp()});
       currentFork.about=text;
-      toast("✨ Saved to your branch");
+      toast(currentFork.umap?"🗺 Saved to your map":"✨ Saved to your branch");
     }else{
       const F=await fb(); if(!F) throw new Error("offline — try again");
       await F.addDoc(F.collection(F.db,"proposals"),
@@ -2779,6 +2803,16 @@ $("sgUrl").addEventListener("blur",()=>{
 });
 $("suggestBtn").onclick=()=>openSuggest({node:currentNode.id,nodeTitle:currentNode.title});
 $("proposeBtn").onclick=()=>openSuggest({mode:"roadmap"});
+$("startMapBtn").onclick=()=>{
+  if(!user.provider){ $("authModal").classList.add("show"); toast("Sign in to start a map"); return; }
+  if(!(collConnected() && canSync())){ toast("Personal maps need the connected app"); return; }
+  $("umTitle").value=""; $("umEmoji").value="🗺";
+  $("umapModal").classList.add("show");
+  $("umTitle").focus();
+};
+$("umCancel").onclick=()=>$("umapModal").classList.remove("show");
+$("umCreate").onclick=createUserMap;
+$("umTitle").onkeydown=(e)=>{ if(e.key==="Enter") createUserMap(); };
 
 /* ---- wanted maps: the admins' public request list (roadmaps/wanted.json) ----
    A chip is a pre-addressed proposal: clicking one opens the new-roadmap form
@@ -3233,6 +3267,7 @@ function renderAccount(){
       </div>
     </div>
     <div id="acctContrib"></div>
+    <div id="acctUmaps"></div>
     <div id="acctForks"></div>
     <div id="acctGov"></div>
     <button class="edDanger" id="acctDelete" style="max-width:340px;margin:30px auto 0;display:block">
@@ -3248,6 +3283,7 @@ function renderAccount(){
   $("acctDelete").onclick=deleteMyAccount;
   if(moderatorOfAny()||stewardOfAny()) $("acctReview").onclick=openReview;
   renderGovPanel();
+  renderMyUmaps();          // async; fills #acctUmaps when the list arrives
   renderMyForks();          // async; fills #acctForks when the list arrives
   renderMyContributions();  // async; fills #acctContrib + clears the news badge
 }
@@ -4119,7 +4155,7 @@ $("collMapSearch").addEventListener("input",()=>{
    Connected only: public-read `forks` docs; unconfigured/demo degrades to
    an honest "needs the connected app" toast (no local mirror). */
 function forkOwned(){ return !!(currentFork && user.provider && currentFork.owner.uid===user.id); }
-function mapPath(){ return currentFork ? "/fork/"+currentFork.id : "/"+currentRm.id+"/map"; }
+function mapPath(){ return currentFork ? (currentFork.umap?"/umap/":"/fork/")+currentFork.id : "/"+currentRm.id+"/map"; }
 /* Public branches of one map — the fork-discovery query (public read).
    Hidden forks stay visible only to their owner and admins, same gate as
    opening one directly. */
@@ -4322,6 +4358,21 @@ async function saveForkOps(ops){
   f.ops=ops;
 }
 async function appendForkOps(newOps){
+  if(currentFork.umap){
+    // A personal map has no base and no op log — the doc IS the map. The
+    // editor still speaks in ops; apply them to the rendered map with the
+    // same applyMergedDocs and persist the resulting topic list whole.
+    const applied=applyMergedDocs(currentRm.topics, currentRm.nodes,
+      newOps.map((op,i)=>({...op, at:i+1})));
+    if(!applied.nodes.length) throw new Error("A map keeps its last topic — delete the map instead");
+    if(applied.nodes.length>40) throw new Error("A personal map holds up to 40 core topics");
+    const topics=deepClone(applied.nodes);   // JSON round-trip drops undefined fields Firestore rejects
+    const F=await fb(); if(!F) throw new Error("offline — try again");
+    await F.updateDoc(F.doc(F.db,"usermaps",currentFork.id),
+      {topics, updatedAt:F.serverTimestamp()});
+    currentFork.topics=topics;
+    return;
+  }
   let ops=(currentFork.ops||[]).slice();
   newOps.forEach(op=>{
     // compaction: only the latest edit per file (and latest spine) matters
@@ -4344,6 +4395,242 @@ async function deleteFork(){
     toast("Personal version deleted");
     location.hash="#/"+f.base;
   }catch(e){ toast("Delete failed — try again"); }
+}
+
+/* ---------- Personal maps: from-scratch, below the commons ----------
+   A usermap doc carries its full topic list — no base, no ops (there is
+   no living trunk to track). It rides the fork machinery via currentFork
+   tagged {umap:true}: forkOwned/canEdit/ownsSurface/editorMode work
+   unchanged, and appendForkOps persists the whole topic list instead of
+   an op log. Absent from every library surface — the link is the door. */
+let UMAP_EDIT_ON_OPEN=false;   // set by createUserMap: land in the editor
+async function fetchUmap(id){
+  if(!collConnected()) return null;
+  try{
+    const F=await fb(); if(!F) throw new Error("sdk unavailable");
+    const snap=await F.getDoc(F.doc(F.db,"usermaps",id));
+    if(snap.exists()){
+      const rec={id:snap.id, ...snap.data()};
+      ["createdAt","updatedAt"].forEach(k=>{ if(rec[k]&&rec[k].toMillis) rec[k]=rec[k].toMillis(); });
+      return rec;
+    }
+  }catch(e){}
+  return null;
+}
+async function myUmaps(){
+  if(!(collConnected() && canSync())) return [];
+  try{
+    const F=await fb(); if(!F) throw new Error("sdk unavailable");
+    const snap=await F.getDocs(F.query(F.collection(F.db,"usermaps"),
+      F.where("owner.uid","==",user.id)));
+    const out=[];
+    snap.forEach(d=>{
+      const rec={id:d.id, ...d.data()};
+      ["createdAt","updatedAt"].forEach(k=>{ if(rec[k]&&rec[k].toMillis) rec[k]=rec[k].toMillis(); });
+      out.push(rec);
+    });
+    return out;
+  }catch(e){ return []; }
+}
+function deriveUmapRm(u){
+  // Synthetic per-topic "file" names keep the ops grammar (and the whole
+  // editor) working; they are derived from ids, never stored.
+  const nodes=deepClone(u.topics||[]);
+  return {id:"u:"+u.id, title:u.title, emoji:u.emoji||"🗺",
+          topics:nodes.map(n=>"u-"+n.id+".json"), nodes};
+}
+async function openUmap(id, nodeId){
+  $("loading").classList.add("show");
+  let u=null;
+  try{ u=await fetchUmap(id); }catch(e){}
+  $("loading").classList.remove("show");
+  if(!u){ toast("⚠️ That personal map isn't available"); goHome(); return; }
+  if(u.hidden && !(user.provider&&u.owner.uid===user.id) && !isAdmin()){
+    toast("⚠️ That personal map isn't available"); goHome(); return; }
+  currentFork={...u, umap:true};
+  currentRm=deriveUmapRm(u);
+  showView("mapView");
+  $("backBtn").classList.add("show");
+  renderMapHeader();
+  renderGraph();
+  paintUmapChrome();
+  $("addTopicBtn").classList.toggle("show", ownsSurface());
+  $("reorgBtn").classList.toggle("show", ownsSurface());
+  reflectHash("/umap/"+id);
+  if(nodeId && flatten(currentRm).some(n=>n.id===nodeId)){ openNode(nodeId); revealNode(nodeId); }
+  else if(UMAP_EDIT_ON_OPEN && currentRm.nodes[0]){
+    openNode(currentRm.nodes[0].id); openEditor(currentRm.nodes[0].id);
+  }
+  UMAP_EDIT_ON_OPEN=false;
+}
+async function updateUmap(fields){
+  const F=await fb(); if(!F) throw new Error("offline");
+  await F.updateDoc(F.doc(F.db,"usermaps",currentFork.id),
+    {...fields, updatedAt:F.serverTimestamp()});
+  Object.assign(currentFork, fields);
+}
+function paintUmapChrome(){
+  const btn=$("forkBtn");
+  btn.textContent="🗺 "+(forkOwned()?"Your map":"This map");
+  btn.classList.add("show");
+  btn.onclick=()=>{
+    const open=$("forkBanner").classList.toggle("show");
+    if(open) paintUmapPanel();
+  };
+  paintUmapPanel();
+  $("forkBanner").classList.remove("show");
+}
+function paintUmapPanel(){
+  const b=$("forkBanner"), mine=forkOwned(), u=currentFork;
+  const tag=u.tagline||"";
+  b.innerHTML=`<span>🗺 <span id="umapName">${esc(u.title)}</span>${
+      mine?`<button id="umapRename" title="Rename this map">✎</button>`:""} —
+      ${mine?"your map":"a personal map by "+esc(u.owner.name)}
+      <span id="umapTag" class="forkSub">${esc(tag)}</span>${
+        mine?`<button id="umapTagEdit" title="One line: what is this map?">${tag?"✎":"✎ add a tagline"}</button>`:""}</span>
+    ${mine?`<span class="fpState">🔒 Only people with the link can open this</span>`:""}
+    <div class="fpRow">
+    <button id="umapShare" title="Copy a link to this map">🔗 Share</button>
+    ${mine?'<button id="umapDelete" title="Delete this map">🗑</button>'
+          :'<button id="umapReport" title="Report this map">⚑</button>'}
+    ${!mine&&isAdmin()&&canSync()
+      ?`<button id="umapHide" title="${u.hidden
+          ?"Restore this map for everyone with the link"
+          :"Hide this map from everyone but its owner"}">${
+          u.hidden?"👁 Unhide":"🙈 Hide"}</button>`:""}
+    </div>`;
+  $("umapShare").onclick=async ()=>{
+    const url=location.origin+location.pathname+"#/umap/"+u.id;
+    try{ await navigator.clipboard.writeText(url);
+      toast("🔗 Link copied — anyone can open it"); }
+    catch(e){ toast("Couldn't copy — the address bar has it"); }
+  };
+  if(mine) $("umapDelete").onclick=deleteUmap;
+  else $("umapReport").onclick=()=>reportContent("usermap",
+    {id:u.id, title:u.title});
+  if($("umapHide")) $("umapHide").onclick=async ()=>{
+    try{
+      const hidden=!u.hidden;
+      const F=await fb(); if(!F) throw new Error("offline");
+      await F.updateDoc(F.doc(F.db,"usermaps",u.id), {hidden});
+      u.hidden=hidden;
+      toast(hidden?"🙈 Hidden — only the owner can open it now":"👁 Restored");
+      paintUmapPanel();
+    }catch(e){ toast("Couldn't update this map — try again"); }
+  };
+  if($("umapTagEdit")) $("umapTagEdit").onclick=()=>{
+    const holder=$("umapTag");
+    const input=document.createElement("input");
+    input.className="forkSubInput"; input.maxLength=140;
+    input.value=u.tagline||"";
+    input.placeholder="e.g. the campaign world, one region at a time";
+    holder.replaceWith(input); $("umapTagEdit").style.display="none"; input.focus();
+    const save=async ()=>{
+      const tagline=input.value.trim();
+      if(tagline!==(u.tagline||"")){
+        try{ await updateUmap({tagline}); toast("Saved"); }
+        catch(e){ toast("Couldn't save — try again"); }
+      }
+      paintUmapPanel();
+    };
+    input.onblur=save;
+    input.onkeydown=(ev)=>{
+      if(ev.key==="Enter") input.blur();
+      if(ev.key==="Escape"){ input.value=u.tagline||""; input.blur(); } };
+  };
+  if($("umapRename")) $("umapRename").onclick=()=>{
+    const holder=$("umapName");
+    const wrap=document.createElement("span");
+    wrap.innerHTML=`<input class="forkSubInput" id="umapEmojiIn" maxlength="8"
+        style="width:44px" value="${esc(u.emoji||"🗺")}">
+      <input class="forkSubInput" id="umapTitleIn" maxlength="80"
+        style="min-width:180px" value="${esc(u.title)}">`;
+    holder.replaceWith(wrap); $("umapRename").style.display="none";
+    const tIn=wrap.querySelector("#umapTitleIn"), eIn=wrap.querySelector("#umapEmojiIn");
+    tIn.focus();
+    let done=false;
+    const save=async ()=>{
+      if(done) return; done=true;
+      const title=tIn.value.trim(), emoji=eIn.value.trim()||"🗺";
+      if(title.length>=3 && (title!==u.title || emoji!==(u.emoji||"🗺"))){
+        try{
+          await updateUmap({title, emoji});
+          currentRm.title=title; currentRm.emoji=emoji;
+          renderMapHeader();
+        }catch(e){ toast("Couldn't save — try again"); }
+      }
+      paintUmapPanel();
+    };
+    [tIn,eIn].forEach(inp=>{
+      inp.onkeydown=(ev)=>{
+        if(ev.key==="Enter") save();
+        if(ev.key==="Escape"){ done=true; paintUmapPanel(); } };
+    });
+    tIn.onblur=()=>setTimeout(()=>{ if(document.activeElement!==eIn) save(); },0);
+    eIn.onblur=()=>setTimeout(()=>{ if(document.activeElement!==tIn) save(); },0);
+  };
+}
+async function deleteUmap(){
+  if(!confirm(`Delete “${currentFork.title}”? Its link stops working.`)) return;
+  try{
+    const F=await fb(); if(!F) throw new Error("offline");
+    await F.deleteDoc(F.doc(F.db,"usermaps",currentFork.id));
+    toast("Personal map deleted");
+    goHome();
+  }catch(e){ toast("Delete failed — try again"); }
+}
+async function createUserMap(){
+  const title=$("umTitle").value.trim(), emoji=$("umEmoji").value.trim()||"🗺";
+  if(title.length<3){ toast("A name, three characters or more"); return; }
+  const starter={id:"start-here", title:"Start here", tier:"essential",
+    learn:{summary:"The first topic of this map. Open the editor (✏️) and make it yours.", links:[]},
+    do:["Rewrite this topic as the real first step."], children:[]};
+  $("umCreate").disabled=true;
+  try{
+    const F=await fb(); if(!F) throw new Error("offline");
+    const ref=await F.addDoc(F.collection(F.db,"usermaps"),
+      {title, emoji, topics:[starter], owner:{uid:user.id, name:user.name},
+       hidden:false, createdAt:F.serverTimestamp(), updatedAt:F.serverTimestamp()});
+    $("umapModal").classList.remove("show");
+    UMAP_EDIT_ON_OPEN=true;
+    location.hash="#/umap/"+ref.id;
+    toast("🔒 Yours — private; share the link to show it");
+  }catch(e){ toast("Couldn't create the map — try again"); }
+  $("umCreate").disabled=false;
+}
+async function renderMyUmaps(){
+  const box=$("acctUmaps"); if(!box) return;
+  const maps=await myUmaps();
+  if(!maps.length){ box.innerHTML=""; return; }
+  box.innerHTML='<h2 class="secTitle" style="margin-top:26px">Your maps</h2>'+
+    '<div class="sub">Maps you started from scratch. Each link is its only door.</div>';
+  maps.sort((a,b)=>(b.updatedAt||0)-(a.updatedAt||0)).forEach(u=>{
+    const d=document.createElement("div"); d.className="collCard";
+    d.innerHTML=`<div class="collHead"><h3>${esc(u.emoji||"🗺")} ${esc(u.title)}</h3>
+      <span class="collBy">${esc(u.tagline||"")}
+      · ${(u.topics||[]).length} topic${(u.topics||[]).length===1?"":"s"}</span></div>`;
+    const acts=document.createElement("div"); acts.className="sgActs";
+    const op=document.createElement("button"); op.textContent="Open";
+    op.onclick=()=>{ location.hash="#/umap/"+u.id; };
+    const cp=document.createElement("button"); cp.className="aAcc"; cp.textContent="🔗 Copy link";
+    cp.onclick=async ()=>{
+      try{ await navigator.clipboard.writeText(location.origin+location.pathname+"#/umap/"+u.id);
+        toast("🔗 Link copied"); }
+      catch(err){ toast("Couldn't copy"); }
+    };
+    const del=document.createElement("button"); del.className="aRej"; del.textContent="🗑 Delete";
+    del.onclick=async ()=>{
+      if(!confirm(`Delete “${u.title}”? Its link stops working.`)) return;
+      try{
+        const F=await fb(); if(!F) throw new Error("offline");
+        await F.deleteDoc(F.doc(F.db,"usermaps",u.id));
+        toast("Deleted"); renderAccount();
+      }catch(err){ toast("Delete failed — try again"); }
+    };
+    acts.appendChild(op); acts.appendChild(cp); acts.appendChild(del);
+    d.appendChild(acts);
+    box.appendChild(d);
+  });
 }
 async function renderMyForks(){
   const box=$("acctForks"); if(!box) return;
@@ -4928,16 +5215,20 @@ function paintEditorChrome(){
   $("edSubstantive").checked=false;
   $("edAffiliated").checked=false; $("edAffiliation").value="";
   $("edAffiliation").style.display="none";
+  const umap=!!(currentFork&&currentFork.umap);
   $("edSave").textContent = {dev:isNew?"Create topic":"Save",
                              merge:isNew?"Create & publish":"Save & publish",
                              propose:isNew?"Propose new topic":"Propose change",
-                             fork:isNew?"Add to your version":"Save to your version",
+                             fork:isNew?(umap?"Add to your map":"Add to your version")
+                                       :(umap?"Save to your map":"Save to your version"),
                              export:"Export JSON"}[mode];
   $("edMode").innerHTML = {
     dev:`💾 Saves directly to <b>roadmaps/${esc(currentRm.id)}/topics/${esc(topicFile()||"(new file)")}</b> — dev server detected.`,
     merge:`🛡️ You maintain this map — saving publishes immediately and is logged in the map's public history.`,
     propose:`🌱 This goes to <b>${esc(maintainerNameOf(currentRm)||"the maintainer")}</b> for review — nothing changes until they merge it. Your name goes on the change, licensed CC BY-SA 4.0.`,
-    fork:`✨ This is <b>${esc(currentFork?currentFork.title:"")}</b> — saves change only your
+    fork: umap
+      ? `🗺 This is <b>${esc(currentFork?currentFork.title:"")}</b> — your map; saves are live for anyone with its link.`
+      : `✨ This is <b>${esc(currentFork?currentFork.title:"")}</b> — saves change only your
        personal version, never the standard map.`,
     export:`📦 Not connected — Save downloads the topic file to drop into
        <b>roadmaps/${esc(currentRm.id)}/topics/</b> and run tools/build.py.`,
@@ -5101,7 +5392,8 @@ async function submitStructural(op, successMsg){
   if(mode==="fork"){
     const {baseHash, baseHash2, ...core}=op;
     await appendForkOps([core]);
-    toast("✨ "+successMsg+" — saved to your version");
+    toast(currentFork.umap ? "🗺 "+successMsg+" — saved to your map"
+                           : "✨ "+successMsg+" — saved to your version");
     return true;
   }
   if(mode==="dev"){
@@ -5199,7 +5491,9 @@ function commitFields(){
   return n;
 }
 async function reloadCurrentRoadmap(reopenNodeId){
-  if(currentFork){   // re-derive the personal version over the fresh base
+  if(currentFork&&currentFork.umap){   // the doc is the map: re-derive locally
+    currentRm=deriveUmapRm(currentFork);
+  }else if(currentFork){   // re-derive the personal version over the fresh base
     rmCache.delete(currentFork.base);
     const base=await loadRoadmap(currentFork.base);
     currentRm=deriveForkRm(base, currentFork);
@@ -5255,7 +5549,7 @@ async function saveEditor(){
     try{
       if(mode==="fork"){
         await appendForkOps([{kind:"add", file:fname, topic:edCtx.topic, after}]);
-        toast("✨ Added to your version");
+        toast(currentFork.umap?"🗺 Added to your map":"✨ Added to your version");
       }else if(mode==="dev"){
         const r=await fetch("/dev/apply",{method:"POST",
           headers:{"Content-Type":"application/json"},
@@ -5297,7 +5591,7 @@ async function saveEditor(){
     $("edSave").disabled=true;
     try{
       await appendForkOps([{kind:"edit", file:fname, topic:edCtx.topic}]);
-      toast("✨ Saved to your version");
+      toast(currentFork.umap?"🗺 Saved to your map":"✨ Saved to your version");
       closeEditor();
       await reloadCurrentRoadmap(reopen);
     }catch(e){
@@ -5407,6 +5701,8 @@ $("reorgBtn").onclick=()=>{
     dev:"💾 Saves the new order directly to meta.json — dev server detected.",
     merge:"🛡️ You maintain this map — the new order publishes immediately.",
     propose:"🌱 Your proposed order goes to the maintainer for review (you'll be asked for a short reason).",
+    fork:(currentFork&&currentFork.umap)?"🗺 The new order saves to your map."
+        :"✨ The new order saves to your version, never the standard map.",
     export:"📦 Not connected — structure changes need the dev server or a signed-in, connected app."}[editorMode()];
   $("reorgModal").classList.add("show");
 };
@@ -5490,6 +5786,7 @@ function toast(msg){
 let guildFromRm=null;   // set when a map-header guild door is used
 async function goUp(){
   if($("mapView").classList.contains("active")){
+    if(currentFork&&currentFork.umap){ goHome(); return; }   // no category above a personal map
     if(currentFork){ await openCategory(currentFork.base, true); return; }
     if(currentRm){ await openCategory(currentRm.id, true); return; }
   }
@@ -5539,6 +5836,10 @@ async function applyRoute(){
     if(map==="privacy"){ openPrivacy(); return; }
     if(map==="fork"){   // #/fork/<id>[/<node>] — a shared personal version
       if(parts[1]) await openFork(parts[1], parts[2]); else goHome();
+      return;
+    }
+    if(map==="umap"){   // #/umap/<id>[/<node>] — a from-scratch personal map
+      if(parts[1]) await openUmap(parts[1], parts[2]); else goHome();
       return;
     }
     if(!INDEX.find(r=>r.id===map)){ goHome(); return; }

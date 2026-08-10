@@ -94,8 +94,12 @@ Journeys: J1, J3.
 - `#wantedRow` — "Maps the library is looking for" chips from
   `roadmaps/wanted.json`; click prefills the new-roadmap proposal.
   (everyone; submitting needs signed-in + connected)
-- `#proposeBtn` 🌱 Propose a new roadmap… — opens the suggest modal in
-  roadmap mode. (everyone; gated at submit)
+- `#proposeBtn` 🌱 Propose a map for the library… — opens the suggest
+  modal in roadmap mode. (everyone; gated at submit)
+- `#startMapBtn` 🗺 Start a personal map… — opens `#umapModal` (name +
+  emoji → creates the usermap doc, lands in it with the editor open).
+  The two buttons are the two honest creation paths: the library goes
+  through review; a personal map just exists. (signed-in + connected)
 - `#loadErr` — friendly serve-over-HTTP instructions when content fetch
   fails (file:// case). (everyone, on error)
 
@@ -266,6 +270,36 @@ Journeys: J15, J16.
   per-link ⚑ flags, 💬 Discussion, 🏅/🏛/orphan extras, 🕘 history,
   ⚑ report-map (report-the-fork lives in the panel instead).
 
+## 5b · Personal map — `#/umap/<id>`
+
+Purpose: a from-scratch map below the commons — one `usermaps/{id}` doc
+carrying its full topic list (no base, no ops), owned by its creator,
+readable by anyone with the link, absent from every library surface
+(no shelf, no atlas, no search, no picker). Reached: creation door on
+home, account page, shared links. Journeys: J28.
+
+- Rides the fork machinery: `currentFork` tagged `umap:true`, so
+  forkOwned/canEdit/ownsSurface/editorMode work unchanged; the renderer
+  gets a `currentRm` shaped `{id:"u:"+docId, …}` via `deriveUmapRm`
+  (synthetic per-topic file names keep the ops grammar working; editor
+  saves apply the op via applyMergedDocs and persist the whole `topics`
+  list). Progress keys are `u:<docId>` — never collide with categories.
+  (everyone reads; owner edits)
+- Header: title + "🗺 a personal map by <owner>"; no ⑂ all versions
+  (there is no category above it), no 🕘 history. Intro prose
+  (`#mhAboutLead`, `about` ≤4000) renders like a branch intro;
+  "[ write an intro for your map ]" for the owner. (everyone)
+- `#forkBtn` 🗺 opens `#forkBanner` as the map panel: title + ✎ rename
+  (inline emoji+title inputs) · tagline (≤140, ✎ inline edit) · "🔒 Only
+  people with the link can open this" (there is no publish — nothing to
+  list into; the library is the repo) · 🔗 Share · 🗑 delete (owner) ·
+  ⚑ report kind `usermap` (non-owners) · 🙈/👁 admin hide. (everyone)
+- ✏️ / ＋ Add topic / ⇅ Reorganize / side lists — the full editor, owner
+  only; caps: 40 core topics, 1 MiB doc. No reset-to-standard (no
+  standard exists). (owner)
+- Suppressed like forks: 💡 suggest, tips, per-link ⚑ flags,
+  💬 Discussion, 🏅/🏛/orphan extras, what's-new.
+
 ## 6 · Atlas — `#/atlas`
 
 Purpose: browse every map by transparent, fixed criteria — richer metadata
@@ -330,6 +364,8 @@ the governance controls. Reached: user chip. Journeys: J9, J20.
 - "Your contributions" — status per suggestion/proposal (⏳/🌟/📥/✅/✕ with
   the written rejection reason) + Withdraw while pending. (author,
   connected)
+- "Your maps" — from-scratch personal maps: Open / 🔗 Copy link /
+  🗑 Delete per usermap. (owner, connected)
 - "Your personal versions" — Open / 🔗 Copy link / 🗑 Delete per fork.
   (owner, connected)
 - `🗑 Delete my account and data…` — double-confirmed; removes identity,
@@ -470,6 +506,10 @@ erase it. Reached: About footer, auth modal, account page. Journeys: J9.
 - **Collection** `#collModal` — title, blurb, map checkbox picker with
   search (checked survive filtering), delete (edit mode). (owner;
   connected)
+- **Start a personal map** `#umapModal` — emoji + name, Create (writes
+  the usermap doc with one starter topic, navigates in, editor open,
+  "🔒 Yours — private; share the link to show it"). Opener:
+  `#startMapBtn`. (signed-in + connected)
 
 ## 16 · System states
 

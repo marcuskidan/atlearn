@@ -193,6 +193,16 @@ Here, in ascending order of effort:
    Anyone can take the entire commons and grow it elsewhere. That this is
    possible is precisely what keeps the roles honest.
 
+**Below the commons: personal maps.** Anyone signed in can also make a
+map *from scratch* — free, uncapped, owned outright, shareable by link,
+and absent from every library surface. Existence needs no one's approval;
+the shelf does. The library remains the true commons — what is listed is
+what landed in the repository, worked on by the world and admitted
+through the existing proposal path, with admission criteria in the
+spirit of wiki notability rules. A personal map that deserves the shelf
+travels the same road as any proposed map: its owner offers it, the
+admins review it against the charter, and a human imports it.
+
 **When a personal version outgrows the trunk:** a personal version that
 draws more walkers than the canonical map is not a crisis — it is the
 succession signal working. Because personal versions are stored as changes,

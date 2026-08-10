@@ -896,6 +896,64 @@ guard("forks: the intro paragraph — owner's prose, capped, owner-only", async 
     .update({ about: "hijacked", updatedAt: new Date() }));
 });
 
+/* ---- usermaps: from-scratch personal maps below the commons ---- */
+const umap = (over = {}) => ({
+  title: "Night Kitchen", emoji: "🌙",
+  topics: [{ id: "start", title: "Start", tier: "essential",
+             learn: { summary: "x", links: [] }, do: ["a"], children: [] }],
+  owner: { uid: "user-uid", name: "U" }, hidden: false,
+  createdAt: sgTs(), updatedAt: sgTs(), ...over,
+});
+
+guard("usermaps: signed-in owner creates; public read (the link is the door)", async () => {
+  await rut.assertSucceeds(db("user-uid").collection("usermaps").add(umap()));
+  await rut.assertSucceeds(db("user-uid").collection("usermaps")
+    .add(umap({ tagline: "midnight cooking, no recipes", about: "A map of a kitchen after dark." })));
+  await rut.assertSucceeds(db(null).collection("usermaps").get());
+});
+
+guard("usermaps create rejected: anonymous, spoofed owner, self-hidden, bad shape", async () => {
+  await rut.assertFails(db(null).collection("usermaps").add(umap()));
+  await rut.assertFails(db("user-uid").collection("usermaps")
+    .add(umap({ owner: { uid: "other-uid", name: "X" } })));
+  await rut.assertFails(db("user-uid").collection("usermaps")
+    .add(umap({ hidden: true })));
+  await rut.assertFails(db("user-uid").collection("usermaps")
+    .add(umap({ title: "ab" })));
+  await rut.assertFails(db("user-uid").collection("usermaps")
+    .add(umap({ tagline: "x".repeat(141) })));
+  await rut.assertFails(db("user-uid").collection("usermaps")
+    .add(umap({ about: "x".repeat(4001) })));
+  await rut.assertFails(db("user-uid").collection("usermaps")
+    .add(umap({ topics: "not-a-list" })));
+  await rut.assertFails(db("user-uid").collection("usermaps")
+    .add(umap({ topics: [] })));
+  await rut.assertFails(db("user-uid").collection("usermaps")
+    .add(umap({ topics: Array.from({ length: 41 }, (_, i) => ({ id: "t" + i })) })));
+  await rut.assertFails(db("user-uid").collection("usermaps")
+    .add(umap({ extra: "field" })));
+});
+
+guard("usermaps update/delete: owner edits, admin hides, strangers do neither", async () => {
+  let ref;
+  await testEnv.withSecurityRulesDisabled(async (ctx) => {
+    ref = await ctx.firestore().collection("usermaps")
+      .add(umap({ createdAt: new Date(), updatedAt: new Date() }));
+  });
+  const path = `usermaps/${ref.id}`;
+  await rut.assertSucceeds(db("user-uid").doc(path)
+    .update({ title: "Night Kitchen, revised", tagline: "after-dark cooking",
+              topics: umap().topics, updatedAt: new Date() }));
+  await rut.assertFails(db("user-uid").doc(path).update({ hidden: true }));
+  await rut.assertFails(db("user-uid").doc(path)
+    .update({ owner: { uid: "user-uid", name: "Renamed" } }));
+  await rut.assertFails(db("someone").doc(path).update({ title: "Hijacked!" }));
+  await rut.assertFails(db("someone").doc(path).delete());
+  await rut.assertSucceeds(db("admin-uid").doc(path).update({ hidden: true }));
+  await rut.assertFails(db("admin-uid").doc(path).update({ title: "Admin rewrite" }));
+  await rut.assertSucceeds(db("user-uid").doc(path).delete());
+});
+
 /* ---- collections: owner-curated shelves of maps ---- */
 const collection = (over = {}) => ({
   title: "Learning the Natural World", blurb: "Sky, garden, weather.",
