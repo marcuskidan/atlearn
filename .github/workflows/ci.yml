@@ -29,7 +29,10 @@ jobs:
         with:
           node-version: 20
       - name: Client logic tests
-        run: node --test tests/
+        # rules.test.mjs is deliberately NOT here: it belongs to the rules
+        # job's emulator wrapper, and in CI it hard-fails without an
+        # emulator rather than skipping (the green-wash tripwire).
+        run: node --test tests/client.test.mjs tests/ops.test.mjs
 
   rules:
     # firestore.rules is the entire server-side security boundary — test it
