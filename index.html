@@ -774,7 +774,7 @@ select.edInput{appearance:none;-webkit-appearance:none}
       <span id="heroCollLink" style="display:none"><a href="#/collections">Browse collections →</a> ·</span>
       <a href="#/atlas">Explore the atlas →</a></p>
     <div id="searchWrap">
-      <input id="searchBox" type="search" placeholder="Search every map — try “knife”, “Polaris”, “budget”…"
+      <input id="searchBox" type="search" placeholder="⌕"
         autocomplete="off" spellcheck="false" aria-label="Search all roadmaps">
       <div id="searchResults" role="listbox"></div>
     </div>
@@ -943,7 +943,7 @@ select.edInput{appearance:none;-webkit-appearance:none}
 <!-- ================= COLLECTIONS ================= -->
 <section id="collectionsView" class="view"><div id="collectionsInner">
   <h2>🧺 Collections</h2>
-  <input id="collSearch" type="search" placeholder="Search collections…"
+  <input id="collSearch" type="search" placeholder="⌕"
     autocomplete="off" spellcheck="false" aria-label="Search collections">
   <button id="collNew">＋ Create a collection…</button>
   <div id="collList"></div>
@@ -954,7 +954,7 @@ select.edInput{appearance:none;-webkit-appearance:none}
   transparent fixed criteria, printed on the page — never engagement. -->
 <section id="atlasView" class="view"><div id="atlasInner">
   <h2>🗺 The Atlas</h2>
-  <input id="atlasSearch" type="search" placeholder="Search every map — title, promise, maintainer…"
+  <input id="atlasSearch" type="search" placeholder="⌕"
     autocomplete="off" spellcheck="false" aria-label="Search the atlas">
   <div id="atlasSortRow">
     <span class="atlasCaption">Sorted by</span>
@@ -1024,7 +1024,7 @@ select.edInput{appearance:none;-webkit-appearance:none}
 <section id="categoryView" class="view"><div id="categoryInner">
   <div id="catHead"></div>
   <div id="catControls" style="display:none">
-    <input id="catSearch" type="search" placeholder="Search branches — title or maintainer…"
+    <input id="catSearch" type="search" placeholder="⌕"
       autocomplete="off" spellcheck="false" aria-label="Search branches">
     <div id="catSorts">
       <button class="catSort on" data-sort="tended">recently tended</button>
@@ -1065,7 +1065,7 @@ select.edInput{appearance:none;-webkit-appearance:none}
   <div class="modalCard" style="max-width:560px">
     <h3 id="abTitle">Edit the about section</h3>
     <textarea id="abText" class="edArea" style="min-height:160px" maxlength="4000"
-      placeholder="What is this subject, and what does walking this category teach? Plain prose — blank line between paragraphs."></textarea>
+      ></textarea>
     <div id="abNoteWrap" style="display:none">
       <label class="edLabel">✉️ Note to the maintainer</label>
       <input id="abNote" class="edInput" maxlength="200"
@@ -1116,7 +1116,7 @@ select.edInput{appearance:none;-webkit-appearance:none}
     <label class="edLabel">What ties it together? (optional)</label>
     <textarea id="collBlurb" class="edArea" style="min-height:70px" maxlength="300"></textarea>
     <label class="edLabel">Maps on this shelf</label>
-    <input id="collMapSearch" class="edInput" type="search" placeholder="Search maps…"
+    <input id="collMapSearch" class="edInput" type="search" placeholder="⌕"
       autocomplete="off" spellcheck="false" aria-label="Search maps to add">
     <div id="collPick" class="collPick"></div>
     <div class="modalBtns">
@@ -1924,7 +1924,7 @@ function openAboutEditor(id){
     dev:`💾 Saves directly to <b>roadmaps/${esc(id)}/meta.json</b> — dev server detected.`,
     merge:`🛡️ You moderate this map — saving publishes immediately, attributed in the public record.`,
     propose:`🌱 This goes to the maintainer for review — nothing changes until they merge it. Your name goes on the change, licensed CC BY-SA 4.0.`,
-    fork:`✨ Your branch's intro — saves to your version, nowhere else.`,
+    fork:"",
   }[mode];
   $("aboutModal").classList.add("show");
   $("abSave").onclick=()=>saveAbout(id, mode);
