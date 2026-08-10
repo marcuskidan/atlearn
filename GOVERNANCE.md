@@ -203,6 +203,28 @@ spirit of wiki notability rules. A personal map that deserves the shelf
 travels the same road as any proposed map: its owner offers it, the
 admins review it against the charter, and a human imports it.
 
+**What the library shelves.** Admission is judged, not scored — in the
+spirit of Wikipedia's notability rules, these are the questions the
+admins weigh, not a checklist a submission games:
+
+1. *It teaches a skill.* Something a person practices and gets better
+   at, with real do-this-week actions at every step — not a reading
+   list, an opinion, or a diary.
+2. *A stranger would look for it.* People who have never met the author
+   search for this skill by name. A map of one campaign, one classroom,
+   or one company belongs below the commons, where it already lives.
+3. *Free resources can carry it.* The one hard rule reaches every node;
+   a map that can only be walked through paywalls cannot be shelved.
+4. *It doesn't duplicate a shelved map.* Overlap goes to the existing
+   map as proposals, or stands as a public branch of it — the shelf
+   holds one trunk per skill.
+5. *Someone will tend it.* A named maintainer ready to hold it — the
+   author is the natural candidate — or the admins knowingly shelve it
+   as seeking one.
+
+Import is a human act: content enters the repository through the
+editorial pipeline and the build gate, never by automation.
+
 **When a personal version outgrows the trunk:** a personal version that
 draws more walkers than the canonical map is not a crisis — it is the
 succession signal working. Because personal versions are stored as changes,

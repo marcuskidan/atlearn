@@ -180,8 +180,9 @@ existence needs no approval; the library's shelf does.
 - ● Branch anyone's personal map — a full copy of your own, with credit
   to where it came from; if the original is later deleted, your copy
   stands.
-- ○ "Offer this map to the library" — files the existing new-roadmap
-  proposal for the admins to review against the charter (planned).
+- ● "Offer to the library" — one button files the standard new-map
+  proposal, outline and link filled in; the admins review it against
+  the published admission questions, and a human does the import.
 
 **Deliberate limits** — personal maps live outside the commons: the
 library is the repo, worked on by the world and admitted by review, so

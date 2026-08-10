@@ -296,9 +296,12 @@ home, account page, shared links. Journeys: J28.
   ⑂ Branch (anyone signed-in + connected: a FULL COPY as a new usermap —
   no ops-over-base, a deleted source breaks nothing; `lineage`
   {from,title,owner} stamped at create, immutable, rendered as
-  "⑂ branched from <title> by <owner>" on the panel) · 🗑 delete
-  (owner) · ⚑ report kind `usermap` (non-owners) · 🙈/👁 admin hide.
-  (everyone)
+  "⑂ branched from <title> by <owner>" on the panel) · `#umapOffer`
+  🌱 Offer to the library (owner: opens the suggest modal in roadmap
+  mode prefilled with the outline + the map link — the existing
+  proposal path; admission questions in GOVERNANCE "What the library
+  shelves"; import stays a human act) · 🗑 delete (owner) · ⚑ report
+  kind `usermap` (non-owners) · 🙈/👁 admin hide. (everyone)
 - ✏️ / ＋ Add topic / ⇅ Reorganize / side lists — the full editor, owner
   only; caps: 40 core topics, 1 MiB doc. No reset-to-standard (no
   standard exists). (owner)

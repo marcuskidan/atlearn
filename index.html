@@ -2721,7 +2721,7 @@ function openSuggest(ctx){
   if(!user.provider){ $("authModal").classList.add("show"); toast("Sign in to contribute"); return; }
   sgCtx=ctx;
   const isRm=ctx.mode==="roadmap", isAdopt=ctx.mode==="adopt";
-  $("sgTitle").textContent=isRm?"Propose a new roadmap"
+  $("sgTitle").textContent=isRm?"Propose a map for the library"
     :isAdopt?"Apply to adopt this map":"Share a field-tested tip";
   $("sgContext").textContent=isRm
     ? "Describe it as a simple outline — core topics with subtopics, like a table of contents. The admins review every proposal."
@@ -2735,6 +2735,8 @@ function openSuggest(ctx){
   $("sgAffiliation").style.display="none";
   if(isRm && ctx.wanted)   // arriving via a wanted-map chip: start the outline
     $("sgText").value=ctx.wanted.title+"\n- "+(ctx.wanted.note?`\n\n(The admins noted: ${ctx.wanted.note})`:"");
+  if(isRm && ctx.prefill)  // arriving via "Offer to the library": the map speaks for itself
+    $("sgText").value=ctx.prefill;
   $("sgText").placeholder=isRm
     ? "e.g.\nBirdwatching Basics\n- Gear: binoculars before anything\n- Field marks & identification\n- Songs and calls\n- Habitats through the seasons\n- Keeping a life list"
     : isAdopt
@@ -4495,6 +4497,8 @@ function paintUmapPanel(){
     <div class="fpRow">
     <button id="umapShare" title="Copy a link to this map">🔗 Share</button>
     <button id="umapBranch" title="Make your own full copy of this map">⑂ Branch</button>
+    ${mine?`<button id="umapOffer"
+      title="Propose this map for the library — the admins review it against the charter">🌱 Offer to the library</button>`:""}
     ${mine?'<button id="umapDelete" title="Delete this map">🗑</button>'
           :'<button id="umapReport" title="Report this map">⚑</button>'}
     ${!mine&&isAdmin()&&canSync()
@@ -4510,6 +4514,16 @@ function paintUmapPanel(){
     catch(e){ toast("Couldn't copy — the address bar has it"); }
   };
   $("umapBranch").onclick=branchUmap;
+  if($("umapOffer")) $("umapOffer").onclick=()=>{
+    // Stage 3: the road INTO the library is the existing proposal path —
+    // this door just fills the outline in. Import stays a human act.
+    const outline=[u.title,
+      ...currentRm.nodes.map(n=>"- "+n.title
+        +((n.children||[]).length?": "+(n.children||[]).map(c=>c.title).join(", "):""))]
+      .join("\n")
+      +"\n\nThe full map: "+location.origin+location.pathname+"#/umap/"+u.id;
+    openSuggest({mode:"roadmap", prefill:outline});
+  };
   if(mine) $("umapDelete").onclick=deleteUmap;
   else $("umapReport").onclick=()=>reportContent("usermap",
     {id:u.id, title:u.title});

@@ -432,7 +432,12 @@ STEPS
    <title> by <owner>"; edits to the copy never touch the source, and
    deleting the source leaves the copy (and its attribution line)
    standing.
-7. 🗑 Delete (panel or account) → the link stops working; nothing else
+7. Owner → panel → "🌱 Offer to the library" → the suggest modal opens
+   in roadmap mode with the outline and the map link prefilled; submit
+   → it appears in the admins' queue like any proposed map (J17's desk;
+   GOVERNANCE "What the library shelves" is the bar). Nothing about the
+   personal map itself changes.
+8. 🗑 Delete (panel or account) → the link stops working; nothing else
    in the library moved at any point.
 EXPECT — the 40-topic cap speaks in the editor rather than truncating;
 progress on a personal map is keyed `u:<id>` and never collides with a

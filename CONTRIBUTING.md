@@ -17,7 +17,11 @@ experts and everyday learners.
 **2. Suggest (in the app).**
 Not ready to write the change yourself? Use 💡 *Suggest an improvement* on any
 node — a fix, a better resource, a field-tested tip, or a missing subtopic —
-or 🌱 *Propose a new roadmap* from the home screen as a simple outline.
+or 🌱 *Propose a map for the library* from the home screen as a simple
+outline. You can also build the whole thing first as a personal map
+(🗺 *Start a personal map*, yours instantly, no review) and offer it from
+its panel when it's ready — the admission questions are in
+GOVERNANCE.md, "What the library shelves."
 
 **3. Pull request (for the git-comfortable).**
 Content lives as small JSON files: one core topic per file at
