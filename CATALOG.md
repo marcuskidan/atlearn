@@ -1,6 +1,6 @@
 # CATALOG.md — every surface, every feature, one source of truth
 
-This is the complete inventory of what exists in Waihona's interface: every
+This is the complete inventory of what exists in Atlearn's interface: every
 page a user can land on, every element on it, what each does, and who sees
 it. It is the **source of truth for surfaces** — development flows through
 it in both directions:
@@ -50,7 +50,7 @@ Journeys: J2.
 - `#brand` 🗺️ + `#brandText` — clickable, goes home; text is overwritten
   per view with the current context. (everyone)
 - `#themeBtn` ☾/☀ — flips light/dark. The choice sticks to the device
-  (`waihona-theme` in localStorage, applied before first paint) and, when
+  (`atlearn-theme` in localStorage, applied before first paint) and, when
   signed in, to the account (`store.settings.theme`, LWW), so it follows
   the walker onto their next device. Light is the default. (everyone)
 - `#aboutBtn` ⓘ — opens `#/about`. (everyone)

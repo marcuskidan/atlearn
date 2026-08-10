@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Waihona — build tool.
+Atlearn — build tool.
 
   python3 tools/build.py               validate all content + regenerate roadmaps/index.json
   python3 tools/build.py --standalone  also emit dist/standalone.html (single file, data inlined)

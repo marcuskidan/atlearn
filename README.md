@@ -1,11 +1,11 @@
-# Waihona
+# Atlearn
 
-**Waihona is a free online library of learning roadmaps — step-by-step paths
+**Atlearn is a free online library of learning roadmaps — step-by-step paths
 for learning real-world skills — written and tended by a community of
 volunteers, every map kept by a named maintainer.** The free curriculum, in
 the sense that Wikipedia is the free encyclopedia.
 
-*Waihona* (Hawaiian): a repository — a place where treasured things are kept.
+*Atlearn*: an atlas for learning — the site lives at [atlearn.org](https://atlearn.org).
 
 Action-oriented maps for general human skills — observational astronomy,
 applied compassion, home horticulture, first aid, and more. Inspired by

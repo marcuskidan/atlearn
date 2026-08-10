@@ -7,19 +7,19 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="theme-color" content="#fcfcfa">
-<meta name="description" content="Waihona is a free online library of learning roadmaps — step-by-step paths for learning real-world skills — written and tended by a community of volunteers, every map kept by a named maintainer.">
-<title>Waihona</title>
+<meta name="description" content="Atlearn is a free online library of learning roadmaps — step-by-step paths for learning real-world skills — written and tended by a community of volunteers, every map kept by a named maintainer.">
+<title>Atlearn</title>
 <script>
 /* Theme boots before first paint — device preference, no flash.
    (The account's saved theme, if any, takes over after sign-in merge.) */
 (function(){try{
-  if(localStorage.getItem("waihona-theme")==="dark")
+  if(localStorage.getItem("atlearn-theme")==="dark")
     document.documentElement.setAttribute("data-theme","dark");
 }catch(e){}})();
 </script>
 <style>
 /* ============================================================
-   WAIHONA — app shell
+   ATLEARN — app shell
    Content lives in roadmaps/<id>/ folders (see README.md).
    Wrap-ready for iOS via Capacitor/WKWebView (safe-area aware).
 
@@ -741,7 +741,7 @@ select.edInput{appearance:none;-webkit-appearance:none}
   <div id="brand" role="link" aria-label="Home" title="Home">
     <div id="brandMark">🗺️</div>
     <div style="min-width:0">
-      <div id="brandText">Waihona</div>
+      <div id="brandText">Atlearn</div>
     </div>
   </div>
   <div id="topSpacer"></div>
@@ -863,7 +863,7 @@ select.edInput{appearance:none;-webkit-appearance:none}
   you are on your path, backups and extras — support the work for those who want them and can
   pay. If you never pay a cent, you get the entire library. If you do, you're keeping it open
   for someone who can't.</p>
-  <div class="sig">Waihona — the free curriculum. A commons with gardeners.<br>
+  <div class="sig">Atlearn — the free curriculum. A commons with gardeners.<br>
   A world where anyone can follow the path to learning anything they want, for free —
   supported by all the resources the internet has to offer, peer-reviewed by people who
   have walked the path themselves.<br>
@@ -893,7 +893,7 @@ select.edInput{appearance:none;-webkit-appearance:none}
 <!-- ================= PRIVACY ================= -->
 <section id="privacyView" class="view"><div class="manifesto">
   <h1>Privacy</h1>
-  <p>Waihona collects as little as it can and sells nothing. This page is the
+  <p>Atlearn collects as little as it can and sells nothing. This page is the
   complete list of what exists about you and where.</p>
 
   <h2>If you never sign in</h2>
@@ -2198,7 +2198,7 @@ function goHome(){
   $("addTopicBtn").classList.remove("show");
   $("reorgBtn").classList.remove("show");
   $("backBtn").classList.remove("show");
-  $("brandText").textContent="Waihona";
+  $("brandText").textContent="Atlearn";
   currentRm=null; currentFork=null; renderHome();
   reflectHash("/");
 }
@@ -5320,7 +5320,7 @@ function applyTheme(t){
   const b=$("themeBtn");
   if(b){ b.textContent = t==="dark" ? "☀" : "☾";
     b.title = t==="dark" ? "Switch to light mode" : "Switch to dark mode"; }
-  try{ localStorage.setItem("waihona-theme", t); }catch(e){}
+  try{ localStorage.setItem("atlearn-theme", t); }catch(e){}
 }
 $("themeBtn").onclick=()=>{
   const t = currentTheme()==="dark" ? "light" : "dark";
@@ -5339,7 +5339,7 @@ function exportMyData(){
   const blob=new Blob([JSON.stringify(payload,null,1)],{type:"application/json"});
   const a=document.createElement("a");
   a.href=URL.createObjectURL(blob);
-  a.download=`waihona-data-${user.id.replace(/[^a-z0-9]+/gi,"-")}-${new Date().toISOString().slice(0,10)}.json`;
+  a.download=`atlearn-data-${user.id.replace(/[^a-z0-9]+/gi,"-")}-${new Date().toISOString().slice(0,10)}.json`;
   a.click(); URL.revokeObjectURL(a.href);
   toast("📦 Your notes & progress, downloaded — yours to keep");
 }

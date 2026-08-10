@@ -29,18 +29,36 @@ Open `config.js` anytime to see what's wired — it's two fields.
 
 ```bash
 brew install gh && gh auth login
-cd "/path/to/waihona"
-gh repo create waihona --public --source=. --push
+cd "/path/to/atlearn"
+gh repo create atlearn --public --source=. --push
 ```
 
 Then in the repo's web settings:
 1. **Settings → Pages → Source: GitHub Actions.** The `Deploy Pages` workflow
    publishes on every push to main — your app URL becomes
-   `https://<you>.github.io/waihona/`.
+   `https://<you>.github.io/atlearn/`.
 2. **Settings → Secrets and variables → Actions → New repository secret**:
    name `FIREBASE_SERVICE_ACCOUNT`, value = the entire service-account JSON.
 3. Authentication (Firebase console) → **Authorized domains** → add
    `<you>.github.io`.
+
+## Stage 2b — The domain: atlearn.org (~10 min + DNS propagation)
+
+The project's home is **https://atlearn.org**. Wiring it to Pages:
+
+1. At the registrar, add DNS records: a `CNAME` for `www` →
+   `<you>.github.io`, and the four Pages apex `A` records for `atlearn.org`
+   (185.199.108.153 / .109. / .110. / .111. — current list in the GitHub
+   Pages docs).
+2. **Repo → Settings → Pages → Custom domain**: enter `atlearn.org`, save,
+   and tick **Enforce HTTPS** once the certificate issues. (This commits a
+   `CNAME` file into the Pages artifact — with our Actions deploy, add the
+   file at repo root instead so every deploy carries it.)
+3. Firebase console → Authentication → **Authorized domains** → add
+   `atlearn.org` (and `www.atlearn.org`) — sign-in popups refuse unknown
+   origins otherwise.
+4. Smoke: open https://atlearn.org, sign in, confirm the sync dot greens.
+   The `<you>.github.io/atlearn/` URL keeps working and redirects.
 
 ## Stage 3 — Wire and become superadmin (~5 min)
 

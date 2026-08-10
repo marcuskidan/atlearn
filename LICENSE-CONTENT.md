@@ -9,12 +9,12 @@ selection and arrangement of resources — is licensed under the
 https://creativecommons.org/licenses/by-sa/4.0/
 
 You are free to share and adapt this content for any purpose, including
-commercially, provided you give appropriate credit ("Waihona",
+commercially, provided you give appropriate credit ("Atlearn",
 with a link back to this repository) and distribute your adaptations under the
 same license. This is the same license Wikipedia uses — the maps are a commons,
 and derivatives of the commons stay in the commons.
 
-Copyright (c) 2026 Marcus Kidan and the Waihona contributors.
+Copyright (c) 2026 Marcus Kidan and the Atlearn contributors.
 
 **External resources are not ours.** The maps link to third-party resources
 (articles, videos, tools). Those resources are *pointers, not redistributed

@@ -1,6 +1,6 @@
-# Waihona Governance — a commons with gardeners
+# Atlearn Governance — a commons with gardeners
 
-This document is the constitution of Waihona: who decides what, and why it is
+This document is the constitution of Atlearn: who decides what, and why it is
 built that way. The mission itself lives in the app's About page; this is the
 machinery that protects it. ("A commons with gardeners" is the founding
 metaphor — in these pages the people who tend maps are called **maintainers**

@@ -1,7 +1,7 @@
 {
-  "name": "waihona-tooling",
+  "name": "atlearn-tooling",
   "private": true,
-  "description": "Dev/CI dependencies for Waihona's tooling and tests. The app itself (index.html) has no build step and no runtime dependencies.",
+  "description": "Dev/CI dependencies for Atlearn's tooling and tests. The app itself (index.html) has no build step and no runtime dependencies.",
   "type": "module",
   "devDependencies": {
     "@firebase/rules-unit-testing": "^5.0.1",

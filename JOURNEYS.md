@@ -1,6 +1,6 @@
 # JOURNEYS.md — the flows that must not break
 
-Every tool in Waihona exists to serve an intention written in GOVERNANCE.md
+Every tool in Atlearn exists to serve an intention written in GOVERNANCE.md
 and the manifesto. This file is the checkable list of those intentions as
 walkable journeys. Its partners are CATALOG.md — the inventory of every
 surface and feature (what exists, who sees it) — and PRODUCTS.md, the

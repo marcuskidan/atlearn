@@ -1,4 +1,4 @@
-# CLAUDE.md — working on Waihona
+# CLAUDE.md — working on Atlearn
 
 ## What this is
 A roadmap.sh-style app for general human skills. Static app shell (`index.html`)

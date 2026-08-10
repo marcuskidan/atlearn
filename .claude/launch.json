@@ -2,13 +2,13 @@
   "version": "0.0.1",
   "configurations": [
     {
-      "name": "waihona",
+      "name": "atlearn",
       "runtimeExecutable": "python3",
       "runtimeArgs": ["-m", "http.server", "8123"],
       "port": 8123
     },
     {
-      "name": "waihona-plain",
+      "name": "atlearn-plain",
       "runtimeExecutable": "python3",
       "runtimeArgs": ["-m", "http.server", "8124"],
       "port": 8124

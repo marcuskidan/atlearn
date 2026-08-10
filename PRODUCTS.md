@@ -1,6 +1,6 @@
 # PRODUCTS.md — the product map
 
-Waihona in one line: **a free library of learning roadmaps — step-by-step
+Atlearn in one line: **a free library of learning roadmaps — step-by-step
 paths for real-world skills, written and tended by a community, every map
 kept by a named maintainer.**
 
