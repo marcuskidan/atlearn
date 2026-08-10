@@ -468,6 +468,33 @@ EXPECT — handles are 3–30 chars of a-z 0-9 dashes, lowercased on entry;
 one handle per person is the norm the UI assumes (the first claim wins
 if data ever says otherwise).
 
+### J30 · Branch owner + walker · Suggestions by invitation, decided by the owner   [Tier E]
+INTENTION — Feedback on a personal surface is opt-IN (champion persona's
+second ask; brigading stays off by default), and the owner holds full
+authority over their own branch: same review tools as maintainers, no
+weight classes, no comment clock.
+COVERED ELSEWHERE — rules.test.mjs branch-proposal guards (open door
+only, spoofed owner, owner-alone decides, structural merges without the
+clock); client.test.mjs editorMode branch matrix (D).
+STEPS
+1. Owner, on a branch or personal map → panel → "🌱 Accept suggestions"
+   → the panel gains "🛡️ Review suggestions".
+2. A second signed-in user opens the branch → ✏️ now shows; the editor
+   banner names the OWNER as reviewer; save files the proposal ("the
+   owner of this branch decides").
+3. Owner → panel → 🛡️ → the proposals tab shows the card badged
+   "✨/🗺 branch suggestion", diffed against the branch as rendered;
+   Merge applies it to the branch (ops for a fork, topics for a personal
+   map) and the map shows the change on next open; Reject asks for the
+   written reason the author will read.
+4. The author's account page shows the decision either way (J9's
+   contributions list, unchanged).
+5. Owner → "Close suggestions" → the stranger's ✏️ disappears again;
+   their pending proposals stay decidable.
+EXPECT — a maintainer or admin sees branch suggestions in their queue
+only as read-only cards ("the branch's owner decides this one"); the
+door being open never lets anyone write to the branch directly.
+
 # Group V — Gardeners · *scoped authority, publicly recorded*
 
 ### J17 · Maintainer · Review: diff, merge-to-overlay, reject-with-reason   [Tier E]

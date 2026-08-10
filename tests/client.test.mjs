@@ -180,6 +180,21 @@ test("editorMode role matrix", () => {
     MAINTAINERS: maint }), "propose");
   assert.equal(api.editorModeWith({ FIREBASE_CONFIG: CFG,
     user: { provider: null, id: "guest" }, currentRm: rm }), "export");
+  // branches: the owner saves to the branch; a stranger proposes only
+  // through an opened suggestions door (Stage 5), and never dev-writes
+  const branch = (over) => ({ id: "f1", owner: { uid: "owner-uid" }, ...over });
+  assert.equal(api.editorModeWith({ FIREBASE_CONFIG: CFG,
+    user: { provider: "google", id: "owner-uid" }, currentRm: rm,
+    currentFork: branch() }), "fork");
+  assert.equal(api.editorModeWith({ FIREBASE_CONFIG: CFG,
+    user: { provider: "google", id: "someone" }, currentRm: rm,
+    currentFork: branch({ suggestions: true }) }), "propose");
+  assert.equal(api.editorModeWith({ FIREBASE_CONFIG: CFG,
+    user: { provider: "google", id: "someone" }, currentRm: rm,
+    currentFork: branch() }), "export");
+  assert.equal(api.editorModeWith({ devMode: true, FIREBASE_CONFIG: CFG,
+    user: { provider: "google", id: "someone" }, currentRm: rm,
+    currentFork: branch({ suggestions: true }) }), "propose");
 });
 
 test("applyMergedDocs: the five structural kinds", () => {

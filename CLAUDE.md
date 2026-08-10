@@ -169,6 +169,12 @@ four places at once: ops.mjs, rules, editor UI, overlay). Rules:
   forkOwned/canEdit/ownsSurface/editorMode work unchanged; the editor
   still speaks ops and `appendForkOps` applies them via applyMergedDocs,
   persisting the whole topic list. Progress keys are `u:<docId>`.
+  Both branches and personal maps carry an owner-opt-in `suggestions`
+  flag (absent = closed): while open, a stranger's ✏️ save files a
+  proposal with `branch:{kind,id}` + denormalized `ownerUid`
+  (rules-verified via get()); the OWNER alone decides — no weight
+  classes, no 7-day clock — and merging applies the op to the branch
+  doc client-side (never the merged/landing pipeline).
   Existence needs no approval; EVERY library surface excludes them (no
   shelf, atlas, search, picker — the link is the door). The road INTO the
   library is the existing new-roadmap proposal path plus a human import
@@ -213,7 +219,8 @@ Rules when touching it:
   notes/links) → J1,J7,J13 · auth/sign-in → J10 · journal → J8 · account/
   privacy → J9,J20 · suggest/tips → J11 · node editor → J12,J22 · report/
   flags → J13,J14 · forks → J15,J16 · personal maps → J28 ·
-  handles/creator pages → J29 · review queue → J17,J18,J19 ·
+  handles/creator pages → J29 · branch suggestions → J30 ·
+  review queue → J17,J18,J19 ·
   governance panel/roles → J20,J21 · dev.py/ops.mjs/build.py → J22,J23 ·
   land.mjs/Actions → J24 · succession/link policy → J25 · guilds → J26 ·
   stewardship review → J27 ·

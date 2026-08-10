@@ -153,6 +153,10 @@ public, walkable by anyone, without a fight over the original.
   can be reset to standard.
 - ● Share by link; your walking progress carries across versions.
 - ● Listed on the map's category page and counted in the Atlas.
+- ● Suggestions, if you want them: open the door and any signed-in
+  walker can propose a change to your branch — you review each one with
+  the same tools maintainers use, and you alone decide. Closed by
+  default.
 - ○ "Offer this to the trunk" — turn your branch's changes into proposals
   for the official map, in one step (decided 2026-08-09).
 
@@ -181,6 +185,8 @@ existence needs no approval; the library's shelf does.
   the maps you choose to list, the branches you publish — lives at
   @your-name, an address that fits in a bio. Listing a map on your own
   page never puts it in the library.
+- ● Suggestions, if you want them — same as branches: opt in, walkers
+  propose, you decide. Closed by default.
 - ● Branch anyone's personal map — a full copy of your own, with credit
   to where it came from; if the original is later deleted, your copy
   stands.

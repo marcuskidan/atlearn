@@ -992,6 +992,73 @@ guard("usermaps: slug + listed — born unlisted, owner lists onto their page", 
     .update({ listed: false, updatedAt: new Date() }));             // owner's shelf, not moderation
 });
 
+/* ---- branch proposals: owner-opt-in suggestions (Stage 5) ---- */
+guard("branches: the suggestions door is the owner's switch", async () => {
+  let fRef, uRef;
+  await testEnv.withSecurityRulesDisabled(async (ctx) => {
+    fRef = await ctx.firestore().collection("forks")
+      .add(fork({ createdAt: new Date(), updatedAt: new Date() }));
+    uRef = await ctx.firestore().collection("usermaps")
+      .add(umap({ createdAt: new Date(), updatedAt: new Date() }));
+  });
+  await rut.assertSucceeds(db("user-uid").doc(`forks/${fRef.id}`)
+    .update({ suggestions: true, updatedAt: new Date() }));
+  await rut.assertFails(db("someone").doc(`forks/${fRef.id}`)
+    .update({ suggestions: true, updatedAt: new Date() }));
+  await rut.assertSucceeds(db("user-uid").doc(`usermaps/${uRef.id}`)
+    .update({ suggestions: true, updatedAt: new Date() }));
+  await rut.assertFails(db("someone").doc(`usermaps/${uRef.id}`)
+    .update({ suggestions: true, updatedAt: new Date() }));
+});
+
+guard("branch proposals: only through an open door, decided by the owner alone", async () => {
+  let openFork, shutFork, openUmap;
+  await testEnv.withSecurityRulesDisabled(async (ctx) => {
+    openFork = await ctx.firestore().collection("forks")
+      .add(fork({ suggestions: true, createdAt: new Date(), updatedAt: new Date() }));
+    shutFork = await ctx.firestore().collection("forks")
+      .add(fork({ createdAt: new Date(), updatedAt: new Date() }));
+    openUmap = await ctx.firestore().collection("usermaps")
+      .add(umap({ suggestions: true, createdAt: new Date(), updatedAt: new Date() }));
+  });
+  const T = { id: "t", title: "T", tier: "essential",
+              learn: { summary: "s", links: [] }, do: ["a"] };
+  const bp = (branch, over = {}) => ({
+    roadmap: "Astronomy, Nova's way", kind: "edit", file: "01-start.json",
+    topic: T, note: "", by: { uid: "someone", name: "S" }, status: "pending",
+    branch, ownerUid: "user-uid", createdAt: sgTs(), ...over,
+  });
+  // through the open doors
+  await rut.assertSucceeds(db("someone").collection("proposals")
+    .add(bp({ kind: "fork", id: openFork.id })));
+  await rut.assertSucceeds(db("someone").collection("proposals")
+    .add(bp({ kind: "umap", id: openUmap.id },
+             { file: "00-start-here.json" })));
+  // a shut door, a spoofed owner, a missing target
+  await rut.assertFails(db("someone").collection("proposals")
+    .add(bp({ kind: "fork", id: shutFork.id })));
+  await rut.assertFails(db("someone").collection("proposals")
+    .add(bp({ kind: "fork", id: openFork.id }, { ownerUid: "someone" })));
+  await rut.assertFails(db("someone").collection("proposals")
+    .add(bp({ kind: "fork", id: "no-such-doc" })));
+  await rut.assertFails(db(null).collection("proposals")
+    .add(bp({ kind: "fork", id: openFork.id })));
+  // decision: the owner alone — not the author, not an admin; and a
+  // STRUCTURAL kind merges without any comment clock (personal surface)
+  let pending;
+  await testEnv.withSecurityRulesDisabled(async (ctx) => {
+    pending = await ctx.firestore().collection("proposals").add(
+      bp({ kind: "fork", id: openFork.id },
+         { kind: "add", after: "", createdAt: new Date() }));
+  });
+  await rut.assertFails(db("someone").doc(`proposals/${pending.id}`)
+    .update({ status: "merged", decidedAt: 2, decidedBy: { uid: "someone", name: "S" } }));
+  await rut.assertFails(db("admin-uid").doc(`proposals/${pending.id}`)
+    .update({ status: "merged", decidedAt: 2, decidedBy: { uid: "admin-uid", name: "A" } }));
+  await rut.assertSucceeds(db("user-uid").doc(`proposals/${pending.id}`)
+    .update({ status: "merged", decidedAt: 2, decidedBy: { uid: "user-uid", name: "U" } }));
+});
+
 /* ---- handles: first-come public names ---- */
 guard("handles: claim, collide, spoof, release", async () => {
   const rec = { uid: "user-uid", name: "U", createdAt: sgTs() };

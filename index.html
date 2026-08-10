@@ -3049,21 +3049,48 @@ async function renderProposals(list){
   try{
     items=await fetchModerated("proposals","pending", stewardedMapIds());
   }catch(e){ list.innerHTML="<div class='sub'>Couldn't load proposals from the server.</div>"; return; }
+  // branch suggestions: proposals pointed at branches THIS user owns —
+  // ownerUid is denormalized (rules-verified) precisely so one query
+  // serves the owner's queue, whoever they are
+  try{
+    const F=await fb();
+    if(F && user.provider){
+      const snap=await F.getDocs(F.query(F.collection(F.db,"proposals"),
+        F.where("ownerUid","==",user.id), F.where("status","==","pending")));
+      snap.forEach(d=>{
+        const rec={id:d.id, ...d.data()};
+        if(rec.createdAt&&rec.createdAt.toMillis) rec.createdAt=rec.createdAt.toMillis();
+        if(!items.some(x=>x.id===rec.id)) items.push(rec);
+      });
+      items.sort((a,b)=>(b.createdAt||0)-(a.createdAt||0));
+    }
+  }catch(e){}
   list.innerHTML="";
   if(!items.length){ list.innerHTML="<div class='sub'>No proposed changes waiting. 🎉</div>"; return; }
   for(const p of items){
     let rm=null;
-    try{ rm=await loadRoadmap(p.roadmap); }catch(e){}
+    try{
+      if(p.branch){   // diff against the branch as it renders now
+        if(p.branch.kind==="fork"){
+          const f=await fetchFork(p.branch.id);
+          if(f){ const b=await loadRoadmap(f.base); rm=deriveForkRm(b,f); }
+        }else{
+          const u2=await fetchUmap(p.branch.id);
+          if(u2) rm=deriveUmapRm(u2);
+        }
+      }else rm=await loadRoadmap(p.roadmap);
+    }catch(e){}
     const s=proposalSummary(p, rm);
     const w=proposalWeight(p);
     // the reviewing human is the honesty backstop on declared weight
     const cur=rm&&(p.kind||"edit")==="edit" ? rm.nodes[rm.topics.indexOf(p.file)] : null;
     const mismatch = p.weight==="trivial" && cur && classifyEditWeight(cur,p.topic)!=="trivial";
     const agent=(p.by.uid||"").startsWith("agent:");
-    const daysLeft=commentDaysLeft(p);
+    const daysLeft=p.branch?0:commentDaysLeft(p);   // no comment clock on a personal surface
     const d=document.createElement("div"); d.className="sgCard";
     d.innerHTML=`<div class="sgMeta"><span class="sgType">${esc(s.label)}</span>
         <span class="sgType" style="opacity:.75">${esc(w)}</span>
+        ${p.branch?`<span class="vbadge">${p.branch.kind==="umap"?"🗺":"✨"} branch suggestion</span>`:""}
         ${ageChip(p.createdAt)}
         ${agent?'<span class="vbadge" style="background:var(--blue-soft);color:var(--blue)">🤖 pre-drafted by automation — review before merging</span>':""}
         ${mismatch?'<span class="vbadge" style="background:var(--amber-soft);color:var(--amber)">⚠ declared trivial, looks substantive</span>':""}
@@ -3077,9 +3104,12 @@ async function renderProposals(list){
       ${s.body}`;
     const acts=document.createElement("div"); acts.className="sgActs";
     // decision authority mirrors the rules: moderators decide everything;
-    // stewards decide trivial edits on their maps only
-    const mayDecide = isAdmin()||maintains(p.roadmap)
-      || (stewardOf(p.roadmap) && w==="trivial");
+    // stewards decide trivial edits on their maps only; a branch suggestion
+    // belongs to the branch's owner alone
+    const mayDecide = p.branch
+      ? (!!user.provider && user.id===p.ownerUid)
+      : (isAdmin()||maintains(p.roadmap)
+         || (stewardOf(p.roadmap) && w==="trivial"));
     if(mayDecide){
       const bm=document.createElement("button"); bm.className="aTip";
       if(daysLeft>0){
@@ -3096,7 +3126,9 @@ async function renderProposals(list){
       acts.appendChild(bm); acts.appendChild(br);
     }else{
       const note=document.createElement("span"); note.className="sub";
-      note.textContent="🪴 Steward scope: trivial edits only — a moderator decides this one.";
+      note.textContent=p.branch
+        ? "🌱 The branch's owner decides this one."
+        : "🪴 Steward scope: trivial edits only — a moderator decides this one.";
       acts.appendChild(note);
     }
     d.appendChild(acts);
@@ -3106,16 +3138,56 @@ async function renderProposals(list){
 }
 async function decideProposal(p,action){
   const w=proposalWeight(p);
-  if(action==="merge" && commentDaysLeft(p)>0){
-    toast("🕐 Structural changes wait out the 7-day comment period"); return; }
-  if(!(isAdmin()||maintains(p.roadmap)) && !(stewardOf(p.roadmap)&&w==="trivial")){
-    toast("🪴 Stewards merge trivial edits only"); return; }
+  if(p.branch){
+    if(!(user.provider && user.id===p.ownerUid)){
+      toast("🌱 The branch's owner decides its suggestions"); return; }
+  }else{
+    if(action==="merge" && commentDaysLeft(p)>0){
+      toast("🕐 Structural changes wait out the 7-day comment period"); return; }
+    if(!(isAdmin()||maintains(p.roadmap)) && !(stewardOf(p.roadmap)&&w==="trivial")){
+      toast("🪴 Stewards merge trivial edits only"); return; }
+  }
   let reason="";
   if(action==="reject"){
     // GOVERNANCE: a rejection should name the charter rule it hit — the
     // author reads this on their account page
     reason=(prompt("Why? Name the charter rule or reason — the contributor will see this:")||"").trim();
     if(!reason){ toast("A reason is required to reject — the contributor deserves to know why"); return; }
+  }
+  if(p.branch && action==="merge"){
+    // A branch merge applies the op to the OWNER'S doc (they are the
+    // decider — the write is theirs to make), then marks the proposal.
+    try{
+      const F=await fb(); if(!F) throw new Error("offline");
+      const op={kind:p.kind||"edit"};
+      ["file","file2","topic","topic2","after","spine"].forEach(k=>{
+        if(p[k]!==undefined) op[k]=p[k]; });
+      if(p.branch.kind==="fork"){
+        const f=await fetchFork(p.branch.id);
+        if(!f) throw new Error("that branch is gone");
+        let ops=(f.ops||[]).slice();
+        if(op.kind==="edit") ops=ops.filter(o=>!(o.kind==="edit"&&o.file===op.file));
+        if(op.kind==="spine") ops=ops.filter(o=>o.kind!=="spine");
+        ops.push({...op, at:Date.now()});
+        if(ops.length>100) throw new Error("this version is at its 100-change limit");
+        await F.updateDoc(F.doc(F.db,"forks",p.branch.id),
+          {ops, updatedAt:F.serverTimestamp()});
+      }else{
+        const u2=await fetchUmap(p.branch.id);
+        if(!u2) throw new Error("that map is gone");
+        const rm=deriveUmapRm(u2);
+        const applied=applyMergedDocs(rm.topics, rm.nodes, [{...op, at:1}]);
+        if(!applied.nodes.length) throw new Error("a map keeps its last topic");
+        if(applied.nodes.length>40) throw new Error("a personal map holds up to 40 core topics");
+        await F.updateDoc(F.doc(F.db,"usermaps",p.branch.id),
+          {topics:deepClone(applied.nodes), updatedAt:F.serverTimestamp()});
+      }
+      await F.updateDoc(F.doc(F.db,"proposals",p.id),
+        { status:"merged", decidedAt:Date.now(),
+          decidedBy:{uid:user.id, name:user.name} });
+      toast("✅ Merged into your "+(p.branch.kind==="umap"?"map":"version"));
+    }catch(e){ toast("Merge failed — "+String(e.message||e).slice(0,60)); }
+    renderReview(); return;
   }
   try{
     const F=await fb(); if(!F) throw new Error("offline");
@@ -4271,6 +4343,9 @@ function paintForkPanel(base){
         :"🔒 Only people with the link can open this"}</span>`:""}
     <div class="fpRow">
     ${mine?`<button id="forkPublish">${listed?"Make private":"🌍 Publish to the category page"}</button>`:""}
+    ${mine?`<button id="forkSuggest" title="When open, any signed-in walker's ✏️ save files a suggestion you decide">${
+      currentFork.suggestions===true?"Close suggestions":"🌱 Accept suggestions"}</button>`:""}
+    ${mine&&currentFork.suggestions===true?'<button id="forkQueue">🛡️ Review suggestions</button>':""}
     <button id="forkShare" title="Copy a link to this version">🔗 Share</button>
     ${mine?'<button id="forkDelete" title="Delete this version">🗑</button>'
           :'<button id="forkReport" title="Report this version">⚑</button>'}
@@ -4280,6 +4355,19 @@ function paintForkPanel(base){
           :"Hide this version from public listings (the owner keeps access)"}">${
           currentFork.hidden?"👁 Unhide":"🙈 Hide"}</button>`:""}
     </div>`;
+  if($("forkSuggest")) $("forkSuggest").onclick=async ()=>{
+    try{
+      const F=await fb(); if(!F) throw new Error("offline");
+      const open=!(currentFork.suggestions===true);
+      await F.updateDoc(F.doc(F.db,"forks",currentFork.id),
+        {suggestions:open, updatedAt:F.serverTimestamp()});
+      currentFork.suggestions=open;
+      toast(open?"🌱 Open — signed-in walkers can now propose changes; you decide each one"
+                :"Closed — the branch is yours alone again");
+      paintForkPanel(base);
+    }catch(e){ toast("Couldn't update this version — try again"); }
+  };
+  if($("forkQueue")) $("forkQueue").onclick=openReview;
   if($("forkPublish")) $("forkPublish").onclick=async ()=>{
     try{
       const F=await fb(); if(!F) throw new Error("offline");
@@ -4446,10 +4534,12 @@ async function myUmaps(){
 }
 function deriveUmapRm(u){
   // Synthetic per-topic "file" names keep the ops grammar (and the whole
-  // editor) working; they are derived from ids, never stored.
+  // editor) working; they are derived from ids, never stored. The 00-
+  // prefix keeps them inside the rules' validFile pattern so proposals
+  // against an opted-in personal map pass validStructOp.
   const nodes=deepClone(u.topics||[]);
   return {id:"u:"+u.id, title:u.title, emoji:u.emoji||"🗺",
-          topics:nodes.map(n=>"u-"+n.id+".json"), nodes};
+          topics:nodes.map(n=>"00-"+n.id+".json"), nodes};
 }
 async function openUmap(id, nodeId){
   $("loading").classList.add("show");
@@ -4511,6 +4601,9 @@ function paintUmapPanel(){
     <button id="umapBranch" title="Make your own full copy of this map">⑂ Branch</button>
     ${mine?`<button id="umapList" title="Your page lists the work you choose to show — #/@your-handle">${
       u.listed===true?"Take off your page":"🌍 Put on your page"}</button>`:""}
+    ${mine?`<button id="umapSuggest" title="When open, any signed-in walker's ✏️ save files a suggestion you decide">${
+      u.suggestions===true?"Close suggestions":"🌱 Accept suggestions"}</button>`:""}
+    ${mine&&u.suggestions===true?'<button id="umapQueue">🛡️ Review suggestions</button>':""}
     ${mine?`<button id="umapOffer"
       title="Propose this map for the library — the admins review it against the charter">🌱 Offer to the library</button>`:""}
     ${mine?'<button id="umapDelete" title="Delete this map">🗑</button>'
@@ -4528,6 +4621,16 @@ function paintUmapPanel(){
     catch(e){ toast("Couldn't copy — the address bar has it"); }
   };
   $("umapBranch").onclick=branchUmap;
+  if($("umapSuggest")) $("umapSuggest").onclick=async ()=>{
+    try{
+      const open=!(u.suggestions===true);
+      await updateUmap({suggestions:open});
+      toast(open?"🌱 Open — signed-in walkers can now propose changes; you decide each one"
+                :"Closed — the map is yours alone again");
+      paintUmapPanel();
+    }catch(e){ toast("Couldn't update this map — try again"); }
+  };
+  if($("umapQueue")) $("umapQueue").onclick=openReview;
   if($("umapList")) $("umapList").onclick=async ()=>{
     try{
       if(u.listed===true){
@@ -5321,7 +5424,11 @@ let devMode=false;
    dev server → writes files; maintainer/admin → merges live (overlay);
    contributor → submits a proposal for the map's maintainer to review. */
 function canEdit(){
-  if(currentFork) return forkOwned();   // someone else's personal version: walk it, don't edit it
+  // A branch is its owner's alone — unless the owner opened the suggestions
+  // door (Stage 5): then any signed-in walker's save files a proposal the
+  // OWNER decides. Closed by default; brigading stays off.
+  if(currentFork) return forkOwned()
+    || (!!user.provider && currentFork.suggestions===true && canSync());
   return devMode || !!user.provider;
 }
 /* The reading surface is consumption-first: STRUCTURAL chrome (about [edit],
@@ -5335,11 +5442,27 @@ function ownsSurface(){
   return devMode || (!!user.provider && (isAdmin() || (currentRm&&maintains(currentRm.id))));
 }
 function editorMode(){
-  if(currentFork && forkOwned()) return "fork";   // saves go to the personal version, nowhere else
+  if(currentFork){
+    if(forkOwned()) return "fork";   // saves go to the personal version, nowhere else
+    // a stranger inside an opted-in branch: their save is a proposal for
+    // the branch's owner — never dev-write, never the shared map
+    return (!!user.provider && currentFork.suggestions===true && FIREBASE_CONFIG)
+      ? "propose" : "export";
+  }
   if(devMode) return "dev";
   if(!FIREBASE_CONFIG) return "export";
   if(isAdmin() || (currentRm&&maintains(currentRm.id))) return "merge";
   return user.provider ? "propose" : "export";
+}
+/* Where a proposal points: the shared map by id, or — inside an opted-in
+   branch — the branch itself. `ownerUid` denormalizes the decider so one
+   query serves the owner's queue; the rules re-verify it against the live
+   target doc. `roadmap` on branch proposals is display text. */
+function proposalTarget(){
+  if(!currentFork) return {roadmap:currentRm.id};
+  return { roadmap:String(currentFork.title||"a personal map").slice(0,80),
+           branch:{kind:currentFork.umap?"umap":"fork", id:currentFork.id},
+           ownerUid:currentFork.owner.uid };
 }
 function deepClone(o){ return JSON.parse(JSON.stringify(o)); }
 let edCtx=null;   // {spineIdx, childIdx|null, topic: working copy of the spine topic}
@@ -5439,7 +5562,9 @@ function paintEditorChrome(){
   $("edMode").innerHTML = {
     dev:`💾 Saves directly to <b>roadmaps/${esc(currentRm.id)}/topics/${esc(topicFile()||"(new file)")}</b> — dev server detected.`,
     merge:`🛡️ You maintain this map — saving publishes immediately and is logged in the map's public history.`,
-    propose:`🌱 This goes to <b>${esc(maintainerNameOf(currentRm)||"the maintainer")}</b> for review — nothing changes until they merge it. Your name goes on the change, licensed CC BY-SA 4.0.`,
+    propose:`🌱 This goes to <b>${esc(currentFork
+        ? (currentFork.owner&&currentFork.owner.name||"the owner")
+        : (maintainerNameOf(currentRm)||"the maintainer"))}</b> for review — nothing changes until they merge it. Your name goes on the change, licensed CC BY-SA 4.0.`,
     fork: umap
       ? `🗺 This is <b>${esc(currentFork?currentFork.title:"")}</b> — your map; saves are live for anyone with its link.`
       : `✨ This is <b>${esc(currentFork?currentFork.title:"")}</b> — saves change only your
@@ -5630,12 +5755,13 @@ async function submitStructural(op, successMsg){
     toast("🛡️ "+successMsg+" — live now; lands in the public record within the hour");
     return true;
   }
-  const note=(prompt("Why? A short note helps the maintainer review this change:")||"").trim();
+  const note=(prompt("Why? A short note helps the reviewer decide:")||"").trim();
   if(note.length<5){ toast("A short reason is required to propose a structure change"); return false; }
   await F.addDoc(F.collection(F.db,"proposals"),
-    { roadmap:currentRm.id, ...op, note, by:{uid:user.id, name:user.name},
+    { ...proposalTarget(), ...op, note, by:{uid:user.id, name:user.name},
       createdAt:F.serverTimestamp(), status:"pending" });
-  toast("🌱 Proposed — the maintainer will review your change");
+  toast(currentFork ? "🌱 Proposed — the owner of this branch decides"
+                    : "🌱 Proposed — the maintainer will review your change");
   return "proposed";
 }
 async function moveChild(ci, ti){
@@ -5782,12 +5908,13 @@ async function saveEditor(){
           toast("🛡️ Published — the new topic is live now");
         }else{
           await F.addDoc(F.collection(F.db,"proposals"),
-            { roadmap:currentRm.id, kind:"add", file:fname, topic:edCtx.topic, after,
+            { ...proposalTarget(), kind:"add", file:fname, topic:edCtx.topic, after,
               note:$("edNote").value.trim(), by:{uid:user.id, name:user.name},
               affiliated:$("edAffiliated").checked,
               affiliation:$("edAffiliated").checked?$("edAffiliation").value.trim():"",
               createdAt:F.serverTimestamp(), status:"pending" });
-          toast("🌱 Proposed — the maintainer will review your new topic");
+          toast(currentFork ? "🌱 Proposed — the owner of this branch decides"
+                            : "🌱 Proposed — the maintainer will review your new topic");
           closeEditor(); return;
         }
       }
@@ -5842,7 +5969,7 @@ async function saveEditor(){
         $("editorErrs").textContent="Describe the affiliation — disclosure is the deal.";
         $("edSave").disabled=false; return;
       }
-      const base={ roadmap:currentRm.id, kind:"edit", file:fname, baseHash:edCtx.baseHash,
+      const base={ ...proposalTarget(), kind:"edit", file:fname, baseHash:edCtx.baseHash,
                    topic:edCtx.topic, note:$("edNote").value.trim(), weight,
                    affiliated, affiliation,
                    by:{uid:user.id, name:user.name} };

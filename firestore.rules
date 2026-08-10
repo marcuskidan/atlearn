@@ -314,11 +314,35 @@ service cloud.firestore {
         && request.resource.data.keys().hasOnly(
              ['roadmap','kind','file','file2','baseHash','baseHash2','topic','topic2',
               'after','spine','about','note','by','createdAt','status','weight',
-              'affiliated','affiliation'])
+              'affiliated','affiliation','branch','ownerUid'])
         && request.resource.data.by.uid == request.auth.uid
         && notAgentIdentity(request.resource.data)
         && request.resource.data.status == 'pending'
-        && request.resource.data.roadmap.matches('[a-z0-9-]{1,50}')
+        // Branch proposals (Stage 5, owner-opt-in): `branch` names the target
+        // fork/usermap, `ownerUid` denormalizes its owner (the decider — one
+        // query serves the owner's queue). Both are verified against the live
+        // target doc, and the door only opens when its owner set
+        // suggestions:true. For branch proposals `roadmap` is display text;
+        // for library proposals it stays the strict category id.
+        && ( !('branch' in request.resource.data)
+             ? request.resource.data.roadmap.matches('[a-z0-9-]{1,50}')
+             : ( request.resource.data.roadmap is string
+                 && request.resource.data.roadmap.size() >= 1
+                 && request.resource.data.roadmap.size() <= 80
+                 && request.resource.data.branch.keys().hasOnly(['kind','id'])
+                 && request.resource.data.branch.id is string
+                 && request.resource.data.branch.id.size() <= 128
+                 && request.resource.data.ownerUid is string
+                 && ( ( request.resource.data.branch.kind == 'fork'
+                        && get(/databases/$(db)/documents/forks/$(request.resource.data.branch.id))
+                             .data.suggestions == true
+                        && get(/databases/$(db)/documents/forks/$(request.resource.data.branch.id))
+                             .data.owner.uid == request.resource.data.ownerUid )
+                   || ( request.resource.data.branch.kind == 'umap'
+                        && get(/databases/$(db)/documents/usermaps/$(request.resource.data.branch.id))
+                             .data.suggestions == true
+                        && get(/databases/$(db)/documents/usermaps/$(request.resource.data.branch.id))
+                             .data.owner.uid == request.resource.data.ownerUid ) ) ) )
         && validStructOp(request.resource.data)
         && (!('weight' in request.resource.data)
             || request.resource.data.weight in ['trivial','substantive'])
@@ -340,11 +364,16 @@ service cloud.firestore {
       allow update: if request.resource.data.diff(resource.data).affectedKeys()
              .hasOnly(['status','decidedAt','decidedBy','reason'])
         && request.resource.data.status in ['merged','rejected']
-        && ( moderates(resource.data.roadmap)
-          || (stewardOf(resource.data.roadmap) && trivialEdit(resource.data)) )
-        && ( request.resource.data.status != 'merged'
-          || !structuralKind(resource.data)
-          || request.time > resource.data.createdAt + duration.value(7, 'd') );
+        // A branch proposal is the branch owner's to decide, alone — full
+        // authority on their own surface, no weight classes, no comment
+        // clock (those guard the shared trunk, not a personal branch).
+        && ( 'branch' in resource.data
+             ? (signedIn() && request.auth.uid == resource.data.ownerUid)
+             : ( ( moderates(resource.data.roadmap)
+                 || (stewardOf(resource.data.roadmap) && trivialEdit(resource.data)) )
+               && ( request.resource.data.status != 'merged'
+                 || !structuralKind(resource.data)
+                 || request.time > resource.data.createdAt + duration.value(7, 'd') ) ) );
       allow delete: if isAdmin()
         || (signedIn() && resource.data.by.uid == request.auth.uid
             && resource.data.status == 'pending');
@@ -429,7 +458,8 @@ service cloud.firestore {
     // malformed op can only garble its own fork. Admin moderation = `hidden`.
     function validFork(d) {
       return d.keys().hasOnly(['base','title','subtitle','about','ops','owner',
-                               'hidden','public','createdAt','updatedAt'])
+                               'hidden','public','suggestions',
+                               'createdAt','updatedAt'])
         && d.base is string && d.base.matches('[a-z0-9-]{1,50}')
         && d.title is string && d.title.size() >= 3 && d.title.size() <= 80
         // subtitle: the branch's one-line self-description ("beginner
@@ -445,6 +475,9 @@ service cloud.firestore {
         // creation forces false; listing is the owner's deliberate act.
         // (Optional so pre-field docs stay editable; absent reads as false.)
         && (!('public' in d) || d.public is bool)
+        // suggestions: owner-opt-in door for proposals against this branch
+        // (absent reads as closed — brigading stays off by default)
+        && (!('suggestions' in d) || d.suggestions is bool)
         && d.hidden is bool;
     }
     match /forks/{id} {
@@ -460,7 +493,8 @@ service cloud.firestore {
           && resource.data.owner.uid == request.auth.uid
           && validFork(request.resource.data)
           && request.resource.data.diff(resource.data).affectedKeys()
-               .hasOnly(['title','subtitle','about','ops','public','updatedAt']))
+               .hasOnly(['title','subtitle','about','ops','public',
+                         'suggestions','updatedAt']))
         || (isAdmin()
           && request.resource.data.diff(resource.data).affectedKeys()
                .hasOnly(['hidden']));
@@ -478,8 +512,8 @@ service cloud.firestore {
     // natural total cap. Admin moderation = `hidden`, exactly like forks.
     function validUserMap(d) {
       return d.keys().hasOnly(['title','emoji','tagline','about','topics',
-                               'owner','lineage','slug','listed','hidden',
-                               'createdAt','updatedAt'])
+                               'owner','lineage','slug','listed','suggestions',
+                               'hidden','createdAt','updatedAt'])
         && d.title is string && d.title.size() >= 3 && d.title.size() <= 80
         && d.emoji is string && d.emoji.size() >= 1 && d.emoji.size() <= 8
         && (!('tagline' in d) || (d.tagline is string && d.tagline.size() <= 140))
@@ -499,6 +533,8 @@ service cloud.firestore {
         // surface, never the library's. Born unlisted, same as branches.
         && (!('slug' in d) || (d.slug is string && d.slug.matches('[a-z0-9-]{1,60}')))
         && (!('listed' in d) || d.listed is bool)
+        // suggestions: owner-opt-in door for proposals (absent = closed)
+        && (!('suggestions' in d) || d.suggestions is bool)
         && d.hidden is bool;
     }
     match /usermaps/{id} {
@@ -515,7 +551,7 @@ service cloud.firestore {
           && validUserMap(request.resource.data)
           && request.resource.data.diff(resource.data).affectedKeys()
                .hasOnly(['title','emoji','tagline','about','topics',
-                         'slug','listed','updatedAt']))
+                         'slug','listed','suggestions','updatedAt']))
         || (isAdmin()
           && request.resource.data.diff(resource.data).affectedKeys()
                .hasOnly(['hidden']));

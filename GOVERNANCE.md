@@ -179,7 +179,10 @@ Here, in ascending order of effort:
    keeps improving with the canonical map, and any topic can be reset to
    standard at any time. It is deliberately quiet in the interface:
    suggesting an improvement to the shared map is always the preferred act;
-   a personal branch is the escape hatch.
+   a personal branch is the escape hatch. A branch owner may also open
+   their own suggestions door: walkers propose, the owner decides — the
+   review discipline of the trunk, scaled to a surface one person holds.
+   The door is closed unless its owner opens it.
    **And the listed branches are public**: every map's page lists its
    community versions under the official trunk — named, attributed, dated,
    ordered by recency of tending (never by engagement). Divergence happens

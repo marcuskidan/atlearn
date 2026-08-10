@@ -258,6 +258,14 @@ Journeys: J15, J16.
 - ✏️ / ＋ Add topic / ⇅ Reorganize — fork editing, saves go only to the
   fork's ops; per-topic "↩ Reset to the standard version" drops divergence.
   (fork owner)
+- `#forkSuggest` "🌱 Accept suggestions / Close suggestions" (owner) —
+  flips the fork's `suggestions` flag (absent = closed). While open, any
+  signed-in walker's ✏️ save files a proposal carrying
+  `branch:{kind:'fork',id}` + `ownerUid` (rules re-verify both against
+  the live doc); `#forkQueue` "🛡️ Review suggestions" opens the standard
+  review desk, where the owner alone decides — no weight classes, no
+  7-day clock on a personal surface. Merging applies the op to the
+  fork's own ops. (owner; proposing: signed-in + connected)
 - `PLANNED` "Offer this to the trunk" — converts a branch's ops[] into a
   batch of proposals against the base map (same op grammar both sides), so
   GOVERNANCE's "forks are reviewable proposals in waiting" becomes one
@@ -307,6 +315,10 @@ home, account page, shared links. Journeys: J28.
   standard exists). (owner)
 - Suppressed like forks: 💡 suggest, tips, per-link ⚑ flags,
   💬 Discussion, 🏅/🏛/orphan extras, what's-new.
+- `#umapSuggest` + `#umapQueue` — the owner-opt-in suggestions door,
+  exactly as on forks (§5): open it and signed-in walkers' ✏️ saves
+  become proposals only the owner decides; merging rewrites the doc's
+  `topics` through the same op engine. (owner)
 - `#umapList` (owner, on the panel) — "🌍 Put on your page / Take off
   your page": flips `listed` (born false, rules-forced) and, on first
   listing, stamps the map's `slug` (auto from the title, deduped among
@@ -429,6 +441,11 @@ Governance panels (inside the account page):
 - Guilds editor — id/title/blurb/maps/guides rows. (admin)
 
 ## 10 · Review queue — no route (shield buttons only)
+
+Branch suggestions also land here: the proposals tab additionally loads
+`ownerUid == me` pending proposals (any signed-in branch owner reaches it
+via their branch panel's 🛡️ button), badged "✨/🗺 branch suggestion",
+diffed against the branch as it renders now, owner-only decide buttons.
 
 Purpose: the moderation desk — proposals, suggestions, reports, flags;
 scoped per role, tabs hidden rather than shown empty. Journeys: J17, J18,
