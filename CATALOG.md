@@ -216,7 +216,7 @@ read-only for signed-out visitors. Journeys: J1, J7, J11, J12, J13.
 - 🪞 Reflect — `#dReflect` checkable prompts (practice maps). (everyone;
   same session-memory rule as Do)
 - `#statusSeg` ○ ⋯ ✓ — node status. (everyone; same session-memory rule)
-- 📝 Personal Workspace `#dWorkSec` — `#notes` autosaving textarea (saves
+- 📝 Notes `#dWorkSec` — `#notes` autosaving textarea (saves
   to the walker's own server record, debounced), `#saveHint`, `#syncNote`
   (server save state only — the data-export link lives at account
   altitude, not in every drawer). (signed-in)

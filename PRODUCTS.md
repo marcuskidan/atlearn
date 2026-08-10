@@ -30,6 +30,8 @@ product" means in the build today:
 | 9 · Guilds | Subject communities | Community without authority |
 | 10 · Account & Privacy | Signed-in walkers | Minimal identity, full exit rights |
 | 11 · Content operations | The team | Quality upkeep, humans in charge |
+| 12 · Quizzes | Everyone | Test yourself, free — community-tended like everything else |
+| 13 · Support | Believers | The library stays free; conveniences and donations fund it |
 
 ---
 
@@ -273,6 +275,41 @@ humans in charge.
 merges; all counting is of content, not people.
 
 *Detail: CATALOG §12 · Proof: J22–J25.*
+
+## 12 · Quizzes
+
+**For:** everyone.
+**Promise:** test what you've walked, free — quizzes are content, tended
+by the same community hands as everything else.
+
+- ○ Official quiz per topic — lives in the topic file, maintainer-merged,
+  edited through the same wiki door as lessons (decided 2026-08-10).
+- ○ Community quizzes — labeled, beside the official one, never mixed in
+  (the tips pattern) (decided 2026-08-10).
+- ○ Your scores are yours alone — private state, never public, never
+  ranked (decided 2026-08-10).
+
+**Deliberate limits** — no leaderboards, no certification claims; a quiz
+tells you what to revisit, not who you beat.
+
+## 13 · Support
+
+**For:** people who want Atlearn to exist.
+**Promise:** viewing is always free, contribution is never paywalled —
+money buys conveniences or is simply given, and the books are open.
+
+- ○ Donations — a quiet support page with real running costs, one-time
+  and recurring; no banners, no guilt (decided 2026-08-10).
+- ○ The Workbook — the paid tier built around a genuinely robust notes
+  suite: rich notes, search across your walk, exportable field journals,
+  revision history, resurfacing, the AI study companion. Free tier keeps
+  plain per-topic notes. Shape in active exploration (decided as
+  direction 2026-08-10).
+
+**Deliberate limits** — the GOVERNANCE invariants are load-bearing:
+viewing always free; contribution never paywalled; a lapsed subscription
+freezes conveniences, never deletes your data; governance surfaces
+(review, roles, placement) are never for sale.
 
 ---
 
