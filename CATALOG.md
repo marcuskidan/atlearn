@@ -55,7 +55,8 @@ Journeys: J2.
 - `#signInBtn` — opens the auth modal. (signed-out)
 - `#userChip` avatar/name — opens `#/account`; carries `#syncDot` (5 sync
   states, title-labeled) and a gold `.hasNews` dot when contributions were
-  decided since last look. (signed-in)
+  decided since last look. Tooltip says only "Your account" — uid and role
+  plumbing live on the account page. (signed-in)
 - `#signOutBtn` — sign out, stay on page. (signed-in)
 - `#toast` — single-slot transient message, 2.6 s. `#loading` — spinner
   overlay during map/fork loads.
@@ -68,9 +69,11 @@ Journeys: J1, J3.
 
 - `#heroTitle` — "Pick a path…" / "Welcome back." once any map has
   progress. (everyone)
-- Hero links — "Why this exists →" (`#/about`), "Browse collections →",
-  "Explore the atlas →". These are the sole entries to collections and the
-  atlas. (everyone)
+- Hero links — "Why this exists →" (`#/about`), "Explore the atlas →", and
+  "Browse collections →" (`#heroCollLink`, hidden until a shelf exists to
+  browse — one `limit(1)` probe per session; a dormant surface stays off
+  the front page). The hero is the sole entry to collections and the atlas.
+  (everyone)
 - `#searchBox` + `#searchResults` — global search: title index first
   (`search.json`), deep index (`search-deep.json`, summaries + do-actions)
   when title hits run thin; map results labeled "all versions" (they open
@@ -94,9 +97,12 @@ Journeys: J1, J3.
 
 Purpose: the version picker — plain-text identity, the official branch
 pinned first, every public community branch below; Wikipedia-style, no
-machine facts. Reached: library card, atlas row, search map result,
-collection chip, map's "⑂ all versions", fork banner base link, backBtn
-from the map. Journeys: J5, J15.
+machine facts. **At zero visible branches the picker collapses**: library
+cards, atlas rows, search results, and collection chips continue straight
+to the official map (one version = nothing to pick); the map's
+"⑂ all versions" and the backBtn force the picker open regardless — the
+deliberate doors to branch discovery and "start your own". Journeys: J5,
+J15.
 
 - `#catHead` — title · byline ("maintained by X" / "held by the community &
   admins — awaiting its named maintainer") · tagline · endpoint (**→** the
@@ -109,7 +115,8 @@ from the map. Journeys: J5, J15.
   suffixes when applicable. (everyone)
 - Branch rows — every public personal version: title, "tended by", change
   count, date, "(hidden)" label for owner/admin viewers; click opens the
-  fork. (everyone; hidden forks visible to owner + admins only)
+  fork. (everyone on a configured app — `forksOfMap` is a public read, no
+  sign-in required; hidden forks visible to owner + admins only)
 - Branch count line — "N community branches". (everyone, at 1+)
 - "＋ Start your own branch" row — creates the visitor's personal version
   (one per map per user; re-click opens the existing one) — the ONLY
@@ -134,7 +141,10 @@ Header (`#mapHeader`, kept minimal by rule):
 - Title + badges — `⚕ scope-limited` (gated), state badge (draft/archived).
   (everyone)
 - Byline — maintainer name or community-held line. (everyone)
-- `⑂ all versions` — back to the picker. (everyone)
+- `⑂ all versions` — back to the picker (forced open). (everyone)
+- `#histBtn` 🕘 history — opens the map's GitHub commit log; meta altitude,
+  so it lives in this header row, never among the canvas controls. Official
+  map only; absent while `GITHUB_REPO` is unset. (everyone when configured)
 - `#mhAboutLead` — the wiki-editable about prose (meta.json `about`,
   overlay-aware); renders on the official map only, never on forks.
   `[ edit ]` / "write the about section" affordance. (prose: everyone;
@@ -147,8 +157,9 @@ Header (`#mapHeader`, kept minimal by rule):
   when orphaned; apply needs signed-in + connected)
 - `💬 Discussion` — the map's open floor: pending proposals + their public
   comment threads. (connected)
-- `🏅 endorsed` chip — endorsement criteria on click. (everyone, when
-  endorsements exist)
+- `🏅 endorsed` chip — endorsement criteria in a styled in-place popover
+  (`.endPop`) on click; never a native dialog on the reading surface.
+  (everyone, when endorsements exist)
 - `🏛 <guild>` door — opens the guild hall. (everyone, when a guild claims
   the map)
 - 🍂 flag/clear seeking-maintainer — writes `mapstates`. (guild guides)
@@ -159,9 +170,8 @@ Header (`#mapHeader`, kept minimal by rule):
 Canvas & floating chrome:
 - Nodes (spine + branches) — click opens the drawer; each carries a status
   glyph ○/⋯/✓ and tier styling. `#legend` — static key. (everyone)
-- `#zoomIn` / `#zoomOut` / `#zoomFit` — canvas scale. (everyone)
-- `#histBtn` 🕘 — opens the map's GitHub commit history; hidden while
-  `GITHUB_REPO` is unset, hidden on forks. (everyone when configured)
+- `#zoomIn` / `#zoomOut` / `#zoomFit` — canvas scale, canvas controls only.
+  (everyone)
 - `#addTopicBtn` ＋ Add core topic · `#reorgBtn` ⇅ Reorganize — structural
   tools. (owner)
 
@@ -178,18 +188,26 @@ read-only for signed-out visitors. Journeys: J1, J7, J11, J12, J13.
 - Per-link `⚑` flag → 💀 dead / 🍂 stale / 🤷 didn't help; idempotent per
   user per link; aggregates in the maintainer's queue. (connected)
 - 🛠️ Do — `#dSteps` checkable real-world actions; first check auto-advances
-  status. (signed-in; read-only rows signed-out)
-- 🪞 Reflect — `#dReflect` checkable prompts (practice maps). (signed-in;
-  read-only rows signed-out)
-- `#statusSeg` ○ ⋯ ✓ — node status. (signed-in)
+  status. (everyone — guests' marks live in session memory only, with one
+  quiet nudge per visit ("sign in to keep your progress"); signing in
+  adopts them into the account via the LWW merge. Demo/dev identities
+  still get the honest `NEEDS_APP` toast — never a fake save.)
+- 🪞 Reflect — `#dReflect` checkable prompts (practice maps). (everyone;
+  same session-memory rule as Do)
+- `#statusSeg` ○ ⋯ ✓ — node status. (everyone; same session-memory rule)
 - 📝 Personal Workspace `#dWorkSec` — `#notes` autosaving textarea (saves
   to the walker's own server record, debounced), `#saveHint`, `#syncNote`
-  (server save state + "Download my data" link). (signed-in)
+  (server save state only — the data-export link lives at account
+  altitude, not in every drawer). (signed-in)
 - `#dSignInSec` 🔑 — "Sign in to track your progress and keep notes" — the
   one signed-out affordance; opens the auth modal. (signed-out)
-- 💬 Community — `#dTips` labeled community tips (attribution + per-tip ⚑
-  report; ✕ remove for that map's moderators) + `#suggestBtn` 💡 Suggest an
-  improvement. (tips: everyone; 💡: signed-in, hidden on forks)
+- 💬 Community `#dTipsSec` — the section renders only when it has content:
+  tips to read, or the tip door to offer (no empty headings). `#dTips`
+  labeled community tips (attribution + per-tip ⚑ report; ✕ remove for
+  that map's moderators) + `#suggestBtn` 💡 Share a field-tested tip — the
+  node's ONE community-text door; changes to the lesson itself go through
+  ✏️ (one door per intent). (tips: everyone; 💡: signed-in, hidden on
+  forks)
 - `#editBtn` ✏️ — opens the node editor; ANY signed-in walker may edit —
   what Save does is role-decided (owners merge, others propose). This is
   the wiki door. (canEdit)
@@ -229,7 +247,9 @@ Journeys: J4.
 - `#atlasFilters` — data-driven criteria chips with counts (🌀 practice ·
   ⚕ scope-limited · 🗄 archived · 🍂 seeking maintainer · 🏅 endorsed ·
   ⑂ community versions · ✓ fresh · ⏱ tended on a cadence); a criterion
-  with zero maps shows no chip; click toggles the filter. (everyone)
+  with zero maps shows no chip; click toggles the filter. (everyone —
+  `forkCounts` is a public read on a configured app, so the ⑂ criterion is
+  data-driven for signed-out viewers too)
 - Rows — emoji, title, endpoint/tagline, maintainer, criteria chips;
   click → category picker. Draft maps excluded. (everyone)
 - Empty state — "No maps match — clear the search or filter." Footer
@@ -247,14 +267,17 @@ the fork valve's first rung. Reached: home hero link. Journeys: —
   map chips (click → that map's picker). (everyone; hidden shelves visible
   to owner + admins)
 - `✎ Edit` (owner) · `★ Feature/Unfeature` + `Hide/Unhide` (admin — the
-  exactly-two moderation switches) · `⚑` report (non-owners, connected).
+  exactly-two moderation switches) · `⚑` report (rendered for all
+  non-owners; tap gates on sign-in, submit on connected).
 - `#collNew` ＋ Create a collection… — opens the collection modal.
   (signed-in + connected; honest toast otherwise)
 
 ## 8 · Journal — `#/journal[/<rm>]`
 
 Purpose: the walker's private record — deliberately tucked away; sole entry
-point is the account page's 📓 button. Journeys: J8.
+point is the account page's 📓 button. (The URL is reachable signed-out —
+the composer renders but every write degrades to the honest connected-app
+toast; a signed-out variant is a known gap, not a promise.) Journeys: J8.
 
 - `#jIntro` — the privacy statement (never public). (signed-in)
 - Composer — `#jText` + `#jMap` map select (also filters the list and
@@ -344,8 +367,9 @@ member maps. Journeys: J26 (dormant until a guild is seeded).
   judgment can say "this branch is the stronger curriculum"; displays on
   the branch's picker row + fork banner. Feeds the stewardship-review
   evidence base. Decision 2026-08-09. (guides + admins)
-- Talk — public thread; post (signed-in + connected); ✕ remove (guides of
-  this guild + admins).
+- Talk — public thread, readable by everyone on a configured app (a public
+  read needs no sign-in); post (signed-in + connected, `canSync`); ✕ remove
+  (guides of this guild + admins).
 
 ## 12 · Vital signs — `#/health`
 
@@ -383,9 +407,11 @@ erase it. Reached: About footer, auth modal, account page. Journeys: J9.
 - **Auth** `#authModal` — Google/Apple SSO buttons, demo-mode note when
   unconfigured, privacy link, Not now. Openers: sign-in button, drawer 🔑,
   and every gated affordance when signed out.
-- **Suggest** `#suggestModal` — type chips (🔧 Fix / 🔗 Better resource /
-  🌟 Field-tested tip / 🌱 New subtopic; hidden in roadmap/adopt modes),
-  `#sgText`, `#sgUrl`
+- **Suggest** `#suggestModal` — three modes, no type chips: node mode is
+  TIP-ONLY ("Share a field-tested tip" — fixes, better resources, and
+  missing subtopics belong to the ✏️ editor, one door per intent; the
+  modal's context line says so), plus roadmap and adopt modes. `#sgText`,
+  `#sgUrl`
   (affiliate params auto-stripped on blur), `#sgVerified` personally-
   verified check, `#sgFree` one-hard-rule check, `#sgAffiliated` +
   description (disclosure is the deal), CC BY-SA notice. (signed-in;
@@ -414,7 +440,10 @@ erase it. Reached: About footer, auth modal, account page. Journeys: J9.
 
 ## 16 · System states
 
-- **Signed-out** — read-only everywhere + one 🔑 invite (J1).
+- **Signed-out** — reading everywhere, plus session-memory progress marks
+  (steps/reflect/status only — nothing persists, one quiet keep-it nudge,
+  adopted into the account on sign-in) + one 🔑 invite (J1). Contribution
+  and creation affordances stay sign-in gated.
 - **Demo / unconfigured** (`FIREBASE_CONFIG: null`) — read + demo sign-in
   (google:demo-user renders superadmin surfaces); NOTHING persists: every
   write — progress and notes included — degrades to one honest toast

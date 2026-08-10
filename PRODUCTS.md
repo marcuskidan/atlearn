@@ -49,7 +49,9 @@ tracking, nothing asked of the visitor.
 - ● The Atlas — browse all maps by honest, explainable criteria
   (practice map, endorsed, seeking a maintainer…), never by popularity.
 - ● Category pages — each skill lists its official map first, then every
-  community version, Wikipedia-style.
+  community version, Wikipedia-style. While a skill has no community
+  versions the page steps aside: the shelf opens the map directly, and
+  "⑂ all versions" on the map is the way in.
 - ● "Changed since your last visit" — returning walkers see what moved,
   in dates and plain words.
 - ● Every page has a shareable address; links land exactly where they say.
@@ -76,8 +78,11 @@ moment you act, the same on every device, exportable and deletable.
 - ● Without a connected account (demo copies), nothing saves — and the
   app says so plainly instead of faking it.
 
-**Deliberate limits** — visitors are read-only; nothing is stored on the
-device; walker behavior is never counted, compared, or ranked.
+**Deliberate limits** — visitors can tick actions and set status to feel
+the loop, but the marks last only the visit (nothing is stored for the
+signed-out; one quiet nudge says so, and signing in brings the visit's
+marks along). Notes need an account; walker behavior is never counted,
+compared, or ranked.
 
 *Detail: CATALOG §4 · Proof: J7, J10.*
 
@@ -105,8 +110,10 @@ human deciding.
 
 - ● Edit any topic — for non-owners, Save files a proposal to the map's
   maintainer, with an exact before/after view.
-- ● Suggest an improvement — free-text ideas, better links, field-tested
-  tips; approved tips display beside the curated content, clearly labeled.
+- ● Share a field-tested tip — free-text community wisdom; approved tips
+  display beside the curated content, clearly labeled. Fixes, better
+  links, and missing subtopics go through the same editor as everything
+  else (one door per intent — the edit door above).
 - ● Flag a resource — one tap says a link is dead, stale, or unhelpful.
 - ● Report content — safety reports jump a red queue with a 48-hour norm.
 - ● Your contributions page — status of everything you've filed, withdraw

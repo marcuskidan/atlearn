@@ -139,9 +139,16 @@ four places at once: ops.mjs, rules, editor UI, overlay). Rules:
   moderators (fork tools: fork owner) — see `ownsSurface()`. The node ✏️
   shows for ANY signed-in walker (wiki model): owners' saves merge
   instantly, everyone else's file a proposal into the review queue.
-  Signed-out = read-only + one sign-in invite; contributor affordances on
-  the surface are ✏️ (propose an edit) and 💡 suggest (free-text), both
-  signed-in only.
+  Signed-out = reading plus SESSION-MEMORY marks (steps/reflect/status
+  tick in memory, one "sign in to keep it" nudge per visit, adopted into
+  the account on sign-in via mergeStores; notes and every contribution
+  affordance stay signed-in). Contributor doors follow ONE DOOR PER
+  INTENT: ✏️ is the only path for changes to the lesson (fixes, resources,
+  subtopics — propose/merge by role); 💡 (in the drawer's Community
+  section) is TIP-ONLY, community text beside the lesson, never in it.
+  Both signed-in only. The category picker COLLAPSES at zero visible
+  branches (cards/atlas/search go straight to the map; ⑂ and backBtn
+  force it open — openCategory(id, forcePicker)).
 - The journal is TUCKED AWAY (not core right now): #/journal and sync remain
   functional, but its only entry point is the account page's 📓 button —
   no map-header button, no drawer link, no reflect-prompt glyphs.

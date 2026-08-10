@@ -99,21 +99,30 @@ repo's Actions tab (Land content / Link check, run-on-demand).
 *"Viewing is always free, for everyone, forever." The whole library, and
 nothing asks anything of the visitor.*
 
-### J1 · Signed-out walker · First visit: shelf → picker → map → node, read-only   [Tier A]
-INTENTION — A visitor with no account gets everything readable and nothing
-interactive: the reading surface is consumption-first (GOVERNANCE walker
-row; CLAUDE.md map-header rule).
+### J1 · Signed-out walker · First visit: shelf → map → node, feel the loop   [Tier A]
+INTENTION — A visitor with no account gets everything readable plus the
+core loop itself — ticking a step and setting status work in session
+memory, honestly nudged toward the account that would keep them — while
+every contribution and editing affordance stays out of sight (GOVERNANCE
+walker row; CLAUDE.md map-header rule).
 COVERED ELSEWHERE — client.test.mjs "editorMode role matrix" (logic only);
 only the walk catches the actual DOM gating (`ro` branch, `ownsSurface()`).
 SETUP — Tier A, fresh visitor.
 STEPS
-1. Load `/` — library cards are spare (emoji + title + progress bar only).
-2. Click a card → category picker (`#/astronomy`).
-3. Open the official row → `#/astronomy/map`.
-4. Click a spine node → drawer opens.
+1. Load `/` — library cards are spare (emoji + title + progress bar only);
+   the hero shows no "Browse collections" link while no shelf exists.
+2. Click a card → straight to `#/astronomy/map` (zero community branches =
+   the picker collapses; no interstitial).
+3. Click a spine node → drawer opens.
+4. Tick the first Do step.
 EXPECT
-- Drawer: title/summary/links/do-list render; NO status segment, NO step
-  checkboxes, NO notes box, NO 💡, NO ⚑ link flags, NO ✏️.
+- Drawer: title/summary/links/do-list render; status segment AND step
+  checkboxes are LIVE; NO notes box, NO 💡, NO ⚑ link flags, NO ✏️, and no
+  💬 Community heading while the node has no tips.
+- The first tick marks the step, auto-advances status to ⋯ (drawer and map
+  node), and shows the one nudge toast: "✓ Marked for this visit — sign in
+  (free) to keep your progress". Reloading the tab forgets the marks —
+  nothing was stored.
 - The 🔑 sign-in invite (`#dSignInSec`) is visible; clicking it opens the
   auth modal.
 - Map header: no `[ edit ]`, no ＋ Add core topic, no ⇅ Reorganize.
@@ -173,14 +182,19 @@ EXPECT
   verified); an empty result shows "No maps match — clear the search or
   filter."
 
-### J5 · Signed-out walker · The category picker keeps machine facts out   [Tier A]
+### J5 · Signed-out walker · The category picker keeps machine facts out — and collapses at one version   [Tier A]
 INTENTION — Machine facts (versions, citations, tallies) never reach walker
 surfaces (CLAUDE.md); the picker is plain-text identity + branch list,
-Wikipedia-style.
+Wikipedia-style — and at zero community branches it isn't a stop at all.
 COVERED ELSEWHERE — none.
-SETUP — Tier A → `#/astronomy`.
+SETUP — Tier A → `#/astronomy/map`, then click "⑂ all versions" (with zero
+branches, pasting `#/astronomy` continues straight to the map — verify
+that first).
 STEPS
-1. Inspect the page top to bottom.
+1. Paste `#/astronomy` → lands on the map, not the picker.
+2. Click "⑂ all versions" → the picker opens (forced); backBtn from the
+   map also opens it.
+3. Inspect the page top to bottom.
 EXPECT
 - Exactly: title, byline, tagline, endpoint, disclaimer (gated maps only),
   official row pinned first, branch search + sort chips (only at 2+
@@ -190,9 +204,11 @@ EXPECT
 
 # Group II — Signed-in walker (demo) · *your progress is yours*
 
-### J6 · retired 2026-08-09: persistence moved server-side — signed-out is
-read-only, so no guest store exists to adopt; sign-in starts from the
-account's server record.
+### J6 · retired 2026-08-09: persistence moved server-side. (Amended same
+day: guests DO hold session-memory marks again — steps/status only, never
+stored — and `finishSignIn` adopts them into the account via the LWW
+merge, so the J1 nudge's promise is kept. The retired journey's
+localStorage guest store stays gone.)
 
 ### J7 · Signed-in walker · Progress, steps, notes save to the account — server-side   [Tier E, widgets render at C]
 INTENTION — Every status change, checked action, and note is written to the
@@ -277,15 +293,18 @@ EXPECT — every toast exact; nothing silently no-ops.
 
 # Group III — Contributor (connected) · *anyone improves the shared map*
 
-### J11 · Contributor · 💡 Suggest → tip lifecycle   [Tier E]
+### J11 · Contributor · 💡 Share a tip → tip lifecycle   [Tier E]
 INTENTION — Community input publishes as a labeled tip beside the curated
 content, never inside it; affiliation disclosure is the deal (GOVERNANCE
-integrity; CLAUDE.md community layer).
+integrity; CLAUDE.md community layer). The 💡 door is TIP-ONLY — one door
+per intent: changes to the lesson (fixes, resources, subtopics) go through
+✏️ (J12), and the modal's context line points there.
 COVERED ELSEWHERE — rules.test.mjs suggestion create/moderation + tips
 write-scope + affiliate tripwire (D). Journey-only: the form UX and the
 labeled rendering.
 STEPS
-1. Signed-in (no roles): node 💡 → type "field-tested tip", check
+1. Signed-in (no roles): the node's 💬 Community section → "💡 Share a
+   field-tested tip…" (no type chips — the modal is the tip form), check
    "personally verified"; check "affiliated" → description becomes required.
 2. Paste a URL with `?utm_source=x` → blur strips it (toast shows).
 3. Submit → "🙏 Submitted — the maintainer will review it".

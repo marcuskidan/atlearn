@@ -8,6 +8,16 @@ import assert from "node:assert/strict";
 let testEnv, rut;
 const EMULATED = !!process.env.FIRESTORE_EMULATOR_HOST;
 
+// In CI this suite is the security boundary's only test — skipping it there
+// would green-wash firestore.rules. Locally (no emulator) skipping is fine.
+test("rules suite must run against the emulator in CI", () => {
+  if (process.env.CI && !EMULATED) {
+    assert.fail("CI is set but FIRESTORE_EMULATOR_HOST is not — the rules " +
+      "suite would silently skip every guard. Run via " +
+      "`firebase emulators:exec --only firestore -- node --test tests/rules.test.mjs`.");
+  }
+});
+
 before(async () => {
   if (!EMULATED) return;
   rut = await import("@firebase/rules-unit-testing");

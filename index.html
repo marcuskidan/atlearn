@@ -330,6 +330,12 @@ a{color:var(--blue)}
 .flagPop button{background:var(--bg3);border:1px solid var(--line);border-radius:7px;
   padding:3px 8px;font-size:11px;color:var(--muted);white-space:nowrap}
 .flagPop button:hover{border-color:var(--accent);color:var(--accent)}
+/* endorsement criteria card — same quiet popover language as .flagPop */
+.endPop{position:absolute;left:0;top:100%;z-index:5;max-width:340px;
+  background:var(--bg2);border:1px solid var(--line);border-radius:9px;
+  padding:10px 12px;font-size:12.5px;line-height:1.5;color:var(--muted);
+  text-align:left;white-space:pre-line;box-shadow:0 6px 22px rgba(0,0,0,.35)}
+.endPop b{color:var(--fg)}
 
 /* ---------- Review-queue hygiene: age + discussion ---------- */
 .ageChip{font-size:10px;padding:2px 7px;border-radius:99px;border:1px solid var(--line);
@@ -702,7 +708,7 @@ select.edInput{appearance:none;-webkit-appearance:none}
     <h1 id="heroTitle">Pick a path. <em>Learn by doing.</em></h1>
     <p id="heroSub">Step-by-step maps for learning real things — free, for everyone, forever.
       <a href="#" id="aboutLink">Why this exists →</a> ·
-      <a href="#/collections">Browse collections →</a> ·
+      <span id="heroCollLink" style="display:none"><a href="#/collections">Browse collections →</a> ·</span>
       <a href="#/atlas">Explore the atlas →</a></p>
     <div id="searchWrap">
       <input id="searchBox" type="search" placeholder="Search every map — try “knife”, “Polaris”, “budget”…"
@@ -981,7 +987,6 @@ select.edInput{appearance:none;-webkit-appearance:none}
     <button id="zoomIn" aria-label="Zoom in">+</button>
     <button id="zoomOut" aria-label="Zoom out">−</button>
     <button id="zoomFit" aria-label="Fit" style="font-size:12px">⤢</button>
-    <button id="histBtn" aria-label="Map history" title="Map history" style="font-size:14px">🕘</button>
   </div>
   <div id="forkBanner"></div>
   <button id="addTopicBtn">＋ Add core topic</button>
@@ -1105,11 +1110,11 @@ select.edInput{appearance:none;-webkit-appearance:none}
       <div id="syncNote"></div>
     </div>
     <div class="sec" id="dSignInSec" style="display:none">
-      <a href="#" id="drawerSignIn">🔑 Sign in to track your progress and keep notes — free, syncs across devices</a>
+      <a href="#" id="drawerSignIn">🔑 Sign in to keep your progress and add notes — free, syncs across devices</a>
     </div>
-    <div class="sec"><h4>💬 Community</h4>
+    <div class="sec" id="dTipsSec" style="display:none"><h4>💬 Community</h4>
       <div id="dTips"></div>
-      <button id="suggestBtn">💡 Suggest an improvement…</button>
+      <button id="suggestBtn">💡 Share a field-tested tip…</button>
     </div>
   </div>
   <div id="editorBody" style="display:none;flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch;
@@ -1167,14 +1172,8 @@ select.edInput{appearance:none;-webkit-appearance:none}
 <!-- ================= SUGGEST MODAL ================= -->
 <div id="suggestModal" class="modalWrap">
   <div class="modalCard">
-    <h3 id="sgTitle">Suggest an improvement</h3>
+    <h3 id="sgTitle">Share a field-tested tip</h3>
     <div class="mctx" id="sgContext"></div>
-    <div id="sgTypes" class="chips">
-      <button data-t="fix">🔧 Fix / correction</button>
-      <button data-t="link">🔗 Better resource</button>
-      <button data-t="tip">🌟 Field-tested tip</button>
-      <button data-t="topic">🌱 New subtopic</button>
-    </div>
     <textarea id="sgText"></textarea>
     <input id="sgUrl" type="url" placeholder="https://  (optional supporting link)">
     <label class="checkRow"><input type="checkbox" id="sgVerified">
@@ -1605,8 +1604,22 @@ function nextNodeOf(rm){   // first in-progress node, else first not-yet-done
   const f=flatten(rm);
   return f.find(n=>peek(rm.id,n.id).status===1) || f.find(n=>peek(rm.id,n.id).status!==2);
 }
+/* The hero advertises Collections only once a shelf exists to browse — a
+   dormant surface stays off the front page. One limit(1) probe per session. */
+let COLL_EXIST=null;
+async function heroCollCheck(){
+  if(COLL_EXIST!==null || !collConnected()) return;
+  COLL_EXIST=false;
+  try{
+    const F=await fb(); if(!F) return;
+    const snap=await F.getDocs(F.query(F.collection(F.db,"collections"),F.limit(1)));
+    COLL_EXIST=snap.size>0;
+  }catch(e){}
+  if(COLL_EXIST) $("heroCollLink").style.display="";
+}
 function renderHome(){
   const grid=$("grid"); grid.innerHTML="";
+  heroCollCheck();
   const active=INDEX.filter(walking);
   $("continueWrap").style.display=active.length?"block":"none";
   $("heroTitle").innerHTML=active.length?"Welcome back.":"Pick a path. <em>Learn by doing.</em>";
@@ -1667,8 +1680,6 @@ async function openRoadmap(id){
   $("loading").classList.remove("show");
   currentFork=null;                          // standard map: fork chrome off
   $("forkBanner").classList.remove("show");
-  // history opens the public commit log — meaningless until the repo is configured
-  $("histBtn").style.display=GITHUB_REPO?"":"none";
   showView("mapView");
   $("backBtn").classList.add("show");
   $("brandText").textContent=currentRm.emoji+" "+currentRm.title;
@@ -1711,8 +1722,19 @@ function renderMapHeader(){
   const br=document.createElement("button");
   br.textContent="⑂ all versions";
   br.title="Every public version of this category — the official branch and the community's";
-  br.onclick=()=>{ location.hash="#/"+(currentFork?currentFork.base:e.id); };
+  br.onclick=()=>{ openCategory(currentFork?currentFork.base:e.id, true); };
   $("mhActions").appendChild(br);
+  // 🕘 history: a meta action, so it lives with the header's meta row —
+  // never among the canvas controls, never on forks, silent until configured
+  if(!currentFork && GITHUB_REPO){
+    const hb=document.createElement("button"); hb.id="histBtn";
+    hb.textContent="🕘 history";
+    hb.title="Every change to this map — the repository's public record";
+    hb.onclick=()=>window.open(
+      `https://github.com/${GITHUB_REPO}/commits/main/roadmaps/${e.id}/topics`,
+      "_blank","noopener");
+    $("mhActions").appendChild(hb);
+  }
   h.classList.add("show");
   renderMapHeaderExtras();
 }
@@ -1721,9 +1743,14 @@ function renderMapHeader(){
    The official branch first, every community branch below, publicly listed —
    pick one and explore. Identity is plain text (Wikipedia-style); the version
    number lives quietly at the bottom. */
-async function openCategory(id){
+async function openCategory(id, forcePicker=false){
   const e=INDEX.find(r=>r.id===id);
   if(!e){ goHome(); return; }
+  // One version = nothing to pick: the shelf goes straight to the map and
+  // the picker earns its place when a second branch exists. ⑂ and the back
+  // button pass forcePicker — the deliberate ways to reach this page anyway.
+  const branches=await forksOfMap(id);
+  if(!forcePicker && branches.length===0){ openRoadmap(id); return; }
   showView("categoryView");
   $("backBtn").classList.add("show");
   $("brandText").textContent=e.emoji+" "+e.title;
@@ -1741,7 +1768,7 @@ async function openCategory(id){
       ${e.endpoint?`<div class="catEndpoint"><b>→</b> ${esc(e.endpoint)}</div>`:""}
     </div>
     ${e.disclaimer?`<div class="catDisclaimer">⚠️ ${esc(e.disclaimer)}</div>`:""}`;
-  catBranchesCache={id, branches:await forksOfMap(id)};
+  catBranchesCache={id, branches};
   $("catSearch").value=""; catSort="tended";
   $("catControls").style.display=catBranchesCache.branches.length>1?"flex":"none";
   renderCatBranches();
@@ -2019,13 +2046,28 @@ MH_EXTRAS.push(slots=>{
 MH_EXTRAS.push(slots=>{
   if(currentFork) return;
   const rmId=currentRm.id;
-  // endorsement badge with criteria on tap
+  // endorsement badge with criteria on tap — a quiet in-place card, never a
+  // native dialog on the reading surface
   endorsementsOf(rmId).forEach(m=>{
+    const wrap=document.createElement("span"); wrap.style.position="relative";
     const b=document.createElement("button");
     b.textContent=`🏅 endorsed — ${m.audience}`;
     b.title="A guild's signed quality mark. Tap for the published criteria.";
-    b.onclick=()=>alert(`Endorsed by ${(GUILDS[m.guild]||{}).title||m.guild} for ${m.audience}.\n\nCriteria:\n${m.criteria}\n\n— ${m.by&&m.by.name||"?"}`);
-    slots.actions.appendChild(b);
+    b.onclick=()=>{
+      const old=wrap.querySelector(".endPop");
+      if(old){ old.remove(); return; }
+      const pop=document.createElement("div"); pop.className="endPop";
+      pop.innerHTML=`Endorsed by <b>${esc((GUILDS[m.guild]||{}).title||m.guild)}</b> for ${esc(m.audience)}.
+
+${esc(m.criteria)}
+
+— ${esc(m.by&&m.by.name||"?")}`;
+      wrap.appendChild(pop);
+      setTimeout(()=>document.addEventListener("click",function away(ev){
+        if(!pop.contains(ev.target)){ pop.remove(); document.removeEventListener("click",away); }
+      }),0);
+    };
+    wrap.appendChild(b); slots.actions.appendChild(wrap);
   });
   const g=guildOfMap(rmId);
   if(!g) return;
@@ -2226,18 +2268,22 @@ function openNode(nodeId){
     }
     links.appendChild(row);
   });
-  // signed-out (and not the author's dev machine) = pure read-only consumption
+  // signed-out (and not the author's dev machine) = read-first consumption:
+  // guests may still tick steps and set status — the marks live in session
+  // memory only (the store is in-memory; persist() no-ops without an account)
+  // and the first tick nudges toward the account that would keep them.
   const ro = !devMode && !user.provider;
   const steps=$("dSteps"); steps.innerHTML="";
   currentNode.do.forEach((s,i)=>{
-    const b=document.createElement(ro?"div":"button");
-    b.className="step"+(p.done[i]?" done":"")+(ro?" ro":"");
-    b.innerHTML=(ro?"":`<span class="box">✓</span>`)+`<span class="stext">${s}</span>`;
-    if(!ro) b.onclick=()=>{
-      if(!canSync()){ toast(NEEDS_APP); return; }   // honest, never a fake save
+    const b=document.createElement("button");
+    b.className="step"+(p.done[i]?" done":"");
+    b.innerHTML=`<span class="box">✓</span><span class="stext">${s}</span>`;
+    b.onclick=()=>{
+      if(!ro && !canSync()){ toast(NEEDS_APP); return; }   // demo/dev identities: honest, never a fake save
       p.done[i]=!p.done[i];
       if(p.status===0 && p.done[i]) p.status=1;  // auto-advance on first action
-      touch(p); persist(); openNode(nodeId); renderGraph();
+      touch(p); persist(); if(ro) guestNudge();
+      openNode(nodeId); renderGraph();
     };
     steps.appendChild(b);
   });
@@ -2248,33 +2294,35 @@ function openNode(nodeId){
   const prompts=currentNode.reflect||[];
   rsec.style.display=prompts.length?"":"none";
   prompts.forEach((s,i)=>{
-    const b=document.createElement(ro?"div":"button");
-    b.className="step"+((p.ref||[])[i]?" done":"")+(ro?" ro":"");
-    b.innerHTML=(ro?"":`<span class="box">✓</span>`)+`<span class="stext">${esc(s)}</span>`;
-    if(!ro) b.onclick=()=>{
-      if(!canSync()){ toast(NEEDS_APP); return; }
+    const b=document.createElement("button");
+    b.className="step"+((p.ref||[])[i]?" done":"");
+    b.innerHTML=`<span class="box">✓</span><span class="stext">${esc(s)}</span>`;
+    b.onclick=()=>{
+      if(!ro && !canSync()){ toast(NEEDS_APP); return; }
       p.ref=p.ref||[]; p.ref[i]=!p.ref[i];
       if(p.status===0 && p.ref[i]) p.status=1;
-      touch(p); persist(); openNode(nodeId); renderGraph();
+      touch(p); persist(); if(ro) guestNudge();
+      openNode(nodeId); renderGraph();
     };
     rbox.appendChild(b);
   });
-  $("statusSeg").style.display = ro?"none":"";
+  $("statusSeg").style.display = "";          // guests too — the loop is feelable before the wall
   $("dWorkSec").style.display = ro?"none":"";
   $("dSignInSec").style.display = ro?"":"none";
   if(ro){
     $("drawerSignIn").onclick=(e)=>{ e.preventDefault(); $("authModal").classList.add("show"); };
+    paintStatusSeg(p.status);
   }else{
     $("notes").value=p.notes||"";
     $("saveHint").textContent="";
     // unconnected identities (demo, dev) get a read-only box + the honest line
     $("notes").readOnly=!canSync();
     $("notes").onclick = canSync() ? null : ()=>toast(NEEDS_APP);
-    $("syncNote").innerHTML = (canSync()
+    // data rights live at account altitude — the export link is on the
+    // account page, not repeated in every drawer
+    $("syncNote").innerHTML = canSync()
       ? `☁️ Signed in as <b>${esc(user.name)}</b> — notes & progress save to your account.`
-      : `🔌 ${NEEDS_APP} — nothing is saved here.`)
-      + ` <a href="#" id="exportDataLink">Download my data</a>`;
-    $("exportDataLink").onclick=(e)=>{ e.preventDefault(); exportMyData(); };
+      : `🔌 ${NEEDS_APP} — nothing is saved here.`;
     paintStatusSeg(p.status);
   }
   $("editorBody").style.display="none"; $("drawerBody").style.display="";
@@ -2285,8 +2333,11 @@ function openNode(nodeId){
   loadTips(currentRm.id).then(t=>{           // async: fill community tips when they arrive
     if(currentNode && currentNode.id===nodeId) renderTips(t[nodeId]||[]);
   });
-  // suggestions serve the shared map, and only signed-in walkers can file them
+  // suggestions serve the shared map, and only signed-in walkers can file them.
+  // The whole Community section earns its heading: hidden until it has either
+  // tips to read (renderTips re-shows it) or the tip door to offer.
   $("suggestBtn").style.display = (currentFork || ro) ? "none" : "";
+  $("dTipsSec").style.display = (currentFork || ro) ? "none" : "";
   $("backdrop").classList.add("show");
   $("drawer").classList.add("open");
   reflectHash(mapPath()+"/"+encodeURIComponent(nodeId));
@@ -2298,11 +2349,20 @@ function paintStatusSeg(s){
 document.querySelectorAll("#statusSeg button").forEach(b=>{
   b.onclick=()=>{
     if(!currentNode) return;
-    if(!canSync()){ toast(NEEDS_APP); return; }
+    const guest = !devMode && !user.provider;
+    if(!guest && !canSync()){ toast(NEEDS_APP); return; }
     const p=prog(currentRm.id,currentNode.id);
-    p.status=+b.dataset.s; touch(p); persist(); paintStatusSeg(p.status); renderGraph();
+    p.status=+b.dataset.s; touch(p); persist(); if(guest) guestNudge();
+    paintStatusSeg(p.status); renderGraph();
   };
 });
+/* One quiet nudge per visit: a guest's first mark is acknowledged honestly —
+   it lives in this tab's memory alone until an account exists to keep it. */
+let guestNudged=false;
+function guestNudge(){
+  if(guestNudged) return; guestNudged=true;
+  toast("✓ Marked for this visit — sign in (free) to keep your progress");
+}
 let notesT=null;
 $("notes").addEventListener("input",()=>{
   if(!currentNode || !canSync()) return;   // readOnly guards this; belt & braces
@@ -2339,7 +2399,7 @@ function paintUser(){
   $("signInBtn").style.display=signed?"none":"block";
   $("userChip").classList.toggle("show",signed);
   if(signed){
-    $("userChip").title="User id: "+user.id+" (roles bind to this id — see your account page)";
+    $("userChip").title="Your account";   // plumbing (uid, roles) lives on the account page
     $("userName").textContent=user.name;
     $("userAvatar").textContent=user.name[0].toUpperCase();
     $("userAvatar").style.background = user.provider==="google" ? "#4285F4" : "#e5e7eb";
@@ -2358,10 +2418,17 @@ $("signInBtn").onclick=()=>{
 $("authCancel").onclick=()=>$("authModal").classList.remove("show");
 /* shared post-auth flow for demo and real paths */
 async function finishSignIn(u){
+  // A pure guest's session marks are adopted into the account: pullAndMerge
+  // LWW-merges them with the server record, and they push right after — the
+  // drawer's "sign in to keep your progress" nudge is a kept promise. Any
+  // signed-identity switch still starts clean (sign-out resets the store).
+  const adopting = !user.provider && !!u.provider
+    && Object.keys(store.progress||{}).length>0;
   user=u; cacheUser();
-  store=migrateStore(null); jPushWM=0;   // fresh session memory for this identity
+  if(!adopting) store=migrateStore(null);
+  jPushWM=0;   // fresh session memory for this identity
   await pullAndMerge();          // the account's server record is the store
-  if(canSync()){ syncState="synced"; }
+  if(canSync()){ syncState="synced"; if(adopting) persist(); }
   paintUser(); $("authModal").classList.remove("show");
   toast(`Welcome, ${user.name}! ${canSync()?"Your progress and notes save to your account.":"Demo mode — nothing you do here is saved."}`);
   if($("accountView").classList.contains("active")) renderAccount();
@@ -2414,6 +2481,8 @@ async function loadTips(rmId){
 }
 function renderTips(list){
   const box=$("dTips"); box.innerHTML="";
+  // tips are content — every viewer sees them, so they re-open the section
+  if(list.length) $("dTipsSec").style.display="";
   const mod = canSync() && (isAdmin() || maintains(currentRm.id));
   list.forEach(t=>{
     const d=document.createElement("div"); d.className="tipCard";
@@ -2445,26 +2514,27 @@ async function removeTip(t){
   }catch(e){ toast("Couldn't remove the tip — try again"); }
 }
 
+/* One door per intent: changes to the lesson itself (fixes, better
+   resources, missing subtopics) go through the node's ✏️ editor — the wiki
+   door, where Save proposes or merges by role. This modal carries the two
+   intents the editor can't: a field-tested TIP (community text beside the
+   lesson, never in it) and the whole-roadmap / adoption forms. */
 let sgCtx=null, sgType="tip";
 const SG_HINTS={
-  fix:"What's wrong or outdated, and what should it say instead? Be specific.",
-  link:"Which resource, and why is it better than what's there? Paste the link below.",
-  tip:"What did you learn doing this in the real world that others should know?",
-  topic:"What subtopic is missing here, and what would its real-world action be?"
+  tip:"What did you learn doing this in the real world that others should know?"
 };
 function openSuggest(ctx){
   if(!user.provider){ $("authModal").classList.add("show"); toast("Sign in to contribute"); return; }
   sgCtx=ctx;
   const isRm=ctx.mode==="roadmap", isAdopt=ctx.mode==="adopt";
   $("sgTitle").textContent=isRm?"Propose a new roadmap"
-    :isAdopt?"Apply to adopt this map":"Suggest an improvement";
+    :isAdopt?"Apply to adopt this map":"Share a field-tested tip";
   $("sgContext").textContent=isRm
     ? "Describe it as a simple outline — core topics with subtopics, like a table of contents. The admins review every proposal."
     : isAdopt
     ? `Make your case to tend “${currentRm.title}”: your history with the subject, your contribution record here, and how you'd keep it alive. A recorded successor has right of first refusal; the admins confirm the strongest candidate.`
-    : `For “${ctx.nodeTitle}” in ${currentRm.title}. Nothing changes until the maintainer approves it.`;
-  $("sgTypes").style.display=(isRm||isAdopt)?"none":"flex";
-  sgType=isRm?"roadmap":isAdopt?"adopt":"tip"; paintSgType();
+    : `For “${ctx.nodeTitle}” in ${currentRm.title} — shown beside the lesson, credited to you, once the maintainer approves. (To change the lesson itself, use the node's ✏️ editor.)`;
+  sgType=isRm?"roadmap":isAdopt?"adopt":"tip";
   $("sgText").value=""; $("sgUrl").value=""; $("sgVerified").checked=false;
   $("sgFree").checked=false;
   $("sgAffiliated").checked=false; $("sgAffiliation").value="";
@@ -2478,14 +2548,6 @@ function openSuggest(ctx){
     : SG_HINTS[sgType];
   $("suggestModal").classList.add("show");
 }
-function paintSgType(){
-  document.querySelectorAll("#sgTypes button").forEach(b=>
-    b.classList.toggle("on", b.dataset.t===sgType));
-  if(sgCtx && sgCtx.mode!=="roadmap") $("sgText").placeholder=SG_HINTS[sgType]||"";
-}
-document.querySelectorAll("#sgTypes button").forEach(b=>{
-  b.onclick=()=>{ sgType=b.dataset.t; paintSgType(); };
-});
 /* Affiliate hygiene, client side: strip tracking/affiliate params on input so
    contributors rarely hit the build-gate rejection. tools/build.py stays the
    authority — this is a courtesy scrub, not the defense. */
@@ -2509,9 +2571,9 @@ function stripAffiliate(url){
 async function submitSuggestion(){
   const text=$("sgText").value.trim();
   if(text.length<20){ toast("A little more detail, please (20+ characters)"); return; }
-  if((sgType==="link"||sgType==="tip") && !$("sgVerified").checked){
+  if(sgType==="tip" && !$("sgVerified").checked){
     toast("Please confirm you've personally tried or verified it"); return; }
-  if((sgType==="link"||$("sgUrl").value.trim()) && !$("sgFree").checked){
+  if($("sgUrl").value.trim() && !$("sgFree").checked){
     toast("The one hard rule: resources must be freely accessible to everyone"); return; }
   const affiliated=$("sgAffiliated").checked;
   const affiliation=affiliated?$("sgAffiliation").value.trim():"";
@@ -3314,7 +3376,7 @@ let FORK_COUNTS=null;
 async function forkCounts(){
   if(FORK_COUNTS) return FORK_COUNTS;
   const counts={};
-  if(collConnected() && canSync()){
+  if(collConnected()){   // public read — the count is public data
     try{
       const F=await fb(); if(!F) throw new Error("sdk unavailable");
       const snap=await F.getDocs(F.collection(F.db,"forks"));
@@ -3572,7 +3634,8 @@ function renderGuildEndorsements(g){
 }
 async function renderGuildTalk(g){
   const box=$("guildTalk"); box.innerHTML="<div class='sub'>Loading…</div>";
-  if(!canSync()){ box.innerHTML="<div class='sub'>Guild talk appears once the app is connected.</div>"; return; }
+  // Public read — anyone may read the thread; posting stays signed-in below.
+  if(!collConnected()){ box.innerHTML="<div class='sub'>Guild talk appears once the app is connected.</div>"; return; }
   let items=[];
   try{
     const F=await fb(); if(!F) throw new Error("offline");
@@ -3604,7 +3667,7 @@ async function renderGuildTalk(g){
     }
     box.appendChild(row);
   });
-  if(user.provider){
+  if(canSync()){
     const form=document.createElement("div"); form.className="edRow";
     form.innerHTML=`<input class="edInput gtInput" maxlength="2000"
         placeholder="Public and permanent — resource finds, rota talk, questions…">
@@ -3901,7 +3964,7 @@ function mapPath(){ return currentFork ? "/fork/"+currentFork.id : "/"+currentRm
    Hidden forks stay visible only to their owner and admins, same gate as
    opening one directly. */
 async function forksOfMap(rmId){
-  if(!(collConnected() && canSync())) return [];
+  if(!collConnected()) return [];   // public read — signed-out walkers see branches too
   const out=[];
   try{
     const F=await fb(); if(!F) throw new Error("sdk unavailable");
@@ -3968,7 +4031,6 @@ async function openFork(id, nodeId){
   paintForkBanner(base);
   $("addTopicBtn").classList.toggle("show", ownsSurface());
   $("reorgBtn").classList.toggle("show", ownsSurface());
-  $("histBtn").style.display="none";   // history belongs to the standard map
   $("scroller").scrollTop=0;
   reflectHash("/fork/"+id);
   if(nodeId && flatten(currentRm).some(n=>n.id===nodeId)){ openNode(nodeId); revealNode(nodeId); }
@@ -5130,13 +5192,8 @@ $("reorgSave").onclick=async ()=>{
   }catch(e){ toast("Failed: "+(e.message||e)); }
 };
 
-/* ---------- public map history: the repo's commit log IS the record ---------- */
-$("histBtn").onclick=()=>{
-  if(!currentRm) return;
-  if(!GITHUB_REPO){ toast("History appears once GITHUB_REPO is configured"); return; }
-  window.open(`https://github.com/${GITHUB_REPO}/commits/main/roadmaps/${currentRm.id}/topics`,
-    "_blank","noopener");
-};
+/* ---------- public map history: the repo's commit log IS the record ----------
+   (the 🕘 button is created per-map in renderMapHeader — meta altitude) */
 
 /* ---------- about / manifesto ---------- */
 function openAbout(){
@@ -5174,8 +5231,8 @@ function toast(msg){
 let guildFromRm=null;   // set when a map-header guild door is used
 function goUp(){
   if($("mapView").classList.contains("active")){
-    if(currentFork){ openCategory(currentFork.base); return; }
-    if(currentRm){ openCategory(currentRm.id); return; }
+    if(currentFork){ openCategory(currentFork.base, true); return; }
+    if(currentRm){ openCategory(currentRm.id, true); return; }
   }
   if($("guildView").classList.contains("active") && guildFromRm){
     const rm=guildFromRm; guildFromRm=null;

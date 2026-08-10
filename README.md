@@ -162,8 +162,10 @@ your last visit" pill on maps that moved, backed by each map's changelog.
 
 ## Notes & progress
 
-Signed-out visitors read; tracking is an account feature, and the account's
-server record is the system of record. Every status change, checked action,
+Signed-out visitors read — and can tick actions to feel the loop, though
+those marks last only the visit (session memory, one honest nudge; signing
+in brings them along). Durable tracking is an account feature, and the
+account's server record is the system of record. Every status change, checked action,
 and note is written to the user's own Firestore document (`users/{uid}`),
 readable and writable only by them per `firestore.rules` — the UI reflects
 the change instantly and reports the real save state (pending / saved /
@@ -255,8 +257,10 @@ own public commit history (the 🕘 button on any map opens it directly).
 roadmap.sh runs its community through GitHub issues and PRs; this project serves
 domain experts and everyday learners, so the same loop lives **inside the app**:
 
-- **Suggest** — from any node: fix/correction, better resource, field-tested tip,
-  or missing subtopic. From the home screen: propose a whole new roadmap as a
+- **Share a tip** — from any node's Community section: a field-tested tip,
+  published beside the lesson and clearly labeled (fixes, better resources,
+  and missing subtopics go through the node's ✏️ editor instead — one door
+  per intent). From the home screen: propose a whole new roadmap as a
   simple outline. Forms embed the quality bar (including an "I've personally
   tried/verified this" attestation, echoing roadmap.sh's contribution rules).
   Sign-in is required to submit — the equivalent of needing a GitHub account.
