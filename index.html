@@ -71,17 +71,18 @@ body{
   background:var(--bg); color:var(--text);
   overflow:hidden; overscroll-behavior:none;
   -webkit-font-smoothing:antialiased;
+  display:flex;flex-direction:column;
 }
 button{font:inherit;color:inherit;background:none;border:none;cursor:pointer}
 a{color:var(--blue)}
 
 /* ---------- Top bar ---------- */
+/* static, in the document — content scrolls below it, never under it */
 #topbar{
-  position:fixed;top:0;left:0;right:0;z-index:40;
+  flex:0 0 auto;
   padding:calc(10px + var(--sat)) calc(16px + var(--sar)) 10px calc(16px + var(--sal));
   display:flex;align-items:center;gap:12px;
-  background:color-mix(in srgb,var(--bg) 92%,transparent);
-  backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
+  background:var(--bg);
   border-bottom:1px solid var(--line);
 }
 #backBtn{display:none;width:34px;height:34px;border-radius:4px;border:1px solid var(--line);
@@ -107,13 +108,13 @@ a{color:var(--blue)}
 #syncDot.error{background:var(--red)}
 #syncDot.off{display:none}
 
-/* ---------- Views ---------- */
-.view{position:fixed;inset:0;overflow:hidden;display:none}
+/* ---------- Views (flex children below the static top bar) ---------- */
+.view{position:relative;flex:1;min-height:0;overflow:hidden;display:none}
 .view.active{display:block}
 
 /* ---------- Home / category selector ---------- */
 #homeView{overflow-y:auto;-webkit-overflow-scrolling:touch;
-  padding:calc(84px + var(--sat)) calc(16px + var(--sar)) calc(40px + var(--sab)) calc(16px + var(--sal))}
+  padding:24px calc(16px + var(--sar)) calc(40px + var(--sab)) calc(16px + var(--sal))}
 #homeHero{max-width:960px;margin:18px auto 30px}
 #homeHero h1{font-family:var(--serif);font-weight:400;font-size:clamp(30px,5vw,44px);
   line-height:1.12;letter-spacing:-.2px}
@@ -178,7 +179,7 @@ a{color:var(--blue)}
 /* ---------- About / manifesto (and every scrolling document view) ---------- */
 #aboutView,#privacyView,#atlasView,#journalView,#guildView,#healthView,#categoryView{
   overflow-y:auto;-webkit-overflow-scrolling:touch;
-  padding:calc(90px + var(--sat)) 20px calc(60px + var(--sab))}
+  padding:26px 20px calc(60px + var(--sab))}
 .manifesto{max-width:620px;margin:0 auto}
 .manifesto h1{font-family:var(--serif);font-weight:400;font-size:clamp(26px,4.5vw,34px);
   line-height:1.22;letter-spacing:-.2px;margin-bottom:24px}
@@ -198,8 +199,7 @@ a{color:var(--blue)}
    centered spine with branches left and right; narrow screens read as
    an outline, children indented beneath their core topic in true order. */
 #mapView{background:var(--bg)}
-#scroller{position:absolute;inset:0;overflow-y:auto;-webkit-overflow-scrolling:touch;
-  padding-top:calc(64px + var(--sat))}
+#scroller{position:absolute;inset:0;overflow-y:auto;-webkit-overflow-scrolling:touch}
 #mapFlow{position:relative;max-width:940px;margin:0 auto;
   padding:30px calc(16px + var(--sar)) calc(90px + var(--sab)) calc(16px + var(--sal))}
 /* the spine rule runs the length of the walk; cards sit on it */
@@ -262,7 +262,7 @@ a{color:var(--blue)}
 .tierdot{margin-left:auto;font-size:10px;color:var(--faint);letter-spacing:.4px;text-transform:uppercase}
 
 /* ---------- Personal versions (Personalize) ---------- */
-#forkBanner{display:none;position:fixed;z-index:30;top:calc(64px + var(--sat));
+#forkBanner{display:none;position:fixed;z-index:30;top:calc(66px + var(--sat));
   left:50%;transform:translateX(-50%);max-width:min(720px,92vw);
   background:color-mix(in srgb,var(--bg2) 96%,transparent);backdrop-filter:blur(10px);
   border:1px solid var(--line2);border-radius:4px;padding:8px 14px;
@@ -575,7 +575,7 @@ a{color:var(--blue)}
   font-size:13px;font-weight:650;padding:8px 13px;border-radius:4px}
 #reviewBtn.show{display:block}
 #reviewView{overflow-y:auto;-webkit-overflow-scrolling:touch;
-  padding:calc(84px + var(--sat)) 16px calc(40px + var(--sab))}
+  padding:24px 16px calc(40px + var(--sab))}
 #reviewInner{max-width:760px;margin:0 auto}
 #reviewInner h2{font-family:var(--serif);font-weight:400;font-size:24px;margin-bottom:4px}
 #reviewInner .sub{color:var(--muted);font-size:13px;margin-bottom:14px;line-height:1.55}
@@ -678,7 +678,7 @@ select.edInput{appearance:none;-webkit-appearance:none}
 
 /* ---------- Account & collections ---------- */
 #accountView,#collectionsView{overflow-y:auto;-webkit-overflow-scrolling:touch;
-  padding:calc(84px + var(--sat)) 16px calc(40px + var(--sab))}
+  padding:24px 16px calc(40px + var(--sab))}
 #accountInner,#collectionsInner{max-width:760px;margin:0 auto}
 #accountInner h2,#collectionsInner h2{font-family:var(--serif);font-weight:400;font-size:24px;margin-bottom:4px}
 #accountInner .sub,#collectionsInner .sub{color:var(--muted);font-size:13px;
@@ -749,7 +749,7 @@ select.edInput{appearance:none;-webkit-appearance:none}
   <div id="brand" role="link" aria-label="Home" title="Home">
     <div id="brandMark">🗺️</div>
     <div style="min-width:0">
-      <div id="brandText">Atlearn</div>
+      <div id="brandText"></div>
     </div>
   </div>
   <div id="topSpacer"></div>
@@ -769,8 +769,10 @@ select.edInput{appearance:none;-webkit-appearance:none}
 <!-- ================= HOME ================= -->
 <main id="homeView" class="view active">
   <div id="homeHero">
-    <h1 id="heroTitle">Pick a path. <em>Learn by doing.</em></h1>
-    <p id="heroSub">Step-by-step maps for learning real things — free, for everyone, forever.
+    <h1 id="heroTitle">Atlearn</h1>
+    <p id="heroSub">A world where anyone can follow the path to learning anything they
+      want, for free — supported by all the resources the internet has to offer,
+      peer-reviewed by people who have walked the path themselves.
       <a href="#" id="aboutLink">Why this exists →</a> ·
       <span id="heroCollLink" style="display:none"><a href="#/collections">Browse collections →</a> ·</span>
       <a href="#/atlas">Explore the atlas →</a></p>
@@ -1707,7 +1709,6 @@ function renderHome(){
   heroCollCheck();
   const active=INDEX.filter(walking);
   $("continueWrap").style.display=active.length?"block":"none";
-  $("heroTitle").innerHTML=active.length?"Welcome back.":"Pick a path. <em>Learn by doing.</em>";
   INDEX.forEach(entry=>{
     // Library cards are deliberately spare — emoji + title, plus a quiet
     // progress bar once you've done something. Everything else (tagline,
@@ -1749,7 +1750,7 @@ async function renderContinue(active){
       ${nx?`<div class="nx">Up next</div><div class="nxt">${esc(nx.title)}</div>
         <div class="nxdo">🛠️ ${esc((nx.do&&nx.do[0]||"").slice(0,110))}${(nx.do&&nx.do[0]||"").length>110?"…":""}</div>`
         :`<div class="nxdo">🌟 Every node done — walk it again or tend the map.</div>`}`;
-    card.onclick=async ()=>{ await openRoadmap(entry.id); if(nx) openNode(nx.id); };
+    card.onclick=()=>openRoadmap(entry.id);
     row.appendChild(card);
   }
 }
@@ -2236,7 +2237,7 @@ function goHome(){
   $("addTopicBtn").classList.remove("show");
   $("reorgBtn").classList.remove("show");
   $("backBtn").classList.remove("show");
-  $("brandText").textContent="Atlearn";
+  $("brandText").textContent="";   // home: the hero carries the wordmark
   currentRm=null; currentFork=null; renderHome();
   reflectHash("/");
 }
@@ -5409,10 +5410,10 @@ function toast(msg){
    category page, a fork to its base's category, a guild to the map whose
    door you walked through. Everything else is one level below home. */
 let guildFromRm=null;   // set when a map-header guild door is used
-function goUp(){
+async function goUp(){
   if($("mapView").classList.contains("active")){
-    if(currentFork){ openCategory(currentFork.base, true); return; }
-    if(currentRm){ openCategory(currentRm.id, true); return; }
+    if(currentFork){ await openCategory(currentFork.base, true); return; }
+    if(currentRm){ await openCategory(currentRm.id, true); return; }
   }
   if($("guildView").classList.contains("active") && guildFromRm){
     const rm=guildFromRm; guildFromRm=null;
@@ -5420,7 +5421,7 @@ function goUp(){
   }
   goHome();
 }
-$("backBtn").onclick=goUp;
+$("backBtn").onclick=async ()=>{ try{ await goUp(); }catch(e){ goHome(); } };
 $("brand").onclick=goHome;
 
 
@@ -5622,11 +5623,10 @@ document.addEventListener("click",e=>{
   }
   try{
     await loadIndex();
-    await loadMaintainers();
-    paintUser();          // review-button visibility depends on maintainer roles
-    renderHome();
+    renderHome();         // the shelf waits for content only — never the network roles
     renderWanted();       // async; the row appears when the list arrives
     if(location.hash.length>2) applyRoute();   // honor a pasted deep link
+    loadMaintainers().then(()=>paintUser());   // review-button visibility, when roles arrive
     if(user.provider && canSync()){ await pullAndMerge(); renderHome(); checkContribNews(); }
   }catch(e){
     const el=$("loadErr");

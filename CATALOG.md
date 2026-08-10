@@ -47,8 +47,10 @@ Journeys: J2.
 - `#backBtn` ← — goes UP one level (`goUp()`): map → its category picker ·
   fork → its base's picker · guild → the map whose door was used · all
   other views → home. (everyone)
-- `#brand` 🗺️ + `#brandText` — clickable, goes home; text is overwritten
-  per view with the current context. (everyone)
+- `#brand` 🗺️ + `#brandText` — clickable, goes home; text carries the
+  current view's context and stays EMPTY on home (the hero owns the
+  wordmark). The top bar is static, in the document — content scrolls
+  below it, never under it. (everyone)
 - `#themeBtn` ☾/☀ — flips light/dark. The choice sticks to the device
   (`atlearn-theme` in localStorage, applied before first paint) and, when
   signed in, to the account (`store.settings.theme`, LWW), so it follows
@@ -71,8 +73,8 @@ Purpose: the front page of your own life — active paths first, the library
 below; no feed, no engagement ranking. Reached: app root, brand, backBtn.
 Journeys: J1, J3.
 
-- `#heroTitle` — "Pick a path…" / "Welcome back." once any map has
-  progress. (everyone)
+- `#heroTitle` — the Atlearn wordmark (serif); `#heroSub` — the mission
+  line (rule 6's one sanctioned exception) + the hero links. (everyone)
 - Hero links — "Why this exists →" (`#/about`), "Explore the atlas →", and
   "Browse collections →" (`#heroCollLink`, hidden until a shelf exists to
   browse — one `limit(1)` probe per session; a dormant surface stays off
@@ -84,8 +86,8 @@ Journeys: J1, J3.
   the picker); node results deep-link into drawers; Enter opens the first
   result. (everyone)
 - `#continueRow` — "Continue your paths": one card per in-progress map with
-  the next node and its do-action; click jumps straight into that node's
-  drawer. Renders only with progress. (everyone with progress)
+  the next node and its do-action; click opens the map (no drawer —
+  landing stays calm). Renders only with progress. (everyone with progress)
 - `#grid` — the library shelf: deliberately spare cards (emoji + title +
   progress bar only — CLAUDE.md rule 7 forbids more); click → category
   picker. (everyone)
