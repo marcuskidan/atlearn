@@ -3,7 +3,7 @@
 Two hosted services, zero servers: **GitHub** (public repo → Pages hosting,
 Actions for CI + landing merges) and **Firebase** (accounts + database behind
 `firestore.rules`). Budget ~30 minutes. Run
-`python3 tools/configure.py --show` anytime to see what's wired.
+Open `config.js` anytime to see what's wired — it's two fields.
 
 ## Stage 1 — Firebase (~15 min, all in the console)
 
@@ -44,8 +44,11 @@ Then in the repo's web settings:
 
 ## Stage 3 — Wire and become superadmin (~5 min)
 
+Edit `config.js` by hand — it has exactly two fields:
+paste the `firebaseConfig` object (Firebase console → Project settings →
+Your apps) into `FIREBASE_CONFIG`, and set `GITHUB_REPO` to `"owner/repo"`.
+
 ```bash
-python3 tools/configure.py     # paste the firebaseConfig object + owner/repo → writes config.js
 python3 tools/build.py --standalone
 git add -A && git commit -m "Configure Firebase + repo" && git push
 ```

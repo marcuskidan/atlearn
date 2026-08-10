@@ -1,0 +1,17 @@
+{
+  "_comment": "Link policy for the one hard rule (every resource freely accessible) and affiliate hygiene. Edited by hand by maintainers — no code change needed. tools/build.py is the enforcement authority; index.html carries a courtesy copy of the affiliate lists for input scrubbing.",
+  "paywalled_domains": [
+    "medium.com", "nytimes.com", "wsj.com", "ft.com", "economist.com",
+    "newyorker.com", "udemy.com", "skillshare.com", "masterclass.com",
+    "chegg.com", "scribd.com", "jstor.org"
+  ],
+  "affiliate_prefixes": ["utm_"],
+  "affiliate_params": [
+    "fbclid", "gclid", "msclkid", "mc_cid", "mc_eid", "igshid",
+    "affid", "aff_id", "affiliate", "affiliate_id", "ref_src",
+    "cvid", "srsltid"
+  ],
+  "affiliate_domain_params": {
+    "amazon.": ["tag", "ref", "linkcode", "linkid", "ascsubtag"]
+  }
+}

@@ -4,6 +4,9 @@
   "title": "Photography Essentials",
   "tagline": "See light, master exposure, and make deliberate photographs — phone camera included.",
   "curricula": "University photo-fundamentals courses (exposure, composition, critique)",
+  "endpoint": "from auto mode to deliberate photographs in manual",
+  "about": "Photography is deliberate seeing — understanding light, controlling exposure, and composing a frame on purpose, with any camera including the one in your pocket. This category walks from how a camera actually works through aperture, shutter, and ISO, to composition, natural light, and developing a personal eye.",
+  "version": "1.0.0",
   "order": 16,
   "maintainer": "The Admins"
 }

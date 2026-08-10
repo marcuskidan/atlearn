@@ -1,42 +1,33 @@
 // Client pure-logic tests. Run in CI: node --test tests/
 // The functions under test live inline in index.html (single-file app, by
-// design). extractFn() brace-matches each `function name(...)` declaration out
-// of the source and evaluates it in a vm sandbox — single source of truth,
-// no copied code to drift.
+// design). extractFn() — imported from tools/extract.mjs, the ONE extractor —
+// brace-matches each `function name(...)` declaration out of the source and
+// evaluates it in a vm sandbox: single source of truth, no copied code to drift.
 import { test } from "node:test";
 import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
 import { fileURLToPath } from "node:url";
 import { dirname, join } from "node:path";
 import vm from "node:vm";
+import { extractFn } from "../tools/extract.mjs";
 
 const root = dirname(dirname(fileURLToPath(import.meta.url)));
 const html = readFileSync(join(root, "index.html"), "utf8");
 const cases = JSON.parse(readFileSync(join(root, "tests", "cases.json"), "utf8"));
 
-function extractFn(src, name) {
-  const sig = `function ${name}(`;
-  const start = src.indexOf(sig);
-  if (start < 0) throw new Error(`function ${name} not found in index.html`);
-  let depth = 0;
-  for (let j = src.indexOf("{", start); j < src.length; j++) {
-    if (src[j] === "{") depth++;
-    else if (src[j] === "}") { depth--; if (depth === 0) return src.slice(start, j + 1); }
-  }
-  throw new Error(`unbalanced braces extracting ${name}`);
-}
-
 const fns = ["esc", "flatten", "contentHash", "migrateStore", "mergeStores",
-             "renderDiff", "editorMode", "applyMergedDocs"];
+             "renderDiff", "editorMode", "applyMergedDocs",
+             "textDelta", "classifyEditWeight"];
 const script = `
 let devMode=false, FIREBASE_CONFIG=null, user={provider:null,id:"guest"},
     currentRm=null, currentFork=null, MAINTAINERS={}, ADMINS=["admin-uid"], SUPERADMINS=[];
-const STORE_V=1;
+const STORE_V=2;
 ${extractFn(html, "isAdmin")}
 ${extractFn(html, "maintains")}
 ${extractFn(html, "forkOwned")}
 ${fns.map((n) => extractFn(html, n)).join("\n")}
 ({ esc, flatten, contentHash, migrateStore, mergeStores, renderDiff, applyMergedDocs,
+   textDelta, classifyEditWeight,
    editorModeWith(o){
      devMode=o.devMode||false;
      FIREBASE_CONFIG=("FIREBASE_CONFIG" in o)?o.FIREBASE_CONFIG:null;
@@ -54,9 +45,12 @@ const resolve = (obj, path) =>
 test("mergeStores cases", () => {
   for (const c of cases.mergeStores) {
     const out = api.mergeStores(structuredClone(c.a), structuredClone(c.b));
-    assert.equal(out.v, 1, `${c.name}: output carries v:1`);
+    assert.equal(out.v, 2, `${c.name}: output carries v:2`);
     for (const [path, want] of Object.entries(c.expect))
       assert.deepEqual(resolve(out.progress, path), want, `${c.name}: ${path}`);
+    for (const [path, want] of Object.entries(c.expectRoot || {}))
+      assert.deepEqual(JSON.parse(JSON.stringify(resolve(out, path))), want,
+        `${c.name}: ${path}`);   // JSON round-trip: vm-context objects are cross-realm
   }
 });
 
@@ -73,10 +67,55 @@ test("migrateStore cases", () => {
   for (const c of cases.migrateStore) {
     const out = api.migrateStore(c.input === null ? null : structuredClone(c.input));
     assert.equal(out.v, c.expectV, c.name);
-    if (c.expectEmpty) assert.deepEqual(out.progress, {}, c.name);
+    if (c.expectEmpty)
+      assert.deepEqual(JSON.parse(JSON.stringify(out.progress)), {}, c.name);
     if (c.expectPath)
       assert.equal(resolve(out.progress, c.expectPath), c.expectValue, c.name);
+    for (const [path, want] of Object.entries(c.expectRoot || {}))
+      assert.deepEqual(JSON.parse(JSON.stringify(resolve(out, path))), want,
+        `${c.name}: ${path}`);   // JSON round-trip: vm-context objects are cross-realm
   }
+});
+
+test("classifyEditWeight: trivial vs substantive", () => {
+  const T = { id: "t", title: "Topic", tier: "essential",
+    learn: { summary: "A stable, curated summary sentence for testing.", links: [
+      { label: "L", url: "https://a.example/x", kind: "article" }] },
+    do: ["Do the thing this week."], children: [] };
+  const clone = () => structuredClone(T);
+
+  // identical → trivial
+  assert.equal(api.classifyEditWeight(T, clone()), "trivial");
+  // link swap only → trivial (the succession-promotion case)
+  let b = clone(); b.learn.links[0].url = "https://b.example/y";
+  assert.equal(api.classifyEditWeight(T, b), "trivial");
+  // link metadata stamp → trivial
+  b = clone(); b.learn.links[0].verified = "2026-08-07";
+  assert.equal(api.classifyEditWeight(T, b), "trivial");
+  // typo-scale text change → trivial
+  b = clone(); b.learn.summary = T.learn.summary.replace("stable", "stables");
+  assert.equal(api.classifyEditWeight(T, b), "trivial");
+  // rewritten summary → substantive
+  b = clone(); b.learn.summary = "An entirely different framing of this topic.";
+  assert.equal(api.classifyEditWeight(T, b), "substantive");
+  // title change → substantive
+  b = clone(); b.title = "Renamed Topic";
+  assert.equal(api.classifyEditWeight(T, b), "substantive");
+  // tier change → substantive
+  b = clone(); b.tier = "extra";
+  assert.equal(api.classifyEditWeight(T, b), "substantive");
+  // added subtopic → substantive
+  b = clone(); b.children = [{ id: "c1", title: "C", tier: "extra",
+    learn: { summary: "s", links: [] }, do: ["d"] }];
+  assert.equal(api.classifyEditWeight(T, b), "substantive");
+  // missing sides → substantive (never default trivial)
+  assert.equal(api.classifyEditWeight(null, clone()), "substantive");
+});
+
+test("textDelta: 0 for equal, grows with change", () => {
+  assert.equal(api.textDelta("abc", "abc"), 0);
+  assert.ok(api.textDelta("abcdefghij", "abcXefghij") <= 0.2);
+  assert.ok(api.textDelta("completely", "different!") > 0.5);
 });
 
 test("renderDiff escapes user-controlled HTML", () => {
@@ -149,6 +188,12 @@ test("applyMergedDocs: the five structural kinds", () => {
   r = api.applyMergedDocs(topics, nodes, [{ kind: "remove", file: "02-b.json", at: 1 }]);
   assert.deepEqual(r.topics, ["01-a.json", "03-c.json"]);
   assert.deepEqual(r.nodes.map((n) => n.id), ["a", "c"]);
+
+  // kind "about" targets meta.json — the topic overlay must ignore it untouched
+  r = api.applyMergedDocs(topics, nodes,
+    [{ kind: "about", about: "New lead prose for the category page.", at: 1 }]);
+  assert.deepEqual(r.topics, topics);
+  assert.deepEqual(r.nodes.map((n) => n.id), ["a", "b", "c"]);
 
   r = api.applyMergedDocs(topics, nodes,
     [{ kind: "spine", spine: ["03-c.json", "01-a.json", "02-b.json"], at: 1 }]);

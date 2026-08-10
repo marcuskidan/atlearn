@@ -4,6 +4,9 @@
   "title": "Learning Any Language",
   "tagline": "From zero to real conversations, using the science of how adults actually acquire languages",
   "curricula": "CEFR framework, FSI language-learning research, Krashen's comprehensible-input theory",
+  "endpoint": "from zero to real conversations in your target language",
+  "about": "Learning a language as an adult is a learnable process of its own, with methods that work far better than schoolroom memorization — massive comprehensible input, spaced repetition, and early, imperfect conversation. This category teaches that process for any target language: how acquisition actually happens, how to build vocabulary that sticks, and how to reach real conversations from zero.",
+  "version": "1.0.0",
   "order": 12,
   "maintainer": "The Admins"
 }

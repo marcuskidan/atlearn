@@ -93,5 +93,8 @@
         "Light an object with a single strong lamp in a dark room and draw it using only three values: white paper, one mid-gray, and near-black."
       ]
     }
+  ],
+  "reflect": [
+    "Squint at your last drawing. Do the values read from across the room, or only up close? What would you push darker?"
   ]
 }

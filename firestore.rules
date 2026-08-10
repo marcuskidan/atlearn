@@ -21,6 +21,32 @@ service cloud.firestore {
           && roles().maintainers[rm].uid == request.auth.uid;
     }
     function moderates(rm) { return isAdmin() || maintains(rm); }
+    // The AI agent corps files pre-drafted proposals via the Admin SDK under
+    // by.uid `agent:*` — a namespace no Firebase Auth uid can occupy. Belt and
+    // braces: no CLIENT may ever write as an agent (by.uid == auth.uid already
+    // blocks it; this keeps the invariant explicit and tested). Agents hold no
+    // role above Walker: nothing anywhere lets an agent merge.
+    function notAgentIdentity(d) { return !d.by.uid.matches('agent:.*'); }
+    // Stewards: trusted contributors deputized BY a maintainer FOR that
+    // maintainer's map. They may merge trivial edits only (see the weight
+    // rules on /proposals and /merged) — never structural changes. Bindings
+    // live per-map in /stewards/{rm} so a maintainer's write authority never
+    // reaches past their own map.
+    function stewardOf(rm) {
+      return signedIn()
+        && exists(/databases/$(db)/documents/stewards/$(rm))
+        && request.auth.uid in get(/databases/$(db)/documents/stewards/$(rm)).data.members;
+    }
+    // Guides: subject-area coordinators, elected per guild eventually —
+    // admin-appointed until an electorate exists (the spec's own Phase 1→2
+    // line). Janitorial and social authority, explicitly NOT editorial:
+    // guides moderate guild talk, flag orphans, and manage endorsements.
+    // They can never merge content.
+    function guideOf(gid) {
+      return signedIn()
+        && exists(/databases/$(db)/documents/guilds/$(gid))
+        && request.auth.uid in get(/databases/$(db)/documents/guilds/$(gid)).data.guides;
+    }
 
     // ---- structural-op grammar, shared by proposals and merged docs ----
     // One vocabulary for every change to a map:
@@ -29,6 +55,7 @@ service cloud.firestore {
     //   remove {file}                         delete a core topic
     //   spine  {spine: [files…]}              reorder core topics
     //   move   {file, topic, file2, topic2}   subtopic moved between topics
+    //   about  {about}                        the category page's lead prose
     // Docs without `kind` are legacy edits. Entry-level checks the rules
     // language can't express (spine entries, topic internals) are re-validated
     // by tools/land.mjs + build.py before anything reaches the repo.
@@ -39,6 +66,13 @@ service cloud.firestore {
       return t is map && t.keys().hasAll(['id','title','tier','learn','do']);
     }
     function opKind(d) { return ('kind' in d) ? d.kind : 'edit'; }
+    // ---- proposal weight classes (Part IV of the project structure) ----
+    // spine/add/remove/move reshape the map: always structural. An `edit` is
+    // trivial or substantive by the proposer's declaration (`weight`), checked
+    // by the reviewing human — the review card recomputes and flags mismatch.
+    // Absent weight = substantive (every pre-weight doc keeps full gravity).
+    function structuralKind(d) { return opKind(d) in ['add','remove','spine','move']; }
+    function trivialEdit(d) { return opKind(d) == 'edit' && d.get('weight','substantive') == 'trivial'; }
     function validStructOp(d) {
       return (opKind(d) == 'edit'   && validFile(d.file) && validTopic(d.topic))
           || (opKind(d) == 'add'    && validFile(d.file) && validTopic(d.topic)
@@ -48,7 +82,9 @@ service cloud.firestore {
                                     && d.spine.size() >= 2 && d.spine.size() <= 60)
           || (opKind(d) == 'move'   && validFile(d.file) && validFile(d.file2)
                                     && d.file != d.file2
-                                    && validTopic(d.topic) && validTopic(d.topic2));
+                                    && validTopic(d.topic) && validTopic(d.topic2))
+          || (opKind(d) == 'about'  && d.about is string
+                                    && d.about.size() >= 20 && d.about.size() <= 4000);
     }
 
     // Who tends which map. Bootstrapped ONCE by hand in the Firebase console;
@@ -71,27 +107,187 @@ service cloud.firestore {
     // Each user's progress/notes blob. 1 MiB doc limit is Firestore-native.
     match /users/{uid} {
       allow read, write: if signedIn() && request.auth.uid == uid;
+
+      // The journal: dated entries + reflections, one doc per entry — long-form
+      // writing must never ride inside the 1 MiB users blob. Owner-only in
+      // both directions; deletion is a tombstone doc (deleted:true, text
+      // cleared) so cross-device sync erases everywhere.
+      match /journal/{entryId} {
+        allow read, delete: if signedIn() && request.auth.uid == uid;
+        allow create, update: if signedIn() && request.auth.uid == uid
+          && request.resource.data.keys().hasOnly(
+               ['rm','node','kind','prompt','date','text','createdAt','updatedAt','deleted'])
+          && request.resource.data.kind in ['entry','reflection']
+          && request.resource.data.rm is string
+          && request.resource.data.rm.size() <= 50
+          && request.resource.data.text is string
+          && request.resource.data.text.size() <= 10000
+          && request.resource.data.get('prompt', '') is string
+          && request.resource.data.get('prompt', '').size() <= 500
+          && request.resource.data.date is string
+          && request.resource.data.date.size() <= 10;
+      }
+    }
+
+    // Map lifecycle overlay, one doc per map — the states that change WITHOUT
+    // a repo commit. Static states (draft/archived) live in meta.json and land
+    // like any content; this doc carries:
+    //   state: 'orphaned'|''   set/cleared by admins (guides join in later) —
+    //                          the "seeking maintainer" banner
+    //   successor: {uid,name}  the maintainer's designated successor (right of
+    //                          first refusal when the map orphans)
+    // Public read: succession and orphanhood are governance facts, not secrets.
+    match /mapstates/{rm} {
+      allow read: if true;
+      allow create, update: if
+        ( isAdmin()
+          && request.resource.data.keys().hasOnly(['state','note','by','at','successor','guild'])
+          && (!('state' in request.resource.data)
+              || request.resource.data.state in ['orphaned',''])
+          && (!('note' in request.resource.data)
+              || (request.resource.data.note is string
+                  && request.resource.data.note.size() <= 300)) )
+        // a guild's guide may flag/clear orphanhood for maps in their guild —
+        // the write names the guild, and the map must belong to it
+        || ( 'guild' in request.resource.data
+          && request.resource.data.guild is string
+          && guideOf(request.resource.data.guild)
+          && rm in get(/databases/$(db)/documents/guilds/$(request.resource.data.guild)).data.maps
+          && request.resource.data.diff(resource == null ? {} : resource.data)
+               .affectedKeys().hasOnly(['state','note','by','at','guild'])
+          && request.resource.data.state in ['orphaned','']
+          && (!('note' in request.resource.data)
+              || (request.resource.data.note is string
+                  && request.resource.data.note.size() <= 300)) )
+        || ( maintains(rm)
+          && request.resource.data.diff(resource == null ? {} : resource.data)
+               .affectedKeys().hasOnly(['successor'])
+          && request.resource.data.successor is map
+          && request.resource.data.successor.keys().hasOnly(['uid','name'])
+          && request.resource.data.successor.uid is string
+          && request.resource.data.successor.uid.size() <= 128
+          && request.resource.data.successor.name is string
+          && request.resource.data.successor.name.size() <= 80 );
+      allow delete: if isAdmin();
+    }
+
+    // Guilds: the community around a subject area — a grouping of maps, a
+    // talk space, and the pool future maintainers grow from. Social structure,
+    // not authority: guilds advise maintainers, never overrule them.
+    match /guilds/{gid} {
+      allow read: if true;
+      allow create, update: if isAdmin()
+        && gid.matches('[a-z0-9-]{1,50}')
+        && request.resource.data.keys().hasOnly(
+             ['title','blurb','maps','guides','createdAt','updatedAt'])
+        && request.resource.data.title is string
+        && request.resource.data.title.size() >= 3
+        && request.resource.data.title.size() <= 60
+        && request.resource.data.blurb is string
+        && request.resource.data.blurb.size() <= 300
+        && request.resource.data.maps is list
+        && request.resource.data.maps.size() <= 50
+        && request.resource.data.guides is map
+        && request.resource.data.guides.size() <= 10;
+      allow delete: if isAdmin();
+
+      // Guild talk: the shared space. Same contract as proposal comments —
+      // signed-in, immutable, moderated by this guild's guides (and admins).
+      match /talk/{tid} {
+        allow read: if true;
+        allow create: if signedIn()
+          && request.resource.data.keys().hasOnly(['text','by','createdAt'])
+          && request.resource.data.by.uid == request.auth.uid
+          && request.resource.data.by.name is string
+          && request.resource.data.by.name.size() <= 80
+          && request.resource.data.text is string
+          && request.resource.data.text.size() >= 1
+          && request.resource.data.text.size() <= 2000
+          && request.resource.data.createdAt == request.time;
+        allow update: if false;
+        allow delete: if isAdmin() || guideOf(gid);
+      }
+    }
+
+    // Endorsement: a guild's quality mark — one map per subject per audience,
+    // on published criteria, signed and dated. The ONLY place comparative
+    // judgment between maps enters the system. `method` is locked to 'guide'
+    // until elections exist (the field is vote-ready). Re-endorse = delete +
+    // create; no edits, so the mark's history stays honest.
+    match /endorsements/{id} {
+      allow read: if true;
+      allow create: if
+        request.resource.data.keys().hasOnly(
+          ['guild','roadmap','audience','criteria','method','by','at'])
+        && request.resource.data.guild is string
+        && (isAdmin() || guideOf(request.resource.data.guild))
+        && request.resource.data.roadmap in
+             get(/databases/$(db)/documents/guilds/$(request.resource.data.guild)).data.maps
+        && request.resource.data.audience is string
+        && request.resource.data.audience.size() >= 1
+        && request.resource.data.audience.size() <= 40
+        && request.resource.data.criteria is string
+        && request.resource.data.criteria.size() >= 20
+        && request.resource.data.criteria.size() <= 1000
+        && request.resource.data.method == 'guide'
+        && request.resource.data.by.uid == request.auth.uid
+        && request.resource.data.at == request.time;
+      allow update: if false;
+      allow delete: if isAdmin() || guideOf(resource.data.guild);
+    }
+
+    // Steward bindings, one doc per map: {members: {uid: displayName}}.
+    // Public read (authority is named, always); written only by that map's
+    // moderators. Member-name lengths can't be iterated by the rules language
+    // (same accepted caveat as fork ops); the client esc()s on render.
+    match /stewards/{rm} {
+      allow read: if true;
+      allow write: if moderates(rm)
+        && request.resource.data.keys().hasOnly(['members','updatedAt'])
+        && request.resource.data.members is map
+        && request.resource.data.members.size() <= 10;
     }
 
     // Approved community tips, shown under nodes. Public read.
+    // Shape is {nodeId: [tip, …]} — map values can't be iterated by the rules
+    // language, so per-tip validation is impossible here (accepted caveat,
+    // same class as fork ops); the doc-wide size cap bounds the blast radius
+    // and the client esc()s on render.
     match /tips/{rm} {
       allow read: if true;
-      allow write: if moderates(rm);
+      allow write: if moderates(rm)
+        && request.resource.data.size() <= 300;
     }
 
+    // Affiliation disclosure (Part V): every contribution says whether its
+    // author has a relationship with the resource. Undisclosed affiliation
+    // discovered later is a conduct violation (GOVERNANCE). Absent fields =
+    // docs that predate disclosure; clients render them as such.
+    function disclosureOk(d) {
+      return (!('affiliated' in d) && !('affiliation' in d))
+        || ( d.affiliated is bool
+          && d.affiliation is string
+          && d.affiliation.size() <= 300
+          && (d.affiliated || d.affiliation == '') );
+    }
     match /suggestions/{id} {
       allow create: if signedIn()
         && request.resource.data.keys().hasOnly(
-             ['roadmap','node','nodeTitle','type','text','url','verified','by','createdAt','status'])
+             ['roadmap','node','nodeTitle','type','text','url','verified','by',
+              'createdAt','status','affiliated','affiliation'])
         && request.resource.data.by.uid == request.auth.uid
+        && notAgentIdentity(request.resource.data)
         && request.resource.data.status == 'pending'
-        && request.resource.data.type in ['fix','link','tip','topic','roadmap']
+        && request.resource.data.type in ['fix','link','tip','topic','roadmap','adopt']
+        && disclosureOk(request.resource.data)
         && request.resource.data.text is string
         && request.resource.data.text.size() >= 20
         && request.resource.data.text.size() <= 4000
         && request.resource.data.url is string
         && request.resource.data.url.size() <= 500
         && (request.resource.data.url == '' || request.resource.data.url.matches('https://.*'))
+        // cheap affiliate tripwire — build.py is the real authority at landing
+        && !request.resource.data.url.matches('.*[?&](utm_[a-zA-Z]+|fbclid|gclid)=.*')
         && request.resource.data.roadmap is string
         && request.resource.data.roadmap.size() <= 50
         && request.resource.data.node is string
@@ -117,23 +313,59 @@ service cloud.firestore {
       allow create: if signedIn()
         && request.resource.data.keys().hasOnly(
              ['roadmap','kind','file','file2','baseHash','baseHash2','topic','topic2',
-              'after','spine','note','by','createdAt','status'])
+              'after','spine','about','note','by','createdAt','status','weight',
+              'affiliated','affiliation'])
         && request.resource.data.by.uid == request.auth.uid
+        && notAgentIdentity(request.resource.data)
         && request.resource.data.status == 'pending'
         && request.resource.data.roadmap.matches('[a-z0-9-]{1,50}')
         && validStructOp(request.resource.data)
+        && (!('weight' in request.resource.data)
+            || request.resource.data.weight in ['trivial','substantive'])
+        && disclosureOk(request.resource.data)
         && request.resource.data.note is string
         && request.resource.data.note.size() <= 1000
         && request.resource.data.createdAt == request.time;
-      allow read: if isAdmin() || maintains(resource.data.roadmap)
-        || (signedIn() && resource.data.by.uid == request.auth.uid);
-      allow update: if moderates(resource.data.roadmap)
-        && request.resource.data.diff(resource.data).affectedKeys()
+      // Proposals are public — the open comment period (below) needs readable
+      // proposals, and the change was always destined for the public record.
+      allow read: if true;
+      // Decision authority by weight class:
+      //   trivial edit        → steward of the map, or any moderator
+      //   substantive edit    → moderator only
+      //   structural kinds    → moderator only, and MERGE must wait out the
+      //                         7-day open comment period (reject anytime —
+      //                         a fast no beats a slow one).
+      // A maintainer's own direct edit (no proposal doc) stays immediate:
+      // final say inside their map is the deal.
+      allow update: if request.resource.data.diff(resource.data).affectedKeys()
              .hasOnly(['status','decidedAt','decidedBy','reason'])
-        && request.resource.data.status in ['merged','rejected'];
+        && request.resource.data.status in ['merged','rejected']
+        && ( moderates(resource.data.roadmap)
+          || (stewardOf(resource.data.roadmap) && trivialEdit(resource.data)) )
+        && ( request.resource.data.status != 'merged'
+          || !structuralKind(resource.data)
+          || request.time > resource.data.createdAt + duration.value(7, 'd') );
       allow delete: if isAdmin()
         || (signedIn() && resource.data.by.uid == request.auth.uid
             && resource.data.status == 'pending');
+
+      // Open discussion on a proposal — the talk-space starter. Signed-in
+      // create, immutable once posted, removable by the map's moderators.
+      match /comments/{cid} {
+        allow read: if true;
+        allow create: if signedIn()
+          && request.resource.data.keys().hasOnly(['text','by','createdAt'])
+          && request.resource.data.by.uid == request.auth.uid
+          && request.resource.data.by.name is string
+          && request.resource.data.by.name.size() <= 80
+          && request.resource.data.text is string
+          && request.resource.data.text.size() >= 1
+          && request.resource.data.text.size() <= 2000
+          && request.resource.data.createdAt == request.time;
+        allow update: if false;
+        allow delete: if isAdmin()
+          || maintains(get(/databases/$(db)/documents/proposals/$(id)).data.roadmap);
+      }
     }
 
     // Merged edits: the live content overlay (public read) AND the landing
@@ -141,13 +373,32 @@ service cloud.firestore {
     // rules) to stamp committedSha / clean up.
     match /merged/{id} {
       allow read: if true;
-      allow create: if moderates(request.resource.data.roadmap)
-        && request.resource.data.mergedBy.uid == request.auth.uid
+      // Moderators create overlay docs freely. A steward's path is narrower:
+      // the merged doc must name its proposal, and that proposal must be a
+      // trivial edit on the steward's own map — the overlay write and the
+      // decision ride the same batch, so the cross-doc get() sees the
+      // pre-batch (still-pending) proposal.
+      allow create: if request.resource.data.mergedBy.uid == request.auth.uid
         && request.resource.data.keys().hasOnly(
              ['roadmap','kind','file','file2','topic','topic2','after','spine',
-              'by','mergedBy','note','at'])
+              'about','by','mergedBy','note','at','proposal','weight'])
+        // attribution is required — tools/land.mjs writes both names into the
+        // public commit message and must never meet a doc without them
+        && request.resource.data.by is map
+        && request.resource.data.by.uid is string
+        && request.resource.data.by.name is string
+        && request.resource.data.by.name.size() <= 80
+        && request.resource.data.mergedBy.name is string
+        && request.resource.data.mergedBy.name.size() <= 80
         && request.resource.data.roadmap.matches('[a-z0-9-]{1,50}')
-        && validStructOp(request.resource.data);
+        && validStructOp(request.resource.data)
+        && ( moderates(request.resource.data.roadmap)
+          || ( stewardOf(request.resource.data.roadmap)
+            && 'proposal' in request.resource.data
+            && request.resource.data.proposal is string
+            && trivialEdit(get(/databases/$(db)/documents/proposals/$(request.resource.data.proposal)).data)
+            && get(/databases/$(db)/documents/proposals/$(request.resource.data.proposal)).data.roadmap
+                 == request.resource.data.roadmap ) );
       allow update, delete: if false;
     }
 
@@ -207,20 +458,65 @@ service cloud.firestore {
         || (signedIn() && resource.data.owner.uid == request.auth.uid);
     }
 
-    // Reports: the community's flag on public content (tips, collections,
-    // personal versions). Write-only for users, read/delete for admins —
-    // a report is a message to the moderators, not public speech.
+    // Reports: the community's flag on public content — user-generated
+    // surfaces (tips, collections, personal versions) AND, since the safety
+    // queue landed, canonical map content (kind 'map', target {roadmap, node?,
+    // resource?}). severity 'safety' is the red-flag queue: dangerous
+    // instructions, medical misinformation — 48-hour response norm.
+    // A report is a message to the moderators, not public speech: users
+    // write-only; admins see everything; a map's maintainer sees and resolves
+    // reports about their own map's content.
     match /reports/{id} {
       allow create: if signedIn()
-        && request.resource.data.keys().hasOnly(['kind','target','text','by','createdAt'])
-        && request.resource.data.kind in ['tip','collection','fork']
+        && request.resource.data.keys().hasOnly(
+             ['kind','target','text','severity','status','by','createdAt'])
+        && request.resource.data.kind in ['tip','collection','fork','map']
         && request.resource.data.target is map
+        && request.resource.data.severity in ['normal','safety']
+        && request.resource.data.status == 'open'
         && request.resource.data.text is string
         && request.resource.data.text.size() >= 5
         && request.resource.data.text.size() <= 500
         && request.resource.data.by.uid == request.auth.uid
         && request.resource.data.createdAt == request.time;
-      allow read, delete: if isAdmin();
+      allow read: if isAdmin()
+        || (resource.data.kind == 'map'
+            && resource.data.target.roadmap is string
+            && maintains(resource.data.target.roadmap));
+      allow update: if (isAdmin()
+          || (resource.data.kind == 'map'
+              && resource.data.target.roadmap is string
+              && maintains(resource.data.target.roadmap)))
+        && request.resource.data.diff(resource.data).affectedKeys()
+             .hasOnly(['status','resolvedAt','resolvedBy','resolution'])
+        && request.resource.data.status in ['resolved','dismissed']
+        && request.resource.data.get('resolution', '') is string
+        && request.resource.data.get('resolution', '').size() <= 500;
+      allow delete: if isAdmin();
+    }
+
+    // Resource flags: the walker's one-tap "link dead / stale / didn't help".
+    // The doc id IS the abuse cap — `${uid}_${key}` makes each user's flag on
+    // each resource a single idempotent write (no rate-limit machinery needed).
+    // Moderator-scoped read (flag ids embed uids — not public speech);
+    // clearing the flags on a fixed resource = moderator delete.
+    match /flags/{flagId} {
+      allow create: if signedIn()
+        && flagId == request.auth.uid + '_' + request.resource.data.key
+        && request.resource.data.keys().hasOnly(
+             ['key','roadmap','node','url','reason','by','createdAt'])
+        && request.resource.data.by == request.auth.uid
+        && request.resource.data.key is string
+        && request.resource.data.key.size() <= 200
+        && request.resource.data.roadmap.matches('[a-z0-9-]{1,50}')
+        && request.resource.data.node is string
+        && request.resource.data.node.size() <= 80
+        && request.resource.data.url is string
+        && request.resource.data.url.size() <= 500
+        && request.resource.data.url.matches('https://.*')
+        && request.resource.data.reason in ['dead','stale','unhelpful']
+        && request.resource.data.createdAt == request.time;
+      allow read, delete: if isAdmin() || maintains(resource.data.roadmap);
       allow update: if false;
     }
 

@@ -4,6 +4,11 @@
   "title": "Mindfulness & Meditation",
   "tagline": "Train attention and equanimity with a practice that actually survives contact with real life",
   "curricula": "MBSR 8-week protocol (Kabat-Zinn), contemplative-science research literature",
+  "type": "practice",
+  "cadence": "20 min/day · 90 days",
+  "endpoint": "from restless first sits to a practice that survives real life",
+  "about": "Meditation is the deliberate training of attention and equanimity — sitting down, noticing where the mind goes, and returning, thousands of times. This category walks from the first honest sit through breath practice, working with the wandering mind, body awareness, and open awareness, to building a practice that survives contact with ordinary busy life.",
+  "version": "1.0.0",
   "order": 7,
   "maintainer": "The Admins"
 }

@@ -4,6 +4,11 @@
   "title": "Drawing Foundations",
   "tagline": "Train your eye and hand from first marks to a durable daily practice.",
   "curricula": "Classical atelier training, Drawabox, and Betty Edwards' Drawing on the Right Side of the Brain",
+  "type": "practice",
+  "cadence": "15 min/day · ongoing",
+  "endpoint": "from first marks to a durable daily drawing practice",
+  "about": "Drawing is a trainable coordination of eye and hand — learning to see what is actually there and to put it on paper with intent. This category walks the classical fundamentals in order: contour and line, construction from basic forms, value and light, perspective, gesture, and composition, sustained by the daily practice that makes each of them stick.",
+  "version": "1.0.0",
   "order": 14,
   "maintainer": "The Admins"
 }

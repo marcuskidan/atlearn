@@ -4,6 +4,9 @@
   "title": "Everyday Critical Thinking",
   "tagline": "Spot weak claims, tame your biases, and reason clearly about a noisy world.",
   "curricula": "Informal-logic courses, UW's Calling Bullshit curriculum, and Tetlock's Good Judgment forecasting research",
+  "endpoint": "from gut takes to calmly dismantling a weak claim",
+  "about": "Critical thinking is the discipline of believing things for good reasons — spotting weak claims, checking sources, and noticing when your own mind is the one fooling you. This category covers the practical toolkit: how arguments work, the biases everyone carries, how statistics mislead, and the habits that keep reasoning honest in a noisy information environment.",
+  "version": "1.0.0",
   "order": 10,
   "maintainer": "The Admins"
 }

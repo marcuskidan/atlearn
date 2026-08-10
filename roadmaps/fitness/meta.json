@@ -4,6 +4,11 @@
   "title": "Functional Fitness",
   "tagline": "Build a body that works — strength, endurance, and mobility for real life.",
   "curricula": "NASM & ACE training fundamentals, physical-literacy curricula",
+  "type": "gated",
+  "disclaimer": "General conditioning education, not a prescription. Stop on pain, and clear new programs with a clinician if you have a health condition or are new to exercise.",
+  "endpoint": "from sedentary to a sustainable strength-and-mobility routine",
+  "about": "Physical fitness is the general capacity your body brings to everything else — strength to lift, endurance to keep going, and mobility to move freely without pain. This category covers the fundamentals of training all three safely: how muscles adapt, how to structure a week, and how to progress without injury, built for real life rather than the mirror.",
+  "version": "1.0.0",
   "order": 4,
   "maintainer": "The Admins"
 }

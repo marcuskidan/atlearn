@@ -14,11 +14,11 @@
 //
 // Local dry run:  node tools/land.mjs --dry   (needs GOOGLE_APPLICATION_CREDENTIALS)
 import { execSync } from "node:child_process";
-import { writeFileSync, appendFileSync, existsSync, readFileSync, rmSync,
-         readdirSync } from "node:fs";
-import { dirname, join } from "node:path";
+import { appendFileSync } from "node:fs";
+import { dirname } from "node:path";
 import { fileURLToPath } from "node:url";
 import admin from "firebase-admin";
+import { applyOp } from "./ops.mjs";
 
 const ROOT = dirname(dirname(fileURLToPath(import.meta.url)));
 const DRY = process.argv.includes("--dry");
@@ -43,68 +43,9 @@ if (process.argv.includes("--retire")) {
 
 const snap = await db.collection("merged").orderBy("at").get();
 
-const FILE_RE = /^[0-9]{2}-[a-z0-9-]+\.json$/;
 const rollback = () => { sh("git checkout -- roadmaps/"); sh("git clean -fd -- roadmaps/"); };
-
-// Apply one structural op to the working tree. Same vocabulary as the in-app
-// editor and tools/dev.py: edit | add | remove | spine | move.
-// Returns the commit title; throws with a readable message on a malformed doc.
-function applyOp(m) {
-  const dir = join(ROOT, "roadmaps", m.roadmap, "topics");
-  const metaP = join(ROOT, "roadmaps", m.roadmap, "meta.json");
-  if (!existsSync(dir)) throw new Error(`unknown roadmap ${m.roadmap}`);
-  const writeTopic = (f, t) => writeFileSync(join(dir, f), JSON.stringify(t, null, 2) + "\n");
-  const spineNow = () => {
-    const meta = JSON.parse(readFileSync(metaP, "utf8"));
-    return meta.spine ? [...meta.spine]
-      : readdirSync(dir).filter((f) => f.endsWith(".json")).sort();
-  };
-  const saveSpine = (spine) => {
-    const meta = JSON.parse(readFileSync(metaP, "utf8"));
-    meta.spine = spine;
-    writeFileSync(metaP, JSON.stringify(meta, null, 2) + "\n");
-  };
-  const needFile = (f) => { if (!FILE_RE.test(f || "")) throw new Error(`bad file name ${f}`); };
-  const kind = m.kind || "edit";
-
-  if (kind === "edit") {
-    needFile(m.file);
-    writeTopic(m.file, m.topic);
-    return `Content: ${m.topic.title} (${m.roadmap})`;
-  }
-  if (kind === "add") {
-    needFile(m.file);
-    if (existsSync(join(dir, m.file))) throw new Error(`${m.file} already exists`);
-    if (m.after !== "" && !FILE_RE.test(m.after)) throw new Error("bad 'after'");
-    const spine = spineNow();
-    const pos = m.after === "" ? 0
-      : (spine.indexOf(m.after) >= 0 ? spine.indexOf(m.after) + 1 : spine.length);
-    spine.splice(pos, 0, m.file);
-    writeTopic(m.file, m.topic);
-    saveSpine(spine);
-    return `Content: add ${m.topic.title} (${m.roadmap})`;
-  }
-  if (kind === "remove") {
-    needFile(m.file);
-    if (existsSync(join(dir, m.file))) rmSync(join(dir, m.file));
-    saveSpine(spineNow().filter((f) => f !== m.file));
-    return `Structure: remove ${m.file} (${m.roadmap})`;
-  }
-  if (kind === "spine") {
-    if (!Array.isArray(m.spine) || m.spine.some((f) => !FILE_RE.test(f)))
-      throw new Error("bad spine list");
-    saveSpine([...m.spine]);
-    return `Structure: reorder core topics (${m.roadmap})`;
-  }
-  if (kind === "move") {
-    needFile(m.file); needFile(m.file2);
-    if (m.file === m.file2) throw new Error("move needs two different files");
-    writeTopic(m.file, m.topic);
-    writeTopic(m.file2, m.topic2);
-    return `Structure: move a subtopic between ${m.file} and ${m.file2} (${m.roadmap})`;
-  }
-  throw new Error(`unknown kind ${kind}`);
-}
+// The op grammar's file mutations live in tools/ops.mjs — shared verbatim
+// with tools/apply.mjs (which tools/dev.py shells out to). One engine.
 
 let commits = 0;
 const landed = [];   // doc ids whose content is now on main → retire after deploy
@@ -120,7 +61,7 @@ for (const docSnap of snap.docs) {
   }
   let title;
   try {
-    title = applyOp(m);
+    title = applyOp(ROOT, m);
     sh("python3 tools/build.py");     // the same gate CI applies
   } catch (e) {
     console.log(`validation FAILED for ${label}`);
@@ -135,9 +76,13 @@ for (const docSnap of snap.docs) {
     console.log(`already landed ${label}`);
     continue;
   }
+  // attribution fields are rules-required going forward, but a doc written
+  // before that tightening (or by broken tooling) must not kill the run
+  const proposedBy = (m.by && m.by.name) || "unknown";
+  const mergedByName = (m.mergedBy && m.mergedBy.name) || "unknown";
   const message =
     `${title}\n\n` +
-    `Proposed by ${m.by.name} via the app; merged in-app by ${m.mergedBy.name}.` +
+    `Proposed by ${proposedBy} via the app; merged in-app by ${mergedByName}.` +
     (m.note ? `\nNote: ${m.note}` : "") + `\nMerged-doc: ${docSnap.id}`;
   if (DRY) { console.log(`DRY: would commit ${label}\n---\n${message}\n---`); rollback(); continue; }
   sh(`git add roadmaps/`);
@@ -148,7 +93,18 @@ for (const docSnap of snap.docs) {
   commits++;
 }
 
-if (commits && !DRY) sh("git push origin HEAD");
+if (commits && !DRY) {
+  try {
+    sh("git push origin HEAD");
+  } catch (e) {
+    // Commits exist locally but main didn't get them — exit BEFORE writing
+    // GITHUB_OUTPUT so nothing deploys or retires; the docs stay in `merged`
+    // and the next run re-lands them via the already-landed short-circuit.
+    console.error("git push failed — nothing retired, next run will re-land:",
+      String(e.stderr || e.message).slice(-500));
+    process.exit(1);
+  }
+}
 console.log(commits ? `Pushed ${commits} commit(s).`
   : (landed.length ? "No new commits (content already on main)." : "Nothing to land."));
 // tell the workflow whether to deploy, and which docs to retire afterwards

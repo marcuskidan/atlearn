@@ -4,6 +4,9 @@
   "title": "Home Horticulture",
   "tagline": "Grow food and flowers that actually thrive, from soil test to seed saving",
   "curricula": "Cooperative Extension Master Gardener curricula",
+  "endpoint": "from a soil test to food and flowers that thrive",
+  "about": "Horticulture is the craft of growing plants well — vegetables, herbs, and flowers raised from soil, seed, and season rather than luck. This category starts where every good garden starts, with the soil itself, then walks through planning, propagation, planting, watering, feeding, and the steady work of keeping plants healthy through the year, ending with harvests and saving seed for the next one.",
+  "version": "1.0.0",
   "order": 2,
   "maintainer": "The Admins"
 }

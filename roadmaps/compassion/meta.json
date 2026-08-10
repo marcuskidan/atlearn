@@ -4,6 +4,11 @@
   "title": "Applied Compassion",
   "tagline": "Train the skill of caring well — for others and yourself",
   "curricula": "Stanford CCT, Rosenberg's Nonviolent Communication, Neff's self-compassion research",
+  "type": "practice",
+  "cadence": "10 min/day · 8 weeks",
+  "endpoint": "from good intentions to a daily caring practice that holds under stress",
+  "about": "Compassion is a trainable skill, not a temperament — the practiced ability to notice suffering, in others and yourself, and respond well. This category treats caring as something you do: presence, listening, empathy, self-compassion, honest boundaries, and de-escalation, practiced deliberately until they hold up under stress.",
+  "version": "1.0.0",
   "order": 8,
   "maintainer": "The Admins"
 }

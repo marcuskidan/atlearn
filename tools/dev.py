@@ -18,12 +18,13 @@ tools/land.mjs — one grammar everywhere):
     remove  {file}                         delete a core topic
     spine   {spine: [files…]}              reorder the map's core topics
     move    {file, topic, file2, topic2}   a subtopic moved between two topics
+    about   {about}                        the official map header's lead prose (meta.json)
 
 Write API (localhost only):
     GET  /dev/ping           → {ok:true}
     POST /dev/apply          → {rm, kind, …op fields…}
 """
-import json, os, re, sys
+import json, os, re, shutil, subprocess, sys, tempfile
 from http.server import SimpleHTTPRequestHandler, ThreadingHTTPServer
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
@@ -46,37 +47,34 @@ def rebuild_index():
     build.write_index(roadmaps)
     return []
 
+def run_shared_applier(op):
+    """Hand one op to tools/apply.mjs — the SAME engine tools/land.mjs uses.
+    Returns an error list ([] on success). Needs node on PATH."""
+    if shutil.which("node") is None:
+        return ["node is required for dev-server editing (tools/apply.mjs runs the "
+                "shared op engine) — install Node 20+ and restart tools/dev.py"]
+    r = subprocess.run(
+        ["node", os.path.join(os.path.dirname(os.path.abspath(__file__)), "apply.mjs"),
+         build.ROOT],   # explicit root: tests point build at a scratch tree
+        input=json.dumps(op), capture_output=True, text=True, cwd=build.ROOT)
+    if r.returncode != 0:
+        return [(r.stderr or r.stdout or "apply.mjs failed").strip()]
+    return []
+
+
 def apply_op(rid, body):
-    """Apply one structural op. Returns (errors, result). All file writes are
-    snapshotted first and rolled back if the map stops validating."""
+    """Validate an op's inputs (friendly editor errors), then delegate the file
+    mutations to the shared engine (tools/ops.mjs via apply.mjs). The whole
+    roadmap folder is snapshotted first and restored if anything — the op or
+    whole-map validation — fails."""
     kind = body.get("kind")
-    tdir = os.path.join(build.RDIR, rid, "topics")
-    meta_p = os.path.join(build.RDIR, rid, "meta.json")
-    snap = {}
-    def remember(p):
-        if p not in snap:
-            snap[p] = open(p, encoding="utf-8").read() if os.path.exists(p) else None
-    def restore():
-        for p, content in snap.items():
-            if content is None:
-                if os.path.exists(p): os.remove(p)
-            else:
-                open(p, "w", encoding="utf-8").write(content)
+    rdir = os.path.join(build.RDIR, rid)
+    tdir = os.path.join(rdir, "topics")
     def files_now():
         return sorted(f for f in os.listdir(tdir) if f.endswith(".json"))
-    def spine_now():
-        meta = json.load(open(meta_p, encoding="utf-8"))
-        return list(meta["spine"]) if meta.get("spine") else files_now()
-    def save_spine(spine):
-        remember(meta_p)
-        meta = json.load(open(meta_p, encoding="utf-8"))
-        meta["spine"] = spine
-        json.dump(meta, open(meta_p, "w", encoding="utf-8"), ensure_ascii=False, indent=2)
-    def write_topic(fname, topic):
-        p = os.path.join(tdir, fname)
-        remember(p)
-        json.dump(topic, open(p, "w", encoding="utf-8"), ensure_ascii=False, indent=2)
 
+    # ---- per-kind pre-validation: readable errors before anything is written
+    op = {"roadmap": rid, "kind": kind, "by": {"name": "dev"}}
     result = {}
     if kind == "edit":
         fname, topic = body.get("file", ""), body.get("topic")
@@ -85,7 +83,7 @@ def apply_op(rid, body):
             return ([f"no such topic file: {fname} (use kind 'add' to create)"], None)
         errs = validate_topic(topic, rid)
         if errs: return (errs, None)
-        write_topic(fname, topic)
+        op.update(file=fname, topic=topic)
         result = {"saved": f"roadmaps/{rid}/topics/{fname}"}
 
     elif kind == "add":
@@ -101,20 +99,17 @@ def apply_op(rid, body):
         fname = f"{nn:02d}-{slug}.json"
         while fname in existing:
             nn += 1; fname = f"{nn:02d}-{slug}.json"
-        spine = spine_now()
-        pos = 0 if after == "" else (spine.index(after) + 1 if after in spine else len(spine))
-        spine.insert(pos, fname)
-        write_topic(fname, topic)
-        save_spine(spine)
+        if after != "" and not SAFE_FILE.match(after):
+            return (["bad 'after'"], None)
+        op.update(file=fname, topic=topic, after=after)
         result = {"file": fname}
 
     elif kind == "remove":
         fname = body.get("file", "")
         if not SAFE_FILE.match(fname): return (["bad file name"], None)
-        p = os.path.join(tdir, fname)
-        if not os.path.exists(p): return ([f"no such topic file: {fname}"], None)
-        remember(p); os.remove(p)
-        save_spine([f for f in spine_now() if f != fname])
+        if not os.path.exists(os.path.join(tdir, fname)):
+            return ([f"no such topic file: {fname}"], None)
+        op.update(file=fname)
         result = {"removed": fname}
 
     elif kind == "spine":
@@ -122,7 +117,7 @@ def apply_op(rid, body):
         if (not isinstance(spine, list) or
             any(not isinstance(f, str) or not SAFE_FILE.match(f) for f in spine)):
             return (["bad spine list"], None)
-        save_spine(spine)   # build validates it matches the actual files
+        op.update(spine=spine)   # build validates it matches the actual files
         result = {"spine": spine}
 
     elif kind == "move":
@@ -135,18 +130,34 @@ def apply_op(rid, body):
         errs = (validate_topic(body.get("topic"), rid) +
                 validate_topic(body.get("topic2"), rid))
         if errs: return (errs, None)
-        write_topic(f1, body["topic"])
-        write_topic(f2, body["topic2"])
+        op.update(file=f1, topic=body["topic"], file2=f2, topic2=body["topic2"])
         result = {"moved": [f1, f2]}
+
+    elif kind == "about":
+        about = body.get("about")
+        if not isinstance(about, str) or not (20 <= len(about) <= 4000):
+            return (["bad about text (20..4000 chars)"], None)
+        op.update(about=about)
+        result = {"about": "saved"}
 
     else:
         return ([f"unknown kind: {kind!r}"], None)
 
-    errs = rebuild_index()
-    if errs:   # whole-map validation failed (e.g. duplicate id) — undo everything
-        restore()
-        rebuild_index()
-        return (errs, None)
+    # ---- snapshot the roadmap folder, apply via the shared engine, verify.
+    # NOT git checkout: the dev tree may hold uncommitted work worth keeping.
+    with tempfile.TemporaryDirectory() as tmp:
+        backup = os.path.join(tmp, rid)
+        shutil.copytree(rdir, backup)
+        def restore():
+            shutil.rmtree(rdir)
+            shutil.copytree(backup, rdir)
+        errs = run_shared_applier(op)
+        if not errs:
+            errs = rebuild_index()   # whole-map gate (e.g. duplicate id)
+        if errs:
+            restore()
+            rebuild_index()
+            return (errs, None)
     return ([], result)
 
 class H(SimpleHTTPRequestHandler):

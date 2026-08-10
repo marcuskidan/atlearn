@@ -4,6 +4,9 @@
   "title": "Speaking & Communication",
   "tagline": "From listening well to holding a room: the speaking skills nobody formally teaches you",
   "curricula": "Toastmasters Pathways, university interpersonal-communication curricula",
+  "endpoint": "from nervous small talk to holding a room with confidence",
+  "about": "Communication is the skill of being understood and of understanding — in conversation, in conflict, and in front of a room. This category walks from listening well, through asking better questions and speaking clearly, to the harder terrain of difficult conversations, persuasion, and public speaking.",
+  "version": "1.0.0",
   "order": 9,
   "maintainer": "The Admins"
 }

@@ -4,6 +4,11 @@
   "title": "Everyday First Aid & Readiness",
   "tagline": "Know what to do in the minutes before help arrives — and get certified for real.",
   "curricula": "Red Cross & AHA first-aid curricula, FEMA preparedness guidance",
+  "type": "gated",
+  "disclaimer": "Awareness-level education only — not certification, not medical advice. In an emergency, call your local emergency number first. For real credentials, take a certified Red Cross or AHA course.",
+  "endpoint": "from bystander to the person who knows the next three minutes",
+  "about": "First aid is what a bystander does in the minutes before professional help arrives — recognizing an emergency, calling for help well, and keeping a person safe until someone with training takes over. This category builds awareness of the most common emergencies, from bleeding and burns to choking and cardiac arrest, and points to the certified courses where the hands-on skills are properly learned.",
+  "version": "1.0.0",
   "order": 5,
   "maintainer": "The Admins"
 }

@@ -4,6 +4,9 @@
   "title": "Writing Well",
   "tagline": "Clear thinking made visible — from clean sentences to work you actually ship",
   "curricula": "University composition curricula, Zinsser's On Writing Well, Strunk & White's The Elements of Style",
+  "endpoint": "from clean sentences to work you actually ship",
+  "about": "Writing is clear thinking made visible — the craft of putting ideas into sentences a reader can follow without effort. This category works from the sentence up: clarity, structure, revision, and voice, toward the discipline that separates writers from people with ideas — actually finishing and shipping work.",
+  "version": "1.0.0",
   "order": 13,
   "maintainer": "The Admins"
 }

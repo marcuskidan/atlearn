@@ -29,6 +29,9 @@ jobs:
       - uses: actions/checkout@v4
         with:
           ref: main
+          fetch-depth: 0   # full history: the vital-signs contributor tally reads it
+      - name: Generate vital signs (repo data only — never committed)
+        run: python3 tools/build.py --health
       - name: Assemble the site — app files only, not tools/tests/workflows
         run: |
           mkdir _site

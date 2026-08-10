@@ -4,6 +4,11 @@
   "title": "Financial Literacy Basics",
   "tagline": "Understand how money actually works — compounding, credit, taxes, and risk — without the sales pitch.",
   "curricula": "CFPB financial well-being framework and Jump$tart Coalition national standards",
+  "type": "gated",
+  "disclaimer": "Strictly conceptual education — never financial, investment, or tax advice, and no product recommendations. For guidance, see consumerfinance.gov and investor.gov.",
+  "endpoint": "from paycheck confusion to understanding compounding, credit, and risk",
+  "about": "Personal finance is the working knowledge of how money behaves — earning, spending, saving, borrowing, and the quiet arithmetic of compounding that rewards or punishes over decades. This category teaches the concepts: budgets, credit, interest, taxes, insurance, and risk, so that financial decisions are made with understanding rather than hope.",
+  "version": "1.0.0",
   "order": 11,
   "maintainer": "The Admins"
 }

@@ -4,6 +4,9 @@
   "title": "Kitchen Confidence",
   "tagline": "From mise en place to cooking without recipes, built on salt, fat, acid, and heat",
   "curricula": "Culinary-school fundamentals and Samin Nosrat's Salt Fat Acid Heat framework",
+  "endpoint": "from mise en place to cooking a full meal without a recipe",
+  "about": "Cooking is the everyday skill of turning ingredients into meals you actually want to eat. This category builds from knife work and mise en place through the four elements that make food taste right — salt, fat, acid, and heat — and the core methods built on them: sautéing, roasting, braising, and more. The endpoint is confidence, not recipes: understanding what's happening in the pan well enough to cook without instructions.",
+  "version": "1.0.0",
   "order": 3,
   "maintainer": "The Admins"
 }

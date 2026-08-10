@@ -4,6 +4,11 @@
   "title": "Mental Health Foundations",
   "tagline": "Evidence-based self-care skills — and knowing when to get real help",
   "curricula": "CBT protocols (Beck), Kabat-Zinn's MBSR, WHO mental-health guidance",
+  "type": "gated",
+  "disclaimer": "Educational self-care skills, not diagnosis or treatment. If you're struggling, talk to a professional — in the US, call or text 988 (Suicide & Crisis Lifeline).",
+  "endpoint": "from coping on autopilot to skills that work — and knowing when to get help",
+  "about": "Mental health is cared for like physical health: with knowledge, daily practices, and the judgment to know when professional support is the right move. This category teaches evidence-based self-care skills — understanding stress and emotion, sleep, thought patterns, and connection — always alongside the pathways to real help when self-care is not enough.",
+  "version": "1.0.0",
   "order": 6,
   "maintainer": "The Admins"
 }

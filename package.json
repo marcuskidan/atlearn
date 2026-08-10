@@ -1,0 +1,12 @@
+{
+  "name": "waihona-tooling",
+  "private": true,
+  "description": "Dev/CI dependencies for Waihona's tooling and tests. The app itself (index.html) has no build step and no runtime dependencies.",
+  "type": "module",
+  "devDependencies": {
+    "@firebase/rules-unit-testing": "^5.0.1",
+    "firebase": "^12.17.1",
+    "firebase-admin": "^13.0.0",
+    "firebase-tools": "^15.26.0"
+  }
+}

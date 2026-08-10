@@ -8,6 +8,9 @@
    "title": "Observational Astronomy",
    "tagline": "Learn the night sky with your eyes, binoculars, and eventually a telescope.",
    "curricula": "University Astronomy 101 syllabi and the Astronomical League's observing programs",
+   "endpoint": "from nothing to reading the northern night sky unaided",
+   "about": "Observational astronomy is the practice of reading the night sky with your own eyes — finding your bearings among the constellations, following the Moon and planets through their cycles, and learning to see faint things well. This category walks from a first night under the sky through naked-eye navigation, binocular astronomy, and deep-sky observing, to choosing and using a telescope. No equipment is needed for most of the path: the sky is free, and the skill is in the looking.",
+   "version": "1.0.0",
    "order": 1,
    "maintainer": "The Admins",
    "topics": [
@@ -22,7 +25,20 @@
     "09-telescopes.json",
     "10-going-further.json"
    ],
-   "total": 50
+   "total": 50,
+   "domains": {
+    "en.wikipedia.org": 54,
+    "science.nasa.gov": 3,
+    "astroleague.org": 2,
+    "globeatnight.org": 1,
+    "nightsky.jpl.nasa.gov": 1,
+    "stellarium-web.org": 1
+   },
+   "freshness": {
+    "links": 62,
+    "verified": 0,
+    "latest": null
+   }
   },
   {
    "id": "horticulture",
@@ -30,6 +46,9 @@
    "title": "Home Horticulture",
    "tagline": "Grow food and flowers that actually thrive, from soil test to seed saving",
    "curricula": "Cooperative Extension Master Gardener curricula",
+   "endpoint": "from a soil test to food and flowers that thrive",
+   "about": "Horticulture is the craft of growing plants well — vegetables, herbs, and flowers raised from soil, seed, and season rather than luck. This category starts where every good garden starts, with the soil itself, then walks through planning, propagation, planting, watering, feeding, and the steady work of keeping plants healthy through the year, ending with harvests and saving seed for the next one.",
+   "version": "1.0.0",
    "order": 2,
    "maintainer": "The Admins",
    "topics": [
@@ -44,7 +63,17 @@
     "09-pruning-maintenance.json",
     "10-harvest-and-beyond.json"
    ],
-   "total": 50
+   "total": 50,
+   "domains": {
+    "en.wikipedia.org": 48,
+    "epa.gov": 3,
+    "planthardiness.ars.usda.gov": 2
+   },
+   "freshness": {
+    "links": 53,
+    "verified": 0,
+    "latest": null
+   }
   },
   {
    "id": "cooking",
@@ -52,6 +81,9 @@
    "title": "Kitchen Confidence",
    "tagline": "From mise en place to cooking without recipes, built on salt, fat, acid, and heat",
    "curricula": "Culinary-school fundamentals and Samin Nosrat's Salt Fat Acid Heat framework",
+   "endpoint": "from mise en place to cooking a full meal without a recipe",
+   "about": "Cooking is the everyday skill of turning ingredients into meals you actually want to eat. This category builds from knife work and mise en place through the four elements that make food taste right — salt, fat, acid, and heat — and the core methods built on them: sautéing, roasting, braising, and more. The endpoint is confidence, not recipes: understanding what's happening in the pan well enough to cook without instructions.",
+   "version": "1.0.0",
    "order": 3,
    "maintainer": "The Admins",
    "topics": [
@@ -67,7 +99,16 @@
     "10-baking-bread-basics.json",
     "11-cooking-without-recipes.json"
    ],
-   "total": 50
+   "total": 50,
+   "domains": {
+    "en.wikipedia.org": 49,
+    "foodsafety.gov": 2
+   },
+   "freshness": {
+    "links": 51,
+    "verified": 0,
+    "latest": null
+   }
   },
   {
    "id": "fitness",
@@ -75,6 +116,11 @@
    "title": "Functional Fitness",
    "tagline": "Build a body that works — strength, endurance, and mobility for real life.",
    "curricula": "NASM & ACE training fundamentals, physical-literacy curricula",
+   "type": "gated",
+   "disclaimer": "General conditioning education, not a prescription. Stop on pain, and clear new programs with a clinician if you have a health condition or are new to exercise.",
+   "endpoint": "from sedentary to a sustainable strength-and-mobility routine",
+   "about": "Physical fitness is the general capacity your body brings to everything else — strength to lift, endurance to keep going, and mobility to move freely without pain. This category covers the fundamentals of training all three safely: how muscles adapt, how to structure a week, and how to progress without injury, built for real life rather than the mirror.",
+   "version": "1.0.0",
    "order": 4,
    "maintainer": "The Admins",
    "topics": [
@@ -89,7 +135,15 @@
     "09-fueling-basics.json",
     "10-lifelong-athleticism.json"
    ],
-   "total": 49
+   "total": 49,
+   "domains": {
+    "en.wikipedia.org": 49
+   },
+   "freshness": {
+    "links": 49,
+    "verified": 0,
+    "latest": null
+   }
   },
   {
    "id": "first-aid",
@@ -97,6 +151,11 @@
    "title": "Everyday First Aid & Readiness",
    "tagline": "Know what to do in the minutes before help arrives — and get certified for real.",
    "curricula": "Red Cross & AHA first-aid curricula, FEMA preparedness guidance",
+   "type": "gated",
+   "disclaimer": "Awareness-level education only — not certification, not medical advice. In an emergency, call your local emergency number first. For real credentials, take a certified Red Cross or AHA course.",
+   "endpoint": "from bystander to the person who knows the next three minutes",
+   "about": "First aid is what a bystander does in the minutes before professional help arrives — recognizing an emergency, calling for help well, and keeping a person safe until someone with training takes over. This category builds awareness of the most common emergencies, from bleeding and burns to choking and cardiac arrest, and points to the certified courses where the hands-on skills are properly learned.",
+   "version": "1.0.0",
    "order": 5,
    "maintainer": "The Admins",
    "topics": [
@@ -111,7 +170,20 @@
     "09-first-aid-kit.json",
     "10-household-preparedness.json"
    ],
-   "total": 50
+   "total": 50,
+   "domains": {
+    "en.wikipedia.org": 42,
+    "ready.gov": 6,
+    "cpr.heart.org": 2,
+    "redcross.org": 2,
+    "stopthebleed.org": 2,
+    "poison.org": 1
+   },
+   "freshness": {
+    "links": 55,
+    "verified": 0,
+    "latest": null
+   }
   },
   {
    "id": "mental-health",
@@ -119,6 +191,11 @@
    "title": "Mental Health Foundations",
    "tagline": "Evidence-based self-care skills — and knowing when to get real help",
    "curricula": "CBT protocols (Beck), Kabat-Zinn's MBSR, WHO mental-health guidance",
+   "type": "gated",
+   "disclaimer": "Educational self-care skills, not diagnosis or treatment. If you're struggling, talk to a professional — in the US, call or text 988 (Suicide & Crisis Lifeline).",
+   "endpoint": "from coping on autopilot to skills that work — and knowing when to get help",
+   "about": "Mental health is cared for like physical health: with knowledge, daily practices, and the judgment to know when professional support is the right move. This category teaches evidence-based self-care skills — understanding stress and emotion, sleep, thought patterns, and connection — always alongside the pathways to real help when self-care is not enough.",
+   "version": "1.0.0",
    "order": 6,
    "maintainer": "The Admins",
    "topics": [
@@ -133,7 +210,20 @@
     "09-resilience-over-time.json",
     "10-professional-support.json"
    ],
-   "total": 48
+   "total": 48,
+   "domains": {
+    "en.wikipedia.org": 46,
+    "988lifeline.org": 3,
+    "nimh.nih.gov": 3,
+    "cdc.gov": 1,
+    "samhsa.gov": 1,
+    "who.int": 1
+   },
+   "freshness": {
+    "links": 55,
+    "verified": 0,
+    "latest": null
+   }
   },
   {
    "id": "meditation",
@@ -141,6 +231,11 @@
    "title": "Mindfulness & Meditation",
    "tagline": "Train attention and equanimity with a practice that actually survives contact with real life",
    "curricula": "MBSR 8-week protocol (Kabat-Zinn), contemplative-science research literature",
+   "type": "practice",
+   "cadence": "20 min/day · 90 days",
+   "endpoint": "from restless first sits to a practice that survives real life",
+   "about": "Meditation is the deliberate training of attention and equanimity — sitting down, noticing where the mind goes, and returning, thousands of times. This category walks from the first honest sit through breath practice, working with the wandering mind, body awareness, and open awareness, to building a practice that survives contact with ordinary busy life.",
+   "version": "1.0.0",
    "order": 7,
    "maintainer": "The Admins",
    "topics": [
@@ -155,7 +250,18 @@
     "09-building-the-habit.json",
     "10-deepening-and-difficulties.json"
    ],
-   "total": 49
+   "total": 49,
+   "domains": {
+    "en.wikipedia.org": 47,
+    "insighttimer.com": 2,
+    "nccih.nih.gov": 2,
+    "hsph.harvard.edu": 1
+   },
+   "freshness": {
+    "links": 52,
+    "verified": 0,
+    "latest": null
+   }
   },
   {
    "id": "compassion",
@@ -163,6 +269,11 @@
    "title": "Applied Compassion",
    "tagline": "Train the skill of caring well — for others and yourself",
    "curricula": "Stanford CCT, Rosenberg's Nonviolent Communication, Neff's self-compassion research",
+   "type": "practice",
+   "cadence": "10 min/day · 8 weeks",
+   "endpoint": "from good intentions to a daily caring practice that holds under stress",
+   "about": "Compassion is a trainable skill, not a temperament — the practiced ability to notice suffering, in others and yourself, and respond well. This category treats caring as something you do: presence, listening, empathy, self-compassion, honest boundaries, and de-escalation, practiced deliberately until they hold up under stress.",
+   "version": "1.0.0",
    "order": 8,
    "maintainer": "The Admins",
    "topics": [
@@ -176,7 +287,18 @@
     "08-forgiveness-difficult-people.json",
     "09-compassion-at-scale.json"
    ],
-   "total": 46
+   "total": 46,
+   "domains": {
+    "en.wikipedia.org": 45,
+    "ccare.stanford.edu": 2,
+    "cnvc.org": 2,
+    "self-compassion.org": 2
+   },
+   "freshness": {
+    "links": 51,
+    "verified": 0,
+    "latest": null
+   }
   },
   {
    "id": "communication",
@@ -184,6 +306,9 @@
    "title": "Speaking & Communication",
    "tagline": "From listening well to holding a room: the speaking skills nobody formally teaches you",
    "curricula": "Toastmasters Pathways, university interpersonal-communication curricula",
+   "endpoint": "from nervous small talk to holding a room with confidence",
+   "about": "Communication is the skill of being understood and of understanding — in conversation, in conflict, and in front of a room. This category walks from listening well, through asking better questions and speaking clearly, to the harder terrain of difficult conversations, persuasion, and public speaking.",
+   "version": "1.0.0",
    "order": 9,
    "maintainer": "The Admins",
    "topics": [
@@ -198,7 +323,16 @@
     "09-hard-conversations.json",
     "10-speaking-in-groups.json"
    ],
-   "total": 50
+   "total": 50,
+   "domains": {
+    "en.wikipedia.org": 51,
+    "toastmasters.org": 1
+   },
+   "freshness": {
+    "links": 52,
+    "verified": 0,
+    "latest": null
+   }
   },
   {
    "id": "critical-thinking",
@@ -206,6 +340,9 @@
    "title": "Everyday Critical Thinking",
    "tagline": "Spot weak claims, tame your biases, and reason clearly about a noisy world.",
    "curricula": "Informal-logic courses, UW's Calling Bullshit curriculum, and Tetlock's Good Judgment forecasting research",
+   "endpoint": "from gut takes to calmly dismantling a weak claim",
+   "about": "Critical thinking is the discipline of believing things for good reasons — spotting weak claims, checking sources, and noticing when your own mind is the one fooling you. This category covers the practical toolkit: how arguments work, the biases everyone carries, how statistics mislead, and the habits that keep reasoning honest in a noisy information environment.",
+   "version": "1.0.0",
    "order": 10,
    "maintainer": "The Admins",
    "topics": [
@@ -220,7 +357,16 @@
     "09-estimation-and-calibration.json",
     "10-changing-your-mind.json"
    ],
-   "total": 50
+   "total": 50,
+   "domains": {
+    "en.wikipedia.org": 67,
+    "plato.stanford.edu": 1
+   },
+   "freshness": {
+    "links": 68,
+    "verified": 0,
+    "latest": null
+   }
   },
   {
    "id": "personal-finance",
@@ -228,6 +374,11 @@
    "title": "Financial Literacy Basics",
    "tagline": "Understand how money actually works — compounding, credit, taxes, and risk — without the sales pitch.",
    "curricula": "CFPB financial well-being framework and Jump$tart Coalition national standards",
+   "type": "gated",
+   "disclaimer": "Strictly conceptual education — never financial, investment, or tax advice, and no product recommendations. For guidance, see consumerfinance.gov and investor.gov.",
+   "endpoint": "from paycheck confusion to understanding compounding, credit, and risk",
+   "about": "Personal finance is the working knowledge of how money behaves — earning, spending, saving, borrowing, and the quiet arithmetic of compounding that rewards or punishes over decades. This category teaches the concepts: budgets, credit, interest, taxes, insurance, and risk, so that financial decisions are made with understanding rather than hope.",
+   "version": "1.0.0",
    "order": 11,
    "maintainer": "The Admins",
    "topics": [
@@ -242,7 +393,20 @@
     "09-investing-concepts.json",
     "10-planning-ahead.json"
    ],
-   "total": 50
+   "total": 50,
+   "domains": {
+    "en.wikipedia.org": 45,
+    "consumerfinance.gov": 9,
+    "investor.gov": 5,
+    "irs.gov": 2,
+    "consumer.ftc.gov": 1,
+    "identitytheft.gov": 1
+   },
+   "freshness": {
+    "links": 63,
+    "verified": 0,
+    "latest": null
+   }
   },
   {
    "id": "language",
@@ -250,6 +414,9 @@
    "title": "Learning Any Language",
    "tagline": "From zero to real conversations, using the science of how adults actually acquire languages",
    "curricula": "CEFR framework, FSI language-learning research, Krashen's comprehensible-input theory",
+   "endpoint": "from zero to real conversations in your target language",
+   "about": "Learning a language as an adult is a learnable process of its own, with methods that work far better than schoolroom memorization — massive comprehensible input, spaced repetition, and early, imperfect conversation. This category teaches that process for any target language: how acquisition actually happens, how to build vocabulary that sticks, and how to reach real conversations from zero.",
+   "version": "1.0.0",
    "order": 12,
    "maintainer": "The Admins",
    "topics": [
@@ -264,7 +431,19 @@
     "09-measuring-progress.json",
     "10-lifelong-maintenance.json"
    ],
-   "total": 50
+   "total": 50,
+   "domains": {
+    "en.wikipedia.org": 55,
+    "apps.ankiweb.net": 1,
+    "forvo.com": 1,
+    "italki.com": 1,
+    "state.gov": 1
+   },
+   "freshness": {
+    "links": 59,
+    "verified": 0,
+    "latest": null
+   }
   },
   {
    "id": "writing",
@@ -272,6 +451,9 @@
    "title": "Writing Well",
    "tagline": "Clear thinking made visible — from clean sentences to work you actually ship",
    "curricula": "University composition curricula, Zinsser's On Writing Well, Strunk & White's The Elements of Style",
+   "endpoint": "from clean sentences to work you actually ship",
+   "about": "Writing is clear thinking made visible — the craft of putting ideas into sentences a reader can follow without effort. This category works from the sentence up: clarity, structure, revision, and voice, toward the discipline that separates writers from people with ideas — actually finishing and shipping work.",
+   "version": "1.0.0",
    "order": 13,
    "maintainer": "The Admins",
    "topics": [
@@ -286,7 +468,16 @@
     "09-forms.json",
     "10-the-writing-life.json"
    ],
-   "total": 50
+   "total": 50,
+   "domains": {
+    "en.wikipedia.org": 57,
+    "plainlanguage.gov": 2
+   },
+   "freshness": {
+    "links": 59,
+    "verified": 0,
+    "latest": null
+   }
   },
   {
    "id": "drawing",
@@ -294,6 +485,11 @@
    "title": "Drawing Foundations",
    "tagline": "Train your eye and hand from first marks to a durable daily practice.",
    "curricula": "Classical atelier training, Drawabox, and Betty Edwards' Drawing on the Right Side of the Brain",
+   "type": "practice",
+   "cadence": "15 min/day · ongoing",
+   "endpoint": "from first marks to a durable daily drawing practice",
+   "about": "Drawing is a trainable coordination of eye and hand — learning to see what is actually there and to put it on paper with intent. This category walks the classical fundamentals in order: contour and line, construction from basic forms, value and light, perspective, gesture, and composition, sustained by the daily practice that makes each of them stick.",
+   "version": "1.0.0",
    "order": 14,
    "maintainer": "The Admins",
    "topics": [
@@ -308,7 +504,17 @@
     "09-color-introduction.json",
     "10-daily-habit.json"
    ],
-   "total": 50
+   "total": 50,
+   "domains": {
+    "en.wikipedia.org": 48,
+    "drawabox.com": 5,
+    "metmuseum.org": 1
+   },
+   "freshness": {
+    "links": 54,
+    "verified": 0,
+    "latest": null
+   }
   },
   {
    "id": "music",
@@ -316,6 +522,9 @@
    "title": "Music Fundamentals",
    "tagline": "Learn how music actually works — rhythm, melody, harmony, and a trained ear.",
    "curricula": "ABRSM Music Theory Grades 1–3 and aural-skills syllabi",
+   "endpoint": "from clapping rhythms to hearing how harmony works",
+   "about": "Music theory and ear training are the grammar of music — how rhythm, melody, and harmony work, and how to hear them working. This category builds musicianship any instrument can use: reading rhythm, singing intervals, understanding scales and chords, and training the ear until written music and heard music become the same language.",
+   "version": "1.0.0",
    "order": 15,
    "maintainer": "The Admins",
    "topics": [
@@ -331,7 +540,17 @@
     "10-practice-science.json",
     "11-playing-with-others.json"
    ],
-   "total": 50
+   "total": 50,
+   "domains": {
+    "en.wikipedia.org": 50,
+    "musictheory.net": 4,
+    "abrsm.org": 1
+   },
+   "freshness": {
+    "links": 55,
+    "verified": 0,
+    "latest": null
+   }
   },
   {
    "id": "photography",
@@ -339,6 +558,9 @@
    "title": "Photography Essentials",
    "tagline": "See light, master exposure, and make deliberate photographs — phone camera included.",
    "curricula": "University photo-fundamentals courses (exposure, composition, critique)",
+   "endpoint": "from auto mode to deliberate photographs in manual",
+   "about": "Photography is deliberate seeing — understanding light, controlling exposure, and composing a frame on purpose, with any camera including the one in your pocket. This category walks from how a camera actually works through aperture, shutter, and ISO, to composition, natural light, and developing a personal eye.",
+   "version": "1.0.0",
    "order": 16,
    "maintainer": "The Admins",
    "topics": [
@@ -353,7 +575,16 @@
     "09-genres-as-teachers.json",
     "10-projects-and-growth.json"
    ],
-   "total": 50
+   "total": 50,
+   "domains": {
+    "en.wikipedia.org": 52,
+    "psa-photo.org": 1
+   },
+   "freshness": {
+    "links": 53,
+    "verified": 0,
+    "latest": null
+   }
   }
  ]
 }

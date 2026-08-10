@@ -4,6 +4,9 @@
   "title": "Music Fundamentals",
   "tagline": "Learn how music actually works — rhythm, melody, harmony, and a trained ear.",
   "curricula": "ABRSM Music Theory Grades 1–3 and aural-skills syllabi",
+  "endpoint": "from clapping rhythms to hearing how harmony works",
+  "about": "Music theory and ear training are the grammar of music — how rhythm, melody, and harmony work, and how to hear them working. This category builds musicianship any instrument can use: reading rhythm, singing intervals, understanding scales and chords, and training the ear until written music and heard music become the same language.",
+  "version": "1.0.0",
   "order": 15,
   "maintainer": "The Admins"
 }

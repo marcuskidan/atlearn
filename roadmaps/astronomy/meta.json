@@ -4,6 +4,9 @@
   "title": "Observational Astronomy",
   "tagline": "Learn the night sky with your eyes, binoculars, and eventually a telescope.",
   "curricula": "University Astronomy 101 syllabi and the Astronomical League's observing programs",
+  "endpoint": "from nothing to reading the northern night sky unaided",
+  "about": "Observational astronomy is the practice of reading the night sky with your own eyes — finding your bearings among the constellations, following the Moon and planets through their cycles, and learning to see faint things well. This category walks from a first night under the sky through naked-eye navigation, binocular astronomy, and deep-sky observing, to choosing and using a telescope. No equipment is needed for most of the path: the sky is free, and the skill is in the looking.",
+  "version": "1.0.0",
   "order": 1,
   "maintainer": "The Admins"
 }

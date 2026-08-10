@@ -1,10 +1,13 @@
 name: Link check
-# Weekly probe of every content URL. lychee does the crawling (retries,
-# rate limits, UA handling); failures land in a single "link-rot" issue that
-# is updated in place. 403/429 responses are treated as bot-blocking, not rot.
+# Nightly probe of every content URL (the agent corps' verification duty).
+# lychee does the crawling (retries, rate limits, UA handling); failures land
+# in a single "link-rot" issue updated in place, AND — for dead links that
+# carry a pre-vetted succession list — the Link Steward files a pre-drafted
+# swap proposal into the maintainer's in-app queue. A named human merges;
+# the agent never does. 403/429 responses are treated as bot-blocking, not rot.
 on:
   schedule:
-    - cron: "0 6 * * 1"   # Mondays 06:00 UTC
+    - cron: "0 6 * * *"   # nightly 06:00 UTC
   workflow_dispatch:
 
 jobs:
@@ -13,15 +16,33 @@ jobs:
     permissions:
       contents: read
       issues: write
+    outputs:
+      dead: ${{ steps.lychee.outputs.exit_code }}
     steps:
       - uses: actions/checkout@v4
-      - name: Probe every content URL
+      - name: Probe every content URL (one crawl, machine-readable)
         id: lychee
         uses: lycheeverse/lychee-action@v2
         with:
-          args: --no-progress --accept '200..=299,403,429' 'roadmaps/**/*.json'
-          output: link-report.md
+          args: --no-progress --accept '200..=299,403,429' --format json 'roadmaps/**/*.json'
+          output: dead-links.json
           fail: false
+      - name: Derive the human report from the JSON (no second crawl)
+        if: steps.lychee.outputs.exit_code != 0
+        run: |
+          jq -r '
+            "# Link rot report\n",
+            (.fail_map | to_entries[] |
+              "## \(.key)\n" + (.value | map("- \(.url) — \(.status.text // .status // "unreachable")") | join("\n")))
+          ' dead-links.json > link-report.md
+          cat link-report.md
+      - name: Upload dead-link list for the succession drafter
+        if: steps.lychee.outputs.exit_code != 0
+        uses: actions/upload-artifact@v4
+        with:
+          name: dead-links
+          path: dead-links.json
+          retention-days: 3
       - name: Find the open link-rot issue
         if: steps.lychee.outputs.exit_code != 0
         id: issue
@@ -37,3 +58,25 @@ jobs:
           content-filepath: link-report.md
           labels: link-rot
           issue-number: ${{ steps.issue.outputs.number }}
+
+  succession:
+    # The Link Steward: drafts trivial swap proposals from succession lists.
+    # Files into the maintainer queue via the Admin SDK — humans merge.
+    needs: links
+    if: needs.links.outputs.dead != '0' && needs.links.outputs.dead != ''
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - uses: actions/download-artifact@v4
+        with:
+          name: dead-links
+      - run: npm ci
+      - name: Draft succession proposals
+        env:
+          FIREBASE_SERVICE_ACCOUNT: ${{ secrets.FIREBASE_SERVICE_ACCOUNT }}
+        run: node tools/succession.mjs dead-links.json

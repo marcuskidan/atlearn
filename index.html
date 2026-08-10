@@ -47,7 +47,7 @@ a{color:var(--blue)}
 #backBtn{display:none;width:34px;height:34px;border-radius:10px;background:var(--bg3);
   align-items:center;justify-content:center;font-size:17px;flex:0 0 auto}
 #backBtn.show{display:flex}
-#brand{display:flex;align-items:center;gap:10px;min-width:0}
+#brand{display:flex;align-items:center;gap:10px;min-width:0;cursor:pointer}
 #brandMark{width:30px;height:30px;border-radius:9px;background:linear-gradient(135deg,var(--accent),#f59e0b);
   display:flex;align-items:center;justify-content:center;font-size:16px;flex:0 0 auto}
 #brandText{font-weight:700;font-size:15.5px;letter-spacing:.2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
@@ -108,8 +108,6 @@ a{color:var(--blue)}
 .card .emoji{width:44px;height:44px;border-radius:12px;background:var(--bg3);
   display:flex;align-items:center;justify-content:center;font-size:22px;flex:0 0 auto}
 .card h3{font-size:16px}
-.card .tag{color:var(--muted);font-size:13px;line-height:1.5}
-.card .curr{font-size:11px;color:var(--faint);line-height:1.4}
 .card .meta{display:flex;align-items:center;justify-content:space-between;
   font-size:12px;color:var(--faint);margin-top:2px}
 .pbar{height:6px;border-radius:99px;background:var(--bg3);overflow:hidden;flex:1;margin-right:12px}
@@ -135,8 +133,9 @@ a{color:var(--blue)}
 .ccard .nxdo{font-size:12.5px;color:var(--muted);line-height:1.5;font-style:italic}
 #heroSub a{color:var(--accent);text-decoration:none;font-weight:600}
 
-/* ---------- About / manifesto ---------- */
-#aboutView,#privacyView{overflow-y:auto;-webkit-overflow-scrolling:touch;
+/* ---------- About / manifesto (and every scrolling document view) ---------- */
+#aboutView,#privacyView,#atlasView,#journalView,#guildView,#healthView,#categoryView{
+  overflow-y:auto;-webkit-overflow-scrolling:touch;
   padding:calc(90px + var(--sat)) 20px calc(60px + var(--sab))}
 .manifesto{max-width:620px;margin:0 auto}
 .manifesto h1{font-size:clamp(23px,4.5vw,30px);line-height:1.25;letter-spacing:-.4px;margin-bottom:22px}
@@ -226,14 +225,166 @@ a{color:var(--blue)}
 #forkBanner button{background:var(--bg3);border:1px solid var(--line);border-radius:8px;
   padding:4px 10px;font-size:11.5px;color:var(--muted)}
 #forkBanner button:hover{border-color:var(--accent);color:var(--accent)}
-/* deliberately quiet — suggesting improvements to the shared map is the
-   preferred path; personalizing is the escape hatch */
-#personalizeBtn{display:none;position:fixed;z-index:30;left:50%;transform:translateX(-50%);
-  bottom:calc(16px + var(--sab));padding:8px 14px;border-radius:99px;
-  background:rgba(22,26,35,.85);border:1px dashed var(--line);
-  color:var(--faint);font-size:12px}
-#personalizeBtn.show{display:block}
-#personalizeBtn:hover{border-color:var(--accent);color:var(--accent)}
+/* ---------- Category page (the version picker) ---------- */
+#categoryInner{max-width:640px;margin:0 auto;padding:26px 18px 60px}
+#catHead h2{font-size:22px;font-weight:800;margin:0}
+#catHead .catByline{color:var(--faint);font-size:12.5px;margin-top:3px}
+#catHead .catByline a{color:var(--muted)}
+#catHead .catLead{color:var(--muted);font-size:13.5px;line-height:1.6;margin-top:12px}
+#catHead .catLead .catEndpoint{font-style:italic;color:var(--text);margin-top:6px}
+#catHead .catLead .catEndpoint b{color:var(--accent);font-style:normal}
+#catHead .catDisclaimer{margin-top:12px;padding:8px 12px;border-radius:10px;
+  border:1px solid rgba(255,215,94,.45);background:rgba(255,215,94,.07);
+  color:var(--muted);font-size:12px;line-height:1.55}
+#catControls{margin-top:18px;display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+#catSearch{flex:1;min-width:200px;background:var(--bg2);border:1px solid var(--line);
+  border-radius:9px;padding:7px 12px;font-size:12.5px;color:var(--text)}
+#catSearch:focus{outline:none;border-color:var(--accent)}
+#catSorts{display:flex;gap:6px}
+.catSort{background:var(--bg2);border:1px solid var(--line);border-radius:99px;
+  padding:4px 11px;font-size:11px;color:var(--muted);white-space:nowrap}
+.catSort.on{border-color:var(--accent);color:var(--accent)}
+#mhAboutLead{margin-top:12px;max-width:640px}
+#mhAboutLead p{color:var(--text);font-size:13.5px;line-height:1.75;margin-bottom:10px}
+.wikiEdit{font-size:11px;color:var(--faint)}
+.wikiEdit a{color:var(--muted);text-decoration:none}
+.wikiEdit a:hover{color:var(--accent)}
+/* the exploration area is its own section, cleanly below the article head */
+#catControls{border-top:1px solid var(--line);padding-top:16px}
+#catBranches{margin-top:14px}
+#catControls[style*="none"]+#catBranches{border-top:1px solid var(--line);padding-top:16px}
+#catBranches .forkRow.official{border-color:rgba(255,215,94,.45)}
+#catBranches .catCount{color:var(--faint);font-size:11px;margin:12px 0 6px;
+  letter-spacing:.05em;text-transform:uppercase}
+
+/* ---------- Map header (compact identity above the canvas) ---------- */
+#mapHeader{max-width:720px;margin:0 auto;padding:16px 18px 2px;display:none}
+#mapHeader.show{display:block}
+#mapHeader .mhTop{display:flex;align-items:baseline;gap:8px;flex-wrap:wrap}
+#mapHeader h1{font-size:17px;font-weight:800;margin:0}
+#mapHeader .mhBadge{font-size:10px;font-weight:700;letter-spacing:.04em;
+  padding:1px 7px;border-radius:99px;border:1px solid var(--line);color:var(--muted)}
+#mapHeader .mhBadge.gated{border-color:rgba(255,215,94,.5);color:var(--accent)}
+#mapHeader .mhBadge.state{border-style:dashed}
+#mapHeader .mhByline{color:var(--faint);font-size:12px;margin-top:2px}
+#mapHeader .mhByline a{color:var(--muted)}
+#mapHeader .mhDisclaimer{margin-top:10px;padding:8px 12px;border-radius:10px;
+  border:1px solid rgba(255,215,94,.45);background:rgba(255,215,94,.07);
+  color:var(--muted);font-size:12px;line-height:1.55}
+#mapHeader .mhBanner{margin-top:10px;padding:9px 12px;border-radius:10px;
+  border:1px dashed var(--line);color:var(--muted);font-size:12.5px;line-height:1.55}
+#mapHeader .mhActions{margin-top:8px;display:flex;gap:6px;flex-wrap:wrap}
+#mapHeader .mhActions button{background:none;border:1px solid var(--line);
+  border-radius:8px;padding:3px 9px;font-size:11px;color:var(--faint)}
+#mapHeader .mhActions button:hover{border-color:var(--accent);color:var(--accent)}
+.forkRow{display:flex;align-items:center;gap:10px;width:100%;text-align:left;
+  background:var(--bg2);border:1px solid var(--line);border-radius:10px;
+  padding:8px 12px;margin-bottom:6px}
+.forkRow:hover{border-color:rgba(255,215,94,.5)}
+.forkRow .fEmoji{flex:none}
+.forkRow .fTxt{flex:1;min-width:0}
+.forkRow .fTxt b{display:block;font-size:13px}
+.forkRow .fTxt small{display:block;color:var(--faint);font-size:11px;margin-top:1px}
+.forkRow.forkStart{border-style:dashed;background:none}
+.forkRow.forkStart .fTxt b{color:var(--muted)}
+.forkRow.forkStart:hover .fTxt b{color:var(--accent)}
+
+/* ---------- Atlas ---------- */
+#atlasInner{max-width:760px;margin:0 auto;padding:26px 18px 60px}
+#atlasInner h2{font-size:22px;margin:0 0 14px}
+#atlasSortRow{display:flex;align-items:center;gap:8px;margin-bottom:14px;flex-wrap:wrap}
+.atlasCaption{color:var(--faint);font-size:11.5px;line-height:1.6}
+.atlasSort,.atlasFilter{background:var(--bg2);border:1px solid var(--line);border-radius:99px;
+  padding:4px 12px;font-size:11.5px;color:var(--muted)}
+.atlasSort.on,.atlasFilter.on{border-color:var(--accent);color:var(--accent)}
+#atlasSearch{width:100%;background:var(--bg2);border:1px solid var(--line);border-radius:11px;
+  padding:10px 14px;color:var(--text);font:inherit;font-size:13.5px;outline:none;margin-bottom:10px}
+#atlasSearch:focus{border-color:var(--blue)}
+#atlasFilters{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:14px}
+.atlasRow{display:flex;align-items:center;gap:12px;width:100%;text-align:left;
+  background:var(--bg2);border:1px solid var(--line);border-radius:12px;
+  padding:12px 14px;margin-bottom:8px}
+.atlasRow:hover{border-color:var(--accent)}
+.atlasRow .aremo{font-size:20px;width:30px;text-align:center;flex:none}
+.atlasRow .artxt{flex:1;min-width:0}
+.atlasRow .artxt b{display:block;font-size:14px}
+.atlasRow .artxt small{display:block;color:var(--faint);font-size:11px;margin-top:2px;
+  overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.atlasRow .archips{display:flex;gap:6px;flex-wrap:wrap;justify-content:flex-end}
+.atlasRow .archips span{font-size:10px;padding:2px 7px;border-radius:99px;
+  border:1px solid var(--line);color:var(--faint);white-space:nowrap}
+.atlasRow .archips .fresh{color:var(--green);border-color:rgba(74,222,128,.4)}
+
+/* ---------- Link metadata (drawer) ---------- */
+.linklist .lmeta{color:var(--faint);font-size:10.5px;margin-left:6px}
+.linklist .lstale{color:var(--accent);margin-left:5px;cursor:help}
+#dReflect .step .box{border-style:dashed}
+.linkRow{display:flex;align-items:stretch;gap:6px;position:relative}
+.linkRow a{flex:1;min-width:0}
+.linkFlag{background:none;border:none;color:var(--faint);font-size:12px;padding:0 4px;
+  opacity:.35}
+.linkRow:hover .linkFlag{opacity:1}
+.linkFlag:hover{color:var(--accent)}
+.flagPop{position:absolute;right:0;top:100%;z-index:5;display:flex;gap:4px;
+  background:var(--bg2);border:1px solid var(--line);border-radius:9px;padding:5px}
+.flagPop button{background:var(--bg3);border:1px solid var(--line);border-radius:7px;
+  padding:3px 8px;font-size:11px;color:var(--muted);white-space:nowrap}
+.flagPop button:hover{border-color:var(--accent);color:var(--accent)}
+
+/* ---------- Review-queue hygiene: age + discussion ---------- */
+.ageChip{font-size:10px;padding:2px 7px;border-radius:99px;border:1px solid var(--line);
+  color:var(--faint);white-space:nowrap}
+.ageChip.amber{border-color:rgba(255,215,94,.5);color:var(--accent)}
+.ageChip.red{border-color:rgba(248,113,113,.55);color:#f87171}
+.cmtWrap{margin-top:10px;border-top:1px dashed var(--line);padding-top:8px}
+.cmtToggle{background:none;border:none;color:var(--faint);font-size:11.5px;padding:0}
+.cmtToggle:hover{color:var(--accent)}
+.cmtBody{margin-top:8px}
+.cmtRow{position:relative;padding:7px 26px 7px 10px;border:1px solid var(--line);
+  border-radius:9px;margin-bottom:6px;font-size:12px}
+.cmtRow b{font-size:11.5px}
+.cmtRow .cmtWhen{color:var(--faint);font-size:10.5px;margin-left:6px}
+.cmtRow .cmtText{margin-top:3px;color:var(--muted);line-height:1.5;white-space:pre-wrap}
+.cmtRow .rmX{position:absolute;top:6px;right:6px}
+
+/* ---------- Vital signs ---------- */
+#healthInner{max-width:640px;margin:0 auto;padding:26px 18px 60px}
+#healthInner h2{font-size:22px;margin:0 0 6px}
+.hStatRow{display:flex;gap:10px;flex-wrap:wrap;margin:16px 0}
+.hStat{flex:1;min-width:120px;border:1px solid var(--line);border-radius:11px;
+  padding:12px;background:var(--bg2);text-align:center}
+.hStat b{display:block;font-size:22px;color:var(--accent)}
+.hStat span{font-size:11px;color:var(--faint)}
+.hBarRow{display:flex;align-items:center;gap:10px;margin-bottom:6px;font-size:12px}
+.hBarRow .hLabel{flex:0 0 190px;color:var(--muted);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.hBarRow .pbar{flex:1}
+.hBarRow .hVal{flex:0 0 70px;text-align:right;color:var(--faint);font-size:11px}
+
+/* ---------- Guild ---------- */
+#guildInner{max-width:680px;margin:0 auto;padding:26px 18px 60px}
+#guildHead h2{font-size:22px;margin:0 0 6px}
+#guildHead .sub{margin-bottom:0}
+.guildGuides{font-size:12px;color:var(--faint);margin-top:8px}
+.endorseCard{border:1px solid rgba(255,215,94,.35);border-radius:11px;padding:10px 12px;
+  margin:8px 0;font-size:12.5px;background:rgba(255,215,94,.05)}
+.endorseCard .eMeta{color:var(--faint);font-size:11px;margin-top:4px}
+
+/* ---------- Journal ---------- */
+#journalInner{max-width:640px;margin:0 auto;padding:26px 18px 60px}
+#journalInner h2{font-size:22px;margin:0 0 6px}
+#jComposer{margin:16px 0;padding:14px;border:1px solid var(--line);border-radius:12px;
+  background:var(--bg2)}
+#jComposer .edArea{min-height:88px}
+#jControls{display:flex;gap:12px;align-items:center;margin:14px 0;flex-wrap:wrap}
+.jToggle{display:flex;gap:6px;align-items:center;font-size:12px;color:var(--faint)}
+#jStreakChip{font-size:12px;color:var(--accent)}
+.jDay{color:var(--faint);font-size:11px;letter-spacing:.06em;text-transform:uppercase;
+  margin:18px 0 8px}
+.jEntry{position:relative;border:1px solid var(--line);border-radius:11px;
+  padding:10px 30px 10px 12px;margin-bottom:8px;background:var(--bg2)}
+.jEntry .jMeta{font-size:11px;color:var(--faint);margin-bottom:4px}
+.jEntry .jBody{font-size:13px;line-height:1.6;white-space:pre-wrap}
+.jEntry .rmX{position:absolute;top:8px;right:8px}
 
 /* ---------- Loading overlay ---------- */
 #loading{position:fixed;inset:0;z-index:45;display:none;align-items:center;justify-content:center;
@@ -302,6 +453,12 @@ a{color:var(--blue)}
 .step.done .box{background:var(--green);border-color:var(--green);color:#052e12}
 .step .stext{font-size:13.5px;line-height:1.5;color:#c9d2e2}
 .step.done .stext{color:var(--faint);text-decoration:line-through}
+/* signed-out: same rows, minus the checkbox affordance */
+.step.ro{cursor:default;pointer-events:none}
+.step.ro .box{display:none}
+#dSignInSec a{display:block;font-size:12.5px;color:var(--faint);text-decoration:none;
+  background:var(--bg3);border:1px dashed var(--line);border-radius:10px;padding:10px 12px;line-height:1.5}
+#dSignInSec a:hover{border-color:var(--accent);color:var(--accent)}
 #notes{width:100%;min-height:120px;resize:vertical;background:var(--bg3);border:1px solid var(--line);
   border-radius:11px;padding:12px;color:var(--text);font:inherit;font-size:13.5px;line-height:1.55;outline:none}
 #notes:focus{border-color:var(--blue)}
@@ -462,9 +619,9 @@ select.edInput{appearance:none;-webkit-appearance:none}
 #userChip.hasNews::after{content:"";position:absolute;top:-3px;right:-3px;
   width:10px;height:10px;border-radius:50%;background:var(--accent);
   border:2px solid var(--bg)}
-.tipFlag{margin-left:8px;font-size:10px;color:var(--faint);padding:1px 6px;
+.tipFlag,.tipRm{margin-left:8px;font-size:10px;color:var(--faint);padding:1px 6px;
   border-radius:6px;border:1px solid transparent}
-.tipFlag:hover{color:#f87171;border-color:var(--line)}
+.tipFlag:hover,.tipRm:hover{color:#f87171;border-color:var(--line)}
 .acctCard{background:var(--bg2);border:1px solid var(--line);border-radius:var(--radius);
   padding:18px;margin-bottom:14px}
 .acctRow{display:flex;align-items:center;gap:12px}
@@ -520,7 +677,7 @@ select.edInput{appearance:none;-webkit-appearance:none}
 <!-- ================= TOP BAR ================= -->
 <header id="topbar">
   <button id="backBtn" aria-label="Back to roadmaps">←</button>
-  <div id="brand">
+  <div id="brand" role="link" aria-label="Home" title="Home">
     <div id="brandMark">🗺️</div>
     <div style="min-width:0">
       <div id="brandText">Waihona</div>
@@ -545,7 +702,8 @@ select.edInput{appearance:none;-webkit-appearance:none}
     <h1 id="heroTitle">Pick a path. <em>Learn by doing.</em></h1>
     <p id="heroSub">Step-by-step maps for learning real things — free, for everyone, forever.
       <a href="#" id="aboutLink">Why this exists →</a> ·
-      <a href="#/collections">Browse collections →</a></p>
+      <a href="#/collections">Browse collections →</a> ·
+      <a href="#/atlas">Explore the atlas →</a></p>
     <div id="searchWrap">
       <input id="searchBox" type="search" placeholder="Search every map — try “knife”, “Polaris”, “budget”…"
         autocomplete="off" spellcheck="false" aria-label="Search all roadmaps">
@@ -648,20 +806,21 @@ select.edInput{appearance:none;-webkit-appearance:none}
   supported by all the resources the internet has to offer, peer-reviewed by people who
   have walked the path themselves.<br>
   Want to help? Open any node and suggest an improvement, or propose a new map from the home
-  screen. Every map has a named maintainer with final say.</div>
+  screen. Every map has a named maintainer with final say.<br>
+  <a href="#/health">🩺 Vital signs</a> — the numbers we hold ourselves to, in the open.
+  · <a href="#/privacy">Privacy</a> — what exists about you, and how to erase it.</div>
 </div></section>
 
 <!-- ================= REVIEW QUEUE ================= -->
 <section id="reviewView" class="view"><div id="reviewInner">
   <h2>🛡️ Review queue</h2>
-  <div class="sub">Community suggestions awaiting your decision. <b>Publish as tip</b> makes it
-  publicly visible under its node (clearly marked as community wisdom — curated content is untouched).
-  <b>Accept for curation</b> adds it to your export list to fold into the topic files by hand.</div>
+  <div class="sub" id="reviewSub"></div>
   <div id="reviewTabs" class="chips">
     <button data-v="proposals" class="on">Proposed edits</button>
     <button data-v="pending">Suggestions</button>
     <button data-v="accepted">Accepted for curation</button>
     <button data-v="reports" style="display:none">⚑ Reports</button>
+    <button data-v="flags" style="display:none">🔗 Flags</button>
   </div>
   <div id="reviewList"></div>
 </div></section>
@@ -676,8 +835,10 @@ select.edInput{appearance:none;-webkit-appearance:none}
   complete list of what exists about you and where.</p>
 
   <h2>If you never sign in</h2>
-  <p>Everything — progress, notes, personal versions, shelves — lives in your
-  browser's local storage. We hold nothing, and nothing leaves your device.</p>
+  <p>Reading the maps is anonymous and free — we hold nothing about you,
+  and there is nothing to track. Nothing is stored on your device either.
+  Progress, notes, personal versions, and shelves exist only once you sign
+  in, in your own server record.</p>
 
   <h2>If you sign in</h2>
   <p><b>Your identity:</b> the display name, email, and user id your sign-in
@@ -719,9 +880,95 @@ select.edInput{appearance:none;-webkit-appearance:none}
   <div id="collList"></div>
 </div></section>
 
+<!-- ================= ATLAS =================
+  Discovery is a place you GO, never a stream that comes to you. Sorting is by
+  transparent fixed criteria, printed on the page — never engagement. -->
+<section id="atlasView" class="view"><div id="atlasInner">
+  <h2>🗺 The Atlas</h2>
+  <input id="atlasSearch" type="search" placeholder="Search every map — title, promise, maintainer…"
+    autocomplete="off" spellcheck="false" aria-label="Search the atlas">
+  <div id="atlasSortRow">
+    <span class="atlasCaption">Sorted by</span>
+    <button class="atlasSort on" data-sort="order">curated order</button>
+    <button class="atlasSort" data-sort="verified">recently verified</button>
+  </div>
+  <div id="atlasFilters"></div>
+  <div id="atlasList"></div>
+  <div class="atlasCaption" style="margin-top:14px">
+    Every map, listed by fixed criteria a human can explain — no engagement
+    ranking, no trending, no feed. Draft maps stay out of sight; archived maps
+    remain readable forever.
+  </div>
+</div></section>
+
+<!-- ================= VITAL SIGNS =================
+  Part IX: published numbers chosen to resist gaming — completion and care,
+  never engagement. Everything on this page derives from repo data and the
+  public commit record; walker behavior is counted nowhere. -->
+<section id="healthView" class="view"><div id="healthInner">
+  <h2>🩺 Vital signs</h2>
+  <div class="sub" id="healthBoundary"></div>
+  <div id="healthBody"></div>
+</div></section>
+
+<!-- ================= GUILD =================
+  The community around a subject area: its maps, its endorsements, its talk.
+  Guilds advise; they never overrule a maintainer. -->
+<section id="guildView" class="view"><div id="guildInner">
+  <div id="guildHead"></div>
+  <h3 class="secTitle" style="margin-top:20px">Maps in this guild</h3>
+  <div id="guildMaps"></div>
+  <h3 class="secTitle" style="margin-top:20px">🏅 Endorsements</h3>
+  <div class="sub">The guild's recommended default per subject per audience — a signed, dated
+    human judgment on published criteria, reviewed and revocable. Never a ranking algorithm.</div>
+  <div id="guildEndorsements"></div>
+  <h3 class="secTitle" style="margin-top:20px">💬 Guild talk</h3>
+  <div id="guildTalk"></div>
+</div></section>
+
+<!-- ================= JOURNAL =================
+  The walker's private record: dated entries.
+  Private by default, shareable by explicit copy — never a public doc. -->
+<section id="journalView" class="view"><div id="journalInner">
+  <h2>📓 Journal</h2>
+  <div class="sub" id="jIntro">Yours alone — entries live in your private
+    account record, readable by no one else. Nothing here is ever public.</div>
+  <div id="jComposer">
+    <textarea id="jText" class="edArea" placeholder="What happened when you actually did it?"></textarea>
+    <div class="edRow" style="align-items:center">
+      <select id="jMap" class="edInput" style="max-width:220px"></select>
+      <button id="jSave" class="edAdd" style="margin:0">Save entry</button>
+    </div>
+  </div>
+  <div id="jControls">
+    <label class="jToggle"><input type="checkbox" id="jStreaks"> Show my streak</label>
+    <span id="jStreakChip" style="display:none"></span>
+    <button id="jCopyAll" class="edAdd" style="margin:0;padding:4px 10px">📋 Copy as text</button>
+  </div>
+  <div id="jList"></div>
+</div></section>
+
+<!-- ================= CATEGORY (version picker) =================
+  Clicking a category lands here: the official branch first, every community
+  branch below, publicly listed. Pick one, then walk. Info is plain text,
+  Wikipedia-style — no version numbers on walker surfaces. -->
+<section id="categoryView" class="view"><div id="categoryInner">
+  <div id="catHead"></div>
+  <div id="catControls" style="display:none">
+    <input id="catSearch" type="search" placeholder="Search branches — title or maintainer…"
+      autocomplete="off" spellcheck="false" aria-label="Search branches">
+    <div id="catSorts">
+      <button class="catSort on" data-sort="tended">recently tended</button>
+      <button class="catSort" data-sort="changed">most changed</button>
+      <button class="catSort" data-sort="newest">newest</button>
+    </div>
+  </div>
+  <div id="catBranches"></div>
+</div></section>
+
 <!-- ================= ROADMAP ================= -->
 <section id="mapView" class="view">
-  <div id="scroller"><div id="canvasOuter"><div id="canvas">
+  <div id="scroller"><div id="mapHeader"></div><div id="canvasOuter"><div id="canvas">
     <svg id="edgeSvg"></svg><div id="nodeLayer"></div>
   </div></div></div>
   <div id="legend">
@@ -739,8 +986,56 @@ select.edInput{appearance:none;-webkit-appearance:none}
   <div id="forkBanner"></div>
   <button id="addTopicBtn">＋ Add core topic</button>
   <button id="reorgBtn">⇅ Reorganize</button>
-  <button id="personalizeBtn" title="Make your own editable version of this map">✨ Personalize</button>
 </section>
+
+<!-- ================= WHAT'S NEW MODAL =================
+  A walker mid-path is never yanked forward silently: when the map has moved
+  since their last visit, the changelog shows exactly what changed. Forks
+  remain the "stay" mechanism; this is the honest notification. -->
+<div id="whatsNewModal" class="modalWrap">
+  <div class="modalCard" style="max-width:520px">
+    <h3 id="wnTitle">✦ What changed</h3>
+    <div class="mctx" id="wnContext"></div>
+    <div id="wnList" style="max-height:55vh;overflow-y:auto"></div>
+    <div class="modalBtns"><button id="wnClose" class="primary">Got it</button></div>
+  </div>
+</div>
+
+<!-- ================= ABOUT EDITOR =================
+  The official map header's lead prose (renderMapAbout), editable like any
+  content: maintainers publish directly, everyone else proposes — same
+  pipeline, same review queue, same attribution. -->
+<div id="aboutModal" class="modalWrap">
+  <div class="modalCard" style="max-width:560px">
+    <h3 id="abTitle">Edit the about section</h3>
+    <textarea id="abText" class="edArea" style="min-height:160px" maxlength="4000"
+      placeholder="What is this subject, and what does walking this category teach? Plain prose — blank line between paragraphs."></textarea>
+    <div id="abNoteWrap" style="display:none">
+      <label class="edLabel">✉️ Note to the maintainer</label>
+      <input id="abNote" class="edInput" maxlength="200"
+        placeholder="Why this change?">
+    </div>
+    <div id="abMode" style="margin-top:8px;font-size:11.5px;color:var(--faint);line-height:1.5"></div>
+    <div class="modalBtns">
+      <button id="abCancel">Cancel</button>
+      <button id="abSave" class="primary">Save</button>
+    </div>
+  </div>
+</div>
+
+<!-- ================= DISCUSSION MODAL =================
+  The map's open floor: every pending proposal is public, and structural ones
+  hold a 7-day comment period here before they can merge. -->
+<div id="discussModal" class="modalWrap">
+  <div class="modalCard" style="max-width:560px">
+    <h3>💬 Open proposals on this map</h3>
+    <div class="mctx">Every proposed change is public. Structural changes wait out a
+      7-day open comment period before the maintainer can merge them — this is where
+      you weigh in.</div>
+    <div id="discussList" style="max-height:55vh;overflow-y:auto"></div>
+    <div class="modalBtns"><button id="discussClose">Close</button></div>
+  </div>
+</div>
 
 <!-- ================= REORGANIZE MODAL ================= -->
 <div id="reorgModal" class="modalWrap">
@@ -798,13 +1093,19 @@ select.edInput{appearance:none;-webkit-appearance:none}
       <div class="summary" id="dSummary"></div>
       <div class="linklist" id="dLinks"></div>
     </div>
-    <div class="sec"><h4>🛠️ Do / Reflect</h4>
+    <div class="sec"><h4>🛠️ Do</h4>
       <div class="steps" id="dSteps"></div>
     </div>
-    <div class="sec"><h4>📝 Personal Workspace</h4>
+    <div class="sec" id="dReflectSec" style="display:none"><h4>🪞 Reflect</h4>
+      <div class="steps" id="dReflect"></div>
+    </div>
+    <div class="sec" id="dWorkSec"><h4>📝 Personal Workspace</h4>
       <textarea id="notes" placeholder="Your observations, questions, and wins live here…"></textarea>
       <div id="saveHint"></div>
       <div id="syncNote"></div>
+    </div>
+    <div class="sec" id="dSignInSec" style="display:none">
+      <a href="#" id="drawerSignIn">🔑 Sign in to track your progress and keep notes — free, syncs across devices</a>
     </div>
     <div class="sec"><h4>💬 Community</h4>
       <div id="dTips"></div>
@@ -830,14 +1131,29 @@ select.edInput{appearance:none;-webkit-appearance:none}
     <label class="edLabel">🔗 Links</label>
     <div id="edLinks"></div>
     <button class="edAdd" id="edAddLink">＋ Add link</button>
-    <label class="edLabel">🛠️ Do / Reflect actions</label>
+    <label class="edLabel">🛠️ Do actions</label>
     <div id="edDo"></div>
     <button class="edAdd" id="edAddDo">＋ Add action</button>
+    <label class="edLabel">🪞 Reflection prompts (optional)</label>
+    <div id="edReflect"></div>
+    <button class="edAdd" id="edAddReflect">＋ Add prompt</button>
     <div id="edChildTools"></div>
     <div id="edNoteWrap" style="display:none">
       <label class="edLabel">✉️ Note to the maintainer</label>
       <input id="edNote" class="edInput" maxlength="200"
         placeholder="Why this change? e.g. 'link was dead, this is the standard replacement'">
+      <label style="display:flex;gap:7px;align-items:flex-start;margin-top:8px;font-size:11.5px;color:var(--faint);line-height:1.5">
+        <input type="checkbox" id="edSubstantive" style="margin-top:2px">
+        <span>Mark as <b>substantive</b> — small link/typo fixes classify as trivial
+        (mergeable by stewards); check this if the change deserves the maintainer's eye.</span>
+      </label>
+      <label style="display:flex;gap:7px;align-items:flex-start;margin-top:8px;font-size:11.5px;color:var(--faint);line-height:1.5">
+        <input type="checkbox" id="edAffiliated" style="margin-top:2px">
+        <span>I have an <b>affiliation</b> with a resource in this change
+        (author, employee, affiliate, sponsor…).</span>
+      </label>
+      <input id="edAffiliation" class="edInput" maxlength="300" style="display:none;margin-top:6px"
+        placeholder="Describe the affiliation — disclosure keeps the commons honest">
     </div>
     <div id="editorErrs"></div>
     <div class="modalBtns">
@@ -865,6 +1181,11 @@ select.edInput{appearance:none;-webkit-appearance:none}
       I've personally tried, used, or verified this — not just found it online.</label>
     <label class="checkRow" id="sgFreeRow"><input type="checkbox" id="sgFree">
       It's freely accessible to everyone — no paywall, sign-up wall, or region lock.</label>
+    <label class="checkRow" id="sgAffRow"><input type="checkbox" id="sgAffiliated">
+      I have an affiliation with this resource (author, employee, affiliate, sponsor…).</label>
+    <input id="sgAffiliation" type="text" maxlength="300" style="display:none"
+      placeholder="Describe the affiliation — disclosure keeps the commons honest">
+
     <div class="mctx" style="margin:10px 0 0">By submitting, you license your contribution
       under <a href="https://creativecommons.org/licenses/by-sa/4.0/" target="_blank"
       rel="noopener">CC BY-SA 4.0</a> — the maps stay a commons.</div>
@@ -902,7 +1223,7 @@ select.edInput{appearance:none;-webkit-appearance:none}
 <script>
 /* ═══════════════════════════════════════════════════════════════════════════
    CONFIGURATION — the whole backend is two hosted services, zero servers.
-   Values live in config.js (edit it directly or run tools/configure.py).
+   Values live in config.js (edit it by hand — two fields, see DEPLOY.md).
    Firebase Auth handles accounts (Google/Apple), Firestore holds all dynamic
    data behind firestore.rules, and a GitHub Action lands merged content into
    the repo. See DEPLOY.md. Missing config.js ⇒ local/demo mode.
@@ -1008,6 +1329,8 @@ function applyMergedDocs(topics, nodes, docs){
       if(i>=0) nodes[i]=m.topic;
       const j=topics.indexOf(m.file2); if(j>=0) nodes[j]=m.topic2;
     }
+    // kind "about" targets meta.json, not topics — the category page applies
+    // it via aboutOf(); here it deliberately no-ops
   });
   return {topics, nodes};
 }
@@ -1017,7 +1340,9 @@ let INDEX=[];               // entries from roadmaps/index.json
 const rmCache=new Map();    // id -> fully assembled roadmap
 async function loadIndex(){
   if(EMBEDDED_DATA){ INDEX=EMBEDDED_DATA.index.roadmaps; return; }
-  const r=await fetch("roadmaps/index.json");
+  // no-cache: revalidate on every boot — a stale index means stale identity
+  // prose and stale lifecycle states everywhere downstream
+  const r=await fetch("roadmaps/index.json",{cache:"no-cache"});
   if(!r.ok) throw new Error("index.json "+r.status);
   const idx=await r.json();
   if(idx.schemaVersion && idx.schemaVersion!==1)
@@ -1060,7 +1385,7 @@ async function loadRoadmap(id){
   return rm;
 }
 /* ---- editorial roles: who tends which map (public meta/roles doc) ---- */
-let MAINTAINERS={}, ADMINS=[], SUPERADMINS=[];
+let MAINTAINERS={}, ADMINS=[], SUPERADMINS=[], STEWARDS={};
 async function loadMaintainers(){
   if(!FIREBASE_CONFIG) return;
   try{
@@ -1072,8 +1397,33 @@ async function loadMaintainers(){
       ADMINS=d.admins||[];
       SUPERADMINS=d.superadmins||[];
     }
+    // steward bindings: one public doc per map, {members:{uid:name}}
+    const st=await F.getDocs(F.collection(F.db,"stewards"));
+    const s={}; st.forEach(d=>{ s[d.id]=(d.data()||{}).members||{}; });
+    STEWARDS=s;
+    // lifecycle overlay: orphan flags + designated successors, public
+    const ms=await F.getDocs(F.collection(F.db,"mapstates"));
+    const m={}; ms.forEach(d=>{ m[d.id]=d.data()||{}; });
+    MAPSTATES=m;
+    // guilds + endorsements: the subject-area communities and their marks
+    const gs=await F.getDocs(F.collection(F.db,"guilds"));
+    const g={}; gs.forEach(d=>{ g[d.id]={id:d.id, ...d.data()}; });
+    GUILDS=g;
+    const es=await F.getDocs(F.collection(F.db,"endorsements"));
+    const el=[]; es.forEach(d=>{ el.push({id:d.id, ...d.data()}); });
+    ENDORSEMENTS=el;
   }catch(e){}
 }
+let MAPSTATES={};
+function orphaned(rmId){ return (MAPSTATES[rmId]||{}).state==="orphaned"; }
+let GUILDS={}, ENDORSEMENTS=[];
+function guildOfMap(rmId){
+  return Object.values(GUILDS).find(g=>(g.maps||[]).includes(rmId))||null;
+}
+function guideOf(gid){
+  return !!(user.provider && GUILDS[gid] && (GUILDS[gid].guides||{})[user.id]!==undefined);
+}
+function endorsementsOf(rmId){ return ENDORSEMENTS.filter(e=>e.roadmap===rmId); }
 function maintains(rmId){
   return !!(user.provider && MAINTAINERS[rmId] && MAINTAINERS[rmId].uid===user.id);
 }
@@ -1081,34 +1431,51 @@ function moderatorOfAny(){
   return isAdmin() || (!!user.provider &&
     Object.values(MAINTAINERS).some(m=>m&&m.uid===user.id));
 }
+/* Stewards: deputized per map, trivial-merge authority only (Part IV). */
+function stewardOf(rmId){
+  return !!(user.provider && STEWARDS[rmId] && STEWARDS[rmId][user.id]!==undefined);
+}
+function stewardOfAny(){
+  return !!user.provider && Object.keys(STEWARDS).some(stewardOf);
+}
+function stewardedMapIds(){ return Object.keys(STEWARDS).filter(stewardOf); }
 function maintainerNameOf(entry){
   return (MAINTAINERS[entry.id]&&MAINTAINERS[entry.id].name)||entry.maintainer||"";
 }
 
-/* ---------- persistence: local-first store with cloud sync ----------
-   Every node record carries updatedAt; sync is last-write-wins per node,
-   so two devices editing different nodes merge cleanly. Order of events:
-   change → save to localStorage immediately → debounced push to API.
-   On sign-in: pull remote, merge, push merged. On network failure: retry,
-   and flush when the tab/app goes to background.                        */
-let user = readJSON("hkr:user") || {id:"guest", name:"Guest", provider:null};
+/* ---------- persistence: the account's server record is the store ----------
+   Progress, notes, journal, and seen-records live in users/{uid} (owner-only
+   per firestore.rules) — the server is the system of record. The in-memory
+   store mirrors it for rendering; every node record carries updatedAt and
+   pushes merge last-write-wins per node, so two devices editing different
+   nodes never clobber each other. Order of events: change → in-memory →
+   debounced push. On network failure: retry, surface the state honestly
+   (sync dot), and flush when the tab/app goes to background. Nothing durable
+   is kept in browser storage — signed-out/demo/dev identities hold session
+   memory only, and their writes are gated with an honest toast.           */
+let user = sessJSON("hkr:user") || {id:"guest", name:"Guest", provider:null};
 /* Stored-data schema versioning: every store blob carries v; migrateStore is
    the single upgrade hook. v0 (pre-versioning) blobs are wrapped as v1. */
-const STORE_V=1;
+const STORE_V=2;
 function migrateStore(raw){
-  if(!raw || typeof raw!=="object") return {v:STORE_V, progress:{}};
+  if(!raw || typeof raw!=="object") return {v:STORE_V, progress:{}, journal:{}, settings:{}, seen:{}};
   if(!raw.v) raw={v:1, progress:raw.progress||{}};   // v0 → v1
-  // future: if(raw.v===1){ ...upgrade...; raw.v=2; }
+  if(raw.v===1){                                     // v1 → v2: journal + settings + seen-map-versions
+    raw.journal=raw.journal||{}; raw.settings=raw.settings||{}; raw.seen=raw.seen||{};
+    raw.v=2;
+  }
   return raw;
 }
-let store = migrateStore(readJSON(storeKey(user.id)));
+let store = migrateStore(null);   // in-memory; filled from the server on sign-in
 let syncState = "off";   // off | dirty | syncing | synced | error
-function storeKey(uid){ return "hkr:store:"+uid; }
-function readJSON(k){ try{ return JSON.parse(localStorage.getItem(k)); }catch(e){ return null; } }
+/* identity cache, session-scoped: keeps the chip from flashing signed-out
+   while the Firebase SDK (the real session owner) rehydrates. No user data. */
+function sessJSON(k){ try{ return JSON.parse(sessionStorage.getItem(k)); }catch(e){ return null; } }
+function cacheUser(){ try{ sessionStorage.setItem("hkr:user", JSON.stringify(user)); }catch(e){} }
 function canSync(){ return !!(FIREBASE_CONFIG && !FB_FAILED && user.provider && user.real); }
-function persistLocal(){ localStorage.setItem(storeKey(user.id), JSON.stringify(store)); }
+/* contract copy (JOURNEYS J10): the one honest line for unconnected writes */
+const NEEDS_APP="Progress and notes need the connected app";
 function persist(){
-  persistLocal();
   if(canSync()) scheduleSync();
 }
 let syncT=null;
@@ -1121,8 +1488,12 @@ async function pushRemote(){
   syncState="syncing"; paintSync();
   try{
     const F=await fb(); if(!F) throw new Error("sdk unavailable");
+    // journal entries live in their own subcollection (1 MiB blob cap) —
+    // never inside the users doc
+    const {journal, ...blob}=store;
     await F.setDoc(F.doc(F.db,"users",user.id),
-      {...store, updatedAt:F.serverTimestamp()});
+      {...blob, updatedAt:F.serverTimestamp()});
+    await pushJournal(F);
     syncState="synced";
   }catch(e){
     syncState="error";
@@ -1130,20 +1501,41 @@ async function pushRemote(){
   }
   paintSync();
 }
+/* Incremental journal push: only entries touched since the last push, one doc
+   per entry at users/{uid}/journal/{entryId}. Tombstones push too — deletion
+   must reach every device. Watermark is session-memory: a fresh session
+   re-pushes recent entries, and per-doc setDoc makes that idempotent. */
+let jPushWM=0;
+async function pushJournal(F){
+  const dirty=Object.entries(store.journal||{})
+    .filter(([,e])=>(e.updatedAt||0)>jPushWM);
+  let maxAt=jPushWM;
+  for(const [id,e] of dirty){
+    await F.setDoc(F.doc(F.db,"users",user.id,"journal",id), e);
+    maxAt=Math.max(maxAt, e.updatedAt||0);
+  }
+  jPushWM=maxAt;
+}
 async function pullAndMerge(){
   if(!canSync()) return;
   try{
     const F=await fb(); if(!F) return;
     const snap=await F.getDoc(F.doc(F.db,"users",user.id));
-    if(snap.exists()){
-      const remote=snap.data();
-      if(remote && remote.progress){ store=mergeStores(remote,store); persistLocal(); }
-    }
-  }catch(e){ /* offline is fine — stay local-first */ }
+    let remote=null;
+    if(snap.exists()) remote=snap.data();
+    // journal subcollection folds into the same LWW merge
+    try{
+      const js=await F.getDocs(F.collection(F.db,"users",user.id,"journal"));
+      const journal={}; js.forEach(d=>{ journal[d.id]=d.data(); });
+      remote={...(remote||{v:STORE_V, progress:{}}), journal};
+    }catch(e){}
+    if(remote && (remote.progress||remote.journal)){
+      store=mergeStores(remote,store); }
+  }catch(e){ /* offline pull: session renders empty; the dot says so */ }
 }
-function mergeStores(a,b){ // last-write-wins per node record
+function mergeStores(a,b){ // last-write-wins per node record / journal entry / seen record
   a=migrateStore(a); b=migrateStore(b);
-  const out={v:STORE_V, progress:{}};
+  const out={v:STORE_V, progress:{}, journal:{}, settings:{}, seen:{}};
   const rms=new Set([...Object.keys(a.progress||{}),...Object.keys(b.progress||{})]);
   rms.forEach(rm=>{
     out.progress[rm]={};
@@ -1154,6 +1546,18 @@ function mergeStores(a,b){ // last-write-wins per node record
         ((ra.updatedAt||0)>=(rb.updatedAt||0) ? ra : rb);
     });
   });
+  const lww=(key,stamp)=>{
+    const ja=a[key]||{}, jb=b[key]||{};
+    new Set([...Object.keys(ja),...Object.keys(jb)]).forEach(id=>{
+      const ea=ja[id], eb=jb[id];
+      out[key][id] = !ea ? eb : !eb ? ea :
+        ((ea[stamp]||0)>=(eb[stamp]||0) ? ea : eb);   // tombstones win by recency too
+    });
+  };
+  lww("journal","updatedAt");   // deleted:true entries are tombstones — kept, text cleared
+  lww("seen","at");
+  const sa=a.settings||{}, sb=b.settings||{};
+  out.settings = (sa.updatedAt||0)>=(sb.updatedAt||0) ? sa : sb;
   return out;
 }
 document.addEventListener("visibilitychange",()=>{     // flush pending edits
@@ -1162,8 +1566,14 @@ document.addEventListener("visibilitychange",()=>{     // flush pending edits
 function paintSync(){
   const d=$("syncDot");
   d.className = canSync() ? syncState : "off";
-  d.title = {off:"Local only", dirty:"Unsaved changes", syncing:"Syncing…",
-             synced:"Synced to cloud", error:"Sync error — will retry"}[canSync()?syncState:"off"];
+  d.title = {off:"Not saving — needs the connected app", dirty:"Saving…",
+             syncing:"Saving…", synced:"Saved to your account",
+             error:"Couldn't save — retrying"}[canSync()?syncState:"off"];
+  // the drawer's save hint mirrors the real server state, never a pretend-save
+  const hint=$("saveHint");
+  if(hint && $("drawer").classList.contains("open") && canSync() && syncState!=="off")
+    hint.textContent={dirty:"Saving…", syncing:"Saving…",
+                      synced:"Saved ✓", error:"Couldn't save — retrying"}[syncState]||"";
 }
 function prog(rmId,nodeId){
   const rm = store.progress[rmId] || (store.progress[rmId]={});
@@ -1178,7 +1588,8 @@ let currentFork=null;   // set while viewing a personal version (Personalize)
 
 /* one view active at a time — every navigation goes through here */
 function showView(id){
-  ["homeView","mapView","reviewView","aboutView","accountView","collectionsView","privacyView"]
+  ["homeView","mapView","reviewView","aboutView","accountView","collectionsView","privacyView",
+   "atlasView","journalView","guildView","healthView","categoryView"]
     .forEach(v=>$(v).classList.toggle("active",v===id));
 }
 
@@ -1203,6 +1614,11 @@ function renderHome(){
     // Library cards are deliberately spare — emoji + title, plus a quiet
     // progress bar once you've done something. Everything else (tagline,
     // curricula, maintainer) lives on the map itself.
+    // Lifecycle: drafts stay off the shelf; archived maps appear only for
+    // walkers with progress on them (their paths are never yanked away).
+    const state=entry.state||"published";
+    if(state==="draft") return;
+    if(state==="archived" && !walking(entry)) return;
     const recs=store.progress[entry.id]||{};
     const done=Object.values(recs).filter(p=>p.status===2).length;
     const total=entry.total;
@@ -1213,7 +1629,7 @@ function renderHome(){
       ${done?`<div class="meta">
         <div class="pbar" style="margin-right:0"><i style="width:${total?Math.round(done/total*100):0}%"></i></div>
       </div>`:""}`;
-    card.onclick=()=>openRoadmap(entry.id);
+    card.onclick=()=>openCategory(entry.id);
     grid.appendChild(card);
   });
   renderContinue(active);
@@ -1251,18 +1667,438 @@ async function openRoadmap(id){
   $("loading").classList.remove("show");
   currentFork=null;                          // standard map: fork chrome off
   $("forkBanner").classList.remove("show");
-  $("histBtn").style.display="";
-  $("personalizeBtn").classList.add("show");
+  // history opens the public commit log — meaningless until the repo is configured
+  $("histBtn").style.display=GITHUB_REPO?"":"none";
   showView("mapView");
   $("backBtn").classList.add("show");
   $("brandText").textContent=currentRm.emoji+" "+currentRm.title;
+  renderMapHeader();
   scale=Math.min(1,(window.innerWidth-24)/CANVAS_W);
   renderGraph();
-  $("addTopicBtn").classList.toggle("show", canEdit());
-  $("reorgBtn").classList.toggle("show", canEdit());
+  $("addTopicBtn").classList.toggle("show", ownsSurface());
+  $("reorgBtn").classList.toggle("show", ownsSurface());
   $("scroller").scrollTop=0;
+  reflectHash("/"+id+"/map");
+}
+/* The map's chrome, kept minimal: title · one byline · small buttons.
+   The category page (one level up) owns the identity prose and the version
+   list; the disclaimer and orphan banner follow the content itself. */
+function renderMapHeader(){
+  const h=$("mapHeader"), e=currentRm;
+  if(!e){ h.classList.remove("show"); return; }
+  const type=e.type||"skill", state=e.state||"published";
+  const badges=[];
+  if(type==="gated") badges.push(`<span class="mhBadge gated">⚕ scope-limited</span>`);
+  if(state!=="published") badges.push(`<span class="mhBadge state">${esc(state)}</span>`);
+  const who=maintainerNameOf(e);
+  const byline = currentFork
+    ? "✨ a personal version by "+esc(currentFork.owner&&currentFork.owner.name||"a walker")
+      +` of <a href="#/${esc(e.id)}">${esc(e.title)}</a>`
+    // "The Admins" is the pre-adoption placeholder (CLAUDE.md rule 7)
+    : (!who || who==="The Admins")
+      ? "held by the community &amp; admins — awaiting its named maintainer"
+      : "maintained by "+esc(who);
+  h.innerHTML=`
+    <div class="mhTop"><h1>${esc(currentFork?currentFork.title:e.title)}</h1>
+      ${badges.join("")}</div>
+    <div class="mhByline">${byline}</div>
+    <div class="mhActions" id="mhActions"></div>
+    <div id="mhAboutLead"></div>
+    ${e.disclaimer?`<div class="mhDisclaimer">⚠️ ${esc(e.disclaimer)}</div>`:""}
+    <div id="mhStateBanner"></div>`;
+  if(!currentFork) renderMapAbout(e.id, e);   // the trunk's lead prose, wiki-editable
+  // ⑂ all versions: the small, always-present way back to the category page
+  const br=document.createElement("button");
+  br.textContent="⑂ all versions";
+  br.title="Every public version of this category — the official branch and the community's";
+  br.onclick=()=>{ location.hash="#/"+(currentFork?currentFork.base:e.id); };
+  $("mhActions").appendChild(br);
+  h.classList.add("show");
+  renderMapHeaderExtras();
+}
+
+/* ---------- Category page: the version picker ----------
+   The official branch first, every community branch below, publicly listed —
+   pick one and explore. Identity is plain text (Wikipedia-style); the version
+   number lives quietly at the bottom. */
+async function openCategory(id){
+  const e=INDEX.find(r=>r.id===id);
+  if(!e){ goHome(); return; }
+  showView("categoryView");
+  $("backBtn").classList.add("show");
+  $("brandText").textContent=e.emoji+" "+e.title;
+  closeDrawer();
+  $("categoryView").scrollTop=0;
+  catId=id;
+  const who=maintainerNameOf(e);
+  $("catHead").innerHTML=`
+    <h2>${esc(e.title)}</h2>
+    <div class="catByline">${(!who||who==="The Admins")
+      ? "held by the community &amp; admins — awaiting its named maintainer"
+      : "maintained by "+esc(who)}</div>
+    <div class="catLead">
+      ${e.tagline?esc(e.tagline):""}
+      ${e.endpoint?`<div class="catEndpoint"><b>→</b> ${esc(e.endpoint)}</div>`:""}
+    </div>
+    ${e.disclaimer?`<div class="catDisclaimer">⚠️ ${esc(e.disclaimer)}</div>`:""}`;
+  catBranchesCache={id, branches:await forksOfMap(id)};
+  $("catSearch").value=""; catSort="tended";
+  $("catControls").style.display=catBranchesCache.branches.length>1?"flex":"none";
+  renderCatBranches();
   reflectHash("/"+id);
 }
+/* ---- the about section: the category's lead prose, wiki-editable ----
+   Source of truth is meta.json `about` (landed like any content); a merged
+   `about` op serves as the live overlay until the landing Action commits it.
+   [edit] publishes directly for the map's moderators and files a proposal
+   for everyone else — one pipeline, one review queue, full attribution. */
+async function aboutOf(id, fallback){
+  if(FIREBASE_CONFIG && !EMBEDDED_DATA){
+    try{
+      const F=await fb();
+      if(F){
+        const snap=await F.getDocs(F.query(
+          F.collection(F.db,"merged"), F.where("roadmap","==",id)));
+        let latest=null;
+        snap.forEach(d=>{
+          const m=d.data();
+          if(m.kind==="about" && (!latest || (m.at||0)>(latest.at||0))) latest=m;
+        });
+        if(latest) return latest.about;
+      }
+    }catch(e){}
+  }
+  return fallback;
+}
+async function renderMapAbout(id, e){
+  const box=$("mhAboutLead"); if(!box) return;
+  const text=await aboutOf(id, e.about||"");
+  if(!box.isConnected || !currentRm || currentRm.id!==id || currentFork) return;   // stale render
+  catAboutText=text;
+  const paras=text.split(/\n\s*\n/).map(p=>p.trim()).filter(Boolean)
+    .map(p=>`<p>${esc(p)}</p>`).join("");
+  // consumption-first: the edit affordance renders only for the map's owners
+  const owner = devMode || (!!user.provider && (isAdmin()||maintains(id)));
+  box.innerHTML = owner
+    ? (paras
+        ? paras+`<span class="wikiEdit">[ <a href="#" id="mapAboutEdit">edit</a> ]</span>`
+        : `<span class="wikiEdit">[ <a href="#" id="mapAboutEdit">write the about section</a> ]</span>`)
+    : paras;   // readers get the prose alone (or nothing when empty)
+  if(owner) $("mapAboutEdit").onclick=(ev)=>{ ev.preventDefault(); openAboutEditor(id); };
+}
+let catId=null, catAboutText="";
+function openAboutEditor(id){
+  if(!devMode && !user.provider){
+    $("authModal").classList.add("show"); toast("Sign in to edit"); return; }
+  if(!devMode && !canSync()){
+    toast("Editing needs the connected app or the dev server"); return; }
+  const mode = devMode ? "dev" : (isAdmin()||maintains(id)) ? "merge" : "propose";
+  $("abText").value=catAboutText;
+  $("abNote").value="";
+  $("abNoteWrap").style.display=mode==="propose"?"block":"none";
+  $("abSave").textContent={dev:"Save", merge:"Save & publish", propose:"Propose change"}[mode];
+  $("abMode").innerHTML={
+    dev:`💾 Saves directly to <b>roadmaps/${esc(id)}/meta.json</b> — dev server detected.`,
+    merge:`🛡️ You moderate this map — saving publishes immediately, attributed in the public record.`,
+    propose:`🌱 This goes to the maintainer for review — nothing changes until they merge it. Your name goes on the change, licensed CC BY-SA 4.0.`,
+  }[mode];
+  $("aboutModal").classList.add("show");
+  $("abSave").onclick=()=>saveAbout(id, mode);
+  $("abText").focus();
+}
+async function saveAbout(id, mode){
+  const text=$("abText").value.trim();
+  if(text.length<20){ toast("A real paragraph, please (20+ characters)"); return; }
+  $("abSave").disabled=true;
+  try{
+    if(mode==="dev"){
+      const r=await fetch("/dev/apply",{method:"POST",
+        headers:{"Content-Type":"application/json"},
+        body:JSON.stringify({rm:id, kind:"about", about:text})});
+      const data=await r.json();
+      if(!r.ok) throw new Error((data.errors||[data.error||r.status]).join("\n"));
+      try{ INDEX=(await (await fetch("roadmaps/index.json",{cache:"no-cache"})).json()).roadmaps; }catch(e){}
+      toast("💾 Saved to meta.json");
+    }else if(mode==="merge"){
+      const F=await fb(); if(!F) throw new Error("offline — try again");
+      await F.addDoc(F.collection(F.db,"merged"),
+        { roadmap:id, kind:"about", about:text,
+          by:{uid:user.id, name:user.name}, mergedBy:{uid:user.id, name:user.name},
+          note:"", at:Date.now() });
+      toast("🛡️ Published — live now; lands in the public record within the hour");
+    }else{
+      const F=await fb(); if(!F) throw new Error("offline — try again");
+      await F.addDoc(F.collection(F.db,"proposals"),
+        { roadmap:id, kind:"about", about:text, note:$("abNote").value.trim(),
+          by:{uid:user.id, name:user.name}, affiliated:false, affiliation:"",
+          createdAt:F.serverTimestamp(), status:"pending" });
+      toast("🌱 Proposed — the maintainer will review your text");
+    }
+    $("aboutModal").classList.remove("show");
+    const e=INDEX.find(r=>r.id===id);
+    if(e && mode!=="propose" && currentRm && currentRm.id===id && !currentFork)
+      renderMapAbout(id, e);
+  }catch(err){ toast("Couldn't save — "+String(err.message||err).slice(0,80)); }
+  $("abSave").disabled=false;
+}
+$("abCancel").onclick=()=>$("aboutModal").classList.remove("show");
+
+/* Discovery over branches: search by title or maintainer; sort by transparent
+   fixed criteria (recency of tending, size of divergence, age) — never
+   engagement. The official branch stays pinned on top, always. */
+let catBranchesCache=null, catSort="tended";
+function renderCatBranches(){
+  if(!catBranchesCache) return;
+  const {id, branches}=catBranchesCache;
+  const e=INDEX.find(r=>r.id===id); if(!e) return;
+  const who=maintainerNameOf(e);
+  const q=$("catSearch").value.trim().toLowerCase();
+  document.querySelectorAll(".catSort").forEach(b=>
+    b.classList.toggle("on", b.dataset.sort===catSort));
+  const box=$("catBranches");
+  box.innerHTML="";
+  const official=document.createElement("button"); official.className="forkRow official";
+  official.innerHTML=`<span class="fEmoji">${esc(e.emoji)}</span>
+    <span class="fTxt"><b>${esc(e.title)} — official</b>
+      <small>${(!who||who==="The Admins")?"held by the community &amp; admins":"maintained by "+esc(who)}${
+        orphaned(id)?" · 🍂 seeking maintainer":""}${
+        (e.state||"published")==="archived"?" · archived":""}</small></span>`;
+  official.onclick=()=>openRoadmap(id);
+  box.appendChild(official);
+  let list=branches.filter(f=>!q
+    || (f.title||"").toLowerCase().includes(q)
+    || (f.owner&&f.owner.name||"").toLowerCase().includes(q));
+  list=[...list].sort((a,b)=>
+    catSort==="changed" ? ((b.ops||[]).length-(a.ops||[]).length) || (b.updatedAt||0)-(a.updatedAt||0)
+    : catSort==="newest" ? (b.createdAt||0)-(a.createdAt||0)
+    : (b.updatedAt||0)-(a.updatedAt||0));
+  if(branches.length){
+    const count=document.createElement("div"); count.className="catCount";
+    count.textContent=q
+      ? `${list.length} of ${branches.length} community branch${branches.length!==1?"es":""}`
+      : `${branches.length} community branch${branches.length!==1?"es":""}`;
+    box.appendChild(count);
+  }
+  list.forEach(f=>{
+    const row=document.createElement("button"); row.className="forkRow";
+    const changes=(f.ops||[]).length;
+    row.innerHTML=`<span class="fEmoji">✨</span>
+      <span class="fTxt"><b>${esc(f.title)}</b>
+        <small>tended by ${esc(f.owner&&f.owner.name||"a walker")}
+          · ${changes} change${changes!==1?"s":""}
+          ${f.updatedAt?" · "+new Date(f.updatedAt).toLocaleDateString():""}
+          ${f.hidden?" · (hidden)":""}</small></span>`;
+    row.onclick=()=>{ location.hash="#/fork/"+f.id; };
+    box.appendChild(row);
+  });
+  if(q && !list.length){
+    const none=document.createElement("div"); none.className="sub";
+    none.textContent="No branch matches — the trunk above is always here.";
+    box.appendChild(none);
+  }
+  const mine=user.provider && branches.some(f=>f.owner&&f.owner.uid===user.id);
+  const start=document.createElement("button"); start.className="forkRow forkStart";
+  start.innerHTML=`<span class="fEmoji">＋</span>
+    <span class="fTxt"><b>${mine?"Open your branch":"Start your own branch"}</b></span>`;
+  start.onclick=async ()=>{
+    if(mine){ const f=branches.find(x=>x.owner&&x.owner.uid===user.id); location.hash="#/fork/"+f.id; return; }
+    currentRm=await loadRoadmap(id); currentFork=null;   // personalize() works off the current map
+    personalize();
+  };
+  box.appendChild(start);
+}
+let catSearchT=null;
+$("catSearch").addEventListener("input",()=>{
+  clearTimeout(catSearchT); catSearchT=setTimeout(renderCatBranches,120); });
+document.querySelectorAll(".catSort").forEach(b=>{
+  b.onclick=()=>{ catSort=b.dataset.sort; renderCatBranches(); };
+});
+/* Later stages hang their surfaces here (what's-new pill, report flag,
+   discussion, journal, guild, orphan banner) — one hook, many tenants. */
+function renderMapHeaderExtras(){
+  const slots={banner:$("mhStateBanner"), actions:$("mhActions")};
+  (MH_EXTRAS||[]).forEach(fn=>{ try{ fn(slots); }catch(e){} });
+}
+const MH_EXTRAS=[];
+
+/* ---- versioning: "changed since your last visit" (Part III, versioning) ----
+   Maps carry semver (bumped by land.mjs/dev.py per merge weight). The client
+   remembers the last version you saw per map; on mismatch, a quiet pill opens
+   the changelog. First visit records silently — no pill for newcomers. */
+function semverCompare(a,b){
+  const pa=String(a||"0.0.0").split(".").map(Number), pb=String(b||"0.0.0").split(".").map(Number);
+  for(let i=0;i<3;i++){ const d=(pa[i]||0)-(pb[i]||0); if(d) return d; }
+  return 0;
+}
+function markSeen(id, version){
+  store.seen={...(store.seen||{}), [id]:{version, at:Date.now()}};
+  persist();
+}
+MH_EXTRAS.push(slots=>{
+  if(currentFork || !currentRm.version) return;
+  const id=currentRm.id, seen=(store.seen||{})[id];
+  if(!seen){ markSeen(id, currentRm.version); return; }
+  if(semverCompare(currentRm.version, seen.version)<=0) return;
+  const pill=document.createElement("button");
+  pill.textContent="✦ changed since your last visit";
+  pill.style.borderColor="rgba(255,215,94,.5)"; pill.style.color="var(--accent)";
+  pill.title="The map changed while you were away — see what, in one tap";
+  pill.onclick=()=>openWhatsNew(id, seen.version);
+  slots.actions.appendChild(pill);
+});
+async function openWhatsNew(id, sinceVersion){
+  const e=INDEX.find(r=>r.id===id)||{};
+  $("wnTitle").textContent=`✦ ${e.title||id} — since your last visit`;
+  $("wnContext").textContent="Your progress is untouched — node ids are stable. This is what the maintainer merged while you were away.";
+  const list=$("wnList"); list.innerHTML="<div class='sub'>Loading…</div>";
+  $("whatsNewModal").classList.add("show");
+  let entries=[];
+  try{
+    const r=await fetch(`roadmaps/${id}/changelog.json`,{cache:"no-cache"});
+    if(r.ok) entries=((await r.json()).entries||[])
+      .filter(x=>semverCompare(x.version, sinceVersion)>0);
+  }catch(err){}
+  list.innerHTML="";
+  if(!entries.length){
+    list.innerHTML=`<div class='sub'>This map changed since your last visit, but the details weren't recorded.${GITHUB_REPO?" The map history (🕘) has the full story.":""}</div>`;
+  }
+  const KIND_LABEL={edit:"✏️ edited", add:"🌱 new topic", remove:"🗑 removed",
+    spine:"⇅ reordered", move:"↔ moved a subtopic"};
+  entries.forEach(x=>{
+    const d=document.createElement("div"); d.className="cmtRow";
+    d.innerHTML=`<b>${KIND_LABEL[x.kind]||esc(x.kind)}</b>
+        <span class="cmtWhen">${esc((x.at||"").slice(0,10))}</span>
+      <div class="cmtText">${esc(x.title||x.summary||"")}${x.by?` — ${esc(x.by)}`:""}</div>`;
+    if(x.file){
+      d.style.cursor="pointer";
+      d.title="Open this topic";
+      d.onclick=()=>{
+        $("whatsNewModal").classList.remove("show");
+        markSeen(id, currentRm.version);
+        const i=currentRm.topics.indexOf(x.file);
+        if(i>=0 && currentRm.nodes[i]){ openNode(currentRm.nodes[i].id); revealNode(currentRm.nodes[i].id); }
+      };
+    }
+    list.appendChild(d);
+  });
+}
+$("wnClose").onclick=()=>{
+  $("whatsNewModal").classList.remove("show");
+  if(currentRm) markSeen(currentRm.id, currentRm.version);
+  renderMapHeader();
+};
+
+/* ---- orphan banner: a map seeking its next maintainer (Part III state 6) ---- */
+MH_EXTRAS.push(slots=>{
+  if(currentFork || !orphaned(currentRm.id)) return;
+  const st=MAPSTATES[currentRm.id]||{};
+  const b=document.createElement("div"); b.className="mhBanner";
+  b.innerHTML=`🍂 <b>This map is seeking a maintainer.</b> It stays live and walkable —
+    the admins tend it meanwhile.
+    ${st.successor&&st.successor.name?` Designated successor: <b>${esc(st.successor.name)}</b> (right of first refusal — the admins confirm the handover).`:""}
+    ${st.note?` <span style="color:var(--faint)">${esc(st.note)}</span>`:""}`;
+  const apply=document.createElement("button"); apply.className="edAdd";
+  apply.style.marginTop="8px";
+  apply.textContent="🙋 Apply to adopt this map";
+  apply.onclick=()=>openSuggest({mode:"adopt"});
+  b.appendChild(apply);
+  slots.banner.appendChild(b);
+});
+
+/* ---- the map's open floor: pending proposals + their discussions ---- */
+MH_EXTRAS.push(slots=>{
+  if(currentFork || !canSync()) return;   // discussions belong to the shared map
+  const b=document.createElement("button");
+  b.textContent="💬 Discussion";
+  b.title="Open proposals on this map — public, commentable";
+  b.onclick=()=>openDiscussion(currentRm.id);
+  slots.actions.appendChild(b);
+});
+
+/* ---- guild presence on the map: badge, door, and guide powers ---- */
+MH_EXTRAS.push(slots=>{
+  if(currentFork) return;
+  const rmId=currentRm.id;
+  // endorsement badge with criteria on tap
+  endorsementsOf(rmId).forEach(m=>{
+    const b=document.createElement("button");
+    b.textContent=`🏅 endorsed — ${m.audience}`;
+    b.title="A guild's signed quality mark. Tap for the published criteria.";
+    b.onclick=()=>alert(`Endorsed by ${(GUILDS[m.guild]||{}).title||m.guild} for ${m.audience}.\n\nCriteria:\n${m.criteria}\n\n— ${m.by&&m.by.name||"?"}`);
+    slots.actions.appendChild(b);
+  });
+  const g=guildOfMap(rmId);
+  if(!g) return;
+  const door=document.createElement("button");
+  door.textContent="🏛 "+g.title;
+  door.title="This map's guild — talk space, endorsements, adoption";
+  door.onclick=()=>{ guildFromRm=currentRm&&currentRm.id; openGuild(g.id); };
+  slots.actions.appendChild(door);
+  // guide janitorial power: flag/clear orphanhood (never content)
+  if(guideOf(g.id)){
+    const orph=document.createElement("button");
+    orph.textContent=orphaned(rmId)?"🍂 clear orphan flag":"🍂 flag as seeking maintainer";
+    orph.onclick=async ()=>{
+      const now=!orphaned(rmId);
+      try{
+        const F=await fb(); if(!F) throw new Error("offline");
+        await F.setDoc(F.doc(F.db,"mapstates",rmId),
+          {state:now?"orphaned":"", guild:g.id,
+           by:{uid:user.id,name:user.name}, at:Date.now()}, {merge:true});
+        MAPSTATES[rmId]={...(MAPSTATES[rmId]||{}), state:now?"orphaned":""};
+        renderMapHeader();
+      }catch(e){ toast("Failed — try again"); }
+    };
+    slots.actions.appendChild(orph);
+  }
+});
+
+/* ---- report canonical map content (the safety queue's front door) ---- */
+MH_EXTRAS.push(slots=>{
+  if(currentFork || !canSync()) return;
+  const b=document.createElement("button");
+  b.textContent="⚑ Report";
+  b.title="Report a problem with this map's content — safety issues get a 48-hour response norm";
+  b.onclick=()=>reportContent("map",
+    {roadmap:currentRm.id, title:currentRm.title,
+     ...(currentNode?{node:currentNode.id}:{})});
+  slots.actions.appendChild(b);
+});
+async function openDiscussion(rmId){
+  $("discussModal").classList.add("show");
+  const list=$("discussList"); list.innerHTML="<div class='sub'>Loading…</div>";
+  let items=[];
+  try{
+    const F=await fb(); if(!F) throw new Error("offline");
+    const snap=await F.getDocs(F.query(F.collection(F.db,"proposals"),
+      F.where("roadmap","==",rmId), F.where("status","==","pending")));
+    snap.forEach(d=>{
+      const rec={id:d.id, ...d.data()};
+      if(rec.createdAt&&rec.createdAt.toMillis) rec.createdAt=rec.createdAt.toMillis();
+      items.push(rec);
+    });
+  }catch(e){ list.innerHTML="<div class='sub'>Couldn't load proposals.</div>"; return; }
+  items.sort((a,b)=>(b.createdAt||0)-(a.createdAt||0));
+  list.innerHTML="";
+  if(!items.length){
+    list.innerHTML="<div class='sub'>No open proposals — sign in and propose an edit from any node's ✏️.</div>";
+    return;
+  }
+  let rm=null; try{ rm=await loadRoadmap(rmId); }catch(e){}
+  for(const p of items){
+    const s=proposalSummary(p, rm);
+    const daysLeft=commentDaysLeft(p);
+    const d=document.createElement("div"); d.className="sgCard";
+    d.innerHTML=`<div class="sgMeta"><span class="sgType">${esc(s.label)}</span>
+        ${ageChip(p.createdAt)}
+        ${daysLeft>0?`<span class="vbadge" style="background:rgba(96,165,250,.12);color:var(--blue)">🕐 comment period — ${daysLeft}d left</span>`:""}
+        <span>${esc(s.title)}</span><span>by ${esc(p.by&&p.by.name||"?")}</span></div>
+      ${p.note?`<div class="sgText" style="margin-bottom:6px">✉️ ${esc(p.note)}</div>`:""}`;
+    attachCommentThread(d, p);
+    list.appendChild(d);
+  }
+}
+$("discussClose").onclick=()=>$("discussModal").classList.remove("show");
 function goHome(){
   showView("homeView");
   $("addTopicBtn").classList.remove("show");
@@ -1359,40 +2195,98 @@ function openNode(nodeId){
   $("dSummary").textContent=currentNode.learn.summary;
   const links=$("dLinks"); links.innerHTML="";
   (currentNode.learn.links||[]).forEach(l=>{
+    const row=document.createElement("div"); row.className="linkRow";
     const a=document.createElement("a");
     a.href=l.url; a.target="_blank"; a.rel="noopener";
-    a.innerHTML=`<span class="linkkind ${l.kind}">${l.kind}</span><span>${l.label}</span>`;
-    links.appendChild(a);
+    const bits=[];
+    if(l.minutes) bits.push(`<span class="lmeta">· ${+l.minutes} min</span>`);
+    if(l.lang&&l.lang!=="en") bits.push(`<span class="lmeta">[${esc(l.lang)}]</span>`);
+    // quiet freshness signal: only speak up when verification has gone stale
+    if(l.verified && (Date.now()-new Date(l.verified))/864e5>365)
+      bits.push(`<span class="lstale" title="Last verified ${esc(l.verified)}">•</span>`);
+    a.innerHTML=`<span class="linkkind ${l.kind}">${l.kind}</span><span>${l.label}${bits.join("")}</span>`;
+    row.appendChild(a);
+    // one-tap resource flag: dead / stale / didn't help (one per user per link)
+    if(!currentFork && canSync()){
+      const fl=document.createElement("button"); fl.className="linkFlag";
+      fl.textContent="⚑"; fl.title="Flag this resource (dead / stale / didn't help)";
+      fl.onclick=()=>{
+        if(fl.dataset.open){ return; }
+        fl.dataset.open="1";
+        const pop=document.createElement("span"); pop.className="flagPop";
+        [["dead","💀 dead"],["stale","🍂 stale"],["unhelpful","🤷 didn't help"]].forEach(([r,label])=>{
+          const b=document.createElement("button"); b.textContent=label;
+          b.onclick=()=>{ flagResource(currentRm.id, currentNode.id, l.url, r); pop.remove(); delete fl.dataset.open; };
+          pop.appendChild(b);
+        });
+        row.appendChild(pop);
+        setTimeout(()=>{ if(pop.isConnected){ pop.remove(); delete fl.dataset.open; } }, 6000);
+      };
+      row.appendChild(fl);
+    }
+    links.appendChild(row);
   });
+  // signed-out (and not the author's dev machine) = pure read-only consumption
+  const ro = !devMode && !user.provider;
   const steps=$("dSteps"); steps.innerHTML="";
   currentNode.do.forEach((s,i)=>{
-    const b=document.createElement("button");
-    b.className="step"+(p.done[i]?" done":"");
-    b.innerHTML=`<span class="box">✓</span><span class="stext">${s}</span>`;
-    b.onclick=()=>{
+    const b=document.createElement(ro?"div":"button");
+    b.className="step"+(p.done[i]?" done":"")+(ro?" ro":"");
+    b.innerHTML=(ro?"":`<span class="box">✓</span>`)+`<span class="stext">${s}</span>`;
+    if(!ro) b.onclick=()=>{
+      if(!canSync()){ toast(NEEDS_APP); return; }   // honest, never a fake save
       p.done[i]=!p.done[i];
       if(p.status===0 && p.done[i]) p.status=1;  // auto-advance on first action
       touch(p); persist(); openNode(nodeId); renderGraph();
     };
     steps.appendChild(b);
   });
-  $("notes").value=p.notes||"";
-  $("saveHint").textContent="";
-  $("syncNote").innerHTML = (user.provider
-    ? (canSync()
-        ? `☁️ Signed in as <b>${user.name}</b> — notes & progress sync to your account automatically.`
-        : `✅ Signed in as <b>${user.name}</b> — saved on this device. Cloud sync activates once the app is connected (FIREBASE_CONFIG).`)
-    : `💾 Saved on this device. <b>Sign in</b> (top right) to sync notes & progress across devices.`)
-    + ` <a href="#" id="exportDataLink">Download my data</a>`;
-  $("exportDataLink").onclick=(e)=>{ e.preventDefault(); exportMyData(); };
-  paintStatusSeg(p.status);
+  // Reflection prompts (practice-path nodes): checkable like steps but visually
+  // lighter — they mark "I sat with this", never "done". State lives in p.ref[].
+  // (The journal is tucked away for now — prompts stand on their own.)
+  const rsec=$("dReflectSec"), rbox=$("dReflect"); rbox.innerHTML="";
+  const prompts=currentNode.reflect||[];
+  rsec.style.display=prompts.length?"":"none";
+  prompts.forEach((s,i)=>{
+    const b=document.createElement(ro?"div":"button");
+    b.className="step"+((p.ref||[])[i]?" done":"")+(ro?" ro":"");
+    b.innerHTML=(ro?"":`<span class="box">✓</span>`)+`<span class="stext">${esc(s)}</span>`;
+    if(!ro) b.onclick=()=>{
+      if(!canSync()){ toast(NEEDS_APP); return; }
+      p.ref=p.ref||[]; p.ref[i]=!p.ref[i];
+      if(p.status===0 && p.ref[i]) p.status=1;
+      touch(p); persist(); openNode(nodeId); renderGraph();
+    };
+    rbox.appendChild(b);
+  });
+  $("statusSeg").style.display = ro?"none":"";
+  $("dWorkSec").style.display = ro?"none":"";
+  $("dSignInSec").style.display = ro?"":"none";
+  if(ro){
+    $("drawerSignIn").onclick=(e)=>{ e.preventDefault(); $("authModal").classList.add("show"); };
+  }else{
+    $("notes").value=p.notes||"";
+    $("saveHint").textContent="";
+    // unconnected identities (demo, dev) get a read-only box + the honest line
+    $("notes").readOnly=!canSync();
+    $("notes").onclick = canSync() ? null : ()=>toast(NEEDS_APP);
+    $("syncNote").innerHTML = (canSync()
+      ? `☁️ Signed in as <b>${esc(user.name)}</b> — notes & progress save to your account.`
+      : `🔌 ${NEEDS_APP} — nothing is saved here.`)
+      + ` <a href="#" id="exportDataLink">Download my data</a>`;
+    $("exportDataLink").onclick=(e)=>{ e.preventDefault(); exportMyData(); };
+    paintStatusSeg(p.status);
+  }
   $("editorBody").style.display="none"; $("drawerBody").style.display="";
+  // the wiki door: any signed-in walker may open the editor — what Save does
+  // is decided by editorMode() (owners merge, everyone else files a proposal)
   $("editBtn").classList.toggle("show", canEdit());
   $("dTips").innerHTML="";
   loadTips(currentRm.id).then(t=>{           // async: fill community tips when they arrive
     if(currentNode && currentNode.id===nodeId) renderTips(t[nodeId]||[]);
   });
-  $("suggestBtn").style.display = currentFork ? "none" : "";   // suggestions serve the shared map
+  // suggestions serve the shared map, and only signed-in walkers can file them
+  $("suggestBtn").style.display = (currentFork || ro) ? "none" : "";
   $("backdrop").classList.add("show");
   $("drawer").classList.add("open");
   reflectHash(mapPath()+"/"+encodeURIComponent(nodeId));
@@ -1404,13 +2298,14 @@ function paintStatusSeg(s){
 document.querySelectorAll("#statusSeg button").forEach(b=>{
   b.onclick=()=>{
     if(!currentNode) return;
+    if(!canSync()){ toast(NEEDS_APP); return; }
     const p=prog(currentRm.id,currentNode.id);
     p.status=+b.dataset.s; touch(p); persist(); paintStatusSeg(p.status); renderGraph();
   };
 });
 let notesT=null;
 $("notes").addEventListener("input",()=>{
-  if(!currentNode) return;
+  if(!currentNode || !canSync()) return;   // readOnly guards this; belt & braces
   const p=prog(currentRm.id,currentNode.id);
   p.notes=$("notes").value;
   if(p.status===0 && p.notes.trim()) p.status=1;
@@ -1418,8 +2313,7 @@ $("notes").addEventListener("input",()=>{
   $("saveHint").textContent="Saving…";
   clearTimeout(notesT);
   notesT=setTimeout(()=>{
-    persist();
-    $("saveHint").textContent=canSync()?"Synced ✓":"Saved ✓";
+    persist();   // paintSync turns the hint into "Saved ✓" when the push lands
     renderGraph(); paintStatusSeg(p.status);
   },500);
 });
@@ -1434,7 +2328,10 @@ $("closeBtn").onclick=closeDrawer;
 $("backdrop").onclick=closeDrawer;
 document.addEventListener("keydown",e=>{ if(e.key==="Escape"){ closeDrawer();
   $("authModal").classList.remove("show"); $("suggestModal").classList.remove("show");
-  $("reorgModal").classList.remove("show"); $("collModal").classList.remove("show"); }});
+  $("reorgModal").classList.remove("show"); $("collModal").classList.remove("show");
+  $("discussModal").classList.remove("show");
+  $("aboutModal").classList.remove("show");
+  $("whatsNewModal").classList.remove("show"); }});
 
 /* ---------- auth ---------- */
 function paintUser(){
@@ -1448,7 +2345,7 @@ function paintUser(){
     $("userAvatar").style.background = user.provider==="google" ? "#4285F4" : "#e5e7eb";
     $("userAvatar").style.color = user.provider==="google" ? "#fff" : "#111";
   }
-  $("reviewBtn").classList.toggle("show", moderatorOfAny());
+  $("reviewBtn").classList.toggle("show", moderatorOfAny()||stewardOfAny());
   paintSync();
 }
 /* the chip is the door to the account page (sign-out button excepted) */
@@ -1456,20 +2353,17 @@ $("userChip").onclick=(e)=>{ if(e.target.id!=="signOutBtn") openAccount(); };
 $("signInBtn").onclick=()=>{
   $("authModal").classList.add("show");
   $("authNote").textContent=FIREBASE_CONFIG
-    ? "" : "Demo mode — set FIREBASE_CONFIG (tools/configure.py) for real sign-in.";
+    ? "" : "Demo mode — set FIREBASE_CONFIG in config.js for real sign-in.";
 };
 $("authCancel").onclick=()=>$("authModal").classList.remove("show");
 /* shared post-auth flow for demo and real paths */
 async function finishSignIn(u){
-  // adopt guest progress into the account store (merge, never overwrite)
-  const guestStore=store;
-  user=u; localStorage.setItem("hkr:user",JSON.stringify(user));
-  store=migrateStore(readJSON(storeKey(user.id)));
-  store=mergeStores(store,guestStore); persistLocal();
-  await pullAndMerge();          // bring down other devices' progress
-  if(canSync()){ syncState="dirty"; pushRemote(); }
+  user=u; cacheUser();
+  store=migrateStore(null); jPushWM=0;   // fresh session memory for this identity
+  await pullAndMerge();          // the account's server record is the store
+  if(canSync()){ syncState="synced"; }
   paintUser(); $("authModal").classList.remove("show");
-  toast(`Welcome, ${user.name}! ${canSync()?"Progress now syncs to your account.":"Progress saved under your account on this device."}`);
+  toast(`Welcome, ${user.name}! ${canSync()?"Your progress and notes save to your account.":"Demo mode — nothing you do here is saved."}`);
   if($("accountView").classList.contains("active")) renderAccount();
   else if($("collectionsView").classList.contains("active")) renderCollections();
   else if(currentRm){ renderGraph(); if(currentNode) openNode(currentNode.id); } else renderHome();
@@ -1489,12 +2383,13 @@ async function doSignIn(provider){
 $("googleBtn").onclick=()=>doSignIn("google");
 $("appleBtn").onclick=()=>doSignIn("apple");
 $("signOutBtn").onclick=async ()=>{
-  if(syncState==="dirty") pushRemote();   // flush before switching identity
+  const wasSync=canSync();
+  if(syncState==="dirty") await pushRemote();   // flush before dropping the store
   if(user.real){ const F=await fb(); if(F) try{ await F.signOut(F.auth); }catch(e){} }
   user={id:"guest",name:"Guest",provider:null};
-  localStorage.setItem("hkr:user",JSON.stringify(user));
-  store=migrateStore(readJSON(storeKey("guest")));
-  paintUser(); toast("Signed out — progress stays on this device.");
+  cacheUser();
+  store=migrateStore(null); jPushWM=0;
+  paintUser(); toast(wasSync?"Signed out — your progress is safe in your account.":"Signed out.");
   if($("reviewView").classList.contains("active")) goHome();
   else if($("accountView").classList.contains("active")) renderAccount();
   else if($("collectionsView").classList.contains("active")) renderCollections();
@@ -1519,17 +2414,35 @@ async function loadTips(rmId){
 }
 function renderTips(list){
   const box=$("dTips"); box.innerHTML="";
+  const mod = canSync() && (isAdmin() || maintains(currentRm.id));
   list.forEach(t=>{
     const d=document.createElement("div"); d.className="tipCard";
     d.innerHTML=`${esc(t.text)}
       ${t.url?`<div><a href="${esc(t.url)}" target="_blank" rel="noopener">${esc(t.url)}</a></div>`:""}
       <div class="tby">🌟 community tip · by ${esc(t.by)}
-        <button class="tipFlag" title="Report this tip">⚑</button></div>`;
+        <button class="tipFlag" title="Report this tip">⚑</button>${
+        mod?'<button class="tipRm" title="Remove this tip">✕</button>':""}</div>`;
     d.querySelector(".tipFlag").onclick=()=>reportContent("tip",
       {roadmap:currentRm.id, node:currentNode?currentNode.id:"", tipId:t.id||"",
        title:(t.text||"").slice(0,80)});
+    if(mod) d.querySelector(".tipRm").onclick=()=>removeTip(t);
     box.appendChild(d);
   });
+}
+/* Un-publish a tip. arrayRemove needs the exact stored element, so `t` must
+   be the untouched object out of loadTips — never a rebuilt copy. */
+async function removeTip(t){
+  if(!confirm("Remove this published tip? It disappears for everyone.")) return;
+  const rmId=currentRm.id, nodeId=currentNode&&currentNode.id;
+  if(!nodeId) return;
+  try{
+    const F=await fb(); if(!F) throw new Error("offline");
+    await F.updateDoc(F.doc(F.db,"tips",rmId), {[nodeId]:F.arrayRemove(t)});
+    tipsCache.clear();
+    toast("Tip removed");
+    const t2=await loadTips(rmId);
+    if(currentNode && currentNode.id===nodeId) renderTips(t2[nodeId]||[]);
+  }catch(e){ toast("Couldn't remove the tip — try again"); }
 }
 
 let sgCtx=null, sgType="tip";
@@ -1542,19 +2455,26 @@ const SG_HINTS={
 function openSuggest(ctx){
   if(!user.provider){ $("authModal").classList.add("show"); toast("Sign in to contribute"); return; }
   sgCtx=ctx;
-  const isRm=ctx.mode==="roadmap";
-  $("sgTitle").textContent=isRm?"Propose a new roadmap":"Suggest an improvement";
+  const isRm=ctx.mode==="roadmap", isAdopt=ctx.mode==="adopt";
+  $("sgTitle").textContent=isRm?"Propose a new roadmap"
+    :isAdopt?"Apply to adopt this map":"Suggest an improvement";
   $("sgContext").textContent=isRm
     ? "Describe it as a simple outline — core topics with subtopics, like a table of contents. The admins review every proposal."
+    : isAdopt
+    ? `Make your case to tend “${currentRm.title}”: your history with the subject, your contribution record here, and how you'd keep it alive. A recorded successor has right of first refusal; the admins confirm the strongest candidate.`
     : `For “${ctx.nodeTitle}” in ${currentRm.title}. Nothing changes until the maintainer approves it.`;
-  $("sgTypes").style.display=isRm?"none":"flex";
-  sgType=isRm?"roadmap":"tip"; paintSgType();
+  $("sgTypes").style.display=(isRm||isAdopt)?"none":"flex";
+  sgType=isRm?"roadmap":isAdopt?"adopt":"tip"; paintSgType();
   $("sgText").value=""; $("sgUrl").value=""; $("sgVerified").checked=false;
   $("sgFree").checked=false;
+  $("sgAffiliated").checked=false; $("sgAffiliation").value="";
+  $("sgAffiliation").style.display="none";
   if(isRm && ctx.wanted)   // arriving via a wanted-map chip: start the outline
     $("sgText").value=ctx.wanted.title+"\n- "+(ctx.wanted.note?`\n\n(The admins noted: ${ctx.wanted.note})`:"");
   $("sgText").placeholder=isRm
     ? "e.g.\nBirdwatching Basics\n- Gear: binoculars before anything\n- Field marks & identification\n- Songs and calls\n- Habitats through the seasons\n- Keeping a life list"
+    : isAdopt
+    ? "Who you are in this subject, what you've contributed here, and the first three things you'd do as maintainer."
     : SG_HINTS[sgType];
   $("suggestModal").classList.add("show");
 }
@@ -1566,11 +2486,25 @@ function paintSgType(){
 document.querySelectorAll("#sgTypes button").forEach(b=>{
   b.onclick=()=>{ sgType=b.dataset.t; paintSgType(); };
 });
-function queueOutbox(rec){
-  const ob=readJSON("hkr:outbox")||[];
-  ob.push({...rec, by:{id:user.id,name:user.name}, createdAt:Date.now(),
-           status:"pending", local:true, id:"local-"+Date.now()});
-  localStorage.setItem("hkr:outbox",JSON.stringify(ob));
+/* Affiliate hygiene, client side: strip tracking/affiliate params on input so
+   contributors rarely hit the build-gate rejection. tools/build.py stays the
+   authority — this is a courtesy scrub, not the defense. */
+const AFF_PARAMS=new Set(["fbclid","gclid","msclkid","mc_cid","mc_eid","igshid",
+  "affid","aff_id","affiliate","affiliate_id","ref_src","cvid","srsltid"]);
+const AFF_DOMAIN_PARAMS=[["amazon.",new Set(["tag","ref","linkcode","linkid","ascsubtag"])]];
+function stripAffiliate(url){
+  try{
+    const u=new URL(url);
+    const host=u.hostname.toLowerCase();
+    const domainParams=AFF_DOMAIN_PARAMS.reduce(
+      (acc,[dom,set])=>host.includes(dom)?new Set([...acc,...set]):acc, new Set());
+    [...u.searchParams.keys()].forEach(k=>{
+      const kl=k.toLowerCase();
+      if(kl.startsWith("utm_")||AFF_PARAMS.has(kl)||domainParams.has(kl))
+        u.searchParams.delete(k);
+    });
+    return u.toString().replace(/\?$/,"");
+  }catch(e){ return url; }
 }
 async function submitSuggestion(){
   const text=$("sgText").value.trim();
@@ -1579,27 +2513,38 @@ async function submitSuggestion(){
     toast("Please confirm you've personally tried or verified it"); return; }
   if((sgType==="link"||$("sgUrl").value.trim()) && !$("sgFree").checked){
     toast("The one hard rule: resources must be freely accessible to everyone"); return; }
+  const affiliated=$("sgAffiliated").checked;
+  const affiliation=affiliated?$("sgAffiliation").value.trim():"";
+  if(affiliated && !affiliation){
+    toast("Describe the affiliation — disclosure is the deal"); return; }
   const rec={ roadmap:sgCtx.mode==="roadmap"?"":currentRm.id,
     node:sgCtx.node||"", nodeTitle:sgCtx.nodeTitle||"",
-    type:sgType, text, url:$("sgUrl").value.trim(), verified:$("sgVerified").checked };
-  if(canSync()){
-    $("sgSubmit").disabled=true;
-    try{
-      const F=await fb(); if(!F) throw new Error("offline");
-      await F.addDoc(F.collection(F.db,"suggestions"),
-        {...rec, by:{uid:user.id, name:user.name},
-         createdAt:F.serverTimestamp(), status:"pending"});
-      toast("🙏 Submitted — the maintainer will review it");
-    }catch(e){ queueOutbox(rec); toast("Couldn't reach the server — saved on this device"); }
-    $("sgSubmit").disabled=false;
-  }else{
-    queueOutbox(rec);
-    toast("Saved locally — submits once the app is connected & you're signed in");
+    type:sgType, text, url:stripAffiliate($("sgUrl").value.trim()),
+    verified:$("sgVerified").checked, affiliated, affiliation };
+  if(!canSync()){
+    toast("Suggestions need the connected app — this copy isn't connected");
+    return;
   }
-  $("suggestModal").classList.remove("show");
+  $("sgSubmit").disabled=true;
+  try{
+    const F=await fb(); if(!F) throw new Error("offline");
+    await F.addDoc(F.collection(F.db,"suggestions"),
+      {...rec, by:{uid:user.id, name:user.name},
+       createdAt:F.serverTimestamp(), status:"pending"});
+    toast("🙏 Submitted — the maintainer will review it");
+    $("suggestModal").classList.remove("show");
+  }catch(e){ toast("Couldn't reach the server — try again"); }
+  $("sgSubmit").disabled=false;
 }
 $("sgSubmit").onclick=submitSuggestion;
 $("sgCancel").onclick=()=>$("suggestModal").classList.remove("show");
+$("sgAffiliated").onchange=()=>{
+  $("sgAffiliation").style.display=$("sgAffiliated").checked?"block":"none"; };
+$("sgUrl").addEventListener("blur",()=>{
+  const v=$("sgUrl").value.trim();
+  const clean=stripAffiliate(v);
+  if(clean!==v){ $("sgUrl").value=clean; toast("Stripped tracking params — clean links only"); }
+});
 $("suggestBtn").onclick=()=>openSuggest({node:currentNode.id,nodeTitle:currentNode.title});
 $("proposeBtn").onclick=()=>openSuggest({mode:"roadmap"});
 
@@ -1644,10 +2589,12 @@ function moderatedMapIds(){
   if(isAdmin()) return null;   // null ⇒ unscoped (admin)
   return Object.keys(MAINTAINERS).filter(rm=>MAINTAINERS[rm]&&MAINTAINERS[rm].uid===user.id);
 }
-async function fetchModerated(coll, status){
+async function fetchModerated(coll, status, extraScopes){
   const F=await fb(); if(!F) throw new Error("offline");
   const base=F.collection(F.db,coll);
-  const scopes=moderatedMapIds();
+  let scopes=moderatedMapIds();
+  if(scopes!==null && extraScopes)                       // e.g. stewarded maps
+    scopes=[...new Set([...scopes, ...extraScopes])];
   const queries = scopes===null
     ? [F.query(base, F.where("status","==",status))]
     : scopes.map(rm=>F.query(base,
@@ -1665,14 +2612,26 @@ async function fetchModerated(coll, status){
   return out;
 }
 async function fetchSuggestions(status){
-  if(!canSync()) return (readJSON("hkr:outbox")||[]).filter(s=>s.status===status);
+  if(!canSync()) return [];
   return fetchModerated("suggestions", status);
 }
 function openReview(){
   showView("reviewView");
   $("backBtn").classList.add("show");
-  $("brandText").textContent=isAdmin()?"🛡️ Admin review":"🧑‍🌾 Maintainer review";
-  document.querySelector('#reviewTabs [data-v="reports"]').style.display=isAdmin()?"":"none";
+  $("brandText").textContent=isAdmin()?"🛡️ Admin review"
+    :moderatorOfAny()?"🧑‍🌾 Maintainer review":"🪴 Steward review";
+  // steward-only viewers get exactly their scope: trivial-proposal review.
+  // Suggestions are author-or-moderator readable by rules, so those tabs
+  // would always be empty for a steward — hide them rather than mislead.
+  const full=isAdmin()||moderatorOfAny();
+  ["pending","accepted","reports","flags"].forEach(v=>{
+    document.querySelector(`#reviewTabs [data-v="${v}"]`).style.display=full?"":"none";
+  });
+  if(!full && reviewTab!=="proposals"){
+    reviewTab="proposals";
+    document.querySelectorAll("#reviewTabs button").forEach(x=>
+      x.classList.toggle("on", x.dataset.v==="proposals"));
+  }
   renderReview();
 }
 $("reviewBtn").onclick=openReview;
@@ -1682,6 +2641,46 @@ document.querySelectorAll("#reviewTabs button").forEach(b=>{
       x.classList.toggle("on",x===b));
     renderReview(); };
 });
+/* ---- proposal weight classes (Part IV) ----
+   spine/add/remove/move are always structural. An edit is trivial when it
+   stays inside the same node set and changes only links or a small slice of
+   text — the proposer's declaration is checked against this on review. */
+function textDelta(a,b){   // changed-character share, 0..1 (prefix/suffix proxy)
+  a=String(a||""); b=String(b||"");
+  if(a===b) return 0;
+  const max=Math.max(a.length,b.length)||1;
+  let p=0; while(p<a.length&&p<b.length&&a[p]===b[p]) p++;
+  let s=0; while(s<a.length-p&&s<b.length-p&&a[a.length-1-s]===b[b.length-1-s]) s++;
+  return (max-p-s)/max;
+}
+function classifyEditWeight(current, proposed){
+  if(!current||!proposed) return "substantive";
+  const a=flatten({nodes:[current]}), b=flatten({nodes:[proposed]});
+  if(a.length!==b.length) return "substantive";           // subtopics added/removed
+  const byId=new Map(b.map(n=>[n.id,n]));
+  for(const na of a){
+    const nb=byId.get(na.id);
+    if(!nb) return "substantive";                          // node set changed
+    if(na.title!==nb.title || na.tier!==nb.tier) return "substantive";
+    if(textDelta((na.learn||{}).summary,(nb.learn||{}).summary)>0.2) return "substantive";
+    if(textDelta((na.do||[]).join("\n"),(nb.do||[]).join("\n"))>0.2) return "substantive";
+    if(textDelta((na.reflect||[]).join("\n"),(nb.reflect||[]).join("\n"))>0.2) return "substantive";
+  }
+  return "trivial";   // link swaps, metadata, typo-scale text changes
+}
+function proposalWeight(p){   // effective class of a pending proposal doc
+  if(["add","remove","spine","move"].includes(p.kind||"edit")) return "structural";
+  return p.weight==="trivial" ? "trivial" : "substantive";
+}
+/* Queue hygiene: every pending item shows its age; amber at the 7-day mark,
+   red at the two-week escalation norm (GOVERNANCE). Automation stays deferred
+   (LATER.md "queue aging") — this is the display half. */
+function ageChip(ts){
+  if(!ts) return "";
+  const d=Math.floor((Date.now()-ts)/864e5);
+  const cls=d>=14?" red":d>=7?" amber":"";
+  return `<span class="ageChip${cls}">⏱ ${d<1?"today":d+"d"}</span>`;
+}
 /* ---- structured edit proposals: diff review + merge ---- */
 function renderDiff(a,b){   // a = current live topic, b = proposed topic
   const ma=new Map(flatten({nodes:[a]}).map(n=>[n.id,n]));
@@ -1758,12 +2757,23 @@ function proposalSummary(p, rm){
       body:`<div class="diffBox"><div class="dnode">→ Moves “${esc(moved?moved.title:"?")}”
         from “${esc(src?src.title:p.file)}” to “${esc(dst?dst.title:p.file2)}”</div></div>` };
   }
+  if(kind==="about"){
+    const cur=(INDEX.find(r=>r.id===p.roadmap)||{}).about||"";
+    return { label:"about section", title:"Category lead prose", stale:false,
+      body:`<div class="diffBox">${cur?`<div class="dline del">− ${esc(cur)}</div>`:""}
+        <div class="dline add">+ ${esc(p.about||"")}</div></div>` };
+  }
   return { label:kind, title:"(unknown change)", stale:false, body:"" };
+}
+const DAY=864e5, COMMENT_PERIOD_DAYS=7;
+function commentDaysLeft(p){   // 7-day open comment period on structural merges
+  if(proposalWeight(p)!=="structural") return 0;
+  return Math.max(0, Math.ceil(COMMENT_PERIOD_DAYS-(Date.now()-(p.createdAt||0))/DAY));
 }
 async function renderProposals(list){
   let items=[];
   try{
-    items=await fetchModerated("proposals","pending");
+    items=await fetchModerated("proposals","pending", stewardedMapIds());
   }catch(e){ list.innerHTML="<div class='sub'>Couldn't load proposals from the server.</div>"; return; }
   list.innerHTML="";
   if(!items.length){ list.innerHTML="<div class='sub'>No proposed changes waiting. 🎉</div>"; return; }
@@ -1771,24 +2781,61 @@ async function renderProposals(list){
     let rm=null;
     try{ rm=await loadRoadmap(p.roadmap); }catch(e){}
     const s=proposalSummary(p, rm);
+    const w=proposalWeight(p);
+    // the reviewing human is the honesty backstop on declared weight
+    const cur=rm&&(p.kind||"edit")==="edit" ? rm.nodes[rm.topics.indexOf(p.file)] : null;
+    const mismatch = p.weight==="trivial" && cur && classifyEditWeight(cur,p.topic)!=="trivial";
+    const agent=(p.by.uid||"").startsWith("agent:");
+    const daysLeft=commentDaysLeft(p);
     const d=document.createElement("div"); d.className="sgCard";
     d.innerHTML=`<div class="sgMeta"><span class="sgType">${esc(s.label)}</span>
+        <span class="sgType" style="opacity:.75">${esc(w)}</span>
+        ${ageChip(p.createdAt)}
+        ${agent?'<span class="vbadge" style="background:rgba(96,165,250,.15);color:var(--blue)">🤖 pre-drafted by automation — review before merging</span>':""}
+        ${mismatch?'<span class="vbadge" style="background:rgba(255,215,94,.15);color:var(--accent)">⚠ declared trivial, looks substantive</span>':""}
         ${s.stale?'<span class="vbadge" style="background:rgba(255,215,94,.15);color:var(--accent)">⚠ map changed since this was proposed</span>':""}
         <span>${esc(p.roadmap)} · ${esc(s.title)}</span><span>by ${esc(p.by.name)}</span></div>
       ${p.note?`<div class="sgText" style="margin-bottom:6px">✉️ ${esc(p.note)}</div>`:""}
+      <div class="sub" style="margin-bottom:6px">${
+        p.affiliated===true?`⚠️ affiliated: ${esc(p.affiliation||"(undescribed)")}`
+        :p.affiliated===false?"· no affiliation declared"
+        :"· predates disclosure"}</div>
       ${s.body}`;
     const acts=document.createElement("div"); acts.className="sgActs";
-    const bm=document.createElement("button"); bm.className="aTip";
-    bm.textContent="✅ Merge & publish";
-    bm.onclick=()=>decideProposal(p,"merge");
-    const br=document.createElement("button"); br.className="aRej";
-    br.textContent="✕ Reject";
-    br.onclick=()=>decideProposal(p,"reject");
-    acts.appendChild(bm); acts.appendChild(br); d.appendChild(acts);
+    // decision authority mirrors the rules: moderators decide everything;
+    // stewards decide trivial edits on their maps only
+    const mayDecide = isAdmin()||maintains(p.roadmap)
+      || (stewardOf(p.roadmap) && w==="trivial");
+    if(mayDecide){
+      const bm=document.createElement("button"); bm.className="aTip";
+      if(daysLeft>0){
+        bm.textContent=`🕐 comment period — ${daysLeft}d left`;
+        bm.disabled=true;
+        bm.title="Structural changes wait out a 7-day open comment period; rejecting stays available.";
+      }else{
+        bm.textContent="✅ Merge & publish";
+        bm.onclick=()=>decideProposal(p,"merge");
+      }
+      const br=document.createElement("button"); br.className="aRej";
+      br.textContent="✕ Reject";
+      br.onclick=()=>decideProposal(p,"reject");
+      acts.appendChild(bm); acts.appendChild(br);
+    }else{
+      const note=document.createElement("span"); note.className="sub";
+      note.textContent="🪴 Steward scope: trivial edits only — a moderator decides this one.";
+      acts.appendChild(note);
+    }
+    d.appendChild(acts);
+    attachCommentThread(d, p);
     list.appendChild(d);
   }
 }
 async function decideProposal(p,action){
+  const w=proposalWeight(p);
+  if(action==="merge" && commentDaysLeft(p)>0){
+    toast("🕐 Structural changes wait out the 7-day comment period"); return; }
+  if(!(isAdmin()||maintains(p.roadmap)) && !(stewardOf(p.roadmap)&&w==="trivial")){
+    toast("🪴 Stewards merge trivial edits only"); return; }
   let reason="";
   if(action==="reject"){
     // GOVERNANCE: a rejection should name the charter rule it hit — the
@@ -1806,9 +2853,12 @@ async function decideProposal(p,action){
     if(action==="merge"){
       // the merged doc is instantly live (public-read overlay) AND the queue
       // entry the landing Action turns into an attributed repo commit —
-      // carry over exactly the structural fields this kind uses
-      const core={roadmap:p.roadmap, kind:p.kind||"edit"};
-      ["file","file2","topic","topic2","after","spine"].forEach(k=>{
+      // carry over exactly the structural fields this kind uses. `proposal`
+      // links the overlay doc to its proposal: the steward rules path needs
+      // it, and it makes every merge traceable to its review.
+      const core={roadmap:p.roadmap, kind:p.kind||"edit", proposal:p.id};
+      if(p.weight) core.weight=p.weight;
+      ["file","file2","topic","topic2","after","spine","about"].forEach(k=>{
         if(p[k]!==undefined) core[k]=p[k]; });
       batch.set(F.doc(F.collection(F.db,"merged")),
         { ...core, by:p.by, mergedBy:{uid:user.id, name:user.name},
@@ -1821,6 +2871,78 @@ async function decideProposal(p,action){
       : "Rejected");
   }catch(e){ toast("Decision failed — try again"); }
   renderReview();
+}
+/* ---- open discussion on proposals (the talk-space starter) ----
+   Public read; signed-in immutable comments; map moderators may delete. */
+function attachCommentThread(card, p){
+  const wrap=document.createElement("div"); wrap.className="cmtWrap";
+  wrap.innerHTML=`<button class="cmtToggle">💬 Discussion…</button><div class="cmtBody" style="display:none"></div>`;
+  const body=wrap.querySelector(".cmtBody");
+  const toggle=wrap.querySelector(".cmtToggle");
+  let loaded=false;
+  toggle.onclick=async ()=>{
+    const open=body.style.display!=="none";
+    body.style.display=open?"none":"block";
+    if(!open&&!loaded){ loaded=true; await renderComments(p, body); }
+  };
+  card.appendChild(wrap);
+}
+async function renderComments(p, box){
+  box.innerHTML="<div class='sub'>Loading…</div>";
+  let items=[];
+  try{
+    const F=await fb(); if(!F) throw new Error("offline");
+    const snap=await F.getDocs(F.collection(F.db,"proposals",p.id,"comments"));
+    snap.forEach(d=>{
+      const c={id:d.id, ...d.data()};
+      if(c.createdAt&&c.createdAt.toMillis) c.createdAt=c.createdAt.toMillis();
+      items.push(c);
+    });
+  }catch(e){ box.innerHTML="<div class='sub'>Couldn't load the discussion.</div>"; return; }
+  items.sort((a,b)=>(a.createdAt||0)-(b.createdAt||0));
+  box.innerHTML="";
+  const list=document.createElement("div");
+  if(!items.length) list.innerHTML="<div class='sub'>No comments yet — the floor is open.</div>";
+  items.forEach(c=>{
+    const row=document.createElement("div"); row.className="cmtRow";
+    row.innerHTML=`<b>${esc(c.by&&c.by.name||"?")}</b>
+      <span class="cmtWhen">${c.createdAt?new Date(c.createdAt).toLocaleDateString():""}</span>
+      <div class="cmtText">${esc(c.text||"")}</div>`;
+    if(isAdmin()||maintains(p.roadmap)){
+      const del=document.createElement("button"); del.className="rmX"; del.textContent="✕";
+      del.title="Remove comment (moderation)";
+      del.onclick=async ()=>{
+        try{ const F=await fb();
+          await F.deleteDoc(F.doc(F.db,"proposals",p.id,"comments",c.id));
+          renderComments(p, box);
+        }catch(e){ toast("Couldn't remove it"); }
+      };
+      row.appendChild(del);
+    }
+    list.appendChild(row);
+  });
+  box.appendChild(list);
+  if(user.provider&&canSync()){
+    const form=document.createElement("div"); form.className="edRow";
+    form.innerHTML=`<input class="edInput cmtInput" maxlength="2000"
+      placeholder="Weigh in — comments are public and permanent…">
+      <button class="edAdd cmtSend" style="margin:0">Post</button>`;
+    form.querySelector(".cmtSend").onclick=async ()=>{
+      const text=form.querySelector(".cmtInput").value.trim();
+      if(!text) return;
+      try{
+        const F=await fb();
+        await F.addDoc(F.collection(F.db,"proposals",p.id,"comments"),
+          { text, by:{uid:user.id, name:user.name}, createdAt:F.serverTimestamp() });
+        renderComments(p, box);
+      }catch(e){ toast("Couldn't post — try again"); }
+    };
+    box.appendChild(form);
+  }else{
+    const hint=document.createElement("div"); hint.className="sub";
+    hint.textContent="Sign in to join the discussion.";
+    box.appendChild(hint);
+  }
 }
 /* ---------- account page ----------
    Identity, roles, data portability — and for admins/superadmin, the
@@ -1835,6 +2957,10 @@ function roleChipsHtml(){
     .filter(rm=>MAINTAINERS[rm]&&MAINTAINERS[rm].uid===user.id)
     .forEach(rm=>{ const e=INDEX.find(r=>r.id===rm);
       chips.push(`<span class="roleChip green">🧑‍🌾 ${esc(e?e.title:rm)}</span>`); });
+  stewardedMapIds().forEach(rm=>{ const e=INDEX.find(r=>r.id===rm);
+    chips.push(`<span class="roleChip green">🪴 Steward — ${esc(e?e.title:rm)}</span>`); });
+  Object.values(GUILDS).filter(g=>guideOf(g.id)).forEach(g=>
+    chips.push(`<span class="roleChip green">🧭 Guide — ${esc(g.title)}</span>`));
   if(!chips.length) chips.push('<span class="roleChip">Contributor</span>');
   return chips.join("");
 }
@@ -1868,7 +2994,8 @@ function renderAccount(){
       <div class="uidRow">User id <code>${esc(user.id)}</code>
         <button class="edAdd" id="acctCopyUid" style="margin:0;padding:4px 10px">Copy</button></div>
       <div class="acctBtns">
-        ${moderatorOfAny()?`<button id="acctReview">🛡️ Review queue</button>`:""}
+        ${(moderatorOfAny()||stewardOfAny())?`<button id="acctReview">🛡️ Review queue</button>`:""}
+        <button id="acctJournal">📓 Journal</button>
         <button id="acctExport">📦 Download my data</button>
         <button id="acctSignOut" style="color:#f87171">Sign out</button>
       </div>
@@ -1886,10 +3013,11 @@ function renderAccount(){
       toast("Copied — this id is how roles bind to you"); }
     catch(e){ toast("Couldn't copy — select it by hand"); }
   };
+  $("acctJournal").onclick=()=>openJournal(null);
   $("acctExport").onclick=exportMyData;
   $("acctSignOut").onclick=()=>$("signOutBtn").onclick();
   $("acctDelete").onclick=deleteMyAccount;
-  if(moderatorOfAny()) $("acctReview").onclick=openReview;
+  if(moderatorOfAny()||stewardOfAny()) $("acctReview").onclick=openReview;
   renderGovPanel();
   renderMyForks();          // async; fills #acctForks when the list arrives
   renderMyContributions();  // async; fills #acctContrib + clears the news badge
@@ -1899,13 +3027,20 @@ function renderAccount(){
    console-only — see firestore.rules). */
 function renderGovPanel(){
   const box=$("acctGov");
-  if(!isAdmin()){ box.innerHTML=""; return; }
+  if(!isAdmin() && !moderatorOfAny()){ box.innerHTML=""; return; }
   const guardSave=()=>{ if(!canSync()){
     toast("Connect Firebase (config.js) to save roles"); return false; } return true; };
-  box.innerHTML=`<h2 class="secTitle" style="margin-top:26px">Maintainers — who tends each map</h2>
+  box.innerHTML="";
+  renderStewardsPanel(box, guardSave);
+  renderSuccessorPanel(box, guardSave);
+  renderGuildsPanel(box, guardSave);
+  if(!isAdmin()) return;
+  const mh=document.createElement("div");
+  mh.innerHTML=`<h2 class="secTitle" style="margin-top:26px">Maintainers — who tends each map</h2>
     <div class="sub">Bind a verified user id (they can copy theirs from their own account page)
     and a display name to each map. Maintainers review and merge for their map only; unassigned
     maps fall to the admins. Bindings are public — anyone can read who tends what.</div>`;
+  box.appendChild(mh);
   INDEX.forEach(e=>{
     const m=MAINTAINERS[e.id]||{};
     const row=document.createElement("div"); row.className="edRow"; row.style.marginBottom="8px";
@@ -1953,31 +3088,202 @@ function renderGovPanel(){
   };
   box.appendChild(h); box.appendChild(sub); box.appendChild(ta); box.appendChild(save2);
 }
+/* Guilds editor (admin): id + title + blurb + member maps + guides. Guides
+   are admin-appointed until an electorate exists; the structure is
+   election-ready (guides live in the guild doc the community can read). */
+function renderGuildsPanel(box, guardSave){
+  if(!isAdmin()) return;
+  const head=document.createElement("div");
+  head.innerHTML=`<h2 class="secTitle" style="margin-top:26px">Guilds — the subject-area communities</h2>
+    <div class="sub">One guild per subject area: its maps, its guides (one <code>uid display name</code>
+    per line). Guides moderate guild talk, flag orphans, and manage endorsements — never content.</div>
+    <div id="guildRows"></div>
+    <button class="edAdd" id="guildAdd">＋ Add a guild</button>`;
+  box.appendChild(head);
+  const rows=head.querySelector("#guildRows");
+  const addRow=(g)=>{
+    const d=document.createElement("div");
+    d.style.cssText="border:1px solid var(--line);border-radius:10px;padding:10px;margin-bottom:10px";
+    d.innerHTML=`<div class="edRow">
+        <input class="edInput gId" placeholder="guild-id (a-z0-9-)" value="${esc(g.id||"")}" ${g.id?"disabled":""}>
+        <input class="edInput gTitle" placeholder="Title" value="${esc(g.title||"")}"></div>
+      <input class="edInput gBlurb" placeholder="One-line blurb (optional)" maxlength="300"
+        value="${esc(g.blurb||"")}" style="margin-top:6px">
+      <input class="edInput gMaps" placeholder="map ids, space separated"
+        value="${esc((g.maps||[]).join(" "))}" style="margin-top:6px">
+      <textarea class="edArea gGuides" style="min-height:40px;margin-top:6px"
+        placeholder="guides: uid display name — one per line">${esc(Object.entries(g.guides||{})
+          .map(([uid,name])=>uid+" "+name).join("\n"))}</textarea>`;
+    rows.appendChild(d);
+  };
+  Object.values(GUILDS).forEach(addRow);
+  head.querySelector("#guildAdd").onclick=()=>addRow({});
+  const save=document.createElement("button"); save.className="edAdd";
+  save.textContent="💾 Save guilds";
+  save.onclick=async ()=>{
+    if(!guardSave()) return;
+    try{
+      const F=await fb(); if(!F) throw new Error("offline");
+      for(const d of rows.children){
+        const gid=d.querySelector(".gId").value.trim();
+        if(!/^[a-z0-9-]{1,50}$/.test(gid)) continue;
+        const title=d.querySelector(".gTitle").value.trim();
+        if(title.length<3) continue;
+        const guides={};
+        d.querySelector(".gGuides").value.split("\n").map(s=>s.trim()).filter(Boolean)
+          .slice(0,10).forEach(line=>{
+            const sp=line.indexOf(" ");
+            const uid=sp<0?line:line.slice(0,sp);
+            guides[uid]=sp<0?line:line.slice(sp+1).trim()||uid;
+          });
+        const doc={ title, blurb:d.querySelector(".gBlurb").value.trim(),
+          maps:d.querySelector(".gMaps").value.split(/\s+/).filter(Boolean).slice(0,50),
+          guides, createdAt:(GUILDS[gid]||{}).createdAt||Date.now(), updatedAt:Date.now() };
+        await F.setDoc(F.doc(F.db,"guilds",gid), doc);
+        GUILDS[gid]={id:gid, ...doc};
+      }
+      toast("🏛 Guilds updated"); renderAccount();
+    }catch(e){ toast("Save failed — try again"); }
+  };
+  box.appendChild(save);
+}
+/* Succession & orphanhood: a maintainer names their successor (right of first
+   refusal, Part III); admins flag/clear "seeking maintainer". Both live in the
+   public mapstates/{rm} overlay — no repo commit needed to step down. */
+function renderSuccessorPanel(box, guardSave){
+  const mine=Object.keys(MAINTAINERS).filter(rm=>MAINTAINERS[rm]&&MAINTAINERS[rm].uid===user.id);
+  if(mine.length){
+    const head=document.createElement("div");
+    head.innerHTML=`<h2 class="secTitle" style="margin-top:26px">Your designated successor</h2>
+      <div class="sub">Name the person who should inherit each of your maps if you step away.
+      They get right of first refusal when the map seeks a new maintainer. Recorded publicly.
+      Designation is a public record, not a handover — when the time comes, the admins
+      confirm the successor by binding them in the Maintainers panel.</div>`;
+    box.appendChild(head);
+    mine.forEach(rm=>{
+      const e=INDEX.find(r=>r.id===rm); if(!e) return;
+      const s=(MAPSTATES[rm]||{}).successor||{};
+      const row=document.createElement("div"); row.className="edRow"; row.style.marginBottom="8px";
+      row.innerHTML=`<span style="flex:0 0 160px;font-size:12.5px;color:var(--muted)">${e.emoji} ${esc(e.title)}</span>
+        <input class="edInput scUid" data-rm="${esc(rm)}" placeholder="successor uid" value="${esc(s.uid||"")}">
+        <input class="edInput scName" data-rm="${esc(rm)}" placeholder="display name" value="${esc(s.name||"")}" style="flex:0 0 140px">`;
+      box.appendChild(row);
+    });
+    const save=document.createElement("button"); save.className="edAdd";
+    save.textContent="💾 Save successors";
+    save.onclick=async ()=>{
+      if(!guardSave()) return;
+      try{
+        const F=await fb(); if(!F) throw new Error("offline");
+        for(const inp of box.querySelectorAll(".scUid")){
+          const rm=inp.dataset.rm, uid=inp.value.trim();
+          const name=box.querySelector(`.scName[data-rm="${rm}"]`).value.trim();
+          // untouched blank rows write nothing; an emptied row clears the record
+          if(!uid && !((MAPSTATES[rm]||{}).successor||{}).uid) continue;
+          await F.setDoc(F.doc(F.db,"mapstates",rm),
+            {successor:{uid, name:name||uid}}, {merge:true});
+          MAPSTATES[rm]={...(MAPSTATES[rm]||{}), successor:{uid, name:name||uid}};
+        }
+        toast("🌱 Successors recorded"); renderAccount();
+      }catch(e){ toast("Save failed — try again"); }
+    };
+    box.appendChild(save);
+  }
+  if(!isAdmin()) return;
+  const head=document.createElement("div");
+  head.innerHTML=`<h2 class="secTitle" style="margin-top:26px">Map lifecycle — seeking-maintainer flags</h2>
+    <div class="sub">Flag a map as orphaned when its maintainer has gone dark (the two-week
+    escalation norm, missed 3×, is the trigger). The map stays live with a "seeking maintainer"
+    banner and an adopt button; the recorded successor gets first refusal.</div>`;
+  box.appendChild(head);
+  INDEX.forEach(e=>{
+    const st=MAPSTATES[e.id]||{};
+    const row=document.createElement("div"); row.className="edRow"; row.style.marginBottom="6px";
+    row.innerHTML=`<span style="flex:1;font-size:12.5px;color:var(--muted)">${e.emoji} ${esc(e.title)}
+        ${st.successor&&st.successor.name?`<span style="color:var(--faint)"> · successor on file: ${esc(st.successor.name)}</span>`:""}</span>
+      <button class="edAdd orphToggle" data-rm="${esc(e.id)}" style="margin:0;padding:4px 10px">
+        ${orphaned(e.id)?"🍂 orphaned — clear":"mark orphaned"}</button>`;
+    row.querySelector(".orphToggle").onclick=async (ev)=>{
+      if(!guardSave()) return;
+      const rm=ev.target.dataset.rm, now=!orphaned(rm);
+      try{
+        const F=await fb(); if(!F) throw new Error("offline");
+        await F.setDoc(F.doc(F.db,"mapstates",rm),
+          {state:now?"orphaned":"", by:{uid:user.id,name:user.name}, at:Date.now()}, {merge:true});
+        MAPSTATES[rm]={...(MAPSTATES[rm]||{}), state:now?"orphaned":""};
+        toast(now?"🍂 Marked as seeking a maintainer":"Cleared"); renderAccount();
+      }catch(e){ toast("Save failed — try again"); }
+    };
+    box.appendChild(row);
+  });
+}
+/* Stewards editor: a maintainer deputizes trusted contributors on their own
+   map (admins on any map). One line per steward: "uid displayName…". Stewards
+   merge trivial edits; structure stays with the maintainer. */
+function renderStewardsPanel(box, guardSave){
+  const mine=isAdmin() ? INDEX.map(e=>e.id)
+    : Object.keys(MAINTAINERS).filter(rm=>MAINTAINERS[rm]&&MAINTAINERS[rm].uid===user.id);
+  if(!mine.length) return;
+  const head=document.createElement("div");
+  head.innerHTML=`<h2 class="secTitle" style="margin-top:26px">Stewards — trusted hands on your maps</h2>
+    <div class="sub">One steward per line: <code>uid display name</code>. Stewards may merge
+    <b>trivial</b> proposals (link swaps, typos) on that map — never structural changes.
+    Bindings are public, like every authority here. Up to 10 per map.</div>`;
+  box.appendChild(head);
+  mine.forEach(rm=>{
+    const e=INDEX.find(r=>r.id===rm); if(!e) return;
+    const members=STEWARDS[rm]||{};
+    const row=document.createElement("div"); row.style.marginBottom="10px";
+    row.innerHTML=`<div style="font-size:12.5px;color:var(--muted);margin-bottom:4px">${e.emoji} ${esc(e.title)}</div>
+      <textarea class="edArea stList" data-rm="${esc(rm)}" style="min-height:44px"
+        placeholder="uid display name — one per line">${esc(Object.entries(members)
+          .map(([uid,name])=>uid+" "+name).join("\n"))}</textarea>`;
+    box.appendChild(row);
+  });
+  const save=document.createElement("button"); save.className="edAdd";
+  save.textContent="💾 Save stewards";
+  save.onclick=async ()=>{
+    if(!guardSave()) return;
+    try{
+      const F=await fb(); if(!F) throw new Error("offline");
+      for(const ta of box.querySelectorAll(".stList")){
+        const rm=ta.dataset.rm, members={};
+        ta.value.split("\n").map(s=>s.trim()).filter(Boolean).slice(0,10).forEach(line=>{
+          const sp=line.indexOf(" ");
+          const uid=sp<0?line:line.slice(0,sp);
+          const name=sp<0?line:line.slice(sp+1).trim();
+          if(uid) members[uid]=name||uid;
+        });
+        await F.setDoc(F.doc(F.db,"stewards",rm), {members, updatedAt:Date.now()});
+        STEWARDS[rm]=members;
+      }
+      toast("🪴 Stewards updated"); renderAccount();
+    }catch(e){ toast("Save failed — try again"); }
+  };
+  box.appendChild(save);
+}
 /* ---------- collections: owner-curated shelves of maps ----------
    A collection is a pointer, not content — it groups existing maps, so it
    needs no review pipeline: the owner IS the filter (GOVERNANCE.md's fork
-   valve). Connected: public-read `collections` Firestore docs. Local/demo:
-   the same records in localStorage, marked device-only. Admins moderate
-   with exactly two switches: featured and hidden. */
+   valve). Connected only: public-read `collections` Firestore docs;
+   unconfigured/demo degrades to an honest "needs the connected app" toast
+   (no local mirror). Admins moderate with exactly two switches: featured
+   and hidden. */
 function collConnected(){ return !!(FIREBASE_CONFIG && !FB_FAILED); }
-function localCollections(){ return readJSON("hkr:collections")||[]; }
-function saveLocalCollections(list){ localStorage.setItem("hkr:collections",JSON.stringify(list)); }
 async function loadCollections(){
-  if(collConnected()){
-    try{
-      const F=await fb(); if(!F) throw new Error("sdk unavailable");
-      const snap=await F.getDocs(F.collection(F.db,"collections"));
-      const out=[];
-      snap.forEach(d=>{
-        const rec={id:d.id, ...d.data()};
-        ["createdAt","updatedAt"].forEach(k=>{
-          if(rec[k]&&rec[k].toMillis) rec[k]=rec[k].toMillis(); });
-        out.push(rec);
-      });
-      return out;
-    }catch(e){ /* offline → device-only shelves */ }
-  }
-  return localCollections();
+  if(!collConnected()) return [];
+  try{
+    const F=await fb(); if(!F) throw new Error("sdk unavailable");
+    const snap=await F.getDocs(F.collection(F.db,"collections"));
+    const out=[];
+    snap.forEach(d=>{
+      const rec={id:d.id, ...d.data()};
+      ["createdAt","updatedAt"].forEach(k=>{
+        if(rec[k]&&rec[k].toMillis) rec[k]=rec[k].toMillis(); });
+      out.push(rec);
+    });
+    return out;
+  }catch(e){ return []; }
 }
 function openCollections(){
   showView("collectionsView");
@@ -1988,6 +3294,457 @@ function openCollections(){
   renderCollections();
   reflectHash("/collections");
 }
+
+/* ---------- The Atlas: browse every map by transparent fixed criteria ----------
+   Home-library cards stay spare (golden rule 7); the Atlas is the place richer
+   rows are legitimate — because you WENT here, it didn't come to you. */
+let atlasSort="order";
+function openAtlas(){
+  showView("atlasView");
+  $("backBtn").classList.add("show");
+  $("brandText").textContent="🗺 The Atlas";
+  closeDrawer();
+  $("atlasView").scrollTop=0;
+  renderAtlas();
+  reflectHash("/atlas");
+}
+/* Branch counts for the Atlas: one cached read of the public forks
+   collection — a number per map, nothing ranked by it. */
+let FORK_COUNTS=null;
+async function forkCounts(){
+  if(FORK_COUNTS) return FORK_COUNTS;
+  const counts={};
+  if(collConnected() && canSync()){
+    try{
+      const F=await fb(); if(!F) throw new Error("sdk unavailable");
+      const snap=await F.getDocs(F.collection(F.db,"forks"));
+      snap.forEach(d=>{
+        const f=d.data();
+        if(!f.hidden) counts[f.base]=(counts[f.base]||0)+1;
+      });
+    }catch(e){}
+  }
+  FORK_COUNTS=counts;
+  return counts;
+}
+/* Which of the fixed criteria a map carries — one source of truth for both
+   the row chips and the filter row above the list. */
+let atlasFilter=null, atlasQuery="";
+const ATLAS_CRITERIA=[
+  ["practice","🌀 practice"],
+  ["gated","⚕ scope-limited"],
+  ["archived","🗄 archived"],
+  ["orphan","🍂 seeking maintainer"],
+  ["endorsed","🏅 endorsed"],
+  ["versions","⑂ community versions"],
+  ["fresh","✓ fresh"],
+  ["cadence","⏱ tended on a cadence"],
+];
+function atlasKeysOf(e, forks){
+  const keys=new Set();
+  if((e.type||"skill")==="practice") keys.add("practice");
+  if((e.type||"skill")==="gated") keys.add("gated");
+  if((e.state||"published")==="archived") keys.add("archived");
+  if(orphaned(e.id)) keys.add("orphan");
+  if(typeof ENDORSEMENTS!=="undefined" && ENDORSEMENTS.some(x=>x.roadmap===e.id)) keys.add("endorsed");
+  if(forks[e.id]) keys.add("versions");
+  const latest=(e.freshness||{}).latest;
+  if(latest && (Date.now()-new Date(latest))/864e5<=90) keys.add("fresh");
+  if(e.cadence) keys.add("cadence");
+  return keys;
+}
+async function renderAtlas(){
+  const forks=await forkCounts();
+  document.querySelectorAll(".atlasSort").forEach(b=>
+    b.classList.toggle("on", b.dataset.sort===atlasSort));
+  let rows=INDEX.filter(e=>(e.state||"published")!=="draft");
+  if(atlasSort==="verified")
+    rows=[...rows].sort((a,b)=>
+      String((b.freshness||{}).latest||"").localeCompare(String((a.freshness||{}).latest||"")));
+  const keyed=rows.map(e=>({e, keys:atlasKeysOf(e, forks)}));
+  // filter chips are data-driven: a criterion with zero maps stays invisible
+  const fbox=$("atlasFilters"); fbox.innerHTML="";
+  ATLAS_CRITERIA.forEach(([k,label])=>{
+    const n=keyed.filter(r=>r.keys.has(k)).length;
+    if(!n) return;
+    const b=document.createElement("button");
+    b.className="atlasFilter"+(atlasFilter===k?" on":"");
+    b.textContent=`${label} · ${n}`;
+    b.onclick=()=>{ atlasFilter=atlasFilter===k?null:k; renderAtlas(); };
+    fbox.appendChild(b);
+  });
+  if(atlasFilter && !keyed.some(r=>r.keys.has(atlasFilter))) atlasFilter=null;
+  const q=atlasQuery.trim().toLowerCase();
+  const visible=keyed.filter(({e,keys})=>
+    (!atlasFilter || keys.has(atlasFilter)) &&
+    (!q || (e.title+" "+(e.endpoint||"")+" "+(e.tagline||"")+" "+maintainerNameOf(e))
+      .toLowerCase().includes(q)));
+  const list=$("atlasList"); list.innerHTML="";
+  if(!visible.length){
+    list.innerHTML=`<div class="sub">${q||atlasFilter
+      ?"No maps match — clear the search or filter."
+      :"No maps yet."}</div>`;
+    return;
+  }
+  visible.forEach(({e})=>{
+    const chips=[];
+    if((e.type||"skill")==="practice") chips.push(`<span>🌀 practice</span>`);
+    if((e.type||"skill")==="gated") chips.push(`<span>⚕ scope-limited</span>`);
+    if((e.state||"published")==="archived") chips.push(`<span>🗄 archived</span>`);
+    if(orphaned(e.id)) chips.push(`<span title="Seeking a maintainer — apply on the map page">🍂 seeking maintainer</span>`);
+    if(typeof ENDORSEMENTS!=="undefined" && ENDORSEMENTS.some(x=>x.roadmap===e.id))
+      chips.push(`<span>🏅 endorsed</span>`);
+    if(forks[e.id])
+      chips.push(`<span title="Public personal versions of this map — listed on its page">⑂ ${forks[e.id]} version${forks[e.id]>1?"s":""}</span>`);
+    const latest=(e.freshness||{}).latest;
+    if(latest && (Date.now()-new Date(latest))/864e5<=90)
+      chips.push(`<span class="fresh" title="Resources verified within the last 90 days">✓ fresh</span>`);
+    if(e.cadence) chips.push(`<span>⏱ ${esc(e.cadence)}</span>`);
+    const who=maintainerNameOf(e);
+    const row=document.createElement("button");
+    row.className="atlasRow";
+    row.innerHTML=`<span class="aremo">${e.emoji}</span>
+      <span class="artxt"><b>${esc(e.title)}</b>
+        <small>${esc(e.endpoint||e.tagline||"")}${who?" · "+esc(who):""}</small></span>
+      <span class="archips">${chips.join("")}</span>`;
+    row.onclick=()=>openCategory(e.id);
+    list.appendChild(row);
+  });
+}
+document.querySelectorAll(".atlasSort").forEach(b=>{
+  b.onclick=()=>{ atlasSort=b.dataset.sort; renderAtlas(); };
+});
+$("atlasSearch").addEventListener("input",()=>{
+  atlasQuery=$("atlasSearch").value; renderAtlas();
+});
+
+/* ---------- Vital signs: published numbers that resist gaming ---------- */
+async function openHealth(){
+  showView("healthView");
+  $("backBtn").classList.add("show");
+  $("brandText").textContent="🩺 Vital signs";
+  closeDrawer();
+  $("healthView").scrollTop=0;
+  reflectHash("/health");
+  const body=$("healthBody");
+  body.innerHTML="<div class='sub'>Loading…</div>";
+  let h=null;
+  try{
+    const r=await fetch("roadmaps/health.json",{cache:"no-cache"});
+    if(r.ok) h=await r.json();
+  }catch(e){}
+  if(!h){
+    $("healthBoundary").textContent="";
+    body.innerHTML=`<div class="sub">The vital signs aren't available right now — try again
+      after the next deploy. When they appear, every number derives from public repo data
+      alone; walker behavior is never counted, anywhere. Time-on-site is not a success
+      measure here.</div>`;
+    return;
+  }
+  $("healthBoundary").textContent=h.boundary||"";
+  const pct=h.links?Math.round(h.verified90/h.links*100):0;
+  body.innerHTML=`
+    <div class="hStatRow">
+      <div class="hStat"><b>${h.maps}</b><span>maps</span></div>
+      <div class="hStat"><b>${h.nodes}</b><span>steps</span></div>
+      <div class="hStat"><b>${h.links}</b><span>resources</span></div>
+      <div class="hStat"><b>${pct}%</b><span>verified ≤ 90 days</span></div>
+    </div>
+    <div class="hStatRow">
+      <div class="hStat"><b>${h.namedMaintainers}/${h.maps}</b><span>named maintainers</span></div>
+      <div class="hStat"><b>${(h.states||{}).archived||0}</b><span>archived (never deleted)</span></div>
+      <div class="hStat"><b>${h.landedContributions}</b><span>landed contributions</span></div>
+    </div>
+    <h3 class="secTitle" style="margin-top:22px">Resource freshness by map</h3>
+    <div id="hMaps"></div>
+    ${Object.keys(h.contributors||{}).length?`
+      <h3 class="secTitle" style="margin-top:22px">Contributors in the public record</h3>
+      <div class="sub">${Object.entries(h.contributors).map(([n,c])=>
+        `${esc(n)} (${c})`).join(" · ")}</div>`:""}
+    <div class="sub" style="margin-top:18px">Generated ${esc(h.generated||"")}. The one
+      anti-metric, stated openly: daily time-on-site is not tracked as a success
+      measure. A walker who checks their next step in 40 seconds and goes outside
+      to find Polaris is the ideal user.</div>`;
+  const hm=$("hMaps");
+  (h.perMap||[]).forEach(m=>{
+    const p=m.links?Math.round((m.verified90||0)/m.links*100):0;
+    const conc=m.topShare>0.5 && m.links>=10;
+    const row=document.createElement("div"); row.className="hBarRow";
+    row.innerHTML=`<span class="hLabel"${conc?` title="${esc(m.topDomain)} holds ${Math.round(m.topShare*100)}% of this map's resources"`:""}>${m.emoji} ${esc(m.title)}${
+        conc?` <span style="color:var(--accent)">· ${Math.round(m.topShare*100)}% one source</span>`:""}</span>
+      <div class="pbar"><i style="width:${p}%"></i></div>
+      <span class="hVal">${m.verified90||0}/${m.links}${m.latest?" · "+esc(m.latest):""}</span>`;
+    hm.appendChild(row);
+  });
+}
+
+/* ---------- Guild view: the community around a subject area ---------- */
+async function openGuild(gid){
+  const g=GUILDS[gid];
+  if(!g){ toast("⚠️ That guild doesn't exist (yet)"); goHome(); return; }
+  showView("guildView");
+  $("backBtn").classList.add("show");
+  $("brandText").textContent="🏛 "+g.title;
+  closeDrawer();
+  $("guildView").scrollTop=0;
+  const guides=Object.values(g.guides||{});
+  $("guildHead").innerHTML=`<h2>🏛 ${esc(g.title)}</h2>
+    ${g.blurb?`<div class="sub">${esc(g.blurb)}</div>`:""}
+    <div class="guildGuides">${guides.length
+      ?"🧭 Guides: "+guides.map(esc).join(", ")
+      :"🧭 No guides yet — the admins tend this guild until its community elects them."}</div>`;
+  const maps=$("guildMaps"); maps.innerHTML="";
+  (g.maps||[]).forEach(rmId=>{
+    const e=INDEX.find(r=>r.id===rmId); if(!e) return;
+    const row=document.createElement("button"); row.className="atlasRow";
+    const marks=endorsementsOf(rmId);
+    row.innerHTML=`<span class="aremo">${e.emoji}</span>
+      <span class="artxt"><b>${esc(e.title)}</b><small>${esc(e.endpoint||e.tagline||"")}</small></span>
+      <span class="archips">${marks.map(m=>`<span>🏅 ${esc(m.audience)}</span>`).join("")}</span>`;
+    row.onclick=()=>openCategory(rmId);
+    maps.appendChild(row);
+  });
+  renderGuildEndorsements(g);
+  renderGuildTalk(g);
+  reflectHash("/guild/"+gid);
+}
+function renderGuildEndorsements(g){
+  const box=$("guildEndorsements"); box.innerHTML="";
+  const marks=ENDORSEMENTS.filter(e=>e.guild===g.id);
+  if(!marks.length){
+    const d=document.createElement("div"); d.className="sub";
+    d.textContent="No endorsements yet — the mark means something because it's rare.";
+    box.appendChild(d);
+  }
+  marks.forEach(m=>{
+    const e=INDEX.find(r=>r.id===m.roadmap);
+    const at=m.at&&m.at.toMillis?m.at.toMillis():m.at;
+    const d=document.createElement("div"); d.className="endorseCard";
+    d.innerHTML=`🏅 <b>${esc(e?e.title:m.roadmap)}</b> — endorsed for <b>${esc(m.audience)}</b>
+      <div style="margin-top:4px;color:var(--muted)">${esc(m.criteria)}</div>
+      <div class="eMeta">signed ${esc(m.by&&m.by.name||"?")}${at?" · "+new Date(at).toLocaleDateString():""}</div>`;
+    if(guideOf(g.id)||isAdmin()){
+      const w=document.createElement("button"); w.className="rmX"; w.textContent="✕";
+      w.title="Withdraw this endorsement";
+      w.style.cssText="float:right";
+      w.onclick=async ()=>{
+        if(!confirm("Withdraw this endorsement?")) return;
+        try{
+          const F=await fb();
+          await F.deleteDoc(F.doc(F.db,"endorsements",m.id));
+          ENDORSEMENTS=ENDORSEMENTS.filter(x=>x.id!==m.id);
+          openGuild(g.id);
+        }catch(e){ toast("Failed — try again"); }
+      };
+      d.prepend(w);
+    }
+    box.appendChild(d);
+  });
+  if(guideOf(g.id)||isAdmin()){
+    const form=document.createElement("div");
+    form.innerHTML=`<div class="edRow" style="margin-top:10px">
+        <select class="edInput eMap">${(g.maps||[]).map(id=>{
+          const e=INDEX.find(r=>r.id===id);
+          return `<option value="${esc(id)}">${esc(e?e.title:id)}</option>`; }).join("")}</select>
+        <input class="edInput eAud" placeholder="audience, e.g. absolute beginners" maxlength="40" style="flex:0 0 200px">
+      </div>
+      <textarea class="edArea eCrit" placeholder="Published criteria — why this map, in terms anyone can check (completion, freshness, outcomes)…"></textarea>
+      <button class="edAdd eGo">🏅 Endorse</button>`;
+    form.querySelector(".eGo").onclick=async ()=>{
+      const roadmap=form.querySelector(".eMap").value;
+      const audience=form.querySelector(".eAud").value.trim();
+      const criteria=form.querySelector(".eCrit").value.trim();
+      if(!audience){ toast("Name the audience — endorsements are per audience"); return; }
+      if(criteria.length<20){ toast("Criteria are the point — say why, checkably"); return; }
+      try{
+        const F=await fb();
+        const ref=await F.addDoc(F.collection(F.db,"endorsements"),
+          { guild:g.id, roadmap, audience, criteria, method:"guide",
+            by:{uid:user.id, name:user.name}, at:F.serverTimestamp() });
+        ENDORSEMENTS.push({id:ref.id, guild:g.id, roadmap, audience, criteria,
+          method:"guide", by:{uid:user.id,name:user.name}, at:Date.now()});
+        toast("🏅 Endorsed — signed and dated");
+        openGuild(g.id);
+      }catch(e){ toast("Failed — check you're a guide of this guild"); }
+    };
+    box.appendChild(form);
+  }
+}
+async function renderGuildTalk(g){
+  const box=$("guildTalk"); box.innerHTML="<div class='sub'>Loading…</div>";
+  if(!canSync()){ box.innerHTML="<div class='sub'>Guild talk appears once the app is connected.</div>"; return; }
+  let items=[];
+  try{
+    const F=await fb(); if(!F) throw new Error("offline");
+    const snap=await F.getDocs(F.collection(F.db,"guilds",g.id,"talk"));
+    snap.forEach(d=>{
+      const c={id:d.id, ...d.data()};
+      if(c.createdAt&&c.createdAt.toMillis) c.createdAt=c.createdAt.toMillis();
+      items.push(c);
+    });
+  }catch(e){ box.innerHTML="<div class='sub'>Couldn't load the talk space.</div>"; return; }
+  items.sort((a,b)=>(a.createdAt||0)-(b.createdAt||0));
+  box.innerHTML="";
+  if(!items.length) box.innerHTML="<div class='sub'>Quiet so far. Say hello — guilds are where maintainers grow from.</div>";
+  items.forEach(c=>{
+    const row=document.createElement("div"); row.className="cmtRow";
+    row.innerHTML=`<b>${esc(c.by&&c.by.name||"?")}</b>
+      <span class="cmtWhen">${c.createdAt?new Date(c.createdAt).toLocaleDateString():""}</span>
+      <div class="cmtText">${esc(c.text||"")}</div>`;
+    if(isAdmin()||guideOf(g.id)){
+      const del=document.createElement("button"); del.className="rmX"; del.textContent="✕";
+      del.title="Remove (guide moderation)";
+      del.onclick=async ()=>{
+        try{ const F=await fb();
+          await F.deleteDoc(F.doc(F.db,"guilds",g.id,"talk",c.id));
+          renderGuildTalk(g);
+        }catch(e){ toast("Couldn't remove it"); }
+      };
+      row.appendChild(del);
+    }
+    box.appendChild(row);
+  });
+  if(user.provider){
+    const form=document.createElement("div"); form.className="edRow";
+    form.innerHTML=`<input class="edInput gtInput" maxlength="2000"
+        placeholder="Public and permanent — resource finds, rota talk, questions…">
+      <button class="edAdd gtSend" style="margin:0">Post</button>`;
+    form.querySelector(".gtSend").onclick=async ()=>{
+      const text=form.querySelector(".gtInput").value.trim();
+      if(!text) return;
+      try{
+        const F=await fb();
+        await F.addDoc(F.collection(F.db,"guilds",g.id,"talk"),
+          { text, by:{uid:user.id, name:user.name}, createdAt:F.serverTimestamp() });
+        renderGuildTalk(g);
+      }catch(e){ toast("Couldn't post — try again"); }
+    };
+    box.appendChild(form);
+  }
+}
+
+/* ---------- Journal: the walker's private record ----------
+   Entries are {rm, node, kind, prompt, date, text, createdAt, updatedAt,
+   deleted?} keyed by a client id; deletion tombstones (text cleared) so sync
+   erases across devices. node/prompt are legacy fields kept for shape
+   stability — the composer writes plain dated entries. The paid tier, when
+   it exists, lives HERE (sync/backup/AI companion) — the maps stay free. */
+function localDate(ts){
+  const d=ts?new Date(ts):new Date();
+  return d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")
+    +"-"+String(d.getDate()).padStart(2,"0");
+}
+function liveJournalEntries(){
+  return Object.entries(store.journal||{})
+    .filter(([,e])=>!e.deleted)
+    .sort((a,b)=>(b[1].createdAt||0)-(a[1].createdAt||0));
+}
+function openJournal(ctx){
+  showView("journalView");
+  $("backBtn").classList.add("show");
+  $("brandText").textContent="📓 Journal";
+  closeDrawer();
+  const sel=$("jMap"); sel.innerHTML="";
+  const all=document.createElement("option");
+  all.value=""; all.textContent="All maps"; sel.appendChild(all);
+  INDEX.forEach(e=>{
+    const o=document.createElement("option");
+    o.value=e.id; o.textContent=e.emoji+" "+e.title;
+    sel.appendChild(o);
+  });
+  sel.value=(ctx&&ctx.rm)||(currentRm?currentRm.id:"")||"";
+  $("jText").value="";
+  $("jStreaks").checked=!!(store.settings||{}).streaks;
+  renderJournal();
+  reflectHash("/journal"+(sel.value?"/"+sel.value:""));
+  $("jText").focus();
+}
+function saveJournalEntry(){
+  if(!canSync()){ toast("The journal needs the connected app"); return; }
+  const text=$("jText").value.trim();
+  if(!text){ toast("Write something first — even one honest sentence"); return; }
+  const id=Date.now().toString(36)+"-"+Math.random().toString(36).slice(2,7);
+  const now=Date.now();
+  store.journal=store.journal||{};
+  store.journal[id]={ rm:$("jMap").value||"", node:"", kind:"entry", prompt:"",
+    date:localDate(), text, createdAt:now, updatedAt:now };
+  persist();
+  $("jText").value="";
+  renderJournal();
+  toast("📓 Saved — yours alone");
+}
+function deleteJournalEntry(id){
+  const e=(store.journal||{})[id]; if(!e) return;
+  if(!canSync()){ toast("The journal needs the connected app"); return; }
+  if(!confirm("Delete this entry? It disappears from all your devices.")) return;
+  // tombstone: text cleared, deleted flagged — sync carries the erasure
+  store.journal[id]={...e, text:"", deleted:true, updatedAt:Date.now()};
+  persist(); renderJournal();
+}
+function journalStreak(){
+  const days=new Set(liveJournalEntries().map(([,e])=>e.date));
+  let n=0, d=new Date();
+  if(!days.has(localDate())) d.setDate(d.getDate()-1);   // today not yet written ≠ broken
+  while(days.has(localDate(d.getTime()))){ n++; d.setDate(d.getDate()-1); }
+  return n;
+}
+function renderJournal(){
+  const list=$("jList"); list.innerHTML="";
+  const filter=$("jMap").value;
+  const items=liveJournalEntries()
+    .filter(([,e])=>!filter||e.rm===filter);
+  const streaksOn=!!(store.settings||{}).streaks;
+  $("jStreakChip").style.display=streaksOn?"":"none";
+  if(streaksOn){
+    const n=journalStreak();
+    $("jStreakChip").textContent=n?`🔥 ${n}-day streak`:"— no streak yet; today counts";
+  }
+  if(!items.length){
+    list.innerHTML="<div class='sub'>Nothing yet. The journal grows one honest entry at a time.</div>";
+    return;
+  }
+  let lastDay=null;
+  items.forEach(([id,e])=>{
+    if(e.date!==lastDay){
+      lastDay=e.date;
+      const day=document.createElement("div"); day.className="jDay";
+      day.textContent=e.date;
+      list.appendChild(day);
+    }
+    const m=INDEX.find(r=>r.id===e.rm);
+    const d=document.createElement("div"); d.className="jEntry";
+    d.innerHTML=`<div class="jMeta">${m?esc(m.emoji+" "+m.title):"—"}${e.node?" · "+esc(e.node):""}</div>
+      <div class="jBody">${esc(e.text)}</div>`;
+    const del=document.createElement("button"); del.className="rmX"; del.textContent="✕";
+    del.title="Delete entry"; del.onclick=()=>deleteJournalEntry(id);
+    d.appendChild(del);
+    list.appendChild(d);
+  });
+}
+$("jSave").onclick=saveJournalEntry;
+$("jMap").onchange=()=>{ renderJournal();
+  reflectHash("/journal"+($("jMap").value?"/"+$("jMap").value:"")); };
+$("jStreaks").onchange=()=>{
+  if(!canSync()){ $("jStreaks").checked=!$("jStreaks").checked;
+    toast("The journal needs the connected app"); return; }
+  store.settings={...(store.settings||{}), streaks:$("jStreaks").checked, updatedAt:Date.now()};
+  persist(); renderJournal();
+};
+$("jCopyAll").onclick=async ()=>{
+  const filter=$("jMap").value;
+  const m=INDEX.find(r=>r.id===filter);
+  const text=liveJournalEntries()
+    .filter(([,e])=>!filter||e.rm===filter)
+    .map(([,e])=>{
+      const map=INDEX.find(r=>r.id===e.rm);
+      return `## ${e.date}${map?" · "+map.title:""}\n`+
+        (e.prompt?`> ${e.prompt}\n\n`:"")+e.text;
+    }).join("\n\n");
+  try{
+    await navigator.clipboard.writeText(text||"(empty journal)");
+    toast(`📋 Copied${m?" — "+m.title:""} as markdown — share it wherever you choose`);
+  }catch(e){ toast("Couldn't copy — select by hand"); }
+};
 let collItems=[];
 async function renderCollections(){
   const list=$("collList"); list.innerHTML="<div class='sub'>Loading…</div>";
@@ -2007,7 +3764,7 @@ function paintCollections(){
   const list=$("collList"); list.innerHTML="";
   const q=$("collSearch").value.trim().toLowerCase();
   if(!collConnected())
-    list.innerHTML="<div class='sub'>⚠️ Not connected — collections here live on this device only.</div>";
+    list.innerHTML="<div class='sub'>⚠️ Not connected — collections need the connected app.</div>";
   const items=collItems.filter(c=>collMatches(c,q));
   if(!items.length){
     list.innerHTML+= q
@@ -2057,6 +3814,7 @@ function paintCollections(){
 let collEditing=null;
 function openCollModal(c){
   if(!user.provider){ $("authModal").classList.add("show"); toast("Sign in to curate a collection"); return; }
+  if(!canSync()){ toast("Collections need the connected app"); return; }
   collEditing=c||null;
   $("collModalTitle").textContent=c?"Edit your collection":"Create a collection";
   $("collTitle").value=c?c.title:"";
@@ -2073,8 +3831,6 @@ function openCollModal(c){
   $("collDelete").style.display=c?"block":"none";
   $("collModal").classList.add("show");
 }
-/* writes go to Firestore when this identity can, otherwise to the device */
-function collCloud(c){ return collConnected() && canSync() && !(c&&c.local); }
 async function saveCollModal(){
   const title=$("collTitle").value.trim(), blurb=$("collBlurb").value.trim();
   const maps=[...$("collPick").querySelectorAll("input:checked")].map(i=>i.value);
@@ -2082,28 +3838,15 @@ async function saveCollModal(){
   if(!maps.length){ toast("Pick at least one map"); return; }
   $("collSave").disabled=true;
   try{
-    if(collCloud(collEditing)){
-      const F=await fb(); if(!F) throw new Error("offline");
-      if(collEditing){
-        await F.updateDoc(F.doc(F.db,"collections",collEditing.id),
-          {title, blurb, maps, updatedAt:F.serverTimestamp()});
-      }else{
-        await F.addDoc(F.collection(F.db,"collections"),
-          {title, blurb, maps, owner:{uid:user.id, name:user.name},
-           featured:false, hidden:false,
-           createdAt:F.serverTimestamp(), updatedAt:F.serverTimestamp()});
-      }
+    const F=await fb(); if(!F) throw new Error("offline");
+    if(collEditing){
+      await F.updateDoc(F.doc(F.db,"collections",collEditing.id),
+        {title, blurb, maps, updatedAt:F.serverTimestamp()});
     }else{
-      const list=localCollections();
-      if(collEditing){
-        const rec=list.find(x=>x.id===collEditing.id);
-        if(rec) Object.assign(rec,{title, blurb, maps, updatedAt:Date.now()});
-      }else{
-        list.push({id:"local-"+Date.now().toString(36), title, blurb, maps,
-          owner:{uid:user.id, name:user.name}, featured:false, hidden:false,
-          local:true, createdAt:Date.now(), updatedAt:Date.now()});
-      }
-      saveLocalCollections(list);
+      await F.addDoc(F.collection(F.db,"collections"),
+        {title, blurb, maps, owner:{uid:user.id, name:user.name},
+         featured:false, hidden:false,
+         createdAt:F.serverTimestamp(), updatedAt:F.serverTimestamp()});
     }
     $("collModal").classList.remove("show");
     toast(collEditing?"Shelf updated":"🧺 Collection created");
@@ -2115,26 +3858,16 @@ async function deleteCollModal(){
   if(!collEditing) return;
   if(!confirm(`Delete “${collEditing.title}”? This removes the shelf — never the maps on it.`)) return;
   try{
-    if(collCloud(collEditing)){
-      const F=await fb(); if(!F) throw new Error("offline");
-      await F.deleteDoc(F.doc(F.db,"collections",collEditing.id));
-    }else{
-      saveLocalCollections(localCollections().filter(x=>x.id!==collEditing.id));
-    }
+    const F=await fb(); if(!F) throw new Error("offline");
+    await F.deleteDoc(F.doc(F.db,"collections",collEditing.id));
     $("collModal").classList.remove("show");
     toast("Shelf deleted"); renderCollections();
   }catch(e){ toast("Delete failed — try again"); }
 }
 async function moderateCollection(c,patch){
   try{
-    if(collCloud(c)){
-      const F=await fb(); if(!F) throw new Error("offline");
-      await F.updateDoc(F.doc(F.db,"collections",c.id), patch);
-    }else{
-      const list=localCollections();
-      const rec=list.find(x=>x.id===c.id);
-      if(rec){ Object.assign(rec,patch); saveLocalCollections(list); }
-    }
+    const F=await fb(); if(!F) throw new Error("offline");
+    await F.updateDoc(F.doc(F.db,"collections",c.id), patch);
     renderCollections();
   }catch(e){ toast("Failed — try again"); }
 }
@@ -2153,35 +3886,52 @@ $("collMapSearch").addEventListener("input",()=>{
   });
 });
 
-/* ---------- personal versions ("Personalize") ----------
+/* ---------- personal versions (community branches) ----------
    A fork is ops-over-base, NOT a copy: {base, title, ops[], owner}. It renders
    through the same applyMergedDocs as the merged overlay, so every topic the
    owner hasn't touched keeps tracking the canonical map as it improves —
    drift is opt-in per topic, and "reset to standard" just drops that topic's
    ops. Stable node ids mean walking progress is shared with the base map.
-   Connected: public-read `forks` docs. Local/demo: localStorage, device-only. */
+   Created only from the category page's "Start your own branch" row.
+   Connected only: public-read `forks` docs; unconfigured/demo degrades to
+   an honest "needs the connected app" toast (no local mirror). */
 function forkOwned(){ return !!(currentFork && user.provider && currentFork.owner.uid===user.id); }
-function localForks(){ return readJSON("hkr:forks")||[]; }
-function saveLocalForks(l){ localStorage.setItem("hkr:forks",JSON.stringify(l)); }
-function forkCloud(f){ return collConnected() && canSync() && !(f&&f.local); }
-function mapPath(){ return currentFork ? "/fork/"+currentFork.id : "/"+currentRm.id; }
+function mapPath(){ return currentFork ? "/fork/"+currentFork.id : "/"+currentRm.id+"/map"; }
+/* Public branches of one map — the fork-discovery query (public read).
+   Hidden forks stay visible only to their owner and admins, same gate as
+   opening one directly. */
+async function forksOfMap(rmId){
+  if(!(collConnected() && canSync())) return [];
+  const out=[];
+  try{
+    const F=await fb(); if(!F) throw new Error("sdk unavailable");
+    const snap=await F.getDocs(F.query(F.collection(F.db,"forks"),
+      F.where("base","==",rmId)));
+    snap.forEach(d=>{
+      const rec={id:d.id, ...d.data()};
+      ["createdAt","updatedAt"].forEach(k=>{ if(rec[k]&&rec[k].toMillis) rec[k]=rec[k].toMillis(); });
+      out.push(rec);
+    });
+  }catch(e){}
+  return out
+    .filter(f=>!f.hidden || isAdmin() || (user.provider&&f.owner&&f.owner.uid===user.id))
+    .sort((a,b)=>(b.updatedAt||0)-(a.updatedAt||0));   // recency of tending — transparent, never engagement
+}
 async function fetchFork(id){
-  if(collConnected() && !id.startsWith("local-")){
-    try{
-      const F=await fb(); if(!F) throw new Error("sdk unavailable");
-      const snap=await F.getDoc(F.doc(F.db,"forks",id));
-      if(snap.exists()){
-        const rec={id:snap.id, ...snap.data()};
-        ["createdAt","updatedAt"].forEach(k=>{ if(rec[k]&&rec[k].toMillis) rec[k]=rec[k].toMillis(); });
-        return rec;
-      }
-    }catch(e){}
-  }
-  return localForks().find(f=>f.id===id)||null;
+  if(!collConnected()) return null;
+  try{
+    const F=await fb(); if(!F) throw new Error("sdk unavailable");
+    const snap=await F.getDoc(F.doc(F.db,"forks",id));
+    if(snap.exists()){
+      const rec={id:snap.id, ...snap.data()};
+      ["createdAt","updatedAt"].forEach(k=>{ if(rec[k]&&rec[k].toMillis) rec[k]=rec[k].toMillis(); });
+      return rec;
+    }
+  }catch(e){}
+  return null;
 }
 async function myForks(){
-  const local=localForks().filter(f=>f.owner&&f.owner.uid===user.id);
-  if(!(collConnected() && canSync())) return local;
+  if(!(collConnected() && canSync())) return [];
   try{
     const F=await fb(); if(!F) throw new Error("sdk unavailable");
     const snap=await F.getDocs(F.query(F.collection(F.db,"forks"),
@@ -2192,8 +3942,8 @@ async function myForks(){
       ["createdAt","updatedAt"].forEach(k=>{ if(rec[k]&&rec[k].toMillis) rec[k]=rec[k].toMillis(); });
       out.push(rec);
     });
-    return out.concat(local);
-  }catch(e){ return local; }
+    return out;
+  }catch(e){ return []; }
 }
 function deriveForkRm(baseRm, f){
   const applied=applyMergedDocs(baseRm.topics, baseRm.nodes, f.ops||[]);
@@ -2212,12 +3962,12 @@ async function openFork(id, nodeId){
   showView("mapView");
   $("backBtn").classList.add("show");
   $("brandText").textContent="✨ "+f.title;
+  renderMapHeader();
   scale=Math.min(1,(window.innerWidth-24)/CANVAS_W);
   renderGraph();
   paintForkBanner(base);
-  $("addTopicBtn").classList.toggle("show", canEdit());
-  $("reorgBtn").classList.toggle("show", canEdit());
-  $("personalizeBtn").classList.remove("show");
+  $("addTopicBtn").classList.toggle("show", ownsSurface());
+  $("reorgBtn").classList.toggle("show", ownsSurface());
   $("histBtn").style.display="none";   // history belongs to the standard map
   $("scroller").scrollTop=0;
   reflectHash("/fork/"+id);
@@ -2230,16 +3980,34 @@ function paintForkBanner(base){
       <a href="#/${esc(currentFork.base)}">${esc(base.emoji)} ${esc(base.title)}</a></span>
     <button id="forkShare" title="Copy a link to this version">🔗 Share</button>
     ${mine?'<button id="forkDelete" title="Delete this version">🗑</button>'
-          :'<button id="forkReport" title="Report this version">⚑</button>'}`;
+          :'<button id="forkReport" title="Report this version">⚑</button>'}
+    ${!mine&&isAdmin()&&canSync()
+      ?`<button id="forkHide" title="${currentFork.hidden
+          ?"Restore this version to public listings"
+          :"Hide this version from public listings (the owner keeps access)"}">${
+          currentFork.hidden?"👁 Unhide":"🙈 Hide"}</button>`:""}`;
   $("forkShare").onclick=async ()=>{
     const url=location.origin+location.pathname+"#/fork/"+currentFork.id;
     try{ await navigator.clipboard.writeText(url);
-      toast(currentFork.local?"Link copied — this version lives only on this device":"🔗 Link copied — anyone can open it"); }
+      toast("🔗 Link copied — anyone can open it"); }
     catch(e){ toast("Couldn't copy — the address bar has it"); }
   };
   if(mine) $("forkDelete").onclick=deleteFork;
   else $("forkReport").onclick=()=>reportContent("fork",
     {id:currentFork.id, title:currentFork.title});
+  // admin moderation: the rules' one fork switch (hidden) — report recourse
+  // short of deletion; nothing else may ever write someone else's fork
+  if($("forkHide")) $("forkHide").onclick=async ()=>{
+    try{
+      const F=await fb(); if(!F) throw new Error("offline");
+      const hidden=!currentFork.hidden;
+      await F.updateDoc(F.doc(F.db,"forks",currentFork.id), {hidden});
+      currentFork.hidden=hidden;
+      toast(hidden?"🙈 Hidden from listings — the owner keeps access"
+                  :"👁 Restored to public listings");
+      paintForkBanner(base);
+    }catch(e){ toast("Couldn't update this version — try again"); }
+  };
   b.classList.add("show");
 }
 async function personalize(){
@@ -2251,34 +4019,24 @@ async function personalize(){
     toast("Opening your version of this map");
     location.hash="#/fork/"+mine[0].id; return;
   }
+  if(!(collConnected() && canSync())){
+    toast("Personal versions need the connected app"); return; }
   const rec={base:baseId, title:currentRm.title+" — "+user.name+"'s version",
              ops:[], owner:{uid:user.id, name:user.name}, hidden:false};
   try{
-    if(collConnected() && canSync()){
-      const F=await fb(); if(!F) throw new Error("offline");
-      const ref=await F.addDoc(F.collection(F.db,"forks"),
-        {...rec, createdAt:F.serverTimestamp(), updatedAt:F.serverTimestamp()});
-      location.hash="#/fork/"+ref.id;
-    }else{
-      const id="local-"+Date.now().toString(36);
-      saveLocalForks([...localForks(), {...rec, id, local:true, createdAt:Date.now(), updatedAt:Date.now()}]);
-      location.hash="#/fork/"+id;
-    }
+    const F=await fb(); if(!F) throw new Error("offline");
+    const ref=await F.addDoc(F.collection(F.db,"forks"),
+      {...rec, createdAt:F.serverTimestamp(), updatedAt:F.serverTimestamp()});
+    location.hash="#/fork/"+ref.id;
+    FORK_COUNTS=null;   // the Atlas branch counts just changed
     toast("✨ This copy is yours — edits here never touch the standard map");
   }catch(e){ toast("Couldn't create your version — try again"); }
 }
-$("personalizeBtn").onclick=personalize;
 async function saveForkOps(ops){
   const f=currentFork;
   if(ops.length>100) throw new Error("This version has hit its 100-change limit — reset some topics to the standard map first");
-  if(forkCloud(f)){
-    const F=await fb(); if(!F) throw new Error("offline — try again");
-    await F.updateDoc(F.doc(F.db,"forks",f.id), {ops, updatedAt:F.serverTimestamp()});
-  }else{
-    const list=localForks(), rec=list.find(x=>x.id===f.id);
-    if(!rec) throw new Error("This version is gone from this device");
-    rec.ops=ops; rec.updatedAt=Date.now(); saveLocalForks(list);
-  }
+  const F=await fb(); if(!F) throw new Error("offline — try again");
+  await F.updateDoc(F.doc(F.db,"forks",f.id), {ops, updatedAt:F.serverTimestamp()});
   f.ops=ops;
 }
 async function appendForkOps(newOps){
@@ -2298,10 +4056,9 @@ async function deleteFork(){
   if(!confirm(`Delete “${currentFork.title}”? The standard map is untouched.`)) return;
   const f=currentFork;
   try{
-    if(forkCloud(f)){
-      const F=await fb(); if(!F) throw new Error("offline");
-      await F.deleteDoc(F.doc(F.db,"forks",f.id));
-    }else saveLocalForks(localForks().filter(x=>x.id!==f.id));
+    const F=await fb(); if(!F) throw new Error("offline");
+    await F.deleteDoc(F.doc(F.db,"forks",f.id));
+    FORK_COUNTS=null;
     toast("Personal version deleted");
     location.hash="#/"+f.base;
   }catch(e){ toast("Delete failed — try again"); }
@@ -2317,24 +4074,22 @@ async function renderMyForks(){
     const d=document.createElement("div"); d.className="collCard";
     d.innerHTML=`<div class="collHead"><h3>✨ ${esc(f.title)}</h3>
       <span class="collBy">personal version of ${e?esc(e.emoji+" "+e.title):esc(f.base)}
-      · ${(f.ops||[]).length} change${(f.ops||[]).length===1?"":"s"}${f.local?" · this device only":""}</span></div>`;
+      · ${(f.ops||[]).length} change${(f.ops||[]).length===1?"":"s"}</span></div>`;
     const acts=document.createElement("div"); acts.className="sgActs";
     const op=document.createElement("button"); op.textContent="Open";
     op.onclick=()=>{ location.hash="#/fork/"+f.id; };
     const cp=document.createElement("button"); cp.className="aAcc"; cp.textContent="🔗 Copy link";
     cp.onclick=async ()=>{
       try{ await navigator.clipboard.writeText(location.origin+location.pathname+"#/fork/"+f.id);
-        toast(f.local?"Link copied — this version lives only on this device":"🔗 Link copied"); }
+        toast("🔗 Link copied"); }
       catch(err){ toast("Couldn't copy"); }
     };
     const del=document.createElement("button"); del.className="aRej"; del.textContent="🗑 Delete";
     del.onclick=async ()=>{
       if(!confirm(`Delete “${f.title}”? The standard map is untouched.`)) return;
       try{
-        if(collConnected() && canSync() && !f.local){
-          const F=await fb(); if(!F) throw new Error("offline");
-          await F.deleteDoc(F.doc(F.db,"forks",f.id));
-        }else saveLocalForks(localForks().filter(x=>x.id!==f.id));
+        const F=await fb(); if(!F) throw new Error("offline");
+        await F.deleteDoc(F.doc(F.db,"forks",f.id));
         toast("Deleted"); renderAccount();
       }catch(err){ toast("Delete failed — try again"); }
     };
@@ -2357,8 +4112,7 @@ const CONTRIB_STATUS={
   rejected: ["✕ Not taken","#f87171"],
 };
 async function myContributions(){
-  if(!canSync())
-    return (readJSON("hkr:outbox")||[]).map(s=>({ctype:"suggestion", ...s}));
+  if(!canSync()) return [];
   const out=[];
   try{
     const F=await fb(); if(!F) return [];
@@ -2375,11 +4129,12 @@ async function myContributions(){
   out.sort((a,b)=>(b.createdAt||0)-(a.createdAt||0));
   return out;
 }
-function seenKey(){ return "hkr:seenDecisions:"+user.id; }
+/* the "decisions arrived" timestamp rides in the server store (settings), so
+   the gold dot clears on every device once the contributions page is seen */
 function paintContribBadge(on){ $("userChip").classList.toggle("hasNews", !!on); }
 async function checkContribNews(){
   if(!canSync()) return;
-  const last=+localStorage.getItem(seenKey())||0;
+  const last=+(store.settings||{}).seenDecisions||0;
   try{
     const items=await myContributions();
     paintContribBadge(items.some(c=>c.status && c.status!=="pending" && (c.decidedAt||0)>last));
@@ -2388,7 +4143,10 @@ async function checkContribNews(){
 async function renderMyContributions(){
   const box=$("acctContrib"); if(!box) return;
   const items=await myContributions();
-  localStorage.setItem(seenKey(), String(Date.now()));   // seeing them clears the badge
+  if(canSync()){   // seeing them clears the badge
+    store.settings={...(store.settings||{}), seenDecisions:Date.now(), updatedAt:Date.now()};
+    persist();
+  }
   paintContribBadge(false);
   if(!items.length){ box.innerHTML=""; return; }
   box.innerHTML='<h2 class="secTitle" style="margin-top:26px">Your contributions</h2>'+
@@ -2403,7 +4161,7 @@ async function renderMyContributions(){
       ${c.text?`<div class="sgText" style="font-size:12.5px">${esc(c.text.slice(0,160))}${c.text.length>160?"…":""}</div>`:""}
       <div style="margin-top:8px;font-size:12.5px;font-weight:650;color:${color}">${label}</div>
       ${c.reason?`<div class="sgText" style="margin-top:4px;font-size:12px">✉️ ${esc(c.reason)}</div>`:""}`;
-    if(c.status==="pending" && canSync() && !c.local){
+    if(c.status==="pending" && canSync()){
       const acts=document.createElement("div"); acts.className="sgActs";
       const w=document.createElement("button"); w.className="aRej"; w.textContent="Withdraw";
       w.onclick=async ()=>{
@@ -2436,6 +4194,12 @@ async function deleteMyAccount(){
   try{
     if(canSync()){
       const F=await fb(); if(!F) throw new Error("offline");
+      // journal entries live in a subcollection — Firestore doesn't cascade,
+      // and the Privacy page promises they go too
+      try{
+        const jsnap=await F.getDocs(F.collection(F.db,"users",uid,"journal"));
+        for(const d of jsnap.docs){ try{ await F.deleteDoc(d.ref); }catch(e){} }
+      }catch(e){}
       try{ await F.deleteDoc(F.doc(F.db,"users",uid)); }catch(e){}
       for(const coll of ["forks","collections"]){
         try{
@@ -2459,15 +4223,9 @@ async function deleteMyAccount(){
         toast("Data deleted. To fully remove the sign-in identity, sign in once more and delete again.");
       }
     }
-    localStorage.removeItem(storeKey(uid));
-    localStorage.removeItem(seenKey());
-    saveLocalForks(localForks().filter(f=>!(f.owner&&f.owner.uid===uid)));
-    saveLocalCollections(localCollections().filter(c=>!(c.owner&&c.owner.uid===uid)));
-    localStorage.setItem("hkr:outbox",
-      JSON.stringify((readJSON("hkr:outbox")||[]).filter(s=>!(s.by&&s.by.id===uid))));
     user={id:"guest", name:"Guest", provider:null};
-    localStorage.setItem("hkr:user", JSON.stringify(user));
-    store=migrateStore(readJSON(storeKey("guest")));
+    cacheUser();
+    store=migrateStore(null); jPushWM=0;
     paintUser(); goHome();
     toast("Your account and data are deleted. Walk on as a guest anytime.");
   }catch(e){ toast("Deletion hit a problem — try again, or see the Privacy page"); }
@@ -2476,72 +4234,213 @@ async function deleteMyAccount(){
 /* ---------- reports: the community's flag on public content ---------- */
 async function reportContent(kind, target){
   if(!user.provider){ $("authModal").classList.add("show"); toast("Sign in to report"); return; }
-  const text=(prompt("What's wrong here? One sentence helps the admins act:")||"").trim();
+  // safety reports are the red-flag queue: dangerous instructions, medical
+  // misinformation — a 48-hour response norm instead of the usual cadence
+  let severity="normal";
+  if(kind==="map"){
+    severity=confirm(
+      "Is this a SAFETY problem — dangerous instructions or medical misinformation?\n\n"+
+      "OK = yes, red-flag it (48-hour response norm)\nCancel = no, a normal report")
+      ? "safety" : "normal";
+  }
+  const text=(prompt(severity==="safety"
+    ? "Describe the danger — what could go wrong for someone following this?"
+    : "What's wrong here? One sentence helps the moderators act:")||"").trim();
   if(text.length<5){ if(text) toast("A few more words, please"); return; }
+  if(!canSync()){ toast("Reports need the connected app"); return; }
   try{
-    if(canSync()){
-      const F=await fb(); if(!F) throw new Error("offline");
-      await F.addDoc(F.collection(F.db,"reports"),
-        {kind, target, text, by:{uid:user.id, name:user.name}, createdAt:F.serverTimestamp()});
-    }else{
-      const list=readJSON("hkr:reports")||[];
-      list.push({id:"local-"+Date.now().toString(36), kind, target, text,
-                 by:{uid:user.id, name:user.name}, createdAt:Date.now(), local:true});
-      localStorage.setItem("hkr:reports", JSON.stringify(list));
-    }
-    toast("⚑ Reported — the admins will take a look");
+    const F=await fb(); if(!F) throw new Error("offline");
+    await F.addDoc(F.collection(F.db,"reports"),
+      {kind, target, text, severity, status:"open",
+       by:{uid:user.id, name:user.name}, createdAt:F.serverTimestamp()});
+    toast(severity==="safety"
+      ? "🚨 Red-flagged — safety reports get looked at within 48 hours"
+      : "⚑ Reported — the moderators will take a look");
   }catch(e){ toast("Couldn't send the report — try again"); }
 }
 async function renderReports(list){
-  if(!isAdmin()){ list.innerHTML="<div class='sub'>Reports are admin-only.</div>"; return; }
+  if(!isAdmin() && !moderatorOfAny()){
+    list.innerHTML="<div class='sub'>Reports are for moderators.</div>"; return; }
+  if(!canSync()){
+    list.innerHTML="<div class='sub'>Reports appear once the app is connected.</div>"; return; }
   let items=[];
-  if(canSync()){
-    try{
-      const F=await fb(); if(!F) throw new Error("offline");
+  try{
+    const F=await fb(); if(!F) throw new Error("offline");
+    if(isAdmin()){
       const snap=await F.getDocs(F.collection(F.db,"reports"));
-      snap.forEach(d=>{
-        const r={id:d.id, ...d.data()};
-        if(r.createdAt&&r.createdAt.toMillis) r.createdAt=r.createdAt.toMillis();
-        items.push(r);
-      });
-    }catch(e){ list.innerHTML="<div class='sub'>Couldn't load reports.</div>"; return; }
-  }else items=readJSON("hkr:reports")||[];
-  items.sort((a,b)=>(b.createdAt||0)-(a.createdAt||0));
+      snap.forEach(d=>items.push({id:d.id, ...d.data()}));
+    }else{
+      // maintainers see reports about their own maps' canonical content
+      for(const rm of moderatedMapIds()||[]){
+        const snap=await F.getDocs(F.query(F.collection(F.db,"reports"),
+          F.where("kind","==","map"), F.where("target.roadmap","==",rm)));
+        snap.forEach(d=>items.push({id:d.id, ...d.data()}));
+      }
+    }
+    items.forEach(r=>{ if(r.createdAt&&r.createdAt.toMillis) r.createdAt=r.createdAt.toMillis(); });
+  }catch(e){ list.innerHTML="<div class='sub'>Couldn't load reports.</div>"; return; }
+  // legacy docs predate severity/status — read them tolerantly
+  items.forEach(r=>{ r.severity=r.severity||"normal"; r.status=r.status||"open"; });
+  items=items.filter(r=>r.status==="open");
+  items.sort((a,b)=>
+    ((b.severity==="safety")-(a.severity==="safety")) || (b.createdAt||0)-(a.createdAt||0));
   list.innerHTML="";
-  if(!items.length){ list.innerHTML="<div class='sub'>No reports. 🎉</div>"; return; }
+  if(!items.length){ list.innerHTML="<div class='sub'>No open reports. 🎉</div>"; return; }
   items.forEach(r=>{
     const d=document.createElement("div"); d.className="sgCard";
+    if(r.severity==="safety") d.style.borderColor="rgba(248,113,113,.6)";
     d.innerHTML=`<div class="sgMeta"><span class="sgType">⚑ ${esc(r.kind)}</span>
-        <span>${esc((r.target&&(r.target.title||r.target.id))||"")}</span>
+        ${r.severity==="safety"?'<span class="vbadge" style="background:rgba(248,113,113,.15);color:#f87171">🚨 safety — respond within 48h</span>':""}
+        ${ageChip(r.createdAt)}
+        <span>${esc((r.target&&(r.target.title||r.target.roadmap||r.target.id))||"")}${r.target&&r.target.node?" · "+esc(r.target.node):""}</span>
         <span>by ${esc(r.by.name)}</span></div>
-      <div class="sgText">${esc(r.text)}</div>`;
+      <div class="sgText">${esc(r.text)}</div>
+      ${r.target&&r.target.resource?`<div class="sgUrl">${esc(r.target.resource)}</div>`:""}`;
     const acts=document.createElement("div"); acts.className="sgActs";
     const open=document.createElement("button"); open.textContent="Open it";
     open.onclick=()=>{
       if(r.kind==="collection") location.hash="#/collections";
       else if(r.kind==="fork" && r.target&&r.target.id) location.hash="#/fork/"+r.target.id;
-      else if(r.kind==="tip" && r.target&&r.target.roadmap)
+      else if(r.target&&r.target.roadmap)
         location.hash="#/"+r.target.roadmap+(r.target.node?"/"+encodeURIComponent(r.target.node):"");
     };
-    const dis=document.createElement("button"); dis.className="aRej"; dis.textContent="Dismiss";
-    dis.onclick=async ()=>{
+    acts.appendChild(open);
+    const resolveBtn=document.createElement("button"); resolveBtn.className="aTip";
+    resolveBtn.textContent="✓ Resolve…";
+    resolveBtn.onclick=async ()=>{
+      const resolution=(prompt("What was done? (recorded on the report)")||"").trim();
+      if(!resolution) return;
       try{
-        if(canSync() && !r.local){
-          const F=await fb(); if(!F) throw new Error("offline");
-          await F.deleteDoc(F.doc(F.db,"reports",r.id));
-        }else localStorage.setItem("hkr:reports",
-          JSON.stringify((readJSON("hkr:reports")||[]).filter(x=>x.id!==r.id)));
+        const F=await fb(); if(!F) throw new Error("offline");
+        await F.updateDoc(F.doc(F.db,"reports",r.id),
+          {status:"resolved", resolvedAt:Date.now(),
+           resolvedBy:{uid:user.id,name:user.name}, resolution});
         renderReview();
       }catch(e){ toast("Failed — try again"); }
     };
-    acts.appendChild(open); acts.appendChild(dis); d.appendChild(acts);
+    acts.appendChild(resolveBtn);
+    const dis=document.createElement("button"); dis.className="aRej"; dis.textContent="Dismiss";
+    dis.onclick=async ()=>{
+      try{
+        const F=await fb(); if(!F) throw new Error("offline");
+        await F.updateDoc(F.doc(F.db,"reports",r.id),
+          {status:"dismissed", resolvedAt:Date.now(),
+           resolvedBy:{uid:user.id,name:user.name}, resolution:""});
+        renderReview();
+      }catch(e){ toast("Failed — try again"); }
+    };
+    acts.appendChild(dis);
+    if(isAdmin()){
+      const del=document.createElement("button"); del.className="aRej"; del.textContent="🗑";
+      del.title="Delete the report record entirely";
+      del.onclick=async ()=>{
+        try{
+          const F=await fb(); if(!F) throw new Error("offline");
+          await F.deleteDoc(F.doc(F.db,"reports",r.id));
+          renderReview();
+        }catch(e){ toast("Failed — try again"); }
+      };
+      acts.appendChild(del);
+    }
+    d.appendChild(acts);
+    list.appendChild(d);
+  });
+}
+
+/* ---- resource flags: the aggregated "links are hurting" view ---- */
+function flagKey(rm, node, url){ return rm+"_"+node+"_"+contentHash(url); }
+async function flagResource(rm, node, url, reason){
+  if(!user.provider){ $("authModal").classList.add("show"); toast("Sign in to flag"); return; }
+  if(!canSync()){ toast("Flags need the connected app — try a suggestion instead"); return; }
+  try{
+    const F=await fb(); if(!F) throw new Error("offline");
+    const key=flagKey(rm, node, url);
+    await F.setDoc(F.doc(F.db,"flags",user.id+"_"+key),
+      {key, roadmap:rm, node, url, reason, by:user.id, createdAt:F.serverTimestamp()});
+    toast("⚑ Flagged — the maintainer sees these aggregated");
+  }catch(e){
+    // deterministic id: a second tap is a rules denial, not an error
+    toast("You've already flagged this one — it's in the queue");
+  }
+}
+async function renderFlags(list){
+  if(!isAdmin() && !moderatorOfAny()){
+    list.innerHTML="<div class='sub'>Flags are for moderators.</div>"; return; }
+  if(!canSync()){ list.innerHTML="<div class='sub'>⚠️ Flags appear once the app is connected.</div>"; return; }
+  let items=[];
+  try{
+    const F=await fb(); if(!F) throw new Error("offline");
+    if(isAdmin()){
+      const snap=await F.getDocs(F.collection(F.db,"flags"));
+      snap.forEach(d=>items.push(d.data()));
+    }else{
+      for(const rm of moderatedMapIds()||[]){
+        const snap=await F.getDocs(F.query(F.collection(F.db,"flags"),
+          F.where("roadmap","==",rm)));
+        snap.forEach(d=>items.push(d.data()));
+      }
+    }
+  }catch(e){ list.innerHTML="<div class='sub'>Couldn't load flags.</div>"; return; }
+  items.forEach(f=>{ if(f.createdAt&&f.createdAt.toMillis) f.createdAt=f.createdAt.toMillis(); });
+  // aggregate by resource: count, reason breakdown, newest tap
+  const agg=new Map();
+  items.forEach(f=>{
+    const a=agg.get(f.key)||{...f, count:0, reasons:{}, latest:0};
+    a.count++; a.reasons[f.reason]=(a.reasons[f.reason]||0)+1;
+    a.latest=Math.max(a.latest, f.createdAt||0);
+    agg.set(f.key, a);
+  });
+  const rows=[...agg.values()].sort((a,b)=>b.count-a.count || b.latest-a.latest);
+  list.innerHTML="";
+  if(!rows.length){ list.innerHTML="<div class='sub'>No flagged resources. 🎉</div>"; return; }
+  rows.forEach(a=>{
+    const d=document.createElement("div"); d.className="sgCard";
+    const reasons=Object.entries(a.reasons).map(([r,n])=>`${esc(r)}×${n}`).join(" · ");
+    d.innerHTML=`<div class="sgMeta"><span class="sgType">🔗 ${a.count} flag${a.count>1?"s":""}</span>
+        ${ageChip(a.latest)}
+        <span>${esc(a.roadmap)} · ${esc(a.node)}</span><span>${reasons}</span></div>
+      <div class="sgUrl"><a href="${esc(a.url)}" target="_blank" rel="noopener">${esc(a.url)}</a></div>`;
+    const acts=document.createElement("div"); acts.className="sgActs";
+    const open=document.createElement("button"); open.textContent="Open node";
+    open.onclick=()=>{ location.hash="#/"+a.roadmap+"/"+encodeURIComponent(a.node); };
+    const clear=document.createElement("button"); clear.className="aTip";
+    clear.textContent="✓ Clear flags (fixed)";
+    clear.onclick=async ()=>{
+      try{
+        const F=await fb(); if(!F) throw new Error("offline");
+        const snap=await F.getDocs(F.query(F.collection(F.db,"flags"),
+          F.where("key","==",a.key)));
+        const batch=F.writeBatch(F.db);
+        snap.forEach(d=>batch.delete(d.ref));
+        await batch.commit();
+        renderReview();
+      }catch(e){ toast("Failed — try again"); }
+    };
+    acts.appendChild(open); acts.appendChild(clear); d.appendChild(acts);
     list.appendChild(d);
   });
 }
 
 async function renderReview(){
+  // one explainer per tab — the old static blurb described only Suggestions
+  $("reviewSub").innerHTML={
+    proposals:`Structured edit proposals. Trivial edits can merge right away; structural
+      changes wait out a 7-day open-comment period. <b>Merge &amp; publish</b> goes live
+      instantly and lands in the public record with attribution.`,
+    pending:`Community suggestions awaiting your decision. <b>Publish as tip</b> makes it
+      publicly visible under its node (clearly marked as community wisdom — curated content
+      is untouched). <b>Accept for curation</b> adds it to your export list to fold into
+      the topic files by hand.`,
+    accepted:`Suggestions you accepted for curation. Copy them as JSON and fold each into
+      the right topic file by hand, then run the build.`,
+    reports:`Reports on public content. 🚨 Safety reports sort first — respond within 48
+      hours. Resolving records your decision; the reported content is handled separately.`,
+    flags:`Resource flags from walkers, aggregated per link. Fix or replace the link,
+      then clear its flags.`
+  }[reviewTab]||"";
   const list=$("reviewList"); list.innerHTML="<div class='sub'>Loading…</div>";
   if(reviewTab==="reports") return renderReports(list);
+  if(reviewTab==="flags") return renderFlags(list);
   if(reviewTab==="proposals"){
     if(!canSync()){ list.innerHTML="<div class='sub'>⚠️ Proposed edits appear once the app is connected (FIREBASE_CONFIG) and you're signed in.</div>"; return; }
     return renderProposals(list);
@@ -2551,7 +4450,7 @@ async function renderReview(){
   catch(e){ list.innerHTML="<div class='sub'>Couldn't load suggestions from the server.</div>"; return; }
   list.innerHTML="";
   if(!canSync())
-    list.innerHTML="<div class='sub'>⚠️ Not connected — showing suggestions saved on this device only.</div>";
+    list.innerHTML="<div class='sub'>⚠️ Not connected — suggestions appear once the app is connected.</div>";
   if(reviewTab==="accepted" && items.length){
     const cp=document.createElement("button"); cp.id="copyAccepted";
     cp.textContent="📋 Copy all as JSON (for editing into topic files)";
@@ -2562,25 +4461,33 @@ async function renderReview(){
   if(!items.length){
     list.innerHTML+="<div class='sub'>Nothing here. 🎉</div>"; return; }
   items.forEach(s=>{
+    const adopt=s.type==="adopt";
     const d=document.createElement("div"); d.className="sgCard";
-    d.innerHTML=`<div class="sgMeta"><span class="sgType">${esc(s.type)}</span>
+    d.innerHTML=`<div class="sgMeta"><span class="sgType">${adopt?"🙋 adoption application":esc(s.type)}</span>
+        ${reviewTab==="pending"?ageChip(s.createdAt):""}
         ${s.verified?'<span class="vbadge">✓ personally verified</span>':""}
         <span>${s.roadmap?esc(s.roadmap):"new roadmap proposal"}${s.nodeTitle?" · "+esc(s.nodeTitle):""}</span>
         <span>by ${esc(s.by.name)}</span></div>
       <div class="sgText">${esc(s.text)}</div>
-      ${s.url?`<div class="sgUrl"><a href="${esc(s.url)}" target="_blank" rel="noopener">${esc(s.url)}</a></div>`:""}`;
+      ${s.url?`<div class="sgUrl"><a href="${esc(s.url)}" target="_blank" rel="noopener">${esc(s.url)}</a></div>`:""}
+      ${s.affiliated===true?`<div class="sub">⚠️ affiliated: ${esc(s.affiliation||"(undescribed)")}</div>`
+        :s.affiliated===false?"":`<div class="sub">· predates disclosure</div>`}
+      ${adopt&&reviewTab==="pending"?`<div class="sub">To confirm a new maintainer: copy their
+        uid (<code>${esc(s.by.uid)}</code>) and bind it in Account → Governance → Maintainers,
+        then mark this handled.</div>`:""}`;
     if(reviewTab==="pending"){
       const acts=document.createElement("div"); acts.className="sgActs";
-      const canTip=!!(s.roadmap && s.node);
+      const canTip=!!(s.roadmap && s.node) && !adopt;
       if(canTip){
         const bt=document.createElement("button"); bt.className="aTip";
         bt.textContent="🌟 Publish as tip"; bt.onclick=()=>decide(s,"tip");
         acts.appendChild(bt);
       }
       const ba=document.createElement("button"); ba.className="aAcc";
-      ba.textContent="📥 Accept for curation"; ba.onclick=()=>decide(s,"accept");
+      ba.textContent=adopt?"✓ Mark handled":"📥 Accept for curation";
+      ba.onclick=()=>decide(s,"accept");
       const br=document.createElement("button"); br.className="aRej";
-      br.textContent="✕ Reject"; br.onclick=()=>decide(s,"reject");
+      br.textContent=adopt?"✕ Decline":"✕ Reject"; br.onclick=()=>decide(s,"reject");
       acts.appendChild(ba); acts.appendChild(br);
       d.appendChild(acts);
     }
@@ -2600,30 +4507,23 @@ async function decide(s,action){
     reason=(prompt("Why? Name the charter rule or reason — the contributor will see this:")||"").trim();
     if(!reason){ toast("A reason is required to reject — the contributor deserves to know why"); return; }
   }
-  if(!canSync()){
-    const ob=readJSON("hkr:outbox")||[];
-    const rec=ob.find(x=>x.id===s.id);
-    if(rec){ rec.status={tip:"published",accept:"accepted",reject:"rejected"}[action];
-             rec.decidedAt=Date.now(); if(reason) rec.reason=reason; }
-    localStorage.setItem("hkr:outbox",JSON.stringify(ob));
-  }else{
-    try{
-      const F=await fb(); if(!F) throw new Error("offline");
-      const batch=F.writeBatch(F.db);
-      batch.update(F.doc(F.db,"suggestions",s.id),
-        { status:{tip:"published",accept:"accepted",reject:"rejected"}[action],
-          decidedAt:Date.now(), decidedBy:{uid:user.id, name:user.name},
-          ...(reason?{reason}:{}) });
-      if(action==="tip" && s.roadmap && s.node){
-        batch.set(F.doc(F.db,"tips",s.roadmap),
-          { [s.node]: F.arrayUnion({ id:s.id, text:s.text, url:s.url||"",
-              by:s.by.name, type:s.type, at:Date.now() }) },
-          { merge:true });
-      }
-      await batch.commit();
-      tipsCache.clear();   // published tips should appear on next node open
-    }catch(e){ toast("Decision failed — try again"); return; }
-  }
+  if(!canSync()){ toast("Decisions need the connected app"); return; }
+  try{
+    const F=await fb(); if(!F) throw new Error("offline");
+    const batch=F.writeBatch(F.db);
+    batch.update(F.doc(F.db,"suggestions",s.id),
+      { status:{tip:"published",accept:"accepted",reject:"rejected"}[action],
+        decidedAt:Date.now(), decidedBy:{uid:user.id, name:user.name},
+        ...(reason?{reason}:{}) });
+    if(action==="tip" && s.roadmap && s.node){
+      batch.set(F.doc(F.db,"tips",s.roadmap),
+        { [s.node]: F.arrayUnion({ id:s.id, text:s.text, url:s.url||"",
+            by:s.by.name, type:s.type, at:Date.now() }) },
+        { merge:true });
+    }
+    await batch.commit();
+    tipsCache.clear();   // published tips should appear on next node open
+  }catch(e){ toast("Decision failed — try again"); return; }
   toast({tip:"🌟 Published as community tip",accept:"📥 Accepted for curation",
          reject:"Rejected"}[action]);
   renderReview();
@@ -2642,6 +4542,16 @@ let devMode=false;
 function canEdit(){
   if(currentFork) return forkOwned();   // someone else's personal version: walk it, don't edit it
   return devMode || !!user.provider;
+}
+/* The reading surface is consumption-first: STRUCTURAL chrome (about [edit],
+   Reorganize, Add core topic) renders only for the page's owner — devMode,
+   the map's moderators, or the fork's owner. The node ✏️ is deliberately
+   NOT gated here: any signed-in walker may open it (canEdit) and their save
+   becomes a proposal — the wiki path that feeds the review queue, weight
+   classes, and steward merges. */
+function ownsSurface(){
+  if(currentFork) return forkOwned();
+  return devMode || (!!user.provider && (isAdmin() || (currentRm&&maintains(currentRm.id))));
 }
 function editorMode(){
   if(currentFork && forkOwned()) return "fork";   // saves go to the personal version, nowhere else
@@ -2667,15 +4577,42 @@ function topicFile(){ return edCtx.newTopic ? null : currentRm.topics[edCtx.spin
 
 function edLinkBlock(l){
   const d=document.createElement("div"); d.className="edLinkBlock"; d.style.marginBottom="10px";
+  // Stash the original object so unknown/future link fields survive a save
+  // untouched — commitFields spreads it back under the edited fields.
+  d._link=l;
   d.innerHTML=`<div class="edRow">
       <input class="edInput lLabel" placeholder="Label" value="${esc(l.label||"")}">
       <select class="edInput lKind">
         <option value="article">article</option><option value="video">video</option>
         <option value="tool">tool</option></select>
-      <button class="rmX" title="Remove link">✕</button></div>
-    <input class="edInput lUrl" placeholder="https://…" value="${esc(l.url||"")}">`;
+      <button class="rmX" title="Remove link">✕</button>
+      <button class="rmX lMoreBtn" title="Resource metadata">⋯</button></div>
+    <input class="edInput lUrl" placeholder="https://…" value="${esc(l.url||"")}">
+    <div class="lMore" style="display:none">
+      <div class="edRow">
+        <input class="edInput lMin" type="number" min="1" max="6000" placeholder="min"
+          style="max-width:74px" value="${l.minutes||""}" title="Reading/watching time, minutes">
+        <input class="edInput lLang" placeholder="lang" maxlength="8" style="max-width:74px"
+          value="${esc(l.lang||"")}" title="Language tag if not English, e.g. es, pt-BR">
+        <button class="rmX lVerify" style="width:auto;padding:0 8px"
+          title="Stamp: a human confirmed this URL serves the promised content today"></button>
+      </div>
+      <textarea class="edInput lSucc" rows="2"
+        placeholder="Backup URLs, best first (one per line) — promoted if this link dies"
+        title="Ordered succession list">${esc((l.succession||[]).join("\n"))}</textarea>
+    </div>`;
   d.querySelector(".lKind").value=l.kind||"article";
   d.querySelector(".rmX").onclick=()=>d.remove();
+  const more=d.querySelector(".lMore");
+  const hasMeta=l.minutes||l.lang||l.verified||(l.succession||[]).length;
+  if(hasMeta) more.style.display="block";
+  d.querySelector(".lMoreBtn").onclick=()=>{
+    more.style.display = more.style.display==="none" ? "block" : "none"; };
+  d._verified=l.verified||null;
+  const vb=d.querySelector(".lVerify");
+  const paintV=()=>{ vb.textContent = d._verified ? `✓ ${d._verified}` : "✓ verify today"; };
+  paintV();
+  vb.onclick=()=>{ d._verified=new Date().toISOString().slice(0,10); paintV(); };
   return d;
 }
 function edDoRow(text){
@@ -2685,12 +4622,20 @@ function edDoRow(text){
   d.querySelector(".rmX").onclick=()=>d.remove();
   return d;
 }
+function edReflectRow(text){
+  const d=document.createElement("div"); d.className="edRow";
+  d.innerHTML=`<input class="edInput rText" placeholder="A reflection prompt — journaled, never checked off as done…"
+      value="${esc(text||"")}"><button class="rmX" title="Remove prompt">✕</button>`;
+  d.querySelector(".rmX").onclick=()=>d.remove();
+  return d;
+}
 function paintEditorFields(){
   const n=edTarget();
   $("edTitle").value=n.title; $("edTier").value=n.tier;
   $("edSummary").value=n.learn.summary;
   const lk=$("edLinks"); lk.innerHTML=""; (n.learn.links||[]).forEach(l=>lk.appendChild(edLinkBlock(l)));
   const dd=$("edDo"); dd.innerHTML=""; (n.do||[]).forEach(t=>dd.appendChild(edDoRow(t)));
+  const rf=$("edReflect"); rf.innerHTML=""; (n.reflect||[]).forEach(t=>rf.appendChild(edReflectRow(t)));
   renderChildTools();
 }
 function paintEditorChrome(){
@@ -2700,6 +4645,9 @@ function paintEditorChrome(){
   $("edPosWrap").style.display = isNew ? "block" : "none";
   $("edNoteWrap").style.display = mode==="propose" ? "block" : "none";
   $("edNote").value="";
+  $("edSubstantive").checked=false;
+  $("edAffiliated").checked=false; $("edAffiliation").value="";
+  $("edAffiliation").style.display="none";
   $("edSave").textContent = {dev:isNew?"Create topic":"Save",
                              merge:isNew?"Create & publish":"Save & publish",
                              propose:isNew?"Propose new topic":"Propose change",
@@ -2921,12 +4869,24 @@ function commitFields(){
   n.title=$("edTitle").value.trim();
   n.tier=$("edTier").value;
   n.learn.summary=$("edSummary").value.trim();
-  n.learn.links=[...$("edLinks").querySelectorAll(".edLinkBlock")].map(b=>({
-    label:b.querySelector(".lLabel").value.trim(),
-    url:b.querySelector(".lUrl").value.trim(),
-    kind:b.querySelector(".lKind").value,
-  })).filter(l=>l.label||l.url);
+  n.learn.links=[...$("edLinks").querySelectorAll(".edLinkBlock")].map(b=>{
+    const l={...(b._link||{}),
+      label:b.querySelector(".lLabel").value.trim(),
+      url:stripAffiliate(b.querySelector(".lUrl").value.trim()),
+      kind:b.querySelector(".lKind").value};
+    const min=parseInt(b.querySelector(".lMin").value,10);
+    if(min>=1&&min<=6000) l.minutes=min; else delete l.minutes;
+    const lang=b.querySelector(".lLang").value.trim().toLowerCase();
+    if(lang&&lang!=="en") l.lang=lang; else delete l.lang;   // absent = en
+    if(b._verified) l.verified=b._verified; else delete l.verified;
+    const succ=b.querySelector(".lSucc").value.split("\n").map(s=>stripAffiliate(s.trim()))
+      .filter(s=>s&&s!==l.url).slice(0,5);
+    if(succ.length) l.succession=succ; else delete l.succession;
+    return l;
+  }).filter(l=>l.label||l.url);
   n.do=[...$("edDo").querySelectorAll(".dText")].map(i=>i.value.trim()).filter(Boolean);
+  const refl=[...$("edReflect").querySelectorAll(".rText")].map(i=>i.value.trim()).filter(Boolean);
+  if(refl.length) n.reflect=refl; else delete n.reflect;
   if(n.id.startsWith("new-")){    // finalize slug from the title once it has one
     let slug=n.title.toLowerCase().replace(/[^a-z0-9]+/g,"-").replace(/^-|-$/g,"").slice(0,40);
     if(slug){
@@ -2968,7 +4928,10 @@ async function saveEditor(){
   n.learn.links.forEach(l=>{
     if(!/^https:\/\//.test(l.url)) errs.push(`Link URL must be https:// — “${l.label||l.url}”`);
     if(!l.label) errs.push("Every link needs a label."); });
-  if(!n.do.length) errs.push("At least one Do/Reflect action (core philosophy: no read-only nodes).");
+  if(!n.do.length) errs.push("At least one Do action — Reflect prompts don't count; every node needs a real-world task.");
+  n.learn.links.forEach(l=>{
+    if(l.succession&&l.succession.some(u=>!/^https:\/\//.test(u)))
+      errs.push(`Backup URLs must be https:// — “${l.label||l.url}”`); });
   if(errs.length){ $("editorErrs").textContent=errs.join("\n"); return; }
   const reopen=edCtx.topic.id, mode=editorMode();
 
@@ -3017,6 +4980,8 @@ async function saveEditor(){
           await F.addDoc(F.collection(F.db,"proposals"),
             { roadmap:currentRm.id, kind:"add", file:fname, topic:edCtx.topic, after,
               note:$("edNote").value.trim(), by:{uid:user.id, name:user.name},
+              affiliated:$("edAffiliated").checked,
+              affiliation:$("edAffiliated").checked?$("edAffiliation").value.trim():"",
               createdAt:F.serverTimestamp(), status:"pending" });
           toast("🌱 Proposed — the maintainer will review your new topic");
           closeEditor(); return;
@@ -3062,8 +5027,20 @@ async function saveEditor(){
     $("edSave").disabled=true;
     try{
       const F=await fb(); if(!F) throw new Error("offline — try again");
+      // weight rides on edit proposals: pre-classified from the diff, and the
+      // proposer may only upgrade to substantive — never downgrade
+      const live=edCtx.newTopic?null:currentRm.nodes[edCtx.spineIdx];
+      const weight=$("edSubstantive").checked ? "substantive"
+        : classifyEditWeight(live, edCtx.topic);
+      const affiliated=$("edAffiliated").checked;
+      const affiliation=affiliated?$("edAffiliation").value.trim():"";
+      if(mode==="propose" && affiliated && !affiliation){
+        $("editorErrs").textContent="Describe the affiliation — disclosure is the deal.";
+        $("edSave").disabled=false; return;
+      }
       const base={ roadmap:currentRm.id, kind:"edit", file:fname, baseHash:edCtx.baseHash,
-                   topic:edCtx.topic, note:$("edNote").value.trim(),
+                   topic:edCtx.topic, note:$("edNote").value.trim(), weight,
+                   affiliated, affiliation,
                    by:{uid:user.id, name:user.name} };
       if(mode==="merge"){
         // maintainer editing their own map: the merged doc IS the record —
@@ -3098,10 +5075,13 @@ async function saveEditor(){
   }
 }
 $("editBtn").onclick=()=>{ if(currentNode) openEditor(currentNode.id); };
+$("edAffiliated").onchange=()=>{
+  $("edAffiliation").style.display=$("edAffiliated").checked?"block":"none"; };
 $("edCancel").onclick=closeEditor;
 $("edSave").onclick=saveEditor;
 $("edAddLink").onclick=()=>$("edLinks").appendChild(edLinkBlock({label:"",url:"",kind:"article"}));
 $("edAddDo").onclick=()=>$("edDo").appendChild(edDoRow(""));
+$("edAddReflect").onclick=()=>$("edReflect").appendChild(edReflectRow(""));
 $("addTopicBtn").onclick=()=>{
   if(!currentRm) return;
   openEditorNew();
@@ -3188,7 +5168,23 @@ function toast(msg){
   const t=$("toast"); t.textContent=msg; t.classList.add("show");
   clearTimeout(toastT); toastT=setTimeout(()=>t.classList.remove("show"),2600);
 }
-$("backBtn").onclick=goHome;
+/* Back goes UP one level, never blindly home: a map backs out to its
+   category page, a fork to its base's category, a guild to the map whose
+   door you walked through. Everything else is one level below home. */
+let guildFromRm=null;   // set when a map-header guild door is used
+function goUp(){
+  if($("mapView").classList.contains("active")){
+    if(currentFork){ openCategory(currentFork.base); return; }
+    if(currentRm){ openCategory(currentRm.id); return; }
+  }
+  if($("guildView").classList.contains("active") && guildFromRm){
+    const rm=guildFromRm; guildFromRm=null;
+    location.hash="#/"+rm+"/map"; return;
+  }
+  goHome();
+}
+$("backBtn").onclick=goUp;
+$("brand").onclick=goHome;
 window.addEventListener("resize",()=>{
   if(!currentRm) return;
   scale=Math.min(1,(window.innerWidth-24)/CANVAS_W);
@@ -3198,8 +5194,13 @@ window.addEventListener("resize",()=>{
 /* ---------- URL routing: the hash is a shareable address ----------
    #/              home                #/about           the manifesto
    #/account       your account        #/collections     the shelves
-   #/privacy       the privacy page    #/fork/<id>       a personal version
-   #/<map>         a roadmap           #/<map>/<node>    node drawer open
+   #/privacy       the privacy page    #/atlas           every map, listed
+   #/journal[/rm]  the journal         #/health          vital signs
+   #/guild/<id>    a guild hall        #/fork/<id>[/<n>] a personal version
+   #/<cat>         the version picker  #/<cat>/map       the official map
+   #/<cat>/<node>  node drawer open
+   (The review queue is deliberately NOT URL-addressable — it's a role
+   surface, reached from the shield buttons.)
    Navigation functions call reflectHash() to keep the address bar honest;
    external changes (pasted links, back/forward) flow through applyRoute(). */
 let selfNav=0, applyingRoute=false;
@@ -3219,17 +5220,24 @@ async function applyRoute(){
     if(map==="about"){ openAbout(); return; }
     if(map==="account"){ openAccount(); return; }
     if(map==="collections"){ openCollections(); return; }
+    if(map==="atlas"){ openAtlas(); return; }
+    if(map==="journal"){ openJournal(parts[1]?{rm:parts[1]}:null); return; }
+    if(map==="guild"){ if(parts[1]) openGuild(parts[1]); else goHome(); return; }
+    if(map==="health"){ openHealth(); return; }
     if(map==="privacy"){ openPrivacy(); return; }
     if(map==="fork"){   // #/fork/<id>[/<node>] — a shared personal version
       if(parts[1]) await openFork(parts[1], parts[2]); else goHome();
       return;
     }
     if(!INDEX.find(r=>r.id===map)){ goHome(); return; }
+    // #/<cat> is the category page (version picker); the official map lives
+    // at the reserved #/<cat>/map, and #/<cat>/<node> deep-links into it
+    if(!node){ await openCategory(map); return; }
     // a fork view carries its base map's id — leaving it for the standard
     // map must always re-render, so currentFork forces the reload
     if(currentFork || !currentRm || currentRm.id!==map || !$("mapView").classList.contains("active"))
       await openRoadmap(map);
-    if(node && flatten(currentRm).some(n=>n.id===node)){ openNode(node); revealNode(node); }
+    if(node!=="map" && flatten(currentRm).some(n=>n.id===node)){ openNode(node); revealNode(node); }
     else closeDrawer();
   }finally{ applyingRoute=false; }
 }
@@ -3248,28 +5256,55 @@ window.addEventListener("hashchange",()=>{
    Index generated by build.py → roadmaps/search.json (titles only, lazy-
    loaded on first focus); standalone derives it from EMBEDDED_DATA. Results
    are plain #/map/node links — routing does the navigation. */
-let SEARCH=null, searchT=null;
+let SEARCH=null, SEARCH_DEEP=null, searchT=null;
+function searchablyPublished(rid){
+  const e=INDEX.find(r=>r.id===rid);
+  return !e || (e.state||"published")==="published";
+}
 async function loadSearch(){
   if(SEARCH) return SEARCH;
   if(EMBEDDED_DATA){
     SEARCH=[];
-    for(const [rid,nodes] of Object.entries(EMBEDDED_DATA.data))
+    for(const [rid,nodes] of Object.entries(EMBEDDED_DATA.data)){
+      if(!searchablyPublished(rid)) continue;
       nodes.forEach(n=>{
         SEARCH.push({rm:rid,id:n.id,t:n.title,tier:n.tier,core:true});
         (n.children||[]).forEach(c=>SEARCH.push({rm:rid,id:c.id,t:c.title,tier:c.tier,core:false}));
       });
+    }
   }else{
     try{ SEARCH=(await (await fetch("roadmaps/search.json")).json()).nodes; }
     catch(e){ SEARCH=[]; }
   }
   return SEARCH;
 }
+/* Second-stage index (summaries + do text, ~5x the size) — fetched only when
+   title matches run thin, so the common search stays light. */
+async function loadSearchDeep(){
+  if(SEARCH_DEEP) return SEARCH_DEEP;
+  if(EMBEDDED_DATA){
+    SEARCH_DEEP=[];
+    const flat=n=>({s:(n.learn.summary+" "+(n.do||[]).join(" ")).toLowerCase()});
+    for(const [rid,nodes] of Object.entries(EMBEDDED_DATA.data)){
+      if(!searchablyPublished(rid)) continue;
+      nodes.forEach(n=>{
+        SEARCH_DEEP.push({rm:rid,id:n.id,...flat(n)});
+        (n.children||[]).forEach(c=>SEARCH_DEEP.push({rm:rid,id:c.id,...flat(c)}));
+      });
+    }
+  }else{
+    try{ SEARCH_DEEP=(await (await fetch("roadmaps/search-deep.json")).json()).nodes; }
+    catch(e){ SEARCH_DEEP=[]; }
+  }
+  return SEARCH_DEEP;
+}
 function hideSearch(){ $("searchResults").style.display="none"; }
-function runSearch(qRaw){
+async function runSearch(qRaw){
   const q=qRaw.trim().toLowerCase(), box=$("searchResults");
   if(q.length<2){ hideSearch(); return; }
   const mapOf=id=>INDEX.find(r=>r.id===id)||{};
-  const maps=INDEX.filter(r=>r.title.toLowerCase().includes(q)||r.id.includes(q));
+  const maps=INDEX.filter(r=>(r.state||"published")==="published" &&
+    (r.title.toLowerCase().includes(q)||r.id.includes(q)));
   const nodes=(SEARCH||[]).filter(n=>n.t.toLowerCase().includes(q))
     .sort((a,b)=>{
       const as=a.t.toLowerCase().startsWith(q), bs=b.t.toLowerCase().startsWith(q);
@@ -3277,12 +5312,26 @@ function runSearch(qRaw){
       if(a.core!==b.core) return a.core?-1:1;
       return a.t.localeCompare(b.t);
     });
+  // thin title results → pull the deep index (summaries + do text) once
+  let deepHits=[];
+  if(q.length>=3 && maps.length+nodes.length<5){
+    const deep=await loadSearchDeep();
+    const have=new Set(nodes.map(n=>n.rm+"/"+n.id));
+    const titleOf=new Map((SEARCH||[]).map(n=>[n.rm+"/"+n.id,n]));
+    deepHits=deep.filter(d=>d.s.includes(q) && !have.has(d.rm+"/"+d.id))
+      .map(d=>titleOf.get(d.rm+"/"+d.id)).filter(Boolean).slice(0,8);
+  }
   const rows=[
-    ...maps.slice(0,3).map(m=>({href:"#/"+m.id, icon:m.emoji, title:m.title, sub:"open the map"})),
+    ...maps.slice(0,3).map(m=>({href:"#/"+m.id, icon:m.emoji, title:m.title, sub:"all versions"})),
     ...nodes.slice(0,12).map(n=>{
       const m=mapOf(n.rm);
       return {href:"#/"+n.rm+"/"+encodeURIComponent(n.id), icon:m.emoji||"·",
               title:n.t, sub:(m.title||n.rm)+" · "+(n.core?"core topic":n.tier)};
+    }),
+    ...deepHits.map(n=>{
+      const m=mapOf(n.rm);
+      return {href:"#/"+n.rm+"/"+encodeURIComponent(n.id), icon:m.emoji||"·",
+              title:n.t, sub:(m.title||n.rm)+" · matches the summary or actions"};
     })];
   box.innerHTML=rows.length
     ? rows.map(r=>`<a class="sres" href="${r.href}"><span class="sremo">${r.icon}</span>
@@ -3308,6 +5357,12 @@ document.addEventListener("click",e=>{
 
 /* ---------- boot ---------- */
 (async function boot(){
+  // legacy sweep: pre-server-persistence checkouts kept hkr:* data in
+  // localStorage — clear it so no walker data lingers in browser storage
+  try{
+    Object.keys(localStorage).filter(k=>k.startsWith("hkr:"))
+      .forEach(k=>localStorage.removeItem(k));
+  }catch(e){}
   paintUser();
   if(!EMBEDDED_DATA){   // dev server detection (tools/dev.py)
     fetch("/dev/ping").then(r=>r.ok?r.json():null).then(d=>{
@@ -3325,8 +5380,8 @@ document.addEventListener("click",e=>{
           finishSignIn(AUTH.fromFirebaseUser(fu, provider));
         }else if(!fu && user.real){
           user={id:"guest",name:"Guest",provider:null};
-          localStorage.setItem("hkr:user",JSON.stringify(user));
-          store=migrateStore(readJSON(storeKey("guest")));
+          cacheUser();
+          store=migrateStore(null); jPushWM=0;
           paintUser(); renderHome();
         }
       });

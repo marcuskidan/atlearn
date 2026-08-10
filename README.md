@@ -26,20 +26,32 @@ change = editing a small JSON file and rebuilding.
 
 ```
 index.html                  app shell (renderer, drawer, auth, sync) — no content inside
-config.js                   deployment config (Firebase web config + repo name)
+config.js                   deployment config (Firebase web config + repo name; edit by hand)
+link-policy.json            paywalled-domain + affiliate-parameter lists (maintainer-editable)
 roadmaps/
   index.json                GENERATED catalog — never edit by hand
   search.json               GENERATED search index (every node title)
+  search-deep.json          GENERATED deep index (summaries + do-actions)
+  wanted.json               the "maps we wish existed" list (hand-edited)
   astronomy/
-    meta.json               {id, emoji, title, tagline, curricula, order}
+    meta.json               {id, emoji, title, tagline, curricula, order, …}
+    changelog.json          GENERATED per-map history (append-only, by the op engine)
     topics/
       01-getting-started.json   one core (spine) topic + its child subtopics
       02-celestial-sphere.json
       ...
   horticulture/ …           one folder per category, same shape
-tools/build.py              validate all content + regenerate index.json (+ standalone bundle)
+tools/build.py              validate all content + regenerate indexes (+ --health, --standalone)
+tools/ops.mjs               THE op engine (edit/add/remove/spine/move/about) — one implementation
+tools/apply.mjs             CLI over ops.mjs (used by tools/dev.py)
+tools/dev.py                local dev server: in-app editor saves to real files
 tools/land.mjs              GitHub Action script: lands in-app merges as repo commits
+tools/succession.mjs        the Link Steward: drafts swap proposals for dead links
+tools/extract.mjs           brace-matching extractor (tools + tests share app functions)
+tools/backup.mjs            manual Firestore backup dump
+tests/                      python (build/dev), js (client/ops), rules (emulator) suites
 firestore.rules             the entire server-side security boundary (Firebase)
+firestore.indexes.json      composite-index declarations deployed with the rules
 dist/standalone.html        GENERATED single-file build (all content inlined)
 ```
 
@@ -104,7 +116,9 @@ Google sign-in, create Firestore, paste `firestore.rules`, hand-create the
 `meta/roles` doc), push the repo public to GitHub with Pages set to "GitHub
 Actions", add the service-account JSON as the one Actions secret, and run
 `python3 tools/configure.py` to write the Firebase config into `config.js`.
-Unconfigured checkouts run in full local/demo mode, always.
+Unconfigured checkouts run in demo mode, always — full reading plus
+role-surface rendering, with nothing persisted and every write toasting
+honestly.
 
 ## In-app editing (content tools)
 
@@ -113,9 +127,10 @@ edit the title, tier, summary, links, and do-actions in a form; add, delete,
 and reorder subtopics — or send one to a different core topic; add whole core
 topics at any spine position ("＋ Add core topic"); delete core topics; and
 reorder the whole spine ("⇅ Reorganize"). Every action is one of five
-structural ops (`edit` / `add` / `remove` / `spine` / `move`) validated with
-the build rules and written to `roadmaps/<id>/topics/` + `meta.json`'s
-`spine` list — ordinary git-diffable file changes. Without the dev server
+structural ops (`edit` / `add` / `remove` / `spine` / `move` / `about`)
+validated with the build rules and written to `roadmaps/<id>/topics/` +
+`meta.json` — ordinary git-diffable file changes. One engine applies them
+everywhere: `tools/ops.mjs`, shared by the dev server and the landing Action. Without the dev server
 (e.g. on the deployed site), the same editor merges, proposes, or exports
 depending on who you are — same ops, different destination.
 
@@ -123,38 +138,51 @@ The review queue's **Accepted for curation** tab links the two systems: each
 accepted community suggestion gets an "✏️ Edit this node now" button that
 jumps straight into the editor.
 
-**Link health**: a weekly GitHub Action (lychee) probes every content URL and
+**Link health**: a nightly GitHub Action (lychee) probes every content URL and
 maintains a single "link rot" issue; 403/429 responses count as bot-blocking,
-not rot. Trigger it on demand from the repo's Actions tab.
+not rot. Trigger it on demand from the repo's Actions tab. The paywalled-domain
+and affiliate-parameter lists live in `link-policy.json` (repo root) — extend
+them without touching code.
 
 ## Finding things & sharing them
 
-Every view has a shareable address: `#/astronomy` opens a map,
-`#/astronomy/polaris` opens a map with that node's drawer open — paste-able
-links, working back/forward, bookmarks. The home screen's search box covers
-every node in every map (index generated at build time into
-`roadmaps/search.json`); picking a result is just navigation to its link.
+Every view has a shareable address: `#/astronomy` opens a category's version
+picker, `#/astronomy/map` the official map, `#/astronomy/polaris` the map with
+that node's drawer open — paste-able links, working back/forward, bookmarks.
+Further routes: `#/atlas` (every map with search and criteria filters),
+`#/collections` (community shelves), `#/journal` (your private journal, from
+the account page), `#/health` (vital signs), `#/privacy`, `#/about`, and
+`#/guild/<id>` (a guild's hall, reached from its maps' headers).
 
-## Notes & progress sync
+Search lives on the home screen and the Atlas. Titles come from
+`roadmaps/search.json`; when title matches run thin, a deeper index
+(`roadmaps/search-deep.json`, summaries + do-actions) fills in. Both are
+generated at build time. Returning walkers also get a quiet "✦ changed since
+your last visit" pill on maps that moved, backed by each map's changelog.
 
-The app is **local-first**: every status change, checked action, and note is
-saved to `localStorage` instantly and works fully offline or signed out.
+## Notes & progress
 
-When a user signs in *and* `FIREBASE_CONFIG` (top of `index.html`) is set,
-sync activates — the user's store lives in their own Firestore document
-(`users/{uid}`), readable and writable only by them per `firestore.rules`:
+Signed-out visitors read; tracking is an account feature, and the account's
+server record is the system of record. Every status change, checked action,
+and note is written to the user's own Firestore document (`users/{uid}`),
+readable and writable only by them per `firestore.rules` — the UI reflects
+the change instantly and reports the real save state (pending / saved /
+failed) honestly; the device holds nothing durable:
 
-- every node record carries `updatedAt`; sync merges **last-write-wins per node**,
-  so two devices editing different nodes never clobber each other
+- every node record carries `updatedAt`; concurrent edits merge
+  **last-write-wins per node**, so two devices editing different nodes
+  never clobber each other
 - edits push after a 1.5 s debounce, retry on failure, and flush when the
-  tab/app backgrounds
-- on sign-in the app pulls the remote copy, merges it with local (including any
-  guest progress), and pushes the merged result
+  tab/app backgrounds — a write that can't reach the server is surfaced,
+  never silently dropped
+- on sign-in the app pulls the account's record from the server, so any
+  device shows the same progress
 
 **Auth is Firebase Auth** — Google (and optionally Apple) popup sign-in; the
 SDK holds the session and Firestore verifies it server-side. There are no
 custom tokens anywhere. While `FIREBASE_CONFIG` is null the app falls back to
-local demo accounts that never touch the network. On iOS, a Capacitor Firebase
+demo accounts that never touch the network (and persist nothing — demo
+renders role surfaces, writes toast honestly). On iOS, a Capacitor Firebase
 auth plugin yields the same identity, so browser and app share one account.
 
 ## Editorial layer (the commons with gardeners)
@@ -186,6 +214,38 @@ editor:
   redeploys Pages and retires the overlay doc. Contributors never need a
   GitHub account; their name travels in the commit message.
 
+Around those three roles, the full governance machinery of
+[GOVERNANCE.md](GOVERNANCE.md) is implemented in the same zero-server style:
+
+- **Stewards** (deputized per map by its maintainer) merge *trivial*
+  proposals only — proposals carry a rules-enforced **weight class**
+  (trivial / substantive / structural), and structural changes wait out a
+  **7-day open comment period** (every proposal is public and commentable).
+- **Lifecycle**: maps carry `state` (draft/published/archived) in meta.json
+  and an **orphan flag + designated successor** in the public
+  `mapstates/{map}` doc, with an in-app **adopt** flow. Maps are
+  **semver-versioned** with append-only changelogs, and walkers see
+  "changed since your last visit" — never a silent yank.
+- **Safety**: canonical content can be reported (severity `safety` = the
+  red-flag queue, 48-hour norm, visible to that map's maintainer), and every
+  resource has a one-tap **flag** (dead / stale / didn't help) aggregated in
+  the review queue.
+- **Integrity**: affiliate/tracking parameters are build errors, every
+  contribution declares **affiliation**, and resource-domain concentration is
+  published per map on the vital-signs page (`#/health`) — machine facts stay
+  off the reading surfaces.
+- **Guilds** (subject-area communities with talk spaces), **guides**
+  (janitorial coordinators), and **endorsements** (signed, dated,
+  criteria-backed quality marks) — built and rules-tested, seeded from the
+  Governance panel as the community grows.
+- **The agent corps**: a nightly link check plus the **Link Steward**, which
+  pre-drafts succession swaps for dead links as `agent:*` proposals. Agents
+  file; only named humans merge — the AI line is enforced in
+  `firestore.rules` and tested.
+- **Vital signs** (`#/health`): resource freshness, maintainer coverage, and
+  the landed-contribution tally — generated at deploy time from repo data
+  and the public commit record only. Walker behavior is counted nowhere.
+
 Governance is transparent by design: the roles doc and the merged-content
 overlay are public reads, and the permanent edit record is the repository's
 own public commit history (the 🕘 button on any map opens it directly).
@@ -212,16 +272,16 @@ domain experts and everyday learners, so the same loop lives **inside the app**:
   - **Reject** → archived.
 - All community text is HTML-escaped on render; `firestore.rules` enforces
   auth, shapes, lengths, and https-only URLs at the database boundary.
-  Without `FIREBASE_CONFIG`, suggestions queue locally on-device so the UX
-  stays honest offline.
+  Without `FIREBASE_CONFIG`, submitting says plainly that suggestions need
+  the connected app — the UX degrades honestly rather than shadow-queueing.
 - **Collections** (`#/collections`) — owner-curated shelves of existing maps
   ("Learning the Natural World"). They're pointers, not content, so they need
   no review pipeline: any signed-in user creates and manages their own;
   admins have exactly two moderation switches (feature ★ / hide). This is
   GOVERNANCE.md's "fork valve" — disagreeing with how the library is organized
-  has a productive answer that isn't a governance fight. Offline/unconfigured,
-  shelves live in localStorage, clearly marked device-only.
-- **Personal versions** (✨ Personalize, quiet at the bottom of every map) —
+  has a productive answer that isn't a governance fight. Unconfigured,
+  creating a shelf says plainly it needs the connected app.
+- **Personal versions** (the category page's "＋ Start your own branch" row) —
   any signed-in user gets an editable copy of a map: the full editor, no
   role required, saves going only to their version. A fork is stored as
   *changes over the living base* (`forks/{id}`: base + the same five
@@ -249,18 +309,22 @@ domain experts and everyday learners, so the same loop lives **inside the app**:
 - CI (GitHub Actions) runs both, plus the **security-rules suite** against the
   Firestore emulator — `firestore.rules` is the entire server-side boundary,
   so it is tested like one — and content validation + index freshness on
-  every push and PR. A weekly lychee workflow probes every content URL and
+  every push and PR. A nightly lychee workflow probes every content URL and
   maintains a single "link rot" issue.
 
 ## Privacy
 
-Progress and notes are local-first (your device), synced to your account only
-when signed in with a configured backend. **Download my data** in any node's
-workspace panel exports everything as JSON. Deletion: sign out and clear
-browser data; email the maintainer (SECURITY.md) for server-side removal.
+Progress and notes exist once you sign in — saved to your own server record,
+readable and writable by you alone. **Download my data** (on the
+account page, and linked from every node's workspace panel) exports everything
+as JSON. **Delete my account** on the account page removes identity, progress,
+notes, journal, personal versions, shelves, and pending contributions —
+self-service, no email needed. (Contributions already merged into maps remain
+in the public record under their license.)
 Sign-in scripts load from Google/Apple CDNs at runtime; if they fail or are
-blocked, the app degrades gracefully to local-only mode — that behavior is a
-guarantee, not an accident.
+blocked, the app degrades gracefully to signed-out reading — every map stays
+fully readable — and says so honestly; that behavior is a guarantee, not an
+accident.
 
 ## iOS app (Capacitor)
 

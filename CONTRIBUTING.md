@@ -38,7 +38,18 @@ and open a PR. Run `python3 -m unittest discover -s tests` before pushing.
   level under a core topic.
 - Sensitive maps have standing constraints (see CLAUDE.md): financial literacy
   stays strictly educational; first aid stays awareness-level and points to
-  certified courses; mental health keeps professional-help pathways intact.
+  certified courses; mental health keeps professional-help pathways intact;
+  fitness stays general conditioning education, never a prescription.
+  These four (personal finance, first aid, mental health, fitness) are typed
+  `gated` and carry a visible scope disclaimer.
+- **No affiliate or tracking parameters** in any URL — the build rejects them
+  and shows the clean URL. Disclose any affiliation you have with a resource
+  you propose (author, employee, affiliate, sponsor); undisclosed affiliation
+  is a conduct violation.
+- Hand-committed content changes should bump the map's `version` in meta.json
+  (patch for content edits, minor for structure) — the in-app pipeline does
+  this automatically; PRs do it by hand. Never hand-edit `changelog.json`
+  (generated, append-only).
 
 ## Licensing of contributions
 
