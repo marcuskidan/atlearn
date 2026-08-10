@@ -49,6 +49,10 @@ Journeys: J2.
   other views → home. (everyone)
 - `#brand` 🗺️ + `#brandText` — clickable, goes home; text is overwritten
   per view with the current context. (everyone)
+- `#themeBtn` ☾/☀ — flips light/dark. The choice sticks to the device
+  (`waihona-theme` in localStorage, applied before first paint) and, when
+  signed in, to the account (`store.settings.theme`, LWW), so it follows
+  the walker onto their next device. Light is the default. (everyone)
 - `#aboutBtn` ⓘ — opens `#/about`. (everyone)
 - `#reviewBtn` 🛡️ Review — opens the review queue. (moderator of any map
   OR steward of any map)

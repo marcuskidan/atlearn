@@ -55,6 +55,9 @@ tracking, nothing asked of the visitor.
 - ● "Changed since your last visit" — returning walkers see what moved,
   in dates and plain words.
 - ● Every page has a shareable address; links land exactly where they say.
+- ● Light and dark — the library reads on paper by default, with a
+  one-tap dark mode; the choice sticks to the device and, signed in, to
+  the account.
 
 **Deliberate limits** — no feed, no rankings, no ads, no version numbers
 or stats on reading pages. Sensitive maps (health, finance, first aid)
