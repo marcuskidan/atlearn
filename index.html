@@ -663,8 +663,16 @@ select.edInput{appearance:none;-webkit-appearance:none}
 .ssoBtn{width:100%;display:flex;align-items:center;justify-content:center;gap:10px;
   padding:12px;border-radius:4px;font-size:14px;font-weight:650;margin-bottom:10px;border:1px solid var(--line2)}
 .ssoBtn.google{background:#fff;color:#1f2937}
-.ssoBtn.apple{background:#000;color:#fff;border-color:#000}
 .ssoBtn svg{width:18px;height:18px;flex:0 0 auto}
+.authOr{display:flex;align-items:center;gap:10px;color:var(--faint);font-size:11px;
+  margin:12px 0 10px;text-transform:uppercase;letter-spacing:.6px}
+.authOr::before,.authOr::after{content:"";flex:1;height:1px;background:var(--line)}
+#emailAuth input{width:100%;background:var(--bg2);border:1px solid var(--line2);border-radius:4px;
+  padding:11px 12px;font:inherit;font-size:13.5px;color:var(--text);outline:none;margin-bottom:8px}
+#emailAuth input:focus{border-color:var(--ink)}
+#emailAuth .ssoBtn{margin-bottom:4px}
+#authForgot{color:var(--faint);font-size:11.5px;padding:2px}
+#authForgot:hover{color:var(--ink)}
 #authCancel{margin-top:6px;color:var(--faint);font-size:13px}
 .signout{color:var(--red) !important;font-size:12px}
 
@@ -1245,10 +1253,14 @@ select.edInput{appearance:none;-webkit-appearance:none}
       <svg viewBox="0 0 48 48"><path fill="#EA4335" d="M24 9.5c3.5 0 6.6 1.2 9 3.5l6.7-6.7C35.6 2.4 30.2 0 24 0 14.6 0 6.5 5.4 2.6 13.2l7.8 6.1C12.3 13.2 17.7 9.5 24 9.5z"/><path fill="#4285F4" d="M46.5 24.5c0-1.6-.1-3.1-.4-4.5H24v9h12.7c-.6 3-2.3 5.5-4.8 7.2l7.5 5.8c4.4-4.1 7.1-10.1 7.1-17.5z"/><path fill="#FBBC05" d="M10.4 28.7a14.5 14.5 0 0 1 0-9.4l-7.8-6.1a24 24 0 0 0 0 21.6l7.8-6.1z"/><path fill="#34A853" d="M24 48c6.2 0 11.4-2 15.4-5.6l-7.5-5.8c-2.1 1.4-4.8 2.2-7.9 2.2-6.3 0-11.7-3.7-13.6-9.1l-7.8 6.1C6.5 42.6 14.6 48 24 48z"/></svg>
       Continue with Google
     </button>
-    <button class="ssoBtn apple" id="appleBtn">
-      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.05 20.28c-.98.95-2.05.8-3.08.35-1.09-.46-2.09-.48-3.24 0-1.44.62-2.2.44-3.06-.35C2.79 15.25 3.51 7.59 9.05 7.31c1.35.07 2.29.74 3.08.8 1.18-.24 2.31-.93 3.57-.84 1.51.12 2.65.72 3.4 1.8-3.12 1.87-2.38 5.98.48 7.13-.57 1.5-1.31 2.99-2.53 4.08zM12.03 7.25c-.15-2.23 1.66-4.07 3.74-4.25.29 2.58-2.34 4.5-3.74 4.25z"/></svg>
-      Continue with Apple
-    </button>
+    <div class="authOr">or</div>
+    <div id="emailAuth">
+      <input id="authEmail" type="email" autocomplete="email" placeholder="Email">
+      <input id="authPass" type="password" autocomplete="current-password"
+        placeholder="Password (6+ characters)">
+      <button class="ssoBtn" id="emailBtn">✉️ Continue with email</button>
+      <button id="authForgot">Forgot password?</button>
+    </div>
     <div id="authNote" style="font-size:11px;color:var(--faint);margin-top:4px;line-height:1.5"></div>
     <div style="font-size:11px;margin-top:8px">
       <a href="#/privacy" id="authPrivacy" style="color:var(--faint)">What we store — privacy</a>
@@ -1307,9 +1319,9 @@ async function fb(){
    ═══════════════════════════════════════════════════════════════════════════ */
 const AUTH = {
   demo(provider){
-    return new Promise(r=>setTimeout(()=>r(provider==="google"
-      ? {id:"google:demo-user", name:"Explorer", email:"you@gmail.com", provider:"google"}
-      : {id:"apple:demo-user",  name:"Explorer", email:"you@icloud.com", provider:"apple"}),600));
+    return new Promise(r=>setTimeout(()=>r(provider==="email"
+      ? {id:"email:demo-user",  name:"Explorer", email:"you@example.com", provider:"email"}
+      : {id:"google:demo-user", name:"Explorer", email:"you@gmail.com", provider:"google"}),600));
   },
   fromFirebaseUser(u, provider){
     return { id:u.uid, name:u.displayName||"Explorer", email:u.email||"",
@@ -1318,11 +1330,37 @@ const AUTH = {
   async signIn(provider){
     const F=await fb();
     if(!F) return this.demo(provider);
-    const prov = provider==="google"
-      ? new F.GoogleAuthProvider()
-      : new F.OAuthProvider("apple.com");
-    const res=await F.signInWithPopup(F.auth, prov);
+    const res=await F.signInWithPopup(F.auth, new F.GoogleAuthProvider());
     return this.fromFirebaseUser(res.user, provider);
+  },
+  /* email+password: sign in, or quietly create the account on first use.
+     Firebase reports "no such user" and "wrong password" identically
+     (auth/invalid-credential), so the create attempt is the disambiguator:
+     email-already-in-use ⇒ the password was wrong. */
+  async signInEmail(email, pass){
+    const F=await fb();
+    if(!F) return this.demo("email");
+    const friendly=(code)=>({
+      "auth/invalid-email":"that email doesn't look right",
+      "auth/weak-password":"password needs at least 6 characters",
+      "auth/too-many-requests":"too many tries — wait a minute",
+    }[code]||code);
+    try{
+      const res=await F.signInWithEmailAndPassword(F.auth, email, pass);
+      return this.fromFirebaseUser(res.user, "email");
+    }catch(e){
+      if(e.code!=="auth/user-not-found" && e.code!=="auth/invalid-credential")
+        throw new Error(friendly(e.code||e.message));
+      try{
+        const cred=await F.createUserWithEmailAndPassword(F.auth, email, pass);
+        const name=email.split("@")[0];
+        try{ await F.updateProfile(cred.user,{displayName:name}); }catch(_){}
+        return {...this.fromFirebaseUser(cred.user,"email"), name};
+      }catch(e2){
+        throw new Error(e2.code==="auth/email-already-in-use"
+          ? "wrong password for that email" : friendly(e2.code||e2.message));
+      }
+    }
   }
 };
 
@@ -2492,18 +2530,35 @@ async function finishSignIn(u){
   checkContribNews();   // light the chip if decisions arrived while away
 }
 async function doSignIn(provider){
-  const btn = provider==="google"?$("googleBtn"):$("appleBtn");
+  const btn = provider==="google"?$("googleBtn"):$("emailBtn");
+  if(provider==="email"){
+    const em=$("authEmail").value.trim(), pw=$("authPass").value;
+    if(!em){ toast("Type your email first"); $("authEmail").focus(); return; }
+    if(pw.length<6){ toast("Password needs at least 6 characters"); $("authPass").focus(); return; }
+  }
   const orig=btn.innerHTML;
   btn.style.opacity=.6; btn.textContent="Signing in…";
   try{
-    const u = await AUTH.signIn(provider);   // Firebase popup, or demo fallback
+    const u = provider==="email"
+      ? await AUTH.signInEmail($("authEmail").value.trim(), $("authPass").value)
+      : await AUTH.signIn(provider);         // Firebase popup, or demo fallback
     await loadMaintainers();                 // roles may matter to this user
     await finishSignIn(u);
+    $("authPass").value="";
   }catch(e){ toast("Sign-in failed: "+(e.message||"cancelled")); }
   btn.style.opacity=1; btn.innerHTML=orig;
 }
 $("googleBtn").onclick=()=>doSignIn("google");
-$("appleBtn").onclick=()=>doSignIn("apple");
+$("emailBtn").onclick=()=>doSignIn("email");
+$("authPass").addEventListener("keydown",e=>{ if(e.key==="Enter") doSignIn("email"); });
+$("authForgot").onclick=async ()=>{
+  const em=$("authEmail").value.trim();
+  if(!em){ toast("Type your email first"); $("authEmail").focus(); return; }
+  const F=await fb();
+  if(!F){ toast("Demo mode — no accounts here to reset"); return; }
+  try{ await F.sendPasswordResetEmail(F.auth, em); toast("Reset link sent to "+em); }
+  catch(e){ toast("Couldn't send the reset link: "+(e.code||e.message)); }
+};
 $("signOutBtn").onclick=async ()=>{
   const wasSync=canSync();
   if(syncState==="dirty") await pushRemote();   // flush before dropping the store

@@ -423,7 +423,9 @@ erase it. Reached: About footer, auth modal, account page. Journeys: J9.
 
 ## 15 · Modals & the node editor
 
-- **Auth** `#authModal` — Google/Apple SSO buttons, demo-mode note when
+- **Auth** `#authModal` — Google SSO button + email/password form
+  (`#emailAuth`: sign-in that quietly creates the account on first use,
+  wrong-password disambiguation, `#authForgot` reset-link), demo-mode note when
   unconfigured, privacy link, Not now. Openers: sign-in button, drawer 🔑,
   and every gated affordance when signed out.
 - **Suggest** `#suggestModal` — three modes, no type chips: node mode is

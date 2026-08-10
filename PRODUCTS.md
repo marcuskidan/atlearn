@@ -234,7 +234,8 @@ they cannot edit, merge, or bind anyone.
 **Promise:** we hold as little as possible, and you can leave with
 everything, without asking anyone.
 
-- ● Sign in with Google or Apple; no passwords created or seen.
+- ● Sign in with Google (no password created or seen) or with email +
+  password (created on first use; reset by email link).
 - ● Download my data — everything, one file, one click.
 - ● Delete my account — self-service, removes progress, notes, journal,
   branches, shelves, and pending contributions. Merged contributions

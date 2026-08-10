@@ -9,6 +9,7 @@ Open `config.js` anytime to see what's wired — it's two fields.
 
 1. console.firebase.google.com → **Add project** (no Analytics needed).
 2. **Build → Authentication → Get started** → enable **Google** provider.
+   Also enable **Email/Password** (plain, no email-link sign-in needed).
    (Apple later if you join the Apple Developer Program — Sign in with Apple
    needs a Services ID + key from developer.apple.com.)
 3. **Build → Firestore Database → Create database** (production mode).
