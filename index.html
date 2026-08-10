@@ -200,20 +200,20 @@ a{color:var(--blue)}
 #mapView{background:var(--bg)}
 #scroller{position:absolute;inset:0;overflow-y:auto;-webkit-overflow-scrolling:touch;
   padding-top:calc(64px + var(--sat))}
-#mapFlow{position:relative;max-width:860px;margin:0 auto;
+#mapFlow{position:relative;max-width:940px;margin:0 auto;
   padding:30px calc(16px + var(--sar)) calc(90px + var(--sab)) calc(16px + var(--sal))}
-/* the spine rule runs the length of the walk, down the core-topic column */
-#mapFlow::before{content:"";position:absolute;top:14px;bottom:80px;
-  left:calc(16px + var(--sal) + 129px);width:2px;background:var(--line2)}
+/* the spine rule runs the length of the walk; cards sit on it */
+#mapFlow::before{content:"";position:absolute;left:50%;top:14px;bottom:80px;
+  width:2px;margin-left:-1px;background:var(--line2)}
 #mapFlow.stacked::before{display:none}
-/* reading order is the layout: core topic left, its subtopics right,
-   in true file order — the eye walks the spine, then the branches */
 .mapRow{position:relative;display:grid;
-  grid-template-columns:260px minmax(0,1fr);
+  grid-template-columns:minmax(0,1fr) 250px minmax(0,1fr);
   column-gap:52px;align-items:center;margin-bottom:46px}
 .mapRow:last-child{margin-bottom:0}
-.spineCell{position:relative;display:flex;align-items:center}
-.kidCol{display:flex;flex-direction:column;gap:10px;min-width:0;align-items:flex-start}
+.spineCell{position:relative;display:flex;align-items:center;justify-content:center}
+.kidCol{display:flex;flex-direction:column;gap:10px;min-width:0}
+.kidCol.l{align-items:flex-end}
+.kidCol.r{align-items:flex-start}
 /* dotted curves join each branch to its core topic (drawn per row) */
 .rowSvg{position:absolute;inset:0;width:100%;height:100%;
   pointer-events:none;overflow:visible}
@@ -243,7 +243,7 @@ a{color:var(--blue)}
 .node.spine .badge.s1{background:var(--blue-soft);color:var(--blue)}
 .node.spine .badge.s2{background:var(--green-soft);color:var(--green)}
 /* Branch subtopics — tier is border weight, not color */
-.node.child{position:relative;width:min(100%,300px);
+.node.child{position:relative;width:min(100%,250px);
   background:var(--bg2);border:1px solid var(--line2);padding:9px 11px 8px}
 .node.child .ntitle{font-size:12.5px}
 .node.child.essential{border-left:3px solid var(--ink)}
@@ -2227,11 +2227,12 @@ function renderGraph(){
     row.className="mapRow"+(wide?"":" stack");
     const kids=n.children||[];
     if(wide){
+      const L=document.createElement("div"), R=document.createElement("div");
+      L.className="kidCol l"; R.className="kidCol r";
+      kids.forEach((k,i)=>(childSide(k,i)==="left"?L:R).appendChild(mk(k,"child")));
       const S=document.createElement("div"); S.className="spineCell";
       S.appendChild(mk(n,"spine"));
-      const K=document.createElement("div"); K.className="kidCol";
-      kids.forEach(k=>K.appendChild(mk(k,"child")));
-      row.append(S,K);
+      row.append(L,S,R);
     }else{
       row.appendChild(mk(n,"spine"));
       if(kids.length){
@@ -2243,6 +2244,12 @@ function renderGraph(){
     flow.appendChild(row);
   });
   if(wide) drawBranchEdges(flow);
+}
+/* a subtopic's side of the spine: the maintainer's choice when stated
+   (children[].side, set in the ✏️ editor), alternating by position when
+   not — order within a side follows the children array */
+function childSide(k,i){
+  return k.side==="left"||k.side==="right" ? k.side : (i%2?"left":"right");
 }
 function drawBranchEdges(flow){
   /* dotted curves from each branch to its core topic — measured from the
@@ -4853,43 +4860,58 @@ function renderChildTools(){
     };
     const kids=edCtx.topic.children||[];
     if(kids.length){
-      const lab=document.createElement("div"); lab.className="edLabel";
-      lab.style.marginTop="14px";
-      lab.textContent="🌿 Subtopics";
-      box.appendChild(lab);
-      kids.forEach((k,i)=>{
-        const row=document.createElement("div"); row.className="edChildRow";
-        const t=document.createElement("b"); t.textContent=k.title||"(untitled)";
-        row.appendChild(t);
-        const up=document.createElement("button"); up.textContent="↑"; up.title="Move up";
-        up.disabled=i===0;
-        up.onclick=()=>{ commitFields();
-          [kids[i-1],kids[i]]=[kids[i],kids[i-1]];
-          paintEditorFields();
-          toast("Reordered in working copy — Save to apply"); };
-        const dn=document.createElement("button"); dn.textContent="↓"; dn.title="Move down";
-        dn.disabled=i===kids.length-1;
-        dn.onclick=()=>{ commitFields();
-          [kids[i+1],kids[i]]=[kids[i],kids[i+1]];
-          paintEditorFields();
-          toast("Reordered in working copy — Save to apply"); };
-        const ed=document.createElement("button"); ed.textContent="✎"; ed.title="Edit this subtopic";
-        ed.onclick=()=>{ commitFields(); edCtx.childIdx=i; paintEditorFields(); };
-        row.appendChild(up); row.appendChild(dn); row.appendChild(ed);
-        if(!edCtx.newTopic && currentRm.topics.length>1){
-          const mv=document.createElement("select"); mv.title="Move to another core topic";
-          const o0=document.createElement("option"); o0.value=""; o0.textContent="→ move to…";
-          mv.appendChild(o0);
-          currentRm.topics.forEach((f,ti)=>{
-            if(ti===edCtx.spineIdx) return;
-            const o=document.createElement("option");
-            o.value=String(ti); o.textContent=currentRm.nodes[ti].title;
-            mv.appendChild(o);
-          });
-          mv.onchange=()=>{ if(mv.value!=="") moveChild(i, +mv.value); };
-          row.appendChild(mv);
-        }
-        box.appendChild(row);
+      /* the map's two sides, edited as two lists: reorder within a side,
+         ⇄ sends a subtopic across. Sides are stamped explicit on first
+         touch so the alternating default never shifts under an edit. */
+      const stampSides=()=>kids.forEach((k,i)=>{ k.side=childSide(k,i); });
+      [["left","◀ Left branches"],["right","Right branches ▶"]].forEach(([side,title])=>{
+        const lab=document.createElement("div"); lab.className="edLabel";
+        lab.style.marginTop="14px";
+        lab.textContent="🌿 "+title;
+        box.appendChild(lab);
+        const mine=kids.map((k,i)=>[k,i]).filter(([k,i])=>childSide(k,i)===side);
+        mine.forEach(([k,i],pos)=>{
+          const row=document.createElement("div"); row.className="edChildRow";
+          const t=document.createElement("b"); t.textContent=k.title||"(untitled)";
+          row.appendChild(t);
+          const up=document.createElement("button"); up.textContent="↑"; up.title="Move up";
+          up.disabled=pos===0;
+          up.onclick=()=>{ commitFields(); stampSides();
+            const j=mine[pos-1][1];
+            [kids[j],kids[i]]=[kids[i],kids[j]];
+            paintEditorFields();
+            toast("Reordered in working copy — Save to apply"); };
+          const dn=document.createElement("button"); dn.textContent="↓"; dn.title="Move down";
+          dn.disabled=pos===mine.length-1;
+          dn.onclick=()=>{ commitFields(); stampSides();
+            const j=mine[pos+1][1];
+            [kids[j],kids[i]]=[kids[i],kids[j]];
+            paintEditorFields();
+            toast("Reordered in working copy — Save to apply"); };
+          const sw=document.createElement("button"); sw.textContent="⇄";
+          sw.title="Send to the "+(side==="left"?"right":"left")+" side";
+          sw.onclick=()=>{ commitFields(); stampSides();
+            k.side = side==="left" ? "right" : "left";
+            paintEditorFields();
+            toast("Switched sides in working copy — Save to apply"); };
+          const ed=document.createElement("button"); ed.textContent="✎"; ed.title="Edit this subtopic";
+          ed.onclick=()=>{ commitFields(); edCtx.childIdx=i; paintEditorFields(); };
+          row.appendChild(up); row.appendChild(dn); row.appendChild(sw); row.appendChild(ed);
+          if(!edCtx.newTopic && currentRm.topics.length>1){
+            const mv=document.createElement("select"); mv.title="Move to another core topic";
+            const o0=document.createElement("option"); o0.value=""; o0.textContent="→ move to…";
+            mv.appendChild(o0);
+            currentRm.topics.forEach((f,ti)=>{
+              if(ti===edCtx.spineIdx) return;
+              const o=document.createElement("option");
+              o.value=String(ti); o.textContent=currentRm.nodes[ti].title;
+              mv.appendChild(o);
+            });
+            mv.onchange=()=>{ if(mv.value!=="") moveChild(i, +mv.value); };
+            row.appendChild(mv);
+          }
+          box.appendChild(row);
+        });
       });
     }
     box.appendChild(b);

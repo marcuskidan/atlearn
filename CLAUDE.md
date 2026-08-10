@@ -35,8 +35,10 @@ non-technical); see the Engineering-hygiene rules below.
    Link Steward drafts the swap proposal when the live URL dies).
 5. Tiers: `essential` | `recommended` | `extra` (children roughly 50/30/20).
    Children nest exactly one level — the renderer draws spine topics down the
-   center and children as left/right branches automatically; there is no layout
-   data to maintain.
+   center and children as left/right branches. The one piece of layout a
+   maintainer may state: a child's optional `side` (`left` | `right`, set
+   via the ✏️ editor's two side lists); absent = alternating default.
+   Order within a side follows the children array.
    Spine order: meta.json may carry `spine` (ordered list of topic file
    names) — when present it is the order authority and the NN- prefix is
    cosmetic; without it, sorted file names decide. Structural tools maintain

@@ -83,6 +83,8 @@ Rules the validator enforces:
 - `tier` is `essential` | `recommended` | `extra`; link `kind` is `article` | `video` | `tool`
 - every node has ≥1 `do` action (core philosophy: no read-only nodes)
 - links are https; ids unique per roadmap; children nest exactly one level
+- a child may carry `side` (`left` | `right`) — which side of the spine it
+  renders on; absent = alternating default (children only, never core topics)
 
 **Add a topic**: create `roadmaps/<id>/topics/NN-slug.json` (the `NN-` prefix sets
 spine order). **Add a category**: create a folder with `meta.json` + `topics/`,

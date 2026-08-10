@@ -113,6 +113,13 @@ def check_node(n, path, is_spine, errs, ids, warns=None):
                 and all(isinstance(p, str) and p.strip() for p in r)):
             errs.append(f"{path}: bad reflect (non-empty list of prompt strings)")
     if not n.get("do"): errs.append(f"{path}: no 'do' actions (every node must be actionable)")
+    if "side" in n:
+        # maintainer-chosen side of the spine; subtopics only, renderer
+        # falls back to alternating when absent
+        if is_spine:
+            errs.append(f"{path}: 'side' belongs on subtopics only")
+        elif n["side"] not in ("left", "right"):
+            errs.append(f"{path}: bad side {n['side']!r} (left|right)")
     if is_spine:
         for c in n.get("children", []):
             check_node(c, f"{path}>{c.get('id')}", False, errs, ids, warns)

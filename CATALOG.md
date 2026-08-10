@@ -178,12 +178,13 @@ Header (`#mapHeader`, kept minimal by rule):
 
 The map itself (`#mapFlow` — a document, not a canvas):
 - The map reflows to the screen and scrolls like a page — no zoom, no pan,
-  no controls to learn. Reading order IS the layout: core topics run down
-  a left spine rule, and each topic's subtopics stack to its right in
-  true file order, joined by dotted curves drawn per row
-  (`drawBranchEdges`). Narrow screens: an outline — each core topic
-  followed by its children indented on a dotted rule. Breakpoint and
-  resize re-render live (`MAP_STACK`, debounced resize).
+  no controls to learn. Wide screens: core topics down a center spine
+  rule, children branching left/right joined by dotted curves drawn per
+  row (`drawBranchEdges`). A child's side is the maintainer's call
+  (`children[].side` via the ✏️ editor, `childSide()`), alternating by
+  position when unstated. Narrow screens: an outline — each core topic
+  followed by its children in true order, indented on a dotted rule.
+  Breakpoint and resize re-render live (`MAP_STACK`, debounced resize).
 - Nodes (spine + branches) — click opens the drawer; each carries a status
   glyph ○/⋯/✓, and branches state their tier in words (no separate key).
   (everyone)
@@ -437,7 +438,8 @@ erase it. Reached: About footer, auth modal, account page. Journeys: J9.
 - **Node editor** `#editorBody` (in-drawer) — Title, Tier, position select
   (new topics), Summary, links editor (label/kind/url + ⋯ metadata:
   minutes, lang, ✓ verify-today stamp, succession list), do-actions,
-  reflect prompts, child tools (add/reorder/edit/move/delete subtopic;
+  reflect prompts, child tools (two side lists ◀/▶ — ↑↓ within a side,
+  ⇄ across, ✎ edit, move-to-topic, add beneath, delete subtopic;
   fork: reset-to-standard), proposal note + substantive + affiliation
   fields (propose mode), validation errors, mode-aware Save: dev-write /
   merge / propose / fork / export — `#edMode` explains which. (canEdit;
