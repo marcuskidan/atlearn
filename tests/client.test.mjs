@@ -20,7 +20,8 @@ const fns = ["esc", "flatten", "contentHash", "migrateStore", "mergeStores",
              "textDelta", "classifyEditWeight", "linkRowHTML", "stepHTML"];
 const script = `
 let devMode=false, FIREBASE_CONFIG=null, user={provider:null,id:"guest"},
-    currentRm=null, currentFork=null, MAINTAINERS={}, ADMINS=["admin-uid"], SUPERADMINS=[];
+    currentRm=null, currentFork=null, EDIT_MODE=false,
+    MAINTAINERS={}, ADMINS=["admin-uid"], SUPERADMINS=[];
 const STORE_V=2;
 ${extractFn(html, "isAdmin")}
 ${extractFn(html, "maintains")}
@@ -33,6 +34,7 @@ ${fns.map((n) => extractFn(html, n)).join("\n")}
      FIREBASE_CONFIG=("FIREBASE_CONFIG" in o)?o.FIREBASE_CONFIG:null;
      user=o.user||{provider:null,id:"guest"}; currentRm=o.currentRm||null;
      currentFork=o.currentFork||null;
+     EDIT_MODE=o.EDIT_MODE||false;
      MAINTAINERS=o.MAINTAINERS||{};
      return editorMode();
    } })
@@ -195,6 +197,17 @@ test("editorMode role matrix", () => {
   assert.equal(api.editorModeWith({ devMode: true, FIREBASE_CONFIG: CFG,
     user: { provider: "google", id: "someone" }, currentRm: rm,
     currentFork: branch({ suggestions: true }) }), "propose");
+  // edit mode: every official-map save is LOCAL, whoever you are — even
+  // signed out, even on the dev server; role matters only at commit
+  assert.equal(api.editorModeWith({ EDIT_MODE: true, FIREBASE_CONFIG: CFG,
+    user: { provider: null, id: "guest" }, currentRm: rm }), "local");
+  assert.equal(api.editorModeWith({ EDIT_MODE: true, devMode: true,
+    FIREBASE_CONFIG: CFG,
+    user: { provider: "google", id: "admin-uid" }, currentRm: rm }), "local");
+  // a branch never enters edit mode — its own rules stand
+  assert.equal(api.editorModeWith({ EDIT_MODE: true, FIREBASE_CONFIG: CFG,
+    user: { provider: "google", id: "owner-uid" }, currentRm: rm,
+    currentFork: branch() }), "fork");
 });
 
 test("applyMergedDocs: the five structural kinds", () => {

@@ -118,7 +118,8 @@ STEPS
 EXPECT
 - Drawer: summary/links/do-list render (no restated title — the tapped
   card already said it); status segment AND step
-  checkboxes are LIVE; NO notes box, NO 💡, NO ⚑ link flags, NO ✏️, and no
+  checkboxes are LIVE; NO notes box, NO 💡, NO ⚑ link flags, NO ✏️ in the
+  drawer (outside edit mode), and no
   💬 Community heading while the node has no tips.
 - The first tick marks the step, auto-advances status to ⋯ (drawer and map
   node), and shows the one nudge toast: "✓ Marked for this visit — sign in
@@ -126,7 +127,9 @@ EXPECT
   nothing was stored.
 - The 🔑 sign-in invite (`#dSignInSec`) is visible; clicking it opens the
   auth modal.
-- Map header: no `[ edit ]`, no ＋ Add core topic, no ⇅ Reorganize.
+- Map header: "✏️ edit" IS present (the Wikipedia door is everyone's;
+  identity is asked at commit — J12); outside the mode there is no
+  `[ edit ]`, no ＋ Add core topic, no ⇅ Reorganize.
 - No 🕘 history button while `GITHUB_REPO` is `""`.
 - No version numbers anywhere on the walking surface.
 
@@ -318,23 +321,43 @@ STEPS
 EXPECT — the underlying topic JSON is unchanged (tips are a separate doc);
 the tip is visually separate from LEARN/DO.
 
-### J12 · Contributor · ✏️ Propose — the wiki model   [Tier E]
-INTENTION — Anyone signed in can propose a precise edit in the SAME editor
-the maintainer uses; no resource enters a published map without a named
-human clicking merge (GOVERNANCE).
-COVERED ELSEWHERE — client.test.mjs classifyEditWeight/renderDiff/
-contentHash; rules.test.mjs proposal lifecycle + contributor feedback loop
-(D). Journey-only: ✏️ visibility for non-owners, propose-mode chrome, the
-round trip to the queue.
+### J12 · Anyone · ✏️ Edit mode — local work, three doors out   [Tier B for local + dev-publish · E for branch/propose/merge commits]
+INTENTION — The Wikipedia model (Marcus, 2026-08-10): every walker gets
+the same small edit button, edits are free to try because they are LOCAL
+until committed, and the three commits map exactly to the governance
+ladder — your own branch, the review queue, or (with governance) the
+shared map. No resource enters a published map without a named human
+behind it.
+COVERED ELSEWHERE — client.test.mjs editorMode local matrix +
+classifyEditWeight/renderDiff/contentHash; rules.test.mjs proposal
+lifecycle (D). Journey-only: the mode chrome, the local loop, the bar.
 STEPS
-1. Signed-in non-owner opens any node → ✏️ IS visible → editor opens.
-2. Edit the summary → the save button reads "Propose change"; the mode note
-   says it goes to the maintainer for review, CC BY-SA.
-3. Submit with a note → proposal appears in the map's 💬 Discussion list
-   (public) and in the author's Account → "Your contributions" (pending,
-   with Withdraw).
-EXPECT — the proposal carries baseHash and a declared weight; withdrawing
-works while pending; a decided proposal shows its status + any reason.
+1. Any visitor — signed out included — sees "✏️ edit" in the map header's
+   action row. Click → "✏️ editing": ⇅ Reorganize and ＋ Add core topic
+   appear, the about gains [ edit ], and clicking any topic opens it in
+   the editor.
+2. Change a title and Save → toast says it's local; the map re-renders
+   with the change; the edit bar appears: "✏️ 1 local change".
+3. Rewrite the about, reorder the spine → the bar counts each; the page
+   shows all of it, still local.
+4. Leave to home and return → still editing, the changes and the bar
+   restored (the draft is session-memory, per map).
+5. Signed out, "Save and branch" / "Propose changes" → the auth modal
+   and the honest toast; the draft survives the refusal.
+6. Signed in: "✨ Save and branch" → your branch of this map (created
+   born-unlisted, or appended to) opens with the changes; a local about
+   rewrite becomes the branch intro. OR "🌱 Propose changes" → one note
+   covers the batch; one proposal per change lands in the queue and in
+   Account → "Your contributions", each with baseHash and weight judged
+   against the map as loaded.
+7. With governance (dev server or maintainer/admin): "🛡️ Publish
+   changes" → dev writes the real files through the build gate (version
+   bump + changelog); maintainer publishes merged-overlay docs, live
+   immediately.
+8. ✕ on the bar (or toggling "✏️ editing" off) asks before discarding.
+EXPECT — nothing reaches the network before a commit; the ✏️ inside the
+drawer re-enters the editor while the mode is on; a decided proposal
+shows its status + any reason (unchanged from the old wiki door).
 
 ### J13 · Contributor · ⚑ Resource flags   [Tier E]
 INTENTION — The cheapest contribution: one tap says a link is dead/stale/
@@ -589,10 +612,13 @@ COVERED ELSEWHERE — tests/ops.test.mjs (all six ops, versioning, changelog),
 tests/test_dev.py (apply + byte-identical rollback), tests/test_build.py.
 Journey-only: the editor UI reaching the engine per op; the dev-detected
 copy; the visible git diff.
-SETUP — Tier B recipe; take the roadmaps/ snapshot FIRST.
+SETUP — Tier B recipe; take the roadmaps/ snapshot FIRST. Since the edit
+overhaul, dev editing rides edit mode too: enter ✏️ edit, make each op
+below (all local), then 🛡️ Publish changes — the dev server applies them
+in order through the build gate. dev.py needs `node` on PATH.
 STEPS
-1. **edit** — change a node summary → Save → `git diff` shows that topic
-   file + meta.json patch-bump + changelog.json append.
+1. **edit** — change a node summary → Save → after Publish, `git diff`
+   shows that topic file + meta.json patch-bump + changelog.json append.
 2. **add** — ＋ Add core topic at a chosen position → new `NN-slug.json`,
    spine updated, minor-bump.
 3. **move** — send a subtopic to another core topic → both files touched.

@@ -147,19 +147,28 @@ four places at once: ops.mjs, rules, editor UI, overlay). Rules:
   renders on the OFFICIAL map page only — never on branches, never on the
   category picker (that page stays tagline + branch list). Gated disclaimers and orphan banners
   are the only always-visible blocks. No explanatory copy on screen (rule 6).
-  The reading surface is consumption-first: STRUCTURAL affordances (about
-  [edit], Reorganize, Add core topic) render only for devMode or the map's
-  moderators (fork tools: fork owner) — see `ownsSurface()`. The node ✏️
-  shows for ANY signed-in walker (wiki model): owners' saves merge
-  instantly, everyone else's file a proposal into the review queue.
+  The reading surface is consumption-first — and EDIT MODE is the one
+  door into changing an official map (the Wikipedia model, 2026-08-10):
+  a small ✏️ edit button in the header's action row, shown to EVERY
+  walker, signed in or not. It opens a LOCAL session (EDIT_MODE +
+  editOps, rendered through applyMergedDocs like fork ops): the node
+  editor (topics open editable on click), ⇅ Reorganize, ＋ Add core
+  topic, and the about [ edit ] all write local ops; drafts survive
+  in-session navigation (EDIT_DRAFTS, per map). NOTHING leaves the
+  device until the edit bar's commits: "Save and branch" (your fork —
+  created if needed, born unlisted), "Propose changes" (one proposal
+  per op, one shared note, baseHash/weight judged against the map as
+  loaded), or "Publish changes" (devMode → dev.py file writes;
+  maintainer/admin → merged-overlay docs; the button renders only for
+  governance). Identity is asked for at commit, never at the door.
   Signed-out = reading plus SESSION-MEMORY marks (steps/reflect/status
   tick in memory, one "sign in to keep it" nudge per visit, adopted into
-  the account on sign-in via mergeStores; notes and every contribution
-  affordance stay signed-in). Contributor doors follow ONE DOOR PER
-  INTENT: ✏️ is the only path for changes to the lesson (fixes, resources,
-  subtopics — propose/merge by role); 💡 (in the drawer's Community
-  section) is TIP-ONLY, community text beside the lesson, never in it.
-  Both signed-in only. The category picker COLLAPSES at zero visible
+  the account on sign-in via mergeStores; notes stay signed-in).
+  Contributor doors follow ONE DOOR PER INTENT: ✏️ edit mode is the only
+  path for changes to the lesson (fixes, resources, subtopics,
+  structure); 💡 (in the drawer's Community section) is TIP-ONLY,
+  community text beside the lesson, never in it (signed-in only).
+  The category picker COLLAPSES at zero visible
   branches (cards/atlas/search go straight to the map; ⑂ and backBtn
   force it open — openCategory(id, forcePicker)).
 - Personal maps (`usermaps/{id}` docs, `#/umap/<id>`, the home page's

@@ -111,13 +111,19 @@ account page. No journal buttons or prompts on maps.
 
 ## 4 · Contributing — the wiki door
 
-**For:** any signed-in user.
-**Promise:** anyone can propose an improvement to the shared map, in the
-same editor the maintainer uses — and nothing publishes without a named
-human deciding.
+**For:** everyone — the edit button asks who you are only when you save.
+**Promise:** anyone can edit the shared map, in the same editor the
+maintainer uses, risk-free: changes stay on your device until you choose
+what becomes of them — and nothing publishes without a named human
+deciding.
 
-- ● Edit any topic — for non-owners, Save files a proposal to the map's
-  maintainer, with an exact before/after view.
+- ● One small ✏️ edit button on every map, for every visitor. It opens
+  edit mode: click any topic to change it, reorder the map, add topics,
+  rewrite the about — all local, instantly visible, costing nothing.
+- ● Three ways out, on one bar: keep the changes as your own branch,
+  propose them to the maintainer (with an exact before/after view per
+  change), or — if you hold the map — publish them directly.
+- ● Your unsaved work survives wandering off to another page and back.
 - ● Share a field-tested tip — free-text community wisdom; approved tips
   display beside the curated content, clearly labeled. Fixes, better
   links, and missing subtopics go through the same editor as everything

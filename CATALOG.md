@@ -156,14 +156,32 @@ Header (`#mapHeader`, kept minimal by rule):
   (everyone)
 - Byline — the maintainer's name; absent until a real name exists (the
   "The Admins" placeholder never renders). (everyone)
+- `#editModeBtn` ✏️ edit / ✏️ editing — the Wikipedia door, first in the
+  action row, shown to EVERY walker (signed-out included; identity is
+  asked at commit). Toggles EDIT MODE: the about [ edit ], ⇅ Reorganize,
+  ＋ Add core topic appear, and clicking any topic opens it in the
+  editor. Every save is LOCAL (`editOps`, rendered through the fork op
+  engine); a draft survives in-session navigation and is restored on
+  return. Leaving the mode with unsaved ops asks before discarding.
+  Official maps only — branches keep their own panels. (everyone)
+- `#editBar` — appears with the first local change, bottom center:
+  "✏️ N local changes" + `#ebBranch` ✨ Save and branch (appends to your
+  existing branch of this map or creates one, born unlisted; a local
+  about rewrite rides as the branch intro) + `#ebPropose` 🌱 Propose
+  changes (one proposal per op, one shared note, staleness anchors and
+  weight judged against the map as loaded) + `#ebPublish` 🛡️ Publish
+  changes (devMode → dev.py file writes, build-gated per op;
+  maintainer/admin → merged-overlay docs; hidden without governance) +
+  `#ebDiscard` ✕ (confirm). (everyone; commits gate on identity/role)
 - `⑂ all versions` — back to the picker (forced open). (everyone)
 - `#histBtn` 🕘 history — opens the map's GitHub commit log; meta altitude,
   so it lives in this header row, never on the map itself. Official
   map only; absent while `GITHUB_REPO` is unset. (everyone when configured)
 - `#mhAboutLead` — the wiki-editable about prose (meta.json `about`,
   overlay-aware); renders on the official map only, never on forks.
-  `[ edit ]` / "write the about section" affordance. (prose: everyone;
-  edit link: owner)
+  `[ edit ]` / "write the about section" affordance renders in edit mode
+  (a local `about` op until committed). (prose: everyone; edit link:
+  edit mode)
 - `✦ changed since your last visit` pill — opens the what's-new modal;
   appears when the map's version moved past the walker's seen record.
   (returning walkers)
@@ -195,7 +213,7 @@ The map itself (`#mapFlow` — a document, not a canvas):
   glyph ○/⋯/✓, and branches state their tier in words (no separate key).
   (everyone)
 - `#addTopicBtn` ＋ Add core topic · `#reorgBtn` ⇅ Reorganize — structural
-  tools. (owner)
+  tools. (official maps: edit mode; branches: owner)
 
 ## 4 · Node drawer — `#/<cat>/<node>` (also `#/fork/<id>/<node>`)
 
@@ -231,9 +249,10 @@ read-only for signed-out visitors. Journeys: J1, J7, J11, J12, J13.
   node's ONE community-text door; changes to the lesson itself go through
   ✏️ (one door per intent). (tips: everyone; 💡: signed-in, hidden on
   forks)
-- `#editBtn` ✏️ — opens the node editor; ANY signed-in walker may edit —
-  what Save does is role-decided (owners merge, others propose). This is
-  the wiki door. (canEdit)
+- `#editBtn` ✏️ — opens the node editor. Official maps: shown inside edit
+  mode (topics clicked from the map already open editing; this is the
+  re-entry from an open drawer). Branches: the owner, or any signed-in
+  walker when the owner's suggestions door is open. (canEdit)
 
 ## 5 · Personal version — `#/fork/<id>`
 
@@ -544,7 +563,8 @@ erase it. Reached: About footer, auth modal, account page. Journeys: J9.
   reflect prompts, child tools (two side lists ◀/▶ — ↑↓ within a side,
   ⇄ across, ✎ edit, move-to-topic, add beneath, delete subtopic;
   fork: reset-to-standard), proposal note + substantive + affiliation
-  fields (propose mode), validation errors, mode-aware Save: dev-write /
+  fields (propose mode), validation errors, mode-aware Save: local
+  (edit mode — the op joins `editOps` for the edit bar) / dev-write /
   merge / propose / fork / export — `#edMode` explains which. (canEdit;
   destination decided by editorMode())
 - **Reorganize** `#reorgModal` — spine rows ↑↓, mode explainer, save = one

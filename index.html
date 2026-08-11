@@ -187,6 +187,20 @@ a{color:var(--blue)}
 #siteFoot a{color:var(--muted);text-decoration:none}
 #siteFoot a:hover{color:var(--ink)}
 .manifesto .mission{font-size:16.5px;color:var(--muted);line-height:1.75;margin-bottom:30px}
+/* the edit-mode commit bar: local work, three doors out */
+#editModeBtn.on{border-color:var(--blue);color:var(--blue)}
+#editBar{display:none;position:fixed;z-index:35;left:50%;transform:translateX(-50%);
+  bottom:calc(14px + var(--sab));max-width:calc(100vw - 20px);
+  background:var(--bg2);border:1px solid var(--line2);border-radius:6px;
+  box-shadow:var(--shadow);padding:8px 10px;
+  align-items:center;gap:8px;flex-wrap:wrap;justify-content:center}
+#editBar.show{display:flex}
+#editBar button{border:1px solid var(--line);border-radius:4px;
+  padding:7px 12px;font-size:12.5px;font-weight:600;color:var(--muted)}
+#editBar button:hover{border-color:var(--ink);color:var(--ink)}
+#editBar .primary{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+#editBar .primary:hover{color:var(--paper)}
+#editCount{font-size:12px;color:var(--muted);padding:0 4px;white-space:nowrap}
 
 /* ---------- About / manifesto (and every scrolling document view) ---------- */
 #aboutView,#privacyView,#atlasView,#journalView,#guildView,#healthView,#categoryView{
@@ -1062,6 +1076,13 @@ select.edInput{appearance:none;-webkit-appearance:none}
   <button id="forkBtn"></button>
   <button id="addTopicBtn">＋ Add core topic</button>
   <button id="reorgBtn">⇅ Reorganize</button>
+  <div id="editBar">
+    <span id="editCount"></span>
+    <button id="ebBranch" title="Keep these changes as your own branch of this map">✨ Save and branch</button>
+    <button id="ebPropose" title="Send these changes to the maintainer for review">🌱 Propose changes</button>
+    <button id="ebPublish" class="primary" title="Publish these changes to the shared map">🛡️ Publish changes</button>
+    <button id="ebDiscard" title="Discard these local changes">✕</button>
+  </div>
 </section>
 
 <footer id="siteFoot"><a href="#/about">About</a></footer>
@@ -1794,7 +1815,200 @@ async function renderContinue(active){
 }
 
 /* ---------- roadmap render ---------- */
+/* ---------- Edit mode: the Wikipedia door ----------
+   Every walker gets the same small ✏️ edit button on an official map —
+   signed in or not. It opens a LOCAL working session: the editor, the
+   structural tools, and the about editor all write ops to `editOps`,
+   rendered instantly through the same applyMergedDocs engine forks use,
+   and nothing leaves the device until one of the three commits on the
+   edit bar: Save and branch (your fork), Propose changes (the review
+   queue), or — with governance over the map — Publish changes.
+   A draft survives in-session navigation (EDIT_DRAFTS, per map). */
+let EDIT_MODE=false, editOps=[], editBase=null;
+const EDIT_DRAFTS={};   // rmId → unsaved ops, kept for this visit only
+function deriveLocalRm(){
+  const a=applyMergedDocs(editBase.topics, editBase.nodes, editOps);
+  return {...editBase, topics:a.topics, nodes:a.nodes};
+}
+function localAboutText(){
+  for(let i=editOps.length-1;i>=0;i--) if(editOps[i].kind==="about") return editOps[i].about;
+  return null;
+}
+function stashEditDraft(){
+  if(editBase){
+    if(editOps.length) EDIT_DRAFTS[editBase.id]=editOps;
+    else delete EDIT_DRAFTS[editBase.id];
+  }
+  EDIT_MODE=false; editOps=[]; editBase=null;
+}
+function clearEditState(){
+  if(editBase) delete EDIT_DRAFTS[editBase.id];
+  EDIT_MODE=false; editOps=[]; editBase=null;
+}
+/* One op in, compacted the way fork ops are: the latest edit per file wins,
+   one spine, one about; editing a topic added this session folds into its
+   add; removing one erases its whole local trace. */
+function pushLocalOp(op){
+  op={...op, at:Date.now()};
+  if(op.kind==="edit"){
+    const add=editOps.find(o=>o.kind==="add"&&o.file===op.file);
+    if(add){ add.topic=op.topic; return; }
+    editOps=editOps.filter(o=>!(o.kind==="edit"&&o.file===op.file));
+  }
+  if(op.kind==="spine") editOps=editOps.filter(o=>o.kind!=="spine");
+  if(op.kind==="about") editOps=editOps.filter(o=>o.kind!=="about");
+  if(op.kind==="remove"){
+    const wasLocalAdd=editOps.some(o=>o.kind==="add"&&o.file===op.file);
+    editOps=editOps.filter(o=>!((o.kind==="add"||o.kind==="edit")&&o.file===op.file));
+    if(wasLocalAdd) return;   // removing what only this session added = nothing
+  }
+  editOps.push(op);
+}
+function paintEditChrome(){
+  const bar=$("editBar");
+  if(currentFork || !currentRm){ bar.classList.remove("show"); return; }
+  $("addTopicBtn").classList.toggle("show", EDIT_MODE);
+  $("reorgBtn").classList.toggle("show", EDIT_MODE);
+  bar.classList.toggle("show", EDIT_MODE && editOps.length>0);
+  if(EDIT_MODE && editOps.length){
+    $("editCount").textContent=`✏️ ${editOps.length} local change${editOps.length===1?"":"s"}`;
+    $("ebPublish").style.display=(devMode||isAdmin()||maintains(currentRm.id))?"":"none";
+  }
+}
+function toggleEditMode(){
+  if(currentFork) return;
+  if(EDIT_MODE){
+    if(editOps.length &&
+       !confirm(`Discard ${editOps.length} local change${editOps.length===1?"":"s"}?`)) return;
+    const base=editBase;
+    clearEditState();
+    if(base) currentRm=base;   // back to the map as loaded
+    closeDrawer();
+    renderMapHeader(); renderGraph(); paintEditChrome();
+  }else{
+    editBase=currentRm; EDIT_MODE=true;
+    renderMapHeader(); paintEditChrome();
+  }
+}
+async function commitBranch(){
+  if(!user.provider){ $("authModal").classList.add("show"); toast("Sign in to keep a branch"); return; }
+  if(!(collConnected() && canSync())){ toast("Branches need the connected app"); return; }
+  const baseId=editBase.id;
+  // a branch intro lives on the fork DOC, not in its ops
+  const aboutText=localAboutText();
+  const contentOps=editOps.filter(o=>o.kind!=="about");
+  try{
+    const F=await fb(); if(!F) throw new Error("offline");
+    const mine=(await myForks()).filter(f=>f.base===baseId);
+    if(mine.length){
+      const f=mine[0];
+      let ops=(f.ops||[]).slice();
+      contentOps.forEach(op=>{
+        if(op.kind==="edit") ops=ops.filter(o=>!(o.kind==="edit"&&o.file===op.file));
+        if(op.kind==="spine") ops=ops.filter(o=>o.kind!=="spine");
+        ops.push(op);
+      });
+      if(ops.length>100) throw new Error("your branch is at its 100-change limit");
+      await F.updateDoc(F.doc(F.db,"forks",f.id),
+        {ops, ...(aboutText!=null?{about:aboutText}:{}), updatedAt:F.serverTimestamp()});
+      clearEditState();
+      toast("✨ Saved to your branch");
+      location.hash="#/fork/"+f.id;
+    }else{
+      const ref=await F.addDoc(F.collection(F.db,"forks"),
+        {base:baseId, title:editBase.title+" — "+user.name+"'s version",
+         ops:contentOps, ...(aboutText!=null?{about:aboutText}:{}),
+         owner:{uid:user.id, name:user.name}, hidden:false, public:false,
+         createdAt:F.serverTimestamp(), updatedAt:F.serverTimestamp()});
+      FORK_COUNTS=null;
+      clearEditState();
+      toast("✨ Yours — a private branch; the ✨ panel publishes or shares it");
+      location.hash="#/fork/"+ref.id;
+    }
+  }catch(e){ toast("Couldn't save the branch — "+String(e.message||e).slice(0,60)); }
+}
+async function commitPropose(){
+  if(!user.provider){ $("authModal").classList.add("show"); toast("Sign in to propose changes"); return; }
+  if(!canSync()){ toast("Proposing needs the connected app"); return; }
+  const n=editOps.length;
+  const note=(prompt(`Why? One note rides with all ${n} change${n===1?"":"s"} for the maintainer:`)||"").trim();
+  if(note.length<5){ toast("A short reason is required to propose changes"); return; }
+  const id=editBase.id;
+  try{
+    const F=await fb(); if(!F) throw new Error("offline");
+    const batch=F.writeBatch(F.db);
+    const bi=f=>editBase.topics.indexOf(f);
+    editOps.forEach(op=>{
+      const doc={roadmap:id, kind:op.kind||"edit", note,
+        by:{uid:user.id, name:user.name}, affiliated:false, affiliation:"",
+        createdAt:F.serverTimestamp(), status:"pending"};
+      ["file","file2","topic","topic2","after","spine","about"].forEach(k=>{
+        if(op[k]!==undefined) doc[k]=op[k]; });
+      // staleness anchors + weight are judged against the map as it was loaded
+      if(doc.kind==="edit"||doc.kind==="remove"){
+        const i=bi(op.file); if(i>=0) doc.baseHash=contentHash(editBase.nodes[i]); }
+      if(doc.kind==="spine") doc.baseHash=contentHash(editBase.topics);
+      if(doc.kind==="move"){
+        const i=bi(op.file), j=bi(op.file2);
+        if(i>=0) doc.baseHash=contentHash(editBase.nodes[i]);
+        if(j>=0) doc.baseHash2=contentHash(editBase.nodes[j]); }
+      if(doc.kind==="edit"){
+        const i=bi(op.file);
+        doc.weight = i>=0 ? classifyEditWeight(editBase.nodes[i], op.topic) : "substantive"; }
+      batch.set(F.doc(F.collection(F.db,"proposals")), doc);
+    });
+    await batch.commit();
+    clearEditState();
+    await reloadCurrentRoadmap();
+    toast(`🌱 ${n} change${n===1?"":"s"} proposed — the maintainer will review them`);
+  }catch(e){ toast("Couldn't propose — "+String(e.message||e).slice(0,60)); }
+}
+async function commitPublish(){
+  const id=editBase.id, n=editOps.length;
+  if(devMode){
+    // the dev server writes real files, one op at a time, build-validated;
+    // a failing op stops the run with the build's own words
+    try{
+      for(const op of editOps){
+        const {at, ...core}=op;
+        const r=await fetch("/dev/apply",{method:"POST",
+          headers:{"Content-Type":"application/json"},
+          body:JSON.stringify({rm:id, ...core})});
+        const data=await r.json();
+        if(!r.ok) throw new Error((data.errors||[data.error||r.status]).join("\n"));
+      }
+      clearEditState();
+      rmCache.delete(id);
+      try{ INDEX=(await (await fetch("roadmaps/index.json",{cache:"no-cache"})).json()).roadmaps; }catch(e){}
+      await reloadCurrentRoadmap();
+      renderMapHeader();
+      toast(`💾 ${n} change${n===1?"":"s"} saved to the repo files`);
+    }catch(e){ toast("Publish stopped — "+String(e.message||e).slice(0,80)); }
+    return;
+  }
+  if(!(isAdmin()||maintains(id))){ toast("Publishing needs the map's maintainer"); return; }
+  if(!canSync()){ toast("Publishing needs the connected app"); return; }
+  try{
+    const F=await fb(); if(!F) throw new Error("offline");
+    const batch=F.writeBatch(F.db);
+    editOps.forEach(op=>{
+      const core={roadmap:id, kind:op.kind||"edit"};
+      ["file","file2","topic","topic2","after","spine","about"].forEach(k=>{
+        if(op[k]!==undefined) core[k]=op[k]; });
+      batch.set(F.doc(F.collection(F.db,"merged")),
+        {...core, by:{uid:user.id, name:user.name},
+         mergedBy:{uid:user.id, name:user.name}, note:"", at:op.at||Date.now()});
+    });
+    await batch.commit();
+    clearEditState();
+    rmCache.delete(id);
+    await reloadCurrentRoadmap();
+    renderMapHeader();
+    toast(`🛡️ ${n} change${n===1?"":"s"} published — live now; they land in the public record within the hour`);
+  }catch(e){ toast("Couldn't publish — "+String(e.message||e).slice(0,60)); }
+}
 async function openRoadmap(id){
+  stashEditDraft();
   $("loading").classList.add("show");
   try{ currentRm=await loadRoadmap(id); }
   catch(e){
@@ -1805,12 +2019,15 @@ async function openRoadmap(id){
   currentFork=null;                          // standard map: fork chrome off
   $("forkBanner").classList.remove("show");
   $("forkBtn").classList.remove("show");
+  if(EDIT_DRAFTS[id] && EDIT_DRAFTS[id].length){   // this visit's unsaved work
+    editBase=currentRm; editOps=EDIT_DRAFTS[id]; EDIT_MODE=true;
+    currentRm=deriveLocalRm();
+  }
   showView("mapView");
   $("backBtn").classList.add("show");
   renderMapHeader();
   renderGraph();
-  $("addTopicBtn").classList.toggle("show", ownsSurface());
-  $("reorgBtn").classList.toggle("show", ownsSurface());
+  paintEditChrome();
   reflectHash("/"+id+"/map");
 }
 /* The map's chrome, kept minimal: title · one byline · small buttons.
@@ -1842,6 +2059,19 @@ function renderMapHeader(){
     ${e.disclaimer?`<div class="mhDisclaimer">⚠️ ${esc(e.disclaimer)}</div>`:""}
     <div id="mhStateBanner"></div>`;
   renderMapAbout(e.id, e);   // trunk: the wiki-editable lead · branch: the owner's intro
+  // ✏️ edit — the same small button for every walker, signed in or not
+  // (Wikipedia's door): it opens a LOCAL editing session; identity is
+  // asked for at commit time, on the edit bar, not at the door.
+  if(!currentFork){
+    const eb=document.createElement("button"); eb.id="editModeBtn";
+    eb.textContent=EDIT_MODE?"✏️ editing":"✏️ edit";
+    eb.classList.toggle("on", EDIT_MODE);
+    eb.title=EDIT_MODE
+      ?"Leave edit mode"
+      :"Edit this map — changes stay on this device until you save, propose, or publish";
+    eb.onclick=toggleEditMode;
+    $("mhActions").appendChild(eb);
+  }
   // ⑂ all versions: the small, always-present way back to the category page.
   // A personal map has no category — it lives below the commons, off every
   // shelf — so the button would point at nothing; it stays off.
@@ -1872,6 +2102,7 @@ function renderMapHeader(){
    pick one and explore. Identity is plain text (Wikipedia-style); the version
    number lives quietly at the bottom. */
 async function openCategory(id, forcePicker=false){
+  stashEditDraft();
   const e=INDEX.find(r=>r.id===id);
   if(!e){ goHome(); return; }
   // One version = nothing to pick: the shelf goes straight to the map and
@@ -1938,13 +2169,15 @@ async function renderMapAbout(id, e){
     if(owner) $("mapAboutEdit").onclick=(ev)=>{ ev.preventDefault(); openAboutEditor(id); };
     return;
   }
-  const text=await aboutOf(id, e.about||"");
+  // a local edit-session rewrite of the lead trumps the served text
+  const localText = (EDIT_MODE && localAboutText()!=null) ? localAboutText() : null;
+  const text = localText!=null ? localText : await aboutOf(id, e.about||"");
   if(!box.isConnected || !currentRm || currentRm.id!==id || currentFork) return;   // stale render
   catAboutText=text;
   const paras=text.split(/\n\s*\n/).map(p=>p.trim()).filter(Boolean)
     .map(p=>`<p>${esc(p)}</p>`).join("");
-  // consumption-first: the edit affordance renders only for the map's owners
-  const owner = devMode || (!!user.provider && (isAdmin()||maintains(id)));
+  // the [ edit ] affordance is edit mode's: one door for everyone
+  const owner = EDIT_MODE;
   box.innerHTML = owner
     ? (paras
         ? paras+`<span class="wikiEdit">[ <a href="#" id="mapAboutEdit">edit</a> ]</span>`
@@ -1954,22 +2187,27 @@ async function renderMapAbout(id, e){
 }
 let catId=null, catAboutText="";
 function openAboutEditor(id){
-  if(!devMode && !user.provider){
-    $("authModal").classList.add("show"); toast("Sign in to edit"); return; }
-  if(!devMode && !canSync()){
-    toast("Editing needs the connected app or the dev server"); return; }
   const mode = (currentFork&&forkOwned()) ? "fork"
+    : (!currentFork && EDIT_MODE) ? "local"
     : devMode ? "dev" : (isAdmin()||maintains(id)) ? "merge" : "propose";
+  // local and fork edits need no identity here — commit asks later
+  if(mode!=="local" && mode!=="fork"){
+    if(!devMode && !user.provider){
+      $("authModal").classList.add("show"); toast("Sign in to edit"); return; }
+    if(!devMode && !canSync()){
+      toast("Editing needs the connected app or the dev server"); return; }
+  }
   $("abText").value=catAboutText;
   $("abNote").value="";
   $("abNoteWrap").style.display=mode==="propose"?"block":"none";
   $("abSave").textContent={dev:"Save", merge:"Save & publish", propose:"Propose change",
-    fork:"Save"}[mode];
+    fork:"Save", local:"Save"}[mode];
   $("abMode").innerHTML={
     dev:`💾 Saves directly to <b>roadmaps/${esc(id)}/meta.json</b> — dev server detected.`,
     merge:`🛡️ You moderate this map — saving publishes immediately, attributed in the public record.`,
     propose:`🌱 This goes to the maintainer for review — nothing changes until they merge it. Your name goes on the change, licensed CC BY-SA 4.0.`,
     fork:"",
+    local:"✏️ Stays on this device until you save, propose, or publish from the edit bar.",
   }[mode];
   $("aboutModal").classList.add("show");
   $("abSave").onclick=()=>saveAbout(id, mode);
@@ -1981,6 +2219,15 @@ async function saveAbout(id, mode){
   if(mode!=="fork" && text.length<20){ toast("A real paragraph, please (20+ characters)"); return; }
   $("abSave").disabled=true;
   try{
+    if(mode==="local"){
+      pushLocalOp({kind:"about", about:text});
+      $("aboutModal").classList.remove("show");
+      $("abSave").disabled=false;
+      renderMapAbout(id, INDEX.find(r=>r.id===id));
+      paintEditChrome();
+      toast("✏️ Saved — local until you commit it");
+      return;
+    }
     if(mode==="dev"){
       const r=await fetch("/dev/apply",{method:"POST",
         headers:{"Content-Type":"application/json"},
@@ -2300,6 +2547,7 @@ async function openDiscussion(rmId){
 }
 $("discussClose").onclick=()=>$("discussModal").classList.remove("show");
 function goHome(){
+  stashEditDraft();
   showView("homeView");
   $("addTopicBtn").classList.remove("show");
   $("reorgBtn").classList.remove("show");
@@ -2326,7 +2574,8 @@ function renderGraph(){
     el.innerHTML=`<div class="ntitle">${esc(n.title)}</div>
       <div class="nrow"><span class="badge s${p.status}" title="${STATUS_LABEL[p.status]}">${STATUS_ICON[p.status]}</span>
       ${cls==="child"?`<span class="tierdot">${esc(n.tier)}</span>`:""}</div>`;
-    el.onclick=()=>openNode(n.id);
+    // in edit mode a topic opens ready to change — the Wikipedia reflex
+    el.onclick=()=>{ openNode(n.id); if(EDIT_MODE && !currentFork) openEditor(n.id); };
     return el;
   };
   currentRm.nodes.forEach(n=>{
@@ -4308,6 +4557,7 @@ function deriveForkRm(baseRm, f){
   return {...baseRm, topics:applied.topics, nodes:applied.nodes};
 }
 async function openFork(id, nodeId){
+  stashEditDraft();
   $("loading").classList.add("show");
   let f=null, base=null;
   try{ f=await fetchFork(id); if(f) base=await loadRoadmap(f.base); }catch(e){}
@@ -4555,6 +4805,7 @@ function deriveUmapRm(u){
           topics:nodes.map(n=>"00-"+n.id+".json"), nodes};
 }
 async function openUmap(id, nodeId){
+  stashEditDraft();
   $("loading").classList.add("show");
   let u=null;
   try{ u=await fetchUmap(id); }catch(e){}
@@ -5442,7 +5693,10 @@ function canEdit(){
   // OWNER decides. Closed by default; brigading stays off.
   if(currentFork) return forkOwned()
     || (!!user.provider && currentFork.suggestions===true && canSync());
-  return devMode || !!user.provider;
+  // Official maps: the editor opens only inside edit mode — the header's
+  // ✏️ button is the one door, and it is everyone's (identity is asked
+  // for at commit, not here).
+  return EDIT_MODE;
 }
 /* The reading surface is consumption-first: STRUCTURAL chrome (about [edit],
    Reorganize, Add core topic) renders only for the page's owner — devMode,
@@ -5462,6 +5716,9 @@ function editorMode(){
     return (!!user.provider && currentFork.suggestions===true && FIREBASE_CONFIG)
       ? "propose" : "export";
   }
+  // official maps: inside edit mode every save is LOCAL — role and identity
+  // matter only at commit (the edit bar's three doors)
+  if(EDIT_MODE) return "local";
   if(devMode) return "dev";
   if(!FIREBASE_CONFIG) return "export";
   if(isAdmin() || (currentRm&&maintains(currentRm.id))) return "merge";
@@ -5571,8 +5828,10 @@ function paintEditorChrome(){
                              propose:isNew?"Propose new topic":"Propose change",
                              fork:isNew?(umap?"Add to your map":"Add to your version")
                                        :(umap?"Save to your map":"Save to your version"),
+                             local:isNew?"Add topic":"Save",
                              export:"Export JSON"}[mode];
   $("edMode").innerHTML = {
+    local:`✏️ Stays on this device until you save, propose, or publish from the edit bar.`,
     dev:`💾 Saves directly to <b>roadmaps/${esc(currentRm.id)}/topics/${esc(topicFile()||"(new file)")}</b> — dev server detected.`,
     merge:`🛡️ You maintain this map — saving publishes immediately and is logged in the map's public history.`,
     propose:`🌱 This goes to <b>${esc(currentFork
@@ -5741,6 +6000,12 @@ async function submitStructural(op, successMsg){
     toast("Structure changes need the dev server (tools/dev.py) or a signed-in, connected app");
     return false;
   }
+  if(mode==="local"){
+    const {baseHash, baseHash2, ...core}=op;
+    pushLocalOp(core);
+    toast("✏️ "+successMsg+" — local until you commit it");
+    return true;
+  }
   if(mode==="fork"){
     const {baseHash, baseHash2, ...core}=op;
     await appendForkOps([core]);
@@ -5844,7 +6109,9 @@ function commitFields(){
   return n;
 }
 async function reloadCurrentRoadmap(reopenNodeId){
-  if(currentFork&&currentFork.umap){   // the doc is the map: re-derive locally
+  if(!currentFork && EDIT_MODE && editBase){   // an edit session renders its local ops
+    currentRm=deriveLocalRm();
+  }else if(currentFork&&currentFork.umap){   // the doc is the map: re-derive locally
     currentRm=deriveUmapRm(currentFork);
   }else if(currentFork){   // re-derive the personal version over the fresh base
     rmCache.delete(currentFork.base);
@@ -5858,6 +6125,7 @@ async function reloadCurrentRoadmap(reopenNodeId){
     currentRm=await loadRoadmap(id);
   }
   renderGraph();
+  paintEditChrome();
   if(reopenNodeId && flatten(currentRm).some(n=>n.id===reopenNodeId)) openNode(reopenNodeId);
   else closeDrawer();
 }
@@ -5900,7 +6168,10 @@ async function saveEditor(){
     }
     $("edSave").disabled=true;
     try{
-      if(mode==="fork"){
+      if(mode==="local"){
+        pushLocalOp({kind:"add", file:fname, topic:edCtx.topic, after});
+        toast("✏️ Added — local until you commit it");
+      }else if(mode==="fork"){
         await appendForkOps([{kind:"add", file:fname, topic:edCtx.topic, after}]);
         toast(currentFork.umap?"🗺 Added to your map":"✨ Added to your version");
       }else if(mode==="dev"){
@@ -5941,7 +6212,14 @@ async function saveEditor(){
   }
 
   const fname=topicFile();
-  if(mode==="fork"){
+  if(mode==="local"){
+    $("edSave").disabled=true;
+    pushLocalOp({kind:"edit", file:fname, topic:edCtx.topic});
+    toast("✏️ Saved — local until you commit it");
+    closeEditor();
+    await reloadCurrentRoadmap(reopen);
+    $("edSave").disabled=false;
+  }else if(mode==="fork"){
     $("edSave").disabled=true;
     try{
       await appendForkOps([{kind:"edit", file:fname, topic:edCtx.topic}]);
@@ -6052,6 +6330,7 @@ $("reorgBtn").onclick=()=>{
   reorgOrder=currentRm.topics.map((f,i)=>({file:f, title:currentRm.nodes[i].title}));
   renderReorg();
   $("reorgMode").textContent={
+    local:"✏️ The new order stays on this device until you commit it from the edit bar.",
     dev:"💾 Saves the new order directly to meta.json — dev server detected.",
     merge:"🛡️ You maintain this map — the new order publishes immediately.",
     propose:"🌱 Your proposed order goes to the maintainer for review (you'll be asked for a short reason).",
@@ -6150,6 +6429,18 @@ async function goUp(){
 }
 $("backBtn").onclick=async ()=>{ try{ await goUp(); }catch(e){ goHome(); } };
 $("brand").onclick=goHome;
+/* the edit bar's three doors out (and the one back) */
+$("ebBranch").onclick=commitBranch;
+$("ebPropose").onclick=commitPropose;
+$("ebPublish").onclick=commitPublish;
+$("ebDiscard").onclick=()=>{
+  if(!confirm(`Discard ${editOps.length} local change${editOps.length===1?"":"s"}?`)) return;
+  const base=editBase;
+  clearEditState();
+  if(base) currentRm=base;
+  closeDrawer();
+  renderMapHeader(); renderGraph(); paintEditChrome();
+};
 
 
 /* ---------- URL routing: the hash is a shareable address ----------
