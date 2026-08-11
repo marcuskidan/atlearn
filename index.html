@@ -5474,6 +5474,9 @@ const CONTRIB_STATUS={
   accepted: ["📥 Accepted for curation","var(--amber)"],
   merged:   ["✅ Merged — live on the map","var(--green)"],
   rejected: ["✕ Not taken","var(--red)"],
+  open:     ["⏳ Open — a moderator will look","var(--muted)"],
+  resolved: ["✓ Resolved","var(--green)"],
+  dismissed:["— Dismissed","var(--muted)"],
 };
 async function myContributions(){
   if(!canSync()) return [];
@@ -5489,6 +5492,18 @@ async function myContributions(){
         out.push(r);
       });
     }
+    // reports ride along: the reporter reads their own (rules-provable
+    // by.uid query) — the resolution note is the answer they were owed
+    const rsnap=await F.getDocs(F.query(F.collection(F.db,"reports"),
+      F.where("by.uid","==",user.id)));
+    rsnap.forEach(d=>{
+      const r={ctype:"report", id:d.id, ...d.data()};
+      if(r.createdAt&&r.createdAt.toMillis) r.createdAt=r.createdAt.toMillis();
+      r.status=r.status||"open";
+      r.decidedAt=r.resolvedAt||0;          // feeds the gold news dot
+      if(r.resolution) r.reason=r.resolution;   // renders in the ✉️ slot
+      out.push(r);
+    });
   }catch(e){}
   out.sort((a,b)=>(b.createdAt||0)-(a.createdAt||0));
   return out;
@@ -5501,7 +5516,8 @@ async function checkContribNews(){
   const last=+(store.settings||{}).seenDecisions||0;
   try{
     const items=await myContributions();
-    paintContribBadge(items.some(c=>c.status && c.status!=="pending" && (c.decidedAt||0)>last));
+    paintContribBadge(items.some(c=>c.status && c.status!=="pending"
+      && c.status!=="open" && (c.decidedAt||0)>last));
   }catch(e){}
 }
 async function renderMyContributions(){
@@ -5517,7 +5533,9 @@ async function renderMyContributions(){
     '<div class="sub">Everything you\'ve suggested or proposed, and what became of it.</div>';
   items.forEach(c=>{
     const [label,color]=CONTRIB_STATUS[c.status]||[esc(c.status||"?"),"var(--muted)"];
-    const what=c.ctype==="proposal"
+    const what=c.ctype==="report"
+      ? `⚑ ${esc(c.kind||"")} · ${esc((c.target&&(c.target.title||c.target.roadmap||c.target.id))||"")}`
+      : c.ctype==="proposal"
       ? `${esc(c.kind||"edit")} · ${esc(c.roadmap)}${c.topic&&c.topic.title?" · "+esc(c.topic.title):""}`
       : `${esc(c.type||"")} · ${c.roadmap?esc(c.roadmap):"new roadmap idea"}${c.nodeTitle?" · "+esc(c.nodeTitle):""}`;
     const d=document.createElement("div"); d.className="sgCard";
@@ -5673,11 +5691,23 @@ async function renderReports(list){
         <span>by ${esc(r.by.name)}</span></div>
       <div class="sgText">${esc(r.text)}</div>
       ${r.target&&r.target.resource?`<div class="sgUrl">${esc(r.target.resource)}</div>`:""}`;
+    // target preview in place: the reviewer sees what they're judging —
+    // and learns right here when it's already gone or hidden
+    if(["fork","usermap"].includes(r.kind) && r.target && r.target.id){
+      const pv=document.createElement("div"); pv.className="sub"; pv.textContent="…";
+      d.appendChild(pv);
+      (r.kind==="fork"?fetchFork(r.target.id):fetchUmap(r.target.id)).then(doc=>{
+        pv.textContent=doc
+          ? `${r.kind==="fork"?"✨":"🗺"} “${doc.title||"(untitled)"}” — by ${(doc.owner&&doc.owner.name)||"?"}${doc.hidden?" · already hidden":""}`
+          : "· the reported thing no longer exists";
+      }).catch(()=>{ pv.textContent="· couldn't load the target"; });
+    }
     const acts=document.createElement("div"); acts.className="sgActs";
     const open=document.createElement("button"); open.textContent="Open it";
     open.onclick=()=>{
       if(r.kind==="collection") location.hash="#/collections";
       else if(r.kind==="fork" && r.target&&r.target.id) location.hash="#/fork/"+r.target.id;
+      else if(r.kind==="usermap" && r.target&&r.target.id) location.hash="#/umap/"+r.target.id;
       else if(r.target&&r.target.roadmap)
         location.hash="#/"+r.target.roadmap+(r.target.node?"/"+encodeURIComponent(r.target.node):"");
     };

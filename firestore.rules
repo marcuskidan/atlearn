@@ -595,8 +595,10 @@ service cloud.firestore {
     // resource?}). severity 'safety' is the red-flag queue: dangerous
     // instructions, medical misinformation — 48-hour response norm.
     // A report is a message to the moderators, not public speech: users
-    // write-only; admins see everything; a map's maintainer sees and resolves
-    // reports about their own map's content.
+    // Admins see everything; a map's maintainer sees and resolves reports
+    // about their own map's content; the REPORTER sees their own report —
+    // and with it the resolution note — on their account page. Nobody else
+    // reads a report: they may name people and unlisted things.
     match /reports/{id} {
       allow create: if signedIn()
         && request.resource.data.keys().hasOnly(
@@ -611,6 +613,7 @@ service cloud.firestore {
         && request.resource.data.by.uid == request.auth.uid
         && request.resource.data.createdAt == request.time;
       allow read: if isAdmin()
+        || (signedIn() && resource.data.by.uid == request.auth.uid)
         || (resource.data.kind == 'map'
             && resource.data.target.roadmap is string
             && maintains(resource.data.target.roadmap));

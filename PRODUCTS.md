@@ -129,7 +129,9 @@ deciding.
   links, and missing subtopics go through the same editor as everything
   else (one door per intent — the edit door above).
 - ● Flag a resource — one tap says a link is dead, stale, or unhelpful.
-- ● Report content — safety reports jump a red queue with a 48-hour norm.
+- ● Report content — safety reports jump a red queue with a 48-hour norm,
+  and the moderator's written resolution comes back to you when it's
+  decided (shipped 2026-08-11).
 - ● Your contributions page — status of everything you've filed, withdraw
   while pending, and every rejection carries a written reason.
 - ● Merged contributions carry your name into the public record, forever.
@@ -233,7 +235,9 @@ never entry. Reports and admin hiding work exactly as on branches.
   an open comment thread; rejection never waits.
 - ● Stewards handle small fixes only; bigger calls stay with the
   maintainer.
-- ● Safety reports sort first, marked red, 48-hour norm.
+- ● Safety reports sort first, marked red, 48-hour norm; report cards
+  preview their target in place — including "already hidden" and "no
+  longer exists" — and open the right surface in one tap.
 - ● The desk shows its workload: waiting counts on the door and every
   tab, filters to cut a busy queue by map, kind, or weight, and an
   explicit escalation flag when anything has waited two weeks

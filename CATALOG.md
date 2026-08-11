@@ -434,8 +434,10 @@ the governance controls. Reached: user chip. Journeys: J9, J20.
 - `🛡️ Review queue` (moderator or steward) · `📓 Journal` · `📦 Download
   my data` (full JSON export) · `Sign out` · privacy link. (signed-in)
 - "Your contributions" — status per suggestion/proposal (⏳/🌟/📥/✅/✕ with
-  the written rejection reason) + Withdraw while pending. (author,
-  connected)
+  the written rejection reason) + Withdraw while pending; reports ride
+  along with their outcome (⏳ open / ✓ resolved with the written
+  resolution / dismissed — reporter-readable by rule, resolution lights
+  the news dot). (author, connected)
 - "Your page" — claim/release a handle; link to `#/@handle` (§5c).
   (signed-in, connected)
 - "Your maps" — from-scratch personal maps: Open / 🔗 Copy link /
@@ -509,9 +511,11 @@ J19.
   (maintainer/admin; hidden for stewards)
 - **Accepted for curation** — 📋 Copy all as JSON + per-item "✏️ Edit this
   node now". (maintainer/admin; hidden for stewards)
-- **⚑ Reports** — safety-first ordering, 48h badge, Open it / ✓ Resolve… /
-  Dismiss / 🗑 (admin). (admin + map maintainers for kind:map; hidden for
-  stewards)
+- **⚑ Reports** — safety-first ordering, 48h badge, escalation badge,
+  in-place target preview on fork/usermap kinds (title + owner, "already
+  hidden" / "no longer exists"), Open it (routes per kind: map node,
+  fork, usermap, collection) / ✓ Resolve… / Dismiss / 🗑 (admin). (admin
+  + map maintainers for kind:map; hidden for stewards)
 - **🔗 Flags** — aggregated per resource with reason breakdown; Open node ·
   ✓ Clear flags (fixed). (admin/maintainer; hidden for stewards)
 

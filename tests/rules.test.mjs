@@ -206,7 +206,7 @@ guard("contributor feedback loop: author reads own, deletes own pending only; de
   await rut.assertSucceeds(db("user-uid").doc(`suggestions/${ref2.id}`).delete());
 });
 
-guard("reports: signed-in create with shape caps; admin-only read/delete on UGC kinds; text immutable", async () => {
+guard("reports: signed-in create with shape caps; reporter + admin read; text immutable", async () => {
   const report = { kind: "collection", target: { id: "coll-1", title: "Spam shelf" },
     text: "This collection is advertising a paid course.", severity: "normal",
     status: "open", by: { uid: "user-uid", name: "U" }, createdAt: sgTs() };
@@ -224,8 +224,13 @@ guard("reports: signed-in create with shape caps; admin-only read/delete on UGC 
   await testEnv.withSecurityRulesDisabled(async (ctx) => {
     ref = await ctx.firestore().collection("reports").add({ ...report, createdAt: new Date() });
   });
-  await rut.assertFails(db("user-uid").doc(`reports/${ref.id}`).get());
-  await rut.assertFails(db("maintainer-uid").doc(`reports/${ref.id}`).get()); // UGC kind: admin-only
+  // the reporter follows their own report (and reads its resolution later);
+  // no one below admin reads anyone else's
+  await rut.assertSucceeds(db("user-uid").doc(`reports/${ref.id}`).get());
+  await rut.assertSucceeds(db("user-uid").collection("reports")
+    .where("by.uid", "==", "user-uid").get());   // the account-page query
+  await rut.assertFails(db("stranger-uid").doc(`reports/${ref.id}`).get());
+  await rut.assertFails(db("maintainer-uid").doc(`reports/${ref.id}`).get()); // UGC kind: not their map
   await rut.assertSucceeds(db("admin-uid").doc(`reports/${ref.id}`).get());
   await rut.assertFails(db("user-uid").doc(`reports/${ref.id}`).delete());
   await rut.assertFails(db("admin-uid").doc(`reports/${ref.id}`)

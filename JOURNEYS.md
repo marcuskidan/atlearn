@@ -382,8 +382,17 @@ STEPS
    "🚨 Red-flagged — safety reports get looked at within 48 hours".
 2. As that map's maintainer: Reports tab shows it bordered red, sorted
    first, with the 48h badge. As a steward: the Reports tab is absent.
+   Branch/personal-map reports carry an in-place target preview — title
+   and owner, "already hidden" when moderation beat the report there,
+   "no longer exists" when the thing is gone — and Open it lands on the
+   right surface for every kind (map node, fork, usermap, collection).
 3. Resolve with a written resolution → report closes; the text of the
    report itself was never editable.
+4. As the reporter: the account page's contributions panel lists the
+   report with its outcome — ⏳ open, ✓ resolved (the moderator's
+   written resolution shown), or dismissed — and a resolution lights
+   the same gold news dot as any decided contribution. No one but the
+   reporter, the scoped moderator, and admins can read a report.
 
 # Group IV — Fork owner · *the fork valve: disagreement without a governance fight*
 
