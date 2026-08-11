@@ -234,6 +234,10 @@ never entry. Reports and admin hiding work exactly as on branches.
 - ● Stewards handle small fixes only; bigger calls stay with the
   maintainer.
 - ● Safety reports sort first, marked red, 48-hour norm.
+- ● The desk shows its workload: waiting counts on the door and every
+  tab, filters to cut a busy queue by map, kind, or weight, and an
+  explicit escalation flag when anything has waited two weeks
+  (shipped 2026-08-11).
 - ● Automation (like the link steward) files drafts marked 🤖 — only a
   human can merge, ever.
 

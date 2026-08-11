@@ -3163,6 +3163,7 @@ function isAdmin(){
   return ADMINS.includes(user.id) || SUPERADMINS.includes(user.id);
 }
 let reviewTab="proposals";
+let propFilters={rm:"",kind:"",weight:""};   // proposals-tab filters, "" = all
 /* Moderation queries must be rules-provable: admins list a whole
    collection; maintainers issue one where(roadmap==rm) query per map. */
 function moderatedMapIds(){
@@ -3210,7 +3211,9 @@ function openReview(){
     document.querySelectorAll("#reviewTabs button").forEach(x=>
       x.classList.toggle("on", x.dataset.v==="proposals"));
   }
+  propFilters={rm:"",kind:"",weight:""};   // filters reset with each visit
   renderReview();
+  reviewTabCounts().then(paintTabCounts);   // async; tabs fill in as it lands
 }
 document.querySelectorAll("#reviewTabs button").forEach(b=>{
   b.onclick=()=>{ reviewTab=b.dataset.v;
@@ -3257,6 +3260,58 @@ function ageChip(ts){
   const d=Math.floor((Date.now()-ts)/864e5);
   const cls=d>=14?" red":d>=7?" amber":"";
   return `<span class="ageChip${cls}">⏱ ${d<1?"today":d+"d"}</span>`;
+}
+/* The two-week escalation norm made explicit where the wait is happening
+   (GOVERNANCE "Stewardship, not ownership"; the automated tracking issue
+   stays LATER.md's latency reporter — this is the human-facing half). */
+function escalationBadge(ts){
+  if(!ts || Date.now()-ts < 14*864e5) return "";
+  return '<span class="vbadge" style="background:var(--red-soft);color:var(--red)">⚠ two weeks waiting — escalate</span>';
+}
+/* Per-tab counts over the same rules-provable scopes the tabs query —
+   aggregate counts, so a big queue costs reads-per-1000, not per-doc. */
+async function scopedCount(F, coll, wheres, scopes){
+  const base=F.collection(F.db,coll);
+  const qs=scopes===null
+    ? [F.query(base, ...wheres)]
+    : scopes.map(rm=>F.query(base, ...wheres, F.where("roadmap","==",rm)));
+  let n=0;
+  for(const q of qs) n+=(await F.getCountFromServer(q)).data().count;
+  return n;
+}
+async function reviewTabCounts(){
+  const out={};
+  if(!canSync()) return out;
+  const F=await fb(); if(!F) return out;
+  const scopes=moderatedMapIds();
+  const propScopes=scopes===null?null:[...new Set([...scopes, ...stewardedMapIds()])];
+  const pending=[F.where("status","==","pending")];
+  try{
+    out.proposals=await scopedCount(F,"proposals",pending,propScopes);
+    if(user.provider && scopes!==null){   // + branch suggestions addressed to me
+      const own=await F.getCountFromServer(F.query(F.collection(F.db,"proposals"),
+        F.where("ownerUid","==",user.id), F.where("status","==","pending")));
+      out.proposals+=own.data().count;
+    }
+    if(isAdmin()||moderatorOfAny()){
+      out.pending=await scopedCount(F,"suggestions",pending,scopes);
+      out.reports=scopes===null
+        ? await scopedCount(F,"reports",[F.where("status","==","open")],null)
+        : (await Promise.all((scopes||[]).map(rm=>
+            F.getCountFromServer(F.query(F.collection(F.db,"reports"),
+              F.where("kind","==","map"), F.where("target.roadmap","==",rm),
+              F.where("status","==","open"))).then(s=>s.data().count))))
+            .reduce((a,b)=>a+b,0);
+    }
+  }catch(e){}
+  return out;
+}
+function paintTabCounts(counts){
+  document.querySelectorAll("#reviewTabs button").forEach(b=>{
+    if(!b.dataset.label) b.dataset.label=b.textContent;
+    const n=counts[b.dataset.v];
+    b.textContent=b.dataset.label+(n?` (${n})`:"");
+  });
 }
 /* ---- structured edit proposals: diff review + merge ---- */
 function renderDiff(a,b){   // a = current live topic, b = proposed topic
@@ -3347,6 +3402,44 @@ function commentDaysLeft(p){   // 7-day open comment period on structural merges
   if(proposalWeight(p)!=="structural") return 0;
   return Math.max(0, Math.ceil(COMMENT_PERIOD_DAYS-(Date.now()-(p.createdAt||0))/DAY));
 }
+/* Proposals-tab filters: quiet chips over the already-fetched cards — a
+   group renders only when it would actually divide the queue (2+ values).
+   Pure display: toggling hides cards, no refetch. */
+function paintPropFilters(list, items){
+  const groups=[
+    ["rm",     [...new Set(items.map(p=>p.roadmap||""))].filter(Boolean),
+      rm=>{ const e=INDEX.find(r=>r.id===rm); return e?e.title:rm; }],
+    ["kind",   [...new Set(items.map(p=>p.kind||"edit"))], k=>k],
+    ["weight", [...new Set(items.map(proposalWeight))], w=>w],
+  ].filter(([,vals])=>vals.length>1);
+  if(!groups.length) return;
+  const bar=document.createElement("div"); bar.className="chips"; bar.id="propFilters";
+  groups.forEach(([key, vals, label])=>{
+    vals.sort().forEach(v=>{
+      const b=document.createElement("button");
+      b.textContent=label(v);
+      b.dataset.fkey=key; b.dataset.fval=v;
+      b.classList.toggle("on", propFilters[key]===v);
+      b.onclick=()=>{
+        propFilters[key]=propFilters[key]===v?"":v;
+        bar.querySelectorAll("button").forEach(x=>
+          x.classList.toggle("on", propFilters[x.dataset.fkey]===x.dataset.fval));
+        applyPropFilters(list);
+      };
+      bar.appendChild(b);
+    });
+  });
+  list.appendChild(bar);
+  applyPropFilters(list);
+}
+function applyPropFilters(list){
+  list.querySelectorAll(".sgCard").forEach(c=>{
+    const hide=(propFilters.rm && c.dataset.rm!==propFilters.rm)
+      || (propFilters.kind && c.dataset.kind!==propFilters.kind)
+      || (propFilters.weight && c.dataset.weight!==propFilters.weight);
+    c.style.display=hide?"none":"";
+  });
+}
 async function renderProposals(list){
   let items=[];
   try{
@@ -3370,6 +3463,7 @@ async function renderProposals(list){
   }catch(e){}
   list.innerHTML="";
   if(!items.length){ list.innerHTML="<div class='sub'>No proposed changes waiting. 🎉</div>"; return; }
+  paintPropFilters(list, items);
   for(const p of items){
     let rm=null;
     try{
@@ -3391,10 +3485,11 @@ async function renderProposals(list){
     const agent=(p.by.uid||"").startsWith("agent:");
     const daysLeft=p.branch?0:commentDaysLeft(p);   // no comment clock on a personal surface
     const d=document.createElement("div"); d.className="sgCard";
+    d.dataset.rm=p.roadmap||""; d.dataset.kind=p.kind||"edit"; d.dataset.weight=w;
     d.innerHTML=`<div class="sgMeta"><span class="sgType">${esc(s.label)}</span>
         <span class="sgType" style="opacity:.75">${esc(w)}</span>
         ${p.branch?`<span class="vbadge">${p.branch.kind==="umap"?"🗺":"✨"} branch suggestion</span>`:""}
-        ${ageChip(p.createdAt)}
+        ${ageChip(p.createdAt)}${escalationBadge(p.createdAt)}
         ${agent?'<span class="vbadge" style="background:var(--blue-soft);color:var(--blue)">🤖 pre-drafted by automation — review before merging</span>':""}
         ${mismatch?'<span class="vbadge" style="background:var(--amber-soft);color:var(--amber)">⚠ declared trivial, looks substantive</span>':""}
         ${s.stale?'<span class="vbadge" style="background:var(--amber-soft);color:var(--amber)">⚠ map changed since this was proposed</span>':""}
@@ -3438,6 +3533,7 @@ async function renderProposals(list){
     attachCommentThread(d, p);
     list.appendChild(d);
   }
+  applyPropFilters(list);   // a re-render mid-visit keeps the active filters
 }
 async function decideProposal(p,action){
   const w=proposalWeight(p);
@@ -3671,7 +3767,15 @@ function renderAccount(){
   $("acctExport").onclick=exportMyData;
   $("acctSignOut").onclick=()=>$("signOutBtn").onclick();
   $("acctDelete").onclick=deleteMyAccount;
-  if(moderatorOfAny()||stewardOfAny()) $("acctReview").onclick=openReview;
+  if(moderatorOfAny()||stewardOfAny()){
+    $("acctReview").onclick=openReview;
+    // waiting-work count on the door itself (C1) — async, fills in on arrival
+    reviewTabCounts().then(c=>{
+      const n=(c.proposals||0)+(c.pending||0)+(c.reports||0);
+      const btn=$("acctReview");
+      if(btn&&n) btn.textContent=`🛡️ Review queue (${n})`;
+    });
+  }
   renderGovPanel();
   renderAdminStats();       // async; fills #acctStats for admins
   renderMyPage();           // async; fills #acctPage (handle claim / page link)
@@ -5564,7 +5668,7 @@ async function renderReports(list){
     if(r.severity==="safety") d.style.borderColor="var(--red)";
     d.innerHTML=`<div class="sgMeta"><span class="sgType">⚑ ${esc(r.kind)}</span>
         ${r.severity==="safety"?'<span class="vbadge" style="background:var(--red-soft);color:var(--red)">🚨 safety — respond within 48h</span>':""}
-        ${ageChip(r.createdAt)}
+        ${ageChip(r.createdAt)}${escalationBadge(r.createdAt)}
         <span>${esc((r.target&&(r.target.title||r.target.roadmap||r.target.id))||"")}${r.target&&r.target.node?" · "+esc(r.target.node):""}</span>
         <span>by ${esc(r.by.name)}</span></div>
       <div class="sgText">${esc(r.text)}</div>
@@ -5737,7 +5841,7 @@ async function renderReview(){
     const adopt=s.type==="adopt";
     const d=document.createElement("div"); d.className="sgCard";
     d.innerHTML=`<div class="sgMeta"><span class="sgType">${adopt?"🙋 adoption application":esc(s.type)}</span>
-        ${reviewTab==="pending"?ageChip(s.createdAt):""}
+        ${reviewTab==="pending"?ageChip(s.createdAt)+escalationBadge(s.createdAt):""}
         ${s.verified?'<span class="vbadge">✓ personally verified</span>':""}
         <span>${s.roadmap?esc(s.roadmap):"new roadmap proposal"}${s.nodeTitle?" · "+esc(s.nodeTitle):""}</span>
         <span>by ${esc(s.by.name)}</span></div>

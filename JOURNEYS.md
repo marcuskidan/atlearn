@@ -535,8 +535,11 @@ scope + merged attribution (D). Journey-only: queue UI, scoping, the live
 overlay.
 STEPS
 1. As a bound maintainer: 🛡️ Review queue appears on the account page
-   (the only standing door); the queue shows only their maps' items,
-   with age chips.
+   (the only standing door), carrying its waiting count; the queue shows
+   only their maps' items, with age chips, live tab counts, and — when
+   the queue would divide — map/kind/weight filter chips. Anything
+   waiting two weeks wears the explicit escalate badge (GOVERNANCE
+   norm).
 2. Open a pending edit → field-level diff (− old / + new); a stale-base
    warning if the map moved since proposing.
 3. Merge → "🛡️ … live now; lands in the public record within the hour" →

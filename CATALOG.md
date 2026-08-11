@@ -488,8 +488,17 @@ scoped per role, tabs hidden rather than shown empty. Journeys: J17, J18,
 J19.
 
 - `#reviewSub` — per-tab explainer. (all queue viewers)
+- Tab labels carry live waiting counts — aggregate count queries over each
+  tab's own scope, filled in async; the account page's Review button shows
+  the same total. (all queue viewers)
+- `#propFilters` — quiet filter chips on the proposals tab (map / kind /
+  weight); a group appears only when it would divide the queue (2+
+  values), toggles hide cards without refetching, state resets per visit.
+  (all queue viewers)
 - **Proposed edits** — cards with kind, weight chip, age chip (amber ≥7d /
-  red ≥14d), 🤖 agent badge, declared-trivial-looks-substantive warning,
+  red ≥14d), "⚠ two weeks waiting — escalate" badge at the GOVERNANCE
+  escalation norm (also on pending suggestions and reports), 🤖 agent
+  badge, declared-trivial-looks-substantive warning,
   stale-base warning, field-level diff, public 💬 thread. `✅ Merge &
   publish` (blocked by the 7-day countdown on structural kinds) ·
   `✕ Reject` (written reason required). (maintainers: their maps; admin:
