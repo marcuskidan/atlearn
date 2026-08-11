@@ -193,6 +193,13 @@ existence needs no approval; the library's shelf does.
   the maps you choose to list, the branches you publish — lives at
   @your-name, an address that fits in a bio. Listing a map on your own
   page never puts it in the library.
+- ● The page is your public record: what you maintain, how much of your
+  work the library has merged, and — only if you list one — a contact
+  line in your own words. No relay forms, no messaging system
+  (shipped 2026-08-11).
+- ● People are clickable: wherever a signed name appears — proposals,
+  comments, bylines, shelves — it links to that person's page when
+  they hold a handle (shipped 2026-08-11).
 - ● Suggestions, if you want them — same as branches: opt in, walkers
   propose, you decide. Closed by default.
 - ● Branch anyone's personal map — a full copy of your own, with credit
@@ -301,6 +308,9 @@ everything, without asking anyone.
 
 - ● Sign in with Google (no password created or seen) or with email +
   password (created on first use; reset by email link).
+- ● Your name, your choice — set a display name once and everything you
+  sign from now on carries it; work already in the record keeps the
+  name it was signed with, like any honest ledger (shipped 2026-08-11).
 - ● Download my data — everything, one file, one click.
 - ● Delete my account — self-service, removes progress, notes, journal,
   branches, shelves, and pending contributions. Merged contributions

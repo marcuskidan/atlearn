@@ -1104,6 +1104,20 @@ guard("handles: claim, collide, spoof, release", async () => {
     .doc("handles/nova").set({ uid: "someone", name: "S", createdAt: sgTs() }));
   await rut.assertFails(db("someone").doc("handles/nova").delete());
   await rut.assertSucceeds(db(null).doc("handles/nova").get());
+  // the holder refreshes the name it carries and keeps a contact line…
+  await rut.assertSucceeds(db("user-uid").doc("handles/nova")
+    .update({ name: "Nova Prime", contact: "nova@example.org" }));
+  await rut.assertSucceeds(db("user-uid").doc("handles/nova")
+    .update({ contact: "" }));
+  // …but never re-points it, and nobody else touches it
+  await rut.assertFails(db("user-uid").doc("handles/nova")
+    .update({ uid: "someone" }));
+  await rut.assertFails(db("user-uid").doc("handles/nova")
+    .update({ name: "" }));
+  await rut.assertFails(db("user-uid").doc("handles/nova")
+    .update({ contact: "x".repeat(201) }));
+  await rut.assertFails(db("someone").doc("handles/nova")
+    .update({ name: "Stolen" }));
   await rut.assertSucceeds(db("user-uid").doc("handles/nova").delete());
 });
 

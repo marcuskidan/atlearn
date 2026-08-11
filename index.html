@@ -445,6 +445,10 @@ a{color:var(--blue)}
 .cmtWrap{margin-top:10px;border-top:1px dashed var(--line);padding-top:8px}
 .cmtToggle{background:none;border:none;color:var(--faint);font-size:11.5px;padding:0}
 .cmtToggle:hover{color:var(--ink)}
+/* people are clickable where they sign — quiet, not blue */
+.personLink{color:inherit;text-decoration:underline;text-decoration-style:dotted;
+  text-underline-offset:2px}
+.personLink:hover{color:var(--blue)}
 .cmtBody{margin-top:8px}
 .cmtRow{position:relative;padding:7px 26px 7px 10px;border:1px solid var(--line);
   border-radius:4px;margin-bottom:6px;font-size:12px}
@@ -1499,7 +1503,8 @@ async function loadRoadmap(id){
   return rm;
 }
 /* ---- editorial roles: who tends which map (public meta/roles doc) ---- */
-let MAINTAINERS={}, ADMINS=[], SUPERADMINS=[], STEWARDS={}, SUPPORTERS={};
+let MAINTAINERS={}, ADMINS=[], SUPERADMINS=[], STEWARDS={}, SUPPORTERS={},
+    HANDLES_BY_UID={};
 async function loadMaintainers(){
   if(!FIREBASE_CONFIG) return;
   try{
@@ -1517,6 +1522,14 @@ async function loadMaintainers(){
     try{
       const sup=await F.getDoc(F.doc(F.db,"meta","supporters"));
       SUPPORTERS=sup.exists()?((sup.data()||{}).members||{}):{};
+    }catch(e){}
+    // the public identity directory: uid → handle, so a rendered name can
+    // link to its holder's page (first claim wins if data ever doubles up)
+    try{
+      const hs=await F.getDocs(F.collection(F.db,"handles"));
+      const hb={}; hs.forEach(d=>{ const u=(d.data()||{}).uid;
+        if(u && !hb[u]) hb[u]=d.id; });
+      HANDLES_BY_UID=hb;
     }catch(e){}
     // steward bindings: one public doc per map, {members:{uid:name}}
     const st=await F.getDocs(F.collection(F.db,"stewards"));
@@ -1562,6 +1575,29 @@ function stewardOfAny(){
 function stewardedMapIds(){ return Object.keys(STEWARDS).filter(stewardOf); }
 function maintainerNameOf(entry){
   return (MAINTAINERS[entry.id]&&MAINTAINERS[entry.id].name)||entry.maintainer||"";
+}
+/* A rendered name links to its holder's page when they hold a handle —
+   people are clickable wherever they sign (E2). Plain text otherwise. */
+function personHTML(by){
+  const n=esc((by&&by.name)||"?");
+  const h=by&&by.uid&&HANDLES_BY_UID[by.uid];
+  return h?`<a class="personLink" href="#/@${esc(h)}">${n}</a>`:n;
+}
+/* Same, keyed off a map's maintainer binding (the byline shows a display
+   name; the uid behind it lives in meta/roles). */
+function maintainerHTML(rmId, name){
+  const m=MAINTAINERS[rmId];
+  return personHTML({uid:m&&m.uid, name});
+}
+/* An owner-entered contact line: text, or a link when it plainly is one.
+   No relay forms, ever (LATER §4b) — what they list is how to reach them. */
+function contactHTML(c){
+  c=String(c);
+  if(/^https:\/\/\S+$/.test(c))
+    return `✉️ <a href="${esc(c)}" target="_blank" rel="noopener">${esc(c)}</a>`;
+  if(/^\S+@\S+\.\S+$/.test(c))
+    return `✉️ <a href="mailto:${esc(c)}">${esc(c)}</a>`;
+  return "✉️ "+esc(c);
 }
 
 /* ---------- persistence: the account's server record is the store ----------
@@ -1654,7 +1690,19 @@ async function pullAndMerge(){
       store=mergeStores(remote,store); }
     // the account's saved theme follows the walker onto this device
     if(store.settings && store.settings.theme) applyTheme(store.settings.theme);
+    applyDisplayName();   // and so does the chosen name
   }catch(e){ /* offline pull: session renders empty; the dot says so */ }
+}
+/* The chosen display name (settings.displayName) overrides the provider's
+   wherever the CURRENT identity renders and on every write from now on.
+   Past writes keep the name they were signed with (the wiki norm — history
+   is as-written, decided 2026-08-11). */
+function applyDisplayName(){
+  if(!user.provider) return;
+  if(user.baseName===undefined) user.baseName=user.name;
+  const dn=((store.settings||{}).displayName||"").trim();
+  user.name=dn||user.baseName||"Explorer";
+  cacheUser(); paintUser();
 }
 function mergeStores(a,b){ // last-write-wins per node record / journal entry / seen record
   a=migrateStore(a); b=migrateStore(b);
@@ -2027,10 +2075,10 @@ function renderMapHeader(){
   // a fact a reader needs — the surface says nothing until a name exists.
   const byline = currentFork
     ? (currentFork.umap
-        ? "🗺 a personal map by "+esc(currentFork.owner&&currentFork.owner.name||"a walker")
-        : "✨ a personal version by "+esc(currentFork.owner&&currentFork.owner.name||"a walker")
+        ? "🗺 a personal map by "+personHTML(currentFork.owner||{name:"a walker"})
+        : "✨ a personal version by "+personHTML(currentFork.owner||{name:"a walker"})
           +` of <a href="#/${esc(e.id)}">${esc(e.title)}</a>`)
-    : (!who || who==="The Admins") ? "" : "maintained by "+esc(who);
+    : (!who || who==="The Admins") ? "" : "maintained by "+maintainerHTML(e.id, who);
   h.innerHTML=`
     <div class="mhTop"><h1>${esc(currentFork?currentFork.title:e.title)}</h1>
       ${badges.join("")}</div>
@@ -2104,7 +2152,7 @@ async function openCategory(id, forcePicker=false){
   // comparison is the point — repeating it here restates the tagline.
   $("catHead").innerHTML=`
     <h2>${esc(e.title)}</h2>
-    ${(!who||who==="The Admins")?"":`<div class="catByline">maintained by ${esc(who)}</div>`}
+    ${(!who||who==="The Admins")?"":`<div class="catByline">maintained by ${maintainerHTML(e.id, who)}</div>`}
     <div class="catLead">${e.tagline?esc(e.tagline):""}</div>
     ${e.disclaimer?`<div class="catDisclaimer">⚠️ ${esc(e.disclaimer)}</div>`:""}`;
   catBranchesCache={id, branches};
@@ -2523,7 +2571,7 @@ async function openDiscussion(rmId){
     d.innerHTML=`<div class="sgMeta"><span class="sgType">${esc(s.label)}</span>
         ${ageChip(p.createdAt)}
         ${daysLeft>0?`<span class="vbadge" style="background:var(--blue-soft);color:var(--blue)">🕐 comment period — ${daysLeft}d left</span>`:""}
-        <span>${esc(s.title)}</span><span>by ${esc(p.by&&p.by.name||"?")}</span></div>
+        <span>${esc(s.title)}</span><span>by ${personHTML(p.by)}</span></div>
       ${p.note?`<div class="sgText" style="margin-bottom:6px">✉️ ${esc(p.note)}</div>`:""}`;
     attachCommentThread(d, p);
     list.appendChild(d);
@@ -3447,7 +3495,7 @@ async function renderProposals(list){
       gidSeq++;
       const gh=document.createElement("div"); gh.className="sgGroupHead";
       gh.dataset.gid=String(gidSeq);
-      gh.innerHTML=`✏️ ${batchSizes[gk]} changes proposed together · by ${esc(p.by.name)}
+      gh.innerHTML=`✏️ ${batchSizes[gk]} changes proposed together · by ${personHTML(p.by)}
         <div class="sgText" style="font-weight:400">✉️ ${esc(p.note)}</div>`;
       list.appendChild(gh);
     }
@@ -3462,7 +3510,7 @@ async function renderProposals(list){
         ${agent?'<span class="vbadge" style="background:var(--blue-soft);color:var(--blue)">🤖 pre-drafted by automation — review before merging</span>':""}
         ${mismatch?'<span class="vbadge" style="background:var(--amber-soft);color:var(--amber)">⚠ declared trivial, looks substantive</span>':""}
         ${s.stale?'<span class="vbadge" style="background:var(--amber-soft);color:var(--amber)">⚠ map changed since this was proposed</span>':""}
-        <span>${esc(p.roadmap)} · ${esc(s.title)}</span><span>by ${esc(p.by.name)}</span></div>
+        <span>${esc(p.roadmap)} · ${esc(s.title)}</span><span>by ${personHTML(p.by)}</span></div>
       ${p.note&&!grouped?`<div class="sgText" style="margin-bottom:6px">✉️ ${esc(p.note)}</div>`:""}
       <div class="sub" style="margin-bottom:6px">${
         p.affiliated===true?`⚠️ affiliated: ${esc(p.affiliation||"(undescribed)")}`
@@ -3646,7 +3694,7 @@ async function renderComments(p, box){
   if(!items.length) list.innerHTML="<div class='sub'>No comments yet — the floor is open.</div>";
   items.forEach(c=>{
     const row=document.createElement("div"); row.className="cmtRow";
-    row.innerHTML=`<b>${esc(c.by&&c.by.name||"?")}</b>
+    row.innerHTML=`<b>${personHTML(c.by)}</b>
       <span class="cmtWhen">${c.createdAt?new Date(c.createdAt).toLocaleDateString():""}</span>
       <div class="cmtText">${esc(c.text||"")}</div>`;
     if(isAdmin()||maintains(p.roadmap)){
@@ -3736,6 +3784,14 @@ function renderAccount(){
       <div class="roleChips">${roleChipsHtml()}</div>
       <div class="uidRow">User id <code>${esc(user.id)}</code>
         <button class="edAdd" id="acctCopyUid" style="margin:0;padding:4px 10px">Copy</button></div>
+      <div class="edRow" style="margin-top:10px">
+        <input class="edInput" id="acctDispName" maxlength="80"
+          placeholder="Display name" value="${esc((store.settings||{}).displayName||"")}">
+        <button class="edAdd" id="acctDispSave" style="margin:0">Save</button>
+      </div>
+      <div class="sub" style="margin-top:4px">Shown with everything you sign from
+        now on; past work keeps the name it was signed with. Empty uses
+        ${esc(user.baseName||user.name)}.</div>
       <div class="acctBtns">
         ${(moderatorOfAny()||stewardOfAny())?`<button id="acctReview">🛡️ Review queue</button>`:""}
         <button id="acctJournal">📓 Journal</button>
@@ -3758,6 +3814,21 @@ function renderAccount(){
     try{ await navigator.clipboard.writeText(user.id);
       toast("Copied — this id is how roles bind to you"); }
     catch(e){ toast("Couldn't copy — select it by hand"); }
+  };
+  $("acctDispSave").onclick=async ()=>{
+    if(!canSync()){ toast(NEEDS_APP); return; }
+    const dn=$("acctDispName").value.trim().slice(0,80);
+    store.settings={...(store.settings||{}), displayName:dn, updatedAt:Date.now()};
+    persist();
+    applyDisplayName();
+    // the handle carries the public name — keep it current (rules-allowed)
+    try{
+      const h=await myHandle();
+      if(h){ const F=await fb();
+        await F.updateDoc(F.doc(F.db,"handles",h), {name:user.name}); }
+    }catch(e){}
+    toast(dn?`You sign as ${user.name} from here on`:"Back to your sign-in name");
+    renderAccount();
   };
   $("acctJournal").onclick=()=>openJournal(null);
   $("acctExport").onclick=exportMyData;
@@ -4404,7 +4475,7 @@ async function renderGuildTalk(g){
   if(!items.length) box.innerHTML="<div class='sub'>Quiet so far.</div>";
   items.forEach(c=>{
     const row=document.createElement("div"); row.className="cmtRow";
-    row.innerHTML=`<b>${esc(c.by&&c.by.name||"?")}</b>
+    row.innerHTML=`<b>${personHTML(c.by)}</b>
       <span class="cmtWhen">${c.createdAt?new Date(c.createdAt).toLocaleDateString():""}</span>
       <div class="cmtText">${esc(c.text||"")}</div>`;
     if(isAdmin()||guideOf(g.id)){
@@ -4598,7 +4669,7 @@ function paintCollections(){
     d.innerHTML=`<div class="collHead">
         ${c.featured?'<span class="fstar">★ Featured</span>':""}
         ${c.hidden?'<span class="fstar" style="background:var(--red-soft);color:var(--red)">Hidden</span>':""}
-        <h3>${esc(c.title)}</h3><span class="collBy">a shelf by ${esc(c.owner.name)}</span></div>
+        <h3>${esc(c.title)}</h3><span class="collBy">a shelf by ${personHTML(c.owner)}</span></div>
       ${c.blurb?`<div class="collBlurb">${esc(c.blurb)}</div>`:""}
       <div class="collMaps">${mapsHtml||'<span class="collBy">(these maps have left the library)</span>'}</div>`;
     const mine=!!user.provider && c.owner.uid===user.id;
@@ -4807,7 +4878,7 @@ function paintForkPanel(base){
   const sub=currentFork.subtitle||"";
   const listed=currentFork.public===true;
   b.innerHTML=`<span>✨ ${esc(currentFork.title)} —
-      ${mine?"your personal version":"a personal version by "+esc(currentFork.owner.name)} of
+      ${mine?"your personal version":"a personal version by "+personHTML(currentFork.owner)} of
       <a href="#/${esc(currentFork.base)}">${esc(base.emoji)} ${esc(base.title)}</a>
       <span id="forkSub" class="forkSub">${esc(sub)}</span>${
         mine?`<button id="forkSubEdit" title="One line: how is this branch different?">${sub?"✎":"✎ add a subtitle"}</button>`:""}</span>
@@ -5061,7 +5132,7 @@ function paintUmapPanel(){
   const tag=u.tagline||"";
   b.innerHTML=`<span>🗺 <span id="umapName">${esc(u.title)}</span>${
       mine?`<button id="umapRename" title="Rename this map">✎</button>`:""} —
-      ${mine?"your map":"a personal map by "+esc(u.owner.name)}
+      ${mine?"your map":"a personal map by "+personHTML(u.owner)}
       <span id="umapTag" class="forkSub">${esc(tag)}</span>${
         mine?`<button id="umapTagEdit" title="One line: what is this map?">${tag?"✎":"✎ add a tagline"}</button>`:""}</span>
     ${u.lineage?`<span class="fpState">⑂ branched from
@@ -5313,11 +5384,12 @@ async function openCreator(handle, slug){
   if(!h){ goHome(); return; }
   if(!collConnected()){ toast("Creator pages need the connected app"); goHome(); return; }
   $("loading").classList.add("show");
-  let uid=null, name="";
+  let uid=null, name="", contact="";
   try{
     const F=await fb();
     const snap=await F.getDoc(F.doc(F.db,"handles",h));
-    if(snap.exists()){ uid=snap.data().uid; name=snap.data().name; }
+    if(snap.exists()){ uid=snap.data().uid; name=snap.data().name;
+      contact=snap.data().contact||""; }
   }catch(e){}
   if(!uid){
     $("loading").classList.remove("show");
@@ -5343,11 +5415,36 @@ async function openCreator(handle, slug){
     if(m){ openUmap(m.id); return; }
     toast("⚠️ That map isn't on this page");   // fall through to the page itself
   }
+  // the page carries the person's public record: what they tend (from the
+  // public roles doc) and what the library took from them (public proposals,
+  // one provable by.uid query, merged filtered client-side — no index)
+  const tends=Object.keys(MAINTAINERS)
+    .filter(rm=>MAINTAINERS[rm]&&MAINTAINERS[rm].uid===uid)
+    .map(rm=>INDEX.find(r=>r.id===rm)).filter(Boolean);
+  let mergedWork=[];
+  try{
+    const F=await fb();
+    const ps=await F.getDocs(F.query(F.collection(F.db,"proposals"),
+      F.where("by.uid","==",uid)));
+    ps.forEach(d=>{ const r=d.data();
+      if(r.status==="merged"){
+        if(r.decidedAt&&r.decidedAt.toMillis) r.decidedAt=r.decidedAt.toMillis();
+        mergedWork.push(r); } });
+    mergedWork.sort((a,b)=>(b.decidedAt||0)-(a.decidedAt||0));
+  }catch(e){}
   showView("creatorView");
   $("backBtn").classList.add("show");
   closeDrawer();
   $("creatorHead").innerHTML=`<h2>${esc(name)}</h2>
-    <div class="sub">@${esc(h)}</div>`;
+    <div class="sub">@${esc(h)}</div>
+    ${contact?`<div class="sub">${contactHTML(contact)}</div>`:""}
+    ${tends.length?`<div class="sub">🧑‍🌾 Maintains ${tends.map(e=>
+      `<a href="#/${esc(e.id)}/map">${esc(e.title)}</a>`).join(" · ")}</div>`:""}
+    ${mergedWork.length?`<div class="sub">✅ ${mergedWork.length} change${
+      mergedWork.length!==1?"s":""} merged into the library — ${
+      mergedWork.slice(0,5).map(r=>{ const e=INDEX.find(x=>x.id===r.roadmap);
+        return `<a href="#/${esc(r.roadmap)}/map">${esc(e?e.title:r.roadmap)}</a>`; })
+      .filter((v,i,arr)=>arr.indexOf(v)===i).join(" · ")}</div>`:""}`;
   const box=$("creatorMaps"); box.innerHTML="";
   const row=(emoji,title,sub,go)=>{
     const d=document.createElement("button"); d.className="collCard";
@@ -5401,6 +5498,28 @@ async function renderMyPage(){
     };
     acts.appendChild(cp); acts.appendChild(rel);
     box.appendChild(sub); box.appendChild(acts);
+    // optional contact line, shown on the public page — owner's words,
+    // owner's choice; empty stays silent (no relay forms, LATER §4b)
+    let curContact="";
+    try{ const F=await fb();
+      const hd=await F.getDoc(F.doc(F.db,"handles",h));
+      if(hd.exists()) curContact=hd.data().contact||""; }catch(e){}
+    if(!box.isConnected) return;
+    const cRow=document.createElement("div"); cRow.className="edRow";
+    cRow.style.marginTop="8px";
+    cRow.innerHTML=`<input class="edInput" id="pageContact" maxlength="200"
+        placeholder="Contact, if you want one listed — email or https link"
+        value="${esc(curContact)}">
+      <button class="edAdd" id="pageContactSave" style="margin:0">Save</button>`;
+    box.appendChild(cRow);
+    cRow.querySelector("#pageContactSave").onclick=async ()=>{
+      const c=cRow.querySelector("#pageContact").value.trim().slice(0,200);
+      try{
+        const F=await fb(); if(!F) throw new Error("offline");
+        await F.updateDoc(F.doc(F.db,"handles",h), {contact:c});
+        toast(c?"Listed on your page":"Contact line removed");
+      }catch(e){ toast("Couldn't save — try again"); }
+    };
   }else{
     const row=document.createElement("div"); row.className="edRow";
     row.innerHTML=`<input class="edInput" id="handleIn" maxlength="30"
@@ -5870,7 +5989,7 @@ async function renderReview(){
         ${reviewTab==="pending"?ageChip(s.createdAt)+escalationBadge(s.createdAt):""}
         ${s.verified?'<span class="vbadge">✓ personally verified</span>':""}
         <span>${s.roadmap?esc(s.roadmap):"new roadmap proposal"}${s.nodeTitle?" · "+esc(s.nodeTitle):""}</span>
-        <span>by ${esc(s.by.name)}</span></div>
+        <span>by ${personHTML(s.by)}</span></div>
       <div class="sgText">${esc(s.text)}</div>
       ${s.url?`<div class="sgUrl"><a href="${esc(s.url)}" target="_blank" rel="noopener">${esc(s.url)}</a></div>`:""}
       ${s.affiliated===true?`<div class="sub">⚠️ affiliated: ${esc(s.affiliation||"(undescribed)")}</div>`

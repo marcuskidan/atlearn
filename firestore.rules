@@ -586,7 +586,17 @@ service cloud.firestore {
         && request.resource.data.name.size() <= 80
         && request.resource.data.createdAt == request.time;
       allow delete: if signedIn() && resource.data.uid == request.auth.uid;
-      // no update: a handle is claimed or released, never edited
+      // A handle is claimed or released, never re-pointed — but its holder
+      // may refresh the public name it carries (display-name changes) and
+      // keep an optional contact line. uid and createdAt stay immutable.
+      allow update: if signedIn() && resource.data.uid == request.auth.uid
+        && request.resource.data.diff(resource.data).affectedKeys()
+             .hasOnly(['name','contact'])
+        && request.resource.data.name is string
+        && request.resource.data.name.size() >= 1
+        && request.resource.data.name.size() <= 80
+        && request.resource.data.get('contact', '') is string
+        && request.resource.data.get('contact', '').size() <= 200;
     }
 
     // Reports: the community's flag on public content — user-generated

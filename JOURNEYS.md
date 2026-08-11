@@ -502,6 +502,19 @@ STEPS
    still works (a link is a door, the page is a shelf).
 5. Release the handle (confirm) → `#/@name` says no one holds it;
    listed flags remain on the docs, meaningless until a new claim.
+6. (2026-08-11) The page carries the person's public record: a
+   "Maintains" line when meta/roles binds them, a "N changes merged
+   into the library" line with map links when the public proposal
+   record says so, and — only if they listed one — a ✉️ contact line
+   ("Your page" input; email/https render as links, anything else as
+   plain text; empty stays silent, and there is no relay form).
+7. (2026-08-11) Set a display name on the account page → the account
+   chip, future proposals/comments/branches sign with it, and the
+   handle's public name follows; work signed earlier keeps its
+   original name (as-written history). Names rendered on div surfaces
+   (queue cards, comments, bylines, banners, shelf cards) are dotted
+   links to their holders' pages when a handle exists — walk one from
+   a proposal card to its author's page.
 EXPECT — handles are 3–30 chars of a-z 0-9 dashes, lowercased on entry;
 one handle per person is the norm the UI assumes (the first claim wins
 if data ever says otherwise).

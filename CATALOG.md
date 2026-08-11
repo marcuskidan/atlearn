@@ -353,13 +353,25 @@ branches they publish; the creator's surface, never the library's
 (nothing here feeds home, Atlas, or search). Reached: shared links,
 account page. Journeys: J29.
 
-- `handles/{handle}` — first-come claim docs {uid,name,createdAt},
-  public read, no update (claim or release only), `[a-z0-9-]{3,30}`.
-  No squatting protection beyond first-come at v1.
-- `#/@handle` — `#creatorView`: name + @handle, then rows: listed
+- `handles/{handle}` — first-come claim docs {uid,name,createdAt} +
+  optional owner-set `contact` (≤200), public read, never re-pointed:
+  the holder may update only name (display-name refresh) and contact,
+  `[a-z0-9-]{3,30}`. No squatting protection beyond first-come at v1.
+- `#/@handle` — `#creatorView`: name + @handle + the public record —
+  optional ✉️ contact line (plain text; https/email render as links) ·
+  "🧑‍🌾 Maintains …" from meta/roles · "✅ N changes merged into the
+  library" with map links (public proposals, by.uid query, merged
+  filtered client-side) — then rows: listed
   usermaps (emoji · title · tagline) and public branches (✨ · title ·
   subtitle or "a version of <base>"), recency-sorted, hidden filtered.
   Empty state "Nothing listed yet." (everyone, connected)
+- Clickable people (`personLink`, dotted underline): wherever a signed
+  name renders on a div surface — queue cards and batch headers,
+  suggestion cards, proposal/guild comments, collection cards, map
+  header and category bylines, fork/umap banners — it links to
+  `#/@handle` when its holder has one (`HANDLES_BY_UID`, loaded with
+  roles). Button-row surfaces (picker branch rows, official-row facts)
+  stay plain text — no nested anchors. (everyone)
 - `#/@handle/slug` — resolves to that creator's listed usermap with the
   slug and opens it (`#/umap/<id>` takes over as canonical); unknown
   slug falls back to the page with a toast. (everyone, connected)
@@ -430,7 +442,11 @@ the governance controls. Reached: user chip. Journeys: J9, J20.
 - Profile — avatar, name, email, role chips (👑/🛡️/🧑‍🌾/🪴/🧭/Contributor;
   plus 🌱 Supporter · since date — a mark, not a role, from the public
   meta/supporters doc; renders only to its holder here), uid + Copy
-  (roles bind to it). (signed-in)
+  (roles bind to it); display-name field (`#acctDispName`, ≤80) —
+  overrides the provider name on the live identity and every write
+  from now on (past writes keep the name they were signed with — the
+  wiki norm, decided 2026-08-11); empty reverts; a held handle's
+  public name follows the change. (signed-in)
 - `🛡️ Review queue` (moderator or steward) · `📓 Journal` · `📦 Download
   my data` (full JSON export) · `Sign out` · privacy link. (signed-in)
 - "Your contributions" — status per suggestion/proposal (⏳/🌟/📥/✅/✕ with
@@ -438,8 +454,9 @@ the governance controls. Reached: user chip. Journeys: J9, J20.
   along with their outcome (⏳ open / ✓ resolved with the written
   resolution / dismissed — reporter-readable by rule, resolution lights
   the news dot). (author, connected)
-- "Your page" — claim/release a handle; link to `#/@handle` (§5c).
-  (signed-in, connected)
+- "Your page" — claim/release a handle; link to `#/@handle` (§5c);
+  optional contact input (`#pageContact`, ≤200 — listed on the public
+  page, empty stays silent). (signed-in, connected)
 - "Your maps" — from-scratch personal maps: Open / 🔗 Copy link /
   🗑 Delete per usermap. (owner, connected)
 - "Your personal versions" — Open / 🔗 Copy link / 🗑 Delete per fork.
