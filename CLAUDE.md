@@ -240,6 +240,8 @@ Rules when touching it:
   land.mjs/Actions → J24 · succession/link policy → J25 · guilds → J26 ·
   stewardship review → J27 ·
   firestore.rules → cite the tier-D tests + the affected role journeys.
+- **Commits carry one author**: no `Co-Authored-By` trailers or tool
+  attributions in commit messages (Marcus, 2026-08-10 — GitHub clarity).
 - **Run tests before committing**: `python3 -m unittest discover -s tests`
   and `node --test tests/`. Don't break the extraction harness: the client tests
   brace-match `mergeStores`/`contentHash`/`renderDiff`/`editorMode`/
