@@ -15,8 +15,6 @@ window.HKR_CONFIG = {
     messagingSenderId: "93847184442",
     appId: "1:93847184442:web:e425391d5e0f6cd205c103",
   },
-  /* "owner/repo" — powers the public map-history link.
-     (Still the pre-rename repo path; update when the repo becomes
-     marcuskidan/atlearn on GitHub.) */
+  /* "owner/repo" — powers the public map-history link. */
   GITHUB_REPO: "marcuskidan/atlearn",
 };
