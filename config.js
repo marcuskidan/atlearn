@@ -18,5 +18,5 @@ window.HKR_CONFIG = {
   /* "owner/repo" — powers the public map-history link.
      (Still the pre-rename repo path; update when the repo becomes
      marcuskidan/atlearn on GitHub.) */
-  GITHUB_REPO: "marcuskidan/waihona",
+  GITHUB_REPO: "marcuskidan/atlearn",
 };
