@@ -253,7 +253,9 @@ guard("safety queue: map-content reports reach that map's maintainer; resolution
     ref = await ctx.firestore().collection("reports").add({ ...report, createdAt: new Date() });
   });
   await rut.assertSucceeds(db("maintainer-uid").doc(`reports/${ref.id}`).get());
-  await rut.assertFails(db("user-uid").doc(`reports/${ref.id}`).get());
+  // the reporter follows their own report; a bystander still can't
+  await rut.assertSucceeds(db("user-uid").doc(`reports/${ref.id}`).get());
+  await rut.assertFails(db("stranger-uid").doc(`reports/${ref.id}`).get());
   await rut.assertSucceeds(db("maintainer-uid").doc(`reports/${ref.id}`)
     .update({ status: "resolved", resolvedAt: 1,
               resolvedBy: { uid: "maintainer-uid", name: "Stella" },
