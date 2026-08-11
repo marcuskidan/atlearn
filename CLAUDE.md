@@ -149,10 +149,14 @@ four places at once: ops.mjs, rules, editor UI, overlay). Rules:
   are the only always-visible blocks. No explanatory copy on screen (rule 6).
   The reading surface is consumption-first — and EDIT MODE is the one
   door into changing an official map (the Wikipedia model, 2026-08-10):
-  a small ✏️ edit button in the header's action row, shown to EVERY
-  walker, signed in or not. It opens a LOCAL session (EDIT_MODE +
+  a small plain "edit" button (no emoji) at the FAR RIGHT of the
+  header's action row, shown to EVERY walker, signed in or not. The
+  active mode is visually unmistakable: blue-tinted grid paper behind
+  the whole map view + a blue `editing` badge in the title row. It
+  opens a LOCAL session (EDIT_MODE +
   editOps, rendered through applyMergedDocs like fork ops): the node
-  editor (topics open editable on click), ⇅ Reorganize, ＋ Add core
+  editor (topics open editable on click — the drawer carries NO edit
+  button on official maps), ⇅ Reorganize, ＋ Add core
   topic, and the about [ edit ] all write local ops; drafts survive
   in-session navigation (EDIT_DRAFTS, per map). NOTHING leaves the
   device until the edit bar's commits: "Save and branch" (your fork —

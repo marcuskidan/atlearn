@@ -156,11 +156,14 @@ Header (`#mapHeader`, kept minimal by rule):
   (everyone)
 - Byline — the maintainer's name; absent until a real name exists (the
   "The Admins" placeholder never renders). (everyone)
-- `#editModeBtn` ✏️ edit / ✏️ editing — the Wikipedia door, first in the
-  action row, shown to EVERY walker (signed-out included; identity is
-  asked at commit). Toggles EDIT MODE: the about [ edit ], ⇅ Reorganize,
-  ＋ Add core topic appear, and clicking any topic opens it in the
-  editor. Every save is LOCAL (`editOps`, rendered through the fork op
+- `#editModeBtn` "edit" / "editing" (no emoji) — the Wikipedia door, held
+  at the action row's FAR RIGHT (CSS order), shown to EVERY walker
+  (signed-out included; identity is asked at commit). Toggles EDIT MODE:
+  the about [ edit ], ⇅ Reorganize, ＋ Add core topic appear, and
+  clicking any topic opens it in the editor. The mode is visible at a
+  glance: the whole map view gets a blue-tinted grid-paper background
+  (`#mapView.editing`) and a blue `editing` badge joins the title row.
+  Every save is LOCAL (`editOps`, rendered through the fork op
   engine); a draft survives in-session navigation and is restored on
   return. Leaving the mode with unsaved ops asks before discarding.
   Official maps only — branches keep their own panels. (everyone)
@@ -249,10 +252,10 @@ read-only for signed-out visitors. Journeys: J1, J7, J11, J12, J13.
   node's ONE community-text door; changes to the lesson itself go through
   ✏️ (one door per intent). (tips: everyone; 💡: signed-in, hidden on
   forks)
-- `#editBtn` ✏️ — opens the node editor. Official maps: shown inside edit
-  mode (topics clicked from the map already open editing; this is the
-  re-entry from an open drawer). Branches: the owner, or any signed-in
-  walker when the owner's suggestions door is open. (canEdit)
+- `#editBtn` ✏️ — opens the node editor; BRANCHES ONLY (the owner, or any
+  signed-in walker when the owner's suggestions door is open). On
+  official maps the drawer carries no edit button — topics clicked in
+  edit mode already open editing. (branches, canEdit)
 
 ## 5 · Personal version — `#/fork/<id>`
 

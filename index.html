@@ -188,7 +188,17 @@ a{color:var(--blue)}
 #siteFoot a:hover{color:var(--ink)}
 .manifesto .mission{font-size:16.5px;color:var(--muted);line-height:1.75;margin-bottom:30px}
 /* the edit-mode commit bar: local work, three doors out */
+#editModeBtn{order:99;margin-left:auto}   /* far right of the action row */
 #editModeBtn.on{border-color:var(--blue);color:var(--blue)}
+#mapHeader .mhBadge.editing{border-color:var(--blue);color:var(--blue)}
+/* edit mode reads as a drafting table: grid paper behind the whole map
+   view, blue-tinted in both themes (blue = in-progress, the app over) */
+#mapView.editing{
+  background-image:
+    linear-gradient(color-mix(in srgb, var(--blue) 8%, transparent) 1px, transparent 1px),
+    linear-gradient(90deg, color-mix(in srgb, var(--blue) 8%, transparent) 1px, transparent 1px);
+  background-size:24px 24px;
+}
 #editBar{display:none;position:fixed;z-index:35;left:50%;transform:translateX(-50%);
   bottom:calc(14px + var(--sab));max-width:calc(100vw - 20px);
   background:var(--bg2);border:1px solid var(--line2);border-radius:6px;
@@ -1866,6 +1876,7 @@ function pushLocalOp(op){
 }
 function paintEditChrome(){
   const bar=$("editBar");
+  $("mapView").classList.toggle("editing", !currentFork && EDIT_MODE);
   if(currentFork || !currentRm){ bar.classList.remove("show"); return; }
   $("addTopicBtn").classList.toggle("show", EDIT_MODE);
   $("reorgBtn").classList.toggle("show", EDIT_MODE);
@@ -2040,6 +2051,7 @@ function renderMapHeader(){
   const badges=[];
   if(type==="gated") badges.push(`<span class="mhBadge gated">⚕ scope-limited</span>`);
   if(state!=="published") badges.push(`<span class="mhBadge state">${esc(state)}</span>`);
+  if(!currentFork && EDIT_MODE) badges.push(`<span class="mhBadge editing">editing</span>`);
   const who=maintainerNameOf(e);
   // A byline states a fact or stays silent: "The Admins" is the
   // pre-adoption placeholder (CLAUDE.md rule 7), and a placeholder is not
@@ -2059,12 +2071,13 @@ function renderMapHeader(){
     ${e.disclaimer?`<div class="mhDisclaimer">⚠️ ${esc(e.disclaimer)}</div>`:""}
     <div id="mhStateBanner"></div>`;
   renderMapAbout(e.id, e);   // trunk: the wiki-editable lead · branch: the owner's intro
-  // ✏️ edit — the same small button for every walker, signed in or not
-  // (Wikipedia's door): it opens a LOCAL editing session; identity is
-  // asked for at commit time, on the edit bar, not at the door.
+  // edit — the same small button for every walker, signed in or not
+  // (Wikipedia's door), held at the row's far right by CSS order. It
+  // opens a LOCAL editing session; identity is asked for at commit
+  // time, on the edit bar, not at the door.
   if(!currentFork){
     const eb=document.createElement("button"); eb.id="editModeBtn";
-    eb.textContent=EDIT_MODE?"✏️ editing":"✏️ edit";
+    eb.textContent=EDIT_MODE?"editing":"edit";
     eb.classList.toggle("on", EDIT_MODE);
     eb.title=EDIT_MODE
       ?"Leave edit mode"
@@ -2072,6 +2085,8 @@ function renderMapHeader(){
     eb.onclick=toggleEditMode;
     $("mhActions").appendChild(eb);
   }
+  // the drafting-table state is visible at a glance: grid paper + badge
+  $("mapView").classList.toggle("editing", !currentFork && EDIT_MODE);
   // ⑂ all versions: the small, always-present way back to the category page.
   // A personal map has no category — it lives below the commons, off every
   // shelf — so the button would point at nothing; it stays off.
@@ -2744,9 +2759,11 @@ function openNode(nodeId){
     paintStatusSeg(p.status);
   }
   $("editorBody").style.display="none"; $("drawerBody").style.display="";
-  // the wiki door: any signed-in walker may open the editor — what Save does
-  // is decided by editorMode() (owners merge, everyone else files a proposal)
-  $("editBtn").classList.toggle("show", canEdit());
+  // Branches keep the drawer's ✏️ (their one editing door — owner, or a
+  // walker through an open suggestions door). On official maps the door
+  // is the header's edit button: topics open editable on click, so the
+  // drawer carries no second button.
+  $("editBtn").classList.toggle("show", !!currentFork && canEdit());
   $("dTips").innerHTML="";
   loadTips(currentRm.id).then(t=>{           // async: fill community tips when they arrive
     if(currentNode && currentNode.id===nodeId) renderTips(t[nodeId]||[]);

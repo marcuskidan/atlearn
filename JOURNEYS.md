@@ -127,9 +127,10 @@ EXPECT
   nothing was stored.
 - The 🔑 sign-in invite (`#dSignInSec`) is visible; clicking it opens the
   auth modal.
-- Map header: "✏️ edit" IS present (the Wikipedia door is everyone's;
-  identity is asked at commit — J12); outside the mode there is no
-  `[ edit ]`, no ＋ Add core topic, no ⇅ Reorganize.
+- Map header: the plain "edit" button IS present at the action row's far
+  right (the Wikipedia door is everyone's; identity is asked at commit —
+  J12); outside the mode there is no `[ edit ]`, no ＋ Add core topic,
+  no ⇅ Reorganize, and no grid-paper background.
 - No 🕘 history button while `GITHUB_REPO` is `""`.
 - No version numbers anywhere on the walking surface.
 
@@ -332,10 +333,13 @@ COVERED ELSEWHERE — client.test.mjs editorMode local matrix +
 classifyEditWeight/renderDiff/contentHash; rules.test.mjs proposal
 lifecycle (D). Journey-only: the mode chrome, the local loop, the bar.
 STEPS
-1. Any visitor — signed out included — sees "✏️ edit" in the map header's
-   action row. Click → "✏️ editing": ⇅ Reorganize and ＋ Add core topic
-   appear, the about gains [ edit ], and clicking any topic opens it in
-   the editor.
+1. Any visitor — signed out included — sees the plain "edit" button at
+   the far right of the map header's action row. Click → it reads
+   "editing", a blue `editing` badge joins the title, the whole view
+   sits on grid paper (the mode is unmissable), ⇅ Reorganize and
+   ＋ Add core topic appear, the about gains [ edit ], and clicking any
+   topic opens it in the editor. The drawer itself carries no edit
+   button on official maps — the topics are the doors.
 2. Change a title and Save → toast says it's local; the map re-renders
    with the change; the edit bar appears: "✏️ 1 local change".
 3. Rewrite the about, reorder the spine → the bar counts each; the page
