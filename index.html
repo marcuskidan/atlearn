@@ -3664,6 +3664,7 @@ function renderAccount(){
     <div id="acctPage"></div>
     <div id="acctUmaps"></div>
     <div id="acctForks"></div>
+    <div id="acctStats"></div>
     <div id="acctGov"></div>
     <button class="edDanger" id="acctDelete" style="max-width:340px;margin:30px auto 0;display:block">
       🗑 Delete my account and data…</button>`;
@@ -3678,10 +3679,49 @@ function renderAccount(){
   $("acctDelete").onclick=deleteMyAccount;
   if(moderatorOfAny()||stewardOfAny()) $("acctReview").onclick=openReview;
   renderGovPanel();
+  renderAdminStats();       // async; fills #acctStats for admins
   renderMyPage();           // async; fills #acctPage (handle claim / page link)
   renderMyUmaps();          // async; fills #acctUmaps when the list arrives
   renderMyForks();          // async; fills #acctForks when the list arrives
   renderMyContributions();  // async; fills #acctContrib + clears the news badge
+}
+/* ---- usage panel (admin): the numbers, read from generated stats ----
+   roadmaps/stats.json is committed by the Usage stats Action (tools/
+   stats.mjs) — explicit server writes only, aggregates only, signed-out
+   walkers invisible by design. GOVERNANCE: popularity is evidence for
+   review judgment, never ranking — hence admin-eyes-only, no public
+   surface renders any of it. */
+async function renderAdminStats(){
+  const box=$("acctStats");
+  if(!isAdmin()){ box.innerHTML=""; return; }
+  let s=null;
+  try{ const r=await fetch("roadmaps/stats.json",{cache:"no-cache"}); if(r.ok) s=await r.json(); }
+  catch(e){}
+  if(!s){ box.innerHTML=`<h2 class="secTitle" style="margin-top:26px">The numbers</h2>
+    <div class="sub">No stats yet — the Usage stats Action hasn't committed its first
+    roadmaps/stats.json. Run it from the repo's Actions tab.</div>`; return; }
+  const walk=Object.entries((s.walking||{}).library||{}).sort((a,b)=>b[1]-a[1]);
+  const q=s.queue||{}, c=s.creations||{};
+  box.innerHTML=`<h2 class="secTitle" style="margin-top:26px">The numbers — evidence, not scoreboard</h2>
+    <div class="sub">Explicit signed-in writes only, counted ${esc(s.generated||"")}
+    (tools/stats.mjs); signed-out walkers are invisible by design.</div>
+    <div class="hStatRow">
+      <div class="hStat"><b>${s.accounts||0}</b><span>accounts</span></div>
+      <div class="hStat"><b>${s.supporters||0}</b><span>supporters</span></div>
+      <div class="hStat"><b>${(s.walking||{}).personal||0}</b><span>walking personal maps</span></div>
+      <div class="hStat"><b>${c.forks||0}</b><span>branches</span></div>
+      <div class="hStat"><b>${c.usermaps||0}</b><span>personal maps</span></div>
+      <div class="hStat"><b>${c.handles||0}</b><span>handles</span></div>
+    </div>
+    <div class="hStatRow">
+      <div class="hStat"><b>${q.proposalsPending||0}</b><span>proposals waiting</span></div>
+      <div class="hStat"><b>${q.suggestionsPending||0}</b><span>suggestions waiting</span></div>
+      <div class="hStat"><b>${q.reportsOpen||0}</b><span>reports open</span></div>
+      <div class="hStat"><b>${q.mergedWaiting||0}</b><span>awaiting landing</span></div>
+      ${q.mergedErrors?`<div class="hStat"><b style="color:var(--red)">${q.mergedErrors}</b><span>landing errors</span></div>`:""}
+    </div>
+    ${walk.length?`<div class="sub" style="margin-top:8px">Paths started — ${walk.map(([rm,n])=>{
+      const e=INDEX.find(r=>r.id===rm); return esc(e?e.title:rm)+": "+n;}).join(" · ")}</div>`:""}`;
 }
 /* ---- governance panel: appoint maintainers (admin+) & admins (superadmin) ----
    meta/roles fields: maintainers (map), admins (array), superadmins (array,

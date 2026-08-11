@@ -101,6 +101,11 @@ See GOVERNANCE.md.)
 
 ## Operations
 
+- **Usage stats (automatic)**: the **Usage stats** Action (daily cron)
+  runs `tools/stats.mjs` with the same `FIREBASE_SERVICE_ACCOUNT` secret,
+  committing aggregate counts to `roadmaps/stats.json` — read on the
+  account page's admin panel. Nothing to set up beyond the secret above;
+  run it on demand from the Actions tab.
 - **Backups (monthly)**: `npm install --no-save firebase-admin && node tools/backup.mjs`
   with `GOOGLE_APPLICATION_CREDENTIALS` pointing at the service-account JSON.
   Backups land in gitignored `backups/` — they contain user data; keep private.

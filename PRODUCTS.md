@@ -317,9 +317,15 @@ humans in charge.
 - ● Nightly link checking across every resource in the library.
 - ● Vital signs — the numbers the project holds itself to, computed from
   the repository only; reader behavior counted nowhere.
+- ● Usage tallies for the team — accounts, paths started, creations,
+  queue depth — counted daily from explicit signed-in writes only, in
+  aggregate, and shown only to admins. Signed-out reading is never
+  observed: the §1 promise stands untouched (shipped 2026-08-11).
 
 **Deliberate limits** — automation never edits directly and never
-merges; all counting is of content, not people.
+merges; all public counting is of content, not people — the team's
+private tallies count signed-in writes in aggregate, never a name, a
+visit, or a ranking.
 
 *Detail: CATALOG §12 · Proof: J22–J25.*
 

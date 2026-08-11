@@ -12,9 +12,10 @@ non-technical); see the Engineering-hygiene rules below.
 ## Golden rules
 1. **Content edits happen in topic files only** (`roadmaps/<id>/topics/NN-slug.json`).
    Never edit `roadmaps/index.json`, `roadmaps/search.json`,
-   `roadmaps/search-deep.json`, `roadmaps/*/changelog.json`, or `dist/` — all
-   generated (changelogs are appended only by land.mjs/dev.py; health.json is
-   deploy-time only and gitignored).
+   `roadmaps/search-deep.json`, `roadmaps/*/changelog.json`,
+   `roadmaps/stats.json`, or `dist/` — all generated (changelogs are
+   appended only by land.mjs/dev.py; stats.json is committed only by the
+   Usage stats Action; health.json is deploy-time only and gitignored).
 2. After ANY content change, run `python3 tools/build.py` and make it pass.
    It validates schema, ids, tiers, links, and regenerates the index.
 3. **Every node needs a `do` action** — a specific real-world task doable this
@@ -238,7 +239,8 @@ Rules when touching it:
   handles/creator pages → J29 · branch suggestions → J30 ·
   review queue → J17,J18,J19 ·
   governance panel/roles → J20,J21 · dev.py/ops.mjs/build.py → J22,J23 ·
-  land.mjs/Actions → J24 · succession/link policy → J25 · guilds → J26 ·
+  land.mjs/Actions → J24 · stats.mjs/admin numbers → J32 ·
+  succession/link policy → J25 · guilds → J26 ·
   stewardship review → J27 ·
   firestore.rules → cite the tier-D tests + the affected role journeys.
 - **Commits carry one author**: no `Co-Authored-By` trailers or tool

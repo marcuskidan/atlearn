@@ -745,6 +745,28 @@ STEPS
    quiet 🌱 Supporter chip with its since-date — visible to its holder
    only; no public surface renders it anywhere.
 
+### J32 · Admin + Action · The numbers: evidence counted server-side   [Tier E, empty state at C]
+INTENTION — The team sees what's used without observing anyone: every
+number is an aggregate of explicit signed-in writes, computed by trusted
+infrastructure, committed in the open, and shown to admins only —
+popularity is evidence, never ranking (GOVERNANCE anti-metric stance;
+PRODUCTS §1's promise untouched: signed-out reading is invisible).
+COVERED ELSEWHERE — none (the Action is infrastructure; its self-diagnosis
+mirrors J24's landing health).
+STEPS
+1. The Usage stats Action (daily cron, or Run workflow) runs
+   tools/stats.mjs: aggregates land in roadmaps/stats.json, committed
+   only when a number moved — git history is the trend line. No uid,
+   title, or doc id ever appears in the file; unlisted work stays
+   unlisted.
+2. Admin → account page → "The numbers — evidence, not scoreboard":
+   accounts, supporters, paths started per map, creations, queue depth;
+   landing errors surface in red when present.
+3. Before the first run (or tier C), the panel states plainly that no
+   stats exist yet and where the Action lives — never a fake zero.
+4. Non-admins: no panel, and no public surface anywhere renders any of
+   these numbers.
+
 ---
 
 ## Maintenance rules

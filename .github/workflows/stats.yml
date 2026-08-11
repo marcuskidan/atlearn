@@ -1,0 +1,36 @@
+name: Usage stats
+# Counts the explicit server writes — accounts, saves, creations, queue
+# depth — into roadmaps/stats.json (tools/stats.mjs). No visitor is ever
+# observed; signed-out walkers stay invisible by design (PRODUCTS §1).
+# Committing the file makes git history the trend line, and the push
+# redeploys Pages so the account page's admin panel reads fresh numbers.
+on:
+  schedule:
+    - cron: "43 5 * * *"
+  workflow_dispatch:
+  # infra edits prove themselves on push, like the landing workflow's
+  push:
+    branches: [main]
+    paths:
+      - tools/stats.mjs
+      - .github/workflows/stats.yml
+
+permissions:
+  contents: write
+
+concurrency:
+  group: usage-stats
+  cancel-in-progress: false
+
+jobs:
+  stats:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - run: npm ci
+      - env:
+          FIREBASE_SERVICE_ACCOUNT: ${{ secrets.FIREBASE_SERVICE_ACCOUNT }}
+        run: node tools/stats.mjs

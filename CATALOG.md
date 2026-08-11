@@ -447,6 +447,12 @@ the governance controls. Reached: user chip. Journeys: J9, J20.
   contributions; merged contributions remain in the public record (CC
   BY-SA). (signed-in)
 
+- "The numbers — evidence, not scoreboard" `#acctStats` — reads the
+  committed `roadmaps/stats.json` (Usage stats Action, tools/stats.mjs):
+  accounts, supporters, paths started per map, creations, queue depth,
+  landing errors. Aggregates of explicit signed-in writes only; renders
+  for admins only, honest empty state before the first run. (admin)
+
 Governance panels (inside the account page):
 - Maintainers editor — bind uid+name per map. (admin)
 - `PLANNED` Institutional co-maintainership — a map's maintainer binding
