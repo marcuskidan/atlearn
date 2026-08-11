@@ -440,6 +440,8 @@ a{color:var(--blue)}
   color:var(--faint);white-space:nowrap}
 .ageChip.amber{border-color:var(--amber);color:var(--amber)}
 .ageChip.red{border-color:var(--red);color:var(--red)}
+.sgGroupHead{margin:16px 0 4px;font-size:12.5px;font-weight:650;color:var(--muted)}
+.sgCard[data-gid]{margin-left:10px;border-left:2px solid var(--line)}
 .cmtWrap{margin-top:10px;border-top:1px dashed var(--line);padding-top:8px}
 .cmtToggle{background:none;border:none;color:var(--faint);font-size:11.5px;padding:0}
 .cmtToggle:hover{color:var(--ink)}
@@ -650,6 +652,11 @@ a{color:var(--blue)}
 .dline{padding:3px 8px;border-radius:3px;margin:2px 0;white-space:pre-wrap}
 .dline.del{background:var(--red-soft);color:var(--red)}
 .dline.add{background:var(--green-soft);color:var(--green)}
+/* before/after side by side where the screen affords it; stacked on mobile */
+@media(min-width:720px){
+  .dpair{display:grid;grid-template-columns:1fr 1fr;gap:6px;align-items:start}
+  .dpair .dline{margin:0}
+}
 
 /* ---------- Node editor ---------- */
 #editBtn{display:none;position:absolute;top:calc(14px + var(--sat));right:54px;width:32px;height:32px;
@@ -3319,8 +3326,8 @@ function renderDiff(a,b){   // a = current live topic, b = proposed topic
   const mb=new Map(flatten({nodes:[b]}).map(n=>[n.id,n]));
   let html="";
   const fieldRow=(label,x,y)=>`<div class="dfield">${label}</div>
-    <div class="dline del">− ${esc(x||"(empty)")}</div>
-    <div class="dline add">+ ${esc(y||"(empty)")}</div>`;
+    <div class="dpair"><div class="dline del">− ${esc(x||"(empty)")}</div>
+    <div class="dline add">+ ${esc(y||"(empty)")}</div></div>`;
   for(const [id,nb] of mb) if(!ma.has(id))
     html+=`<div class="dnode add">＋ New subtopic “${esc(nb.title)}” (${esc(nb.tier)})</div>`;
   for(const [id,na] of ma) if(!mb.has(id))
@@ -3439,6 +3446,12 @@ function applyPropFilters(list){
       || (propFilters.weight && c.dataset.weight!==propFilters.weight);
     c.style.display=hide?"none":"";
   });
+  // a batch header stands only while at least one of its cards does
+  list.querySelectorAll(".sgGroupHead").forEach(h=>{
+    const any=[...list.querySelectorAll(`.sgCard[data-gid="${h.dataset.gid}"]`)]
+      .some(c=>c.style.display!=="none");
+    h.style.display=any?"":"none";
+  });
 }
 async function renderProposals(list){
   let items=[];
@@ -3464,6 +3477,12 @@ async function renderProposals(list){
   list.innerHTML="";
   if(!items.length){ list.innerHTML="<div class='sub'>No proposed changes waiting. 🎉</div>"; return; }
   paintPropFilters(list, items);
+  // batch context: ops committed together from one edit-mode session share
+  // one note and one commit moment — show them as the single intent they are
+  const batchKey=p=>p.note?`${(p.by&&p.by.uid)||""}|${p.note}|${Math.round((p.createdAt||0)/60000)}`:null;
+  const batchSizes={};
+  items.forEach(p=>{ const k=batchKey(p); if(k) batchSizes[k]=(batchSizes[k]||0)+1; });
+  let lastGk=null, gidSeq=0;
   for(const p of items){
     let rm=null;
     try{
@@ -3484,8 +3503,20 @@ async function renderProposals(list){
     const mismatch = p.weight==="trivial" && cur && classifyEditWeight(cur,p.topic)!=="trivial";
     const agent=(p.by.uid||"").startsWith("agent:");
     const daysLeft=p.branch?0:commentDaysLeft(p);   // no comment clock on a personal surface
+    const gk=batchKey(p);
+    const grouped=!!gk && batchSizes[gk]>1;
+    if(grouped && gk!==lastGk){
+      gidSeq++;
+      const gh=document.createElement("div"); gh.className="sgGroupHead";
+      gh.dataset.gid=String(gidSeq);
+      gh.innerHTML=`✏️ ${batchSizes[gk]} changes proposed together · by ${esc(p.by.name)}
+        <div class="sgText" style="font-weight:400">✉️ ${esc(p.note)}</div>`;
+      list.appendChild(gh);
+    }
+    lastGk=gk;
     const d=document.createElement("div"); d.className="sgCard";
     d.dataset.rm=p.roadmap||""; d.dataset.kind=p.kind||"edit"; d.dataset.weight=w;
+    if(grouped) d.dataset.gid=String(gidSeq);
     d.innerHTML=`<div class="sgMeta"><span class="sgType">${esc(s.label)}</span>
         <span class="sgType" style="opacity:.75">${esc(w)}</span>
         ${p.branch?`<span class="vbadge">${p.branch.kind==="umap"?"🗺":"✨"} branch suggestion</span>`:""}
@@ -3494,7 +3525,7 @@ async function renderProposals(list){
         ${mismatch?'<span class="vbadge" style="background:var(--amber-soft);color:var(--amber)">⚠ declared trivial, looks substantive</span>':""}
         ${s.stale?'<span class="vbadge" style="background:var(--amber-soft);color:var(--amber)">⚠ map changed since this was proposed</span>':""}
         <span>${esc(p.roadmap)} · ${esc(s.title)}</span><span>by ${esc(p.by.name)}</span></div>
-      ${p.note?`<div class="sgText" style="margin-bottom:6px">✉️ ${esc(p.note)}</div>`:""}
+      ${p.note&&!grouped?`<div class="sgText" style="margin-bottom:6px">✉️ ${esc(p.note)}</div>`:""}
       <div class="sub" style="margin-bottom:6px">${
         p.affiliated===true?`⚠️ affiliated: ${esc(p.affiliation||"(undescribed)")}`
         :p.affiliated===false?"· no affiliation declared"
@@ -3624,10 +3655,37 @@ function attachCommentThread(card, p){
   wrap.innerHTML=`<button class="cmtToggle">💬 Discussion…</button><div class="cmtBody" style="display:none"></div>`;
   const body=wrap.querySelector(".cmtBody");
   const toggle=wrap.querySelector(".cmtToggle");
+  // unread mark: the thread count, and "new" when it moved since this
+  // account's last look (settings.threadReads rides the server store)
+  const reads=()=>((store.settings||{}).threadReads)||{};
+  (async ()=>{
+    try{
+      const F=await fb(); if(!F) return;
+      const snap=await F.getDocs(F.collection(F.db,"proposals",p.id,"comments"));
+      let n=0, latest=0;
+      snap.forEach(d=>{ n++; const t=d.data().createdAt;
+        latest=Math.max(latest,(t&&t.toMillis)?t.toMillis():0); });
+      if(!n) return;
+      const unread=!!user.provider && latest>(reads()[p.id]||0);
+      toggle.textContent=`💬 Discussion (${n})${unread?" · new":""}`;
+      if(unread) toggle.style.color="var(--amber)";
+    }catch(e){}
+  })();
   let loaded=false;
   toggle.onclick=async ()=>{
     const open=body.style.display!=="none";
     body.style.display=open?"none":"block";
+    if(!open && user.provider && canSync()){
+      toggle.textContent=toggle.textContent.replace(" · new","");
+      toggle.style.color="";
+      let tr={...reads(), [p.id]:Date.now()};
+      // decided proposals leave the queue but not this map — keep it bounded
+      const keys=Object.keys(tr);
+      if(keys.length>300)
+        keys.sort((a,b)=>tr[a]-tr[b]).slice(0,keys.length-200).forEach(k=>delete tr[k]);
+      store.settings={...(store.settings||{}), threadReads:tr, updatedAt:Date.now()};
+      persist();
+    }
     if(!open&&!loaded){ loaded=true; await renderComments(p, body); }
   };
   card.appendChild(wrap);

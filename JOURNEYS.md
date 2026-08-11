@@ -549,8 +549,11 @@ STEPS
    the queue would divide — map/kind/weight filter chips. Anything
    waiting two weeks wears the explicit escalate badge (GOVERNANCE
    norm).
-2. Open a pending edit → field-level diff (− old / + new); a stale-base
-   warning if the map moved since proposing.
+2. Open a pending edit → field-level diff (− old / + new, side by side
+   on a wide screen); a stale-base warning if the map moved since
+   proposing. A batch committed together from one edit-mode session
+   renders grouped under one header with its shared note; the 💬 toggle
+   carries the comment count and a "new" mark that clears on opening.
 3. Merge → "🛡️ … live now; lands in the public record within the hour" →
    reload the map as any user: the change is visible (overlay).
 4. Reject another → a written reason is REQUIRED → the author sees it in

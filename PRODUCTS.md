@@ -228,7 +228,10 @@ never entry. Reports and admin hiding work exactly as on branches.
 **Promise:** an accountable editor's desk — a fast yes or no, in public.
 
 - ● One queue per role, scoped to your maps: proposed edits with plain
-  before/after diffs, suggestions, resource flags, reports.
+  before/after diffs (side by side on a desk-sized screen), suggestions,
+  resource flags, reports. Changes proposed together read together —
+  one group, one note — and discussion threads say how much is in them
+  and what's new since you last looked (shipped 2026-08-11).
 - ● Merge publishes instantly; reject requires a written reason the
   author sees.
 - ● Structural changes (add/remove/reorder topics) wait seven days with

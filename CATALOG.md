@@ -501,7 +501,14 @@ J19.
   red ≥14d), "⚠ two weeks waiting — escalate" badge at the GOVERNANCE
   escalation norm (also on pending suggestions and reports), 🤖 agent
   badge, declared-trivial-looks-substantive warning,
-  stale-base warning, field-level diff, public 💬 thread. `✅ Merge &
+  stale-base warning, field-level diff (before/after side-by-side on
+  wide screens, stacked on mobile), public 💬 thread with comment count
+  and a "new" mark since this account's last look
+  (`settings.threadReads`, bounded; opening the thread clears it).
+  Proposals born from one edit-mode commit render grouped under a
+  `.sgGroupHead` header — count, author, the one shared note — and the
+  header stands only while a filter leaves one of its cards visible.
+  `✅ Merge &
   publish` (blocked by the 7-day countdown on structural kinds) ·
   `✕ Reject` (written reason required). (maintainers: their maps; admin:
   all; stewards: trivial edits only)
