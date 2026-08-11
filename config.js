@@ -17,7 +17,7 @@ window.HKR_CONFIG = {
   },
   /* "owner/repo" — powers the public map-history link. */
   GITHUB_REPO: "marcuskidan/atlearn",
-  /* Outbound donation link (e.g. "https://ko-fi.com/<name>").
+  /* Outbound donation link (e.g. "https://paypal.me/<name>").
      While null, the Support page carries the promise and makes no ask. */
-  SUPPORT_URL: null,
+  SUPPORT_URL: "https://paypal.me/marcuskidan",
 };

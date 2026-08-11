@@ -549,7 +549,9 @@ member maps. Journeys: J26 (dormant until a guild is seeded).
 ## 12 · Vital signs — `#/health`
 
 Purpose: the numbers the project holds itself to — repo-derived only,
-walker behavior counted nowhere. Reached: About page footer. Journeys: —
+walker behavior counted nowhere. Reached: direct URL only — its About
+sig door came off in the 2026-08-11 About rewrite (flagged to Marcus:
+restore a door or retire the page). Journeys: —
 (read-only stats; local data may be stale — expected).
 
 - Boundary statement, stat tiles (maps/steps/resources/% verified/named
@@ -563,8 +565,12 @@ walker behavior counted nowhere. Reached: About page footer. Journeys: —
 Purpose: the manifesto — ALL explanatory/mission copy lives here and only
 here (golden rule 6). Reached: the About link in `#siteFoot`.
 
-- The mission, italicized, opens the page; then the manifesto prose;
-  footer sig links: 🩺 Vital signs · Privacy · Support. (everyone)
+- The mission, italicized, opens the page (Marcus's 2026-08-11 copy);
+  then two problem paragraphs (scattered library, attention-feed
+  algorithms), the thesis headline ("The internet democratized access
+  to information, but never education."), and the three For-Atlearn
+  principles (named maintainer / anyone can contribute + branch /
+  unimpeded access). Sig links: Privacy · Support. (everyone)
 
 ## 14 · Privacy — `#/privacy`
 
