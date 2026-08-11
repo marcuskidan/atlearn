@@ -65,11 +65,19 @@ html[data-theme=dark]{
 }
 html[data-theme=dark] .ssoBtn.google{background:#fff;color:#1f2937}
 *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
-html{height:100%} body{min-height:100%}
+/* The document never scrolls sideways. `clip` (not `hidden`) is the one that
+   holds on mobile WebKit — `hidden` leaves a pannable scroll container — and
+   the `hidden` line before it is the fallback for engines without `clip`. */
+html{height:100%; overflow-x:hidden; overflow-x:clip}
+body{min-height:100%}
 body{
   font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Roboto,sans-serif;
   background:var(--bg); color:var(--text);
-  overflow-x:hidden; overscroll-behavior-y:none;
+  overflow-x:hidden; overflow-x:clip; overscroll-behavior:none;
+  /* user-authored text (map titles, taglines, pasted URLs) may hold words
+     longer than a phone is wide: break them rather than let them push the
+     page sideways */
+  overflow-wrap:break-word;
   -webkit-font-smoothing:antialiased;
 }
 button{font:inherit;color:inherit;background:none;border:none;cursor:pointer}
@@ -112,12 +120,12 @@ a{color:var(--blue)}
 
 /* ---------- Home / category selector ---------- */
 #homeView{padding:24px calc(16px + var(--sar)) calc(40px + var(--sab)) calc(16px + var(--sal))}
-#homeHero{max-width:960px;margin:18px auto 30px}
+#homeHero{max-width:960px;margin:18px auto 30px;text-align:center}
 #homeHero h1{font-family:var(--serif);font-weight:400;font-size:clamp(30px,5vw,44px);
   line-height:1.12;letter-spacing:-.2px}
 #homeHero h1 em{font-style:italic;color:inherit}
-#homeHero p{color:var(--muted);margin-top:12px;font-size:15px;max-width:640px;line-height:1.6}
-#searchWrap{max-width:560px;margin-top:22px;position:relative}
+#homeHero p{color:var(--muted);margin:12px auto 0;font-size:15px;max-width:640px;line-height:1.6}
+#searchWrap{max-width:560px;margin:22px auto 0;position:relative}
 #searchBox{width:100%;padding:12px 16px;border-radius:4px;border:1px solid var(--line2);
   background:var(--bg2);color:var(--text);font-size:15px;outline:none;
   transition:border-color .15s}
@@ -467,9 +475,15 @@ a{color:var(--blue)}
 @keyframes spin{to{transform:rotate(360deg)}}
 
 /* ---------- Drawer ---------- */
+/* The scrim reaches under the status bar (viewport-fit=cover), so it must
+   leave the paint tree completely when it goes — an opacity:0 layer that
+   stays behind is what leaves a grey band across the top on iOS. Visibility
+   flips after the fade, which drops the layer for good. */
 #backdrop{position:fixed;inset:0;background:var(--scrim);z-index:50;opacity:0;
-  pointer-events:none;transition:opacity .25s}
-#backdrop.show{opacity:1;pointer-events:auto}
+  visibility:hidden;pointer-events:none;
+  transition:opacity .25s, visibility 0s .25s}
+#backdrop.show{opacity:1;visibility:visible;pointer-events:auto;
+  transition:opacity .25s}
 #drawer{
   position:fixed;z-index:60;background:var(--bg2);
   top:0;right:0;bottom:0;width:min(460px,100%);
@@ -583,9 +597,6 @@ a{color:var(--blue)}
   background:var(--bg2);border:1px solid var(--line2)}
 .modalBtns .primary{background:var(--ink);color:var(--paper);border-color:var(--ink)}
 .modalBtns .primary:disabled{opacity:.45}
-#reviewBtn{display:none;border:1px solid var(--line);
-  font-size:13px;font-weight:650;padding:8px 13px;border-radius:4px}
-#reviewBtn.show{display:block}
 #reviewView{padding:24px 16px calc(40px + var(--sab))}
 #reviewInner{max-width:760px;margin:0 auto}
 #reviewInner h2{font-family:var(--serif);font-weight:400;font-size:24px;margin-bottom:4px}
@@ -762,7 +773,6 @@ select.edInput{appearance:none;-webkit-appearance:none}
   <div id="topSpacer"></div>
   <div id="userArea">
     <button id="themeBtn" title="Switch to dark mode" aria-label="Toggle dark mode">☾</button>
-    <button id="reviewBtn" title="Review community suggestions">🛡️ Review</button>
     <button id="signInBtn">Sign in</button>
     <div id="userChip">
       <div id="userAvatar">G</div><span id="userName">Guest</span>
@@ -2595,7 +2605,6 @@ function paintUser(){
     $("userAvatar").style.background = user.provider==="google" ? "#4285F4" : "#e5e7eb";
     $("userAvatar").style.color = user.provider==="google" ? "#fff" : "#111";
   }
-  $("reviewBtn").classList.toggle("show", moderatorOfAny()||stewardOfAny());
   paintSync();
 }
 /* the chip is the door to the account page (sign-out button excepted) */
@@ -2913,7 +2922,6 @@ function openReview(){
   }
   renderReview();
 }
-$("reviewBtn").onclick=openReview;
 document.querySelectorAll("#reviewTabs button").forEach(b=>{
   b.onclick=()=>{ reviewTab=b.dataset.v;
     document.querySelectorAll("#reviewTabs button").forEach(x=>

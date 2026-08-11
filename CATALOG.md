@@ -36,7 +36,8 @@ Routes at a glance (the full dispatcher lives in index.html, "URL routing"):
 `#/atlas` · `#/journal[/rm]` · `#/guild/<id>` · `#/health` ·
 `#/<cat>` picker · `#/<cat>/map` official map · `#/<cat>/<node>` drawer ·
 `#/fork/<id>[/<node>]` personal version. The review queue is deliberately
-NOT routed (role surface, shield buttons only).
+NOT routed (role surface, reached from the account page's 🛡️ button —
+and, for branch owners, their branch panel).
 
 ---
 
@@ -55,8 +56,6 @@ Journeys: J2.
   (`atlearn-theme` in localStorage, applied before first paint) and, when
   signed in, to the account (`store.settings.theme`, LWW), so it follows
   the walker onto their next device. Light is the default. (everyone)
-- `#reviewBtn` 🛡️ Review — opens the review queue. (moderator of any map
-  OR steward of any map)
 - `#siteFoot` — the quiet document footer at the bottom of every view:
   the About link lives here, the way most sites keep it. (everyone)
 - `#signInBtn` — opens the auth modal. (signed-out)
@@ -442,7 +441,7 @@ Governance panels (inside the account page):
   admins confirm the handover) + map lifecycle orphan toggles (admin).
 - Guilds editor — id/title/blurb/maps/guides rows. (admin)
 
-## 10 · Review queue — no route (shield buttons only)
+## 10 · Review queue — no route (account page + branch panels only)
 
 Branch suggestions also land here: the proposals tab additionally loads
 `ownerUid == me` pending proposals (any signed-in branch owner reaches it

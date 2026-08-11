@@ -508,8 +508,9 @@ COVERED ELSEWHERE — client.test.mjs renderDiff; rules.test.mjs moderation
 scope + merged attribution (D). Journey-only: queue UI, scoping, the live
 overlay.
 STEPS
-1. As a bound maintainer: 🛡️ Review appears (top bar AND account page);
-   the queue shows only their maps' items, with age chips.
+1. As a bound maintainer: 🛡️ Review queue appears on the account page
+   (the only standing door); the queue shows only their maps' items,
+   with age chips.
 2. Open a pending edit → field-level diff (− old / + new); a stale-base
    warning if the map moved since proposing.
 3. Merge → "🛡️ … live now; lands in the public record within the hour" →
@@ -539,8 +540,8 @@ COVERED ELSEWHERE — rules.test.mjs steward suite incl. "stewards cannot
 read others' suggestions" (D — the strongest automated coverage in this
 file). Journey-only: the hidden-tabs assertion and button-level gating.
 STEPS
-1. Sign in as a steward (bound via J20) → 🛡️ Review appears (top bar and
-   account page).
+1. Sign in as a steward (bound via J20) → 🛡️ Review queue appears on the
+   account page.
 2. The queue shows ONLY "Proposed edits"; Suggestions / Accepted / Reports
    / Flags tabs are ABSENT.
 3. Merge a `weight:trivial` edit → succeeds. A structural or substantive
