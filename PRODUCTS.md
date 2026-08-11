@@ -351,11 +351,12 @@ tells you what to revisit, not who you beat.
 **Promise:** viewing is always free, contribution is never paywalled —
 money buys conveniences or is simply given, and the books are open.
 
-- ◐ Donations — the quiet Support page is live: real running costs, the
-  promise, no banners, no guilt. The give button and supporter mark wake
-  when the donation rail exists (one config value away; rail choice —
-  GitHub Sponsors recommended — is Marcus's, decided 2026-08-10, page
-  shipped 2026-08-11).
+- ◐ Donations — the quiet Support page is live: the promise and a
+  plain "help the person doing the work" ask, no banners, no guilt.
+  Costs deliberately not itemized yet — the open-books treatment
+  returns once a real supporter audience exists (decided 2026-08-11).
+  The give button and supporter mark wake when the Ko-fi rail is set
+  (one config value away; page shipped 2026-08-11).
 - ◐ Supporter mark — a quiet 🌱 on your own account page, bound by an
   admin after a donation arrives; thanks, not rank — it grants nothing,
   and shows nowhere public (shipped 2026-08-11; wakes with the rail).

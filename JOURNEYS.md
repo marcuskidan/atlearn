@@ -728,16 +728,18 @@ STEPS (spec-level until built)
    maintainer's attribution and the map history survive intact; a failed
    challenge starts the doubled cooldown.
 
-### J31 · Anyone · Support: the open books, no guilt anywhere   [Tier A]
-INTENTION — Money is asked for the way #/health states numbers: real
-costs, in the open, one quiet page — never a banner, never a gate
-(PRODUCTS §13; GOVERNANCE "The paid tier" invariants; LATER §3 stance).
+### J31 · Anyone · Support: the quiet ask, no guilt anywhere   [Tier A]
+INTENTION — Money is asked for quietly and honestly: one page, never a
+banner, never a gate; the ask names what it is — supporting the person
+doing the work — and buys nothing (PRODUCTS §13; GOVERNANCE "The paid
+tier" invariants; LATER §3 stance, Phase-1 staging 2026-08-11).
 COVERED ELSEWHERE — supporters doc boundary: rules.test.mjs (admin-only
 writes, public read, no delete).
 STEPS
 1. Any view → footer → Support (beside About). The page states the
-   promise and the itemized running costs. No sign-in asked, nothing
-   tracked, no other surface anywhere nudges toward it.
+   promise and the one-person fact — no cost tables, no counters. No
+   sign-in asked, nothing tracked, no other surface anywhere nudges
+   toward it.
 2. With `SUPPORT_URL` unset: no give button, no "coming soon" — the page
    simply keeps its books. With it set: one "Give" block with the
    outbound link and the supporter-mark line.

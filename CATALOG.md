@@ -559,14 +559,15 @@ erase it. Reached: About footer, auth modal, account page. Journeys: J9.
 
 ## 14b · Support — `#/support`
 
-Purpose: the open books — what Atlearn costs to run, the viewing-free
-promise, and (once a donation rail exists) the one quiet way to give.
-No banners, no guilt, anywhere. Reached: `#siteFoot` beside About; About
-sig link. Journeys: J31.
+Purpose: the quiet ask — the viewing-free promise and (once a donation
+rail exists) the one quiet way to give. Phase 1 framing: "help a dev do
+their work" — costs deliberately NOT itemized yet; the open-books page
+returns with real infrastructure (Marcus, 2026-08-11). No banners, no
+guilt, anywhere. Reached: `#siteFoot` beside About; About sig link.
+Journeys: J31.
 
-- Prose: the promise (donations fund operations, buy no say) · the
-  running costs, itemized ($0 hosting, $0 database, ~$12/yr domain) ·
-  the growth clause (numbers grow before any ask does). (everyone)
+- Prose: the promise (donations fund the work, buy no say) · the
+  one-person fact ("one person building in the open"). (everyone)
 - `#supportGive` — "Give" block with the one outbound donation link +
   the supporter-mark line; renders ONLY when config.js `SUPPORT_URL` is
   set — the page never asks for what it can't receive. (everyone)
