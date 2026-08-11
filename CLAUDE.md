@@ -45,8 +45,10 @@ non-technical); see the Engineering-hygiene rules below.
    `spine` automatically; when hand-inserting without one, renumber neighbors.
 6. Explanatory/mission copy lives ONLY on the About page (the manifesto in
    index.html) — never scatter "what this app is" text into other UI
-   surfaces. One sanctioned exception: the home hero carries the mission
-   line under the wordmark (Marcus, 2026-08-10).
+   surfaces. The mission opens the About page, italicized. One sanctioned
+   exception: the home hero carries the tagline "Free education for
+   everyone." under the wordmark (Marcus, 2026-08-10). The About door is
+   the footer link (`#siteFoot`), not the top bar.
 7. Each roadmap's `meta.json` has a `maintainer` name shown on its map header
    ("· maintained by …"). Library cards are deliberately spare — emoji + title
    + progress bar only; never add copy to them. "The Admins" is a

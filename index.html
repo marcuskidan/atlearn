@@ -172,6 +172,13 @@ a{color:var(--blue)}
 .ccard .nxt{font-size:14px;font-weight:650;color:var(--text);margin-top:-4px}
 .ccard .nxdo{font-size:12.5px;color:var(--muted);line-height:1.5;font-style:italic}
 #heroSub a{color:var(--blue);text-decoration:none;font-weight:600}
+#atlasLine{margin:10px 0 0;font-size:13px}
+#atlasLine a{color:var(--blue);text-decoration:none;font-weight:600}
+#siteFoot{max-width:940px;margin:64px auto 26px;padding:0 20px;
+  font-size:12.5px;color:var(--faint)}
+#siteFoot a{color:var(--muted);text-decoration:none}
+#siteFoot a:hover{color:var(--ink)}
+.manifesto .mission{font-size:16.5px;color:var(--muted);line-height:1.75;margin-bottom:30px}
 
 /* ---------- About / manifesto (and every scrolling document view) ---------- */
 #aboutView,#privacyView,#atlasView,#journalView,#guildView,#healthView,#categoryView{
@@ -185,9 +192,9 @@ a{color:var(--blue)}
 .manifesto p b{color:var(--text)}
 .manifesto .sig{margin-top:30px;padding-top:18px;border-top:1px solid var(--line);
   font-family:var(--serif);font-size:13.5px;color:var(--faint);line-height:1.6}
-#aboutBtn,#themeBtn{border:1px solid var(--line);width:34px;height:34px;color:var(--muted);
+#themeBtn{border:1px solid var(--line);width:34px;height:34px;color:var(--muted);
   border-radius:4px;font-size:14px;flex:0 0 auto}
-#aboutBtn:hover,#themeBtn:hover{border-color:var(--ink);color:var(--ink)}
+#themeBtn:hover{border-color:var(--ink);color:var(--ink)}
 
 /* ---------- Roadmap view ----------
    The map is a document: it reflows to the screen and scrolls like a
@@ -541,8 +548,8 @@ a{color:var(--blue)}
   border:1.5px dashed var(--line2);color:var(--muted);font-size:13px;font-weight:600}
 #suggestBtn:hover{border-color:var(--ink);color:var(--ink)}
 #proposeWrap{max-width:960px;margin:28px auto 0;text-align:center}
-#wantedRow{display:none;flex-wrap:wrap;gap:8px;justify-content:center;align-items:center;
-  margin-bottom:14px}
+#wantedRow{display:none;flex-wrap:wrap;gap:8px;align-items:center;
+  margin-top:26px}
 #wantedRow.show{display:flex}
 .wantedLbl{font-size:12px;color:var(--faint)}
 .wantedChip{padding:7px 13px;border-radius:3px;background:var(--bg2);
@@ -755,7 +762,6 @@ select.edInput{appearance:none;-webkit-appearance:none}
   <div id="topSpacer"></div>
   <div id="userArea">
     <button id="themeBtn" title="Switch to dark mode" aria-label="Toggle dark mode">☾</button>
-    <button id="aboutBtn" title="About this project" aria-label="About">ⓘ</button>
     <button id="reviewBtn" title="Review community suggestions">🛡️ Review</button>
     <button id="signInBtn">Sign in</button>
     <div id="userChip">
@@ -770,17 +776,14 @@ select.edInput{appearance:none;-webkit-appearance:none}
 <main id="homeView" class="view active">
   <div id="homeHero">
     <h1 id="heroTitle">Atlearn</h1>
-    <p id="heroSub">A world where anyone can follow the path to learning anything they
-      want, for free, supported by all the resources the internet has to offer,
-      peer-reviewed by people who have walked the path themselves.
-      <a href="#" id="aboutLink">Why this exists →</a> ·
-      <span id="heroCollLink" style="display:none"><a href="#/collections">Browse collections →</a> ·</span>
-      <a href="#/atlas">Explore the atlas →</a></p>
+    <p id="heroSub">Free education for everyone.
+      <span id="heroCollLink" style="display:none"><a href="#/collections">Browse collections →</a></span></p>
     <div id="searchWrap">
       <input id="searchBox" type="search" placeholder="⌕"
         autocomplete="off" spellcheck="false" aria-label="Search all roadmaps">
       <div id="searchResults" role="listbox"></div>
     </div>
+    <p id="atlasLine"><a href="#/atlas">Explore the atlas →</a></p>
   </div>
   <div id="continueWrap">
     <h2 class="secTitle">Continue your paths</h2>
@@ -790,7 +793,6 @@ select.edInput{appearance:none;-webkit-appearance:none}
   <div id="grid"></div>
   <div id="loadErr"></div>
   <div id="proposeWrap">
-    <div id="wantedRow"></div>
     <button id="proposeBtn">🌱 Propose a map for the library…</button>
     <button id="startMapBtn">🗺 Start a personal map…</button>
   </div>
@@ -798,6 +800,9 @@ select.edInput{appearance:none;-webkit-appearance:none}
 
 <!-- ================= ABOUT / MANIFESTO ================= -->
 <section id="aboutView" class="view"><div class="manifesto">
+  <p class="mission"><i>A world where anyone can follow the path to learning anything they
+  want, for free, supported by all the resources the internet has to offer,
+  peer-reviewed by people who have walked the path themselves.</i></p>
   <h1>The internet democratized content. It never democratized curriculum.</h1>
   <p>Anyone on Earth can watch a lecture from MIT, read a physics paper, or find ten thousand
   videos on growing tomatoes. And yet learning anything real still feels like standing in a
@@ -875,9 +880,6 @@ select.edInput{appearance:none;-webkit-appearance:none}
   pay. If you never pay a cent, you get the entire library. If you do, you're keeping it open
   for someone who can't.</p>
   <div class="sig">Atlearn — the free curriculum. A commons with gardeners.<br>
-  A world where anyone can follow the path to learning anything they want, for free,
-  supported by all the resources the internet has to offer, peer-reviewed by people who
-  have walked the path themselves.<br>
   Want to help? Open any node and suggest an improvement, or propose a new map from the home
   screen. Every map has a named maintainer with final say.<br>
   <a href="#/health">🩺 Vital signs</a> — the numbers we hold ourselves to, in the open.
@@ -975,6 +977,7 @@ select.edInput{appearance:none;-webkit-appearance:none}
   </div>
   <div id="atlasFilters"></div>
   <div id="atlasList"></div>
+  <div id="wantedRow"></div>
 </div></section>
 
 <!-- ================= VITAL SIGNS =================
@@ -1050,6 +1053,8 @@ select.edInput{appearance:none;-webkit-appearance:none}
   <button id="addTopicBtn">＋ Add core topic</button>
   <button id="reorgBtn">⇅ Reorganize</button>
 </section>
+
+<footer id="siteFoot"><a href="#/about">About</a></footer>
 
 <!-- ================= WHAT'S NEW MODAL =================
   A walker mid-path is never yanked forward silently: when the map has moved
@@ -6073,8 +6078,6 @@ function openAbout(){
   closeDrawer();
   reflectHash("/about");
 }
-$("aboutBtn").onclick=openAbout;
-$("aboutLink").onclick=(e)=>{ e.preventDefault(); openAbout(); };
 
 /* ---------- theme: paper by default, dark by choice ----------
    Device preference lives in localStorage (applied pre-paint by the head

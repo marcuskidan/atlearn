@@ -55,9 +55,10 @@ Journeys: J2.
   (`atlearn-theme` in localStorage, applied before first paint) and, when
   signed in, to the account (`store.settings.theme`, LWW), so it follows
   the walker onto their next device. Light is the default. (everyone)
-- `#aboutBtn` ⓘ — opens `#/about`. (everyone)
 - `#reviewBtn` 🛡️ Review — opens the review queue. (moderator of any map
   OR steward of any map)
+- `#siteFoot` — the quiet document footer at the bottom of every view:
+  the About link lives here, the way most sites keep it. (everyone)
 - `#signInBtn` — opens the auth modal. (signed-out)
 - `#userChip` avatar/name — opens `#/account`; carries `#syncDot` (5 sync
   states, title-labeled) and a gold `.hasNews` dot when contributions were
@@ -73,27 +74,25 @@ Purpose: the front page of your own life — active paths first, the library
 below; no feed, no engagement ranking. Reached: app root, brand, backBtn.
 Journeys: J1, J3.
 
-- `#heroTitle` — the Atlearn wordmark (serif); `#heroSub` — the mission
-  line (rule 6's one sanctioned exception) + the hero links. (everyone)
-- Hero links — "Why this exists →" (`#/about`), "Explore the atlas →", and
-  "Browse collections →" (`#heroCollLink`, hidden until a shelf exists to
-  browse — one `limit(1)` probe per session; a dormant surface stays off
-  the front page). The hero is the sole entry to collections and the atlas.
-  (everyone)
+- `#heroTitle` — the Atlearn wordmark (serif); `#heroSub` — the tagline
+  "Free education for everyone." (rule 6's one sanctioned exception; the
+  mission itself opens `#/about`) + "Browse collections →"
+  (`#heroCollLink`, hidden until a shelf exists to browse — one
+  `limit(1)` probe per session; a dormant surface stays off the front
+  page). (everyone)
 - `#searchBox` + `#searchResults` — global search: title index first
   (`search.json`), deep index (`search-deep.json`, summaries + do-actions)
   when title hits run thin; map results labeled "all versions" (they open
   the picker); node results deep-link into drawers; Enter opens the first
   result. (everyone)
+- `#atlasLine` "Explore the atlas →" — directly under the search bar;
+  the sole entry to the atlas. (everyone)
 - `#continueRow` — "Continue your paths": one card per in-progress map with
   the next node and its do-action; click opens the map (no drawer —
   landing stays calm). Renders only with progress. (everyone with progress)
 - `#grid` — the library shelf: deliberately spare cards (emoji + title +
   progress bar only — CLAUDE.md rule 7 forbids more); click → category
   picker. (everyone)
-- `#wantedRow` — "Maps the library is looking for" chips from
-  `roadmaps/wanted.json`; click prefills the new-roadmap proposal.
-  (everyone; submitting needs signed-in + connected)
 - `#proposeBtn` 🌱 Propose a map for the library… — opens the suggest
   modal in roadmap mode. (everyone; gated at submit)
 - `#startMapBtn` 🗺 Start a personal map… — opens `#umapModal` (name +
@@ -349,8 +348,8 @@ account page. Journeys: J29.
 ## 6 · Atlas — `#/atlas`
 
 Purpose: browse every map by transparent, fixed criteria — richer metadata
-is legitimate here because you came to it. Reached: home hero link.
-Journeys: J4.
+is legitimate here because you came to it. Reached: the "Explore the
+atlas →" line under the home search bar. Journeys: J4.
 
 - `#atlasSearch` — filters by title/endpoint/tagline/maintainer. (everyone)
 - Sort chips — curated order / recently verified. (everyone)
@@ -364,6 +363,9 @@ Journeys: J4.
   click → category picker. Draft maps excluded. (everyone)
 - Empty state — "No maps match — clear the search or filter." Footer
   caption states the no-engagement stance. (everyone)
+- `#wantedRow` — "Maps the library is looking for" chips from
+  `roadmaps/wanted.json`, below the list; click prefills the new-map
+  proposal. (everyone; submitting needs signed-in + connected)
 
 ## 7 · Collections — `#/collections`
 
@@ -505,10 +507,10 @@ walker behavior counted nowhere. Reached: About page footer. Journeys: —
 ## 13 · About — `#/about`
 
 Purpose: the manifesto — ALL explanatory/mission copy lives here and only
-here (golden rule 6). Reached: ⓘ button, home hero link.
+here (golden rule 6). Reached: the About link in `#siteFoot`.
 
-- The manifesto prose; footer sig links: 🩺 Vital signs · Privacy.
-  (everyone)
+- The mission, italicized, opens the page; then the manifesto prose;
+  footer sig links: 🩺 Vital signs · Privacy. (everyone)
 
 ## 14 · Privacy — `#/privacy`
 

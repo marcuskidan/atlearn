@@ -168,13 +168,16 @@ INTENTION — Which maps exist is transparent, browsable by fixed criteria a
 human can explain — never engagement (Atlas comment; GOVERNANCE anti-metric
 stance).
 COVERED ELSEWHERE — none.
-SETUP — Tier A → `#/atlas` (via the home hero link).
+SETUP — Tier A → `#/atlas` (via "Explore the atlas →" under the home
+search bar).
 STEPS
 1. All published maps list; type in the atlas search → rows narrow on
    title/endpoint/maintainer.
 2. Click each visible filter chip in turn → rows filter to maps carrying
    that criterion; click again to clear.
 3. Click a row → that map's category picker.
+4. Below the list: "Maps the library is looking for" chips — a chip
+   opens the new-map proposal with its title prefilled.
 EXPECT
 - Filter chips are data-driven: every visible chip has ≥1 matching map and
   shows its count; criteria with zero maps (e.g. "✓ fresh" before any link
