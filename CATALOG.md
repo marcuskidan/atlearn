@@ -33,7 +33,8 @@ Conventions:
 
 Routes at a glance (the full dispatcher lives in index.html, "URL routing"):
 `#/` home · `#/about` · `#/privacy` · `#/support` · `#/account` ·
-`#/collections` · `#/atlas` · `#/journal[/rm]` · `#/guild/<id>` · `#/health` ·
+`#/collections` · `#/atlas` · `#/guild/<id>` · `#/health` ·
+(`#/journal` OFF → home, §8) ·
 `#/<cat>` picker · `#/<cat>/map` official map · `#/<cat>/<node>` drawer ·
 `#/fork/<id>[/<node>]` personal version. The review queue is deliberately
 NOT routed (role surface, reached from the account page's 🛡️ button —
@@ -419,12 +420,13 @@ the fork valve's first rung. Reached: home hero link. Journeys: —
 - `#collNew` ＋ Create a collection… — opens the collection modal.
   (signed-in + connected; honest toast otherwise)
 
-## 8 · Journal — `#/journal[/<rm>]`
+## 8 · Journal — `#/journal[/<rm>]` — OFF (2026-08-11)
 
-Purpose: the walker's private record — deliberately tucked away; sole entry
-point is the account page's 📓 button. (The URL is reachable signed-out —
-the composer renders but every write degrades to the honest connected-app
-toast; a signed-out variant is a known gap, not a promise.) Journeys: J8.
+OFF, return-later (Marcus): every door is closed — the account page's 📓
+button is removed and the route sends home. The surfaces below still
+exist in code, and the data machinery stays live: entries already
+written sync, ride 📦 Download my data, and are erased by account
+deletion. Journeys: J8 (OFF with it).
 
 - `#jIntro` — the privacy statement (never public). (signed-in)
 - Composer — `#jText` + `#jMap` map select (also filters the list and
@@ -448,8 +450,9 @@ the governance controls. Reached: user chip. Journeys: J9, J20.
   from now on (past writes keep the name they were signed with — the
   wiki norm, decided 2026-08-11); empty reverts; a held handle's
   public name follows the change. (signed-in)
-- `🛡️ Review queue` (moderator or steward) · `📓 Journal` · `📦 Download
-  my data` (full JSON export) · `Sign out` · privacy link. (signed-in)
+- `🛡️ Review queue` (moderator or steward) · `📦 Download
+  my data` (full JSON export) · `Sign out` · privacy link. (The 📓
+  Journal button left with the journal, 2026-08-11 — §8.) (signed-in)
 - "Your contributions" — status per suggestion/proposal (⏳/🌟/📥/✅/✕ with
   the written rejection reason) + Withdraw while pending; reports ride
   along with their outcome (⏳ open / ✓ resolved with the written

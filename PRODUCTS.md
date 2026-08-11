@@ -100,12 +100,16 @@ compared, or ranked.
 **Promise:** a private place to record what happened when you actually
 did the thing. Yours alone, never public.
 
-- ● Dated entries, filterable by map; deep-linkable composer.
-- ● Optional streak display (off by default).
-- ● Copy everything as text; deleting an entry erases it everywhere.
+Off for now (decided 2026-08-11): every door is closed while the product
+finds its shape — it may return later. Entries already written stay safe
+in their accounts, ride the data export, and are erased with the account.
 
-**Deliberate limits** — deliberately tucked away: reachable only from the
-account page. No journal buttons or prompts on maps.
+- ◐ Dated entries, filterable by map; deep-linkable composer.
+- ◐ Optional streak display (off by default).
+- ◐ Copy everything as text; deleting an entry erases it everywhere.
+
+**Deliberate limits** — no doors anywhere while off; when it returns, it
+returns deliberately, not by leftover links.
 
 *Detail: CATALOG §8 · Proof: J8.*
 

@@ -3811,7 +3811,6 @@ function renderAccount(){
         ${esc(user.baseName||user.name)}.</div>
       <div class="acctBtns">
         ${(moderatorOfAny()||stewardOfAny())?`<button id="acctReview">🛡️ Review queue</button>`:""}
-        <button id="acctJournal">📓 Journal</button>
         <button id="acctExport">📦 Download my data</button>
         <button id="acctSignOut" style="color:var(--red)">Sign out</button>
       </div>
@@ -3847,7 +3846,6 @@ function renderAccount(){
     toast(dn?`You sign as ${user.name} from here on`:"Back to your sign-in name");
     renderAccount();
   };
-  $("acctJournal").onclick=()=>openJournal(null);
   $("acctExport").onclick=exportMyData;
   $("acctSignOut").onclick=()=>$("signOutBtn").onclick();
   $("acctDelete").onclick=deleteMyAccount;
@@ -6836,7 +6834,7 @@ $("ebDiscard").onclick=()=>{
    #/              home                #/about           the manifesto
    #/account       your account        #/collections     the shelves
    #/privacy       the privacy page    #/atlas           every map, listed
-   #/journal[/rm]  the journal         #/health          vital signs
+   #/journal[/rm]  OFF → home          #/health          vital signs
    #/guild/<id>    a guild hall        #/fork/<id>[/<n>] a personal version
    #/umap/<id>[/<n>] a personal map    #/@handle[/slug]  a creator's page
    #/<cat>         the version picker  #/<cat>/map       the official map
@@ -6863,7 +6861,10 @@ async function applyRoute(){
     if(map==="account"){ openAccount(); return; }
     if(map==="collections"){ openCollections(); return; }
     if(map==="atlas"){ openAtlas(); return; }
-    if(map==="journal"){ openJournal(parts[1]?{rm:parts[1]}:null); return; }
+    // the journal is OFF for now (Marcus, 2026-08-11): no doors, route
+    // included — the machinery (sync, export, delete-cascade) stays, so
+    // written entries remain safe in their accounts until it returns
+    if(map==="journal"){ goHome(); return; }
     if(map==="guild"){ if(parts[1]) openGuild(parts[1]); else goHome(); return; }
     if(map==="health"){ openHealth(); return; }
     if(map==="privacy"){ openPrivacy(); return; }

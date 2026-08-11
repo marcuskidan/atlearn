@@ -244,18 +244,21 @@ EXPECT
   firestore.rules); nothing durable in browser storage; save state is
   never silently faked.
 
-### J8 · Signed-in walker · The journal is tucked away but whole   [Tier E, entry points render at C]
-INTENTION — The journal is deliberately TUCKED AWAY (CLAUDE.md): functional
-and private, reachable only from the account page — no map-surface tentacles.
-Entries live in the account's server record, owner-only.
-COVERED ELSEWHERE — rules.test.mjs journal owner-only suite (D).
-Journey-only: the entry-point discipline.
-SETUP — Tier E, signed in (entry-point checks 1–2 also render at C).
-STEPS
-1. Confirm NO journal button on the map header or drawer.
-2. Account page → 📓 Journal → `#/journal`.
-3. Write an entry → save → "📓 Saved — yours alone".
-4. Delete it (confirm dialog) → gone.
+### J8 · Signed-in walker · The journal is off, its data is whole   [Tier E · OFF 2026-08-11]
+INTENTION — The journal is OFF while the product finds its shape
+(CLAUDE.md, Marcus 2026-08-11): no doors anywhere, but a walker's
+written entries are never orphaned — they sync, export, and die with
+the account, exactly as promised when they were written.
+COVERED ELSEWHERE — rules.test.mjs journal owner-only suite (D) still
+guards the data.
+SETUP — Tier E, signed in.
+STEPS (the OFF shape — walk these until the journal returns)
+1. Confirm NO journal button anywhere: map header, drawer, account page.
+2. Paste `#/journal` cold → lands home, no error.
+3. 📦 Download my data → the export still carries any journal entries
+   written before the doors closed.
+4. (When the journal returns, restore this journey's write/delete steps
+   from git history — same id, per the stable-ids rule.)
 5. Deep-link `#/journal/astronomy` → composer preselects that map.
 EXPECT
 - Entries persist across reload; no reflect-prompt glyphs anywhere on maps.

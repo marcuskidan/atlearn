@@ -201,9 +201,11 @@ four places at once: ops.mjs, rules, editor UI, overlay). Rules:
   first-come, claim-or-release only) open creator pages `#/@handle` —
   the creator's OWN shelf (listed usermaps via owner-flipped `listed` +
   auto `slug`, plus published branches); never a library surface.
-- The journal is TUCKED AWAY (not core right now): #/journal and sync remain
-  functional, but its only entry point is the account page's 📓 button —
-  no map-header button, no drawer link, no reflect-prompt glyphs.
+- The journal is OFF (Marcus, 2026-08-11 — return-later, not removed): NO
+  doors anywhere — the account page's 📓 button is gone and #/journal
+  routes home. The machinery stays in place (openJournal/journalView
+  code, per-entry sync, export, the delete-account cascade), so entries
+  people already wrote remain safe in their accounts until it returns.
 
 ## Community layer
 In-app suggestion → maintainer/admin review pipeline (see README "Community layer").
