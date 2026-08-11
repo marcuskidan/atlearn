@@ -172,8 +172,7 @@ INTENTION — Which maps exist is transparent, browsable by fixed criteria a
 human can explain — never engagement (Atlas comment; GOVERNANCE anti-metric
 stance).
 COVERED ELSEWHERE — none.
-SETUP — Tier A → `#/atlas` (via "Explore the atlas →" under the home
-search bar).
+SETUP — Tier A → `#/atlas` (via "Explore →" under the home search bar).
 STEPS
 1. All published maps list; type in the atlas search → rows narrow on
    title/endpoint/maintainer.

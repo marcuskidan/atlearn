@@ -84,7 +84,7 @@ Journeys: J1, J3.
   when title hits run thin; map results labeled "all versions" (they open
   the picker); node results deep-link into drawers; Enter opens the first
   result. (everyone)
-- `#atlasLine` "Explore the atlas →" — directly under the search bar;
+- `#atlasLine` "Explore →" — directly under the search bar;
   the sole entry to the atlas. (everyone)
 - `#continueRow` — "Continue your paths": one card per in-progress map with
   the next node and its do-action; click opens the map (no drawer —
