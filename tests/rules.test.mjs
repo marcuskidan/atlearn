@@ -96,6 +96,28 @@ guard("roles: public read; create/delete always denied", async () => {
   await rut.assertFails(db("admin-uid").doc("meta/roles").delete());
 });
 
+guard("supporters: public read; admin-only writes; shape capped; no delete", async () => {
+  // anyone may read the thanks record, even signed out
+  await rut.assertSucceeds(db(null).doc("meta/supporters").get());
+  // admins bind supporters (create covers the first-ever save)
+  await rut.assertSucceeds(db("admin-uid").doc("meta/supporters")
+    .set({ members: { "giver-uid": "2026-08-11" } }));
+  await rut.assertSucceeds(db("super-uid").doc("meta/supporters")
+    .set({ members: { "giver-uid": "2026-08-11", "other-uid": "2026-08-11" } }));
+  // no one below admin writes, signed in or not
+  await rut.assertFails(db("user-uid").doc("meta/supporters")
+    .set({ members: { "user-uid": "2026-08-11" } }));
+  await rut.assertFails(db(null).doc("meta/supporters")
+    .set({ members: {} }));
+  // shape is exactly {members: map} — no extra keys, no scalar members
+  await rut.assertFails(db("admin-uid").doc("meta/supporters")
+    .set({ members: {}, admins: ["admin-uid"] }));
+  await rut.assertFails(db("admin-uid").doc("meta/supporters")
+    .set({ members: "everyone" }));
+  // the record never disappears wholesale
+  await rut.assertFails(db("admin-uid").doc("meta/supporters").delete());
+});
+
 guard("roles escalation ladder: admins bind maintainers only; superadmin binds admins; superadmins immutable", async () => {
   // admin may rebind maintainers…
   await rut.assertSucceeds(db("admin-uid").doc("meta/roles")

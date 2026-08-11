@@ -213,7 +213,7 @@ a{color:var(--blue)}
 #editCount{font-size:12px;color:var(--muted);padding:0 4px;white-space:nowrap}
 
 /* ---------- About / manifesto (and every scrolling document view) ---------- */
-#aboutView,#privacyView,#atlasView,#journalView,#guildView,#healthView,#categoryView{
+#aboutView,#privacyView,#supportView,#atlasView,#journalView,#guildView,#healthView,#categoryView{
   padding:26px 20px calc(60px + var(--sab))}
 .manifesto{max-width:620px;margin:0 auto}
 .manifesto h1{font-family:var(--serif);font-weight:400;font-size:clamp(26px,4.5vw,34px);
@@ -917,7 +917,8 @@ select.edInput{appearance:none;-webkit-appearance:none}
   Want to help? Open any node and suggest an improvement, or propose a new map from the home
   screen. Every map has a named maintainer with final say.<br>
   <a href="#/health">🩺 Vital signs</a> — the numbers we hold ourselves to, in the open.
-  · <a href="#/privacy">Privacy</a> — what exists about you, and how to erase it.</div>
+  · <a href="#/privacy">Privacy</a> — what exists about you, and how to erase it.
+  · <a href="#/support">Support</a> — what it costs to run, and how to help.</div>
 </div></section>
 
 <!-- ================= REVIEW QUEUE ================= -->
@@ -978,6 +979,28 @@ select.edInput{appearance:none;-webkit-appearance:none}
   pull request, they've become part of the commons.</p>
   <p>Anything else, or a full attribution-scrub request: see SECURITY.md in
   the project repository.</p>
+</div></section>
+
+<!-- ================= SUPPORT =================
+  The open books: what Atlearn costs to run, stated the way #/health states
+  its numbers. No banners, no guilt (LATER §3) — the ask is one quiet link,
+  config-gated (SUPPORT_URL) so the page never asks for what it can't
+  receive. -->
+<section id="supportView" class="view"><div class="manifesto">
+  <h1>Support</h1>
+  <p>Viewing is free, forever, for everyone. Donations fund operations and
+  buy nothing else — no features, no placement, no say in what the maps
+  teach.</p>
+
+  <h2>What it costs to run</h2>
+  <p>The whole library is a static site and a small database, both inside
+  their providers' free tiers. The books, in full:</p>
+  <p><b>Hosting</b> (GitHub Pages) — $0.<br>
+  <b>Database and sign-in</b> (Firebase, free tier) — $0.<br>
+  <b>The domain name</b> (atlearn.org) — about $12 a year.</p>
+  <p>No one is paid. When costs grow past this — busier database tiers,
+  more traffic — this page's numbers grow with them, before any ask does.</p>
+  <div id="supportGive"></div>
 </div></section>
 
 <!-- ================= COLLECTIONS ================= -->
@@ -1095,7 +1118,7 @@ select.edInput{appearance:none;-webkit-appearance:none}
   </div>
 </section>
 
-<footer id="siteFoot"><a href="#/about">About</a></footer>
+<footer id="siteFoot"><a href="#/about">About</a> · <a href="#/support">Support</a></footer>
 
 <!-- ================= WHAT'S NEW MODAL =================
   A walker mid-path is never yanked forward silently: when the map has moved
@@ -1350,7 +1373,7 @@ select.edInput{appearance:none;-webkit-appearance:none}
    data behind firestore.rules, and a GitHub Action lands merged content into
    the repo. See DEPLOY.md. Missing config.js ⇒ local/demo mode.
    ═══════════════════════════════════════════════════════════════════════════ */
-const {FIREBASE_CONFIG=null, GITHUB_REPO=""} = (window.HKR_CONFIG || {});
+const {FIREBASE_CONFIG=null, GITHUB_REPO="", SUPPORT_URL=null} = (window.HKR_CONFIG || {});
 
 /* Replaced by `python3 tools/build.py --standalone` to inline all content
    into dist/standalone.html. In the repo version it stays null and content
@@ -1537,7 +1560,7 @@ async function loadRoadmap(id){
   return rm;
 }
 /* ---- editorial roles: who tends which map (public meta/roles doc) ---- */
-let MAINTAINERS={}, ADMINS=[], SUPERADMINS=[], STEWARDS={};
+let MAINTAINERS={}, ADMINS=[], SUPERADMINS=[], STEWARDS={}, SUPPORTERS={};
 async function loadMaintainers(){
   if(!FIREBASE_CONFIG) return;
   try{
@@ -1549,6 +1572,13 @@ async function loadMaintainers(){
       ADMINS=d.admins||[];
       SUPERADMINS=d.superadmins||[];
     }
+    // the thanks record: supporters, admin-bound (meta/supporters, public).
+    // Own guard: deployed rules older than the doc deny this read, and that
+    // must never cost the loads below.
+    try{
+      const sup=await F.getDoc(F.doc(F.db,"meta","supporters"));
+      SUPPORTERS=sup.exists()?((sup.data()||{}).members||{}):{};
+    }catch(e){}
     // steward bindings: one public doc per map, {members:{uid:name}}
     const st=await F.getDocs(F.collection(F.db,"stewards"));
     const s={}; st.forEach(d=>{ s[d.id]=(d.data()||{}).members||{}; });
@@ -1743,7 +1773,7 @@ let currentFork=null;   // set while viewing a personal version (Personalize)
 /* one view active at a time — every navigation goes through here */
 function showView(id){
   ["homeView","mapView","reviewView","aboutView","accountView","collectionsView","privacyView",
-   "atlasView","journalView","guildView","healthView","categoryView","creatorView"]
+   "supportView","atlasView","journalView","guildView","healthView","categoryView","creatorView"]
     .forEach(v=>$(v).classList.toggle("active",v===id));
   document.scrollingElement.scrollTop=0;   // the document is the scroller
 }
@@ -3586,6 +3616,9 @@ function roleChipsHtml(){
     chips.push(`<span class="roleChip green">🪴 Steward — ${esc(e?e.title:rm)}</span>`); });
   Object.values(GUILDS).filter(g=>guideOf(g.id)).forEach(g=>
     chips.push(`<span class="roleChip green">🧭 Guide — ${esc(g.title)}</span>`));
+  // the thanks record — a mark, not a role: it grants nothing anywhere
+  if(user.provider && SUPPORTERS[user.id])
+    chips.push(`<span class="roleChip">🌱 Supporter · since ${esc(SUPPORTERS[user.id])}</span>`);
   if(!chips.length) chips.push('<span class="roleChip">Contributor</span>');
   return chips.join("");
 }
@@ -3694,6 +3727,32 @@ function renderGovPanel(){
     }catch(e){ toast("Save failed — try again"); }
   };
   box.appendChild(save);
+  // the thanks record (meta/supporters) — v1 binding is manual: an admin adds
+  // the uid after a donation arrives. The mark grants nothing anywhere.
+  const sh=document.createElement("div");
+  sh.innerHTML=`<h2 class="secTitle" style="margin-top:26px">Supporters — the thanks record</h2>
+    <div class="sub">One user id per line, optionally followed by a date; lines without
+    one are stamped with today when saved. The mark is thanks, not rank.</div>`;
+  const sta=document.createElement("textarea"); sta.className="edArea";
+  sta.style.minHeight="60px";
+  sta.value=Object.entries(SUPPORTERS).map(([uid,d])=>uid+" "+d).join("\n");
+  const saveSup=document.createElement("button"); saveSup.className="edAdd";
+  saveSup.textContent="💾 Save supporters";
+  saveSup.onclick=async ()=>{
+    if(!guardSave()) return;
+    const members={};
+    sta.value.split("\n").map(s=>s.trim()).filter(Boolean).forEach(line=>{
+      const sp=line.indexOf(" ");
+      const uid=sp<0?line:line.slice(0,sp);
+      members[uid]=(sp<0?"":line.slice(sp+1).trim())||new Date().toISOString().slice(0,10);
+    });
+    try{
+      const F=await fb(); if(!F) throw new Error("offline");
+      await F.setDoc(F.doc(F.db,"meta","supporters"), {members});
+      SUPPORTERS=members; toast("🌱 Supporters updated"); renderAccount();
+    }catch(e){ toast("Save failed — try again"); }
+  };
+  box.appendChild(sh); box.appendChild(sta); box.appendChild(saveSup);
   if(!isSuperadmin()) return;
   const h=document.createElement("h2"); h.className="secTitle"; h.style.marginTop="26px";
   h.textContent="Admins — the editorial board";
@@ -5352,6 +5411,21 @@ function openPrivacy(){
   closeDrawer();
   reflectHash("/privacy");
 }
+/* The open books (#/support). The give block renders only when a donation
+   rail exists (config.js SUPPORT_URL) — the page never asks for what it
+   can't receive. */
+function openSupport(){
+  showView("supportView");
+  $("backBtn").classList.add("show");
+  closeDrawer();
+  reflectHash("/support");
+  $("supportGive").innerHTML = SUPPORT_URL
+    ? `<h2>Give</h2>
+       <p><a href="${esc(SUPPORT_URL)}" target="_blank" rel="noopener">Donate →</a>
+       One-time or recurring, whatever suits. Supporters carry a quiet mark
+       on their own account page — thanks, not rank.</p>`
+    : "";
+}
 async function deleteMyAccount(){
   if(!confirm("Delete your account and data? Progress, notes, personal versions, shelves, and pending contributions are removed. Contributions already merged into maps stay in the public record (CC BY-SA)— see the Privacy page.")) return;
   if(!confirm("This cannot be undone. Really delete everything?")) return;
@@ -6468,7 +6542,7 @@ $("ebDiscard").onclick=()=>{
    #/guild/<id>    a guild hall        #/fork/<id>[/<n>] a personal version
    #/umap/<id>[/<n>] a personal map    #/@handle[/slug]  a creator's page
    #/<cat>         the version picker  #/<cat>/map       the official map
-   #/<cat>/<node>  node drawer open
+   #/<cat>/<node>  node drawer open    #/support         the open books
    (The review queue is deliberately NOT URL-addressable — it's a role
    surface, reached from the shield buttons.)
    Navigation functions call reflectHash() to keep the address bar honest;
@@ -6495,6 +6569,7 @@ async function applyRoute(){
     if(map==="guild"){ if(parts[1]) openGuild(parts[1]); else goHome(); return; }
     if(map==="health"){ openHealth(); return; }
     if(map==="privacy"){ openPrivacy(); return; }
+    if(map==="support"){ openSupport(); return; }
     if(map==="fork"){   // #/fork/<id>[/<node>] — a shared personal version
       if(parts[1]) await openFork(parts[1], parts[2]); else goHome();
       return;

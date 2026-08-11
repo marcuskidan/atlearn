@@ -232,7 +232,8 @@ Rules when touching it:
   still holds. Surface → journeys: home/search → J1,J3 · routing/back/deep
   links → J2 · atlas → J4 · category picker → J5,J15 · drawer (status/steps/
   notes/links) → J1,J7,J13 · auth/sign-in → J10 · journal → J8 · account/
-  privacy → J9,J20 · suggest/tips → J11 · node editor → J12,J22 · report/
+  privacy → J9,J20 · support page/supporters → J31 · suggest/tips → J11 ·
+  node editor → J12,J22 · report/
   flags → J13,J14 · forks → J15,J16 · personal maps → J28 ·
   handles/creator pages → J29 · branch suggestions → J30 ·
   review queue → J17,J18,J19 ·

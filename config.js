@@ -17,4 +17,7 @@ window.HKR_CONFIG = {
   },
   /* "owner/repo" — powers the public map-history link. */
   GITHUB_REPO: "marcuskidan/atlearn",
+  /* Outbound donation link (e.g. "https://github.com/sponsors/<user>").
+     While null, the Support page states the running costs and makes no ask. */
+  SUPPORT_URL: null,
 };

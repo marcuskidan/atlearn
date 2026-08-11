@@ -319,6 +319,12 @@ any pricing decision:
   still walkable, always exportable — and editable again on return. Payment
   gates creation and editing, never existence or access.
 
+Donations obey the same gravity. They fund operations, and the running
+costs are published on the Support page before any ask is made — quietly,
+never as a banner. A supporter's mark (the public `meta/supporters`
+record) is thanks, not rank: no rule consults it, no authority follows
+from it, and governance surfaces are never for sale.
+
 ## Guilds: community without authority
 
 A guild is the community around a subject area — a grouping of maps, a public

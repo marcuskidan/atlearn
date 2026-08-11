@@ -345,8 +345,14 @@ tells you what to revisit, not who you beat.
 **Promise:** viewing is always free, contribution is never paywalled —
 money buys conveniences or is simply given, and the books are open.
 
-- ○ Donations — a quiet support page with real running costs, one-time
-  and recurring; no banners, no guilt (decided 2026-08-10).
+- ◐ Donations — the quiet Support page is live: real running costs, the
+  promise, no banners, no guilt. The give button and supporter mark wake
+  when the donation rail exists (one config value away; rail choice —
+  GitHub Sponsors recommended — is Marcus's, decided 2026-08-10, page
+  shipped 2026-08-11).
+- ◐ Supporter mark — a quiet 🌱 on your own account page, bound by an
+  admin after a donation arrives; thanks, not rank — it grants nothing,
+  and shows nowhere public (shipped 2026-08-11; wakes with the rail).
 - ○ The Workbook — the paid tier built around a genuinely robust notes
   suite: rich notes, search across your walk, exportable field journals,
   revision history, resurfacing, the AI study companion. Free tier keeps

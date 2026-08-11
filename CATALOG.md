@@ -32,8 +32,8 @@ Conventions:
   below implicitly require at least signed-in unless marked everyone.
 
 Routes at a glance (the full dispatcher lives in index.html, "URL routing"):
-`#/` home · `#/about` · `#/privacy` · `#/account` · `#/collections` ·
-`#/atlas` · `#/journal[/rm]` · `#/guild/<id>` · `#/health` ·
+`#/` home · `#/about` · `#/privacy` · `#/support` · `#/account` ·
+`#/collections` · `#/atlas` · `#/journal[/rm]` · `#/guild/<id>` · `#/health` ·
 `#/<cat>` picker · `#/<cat>/map` official map · `#/<cat>/<node>` drawer ·
 `#/fork/<id>[/<node>]` personal version. The review queue is deliberately
 NOT routed (role surface, reached from the account page's 🛡️ button —
@@ -57,7 +57,8 @@ Journeys: J2.
   signed in, to the account (`store.settings.theme`, LWW), so it follows
   the walker onto their next device. Light is the default. (everyone)
 - `#siteFoot` — the quiet document footer at the bottom of every view:
-  the About link lives here, the way most sites keep it. (everyone)
+  the About and Support links live here, the way most sites keep them.
+  (everyone)
 - `#signInBtn` — opens the auth modal. (signed-out)
 - `#userChip` avatar/name — opens `#/account`; carries `#syncDot` (5 sync
   states, title-labeled) and a gold `.hasNews` dot when contributions were
@@ -426,8 +427,10 @@ Purpose: identity, data rights, contributions, and — for role-holders —
 the governance controls. Reached: user chip. Journeys: J9, J20.
 
 - Signed-out variant — one line + sign-in button. (signed-out, URL only)
-- Profile — avatar, name, email, role chips (👑/🛡️/🧑‍🌾/🪴/🧭/Contributor),
-  uid + Copy (roles bind to it). (signed-in)
+- Profile — avatar, name, email, role chips (👑/🛡️/🧑‍🌾/🪴/🧭/Contributor;
+  plus 🌱 Supporter · since date — a mark, not a role, from the public
+  meta/supporters doc; renders only to its holder here), uid + Copy
+  (roles bind to it). (signed-in)
 - `🛡️ Review queue` (moderator or steward) · `📓 Journal` · `📦 Download
   my data` (full JSON export) · `Sign out` · privacy link. (signed-in)
 - "Your contributions" — status per suggestion/proposal (⏳/🌟/📥/✅/✕ with
@@ -456,6 +459,10 @@ Governance panels (inside the account page):
   public reasons required to overrule), close with the binding change; at
   most one review per map per year, failed challenge doubles the wait.
   Decision 2026-08-09. (admin; superadmin backstop)
+- Supporters editor — the thanks record: one `uid [date]` per line into
+  the public meta/supporters doc; dateless lines stamped with today on
+  save. v1 binding is manual, after a donation arrives — no webhooks.
+  (admin)
 - Admins editor — uid list. (superadmin; `superadmins` itself is
   console-only — no UI writes it, by design)
 - Stewards editor — up to 10 per map, own maps. (maintainer; admin: all)
@@ -531,7 +538,7 @@ Purpose: the manifesto — ALL explanatory/mission copy lives here and only
 here (golden rule 6). Reached: the About link in `#siteFoot`.
 
 - The mission, italicized, opens the page; then the manifesto prose;
-  footer sig links: 🩺 Vital signs · Privacy. (everyone)
+  footer sig links: 🩺 Vital signs · Privacy · Support. (everyone)
 
 ## 14 · Privacy — `#/privacy`
 
@@ -543,6 +550,20 @@ erase it. Reached: About footer, auth modal, account page. Journeys: J9.
   record) · if you sign in · what becomes public (contributions are public speech, CC BY-SA) · what we
   don't do (no ads/analytics/selling) · your controls (export, delete).
   (everyone)
+
+## 14b · Support — `#/support`
+
+Purpose: the open books — what Atlearn costs to run, the viewing-free
+promise, and (once a donation rail exists) the one quiet way to give.
+No banners, no guilt, anywhere. Reached: `#siteFoot` beside About; About
+sig link. Journeys: J31.
+
+- Prose: the promise (donations fund operations, buy no say) · the
+  running costs, itemized ($0 hosting, $0 database, ~$12/yr domain) ·
+  the growth clause (numbers grow before any ask does). (everyone)
+- `#supportGive` — "Give" block with the one outbound donation link +
+  the supporter-mark line; renders ONLY when config.js `SUPPORT_URL` is
+  set — the page never asks for what it can't receive. (everyone)
 
 ## 15 · Modals & the node editor
 

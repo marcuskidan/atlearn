@@ -104,6 +104,18 @@ service cloud.firestore {
       allow create, delete: if false;
     }
 
+    // The thanks record: who has supported the project, admin-bound after a
+    // donation arrives (v1 is manual — no webhooks). members: {uid: 'YYYY-MM-DD'}.
+    // Public read mirrors roles — patronage is transparent — but the mark
+    // carries no authority: no rule anywhere consults this doc.
+    match /meta/supporters {
+      allow read: if true;
+      allow create, update: if isAdmin()
+        && request.resource.data.keys().hasOnly(['members'])
+        && request.resource.data.members is map;
+      allow delete: if false;
+    }
+
     // Each user's progress/notes blob. 1 MiB doc limit is Firestore-native.
     match /users/{uid} {
       allow read, write: if signedIn() && request.auth.uid == uid;
