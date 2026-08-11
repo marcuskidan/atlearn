@@ -48,17 +48,19 @@ Journeys: J2.
 - `#backBtn` ← — goes UP one level (`goUp()`): map → its category picker ·
   fork → its base's picker · guild → the map whose door was used · all
   other views → home. (everyone)
-- `#brand` 🗺️ — the mark alone, clickable, goes home. No wordmark, no
-  context titles: every page names itself in its own heading. The top
-  bar sits in the document flow and scrolls away with the page.
-  (everyone)
+- `#brand` — a line-drawn home icon (inline SVG, currentColor — themes
+  with light/dark; replaced the 🗺️ emoji 2026-08-11), clickable, goes
+  home. No wordmark, no context titles: every page names itself in its
+  own heading. The top bar sits in the document flow, scrolls away with
+  the page, and carries no bottom rule. (everyone)
 - `#themeBtn` ☾/☀ — flips light/dark. The choice sticks to the device
   (`atlearn-theme` in localStorage, applied before first paint) and, when
   signed in, to the account (`store.settings.theme`, LWW), so it follows
   the walker onto their next device. Light is the default. (everyone)
-- `#siteFoot` — the quiet document footer at the bottom of every view:
-  the About and Support links live here, the way most sites keep them.
-  (everyone)
+- `#siteFoot` — the quiet document footer at the bottom of every view,
+  Wikipedia-style since 2026-08-11: a thin top rule, the About /
+  Privacy / Support links (`#footLinks`), and a CC BY-SA 4.0 license
+  line (`#footNote`), with generous bottom room. (everyone)
 - `#signInBtn` — opens the auth modal. (signed-out)
 - `#userChip` avatar/name — opens `#/account`; carries `#syncDot` (5 sync
   states, title-labeled) and a gold `.hasNews` dot when contributions were
@@ -93,12 +95,11 @@ Journeys: J1, J3.
 - `#grid` — the library shelf: deliberately spare cards (emoji + title +
   progress bar only — CLAUDE.md rule 7 forbids more); click → category
   picker. (everyone)
-- `#proposeBtn` 🌱 Propose a map for the library… — opens the suggest
-  modal in roadmap mode. (everyone; gated at submit)
 - `#startMapBtn` 🗺 Start a personal map… — opens `#umapModal` (name +
   emoji → creates the usermap doc, lands in it with the editor open).
-  The two buttons are the two honest creation paths: the library goes
-  through review; a personal map just exists. (signed-in + connected)
+  Its sibling door, 🌱 Propose a map, moved to the Atlas 2026-08-11 —
+  home keeps the personal path; the library path lives where the
+  library is browsed. (signed-in + connected)
 - `#loadErr` — friendly serve-over-HTTP instructions when content fetch
   fails (file:// case). (everyone, on error)
 
@@ -609,11 +610,12 @@ returns with real infrastructure (Marcus, 2026-08-11). No banners, no
 guilt, anywhere. Reached: `#siteFoot` beside About; About sig link.
 Journeys: J31.
 
-- Prose: the promise (donations fund the work, buy no say) · the
-  one-person fact ("one person building in the open"). (everyone)
-- `#supportGive` — "Give" block with the one outbound donation link +
-  the supporter-mark line; renders ONLY when config.js `SUPPORT_URL` is
-  set — the page never asks for what it can't receive. (everyone)
+- Prose (Marcus's 2026-08-11 copy): the promise (supporting funds the
+  work and never buys features, placement, or say) · the one-person
+  fact. (everyone)
+- `#supportGive` — one "Support the project →" link (no heading, no
+  extra copy); renders ONLY when config.js `SUPPORT_URL` is set — the
+  page never asks for what it can't receive. (everyone)
 
 ## 15 · Modals & the node editor
 

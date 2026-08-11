@@ -180,7 +180,10 @@ STEPS
    that criterion; click again to clear.
 3. Click a row → that map's category picker.
 4. Below the list: "Maps the library is looking for" chips — a chip
-   opens the new-map proposal with its title prefilled.
+   opens the new-map proposal with its title prefilled — and the
+   "🌱 Propose a map for the library…" button (moved here from home
+   2026-08-11: the library door lives where the library is browsed).
+   The page carries no heading — the search bar and rows speak.
 EXPECT
 - Filter chips are data-driven: every visible chip has ≥1 matching map and
   shows its count; criteria with zero maps (e.g. "✓ fresh" before any link
@@ -768,9 +771,8 @@ STEPS
    promise and the one-person fact — no cost tables, no counters. No
    sign-in asked, nothing tracked, no other surface anywhere nudges
    toward it.
-2. With `SUPPORT_URL` unset: no give button, no "coming soon" — the page
-   simply keeps its books. With it set: one "Give" block with the
-   outbound link and the supporter-mark line.
+2. With `SUPPORT_URL` unset: no ask, no "coming soon". With it set: one
+   "Support the project →" link, nothing else.
 3. (Signed-in, after an admin records the uid) Account page shows the
    quiet 🌱 Supporter chip with its since-date — visible to its holder
    only; no public surface renders it anywhere.

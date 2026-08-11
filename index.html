@@ -91,14 +91,15 @@ a{color:var(--blue)}
   padding:calc(10px + var(--sat)) calc(16px + var(--sar)) 10px calc(16px + var(--sal));
   display:flex;align-items:center;gap:12px;
   background:var(--bg);
-  border-bottom:1px solid var(--line);
 }
 #backBtn{display:none;width:34px;height:34px;border-radius:4px;border:1px solid var(--line);
   align-items:center;justify-content:center;font-size:17px;flex:0 0 auto;color:var(--muted)}
 #backBtn:hover{border-color:var(--ink);color:var(--ink)}
 #backBtn.show{display:flex}
 #brand{display:flex;align-items:center;gap:9px;min-width:0;cursor:pointer}
-#brandMark{font-size:19px;flex:0 0 auto;display:flex;align-items:center;justify-content:center}
+#brandMark{flex:0 0 auto;display:flex;align-items:center;justify-content:center;
+  color:var(--ink)}
+#brand:hover #brandMark{color:var(--blue)}
 #topSpacer{flex:1}
 #userArea{display:flex;align-items:center;gap:8px;flex:0 0 auto}
 #signInBtn{background:var(--ink);color:var(--paper);font-weight:600;font-size:13px;
@@ -182,10 +183,16 @@ a{color:var(--blue)}
 #heroSub a{color:var(--blue);text-decoration:none;font-weight:600}
 #atlasLine{margin:10px 0 0;font-size:13px}
 #atlasLine a{color:var(--blue);text-decoration:none;font-weight:600}
-#siteFoot{max-width:940px;margin:64px auto 26px;padding:0 20px;
-  font-size:12.5px;color:var(--faint)}
+/* the quiet document footer, Wikipedia-style: a thin rule, small muted
+   links, a license line, generous bottom room */
+#siteFoot{max-width:940px;margin:72px auto 0;
+  padding:20px 20px calc(56px + var(--sab));
+  font-size:12.5px;color:var(--faint);border-top:1px solid var(--line)}
+#footLinks{display:flex;flex-wrap:wrap;gap:6px 22px}
 #siteFoot a{color:var(--muted);text-decoration:none}
-#siteFoot a:hover{color:var(--ink)}
+#siteFoot a:hover{color:var(--ink);text-decoration:underline}
+#footNote{margin-top:10px}
+#footNote a{color:var(--faint);text-decoration:underline}
 .manifesto .mission{font-size:16.5px;color:var(--muted);line-height:1.75;margin-bottom:30px}
 /* the edit-mode commit bar: local work, three doors out */
 #editModeBtn{order:99;margin-left:auto}   /* far right of the action row */
@@ -389,7 +396,7 @@ a{color:var(--blue)}
 
 /* ---------- Atlas ---------- */
 #atlasInner{max-width:760px;margin:0 auto;padding:26px 18px 60px}
-#atlasInner h2{font-family:var(--serif);font-weight:400;font-size:26px;margin:0 0 14px}
+#atlasInner #proposeBtn{margin-top:26px}
 #atlasSortRow{display:flex;align-items:center;gap:8px;margin-bottom:14px;flex-wrap:wrap}
 .atlasCaption{color:var(--faint);font-size:11.5px;line-height:1.6}
 .atlasSort,.atlasFilter{background:var(--bg2);border:1px solid var(--line);border-radius:3px;
@@ -803,7 +810,9 @@ select.edInput{appearance:none;-webkit-appearance:none}
 <header id="topbar">
   <button id="backBtn" aria-label="Back to roadmaps">←</button>
   <div id="brand" role="link" aria-label="Home" title="Home">
-    <div id="brandMark">🗺️</div>
+    <div id="brandMark" aria-hidden="true"><svg viewBox="0 0 24 24" width="20" height="20"
+      fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"
+      stroke-linejoin="round"><path d="M3 10.5 12 3l9 7.5"/><path d="M5.5 9v12h13V9"/><path d="M10 21v-6h4v6"/></svg></div>
   </div>
   <div id="topSpacer"></div>
   <div id="userArea">
@@ -838,7 +847,6 @@ select.edInput{appearance:none;-webkit-appearance:none}
   <div id="grid"></div>
   <div id="loadErr"></div>
   <div id="proposeWrap">
-    <button id="proposeBtn">🌱 Propose a map for the library…</button>
     <button id="startMapBtn">🗺 Start a personal map…</button>
   </div>
 </main>
@@ -938,9 +946,9 @@ select.edInput{appearance:none;-webkit-appearance:none}
   so the page never asks for what it can't receive. -->
 <section id="supportView" class="view"><div class="manifesto">
   <h1>Support</h1>
-  <p>Viewing is free, forever, for everyone. Donations fund the work and
-  buy nothing else — no features, no placement, no say in what the maps
-  teach.</p>
+  <p>Viewing is free, forever, for everyone. Supporting the project funds
+  the work and will never buy features, placement, or say in what the
+  maps teach.</p>
   <p>Atlearn is one person building in the open right now. If it's useful
   to you, you can help it keep going.</p>
   <div id="supportGive"></div>
@@ -967,7 +975,6 @@ select.edInput{appearance:none;-webkit-appearance:none}
   Discovery is a place you GO, never a stream that comes to you. Sorting is by
   transparent fixed criteria, printed on the page — never engagement. -->
 <section id="atlasView" class="view"><div id="atlasInner">
-  <h2>🗺 The Atlas</h2>
   <input id="atlasSearch" type="search" placeholder="⌕"
     autocomplete="off" spellcheck="false" aria-label="Search the atlas">
   <div id="atlasSortRow">
@@ -978,6 +985,7 @@ select.edInput{appearance:none;-webkit-appearance:none}
   <div id="atlasFilters"></div>
   <div id="atlasList"></div>
   <div id="wantedRow"></div>
+  <button id="proposeBtn">🌱 Propose a map for the library…</button>
 </div></section>
 
 <!-- ================= VITAL SIGNS =================
@@ -1061,7 +1069,16 @@ select.edInput{appearance:none;-webkit-appearance:none}
   </div>
 </section>
 
-<footer id="siteFoot"><a href="#/about">About</a> · <a href="#/support">Support</a></footer>
+<footer id="siteFoot">
+  <div id="footLinks">
+    <a href="#/about">About</a>
+    <a href="#/privacy">Privacy</a>
+    <a href="#/support">Support</a>
+  </div>
+  <div id="footNote">Content is available under
+    <a href="https://creativecommons.org/licenses/by-sa/4.0/" target="_blank"
+      rel="noopener">CC BY-SA 4.0</a>.</div>
+</footer>
 
 <!-- ================= WHAT'S NEW MODAL =================
   A walker mid-path is never yanked forward silently: when the map has moved
@@ -5691,10 +5708,8 @@ function openSupport(){
   closeDrawer();
   reflectHash("/support");
   $("supportGive").innerHTML = SUPPORT_URL
-    ? `<h2>Give</h2>
-       <p><a href="${esc(SUPPORT_URL)}" target="_blank" rel="noopener">Donate →</a>
-       Whatever amount suits. Supporters carry a quiet mark on their own
-       account page — thanks, not rank.</p>`
+    ? `<p style="margin-top:26px"><a href="${esc(SUPPORT_URL)}" target="_blank"
+       rel="noopener" style="font-weight:600">Support the project →</a></p>`
     : "";
 }
 async function deleteMyAccount(){
