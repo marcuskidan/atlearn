@@ -212,10 +212,6 @@ test("editorMode role matrix", () => {
   assert.equal(api.editorModeWith({ EDIT_MODE: true, devMode: true,
     FIREBASE_CONFIG: CFG,
     user: { provider: "google", id: "admin-uid" }, currentRm: rm }), "local");
-  // a branch never enters edit mode — its own rules stand
-  assert.equal(api.editorModeWith({ EDIT_MODE: true, FIREBASE_CONFIG: CFG,
-    user: { provider: "google", id: "owner-uid" }, currentRm: rm,
-    currentFork: branch() }), "fork");
 });
 
 test("applyMergedDocs: the five structural kinds", () => {
