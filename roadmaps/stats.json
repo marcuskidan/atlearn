@@ -1,17 +1,18 @@
 {
-  "generated": "2026-08-11",
-  "accounts": 3,
+  "generated": "2026-08-12",
+  "accounts": 4,
   "supporters": 0,
   "walking": {
     "library": {
       "astronomy": 2,
-      "horticulture": 1
+      "horticulture": 2,
+      "cooking": 1
     },
-    "personal": 0
+    "personal": 1
   },
   "creations": {
     "forks": 1,
-    "usermaps": 1,
+    "usermaps": 4,
     "usermapsListed": 0,
     "handles": 1,
     "collections": 0
