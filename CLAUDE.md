@@ -149,23 +149,31 @@ four places at once: ops.mjs, rules, editor UI, overlay). Rules:
   category picker (that page stays tagline + branch list). Gated disclaimers and orphan banners
   are the only always-visible blocks. No explanatory copy on screen (rule 6).
   The reading surface is consumption-first — and EDIT MODE is the one
-  door into changing an official map (the Wikipedia model, 2026-08-10):
-  a small plain "edit" button (no emoji) at the FAR RIGHT of the
-  header's action row, shown to EVERY walker, signed in or not. The
+  door into changing ANY map (the Wikipedia model, 2026-08-10; ported
+  to personal surfaces 2026-08-11): a small plain "edit" button (no
+  emoji) at the FAR RIGHT of the header's action row. It renders
+  wherever a path exists — for EVERY walker on an official map, signed
+  in or not; on a branch/personal map for its owner and, once the
+  owner opens suggestions, anyone. The
   active mode is visually unmistakable: blue-tinted grid paper behind
   the whole map view + a blue `editing` badge in the title row. It
   opens a LOCAL session (EDIT_MODE +
   editOps, rendered through applyMergedDocs like fork ops): the node
   editor (topics open editable on click — the drawer carries NO edit
-  button on official maps), ⇅ Reorganize, ＋ Add core
+  button on ANY surface), ⇅ Reorganize, ＋ Add core
   topic, and the about [ edit ] all write local ops; drafts survive
-  in-session navigation (EDIT_DRAFTS, per map). NOTHING leaves the
-  device until the edit bar's commits: "Save and branch" (your fork —
-  created if needed, born unlisted), "Propose changes" (one proposal
-  per op, one shared note, baseHash/weight judged against the map as
-  loaded), or "Publish changes" (devMode → dev.py file writes;
-  maintainer/admin → merged-overlay docs; the button renders only for
-  governance). Identity is asked for at commit, never at the door.
+  in-session navigation (EDIT_DRAFTS, keyed per surface — a fork's
+  draft never shadows its base map's). NOTHING leaves the
+  device until the edit bar's commits. Official maps: "Save and
+  branch" (your fork — created if needed, born unlisted), "Propose
+  changes" (one proposal per op, one shared note, baseHash/weight
+  judged against the map as loaded), or "Publish changes" (devMode →
+  dev.py file writes; maintainer/admin → merged-overlay docs; the
+  button renders only for governance). Personal surfaces: the owner
+  gets "Save to your map/branch" (appendForkOps + about→doc field);
+  a suggestions-door walker gets "Propose changes" (batched branch
+  proposals, one note, no weight classes — the owner decides).
+  Identity is asked for at commit, never at the door.
   Signed-out = reading plus SESSION-MEMORY marks (steps/reflect/status
   tick in memory, one "sign in to keep it" nudge per visit, adopted into
   the account on sign-in via mergeStores; notes stay signed-in).
@@ -186,11 +194,13 @@ four places at once: ops.mjs, rules, editor UI, overlay). Rules:
   still speaks ops and `appendForkOps` applies them via applyMergedDocs,
   persisting the whole topic list. Progress keys are `u:<docId>`.
   Both branches and personal maps carry an owner-opt-in `suggestions`
-  flag (absent = closed): while open, a stranger's ✏️ save files a
-  proposal with `branch:{kind,id}` + denormalized `ownerUid`
+  flag (absent = closed): while open, a stranger edits through the same
+  edit mode and commits batched proposals (one note) carrying
+  `branch:{kind,id}` + denormalized `ownerUid`
   (rules-verified via get()); the OWNER alone decides — no weight
   classes, no 7-day clock — and merging applies the op to the branch
-  doc client-side (never the merged/landing pipeline).
+  doc client-side (never the merged/landing pipeline; an `about`
+  suggestion lands as the doc's intro field).
   Existence needs no approval; EVERY library surface excludes them (no
   shelf, atlas, search, picker — the link is the door). The road INTO the
   library is the existing new-roadmap proposal path plus a human import

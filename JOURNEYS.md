@@ -294,8 +294,10 @@ STEPS + EXPECT (exact toast strings are contract copy)
    need the connected app"**; no fork created (no `#/fork/` navigation).
 3. Collections → ＋ Create a collection… → toast **"Collections need the
    connected app"**.
-4. Node ✏️ opens the editor in **export** mode: Save offers download/copy
-   JSON — never a fake proposal.
+4. Header "edit" → the mode and its editor work fully (local ops cost
+   nothing anywhere); the edit bar's Save-and-branch / Propose commits
+   toast the honest connected-app line — never a fake submit. Export
+   mode's download/copy JSON remains outside the mode's commits.
 5. Status taps, do-step checks, and notes → toast **"Progress and notes
    need the connected app"** (notes box is read-only); a reload confirms
    nothing persisted.
@@ -364,8 +366,9 @@ STEPS
    bump + changelog); maintainer publishes merged-overlay docs, live
    immediately.
 8. ✕ on the bar (or toggling "✏️ editing" off) asks before discarding.
-EXPECT — nothing reaches the network before a commit; the ✏️ inside the
-drawer re-enters the editor while the mode is on; a decided proposal
+EXPECT — nothing reaches the network before a commit; the drawer
+carries no edit button anywhere — clicking a topic while the mode is on
+re-opens its editor; a decided proposal
 shows its status + any reason (unchanged from the old wiki door).
 
 ### J13 · Contributor · ⚑ Resource flags   [Tier E]
@@ -414,8 +417,10 @@ STEPS
 1. Category page → "＋ Start your own branch" → fork created → `#/fork/<id>`;
    toast says it's private; the row now reads "Open your branch" (one per
    map per user). The picker does NOT list it for others yet.
-2. Edit one topic in the fork → save → base map unchanged (open
-   `#/<cat>/map` in another tab to confirm).
+2. Header "edit" (the same mode as everywhere, 2026-08-11) → grid
+   paper on; change one topic → "local until you commit"; the bar's
+   "💾 Save to your branch" lands it on the fork doc → base map
+   unchanged (open `#/<cat>/map` in another tab to confirm).
 3. Untouched topics still track the base; "↩ Reset this topic to the
    standard version" drops the divergence.
 4. ✨ button (bottom-left) opens the branch panel: ✎ subtitle ("the
@@ -458,10 +463,12 @@ drawer-escape (D — usermap content renders through the same escaped
 builders). Journey-only: the visible lifecycle.
 STEPS
 1. Home, signed in + connected → "🗺 Start a personal map…" → name it →
-   Create → `#/umap/<id>` opens with the starter topic's editor;
+   Create → `#/umap/<id>` opens in edit mode with the starter topic's
+   editor already open (2026-08-11);
    toast states the fact: private, link-shareable.
 2. Edit the starter topic, add a topic, reorganize, set a child's side —
-   the full editor; every save toast says "your map". The library shelf,
+   all local ops in the mode; "💾 Save to your map" persists the batch.
+   The library shelf,
    Atlas, and search show nothing new (in another tab).
 3. 🗺 corner button → panel: ✎ rename (emoji + title), ✎ tagline,
    "[ write an intro for your map ]" on the header — all owner-held
@@ -536,9 +543,11 @@ clock); client.test.mjs editorMode branch matrix (D).
 STEPS
 1. Owner, on a branch or personal map → panel → "🌱 Accept suggestions"
    → the panel gains "🛡️ Review suggestions".
-2. A second signed-in user opens the branch → ✏️ now shows; the editor
-   banner names the OWNER as reviewer; save files the proposal ("the
-   owner of this branch decides").
+2. A second user opens the branch → the header's "edit" button now
+   shows (the suggestions door made a path); their edits batch locally
+   and the bar's "🌱 Propose changes" files them with ONE note —
+   toast: "suggested — the owner decides". Identity is asked at
+   commit, so even a signed-out walker can draft first.
 3. Owner → panel → 🛡️ → the proposals tab shows the card badged
    "✨/🗺 branch suggestion", diffed against the branch as rendered;
    Merge applies it to the branch (ops for a fork, topics for a personal
@@ -546,8 +555,8 @@ STEPS
    written reason the author will read.
 4. The author's account page shows the decision either way (J9's
    contributions list, unchanged).
-5. Owner → "Close suggestions" → the stranger's ✏️ disappears again;
-   their pending proposals stay decidable.
+5. Owner → "Close suggestions" → the stranger's edit button disappears
+   again; their pending proposals stay decidable.
 EXPECT — a maintainer or admin sees branch suggestions in their queue
 only as read-only cards ("the branch's owner decides this one"); the
 door being open never lets anyone write to the branch directly.

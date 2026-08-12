@@ -160,24 +160,34 @@ Header (`#mapHeader`, kept minimal by rule):
 - Byline — the maintainer's name; absent until a real name exists (the
   "The Admins" placeholder never renders). (everyone)
 - `#editModeBtn` "edit" / "editing" (no emoji) — the Wikipedia door, held
-  at the action row's FAR RIGHT (CSS order), shown to EVERY walker
-  (signed-out included; identity is asked at commit). Toggles EDIT MODE:
+  at the action row's FAR RIGHT (CSS order), rendered wherever a path
+  exists (2026-08-11): EVERY walker on an official map (signed-out
+  included; identity is asked at commit); a personal surface's owner;
+  anyone on a branch/personal map whose owner opened suggestions.
+  Toggles EDIT MODE:
   the about [ edit ], ⇅ Reorganize, ＋ Add core topic appear, and
   clicking any topic opens it in the editor. The mode is visible at a
   glance: the whole map view gets a blue-tinted grid-paper background
   (`#mapView.editing`) and a blue `editing` badge joins the title row.
   Every save is LOCAL (`editOps`, rendered through the fork op
   engine); a draft survives in-session navigation and is restored on
-  return. Leaving the mode with unsaved ops asks before discarding.
-  Official maps only — branches keep their own panels. (everyone)
+  return (drafts key per surface — `f:`/`u:` prefixes keep a branch
+  draft from shadowing its base map's). Leaving the mode with unsaved
+  ops asks before discarding. (everyone with a path)
 - `#editBar` — appears with the first local change, bottom center:
-  "✏️ N local changes" + `#ebBranch` ✨ Save and branch (appends to your
+  "✏️ N local changes" + commits per surface. Official maps:
+  `#ebBranch` ✨ Save and branch (appends to your
   existing branch of this map or creates one, born unlisted; a local
   about rewrite rides as the branch intro) + `#ebPropose` 🌱 Propose
   changes (one proposal per op, one shared note, staleness anchors and
   weight judged against the map as loaded) + `#ebPublish` 🛡️ Publish
   changes (devMode → dev.py file writes, build-gated per op;
-  maintainer/admin → merged-overlay docs; hidden without governance) +
+  maintainer/admin → merged-overlay docs; hidden without governance).
+  Personal surfaces (2026-08-11): owner → `#ebPublish` reads "💾 Save
+  to your map/branch" (appendForkOps against the surface as loaded; a
+  local about lands as the doc's intro); suggestions-door walker →
+  `#ebPropose` only (batched branch proposals, one note, no weight
+  classes — the owner decides). Plus
   `#ebDiscard` ✕ (confirm). (everyone; commits gate on identity/role)
 - `⑂ all versions` — back to the picker (forced open). (everyone)
 - `#histBtn` 🕘 history — opens the map's GitHub commit log; meta altitude,
@@ -219,7 +229,7 @@ The map itself (`#mapFlow` — a document, not a canvas):
   glyph ○/⋯/✓, and branches state their tier in words (no separate key).
   (everyone)
 - `#addTopicBtn` ＋ Add core topic · `#reorgBtn` ⇅ Reorganize — structural
-  tools. (official maps: edit mode; branches: owner)
+  tools. (edit mode, every surface — 2026-08-11)
 
 ## 4 · Node drawer — `#/<cat>/<node>` (also `#/fork/<id>/<node>`)
 
@@ -255,10 +265,9 @@ read-only for signed-out visitors. Journeys: J1, J7, J11, J12, J13.
   node's ONE community-text door; changes to the lesson itself go through
   ✏️ (one door per intent). (tips: everyone; 💡: signed-in, hidden on
   forks)
-- `#editBtn` ✏️ — opens the node editor; BRANCHES ONLY (the owner, or any
-  signed-in walker when the owner's suggestions door is open). On
-  official maps the drawer carries no edit button — topics clicked in
-  edit mode already open editing. (branches, canEdit)
+- The drawer carries NO edit button on any surface (the branch-only ✏️
+  retired 2026-08-11) — topics clicked in edit mode already open
+  editing; the header's edit button is the one door everywhere.
 
 ## 5 · Personal version — `#/fork/<id>`
 
@@ -278,17 +287,22 @@ Journeys: J15, J16.
   rules' one fork-moderation switch). (everyone sees the panel)
 - Full map + drawer render through the overlay engine; walking progress is
   shared with the base map (stable node ids). (everyone)
-- ✏️ / ＋ Add topic / ⇅ Reorganize — fork editing, saves go only to the
-  fork's ops; per-topic "↩ Reset to the standard version" drops divergence.
-  (fork owner)
+- Editing rides the same edit mode as official maps (2026-08-11, §3):
+  the header's edit button (owner; anyone when suggestions are open),
+  grid paper, batched local ops, drafts. The owner's commit is "💾 Save
+  to your branch" (ops land on the fork doc; a local about lands as the
+  intro); per-topic "↩ Reset to the standard version" drops divergence.
+  (owner; suggestions-door walkers commit proposals)
 - `#forkSuggest` "🌱 Accept suggestions / Close suggestions" (owner) —
-  flips the fork's `suggestions` flag (absent = closed). While open, any
-  signed-in walker's ✏️ save files a proposal carrying
+  flips the fork's `suggestions` flag (absent = closed). While open,
+  any walker edits through the mode and commits batched proposals
+  (one note) carrying
   `branch:{kind:'fork',id}` + `ownerUid` (rules re-verify both against
   the live doc); `#forkQueue` "🛡️ Review suggestions" opens the standard
   review desk, where the owner alone decides — no weight classes, no
   7-day clock on a personal surface. Merging applies the op to the
-  fork's own ops. (owner; proposing: signed-in + connected)
+  fork's own ops (an `about` suggestion lands as the intro field).
+  (owner; proposing: signed-in + connected, asked at commit)
 - `PLANNED` "Offer this to the trunk" — converts a branch's ops[] into a
   batch of proposals against the base map (same op grammar both sides), so
   GOVERNANCE's "forks are reviewable proposals in waiting" becomes one
@@ -333,15 +347,19 @@ home, account page, shared links. Journeys: J28.
   proposal path; admission questions in GOVERNANCE "What the library
   shelves"; import stays a human act) · 🗑 delete (owner) · ⚑ report
   kind `usermap` (non-owners) · 🙈/👁 admin hide. (everyone)
-- ✏️ / ＋ Add topic / ⇅ Reorganize / side lists — the full editor, owner
-  only; caps: 40 core topics, 1 MiB doc. No reset-to-standard (no
-  standard exists). (owner)
+- Editing rides the same edit mode as everywhere (2026-08-11, §3):
+  header edit button, grid paper, batched local ops; the owner's
+  commit is "💾 Save to your map" (the op batch re-derives and
+  persists the whole `topics` list); a just-created map lands with
+  the mode on and the editor open. Caps: 40 core topics, 1 MiB doc.
+  No reset-to-standard (no standard exists). (owner; suggestions-door
+  walkers commit proposals)
 - Suppressed like forks: 💡 suggest, tips, per-link ⚑ flags,
   💬 Discussion, 🏅/🏛/orphan extras, what's-new.
 - `#umapSuggest` + `#umapQueue` — the owner-opt-in suggestions door,
-  exactly as on forks (§5): open it and signed-in walkers' ✏️ saves
-  become proposals only the owner decides; merging rewrites the doc's
-  `topics` through the same op engine. (owner)
+  exactly as on forks (§5): open it and walkers edit through the mode,
+  committing batched proposals only the owner decides; merging
+  rewrites the doc's `topics` through the same op engine. (owner)
 - `#umapList` (owner, on the panel) — "🌍 Put on your page / Take off
   your page": flips `listed` (born false, rules-forced) and, on first
   listing, stamps the map's `slug` (auto from the title, deduped among

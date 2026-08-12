@@ -670,10 +670,6 @@ a{color:var(--blue)}
 }
 
 /* ---------- Node editor ---------- */
-#editBtn{display:none;position:absolute;top:calc(14px + var(--sat));right:54px;width:32px;height:32px;
-  border-radius:4px;border:1px solid var(--line);background:var(--bg2);font-size:14px}
-@media (max-width:640px){#editBtn{top:14px}}
-#editBtn.show{display:block}
 .edLabel{display:block;font-size:11px;letter-spacing:.6px;text-transform:uppercase;
   color:var(--faint);margin:16px 0 6px}
 .edInput,.edArea{width:100%;background:var(--bg2);border:1px solid var(--line2);border-radius:4px;
@@ -1188,7 +1184,6 @@ select.edInput{appearance:none;-webkit-appearance:none}
   <div id="grabber"></div>
   <div id="drawerHead">
     <button id="closeBtn" aria-label="Close">✕</button>
-    <button id="editBtn" aria-label="Edit node" title="Edit this node">✏️</button>
     <div id="statusSeg">
       <button class="o0" data-s="0" title="Not Started" aria-label="Not Started">○</button>
       <button class="o1" data-s="1" title="In Progress" aria-label="In Progress">⋯</button>
@@ -1868,8 +1863,15 @@ async function renderContinue(active){
    edit bar: Save and branch (your fork), Propose changes (the review
    queue), or — with governance over the map — Publish changes.
    A draft survives in-session navigation (EDIT_DRAFTS, per map). */
-let EDIT_MODE=false, editOps=[], editBase=null;
-const EDIT_DRAFTS={};   // rmId → unsaved ops, kept for this visit only
+let EDIT_MODE=false, editOps=[], editBase=null, editKey=null;
+const EDIT_DRAFTS={};   // draft key → unsaved ops, kept for this visit only
+/* Draft identity: official maps key by rm id; personal surfaces by their
+   doc (a fork renders under its BASE's rm id, so the id alone would let a
+   branch draft shadow the official map's). */
+function editDraftKey(){
+  if(currentFork) return (currentFork.umap?"u:":"f:")+currentFork.id;
+  return currentRm?currentRm.id:null;
+}
 function deriveLocalRm(){
   const a=applyMergedDocs(editBase.topics, editBase.nodes, editOps);
   return {...editBase, topics:a.topics, nodes:a.nodes};
@@ -1879,15 +1881,15 @@ function localAboutText(){
   return null;
 }
 function stashEditDraft(){
-  if(editBase){
-    if(editOps.length) EDIT_DRAFTS[editBase.id]=editOps;
-    else delete EDIT_DRAFTS[editBase.id];
+  if(editBase && editKey){
+    if(editOps.length) EDIT_DRAFTS[editKey]=editOps;
+    else delete EDIT_DRAFTS[editKey];
   }
-  EDIT_MODE=false; editOps=[]; editBase=null;
+  EDIT_MODE=false; editOps=[]; editBase=null; editKey=null;
 }
 function clearEditState(){
-  if(editBase) delete EDIT_DRAFTS[editBase.id];
-  EDIT_MODE=false; editOps=[]; editBase=null;
+  if(editKey) delete EDIT_DRAFTS[editKey];
+  EDIT_MODE=false; editOps=[]; editBase=null; editKey=null;
 }
 /* One op in, compacted the way fork ops are: the latest edit per file wins,
    one spine, one about; editing a topic added this session folds into its
@@ -1910,32 +1912,71 @@ function pushLocalOp(op){
 }
 function paintEditChrome(){
   const bar=$("editBar");
-  $("mapView").classList.toggle("editing", !currentFork && EDIT_MODE);
-  if(currentFork || !currentRm){ bar.classList.remove("show"); return; }
+  $("mapView").classList.toggle("editing", EDIT_MODE);
+  if(!currentRm){ bar.classList.remove("show"); return; }
   $("addTopicBtn").classList.toggle("show", EDIT_MODE);
   $("reorgBtn").classList.toggle("show", EDIT_MODE);
   bar.classList.toggle("show", EDIT_MODE && editOps.length>0);
   if(EDIT_MODE && editOps.length){
     $("editCount").textContent=`✏️ ${editOps.length} local change${editOps.length===1?"":"s"}`;
-    $("ebPublish").style.display=(devMode||isAdmin()||maintains(currentRm.id))?"":"none";
+    if(currentFork){
+      // a personal surface has exactly one way out per person: the owner
+      // saves to their own doc; anyone else is here through the open
+      // suggestions door and proposes to the owner
+      $("ebBranch").style.display="none";
+      $("ebPropose").style.display=forkOwned()?"none":"";
+      $("ebPublish").style.display=forkOwned()?"":"none";
+      $("ebPublish").textContent=currentFork.umap?"💾 Save to your map":"💾 Save to your branch";
+    }else{
+      $("ebBranch").style.display="";
+      $("ebPropose").style.display="";
+      $("ebPublish").style.display=(devMode||isAdmin()||maintains(currentRm.id))?"":"none";
+      $("ebPublish").textContent="🛡️ Publish changes";
+    }
   }
 }
 function toggleEditMode(){
-  if(currentFork) return;
   if(EDIT_MODE){
     if(editOps.length &&
        !confirm(`Discard ${editOps.length} local change${editOps.length===1?"":"s"}?`)) return;
     const base=editBase;
     clearEditState();
-    if(base) currentRm=base;   // back to the map as loaded
+    if(base) currentRm=base;   // back to the surface as loaded
     closeDrawer();
     renderMapHeader(); renderGraph(); paintEditChrome();
   }else{
-    editBase=currentRm; EDIT_MODE=true;
+    editBase=currentRm; editKey=editDraftKey(); EDIT_MODE=true;
     renderMapHeader(); paintEditChrome();
   }
 }
+/* The owner's one door out on their own surface: the batched local ops
+   land on the doc itself (appendForkOps — fork op compaction or umap
+   whole-list persistence); an about op lands as the intro field. */
+async function commitPersonal(){
+  if(!forkOwned()){ toast("Only the owner saves here"); return; }
+  const f=currentFork, n=editOps.length;
+  const aboutText=localAboutText();
+  const contentOps=editOps.filter(o=>o.kind!=="about").map(({at,...core})=>core);
+  try{
+    if(contentOps.length){
+      // ops were judged against the surface as loaded — apply them there,
+      // not to the local rendering that already shows them
+      const hold=currentRm; currentRm=editBase;
+      try{ await appendForkOps(contentOps); } finally{ currentRm=hold; }
+    }
+    if(aboutText!=null){
+      const F=await fb(); if(!F) throw new Error("offline");
+      await F.updateDoc(F.doc(F.db, f.umap?"usermaps":"forks", f.id),
+        {about:aboutText, updatedAt:F.serverTimestamp()});
+    }
+    clearEditState();
+    toast(f.umap?`🗺 ${n} change${n===1?"":"s"} saved to your map`
+                :`✨ ${n} change${n===1?"":"s"} saved to your branch`);
+    if(f.umap) await openUmap(f.id); else await openFork(f.id);
+  }catch(e){ toast("Couldn't save — "+String(e.message||e).slice(0,60)); }
+}
 async function commitBranch(){
+  if(currentFork){ toast("This is already a personal surface"); return; }
   if(!user.provider){ $("authModal").classList.add("show"); toast("Sign in to keep a branch"); return; }
   if(!(collConnected() && canSync())){ toast("Branches need the connected app"); return; }
   const baseId=editBase.id;
@@ -1975,21 +2016,24 @@ async function commitBranch(){
 async function commitPropose(){
   if(!user.provider){ $("authModal").classList.add("show"); toast("Sign in to propose changes"); return; }
   if(!canSync()){ toast("Proposing needs the connected app"); return; }
-  const n=editOps.length;
-  const note=(prompt(`Why? One note rides with all ${n} change${n===1?"":"s"} for the maintainer:`)||"").trim();
+  const n=editOps.length, onBranch=!!currentFork;
+  const note=(prompt(`Why? One note rides with all ${n} change${n===1?"":"s"} for the ${onBranch?"owner":"maintainer"}:`)||"").trim();
   if(note.length<5){ toast("A short reason is required to propose changes"); return; }
-  const id=editBase.id;
+  // official maps address the shared map; a personal surface's suggestions
+  // address its owner (branch:{kind,id} + denormalized ownerUid, Stage 5)
+  const target=proposalTarget();
+  const surface=currentFork;
   try{
     const F=await fb(); if(!F) throw new Error("offline");
     const batch=F.writeBatch(F.db);
     const bi=f=>editBase.topics.indexOf(f);
     editOps.forEach(op=>{
-      const doc={roadmap:id, kind:op.kind||"edit", note,
+      const doc={...target, kind:op.kind||"edit", note,
         by:{uid:user.id, name:user.name}, affiliated:false, affiliation:"",
         createdAt:F.serverTimestamp(), status:"pending"};
       ["file","file2","topic","topic2","after","spine","about"].forEach(k=>{
         if(op[k]!==undefined) doc[k]=op[k]; });
-      // staleness anchors + weight are judged against the map as it was loaded
+      // staleness anchors are judged against the surface as it was loaded
       if(doc.kind==="edit"||doc.kind==="remove"){
         const i=bi(op.file); if(i>=0) doc.baseHash=contentHash(editBase.nodes[i]); }
       if(doc.kind==="spine") doc.baseHash=contentHash(editBase.topics);
@@ -1997,15 +2041,22 @@ async function commitPropose(){
         const i=bi(op.file), j=bi(op.file2);
         if(i>=0) doc.baseHash=contentHash(editBase.nodes[i]);
         if(j>=0) doc.baseHash2=contentHash(editBase.nodes[j]); }
-      if(doc.kind==="edit"){
+      // weight classes govern the shared map's desk only — a branch's
+      // owner decides everything themselves (no classes, no clock)
+      if(!onBranch && doc.kind==="edit"){
         const i=bi(op.file);
         doc.weight = i>=0 ? classifyEditWeight(editBase.nodes[i], op.topic) : "substantive"; }
       batch.set(F.doc(F.collection(F.db,"proposals")), doc);
     });
     await batch.commit();
     clearEditState();
-    await reloadCurrentRoadmap();
-    toast(`🌱 ${n} change${n===1?"":"s"} proposed — the maintainer will review them`);
+    if(onBranch){
+      toast(`🌱 ${n} change${n===1?"":"s"} suggested — the owner decides`);
+      if(surface.umap) await openUmap(surface.id); else await openFork(surface.id);
+    }else{
+      await reloadCurrentRoadmap();
+      toast(`🌱 ${n} change${n===1?"":"s"} proposed — the maintainer will review them`);
+    }
   }catch(e){ toast("Couldn't propose — "+String(e.message||e).slice(0,60)); }
 }
 async function commitPublish(){
@@ -2065,7 +2116,7 @@ async function openRoadmap(id){
   $("forkBanner").classList.remove("show");
   $("forkBtn").classList.remove("show");
   if(EDIT_DRAFTS[id] && EDIT_DRAFTS[id].length){   // this visit's unsaved work
-    editBase=currentRm; editOps=EDIT_DRAFTS[id]; EDIT_MODE=true;
+    editBase=currentRm; editKey=id; editOps=EDIT_DRAFTS[id]; EDIT_MODE=true;
     currentRm=deriveLocalRm();
   }
   showView("mapView");
@@ -2085,7 +2136,7 @@ function renderMapHeader(){
   const badges=[];
   if(type==="gated") badges.push(`<span class="mhBadge gated">⚕ scope-limited</span>`);
   if(state!=="published") badges.push(`<span class="mhBadge state">${esc(state)}</span>`);
-  if(!currentFork && EDIT_MODE) badges.push(`<span class="mhBadge editing">editing</span>`);
+  if(EDIT_MODE) badges.push(`<span class="mhBadge editing">editing</span>`);
   const who=maintainerNameOf(e);
   // A byline states a fact or stays silent: "The Admins" is the
   // pre-adoption placeholder (CLAUDE.md rule 7), and a placeholder is not
@@ -2105,11 +2156,12 @@ function renderMapHeader(){
     ${e.disclaimer?`<div class="mhDisclaimer">⚠️ ${esc(e.disclaimer)}</div>`:""}
     <div id="mhStateBanner"></div>`;
   renderMapAbout(e.id, e);   // trunk: the wiki-editable lead · branch: the owner's intro
-  // edit — the same small button for every walker, signed in or not
-  // (Wikipedia's door), held at the row's far right by CSS order. It
-  // opens a LOCAL editing session; identity is asked for at commit
-  // time, on the edit bar, not at the door.
-  if(!currentFork){
+  // edit — the same small button, held at the row's far right by CSS
+  // order, opening a LOCAL editing session. It renders wherever a path
+  // exists: for every walker on an official map (Wikipedia's door), for
+  // a personal surface's owner, and for anyone once that owner opened
+  // the suggestions door. Identity is asked at commit, never here.
+  if(!currentFork || forkOwned() || currentFork.suggestions===true){
     const eb=document.createElement("button"); eb.id="editModeBtn";
     eb.textContent=EDIT_MODE?"editing":"edit";
     eb.classList.toggle("on", EDIT_MODE);
@@ -2120,7 +2172,7 @@ function renderMapHeader(){
     $("mhActions").appendChild(eb);
   }
   // the drafting-table state is visible at a glance: grid paper + badge
-  $("mapView").classList.toggle("editing", !currentFork && EDIT_MODE);
+  $("mapView").classList.toggle("editing", EDIT_MODE);
   // ⑂ all versions: the small, always-present way back to the category page.
   // A personal map has no category — it lives below the commons, off every
   // shelf — so the button would point at nothing; it stays off.
@@ -2204,8 +2256,10 @@ async function aboutOf(id, fallback){
 async function renderMapAbout(id, e){
   const box=$("mhAboutLead"); if(!box) return;
   if(currentFork){
-    // the branch's own intro — the owner's prose, stored on the fork doc
-    const text=currentFork.about||"";
+    // the branch's own intro — the owner's prose, stored on the fork doc;
+    // an uncommitted local about op renders first, like any local edit
+    const localText=(EDIT_MODE && localAboutText()!=null)?localAboutText():null;
+    const text=localText!=null?localText:(currentFork.about||"");
     catAboutText=text;
     const paras=text.split(/\n\s*\n/).map(p=>p.trim()).filter(Boolean)
       .map(p=>`<p>${esc(p)}</p>`).join("");
@@ -2236,8 +2290,8 @@ async function renderMapAbout(id, e){
 }
 let catId=null, catAboutText="";
 function openAboutEditor(id){
-  const mode = (currentFork&&forkOwned()) ? "fork"
-    : (!currentFork && EDIT_MODE) ? "local"
+  const mode = EDIT_MODE ? "local"   // in the mode, every surface batches
+    : (currentFork&&forkOwned()) ? "fork"
     : devMode ? "dev" : (isAdmin()||maintains(id)) ? "merge" : "propose";
   // local and fork edits need no identity here — commit asks later
   if(mode!=="local" && mode!=="fork"){
@@ -2624,7 +2678,7 @@ function renderGraph(){
       <div class="nrow"><span class="badge s${p.status}" title="${STATUS_LABEL[p.status]}">${STATUS_ICON[p.status]}</span>
       ${cls==="child"?`<span class="tierdot">${esc(n.tier)}</span>`:""}</div>`;
     // in edit mode a topic opens ready to change — the Wikipedia reflex
-    el.onclick=()=>{ openNode(n.id); if(EDIT_MODE && !currentFork) openEditor(n.id); };
+    el.onclick=()=>{ openNode(n.id); if(EDIT_MODE) openEditor(n.id); };
     return el;
   };
   currentRm.nodes.forEach(n=>{
@@ -2797,7 +2851,6 @@ function openNode(nodeId){
   // walker through an open suggestions door). On official maps the door
   // is the header's edit button: topics open editable on click, so the
   // drawer carries no second button.
-  $("editBtn").classList.toggle("show", !!currentFork && canEdit());
   $("dTips").innerHTML="";
   loadTips(currentRm.id).then(t=>{           // async: fill community tips when they arrive
     if(currentNode && currentNode.id===nodeId) renderTips(t[nodeId]||[]);
@@ -3593,9 +3646,13 @@ async function decideProposal(p,action){
     try{
       const F=await fb(); if(!F) throw new Error("offline");
       const op={kind:p.kind||"edit"};
-      ["file","file2","topic","topic2","after","spine"].forEach(k=>{
+      ["file","file2","topic","topic2","after","spine","about"].forEach(k=>{
         if(p[k]!==undefined) op[k]=p[k]; });
-      if(p.branch.kind==="fork"){
+      if(op.kind==="about"){
+        // the intro is a doc field, not an op — write it where it lives
+        await F.updateDoc(F.doc(F.db, p.branch.kind==="fork"?"forks":"usermaps",
+          p.branch.id), {about:op.about, updatedAt:F.serverTimestamp()});
+      }else if(p.branch.kind==="fork"){
         const f=await fetchFork(p.branch.id);
         if(!f) throw new Error("that branch is gone");
         let ops=(f.ops||[]).slice();
@@ -4863,13 +4920,18 @@ async function openFork(id, nodeId){
     toast("⚠️ That personal version isn't available"); goHome(); return; }
   currentFork=f;
   currentRm=deriveForkRm(base, f);
+  // this visit's unsaved edit-mode work on THIS branch comes back
+  const dk=editDraftKey();
+  if(EDIT_DRAFTS[dk] && EDIT_DRAFTS[dk].length){
+    editBase=currentRm; editKey=dk; editOps=EDIT_DRAFTS[dk]; EDIT_MODE=true;
+    currentRm=deriveLocalRm();
+  }
   showView("mapView");
   $("backBtn").classList.add("show");
   renderMapHeader();
   renderGraph();
   paintForkBanner(base);
-  $("addTopicBtn").classList.toggle("show", ownsSurface());
-  $("reorgBtn").classList.toggle("show", ownsSurface());
+  paintEditChrome();
   reflectHash("/fork/"+id);
   if(nodeId && flatten(currentRm).some(n=>n.id===nodeId)){ openNode(nodeId); revealNode(nodeId); }
 }
@@ -5111,16 +5173,23 @@ async function openUmap(id, nodeId){
     toast("⚠️ That personal map isn't available"); goHome(); return; }
   currentFork={...u, umap:true};
   currentRm=deriveUmapRm(u);
+  // this visit's unsaved edit-mode work on THIS map comes back
+  const dk=editDraftKey();
+  if(EDIT_DRAFTS[dk] && EDIT_DRAFTS[dk].length){
+    editBase=currentRm; editKey=dk; editOps=EDIT_DRAFTS[dk]; EDIT_MODE=true;
+    currentRm=deriveLocalRm();
+  }
   showView("mapView");
   $("backBtn").classList.add("show");
   renderMapHeader();
   renderGraph();
   paintUmapChrome();
-  $("addTopicBtn").classList.toggle("show", ownsSurface());
-  $("reorgBtn").classList.toggle("show", ownsSurface());
+  paintEditChrome();
   reflectHash("/umap/"+id);
   if(nodeId && flatten(currentRm).some(n=>n.id===nodeId)){ openNode(nodeId); revealNode(nodeId); }
   else if(UMAP_EDIT_ON_OPEN && currentRm.nodes[0]){
+    // a just-made map lands ready to write: edit mode on, editor open
+    if(!EDIT_MODE) toggleEditMode();
     openNode(currentRm.nodes[0].id); openEditor(currentRm.nodes[0].id);
   }
   UMAP_EDIT_ON_OPEN=false;
@@ -6075,28 +6144,28 @@ let devMode=false;
    dev server → writes files; maintainer/admin → merges live (overlay);
    contributor → submits a proposal for the map's maintainer to review. */
 function canEdit(){
-  // A branch is its owner's alone — unless the owner opened the suggestions
-  // door (Stage 5): then any signed-in walker's save files a proposal the
-  // OWNER decides. Closed by default; brigading stays off.
-  if(currentFork) return forkOwned()
-    || (!!user.provider && currentFork.suggestions===true && canSync());
-  // Official maps: the editor opens only inside edit mode — the header's
-  // ✏️ button is the one door, and it is everyone's (identity is asked
-  // for at commit, not here).
+  // One door per surface (2026-08-11): the header's edit button opens the
+  // mode, and the editor works only inside it — official maps and personal
+  // surfaces alike. Who may ENTER the mode is decided at the button
+  // (everyone on official maps; a personal surface's owner, or anyone once
+  // its owner opened suggestions); identity is asked at commit, not here.
   return EDIT_MODE;
 }
 /* The reading surface is consumption-first: STRUCTURAL chrome (about [edit],
    Reorganize, Add core topic) renders only for the page's owner — devMode,
-   the map's moderators, or the fork's owner. The node ✏️ is deliberately
-   NOT gated here: any signed-in walker may open it (canEdit) and their save
-   becomes a proposal — the wiki path that feeds the review queue, weight
-   classes, and steward merges. */
+   the map's moderators, or the fork's owner. Since 2026-08-11 the editor
+   itself opens only inside edit mode on every surface (canEdit); this
+   helper still answers the panels' owner questions. */
 function ownsSurface(){
   if(currentFork) return forkOwned();
   return devMode || (!!user.provider && (isAdmin() || (currentRm&&maintains(currentRm.id))));
 }
 function editorMode(){
   if(currentFork){
+    // inside edit mode a personal surface batches locally too — the same
+    // session semantics as an official map; the surface's own write
+    // happens at commit (owner: save; stranger: batched suggestions)
+    if(EDIT_MODE) return "local";
     if(forkOwned()) return "fork";   // saves go to the personal version, nowhere else
     // a stranger inside an opted-in branch: their save is a proposal for
     // the branch's owner — never dev-write, never the shared map
@@ -6496,7 +6565,7 @@ function commitFields(){
   return n;
 }
 async function reloadCurrentRoadmap(reopenNodeId){
-  if(!currentFork && EDIT_MODE && editBase){   // an edit session renders its local ops
+  if(EDIT_MODE && editBase){   // an edit session renders its local ops, any surface
     currentRm=deriveLocalRm();
   }else if(currentFork&&currentFork.umap){   // the doc is the map: re-derive locally
     currentRm=deriveUmapRm(currentFork);
@@ -6683,7 +6752,6 @@ async function saveEditor(){
     closeEditor();
   }
 }
-$("editBtn").onclick=()=>{ if(currentNode) openEditor(currentNode.id); };
 $("edAffiliated").onchange=()=>{
   $("edAffiliation").style.display=$("edAffiliated").checked?"block":"none"; };
 $("edCancel").onclick=closeEditor;
@@ -6819,7 +6887,7 @@ $("brand").onclick=goHome;
 /* the edit bar's three doors out (and the one back) */
 $("ebBranch").onclick=commitBranch;
 $("ebPropose").onclick=commitPropose;
-$("ebPublish").onclick=commitPublish;
+$("ebPublish").onclick=()=>currentFork?commitPersonal():commitPublish();
 $("ebDiscard").onclick=()=>{
   if(!confirm(`Discard ${editOps.length} local change${editOps.length===1?"":"s"}?`)) return;
   const base=editBase;

@@ -152,7 +152,9 @@ curated lesson.
 **Promise:** if you'd teach it differently, make your own version —
 public, walkable by anyone, without a fight over the original.
 
-- ● One branch per map per person; edit it freely with the full editor.
+- ● One branch per map per person; edit it through the same edit mode
+  as the shared map — change freely, see it instantly, save the batch
+  when you're ready (one behavior everywhere, 2026-08-11).
 - ● Born unlisted: a new branch is yours alone, shareable by link, and
   reaches the map's public version list only when you publish it — the
   public space cannot be filled by accident.
@@ -184,9 +186,10 @@ path.
 **Promise:** make a map of anything, from scratch, free and uncapped —
 existence needs no approval; the library's shelf does.
 
-- ● Start from the home page: name it and you're in it, editor open.
+- ● Start from the home page: name it and you're in it, editing.
 - ● The full editor — topics, subtopics, sides, links, do-actions —
-  on a map that is entirely yours.
+  on a map that is entirely yours, through the same edit mode as
+  everywhere: change freely, save the batch when ready (2026-08-11).
 - ● Private by nature: absent from the shelf, the Atlas, and search;
   anyone with the link can walk it, and walkers' progress saves to
   their own accounts.

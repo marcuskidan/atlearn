@@ -201,6 +201,14 @@ test("editorMode role matrix", () => {
   // signed out, even on the dev server; role matters only at commit
   assert.equal(api.editorModeWith({ EDIT_MODE: true, FIREBASE_CONFIG: CFG,
     user: { provider: null, id: "guest" }, currentRm: rm }), "local");
+  // …and since 2026-08-11 personal surfaces batch locally in the mode
+  // too: owner and suggestions-door stranger alike commit at the bar
+  assert.equal(api.editorModeWith({ EDIT_MODE: true, FIREBASE_CONFIG: CFG,
+    user: { provider: "google", id: "owner-uid" }, currentRm: rm,
+    currentFork: branch() }), "local");
+  assert.equal(api.editorModeWith({ EDIT_MODE: true, FIREBASE_CONFIG: CFG,
+    user: { provider: "google", id: "someone" }, currentRm: rm,
+    currentFork: branch({ suggestions: true }) }), "local");
   assert.equal(api.editorModeWith({ EDIT_MODE: true, devMode: true,
     FIREBASE_CONFIG: CFG,
     user: { provider: "google", id: "admin-uid" }, currentRm: rm }), "local");
