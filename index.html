@@ -2985,7 +2985,12 @@ async function finishSignIn(u){
   toast(`Welcome, ${user.name}! ${canSync()?"Your progress and notes save to your account.":"Demo mode — nothing you do here is saved."}`);
   if($("accountView").classList.contains("active")) renderAccount();
   else if($("collectionsView").classList.contains("active")) renderCollections();
-  else if(currentRm){ renderGraph(); if(currentNode) openNode(currentNode.id); } else renderHome();
+  else if(currentRm){
+    // the header owns identity-gated chrome (a personal surface's edit
+    // toggle appears the moment its owner is known) — repaint it too
+    renderMapHeader(); renderGraph(); paintEditChrome();
+    if(currentNode) openNode(currentNode.id);
+  } else renderHome();
   checkContribNews();   // light the chip if decisions arrived while away
 }
 async function doSignIn(provider){
@@ -3029,7 +3034,8 @@ $("signOutBtn").onclick=async ()=>{
   if($("reviewView").classList.contains("active")) goHome();
   else if($("accountView").classList.contains("active")) renderAccount();
   else if($("collectionsView").classList.contains("active")) renderCollections();
-  else if(currentRm){ renderGraph(); } else renderHome();
+  else if(currentRm){ renderMapHeader(); renderGraph(); paintEditChrome(); }
+  else renderHome();
   closeDrawer();
 };
 
@@ -7103,6 +7109,7 @@ document.addEventListener("click",e=>{
           cacheUser();
           store=migrateStore(null); jPushWM=0;
           paintUser(); renderHome();
+          if(currentRm){ renderMapHeader(); renderGraph(); paintEditChrome(); }
         }
       });
     });
