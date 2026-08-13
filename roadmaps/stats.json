@@ -1,12 +1,12 @@
 {
-  "generated": "2026-08-12",
-  "accounts": 4,
+  "generated": "2026-08-13",
+  "accounts": 5,
   "supporters": 0,
   "walking": {
     "library": {
       "astronomy": 2,
-      "horticulture": 2,
-      "cooking": 1
+      "horticulture": 3,
+      "cooking": 2
     },
     "personal": 1
   },
